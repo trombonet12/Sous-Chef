@@ -1,6 +1,5 @@
 package app.souschef.ui.shell
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,16 +28,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import app.souschef.R
-
-enum class Pestana(
-    val ruta: String,
-    @param:StringRes val titulo: Int,
-    val icono: Icono,
-) {
-    Recetas("recetas", R.string.tab_recetas, Icono.Libro),
-    Despensa("despensa", R.string.tab_despensa, Icono.Tarro),
-    Historial("historial", R.string.tab_historial, Icono.Reloj),
-}
 
 /** Shell con tres pestañas abajo y menú superior (Técnicas, Ajustes, Cerrar sesión). */
 @OptIn(ExperimentalMaterial3Api::class)

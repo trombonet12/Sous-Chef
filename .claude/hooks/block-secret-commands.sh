@@ -16,7 +16,7 @@ has() { printf '%s' "$C" | grep -qiE -- "$1"; }
 # .env.example es público: se elimina antes de comprobar lecturas de .env
 C="$(printf '%s' "$CMD" | sed -E 's/\.env\.example//g')"
 READERS='(cat|less|more|head|tail|type|bat|nl|strings|xxd|od|sed|awk|grep|rg|cut|base64|get-content|gc|select-string|sls)'
-SENSITIVE='(\.env([^[:alnum:]]|$)|local\.properties|\.souschef|\.trombito|supabase\.env|supabase[/\\]\.temp|\.p12|\.pfx|\.jks|\.keystore|\.pem|id_rsa|id_ed25519|\.ssh[/\\])'
+SENSITIVE='(\.env([^[:alnum:]]|$)|local\.properties|[/\\~]\.souschef|[/\\~]\.trombito|supabase\.env|supabase[/\\]\.temp|\.p12|\.pfx|\.jks|\.keystore|\.pem|id_rsa|id_ed25519|\.ssh[/\\])'
 B='(^|[^[:alnum:]_-])'
 has "$B$READERS[[:space:]][^|;&]*$SENSITIVE" && block "lectura de archivo sensible"
 has "${B}(cp|copy|copy-item|scp)[[:space:]][^|;&]*$SENSITIVE" && block "copia de archivo sensible"

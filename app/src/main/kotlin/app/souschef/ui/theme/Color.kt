@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 val LightColors =
     lightColorScheme(
-        primary = Color(0xFFB07408),
+        primary = Color(0xFF8C5A04), // ámbar oscurecido: #B07408 daba 3,35:1 sobre papel
         onPrimary = Color(0xFFFFFFFF),
         primaryContainer = Color(0xFFF6E7C6),
         onPrimaryContainer = Color(0xFF3A2700),
@@ -75,7 +75,7 @@ val DarkColors =
         outlineVariant = Color(0xFF2E3028),
         inverseSurface = Color(0xFFEDEDE2),
         inverseOnSurface = Color(0xFF191A14),
-        inversePrimary = Color(0xFFB07408),
+        inversePrimary = Color(0xFF8C5A04),
     )
 
 /** La ficha es papel siempre, también en tema oscuro (se lee e imprime igual). */

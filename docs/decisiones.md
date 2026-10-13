@@ -38,3 +38,8 @@
 
 ## Decisiones tomadas durante la ejecución
 <!-- Formato: - AAAA-MM-DD · tema · decisión · porqué -->
+- 2026-10-13 · tema · `primary` claro pasa de #B07408 a #8C5A04: el original daba 3,35:1 sobre papel (ContrastTest). El ámbar vivo queda para acentos grandes.
+- 2026-10-13 · alarmas · Spike en el emulador (API 36, pantalla apagada, reposo INACTIVE): cadena `setAlarmClock` a +1/+2/+3 min llegó con 5-11 ms de retraso. El emulador no entra en Doze profundo: se repite en el móvil en la sesión final.
+- 2026-10-13 · hooks · `block-secret-commands.sh` solo considera sensibles los directorios `/.souschef` y `/.trombito` (antes cualquier `.trombito`, que bloqueaba el paquete `app.trombito` al portar código).
+- 2026-10-13 · build · `debug` apunta al Supabase remoto (local.properties) y `localDebug` al stack local (supabase-local.properties). Release firmado con keystore propia en `~/.souschef/` (`scripts/crear-keystore.py`).
+- 2026-10-13 · CLI · `sc despensa` y el resto de herramientas usan JDBC con `SUPABASE_DB_URL` y resuelven el `user_id` por `SOUS_CHEF_EMAIL` (una sola vía de acceso; la contraseña solo la usa el login de la app en el emulador).

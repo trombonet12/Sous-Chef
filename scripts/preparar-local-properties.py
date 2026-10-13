@@ -28,14 +28,15 @@ def leer(path: pathlib.Path) -> dict:
 def main() -> None:
     actual = leer(DESTINO)
     sdk = os.environ.get("ANDROID_HOME") or str(pathlib.Path(os.environ["LOCALAPPDATA"]) / "Android" / "Sdk")
-    actual.setdefault("sdk.dir", sdk.replace("\\", "/"))
+    # Formato de Android Studio (lint PropertyEscape): C\:\\Users\\...
+    actual["sdk.dir"] = sdk.replace("/", "\\").replace("\\", "\\\\").replace(":", "\\:")
     origen = leer(TROMBITO)
     for k in CLAVES:
         if not actual.get(k) and origen.get(k):
             actual[k] = origen[k]
     lineas = ["# Generado por scripts/preparar-local-properties.py. No se versiona (secretos)."]
     lineas += [f"{k}={v}" for k, v in actual.items()]
-    DESTINO.write_text("\n".join(lineas) + "\n", encoding="utf-8")
+    DESTINO.write_text("\n".join(lineas) + "\n", encoding="utf-8", newline="\n")
     estado = {k: ("ok" if actual.get(k) else "vacía") for k in ("sdk.dir", *CLAVES)}
     print("local.properties:", ", ".join(f"{k} {v}" for k, v in estado.items()))
 

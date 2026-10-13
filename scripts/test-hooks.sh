@@ -62,7 +62,7 @@ for c in 'cat .env.example' './gradlew testDebugUnitTest' 'git status' 'git push
   'node scripts/check-claude-assets.mjs' 'echo $HOME' 'cat README.md' \
   'env | wc -l' 'set -euo pipefail' 'git add docs/a.md' 'git commit -m "x"' 'git log --oneline -3' \
   'npx supabase start > /dev/null 2>&1' 'npx supabase db reset' 'cat .gitignore' \
-  'node scripts/qa.mjs fast' 'scripts/sc validar --estricto' 'cat data/recetas/huevos-rotos.json'; do
+  'node scripts/qa.mjs fast' 'sed s/app.trombito/app.souschef/ A.kt' 'grep -rn app.trombito src' 'scripts/sc validar --estricto' 'cat data/recetas/huevos-rotos.json'; do
   expect block-secret-commands.sh 0 command "$c" Bash
 done
 
