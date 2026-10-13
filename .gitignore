@@ -1,0 +1,49 @@
+# Material de arranque (no se versiona)
+info_extra/
+
+# Android / Gradle
+.gradle/
+**/build/
+local.properties
+.kotlin/
+*.apk
+*.aab
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Secretos (nunca al repo)
+.env
+.env.*
+!.env.example
+**/secrets/
+*.pem
+*.key
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+google-services.json
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Node (solo scripts)
+node_modules/
+
+# IDE / SO
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+
+# Claude Code (local por usuario)
+.claude/settings.local.json
+
+# Logs
+*.log

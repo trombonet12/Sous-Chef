@@ -1,0 +1,444 @@
+{
+  "actualizada": "2026-09-16T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#E8836B",
+      "id": "plancha",
+      "nombre": "PLANCHA",
+      "tipo": "fuego"
+    }
+  ],
+  "compra": [],
+  "cortes": [
+    {
+      "p": "Corte perpendicular a las capas: al cruzarlas la cebolla se deshace rápido en el sofrito en vez de aguantar en tiras. Medio centímetro es grande para un brunoise, pero aquí se cuece más de veinte minutos y se deshace igual.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con capas horizontales y una cuadrícula de cortes para brunoise\"><ellipse cx=\"60\" cy=\"44\" rx=\"50\" ry=\"30\" fill=\"#8A6C4A\" fill-opacity=\".16\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".75\"><line x1=\"16\" y1=\"32\" x2=\"104\" y2=\"32\"/><line x1=\"11\" y1=\"40\" x2=\"109\" y2=\"40\"/><line x1=\"11\" y1=\"48\" x2=\"109\" y2=\"48\"/><line x1=\"16\" y1=\"56\" x2=\"104\" y2=\"56\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"30\" y1=\"10\" x2=\"30\" y2=\"78\"/><line x1=\"48\" y1=\"10\" x2=\"48\" y2=\"78\"/><line x1=\"66\" y1=\"10\" x2=\"66\" y2=\"78\"/><line x1=\"84\" y1=\"10\" x2=\"84\" y2=\"78\"/><line x1=\"10\" y1=\"44\" x2=\"110\" y2=\"44\"/></g></svg>",
+      "t": "Cebolla sofrito · brunoise de 0,5 cm"
+    },
+    {
+      "p": "Fino de verdad porque no se cuece con calor: la cuece el ácido. A 3 mm el limón la ablanda y le quita el picor en el mismo rato que tarda el guiso, sin perder el crujiente.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con capas horizontales y una cuadrícula fina de cortes\"><ellipse cx=\"60\" cy=\"44\" rx=\"50\" ry=\"30\" fill=\"#8A6C4A\" fill-opacity=\".10\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".6\"><line x1=\"16\" y1=\"32\" x2=\"104\" y2=\"32\"/><line x1=\"11\" y1=\"40\" x2=\"109\" y2=\"40\"/><line x1=\"11\" y1=\"48\" x2=\"109\" y2=\"48\"/><line x1=\"16\" y1=\"56\" x2=\"104\" y2=\"56\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\"><line x1=\"24\" y1=\"10\" x2=\"24\" y2=\"78\"/><line x1=\"36\" y1=\"10\" x2=\"36\" y2=\"78\"/><line x1=\"48\" y1=\"10\" x2=\"48\" y2=\"78\"/><line x1=\"60\" y1=\"10\" x2=\"60\" y2=\"78\"/><line x1=\"72\" y1=\"10\" x2=\"72\" y2=\"78\"/><line x1=\"84\" y1=\"10\" x2=\"84\" y2=\"78\"/><line x1=\"96\" y1=\"10\" x2=\"96\" y2=\"78\"/></g></svg>",
+      "t": "Cebolla para encurtir · brunoise de 3 mm"
+    },
+    {
+      "p": "Láminas y no picado porque entra con la cebolla en el minuto 8 y se queda cuatro minutos al fuego: picado fino tendría la superficie suficiente para dorarse y amargar en ese rato, y en láminas de 2 mm aguanta. Más finas se tuestan igual que el picado; más gruesas se quedan crudas por dentro cuando la cebolla ya está.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo tumbado con cuatro cortes verticales que lo laminan\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".6\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"42\" y1=\"6\" x2=\"42\" y2=\"82\"/><line x1=\"51\" y1=\"4\" x2=\"51\" y2=\"84\"/><line x1=\"69\" y1=\"4\" x2=\"69\" y2=\"84\"/><line x1=\"78\" y1=\"6\" x2=\"78\" y2=\"82\"/></g></svg>",
+      "t": "Ajo · láminas de 2 mm"
+    }
+  ],
+  "creada": "2026-09-14T00:00:00Z",
+  "datos": [
+    [
+      "30 min",
+      "de principio a fin"
+    ],
+    [
+      "8 + 19 + 3",
+      "mise en place + fuego + montaje"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "8",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Carne picada guisada con tomate y especias, en tortilla calentada a la plancha, con cebolla encurtida en vinagre, feta y guacamole de remate. La dificultad está en solapar el calentado de las tortillas con la reducción de la carne sin que se enfríen esperando.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "cebolla, para el sofrito",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "n": "ajo (2 dientes), en láminas de 2 mm",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "aceite de oliva",
+          "u": "ml"
+        },
+        {
+          "a": 300,
+          "n": "carne picada",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "tomate triturado",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "pimentón picante, aproximado (bote desazonador)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "comino molido",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "sal",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimienta negra",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "zumo de limón, para el guiso",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN · LA CARNE"
+    },
+    {
+      "items": [
+        {
+          "a": 6,
+          "n": "tortillas",
+          "u": "uds"
+        }
+      ],
+      "n": "PLANCHA"
+    },
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "cebolla, para encurtir",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "vinagre de vino, para la cebolla",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "agua, para la cebolla",
+          "u": "ml"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal, para la cebolla",
+          "u": "g"
+        },
+        {
+          "a": 50,
+          "n": "queso feta",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "guacamole ya hecho",
+          "u": "g"
+        }
+      ],
+      "n": "MESA · EL REMATE"
+    }
+  ],
+  "lectura": "La suma: 8 de mise en place + 4 de sofrito + 5 de carne + 8 de guiso + 1 de limón + 1 de reposo + 3 de montaje = 30 minutos. El único tramo con dos fuegos a la vez va del minuto 17 al 20: mientras la carne reduce tapada con el tomate, la plancha calienta las seis tortillas en tres tandas. Son tres minutos en los que estás en dos sitios, y por eso el guiso va tapado y al 3: aguanta solo. Fuera de esa ventana todo es secuencial en una sola sartén. Y hay una cuenta que corre desde el minuto 8 sin que la veas: la cebolla del encurtido, que necesita esos diecinueve minutos en el vinagre para llegar al montaje sin picor.",
+  "mep": [
+    {
+      "l": [
+        "<b>Ajo · 8 g (2 dientes)</b> · láminas de 2 mm, con la tabla seca.",
+        "<b>Cebolla del sofrito · 100 g</b> · brunoise de 0,5 cm, cruzando las capas.",
+        "<b>Cebolla del encurtido · 30 g</b> · brunoise de 3 mm, más fina que la anterior.",
+        "<b>Limón</b> · exprimido al final: 15 ml, solo para el guiso del minuto 25."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad: el ajo es lo más seco y va primero, las dos cebollas mojan la tabla y van después. El limón al final, que es el que más moja y ya no le quita el sitio a ningún corte.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Plato llano</b> · los 100 g de cebolla en brunoise de 0,5 cm y los 8 g de ajo en láminas de 2 mm, juntos. Entran los dos en el minuto 8.",
+        "<b>Bol pequeño</b> · los 30 g de cebolla en brunoise de 3 mm, cubiertos con 15 ml de vinagre de vino, 15 ml de agua y 1 g de sal. Se queda encurtiendo ahí desde el minuto 8 hasta el montaje.",
+        "<b>Platito</b> · los 100 g de tomate triturado con los 2 g de pimentón picante, los 3 g de comino, los 5 g de sal y 1 g de pimienta ya mezclados dentro. Los cinco entran juntos en el minuto 17.",
+        "<b>Dos boles de remate</b> · 50 g de queso feta desmigado en uno y 100 g de guacamole en el otro. No se cocinan: van crudos sobre la tortilla en el minuto 27, y separados porque el feta se apelmaza dentro del guacamole."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto al del resto. Aquí hay cuatro entradas: minuto 8 la base, minuto 17 el tomate con las especias, y el encurtido y el remate frío que no tocan el fuego y esperan al montaje del minuto 27. La cebolla del sofrito y el ajo comparten plato porque entran juntos.",
+      "t": "CINCO RECIPIENTES, CUATRO MOMENTOS"
+    },
+    {
+      "l": [
+        "<b>Sartén, en frío</b> · los 15 ml de aceite de oliva. En el minuto 8 solo enciendes.",
+        "<b>Los 15 ml de zumo de limón</b>, en el vaso donde exprimiste. Son los del guiso y entran en el minuto 25, fuera del fuego.",
+        "<b>Los 300 g de carne picada</b> se quedan en su bandeja hasta el minuto 12. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla al deshacer los grumos.",
+        "<b>Las 6 tortillas</b>, en su paquete, hasta el minuto 17: se calientan de dos en dos y salen a un paño."
+      ],
+      "orden": false,
+      "porq": "Lo que ya viene en su envase o va directo a la sartén no se trasvasa.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "La sal, el pimentón y el comino no escalan en línea recta: sube menos que el resto y corrige probando. Las tortillas sí son proporcionales: 3 por ración.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "mise-en-place",
+      "junto": null,
+      "meto": "",
+      "min": 8,
+      "nota": "Los cuatro cortes de la checklist y los cinco recipientes. La cebolla del encurtido, al bol con el vinagre, el agua y la sal, ya macerando. Acabas exprimiendo los 15 ml de limón del guiso.",
+      "off": 0,
+      "p": "Dos cebollas y dos cortes: la del sofrito en brunoise de 0,5 cm cruzando las capas, para que se deshaga rápido; la del remate en brunoise de 3 mm, más fina porque no la cuece el fuego sino el ácido, a un bol con 15 ml de vinagre de vino, 15 ml de agua y 1 g de sal encima, macerando desde ya para llegar encurtida al montaje. El ajo en láminas finas y también picado, el resto del limón exprimido y reservado, la feta desmigada y el guacamole traspasado a su bol.",
+      "s": 480,
+      "saco": "la tabla lavada y los cuatro recipientes llenos",
+      "t": "Mise en place",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Mira el ajo: rubio sí, marrón no. Si va rápido, baja al 4"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "pochar-cebolla",
+      "junto": null,
+      "meto": "el plato: 100 g de cebolla en brunoise de 0,5 cm + 8 g de ajo en láminas de 2 mm, sobre los 15 ml de aceite de oliva",
+      "min": 4,
+      "nota": "Al 5, sin tapa. La cebolla translúcida y el ajo rubio, nunca marrón: si el ajo empieza a dorar antes de tiempo, baja al 4.",
+      "off": 8,
+      "p": "Enciende al 5 con los 15 ml de aceite de oliva que ya están en la sartén, y echa el plato entero: los 100 g de cebolla y las láminas de ajo a la vez. Buscas que sude y quede translúcida, no que coja color: aún le quedan otros veinte minutos de plan antes de llegar al plato. El ajo es lo que hay que vigilar aquí — cuatro minutos es mucho para él, y por eso va en láminas de 2 mm y no picado: menos superficie, menos prisa por dorarse. El agua que suelta la cebolla lo protege los primeros minutos. Si aun así lo ves tomar color antes del tercer minuto, baja al 4: ajo dorado da amargor y no hay vuelta atrás.",
+      "s": 240,
+      "saco": "",
+      "t": "Pochar cebolla y ajo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve rompiendo los grumos que queden"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "dorar-carne",
+      "junto": null,
+      "meto": "300 g de carne picada",
+      "min": 5,
+      "nota": "Sube a 7 y rompe los grumos hasta que no quede nada rosa.",
+      "off": 12,
+      "p": "Sube al 7 antes de echar la carne. Rompe los grumos con la cuchara sin parar hasta que pierda el rojo por completo: si se queda en trozos grandes, el interior sigue crudo cuando el exterior ya ha perdido color.",
+      "s": 300,
+      "saco": "",
+      "t": "Carne, deshaciendo grumos",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Destapa, remueve y vuelve a tapar"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "guiso-tomate",
+      "junto": null,
+      "meto": "100 g de tomate triturado + 2 g de pimentón picante + 3 g de comino + 5 g de sal + 1 g de pimienta negra",
+      "min": 8,
+      "nota": "Baja al 3 y tapa. Ocho minutos. El pimentón sale de un bote de agujeros: los 2 g son una referencia, no una pesada exacta.",
+      "off": 17,
+      "p": "Baja al 3 y echa el tomate con las especias, la sal y la pimienta. Tapado para que reduzca sin salpicar ni secarse antes de tiempo. Ocho minutos bastan para que el tomate pierda el sabor crudo y la carne quede jugosa, no reseca.",
+      "s": 480,
+      "saco": "",
+      "t": "Tomate y especias, tapado",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "plancha",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Vuelta a las dos primeras"
+        },
+        {
+          "en": 60,
+          "t": "Fuera al paño. Entran la 3ª y la 4ª"
+        },
+        {
+          "en": 90,
+          "t": "Vuelta a estas dos"
+        },
+        {
+          "en": 120,
+          "t": "Fuera al paño. Entran la 5ª y la 6ª"
+        },
+        {
+          "en": 150,
+          "t": "Vuelta a las dos últimas"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "calentar-tortillas",
+      "junto": "guiso-tomate",
+      "meto": "6 tortillas, de dos en dos, sobre la plancha seca al 6",
+      "min": 3,
+      "nota": "Tres tandas de 2, 30 s por cara. Cada tanda sale a un paño y se tapa con él.",
+      "off": 17,
+      "p": "Plancha seca al 6, sin nada de grasa, y las 6 tortillas en tres tandas de dos: de una en una las seis tardarían el doble y se enfriaría la primera esperando. Treinta segundos por cara, hasta que abomben un poco y salgan manchas tostadas. Cada tanda sale a un paño y se tapa con el propio paño: apiladas y cubiertas se hacen vapor entre ellas y llegan flexibles al montaje; sueltas sobre un plato se resecan y se parten al doblarlas.",
+      "s": 180,
+      "saco": "cada tortilla, envuelta en un paño",
+      "t": "Calentar las tortillas",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "limon-fuera-fuego",
+      "junto": null,
+      "meto": "15 ml de zumo de limón",
+      "min": 1,
+      "nota": "Apaga la vitro y remueve los 15 ml de limón dentro, destapado.",
+      "off": 25,
+      "p": "Apaga antes de echarlo. Fuera del fuego el ácido del limón no se cuece y conserva el punto fresco que tiene que aportar al final; dentro se volatiliza el aroma y queda solo la acidez. Destapado, porque son quince segundos de remover y taparlo aquí no haría nada.",
+      "s": 60,
+      "saco": "",
+      "t": "Fuera del fuego: el limón",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "flexible",
+      "id": "reposo-tapado",
+      "junto": null,
+      "meto": "",
+      "min": 1,
+      "nota": "Tapa puesta, un minuto sin tocar. Aprovecha para sacar los boles del remate.",
+      "off": 26,
+      "p": "Ahora sí la tapa, y un minuto sin tocar nada. El calor residual reparte el limón por toda la carne en vez de dejarlo en la superficie donde cayó, y la tapa evita que ese minuto se lo lleve en vapor. Es también el hueco para poner en la mesa el feta, el guacamole y la cebolla encurtida escurrida, para que el montaje sea solo montar.",
+      "s": 60,
+      "saco": "",
+      "sinHitos": "Un minuto quieto y tapado: cualquier aviso aquí sería una interrupción, no una ayuda.",
+      "t": "Reposo tapado",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "reposo-tapado",
+        "calentar-tortillas"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "montaje",
+      "junto": null,
+      "meto": "la carne del guiso, los 30 g de cebolla encurtida escurrida, los 50 g de feta desmigado y los 100 g de guacamole",
+      "min": 3,
+      "nota": "Tortilla, carne, cebolla encurtida escurrida, feta desmigado y guacamole encima. Prueba la sal de la carne antes de montar: el feta ya sala.",
+      "off": 27,
+      "p": "Sobre cada tortilla templada, la carne con su jugo, la cebolla encurtida escurrida del limón para el punto ácido y crujiente, la feta desmigada y el guacamole. El orden importa: el guacamole al final para que no se caliente contra la carne.",
+      "s": 180,
+      "saco": "todo, a los platos",
+      "t": "Montaje",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "carne picada",
+    "guacamole ya hecho",
+    "queso feta"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj, los avisos de volteo de las tortillas y el paso a paso están en el cronómetro.",
+  "porque": [
+    [
+      "Zumo de limón en vez de lima",
+      "No hay lima en la despensa. El limón es más ácido y menos floral, pero cumple la misma función de acidez final, tanto en el guiso como en la cebolla."
+    ],
+    [
+      "Queso feta en vez de queso fresco mexicano",
+      "No hay queso fresco en la despensa. El feta se desmiga igual y aporta un sabor algo más fuerte."
+    ],
+    [
+      "Cebolla encurtida en vinagre en vez de cebolla morada",
+      "No hay cebolla morada en la despensa. La blanca, en brunoise de 3 mm y encurtida desde el minuto 8 en 15 ml de vinagre de vino rebajado con 15 ml de agua y 1 g de sal, llega al montaje con el mismo punto ácido y crujiente, sin el picor de la cruda. El agua está para rebajar: en vinagre puro, veinte minutos la curten de más y pierde la mordida."
+    ],
+    [
+      "El ajo en láminas y con la cebolla, no picado ni aparte",
+      "Es la decisión más discutible del plato y va explicada por eso. El ajo entra en el minuto 8 junto a la cebolla y se queda cuatro minutos al 5, que es mucho más de los sesenta segundos que aguantaría picado antes de amargar. Se sostiene por dos cosas: las láminas de 2 mm tienen mucha menos superficie que el picado, y el agua que suelta la cebolla mantiene la sartén por debajo del punto en que el ajo se tuesta. A cambio queda un ajo dulce y presente, en lámina, que se nota al morder. Si lo ves tomar color antes del tercer minuto, baja al 4. La alternativa segura es picarlo y echarlo en el último minuto del sofrito, pero entonces desaparece dentro del guiso en vez de notarse."
+    ],
+    [
+      "Sin cilantro",
+      "No hay hierbas frescas, y las secas no se echan crudas al final. El remate fresco lo dan la cebolla encurtida y el limón."
+    ],
+    [
+      "Tortillas de dos en dos",
+      "Caben en la plancha sin amontonarse y las seis entran en los ocho minutos que dura el guiso, sin alargar el plan."
+    ],
+    [
+      "Feta y guacamole en boles separados",
+      "Los dos van crudos y al final, pero mezclados antes de tiempo el feta se apelmaza dentro del guacamole y deja de desmigarse sobre la tortilla. Separados, cada uno cae en su capa: el feta salado sobre la carne caliente y el guacamole encima del todo, donde no se calienta."
+    ],
+    [
+      "Pimentón picante, 2 g y no 5",
+      "En casa solo hay pimentón picante: no hay dulce ni ahumado. A igual peso el picante se nota mucho más, así que los 5 g que pedía la receta con dulce dejarían unos tacos que pican por encima de todo lo demás y se comerían el comino. Con 2 g para 300 g de carne el pique queda de fondo, detrás del tomate, y no tapa el remate ácido de la cebolla encurtida. Sale de un bote de agujeros, así que son una referencia y no una pesada: dos vueltas cortas."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "tacos-de-carne",
+  "tags": {
+    "base": "taco",
+    "proteina": "carne picada",
+    "tecnica": [
+      "sofrito",
+      "chup-chup",
+      "marinada"
+    ]
+  },
+  "titulo": "Tacos de carne",
+  "totalMin": 30
+}

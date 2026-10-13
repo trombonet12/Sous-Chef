@@ -1,0 +1,39 @@
+{
+  "actualizada": "2026-09-28T20:00:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Sin grasa y al 6, la plancha también sirve para calentar tortillas: 30 segundos por cara, hasta que abomben.",
+    "Si al apoyar la pieza no chisporrotea fuerte, faltaba calor: sácala, espera un minuto y vuelve a probar con la gota.",
+    "La plancha guarda mucho calor. Al terminar se apaga el fuego y se retira, o lo último que quede encima se seguirá haciendo."
+  ],
+  "creada": "2026-09-28T20:00:00Z",
+  "pasos": [
+    {
+      "p": "En el fuego grande, al 8, unos 6 minutos: una plancha gruesa tarda en acumular calor en toda la superficie y la vitro aún más. Sin aceite, porque solo en una plancha vacía pasa el punto de humo antes de que llegue nada encima.",
+      "t": "Calentar la plancha vacía y seca"
+    },
+    {
+      "p": "Si la gota hierve y se queda, falta calor. Si baila en bolitas y desaparece en segundos, la plancha está tan caliente que forma una capa de vapor debajo: es el punto para empezar.",
+      "t": "Comprobar con una gota de agua"
+    },
+    {
+      "p": "Pincelado sobre la pieza, por ejemplo 10 ml para dos filetes de pescado, queda una capa fina justo donde hay contacto. Un charco en la plancha humea y se quema alrededor de la pieza.",
+      "t": "El aceite en el alimento, no en la plancha"
+    },
+    {
+      "p": "La sal saca agua a la superficie en pocos minutos, y esa agua cae a la plancha y la enfría. Salada justo antes de apoyarla, no le da tiempo.",
+      "t": "Sal en el último momento"
+    },
+    {
+      "p": "La proteína se pega al principio y se suelta sola cuando la superficie ya está dorada. Si la fuerzas antes, se rompe. Cada vuelta de más enfría la cara que sube y alarga el tiempo total.",
+      "t": "No mover hasta la vuelta, y una sola vuelta"
+    },
+    {
+      "p": "Como referencia, al 8: un filete de pescado magro de 2 cm tarda 2 minutos por cara para quedar jugoso, y 3 para quedar hecho del todo. Cuanto más magra la pieza, más estrecho el margen entre jugoso y seco.",
+      "t": "El tiempo lo manda el grosor"
+    }
+  ],
+  "resumen": "Cocinar entero sobre una plancha seca y muy caliente, por contacto directo: la superficie se dora en segundos y el interior se hace con el calor que entra desde las dos caras, una después de otra.",
+  "slug": "plancha",
+  "titulo": "A la plancha"
+}

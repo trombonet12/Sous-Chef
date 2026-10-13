@@ -1,0 +1,505 @@
+{
+  "actualizada": "2026-09-16T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA",
+      "tipo": "fuego"
+    }
+  ],
+  "compra": [],
+  "cortes": [
+    {
+      "p": "Las vetas van de la raíz al tallo. Córtalas en perpendicular: al romper las fibras la cebolla suelta su agua y se deshace en el sofrito. A favor de la fibra aguantaría entera y la encontrarías en el plato.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con las vetas verticales y tres cortes horizontales\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#77558A\" fill-opacity=\".16\" stroke=\"#77558A\"/><g stroke=\"#77558A\" stroke-width=\".8\" opacity=\".7\"><line x1=\"19\" y1=\"11\" x2=\"19\" y2=\"77\"/><line x1=\"33\" y1=\"11\" x2=\"33\" y2=\"77\"/><line x1=\"47\" y1=\"11\" x2=\"47\" y2=\"77\"/><line x1=\"61\" y1=\"11\" x2=\"61\" y2=\"77\"/><line x1=\"75\" y1=\"11\" x2=\"75\" y2=\"77\"/><line x1=\"89\" y1=\"11\" x2=\"89\" y2=\"77\"/><line x1=\"103\" y1=\"11\" x2=\"103\" y2=\"77\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"1\" y1=\"25\" x2=\"119\" y2=\"25\"/><line x1=\"1\" y1=\"44\" x2=\"119\" y2=\"44\"/><line x1=\"1\" y1=\"63\" x2=\"119\" y2=\"63\"/></g></svg>",
+      "t": "Cebolla · dados de 4 mm"
+    },
+    {
+      "p": "Fibra longitudinal y más dura que la cebolla. Empieza por rodajas de 3 mm, que ya cortan la fibra en corto, y de ahí a bastón y a dado. Más grande y queda crujiente: dentro del tomate ácido ya no se ablanda.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Zanahoria con la fibra horizontal y seis cortes verticales\"><rect x=\"5\" y=\"24\" width=\"110\" height=\"42\" rx=\"10\" fill=\"#D07A12\" fill-opacity=\".18\" stroke=\"#D07A12\"/><g stroke=\"#D07A12\" stroke-width=\".8\" opacity=\".75\"><line x1=\"9\" y1=\"35\" x2=\"111\" y2=\"35\"/><line x1=\"9\" y1=\"45\" x2=\"111\" y2=\"45\"/><line x1=\"9\" y1=\"55\" x2=\"111\" y2=\"55\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"22\" y1=\"18\" x2=\"22\" y2=\"72\"/><line x1=\"39\" y1=\"18\" x2=\"39\" y2=\"72\"/><line x1=\"56\" y1=\"18\" x2=\"56\" y2=\"72\"/><line x1=\"73\" y1=\"18\" x2=\"73\" y2=\"72\"/><line x1=\"90\" y1=\"18\" x2=\"90\" y2=\"72\"/><line x1=\"107\" y1=\"18\" x2=\"107\" y2=\"72\"/></g></svg>",
+      "t": "Zanahoria · dados de 3 mm"
+    },
+    {
+      "p": "Un milímetro es el picado más fino que se sostiene con cuchillo, y aquí hace falta: el ajo entra en el minuto 24 y solo tiene sesenta segundos al 5 antes de que llegue la carne. Picado a 1 mm suelta todo su aroma en ese minuto; en trozo más grande se quedaría crudo por dentro y luego se tostaría bajo la carne. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadrícula muy fina de cortes para picarlo a 1 mm\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".55\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"5\" x2=\"48\" y2=\"83\"/><line x1=\"56\" y1=\"4\" x2=\"56\" y2=\"84\"/><line x1=\"64\" y1=\"4\" x2=\"64\" y2=\"84\"/><line x1=\"72\" y1=\"5\" x2=\"72\" y2=\"83\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"33\" y1=\"26\" x2=\"87\" y2=\"26\"/><line x1=\"30\" y1=\"40\" x2=\"90\" y2=\"40\"/><line x1=\"30\" y1=\"54\" x2=\"90\" y2=\"54\"/><line x1=\"35\" y1=\"68\" x2=\"85\" y2=\"68\"/></g></svg>",
+      "t": "Ajo · picado de 1 mm"
+    }
+  ],
+  "creada": "2026-09-10T00:00:00Z",
+  "datos": [
+    [
+      "82 min",
+      "de principio a fin"
+    ],
+    [
+      "12 + 70",
+      "cortar + fuego"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "12",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Ragú corto de tomate y carne mixta, terminado con la pasta dentro de la sartén. Dos fuegos que se solapan en la segunda mitad: mientras la salsa reduce, el agua hierve y la pasta cuece.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 500,
+          "n": "carne picada mixta de cerdo y ternera",
+          "u": "g"
+        },
+        {
+          "a": 800,
+          "n": "tomate triturado",
+          "u": "g"
+        },
+        {
+          "a": 160,
+          "n": "cebolla",
+          "u": "g"
+        },
+        {
+          "a": 120,
+          "n": "zanahoria",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "n": "ajo (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 40,
+          "n": "aceite de oliva",
+          "u": "ml"
+        },
+        {
+          "a": 120,
+          "n": "vino tinto",
+          "u": "ml"
+        },
+        {
+          "a": 8,
+          "esc": "sub",
+          "n": "sal",
+          "u": "g"
+        },
+        {
+          "esc": "sub",
+          "n": "pimienta negra",
+          "txt": "½ cdta"
+        },
+        {
+          "esc": "sub",
+          "n": "orégano seco",
+          "txt": "1 cdta"
+        },
+        {
+          "esc": "sub",
+          "n": "albahaca seca",
+          "txt": "1 cdta"
+        },
+        {
+          "esc": "sub",
+          "n": "nuez moscada",
+          "txt": "2 pizcas"
+        }
+      ],
+      "n": "SARTÉN"
+    },
+    {
+      "items": [
+        {
+          "a": 360,
+          "n": "macarrones secos",
+          "u": "g"
+        },
+        {
+          "a": 3.5,
+          "n": "agua",
+          "u": "l"
+        },
+        {
+          "a": 25,
+          "esc": "sub",
+          "n": "sal",
+          "u": "g"
+        },
+        {
+          "a": 200,
+          "n": "agua de cocción reservada, se usan 120",
+          "u": "ml"
+        }
+      ],
+      "n": "OLLA"
+    }
+  ],
+  "lectura": "La suma va toda por la sartén: 12 de cortar + 1 de aceite + 11 de sofrito + 1 de ajo + 12 de carne + 4 de vino + 3 de tomate + 25 de chup-chup tapado + 10 destapado + 3 de mantecatura = 82 minutos. Los 24 minutos de la olla (14 de agua y 10 de pasta) caben enteros dentro de los de la sartén y no suman nada al total. Dos solapes que hay que respetar: el agua se enciende en el minuto 55, a los once del chup-chup, para que rompa a hervir justo cuando la pasta tiene que entrar; y en el minuto 69 pasan dos cosas a la vez, los macarrones al agua y la tapa fuera de la sartén. Nunca hay más de dos fuegos encendidos, y solo del minuto 55 al 79.",
+  "mep": [
+    {
+      "l": [
+        "<b>Zanahoria · 120 g</b> · dados de 3 mm. Va primero porque es lo más duro y con la tabla seca no patina bajo el cuchillo.",
+        "<b>Cebolla · 160 g</b> · dados de 4 mm, cortando en perpendicular a las vetas. Después de la zanahoria, porque es la que moja la tabla.",
+        "<b>Ajo · 8 g (2 dientes)</b> · picado de 1 mm, al final. Su olor en la tabla ya no tiene nada que contaminar."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad, no el olor. Lo seco va primero porque una tabla mojada convierte el corte fino en un problema de seguridad, y el picado del ajo es el corte más fino del plan.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>120 ml de vino tinto</b> → al vaso, con el medidor limpio. Se queda ahí hasta el minuto 37.",
+        "<b>40 ml de aceite de oliva</b> → directos a la sartén, sin pasar por el vaso. La grasa es la única medida que deja un film y obliga a lavar; sacándola del medidor no hay que lavarlo en todo el plan.",
+        "<b>Enjuaga el vaso durante el chup-chup</b> y déjalo junto a la olla: de ahí salen los 200 ml de agua de cocción que hay que apartar en el minuto 77, antes de escurrir."
+      ],
+      "orden": true,
+      "porq": "Con un solo vaso el orden lo decide el residuo: cada medida solo puede dejar dentro algo que no moleste a la siguiente. El vino no molesta al agua de cocción, y entre los dos hay veinticinco minutos de chup-chup para enjuagarlo sin prisa.",
+      "t": "VASO MEDIDOR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol mediano</b> · los 160 g de cebolla en dados de 4 mm y los 120 g de zanahoria en dados de 3 mm, juntos. Entran los dos en el minuto 13, así que separarlos no aporta nada.",
+        "<b>Platito</b> · los 8 g de ajo picado de 1 mm, solo. Es el único que va aparte, porque entra en el minuto 24 y su ventana son sesenta segundos.",
+        "<b>Bol grande</b> · los 800 g de tomate triturado con los 8 g de sal, ½ cdta de pimienta negra, 1 cdta de orégano seco y 2 pizcas de nuez moscada ya mezclados dentro. Los cinco entran juntos en el minuto 41.",
+        "<b>Vaso medidor</b> · los 120 ml de vino tinto. Medido de antemano porque el desglasado es un paso de cuatro minutos en el que no hay tiempo de medir.",
+        "<b>Platito pequeño</b> · 1 cdta de albahaca seca, sola. Es la única especia que no va al bol del tomate: entra en el minuto 79, con la pasta ya en la sartén, para que el vapor la abra en vez de cocerla veinticinco minutos y dejarla en heno."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto al del resto. Aquí hay cinco entradas: el minuto 13 la verdura, el 24 el ajo, el 37 el vino, el 41 el tomate con la sal y las tres especias de cocción, y el 79 la albahaca. Todo lo que entra a la vez comparte recipiente.",
+      "t": "CINCO RECIPIENTES, CINCO MOMENTOS"
+    },
+    {
+      "l": [
+        "<b>Sartén, en frío</b> · los 40 ml de aceite de oliva. En el minuto 12 solo giras el mando.",
+        "<b>Olla, en frío</b> · los 3,5 l de agua y los 25 g de sal. No la enciendes hasta el minuto 55.",
+        "<b>Los 500 g de carne picada</b> se quedan en su bandeja hasta el minuto 25. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla otra vez justo cuando quieres dorar.",
+        "<b>Los 360 g de macarrones</b>, pesados y en su bolsa hasta el minuto 69. Van del paquete al agua hirviendo sin pasar por ningún bol."
+      ],
+      "orden": false,
+      "porq": "La sartén y la olla son los dos mejores recipientes de preparación que tienes: lo que dejes dentro en frío ya está en su destino y no hay nada que trasvasar. Lo que viene en su envase tampoco se trasvasa.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "La sal y las especias no escalan en línea recta: suben menos que el resto y se corrigen probando al final del chup-chup. Escalar tampoco multiplica los tiempos, sobre todo el de reducción; el gráfico está calculado para las cuatro raciones de partida.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "",
+      "min": 12,
+      "nota": "Zanahoria en dados de 3 mm, cebolla de 4 mm, ajo picado de 1 mm. Todo pesado y en su recipiente antes de encender el fuego.",
+      "off": 0,
+      "p": "Zanahoria en dados de 3 mm, cebolla en dados de 4 mm cortando en perpendicular a las vetas, y el ajo picado de 1 mm. En ese orden, que es el de la mise en place: de lo más seco a lo que más moja la tabla. Todo pesado y repartido en sus cinco recipientes antes de encender: los setenta minutos siguientes no tienen ni un hueco para medir nada.",
+      "s": 720,
+      "saco": "los cinco recipientes llenos y la tabla libre",
+      "t": "Cortar y pesar",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "aceite",
+      "meto": "los 40 ml de aceite de oliva, que ya están en la sartén en frío",
+      "min": 1,
+      "nota": "Sartén de 28 cm para arriba: son cuatro raciones.",
+      "off": 12,
+      "p": "Los 40 ml de aceite de oliva ya están en la sartén desde la preparación, así que aquí solo giras el mando al 6 y esperas un minuto. Sartén de 28 cm o más: son cuatro raciones y la verdura tiene que quedar en una capa, no amontonada. Amontonada no suda, se cuece unas capas contra otras y tarda el doble en soltar el dulzor.",
+      "s": 60,
+      "saco": "",
+      "t": "Calentar el aceite",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 5,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 360,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 540,
+          "t": "Destapa, remueve y vuelve a tapar"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sofrito",
+      "meto": "el bol mediano: 160 g de cebolla en dados de 4 mm + 120 g de zanahoria en dados de 3 mm",
+      "min": 11,
+      "nota": "Tapada suda en su vapor y no se dora. Destapa solo para remover, cada 3 minutos.",
+      "off": 13,
+      "p": "Cebolla y zanahoria juntas, tapadas y al 5. La tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, que es lo que quieres: el dulzor viene de ahí. Destapa solo para remover, cada tres minutos, y vuelve a tapar enseguida. Si a los seis minutos ves la sartén seca y la cebolla cogiendo color, es que la tapa no cierra bien.",
+      "s": 660,
+      "saco": "",
+      "t": "Sudar la verdura",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "f": 5,
+      "holgura": "critico",
+      "id": "ajo",
+      "meto": "el platito: 8 g de ajo (2 dientes) picado de 1 mm",
+      "min": 1,
+      "nota": "Sesenta segundos al 5 removiendo sin parar, y entra la carne encima.",
+      "off": 24,
+      "p": "Sesenta segundos al 5 removiendo sin parar, que es lo que tarda el picado de 1 mm en soltar su aroma en la grasa. Entra aquí y no con la verdura porque once minutos de sofrito lo habrían deshecho sin dejar rastro. Lo que viene después es un guiso largo, así que este ajo no se queda en el punto rubio: se tuesta bajo la carne y termina fundido en la salsa, que es donde tiene que estar. El agua que suelta la carne al minuto es lo que impide que pase de tostado a quemado.",
+      "s": 60,
+      "saco": "la tapa, hasta el chup-chup",
+      "t": "El ajo",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "f": 8,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Ya está sellada por abajo: rómpela y remueve"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "carne",
+      "meto": "500 g de carne picada mixta, directa de su bandeja",
+      "min": 12,
+      "nota": "Extiéndela y no la toques 3 minutos. Sartén pequeña, dos tandas de 250 g.",
+      "off": 25,
+      "p": "Sube al 8 antes de echarla. Extiéndela y no la toques tres minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris. Si tu sartén es pequeña, dos tandas de 250 g.",
+      "s": 720,
+      "saco": "su agua, evaporada",
+      "t": "Dorar la carne",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 8,
+      "holgura": "ajustado",
+      "id": "vino",
+      "meto": "el vaso medidor: 120 ml de vino tinto",
+      "min": 4,
+      "nota": "Rasca el fondo mientras hierve. Termina casi seco.",
+      "off": 37,
+      "p": "Los 120 ml de vino de golpe y rasca el fondo con la cuchara mientras hierve: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran. Termina casi seco, o el ragú sabrá a alcohol. Al 8 el vino hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo.",
+      "s": 240,
+      "saco": "el alcohol",
+      "t": "Desglasar",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 7,
+      "holgura": "flexible",
+      "id": "tomate",
+      "meto": "el bol grande: 800 g de tomate triturado + 8 g de sal + ½ cdta de pimienta negra + 1 cdta de orégano seco + 2 pizcas de nuez moscada",
+      "min": 3,
+      "nota": "Hasta que hierva en toda la superficie.",
+      "off": 41,
+      "p": "El bol grande entero de una vez, tomate y especias juntos. Al 7 hasta que hierva en toda la superficie, no solo en el centro: eso indica que la masa está a temperatura y ya puedes bajar. El orégano y la nuez moscada entran aquí, al principio, porque son secas y necesitan los veinticinco minutos de chup-chup en líquido caliente para abrirse; la albahaca no, y por eso se queda fuera hasta el final.",
+      "s": 180,
+      "saco": "",
+      "t": "Tomate y especias",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 660,
+          "t": "Enciende la olla del agua al 9, tapada"
+        },
+        {
+          "en": 750,
+          "t": "Remueve raspando el fondo, que es donde se agarra"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "chup1",
+      "meto": "",
+      "min": 25,
+      "nota": "Baja al 3 y apoya la tapa dejando un dedo de hueco. Aguanta de sobra: si vas tarde, roba tiempo aquí.",
+      "off": 44,
+      "p": "Baja al 3 y apoya la tapa dejando un dedo de hueco: sale vapor suficiente para que concentre, pero no tanto como para que se pegue. Es el paso más flexible del plan y donde se recupera cualquier retraso. A los once minutos toca encender el agua, y el cronómetro te avisa. Lo único que hay que vigilar es el fondo, que es donde se agarra el tomate cuando la salsa empieza a espesar.",
+      "s": 1500,
+      "saco": "vapor",
+      "t": "Chup-chup tapado",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "tomate"
+      ],
+      "f": 9,
+      "holgura": "flexible",
+      "id": "agua",
+      "meto": "3,5 l de agua + 25 g de sal",
+      "min": 14,
+      "nota": "Tapada y al 9 hierve en 14 minutos en vez de 20. Antes no: hervería demasiado pronto y evaporaría agua medida.",
+      "off": 55,
+      "p": "Los 3,5 l con los 25 g de sal ya están en la olla en frío. Tapada y al 9. Catorce minutos es lo que tarda en romper, y arranca en el minuto 55 para que el hervor llegue justo cuando la pasta tiene que entrar: ni antes, que evaporaría agua ya medida, ni después, que retrasaría el plan entero. Mientras tanto no hay nada que hacer en la olla.",
+      "s": 840,
+      "saco": "",
+      "sinHitos": "Catorce minutos tapada y al 9 en los que abrir es el error: cada vez que levantas la tapa a mirar se va el vapor y el hervor se retrasa un par de minutos. La señal llega sola, por el ruido y por la tapa.",
+      "t": "Agua al fuego",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Remueve raspando el fondo: destapada es donde se agarra"
+        },
+        {
+          "en": 540,
+          "t": "Mira el espesor: el surco de la cuchara tiene que tardar un segundo en cerrarse"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "chup2",
+      "junto": "macarrones",
+      "meto": "",
+      "min": 10,
+      "nota": "Destapa justo cuando los macarrones entran al agua. Diez minutos destapada, que es cuando la salsa espesa de verdad.",
+      "off": 69,
+      "p": "Quita la tapa justo cuando los macarrones entran al agua. Sin tapa la evaporación es libre y la salsa espesa en esos diez minutos exactos que tarda la pasta. Sigue al 3: subir el fuego aquí no espesa más rápido, solo agarra el fondo. La salsa está donde tiene que estar cuando la cuchara deja un surco que tarda un segundo en cerrarse.",
+      "s": 600,
+      "saco": "la tapa, para que espese",
+      "t": "Reducir destapado",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "chup1"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 60,
+          "t": "Remueve una vez: el primer minuto es cuando se pegan entre ellos"
+        },
+        {
+          "en": 480,
+          "t": "Llena el vaso con 200 ml de agua de cocción, antes de que se te olvide"
+        },
+        {
+          "en": 540,
+          "t": "Muerde uno: duro en el centro. Termina de hacerse en la sartén"
+        }
+      ],
+      "holgura": "critico",
+      "id": "macarrones",
+      "meto": "360 g de macarrones, del paquete al agua hirviendo",
+      "min": 10,
+      "nota": "Un minuto menos que el paquete. No espera: en cuanto salgan van a la sartén.",
+      "off": 69,
+      "p": "Al agua hirviendo y al 7 para mantener el hervor sin que se desborde. Un minuto menos que el paquete: terminan de cocerse en la sartén, absorbiendo salsa en vez de agua. Antes de escurrir, aparta 200 ml de agua de cocción en el vaso que dejaste junto a la olla: sin ella el paso siguiente no funciona, y una vez escurridos ya no hay de dónde sacarla.",
+      "s": 600,
+      "saco": "200 ml de agua antes de escurrir",
+      "t": "Los macarrones",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "macarrones"
+      ],
+      "f": 5,
+      "holgura": "critico",
+      "id": "mantecatura",
+      "meto": "la pasta escurrida + 120 ml del agua de cocción reservada + el platito con 1 cdta de albahaca seca",
+      "min": 3,
+      "nota": "Sube al 5 y remueve hasta que la salsa se agarre y no quede líquido suelto.",
+      "off": 79,
+      "p": "Sube al 5 y echa la pasta escurrida a la sartén con 120 ml del agua reservada y la cucharadita de albahaca. Remueve fuerte tres minutos: el almidón del agua emulsiona con la grasa del ragú y forma una salsa que se agarra a la pasta en vez de resbalar. La albahaca entra aquí porque es seca y frágil, y con el vapor de estos tres minutos se abre sin perder el aroma. Este paso no espera: la pasta escurrida se pasa de punto sola.",
+      "s": 180,
+      "saco": "todo, a los platos",
+      "t": "Mantecatura",
+      "tapa": "sin tapa"
+    }
+  ],
+  "perecederos": [
+    "carne picada mixta"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Sofrito al 5 y tapado",
+      "La verdura tiene que sudar, no dorarse. La tapa le devuelve su propio vapor y por debajo del 6 la vitro no tuesta los bordes antes de que el interior ceda."
+    ],
+    [
+      "El ajo se tuesta, y es a propósito",
+      "Un ajo que se echa al final y se saca a los sesenta segundos es otro plato: aroma fresco y punzante. Aquí el ajo entra en el minuto 36, se queda debajo de los 500 g de carne al 8 y sigue dentro los 35 minutos de chup-chup. No sale rubio ni tiene que salirlo: se deshace y pasa a ser fondo de la salsa, dulce y sin filo. Por eso va picado de 1 mm y no en lámina, que aguantaría entera y se encontraría al comer."
+    ],
+    [
+      "La carne quieta tres minutos",
+      "Maillard necesita superficie seca y contacto. Si remueves desde el principio, la carne suelta agua, se cuece en su jugo y queda gris. Lo que se pega al fondo en esos minutos es lo que recuperas con el vino."
+    ],
+    [
+      "Vino tinto y fuego alto",
+      "El alcohol arrastra aromas que ni el agua ni la grasa disuelven, y su acidez corta la grasa del cerdo. A fuego suave se quedaría crudo y sabría a bodega."
+    ],
+    [
+      "La tapa a medias, y luego fuera",
+      "A medias evita salpicaduras y deja escapar vapor. Los últimos diez minutos van destapados porque es cuando la salsa espesa de verdad."
+    ],
+    [
+      "Un minuto menos que el paquete",
+      "La pasta termina de cocerse en la sartén, absorbiendo salsa en vez de agua. Ese minuto es la diferencia entre salsa encima y salsa dentro."
+    ],
+    [
+      "El agua de cocción",
+      "Lleva el almidón que suelta la pasta y es lo que emulsiona la grasa con el tomate. Sin ella la salsa se escurre al fondo del plato."
+    ],
+    [
+      "La albahaca al final, y sola en su platito",
+      "Es la única especia que no va al bol del tomate. El orégano y la nuez moscada aguantan los veinticinco minutos de chup-chup y los necesitan para abrirse; la albahaca seca, en cambio, pierde el aroma en cocción larga y se queda en heno. Entra en la mantecatura, con el vapor de la pasta, que es lo que la abre en treinta segundos."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "macarrones-bolonesa",
+  "tags": {
+    "base": "pasta",
+    "proteina": "carne picada",
+    "tecnica": [
+      "sofrito",
+      "desglasado",
+      "chup-chup",
+      "reduccion",
+      "mantecatura"
+    ]
+  },
+  "titulo": "Macarrones con boloñesa",
+  "totalMin": 82
+}

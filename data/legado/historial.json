@@ -1,0 +1,590 @@
+{
+  "curry-de-pollo-con-arroz-blanco-2026-09-12": {
+    "base": "arroz",
+    "fecha": "2026-09-12",
+    "minutosReales": null,
+    "nota": null,
+    "slug": "curry-de-pollo-con-arroz-blanco",
+    "tecnica": [
+      "sellado",
+      "curry",
+      "reduccion"
+    ],
+    "titulo": "Curry de pollo con arroz blanco"
+  },
+  "emperador-plancha-salmoriglio-2026-09-29-160559": {
+    "_id": "emperador-plancha-salmoriglio-2026-09-29-160559",
+    "base": "patata",
+    "fecha": "2026-09-29",
+    "minutosReales": 76,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "cortar-patatas",
+        "segundos": 418,
+        "t": "Picar el perejil y cortar los gajos"
+      },
+      {
+        "id": "salmoriglio",
+        "segundos": 233,
+        "t": "Hacer el salmoriglio"
+      },
+      {
+        "id": "precalentar",
+        "segundos": 657,
+        "t": "Precalentar el horno a 220 °C"
+      },
+      {
+        "id": "sacar-emperador",
+        "segundos": 684,
+        "t": "Sacar el emperador y secarlo"
+      },
+      {
+        "id": "hornear-patatas",
+        "segundos": 2711,
+        "t": "Hornear las patatas"
+      },
+      {
+        "id": "precalentar-plancha",
+        "segundos": 4063,
+        "t": "Calentar la plancha vacía al 8"
+      },
+      {
+        "id": "plancha-emperador",
+        "segundos": 326,
+        "t": "Emperador a la plancha, 2 min por cara"
+      },
+      {
+        "id": "emplatar",
+        "segundos": 3215,
+        "t": "Salmoriglio encima, reposo y a la mesa"
+      }
+    ],
+    "slug": "emperador-plancha-salmoriglio",
+    "tecnica": [
+      "plancha"
+    ],
+    "titulo": "Emperador a la plancha con salmoriglio"
+  },
+  "ensalada-de-noquis-con-atun-y-feta-2026-09-11": {
+    "base": "ensalada",
+    "fecha": "2026-09-11",
+    "minutosReales": null,
+    "nota": null,
+    "slug": "ensalada-de-noquis-con-atun-y-feta",
+    "tecnica": [
+      "salteado",
+      "tostado"
+    ],
+    "titulo": "Ensalada de ñoquis con atún y feta"
+  },
+  "huevos-rotos-2026-09-18-155550": {
+    "_id": "huevos-rotos-2026-09-18-155550",
+    "base": "patata",
+    "fecha": "2026-09-18",
+    "minutosReales": 50,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "mise-en-place",
+        "segundos": 6,
+        "t": "Medir aceite, cortar la patata, rasgar el jamón y lavar el padrón"
+      },
+      {
+        "id": "calentar-aceite",
+        "segundos": 269,
+        "t": "Calentar el aceite"
+      },
+      {
+        "id": "primera-fritura",
+        "segundos": 1330,
+        "t": "1ª fritura (blanqueo)"
+      },
+      {
+        "id": "espera-al-5",
+        "segundos": 201,
+        "t": "Bajar al 5 mientras la patata reposa"
+      },
+      {
+        "id": "recalentar-aceite",
+        "segundos": 14,
+        "t": "Recalentar el aceite"
+      },
+      {
+        "id": "reposo-patata",
+        "segundos": 1898,
+        "t": "Reposo de la patata en papel"
+      },
+      {
+        "id": "dorar-jamon",
+        "segundos": 2212,
+        "t": "Dorar el jamón, 1 min por lado"
+      },
+      {
+        "id": "freir-padron",
+        "segundos": 756,
+        "t": "Freír los pimientos de padrón"
+      },
+      {
+        "id": "segunda-fritura",
+        "segundos": 1157,
+        "t": "2ª fritura (crocante)"
+      },
+      {
+        "id": "bajar-al-5",
+        "segundos": 1,
+        "t": "Bajar al 5 mientras escurres"
+      },
+      {
+        "id": "escurrir-salar-patata",
+        "segundos": 1069,
+        "t": "Escurrir y salar la patata"
+      },
+      {
+        "id": "freir-huevos",
+        "segundos": 5,
+        "t": "Freír los huevos, 2 tandas de 2"
+      },
+      {
+        "id": "montar",
+        "segundos": 7,
+        "t": "Montar y sal final"
+      }
+    ],
+    "slug": "huevos-rotos",
+    "tecnica": [
+      "punto-del-aceite",
+      "corte-juliana-y-bastones",
+      "salteado"
+    ],
+    "titulo": "Huevos rotos"
+  },
+  "macarrones-bolonesa-2026-10-06-152754": {
+    "_id": "macarrones-bolonesa-2026-10-06-152754",
+    "base": "pasta",
+    "fecha": "2026-10-06",
+    "minutosReales": 58,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "agua",
+        "segundos": 1636,
+        "t": "Agua al fuego"
+      },
+      {
+        "id": "chup1",
+        "segundos": 1496,
+        "t": "Chup-chup tapado"
+      },
+      {
+        "id": "macarrones",
+        "segundos": 1630,
+        "t": "Los macarrones"
+      },
+      {
+        "id": "chup2",
+        "segundos": 636,
+        "t": "Reducir destapado"
+      },
+      {
+        "id": "mantecatura",
+        "segundos": 186,
+        "t": "Mantecatura"
+      }
+    ],
+    "slug": "macarrones-bolonesa",
+    "tecnica": [
+      "sofrito",
+      "desglasado",
+      "chup-chup",
+      "reduccion",
+      "mantecatura"
+    ],
+    "titulo": "Macarrones con boloñesa"
+  },
+  "pastel-de-patata-gratinado-2026-10-07-152051": {
+    "_id": "pastel-de-patata-gratinado-2026-10-07-152051",
+    "base": "patata",
+    "fecha": "2026-10-07",
+    "minutosReales": 83,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "cortar",
+        "segundos": 6,
+        "t": "Pelar y cortar"
+      },
+      {
+        "id": "untar-fuente",
+        "segundos": 396,
+        "t": "Preparar la fuente"
+      },
+      {
+        "id": "infusion",
+        "segundos": 825,
+        "t": "Leche, nata y ajo"
+      },
+      {
+        "id": "cebolla",
+        "segundos": 1018,
+        "t": "Sudar la cebolla"
+      },
+      {
+        "id": "carne",
+        "segundos": 533,
+        "t": "Dorar la carne"
+      },
+      {
+        "id": "secar",
+        "segundos": 457,
+        "t": "Ligar y secar"
+      },
+      {
+        "id": "patatas",
+        "segundos": 1741,
+        "t": "Cocer las patatas"
+      },
+      {
+        "id": "precalentar",
+        "segundos": 2568,
+        "t": "Precalentar a 200 °C"
+      },
+      {
+        "id": "vaciar",
+        "segundos": 2175,
+        "t": "Sacar las patatas de la cazuela"
+      },
+      {
+        "id": "capa1",
+        "segundos": 154,
+        "t": "Capa 1 · patata y crema"
+      },
+      {
+        "id": "capa2",
+        "segundos": 74,
+        "t": "Capa 2 · carne"
+      },
+      {
+        "id": "montar",
+        "segundos": 386,
+        "t": "Capas 3 y 4 · patata, crema, nata y queso"
+      },
+      {
+        "id": "hornear",
+        "segundos": 2109,
+        "t": "Hornear a 200 °C"
+      },
+      {
+        "id": "gratinar",
+        "segundos": 240,
+        "t": "Gratinar"
+      },
+      {
+        "id": "reposo",
+        "segundos": 1760,
+        "t": "Reposo fuera del horno"
+      }
+    ],
+    "slug": "pastel-de-patata-gratinado",
+    "tecnica": [
+      "sellado"
+    ],
+    "titulo": "Pastel de patata gratinado"
+  },
+  "salmon-costra-de-pesto-2026-10-10-142559": {
+    "_id": "salmon-costra-de-pesto-2026-10-10-142559",
+    "base": "patata",
+    "fecha": "2026-10-10",
+    "minutosReales": 68,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "patatas",
+        "segundos": 321,
+        "t": "Partir las patatas y aliñarlas en la bandeja"
+      },
+      {
+        "id": "precalentar",
+        "segundos": 637,
+        "t": "Precalentar el horno a 200 °C"
+      },
+      {
+        "id": "costra-cherry",
+        "segundos": 618,
+        "t": "Mezclar la costra, aliñar los cherry y sacar el salmón"
+      },
+      {
+        "id": "montar-salmon",
+        "segundos": 551,
+        "t": "Montar el salmón: sal, pesto y costra"
+      },
+      {
+        "id": "hornear-patatas",
+        "segundos": 1360,
+        "t": "Patatas solas, 20 minutos"
+      },
+      {
+        "id": "hornear-salmon",
+        "segundos": 1901,
+        "t": "Salmón y cherry al horno, 16 minutos"
+      },
+      {
+        "id": "reposar-servir",
+        "segundos": 2578,
+        "t": "Reposar, separar la piel y a la mesa"
+      }
+    ],
+    "slug": "salmon-costra-de-pesto",
+    "tecnica": [
+      "costra-al-horno"
+    ],
+    "titulo": "Salmón con costra de pesto"
+  },
+  "salteado-pollo-tres-pimientos-2026-10-03-150649": {
+    "_id": "salteado-pollo-tres-pimientos-2026-10-03-150649",
+    "base": "salteado",
+    "fecha": "2026-10-03",
+    "minutosReales": 132,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "cortar-verduras",
+        "segundos": 1035,
+        "t": "Cortar pimientos, cebolla y ajo"
+      },
+      {
+        "id": "escurrir",
+        "segundos": 29,
+        "t": "Escurrir y secar el pollo"
+      },
+      {
+        "id": "s1-precalentar-la-sart-n",
+        "segundos": 6116,
+        "t": "Precalentar la sartén"
+      },
+      {
+        "id": "s2-pollo-1-a-tanda-quieto",
+        "segundos": 139,
+        "t": "Pollo, 1.ª tanda · quieto"
+      },
+      {
+        "id": "s3-pollo-1-a-tanda-removien",
+        "segundos": 132,
+        "t": "Pollo, 1.ª tanda · removiendo"
+      },
+      {
+        "id": "s4-recuperar-temperatura",
+        "segundos": 89,
+        "t": "Recuperar temperatura"
+      },
+      {
+        "id": "s5-pollo-2-a-tanda-quieto",
+        "segundos": 144,
+        "t": "Pollo, 2.ª tanda · quieto"
+      },
+      {
+        "id": "s6-pollo-2-a-tanda-removien",
+        "segundos": 185,
+        "t": "Pollo, 2.ª tanda · removiendo"
+      },
+      {
+        "id": "s7-cebolla",
+        "segundos": 318,
+        "t": "Cebolla"
+      },
+      {
+        "id": "s8-pimiento-verde",
+        "segundos": 153,
+        "t": "Pimiento verde"
+      },
+      {
+        "id": "s9-pimiento-amarillo-y-rojo",
+        "segundos": 183,
+        "t": "Pimiento amarillo y rojo"
+      },
+      {
+        "id": "s10-ajo-laminado",
+        "segundos": 48,
+        "t": "Ajo laminado"
+      },
+      {
+        "id": "s11-desglasar-con-vino",
+        "segundos": 154,
+        "t": "Desglasar con vino"
+      },
+      {
+        "id": "s12-pollo-de-vuelta",
+        "segundos": 154,
+        "t": "Pollo de vuelta"
+      },
+      {
+        "id": "s13-reposo",
+        "segundos": 86,
+        "t": "Reposo"
+      }
+    ],
+    "slug": "salteado-pollo-tres-pimientos",
+    "tecnica": [
+      "salteado",
+      "marinada",
+      "desglasado"
+    ],
+    "titulo": "Salteado de pollo con tres pimientos"
+  },
+  "tacos-de-carne-2026-09-16": {
+    "base": "taco",
+    "fecha": "2026-09-16",
+    "minutosReales": 32,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "mise-en-place",
+        "segundos": 28,
+        "t": "Mise en place"
+      },
+      {
+        "id": "pochar-cebolla",
+        "segundos": 761,
+        "t": "Pochar cebolla y ajo"
+      },
+      {
+        "id": "dorar-carne",
+        "segundos": 426,
+        "t": "Carne, deshaciendo grumos"
+      },
+      {
+        "id": "guiso-tomate",
+        "segundos": 545,
+        "t": "Tomate y especias, tapado"
+      },
+      {
+        "id": "fuera-fuego-limon",
+        "segundos": 141,
+        "t": "Fuera del fuego: limón y reposo"
+      },
+      {
+        "id": "calentar-tortillas",
+        "segundos": 1877,
+        "t": "Calentar las tortillas"
+      },
+      {
+        "id": "montaje",
+        "segundos": 1870,
+        "t": "Montaje"
+      }
+    ],
+    "slug": "tacos-de-carne",
+    "tecnica": [
+      "sofrito",
+      "guisado",
+      "plancha"
+    ],
+    "titulo": "Tacos de carne"
+  },
+  "tacos-de-fiesta-2026-09-27-141723": {
+    "_id": "tacos-de-fiesta-2026-09-27-141723",
+    "base": "taco",
+    "fecha": "2026-09-27",
+    "minutosReales": 52,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "asar-pollo",
+        "segundos": 1254,
+        "t": "Asar el pollo"
+      },
+      {
+        "id": "envolver-tortillas",
+        "segundos": 751,
+        "t": "Envolver las tortillas en aluminio"
+      },
+      {
+        "id": "pollo-tortillas",
+        "segundos": 559,
+        "t": "Voltear el pollo y meter las tortillas"
+      },
+      {
+        "id": "guiso-reducir",
+        "segundos": 805,
+        "t": "Reducir sin tapa, hasta el surco"
+      },
+      {
+        "id": "limon",
+        "segundos": 67,
+        "t": "Fuera del fuego: el limón"
+      },
+      {
+        "id": "alubias-reposo",
+        "segundos": 1283,
+        "t": "Alubias al 1, tapadas"
+      },
+      {
+        "id": "montaje",
+        "segundos": 651,
+        "t": "Todo a la mesa"
+      }
+    ],
+    "slug": "tacos-de-fiesta",
+    "tecnica": [
+      "sofrito",
+      "chup-chup",
+      "marinada",
+      "reduccion"
+    ],
+    "titulo": "Tacos de fiesta, tres rellenos"
+  },
+  "tarta-fina-de-manzana-2026-09-18-154053": {
+    "_id": "tarta-fina-de-manzana-2026-09-18-154053",
+    "base": "hojaldre",
+    "fecha": "2026-09-18",
+    "minutosReales": 47,
+    "nota": null,
+    "pasosReales": [
+      {
+        "id": "mise-en-place",
+        "segundos": 6,
+        "t": "Laminar la manzana y rociar con limón"
+      },
+      {
+        "id": "precalentar-horno",
+        "segundos": 12,
+        "t": "Precalentar el horno a 200°C"
+      },
+      {
+        "id": "montar-base",
+        "segundos": 224,
+        "t": "Extender el hojaldre y marcar el borde"
+      },
+      {
+        "id": "colocar-manzana",
+        "segundos": 406,
+        "t": "Pan rallado, manzana y espolvoreado"
+      },
+      {
+        "id": "hornear",
+        "segundos": 2527,
+        "t": "Hornear a 200°C, altura media"
+      },
+      {
+        "id": "hacer-glaseado",
+        "segundos": 2823,
+        "t": "Mermelada y agua, hasta líquida"
+      },
+      {
+        "id": "sacar-pincelar",
+        "segundos": 2193,
+        "t": "Sacar y pincelar con el glaseado"
+      },
+      {
+        "id": "reposar",
+        "segundos": 2,
+        "t": "Reposar antes de cortar"
+      }
+    ],
+    "slug": "tarta-fina-de-manzana",
+    "tecnica": [
+      "glaseado"
+    ],
+    "titulo": "Tarta fina de manzana"
+  }
+}

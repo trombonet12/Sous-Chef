@@ -1,0 +1,673 @@
+{
+  "actualizada": "2026-09-16T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8734A",
+      "id": "sarten",
+      "nombre": "SARTÉN GRANDE",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "cazuela",
+      "nombre": "CAZUELA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0BE4A",
+      "id": "huevos",
+      "nombre": "SARTÉN PEQUEÑA",
+      "tipo": "fuego"
+    }
+  ],
+  "compra": [],
+  "cortes": [
+    {
+      "p": "Las vetas de grasa y de magro corren a lo largo de la loncha. Corta a lo ancho, cruzándolas, y cada taco sale con su parte de grasa y su parte de carne: la grasa es la que se funde y hace de aceite del plato, y el magro la que se tuesta. Los 8 mm son el compromiso entre las dos mitades del bacon: más finos se secan enteros antes de soltar la grasa, y más gruesos llegan al minuto 11 con el centro crudo y gomoso.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Loncha de bacon con vetas horizontales y cortes verticales que las cruzan\"><rect x=\"6\" y=\"20\" width=\"108\" height=\"48\" rx=\"5\" fill=\"#B5372A\" fill-opacity=\".16\" stroke=\"#B5372A\"/><g stroke=\"#E8C6A0\" stroke-width=\"3\" opacity=\".85\"><line x1=\"8\" y1=\"31\" x2=\"112\" y2=\"31\"/><line x1=\"8\" y1=\"45\" x2=\"112\" y2=\"45\"/><line x1=\"8\" y1=\"59\" x2=\"112\" y2=\"59\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"24\" y1=\"14\" x2=\"24\" y2=\"74\"/><line x1=\"42\" y1=\"14\" x2=\"42\" y2=\"74\"/><line x1=\"60\" y1=\"14\" x2=\"60\" y2=\"74\"/><line x1=\"78\" y1=\"14\" x2=\"78\" y2=\"74\"/><line x1=\"96\" y1=\"14\" x2=\"96\" y2=\"74\"/></g></svg>",
+      "t": "Bacon · tacos de 8 mm, cruzando la loncha"
+    },
+    {
+      "p": "Las vetas van de la raíz al tallo. Pártela por los polos y corta en perpendicular a ellas: al romper pared celular la cebolla suelta su agua y se deshace en los diez minutos de sudado, que es de donde sale el fondo dulce de la salsa. A favor de la fibra aguantaría entera y la encontrarías en tiras dentro del tomate. Y 4 mm y no más pequeño: media hora de chup-chup por delante, un brunoise fino desaparecería.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con la fibra de raiz a tallo y una cuadrícula de cortes\"><ellipse cx=\"60\" cy=\"44\" rx=\"52\" ry=\"31\" fill=\"#8A6C4A\" fill-opacity=\".16\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".75\"><line x1=\"16\" y1=\"31\" x2=\"104\" y2=\"31\"/><line x1=\"11\" y1=\"39\" x2=\"109\" y2=\"39\"/><line x1=\"11\" y1=\"49\" x2=\"109\" y2=\"49\"/><line x1=\"16\" y1=\"57\" x2=\"104\" y2=\"57\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"32\" y1=\"8\" x2=\"32\" y2=\"80\"/><line x1=\"46\" y1=\"8\" x2=\"46\" y2=\"80\"/><line x1=\"60\" y1=\"8\" x2=\"60\" y2=\"80\"/><line x1=\"74\" y1=\"8\" x2=\"74\" y2=\"80\"/><line x1=\"88\" y1=\"8\" x2=\"88\" y2=\"80\"/><line x1=\"10\" y1=\"44\" x2=\"110\" y2=\"44\"/></g></svg>",
+      "t": "Cebolla · dados de 4 mm, cruzando la fibra"
+    },
+    {
+      "p": "Lámina y no otra cosa porque el ajo entra en grasa a 140 °C y sale sesenta segundos después: la lámina tiene mucha menos superficie por gramo que el picado, y esa es toda la diferencia entre rubio y amargo. Por debajo de 1 mm se tuesta igual que si estuviera picado; por encima de 2 mm se queda crudo por dentro. Además un cuarto de estas láminas acaba entero sobre el arroz, y ahí se tiene que ver y morder.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo tumbado con seis cortes verticales muy juntos que lo laminan\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".6\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 2\"><line x1=\"42\" y1=\"8\" x2=\"42\" y2=\"80\"/><line x1=\"48\" y1=\"6\" x2=\"48\" y2=\"82\"/><line x1=\"54\" y1=\"5\" x2=\"54\" y2=\"83\"/><line x1=\"66\" y1=\"5\" x2=\"66\" y2=\"83\"/><line x1=\"72\" y1=\"6\" x2=\"72\" y2=\"82\"/><line x1=\"78\" y1=\"8\" x2=\"78\" y2=\"80\"/></g></svg>",
+      "t": "Ajo · láminas de 1,5 mm"
+    }
+  ],
+  "datos": [
+    [
+      "66 min",
+      "de principio a fin"
+    ],
+    [
+      "4 + 60 + 2",
+      "cortar + fuego + montaje"
+    ],
+    [
+      "3",
+      "fuegos"
+    ],
+    [
+      "18",
+      "pasos"
+    ]
+  ],
+  "descripcion": "La mitad del bacon se queda dentro del tomate y se vuelve sabor; la otra mitad sale crujiente y corona el plato. Sin laurel y sin plátano. La dificultad no está en la salsa, que aguanta media hora sola: está en encajar el arroz, los huevos y el punto de la salsa en los últimos diez minutos.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 200,
+          "n": "bacon en lonchas gruesas o en pieza",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "cebolla",
+          "u": "g"
+        },
+        {
+          "a": 4,
+          "n": "dientes de ajo",
+          "u": ""
+        },
+        {
+          "a": 800,
+          "n": "tomate triturado (la lata entera)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "aceite de oliva virgen extra",
+          "u": "ml"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (1 g con la cebolla + 2 g con el tomate)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "azúcar (1 cdta)",
+          "u": "g"
+        },
+        {
+          "esc": "sub",
+          "n": "pimienta negra recién molida",
+          "txt": "0,5 g"
+        }
+      ],
+      "n": "SARTÉN · EL TOMATE Y EL BACON"
+    },
+    {
+      "items": [
+        {
+          "a": 320,
+          "n": "arroz de grano largo, enjuagado",
+          "u": "g"
+        },
+        {
+          "a": 600,
+          "n": "agua",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "esc": "sub",
+          "n": "sal para el agua",
+          "u": "g"
+        },
+        {
+          "a": 4,
+          "n": "huevos",
+          "u": ""
+        },
+        {
+          "a": 150,
+          "n": "aceite de girasol",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal, al final",
+          "u": "g"
+        }
+      ],
+      "n": "CAZUELA Y SARTÉN DE HUEVOS · EL ARROZ"
+    }
+  ],
+  "importada": true,
+  "lectura": "La suma, toda ella en la sartén grande: 4 de cortar el bacon + 7 del bacon + 1 de sacar la mitad + 10 de cebolla + 1 de espera + 1 de ajo + 4 de arranque del tomate + 30 de chup-chup (7 + 21 + 2) + 6 destapado + 2 de aliñar y montar = 66 minutos. Los otros dos fuegos caben dentro y no suman: la cazuela son 8 + 12 + 4 = 24 minutos que van del 40 al 64, y la sartén de los huevos 5 + 5 = 10 que van del 56 al 66. Tres encajes que respetar. El primero: la cebolla y el ajo se cortan entre el minuto 4 y el 10 con el bacon ya al fuego, así que los tres avisos de remover del bacon son tu reloj mientras cortas. El segundo: el agua se enciende en el minuto 40, a mitad del segundo tramo del chup-chup, y esa hora no es negociable — desde que rompe son 12 de cocción y 4 de reposo, y el arroz tiene que estar reposado justo en el 64, cuando la salsa llega a su punto. Que el arroz sean 12 minutos y no 16 no acorta el plato: lo largo es la sartén, así que lo único que cambia es que la cazuela se enciende cinco minutos más tarde y pasa menos rato ocupando un fuego. El tercero: del minuto 56 al 60 hay tres fuegos encendidos a la vez (chup-chup, arroz y aceite) y es el único tramo en el que no puedes salir de la cocina; en el 60 la cazuela sale de la placa y vuelven a ser dos.",
+  "mep": [
+    {
+      "l": [
+        "<b>Bacon · 200 g</b> · tacos de 8 mm cortando a lo ancho de la loncha, para cruzar grasa y magro. Primero, con la tabla seca y el bacon frío de nevera: la grasa templada se arrastra con el cuchillo en vez de cortarse.",
+        "<b>Cebolla · 150 g</b> · dados de 4 mm cruzando la fibra, después: es la que moja la tabla.",
+        "<b>Ajo · 4 dientes (unos 16 g)</b> · láminas de 1,5 mm, al final. Corta y espera: no entra hasta el minuto 23."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad: lo seco primero. El bacon abre porque sale de la nevera y no moja, y además tiene que estar cortado en el minuto 4. El ajo va el último porque es lo que menos aguanta cortado y porque su olor ya no tiene nada que contaminar.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>600 ml de agua</b> → a la cazuela, en frío, con los 4 g de sal del agua dentro. El agua no deja nada, así que va primero y el vaso sigue limpio.",
+        "<b>150 ml de aceite de girasol</b> → a un bote o vaso aparte, para los huevos del minuto 56. Son muchos mililitros para medirlos con tres fuegos encendidos.",
+        "<b>10 ml de aceite de oliva virgen extra</b> → el último, porque es el que deja film en el vaso. Se usan en el minuto 12, con la cebolla."
+      ],
+      "orden": true,
+      "porq": "Con un solo vaso manda el residuo: cada medida solo puede dejar dentro algo que no moleste a la siguiente. El agua no ensucia y va primero; los dos aceites dejan film y van al final, y el de oliva el último porque es el que menos cantidad lleva y el que antes se usa.",
+      "t": "VASO MEDIDOR, EN ESTE ORDEN Y SIN LAVARLO"
+    },
+    {
+      "l": [
+        "<b>Plato llano</b> · los 200 g de bacon en tacos de 8 mm. Van a la sartén en el minuto 4 y con eso la tabla queda libre para la cebolla.",
+        "<b>Bol mediano</b> · los 150 g de cebolla en dados de 4 mm. La sal no va aquí: el gramo que le toca se echa ya en la sartén, en el minuto 12.",
+        "<b>Platito</b> · los 4 dientes de ajo (unos 16 g) en láminas de 1,5 mm. Caen en el minuto 23 y su ventana son sesenta segundos.",
+        "<b>Bol grande</b> · los 800 g de tomate triturado con 2 g de sal, 5 g de azúcar y 0,5 g de pimienta negra recién molida (unas diez vueltas de molinillo) ya mezclados dentro. Los cuatro entran juntos en el minuto 24.",
+        "<b>Cuenco pequeño</b> · vacío y al lado de la sartén. En el minuto 24 recibe un cuarto del ajo en láminas de 1,5 mm con una cucharada de la grasa de la sartén, y eso es el aliño del arroz del minuto 64.",
+        "<b>Bol del arroz</b> · los 320 g de arroz de grano largo, pesados y enjuagados bajo el grifo hasta que el agua salga clara. Entran en la cazuela en el minuto 48, cuando el agua ya rompe a hervir.",
+        "<b>Plato con papel</b> · para los 100 g de bacon crujiente que salen del fuego en el minuto 11 y no vuelven a aparecer hasta el montaje. Extendidos en una sola capa, no amontonados."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto al del resto. Aquí hay cinco entradas y ninguna se solapa: el bacon en el 4, la cebolla en el 12, el ajo en el 23, el tomate en el 24 y el arroz en el 43. Los otros dos no guardan nada que entre, guardan lo que sale y tiene que esperar: el bacon crujiente sale en el minuto 11 y espera cincuenta y tres, y el aliño del arroz sale en el 24 y vuelve al plato en el 64.",
+      "t": "SIETE RECIPIENTES: CINCO ENTRADAS Y DOS SALIDAS"
+    },
+    {
+      "l": [
+        "<b>Los 4 huevos</b> se quedan en su cartón hasta el minuto 61: se fríen de uno en uno, escaldando el aceite sobre la clara.",
+        "<b>Los 2 g de sal</b>, en un platito junto a la sartén pequeña. Se echan sobre cada huevo al salir, nunca dentro del aceite.",
+        "<b>La cazuela, en frío</b>, ya con los 600 ml de agua y los 4 g de sal. En el minuto 35 solo giras el mando.",
+        "<b>Los cuatro platos de comer</b>, sacados a la encimera: ahí acaban el arroz, la salsa y el huevo, y salen los cuatro a la vez."
+      ],
+      "orden": false,
+      "porq": "Lo que ya viene en su envase, o lo que va directo a su cacharro de destino, no se trasvasa antes de tiempo.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "La sal, el azúcar y la pimienta no escalan en línea recta: sube menos que el resto y corrige probando al final, que es cuando la salsa ya ha reducido. El arroz, el agua, los huevos y el bacon sí son proporcionales. El tomate no: la lata es de 800 g y a la mitad reduce en unos 20 minutos en vez de 30, porque lo que evapora es la superficie de la sartén y esa no se parte por la mitad — si bajas a dos raciones, el chup-chup se acorta y el encaje con el arroz hay que recalcularlo. El gráfico está calculado para cuatro. Y las 4 raciones son deliberadas, no un descuido del proyecto: 800 g de tomate y 200 g de bacon dan una salsa que mejora al día siguiente, y el huevo frito es lo único que hay que hacer en el momento. A dos raciones la salsa reduce antes de tiempo en la misma sartén y hay que bajar el fuego del chup-chup.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar-el-bacon",
+      "junto": null,
+      "meto": "",
+      "min": 4,
+      "nota": "Tacos de 8 mm cortando a lo ancho de la loncha, para cruzar a la vez las vetas de grasa y las de magro. Al plato llano: la tabla la necesitas libre en el minuto 4.",
+      "off": 0,
+      "p": "Tacos de 8 mm a lo ancho de la loncha, cruzando grasa y magro, para que cada taco lleve las dos cosas: la grasa es la que se funde y hace de aceite de todo el plato, y el magro la que se tuesta. Los 8 mm son el compromiso entre las dos mitades del bacon, la que se queda media hora dentro del tomate y la que sale crujiente: más finos se secan enteros antes de soltar la grasa, más gruesos llegan al minuto 11 con el centro crudo. Córtalo frío, recién sacado de la nevera; templado, la grasa se arrastra con la hoja en vez de cortarse y los tacos salen desiguales.",
+      "s": 240,
+      "saco": "los 200 g de bacon, al plato llano",
+      "t": "Cortar el bacon",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "cebolla-y-ajo",
+      "junto": null,
+      "meto": "",
+      "min": 6,
+      "nota": "Cebolla en dados de 4 mm cruzando la fibra. Ajo en láminas de 1,5 mm, no picado. Vas justo: cortas entre los avisos de remover el bacon.",
+      "off": 4,
+      "p": "Estos seis minutos van con el bacon ya al fuego, así que los tres avisos de remover son tu reloj: cortas entre uno y otro. La cebolla en dados de 4 mm cruzando la fibra, que corre de la raíz al tallo: al cruzarla rompes pared celular, la cebolla suelta su agua y se deshace en los diez minutos de sudado; a favor de la fibra aguantaría entera y la encontrarías en tiras dentro de la salsa. El ajo el último y en láminas de 1,5 mm: cortarlo activa la aliinasa, así que cuanto menos espere cortado menos pica, y la lámina tiene mucha menos superficie por gramo que el picado, que es lo único que le permite pasar un minuto en grasa caliente sin amargar.",
+      "s": 360,
+      "saco": "el bol de la cebolla y el platito del ajo",
+      "t": "Cebolla y ajo",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar-el-bacon"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve. El fondo empieza a tener grasa"
+        },
+        {
+          "en": 240,
+          "t": "Remueve. Grasa clara, no turbia"
+        },
+        {
+          "en": 360,
+          "t": "Remueve y escucha: de silbido a chirrido"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "el-bacon-en-frio",
+      "junto": null,
+      "meto": "el plato llano: 200 g de bacon en tacos de 8 mm, a la sartén fría y sin nada de aceite",
+      "min": 7,
+      "nota": "Sartén de 28 cm, el bacon dentro en frío y entonces enciendes al 6: así la grasa sale despacio. En sartén caliente el exterior se sella y la grasa se queda dentro. Remueve cada 2 minutos. Punto: el fondo con grasa clara y los dados chirriando, no silbando.",
+      "off": 4,
+      "p": "El bacon dentro en frío y entonces enciendes al 6: la grasa se va fundiendo mientras la pieza se calienta con ella, que es lo que quieres, porque esos 55 ml son el aceite del sofrito que viene después. Si la sartén ya está caliente, las proteínas de la superficie coagulan y se contraen de golpe, sellan el taco y dejan la grasa dentro: tostado por fuera, gomoso por dentro y una sartén seca. Sin tapa desde el principio, porque la tapa devuelve el agua que suelta y lo cuece en vez de dorarlo. La señal es doble: el fondo con grasa clara y no turbia, y el sonido, que pasa de silbido (agua evaporándose) a chirrido (ya solo grasa).",
+      "s": 420,
+      "saco": "",
+      "t": "El bacon en frío",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 6,
+      "holgura": "ajustado",
+      "id": "sacar-la-mitad-del-bacon",
+      "junto": null,
+      "meto": "",
+      "min": 1,
+      "nota": "Sacas 100 g al plato con papel, extendidos en una sola capa. Ese es el que corona los platos. Los otros 100 g se quedan y se vuelven sabor de la salsa.",
+      "off": 11,
+      "p": "Sacas 100 g y los otros 100 se quedan. El crujiente es grasa fundida más costra deshidratada, y las dos cosas se pierden en cuanto entre la cebolla con su agua: lo que quede dentro se rehidrata y en media hora de tomate es sabor, no textura. Por eso la ventana es este minuto exacto y no el siguiente. Al plato con papel y en una sola capa, que absorbe la grasa de debajo; amontonados, o sobre un plato liso, la grasa se recondensa y los reblandece. Y no lo tapes, que el vapor que suelten hace lo mismo.",
+      "s": 60,
+      "saco": "100 g de bacon, a un plato con papel",
+      "t": "Sacar la mitad del bacon",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cebolla-y-ajo"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 360,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 540,
+          "t": "Destapa, remueve y vuelve a tapar"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sudar-la-cebolla",
+      "junto": null,
+      "meto": "el bol: 150 g de cebolla en dados de 4 mm + los 10 ml de aceite de oliva virgen extra + 1 g de sal",
+      "min": 10,
+      "nota": "Baja al 5 antes de echar nada. Solo 10 ml de aceite de oliva: los 55 ml de grasa del bacon ya están ahí. La sal saca agua por ósmosis. Destapa solo para remover, cada 3 minutos.",
+      "off": 12,
+      "p": "Baja al 5, echa el bol y tapa. Solo 10 ml de aceite de oliva virgen extra porque los 55 ml de grasa que ha soltado el bacon ya están en la sartén; con los 40 ml de un sofrito normal la salsa saldría aceitosa. El gramo de sal va ahora y no después: rompe el equilibrio osmótico de la célula y saca el agua hacia fuera, y es esa agua la que mantiene la sartén por debajo del punto de dorado. La tapa condensa el vapor y lo devuelve, y de paso ese líquido disuelve el fondo tostado que dejó el bacon, que es medio caldo gratis. Aquí no buscas color: una cebolla dorada llevaría el rojo del tomate hacia el marrón.",
+      "s": 600,
+      "saco": "",
+      "t": "Sudar la cebolla",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "holgura": "critico",
+      "id": "bajar-al-4-y-esperar",
+      "junto": null,
+      "meto": "",
+      "min": 1,
+      "nota": "Baja al 4 y espera el minuto entero sin echar nada. La vitro sigue radiando el calor acumulado un par de minutos y el ajo se quema a partir de unos 140 °C.",
+      "off": 22,
+      "p": "La vitro no es gas: debajo del cristal hay una masa que sigue radiando un par de minutos después de bajar el mando. Si echas el ajo justo al bajar al 4, entra sobre una superficie que todavía está al 5 o al 6. El ajo se quema a partir de unos 140 °C, y quemado no es un matiz: sus azúcares y sus compuestos de azufre viran a amargo, y ese amargor ya no sale de la salsa en los treinta minutos que quedan. Este minuto sin hacer nada es lo que separa un ajo rubio de un plato perdido. Aprovéchalo para quitar la tapa, que no vuelve hasta el chup-chup.",
+      "s": 60,
+      "saco": "la tapa",
+      "t": "Bajar al 4 y esperar",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "holgura": "critico",
+      "id": "el-ajo-rubio-y-fuera",
+      "junto": null,
+      "meto": "el platito: 4 dientes de ajo en láminas de 1,5 mm",
+      "min": 1,
+      "nota": "Sesenta segundos removiendo sin parar, hasta que huela y esté rubio. A los noventa amarga. Antes de que entre el tomate, un cuarto del ajo y una cucharada de grasa al cuenco: ese es el aliño del arroz.",
+      "off": 23,
+      "p": "Las láminas de golpe y removiendo sin parar los sesenta segundos. Lo que buscas es que el ajo ceda su aroma a la grasa: es liposoluble y pasa al aceite en menos de un minuto, así que no hay nada que ganar dejándolo más. A los noventa segundos la lámina vira de rubia a marrón y amarga. Antes de que entre el tomate saca un cuarto de las láminas con una cucharada de la grasa a un cuenco: el ajo que se queda dentro va a hervir media hora y se convierte en fondo, no en sabor; el del cuenco llega al arroz entero y se muerde.",
+      "s": 60,
+      "saco": "un cuarto del ajo y 1 cda de grasa, a un cuenco",
+      "t": "El ajo, rubio y fuera",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "el-tomate-arranca",
+      "junto": null,
+      "meto": "el bol grande: 800 g de tomate triturado + 2 g de sal + 5 g de azúcar + 0,5 g de pimienta negra",
+      "min": 4,
+      "nota": "Sube al 7 antes de echarlo y déjalo hasta que burbujee en toda la superficie, no solo en el centro. El azúcar entra ahora para que se integre: el triturado de lata arranca más ácido que un tomate maduro.",
+      "off": 24,
+      "p": "Sube al 7 antes de echar los 800 g. El tomate entra frío y de golpe y le tira la temperatura a la sartén en seco: el 7 es para recuperarla, no para cocer. La señal es que burbujee en toda la superficie y no solo en el centro, que es cuando la masa entera está a temperatura y ya puedes bajar. El azúcar entra aquí y no al final por dos motivos: el triturado de lata se recolecta verde y se corrige con ácido cítrico, así que arranca más ácido que un tomate maduro, y cinco gramos necesitan los treinta minutos de chup-chup para integrarse en vez de notarse dulces por encima.",
+      "s": 240,
+      "saco": "",
+      "t": "El tomate arranca",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 360,
+          "t": "Remueve otra vez. Al acabar el paso, el agua de la cazuela al 9"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "chup-chup-primer-tramo",
+      "junto": null,
+      "meto": "",
+      "min": 7,
+      "nota": "Baja al 3 y deja la tapa apoyada dejando un dedo de hueco: reduce y no salpica. Cuando suene, el agua del arroz al fuego.",
+      "off": 28,
+      "p": "Baja al 3, que en esta vitro es el burbujeo perezoso: una burbuja cada par de segundos, no un hervor a borbotones. Con más potencia el tomate se agarra al fondo, y lo que se pega se quema y amarga toda la salsa sin remedio. La tapa apoyada dejando un dedo de hueco es un regulador: deja salir el vapor justo para que reduzca, corta las salpicaduras de un triturado que salta mucho, y evita que los treinta minutos se queden secos a la mitad. Este tramo está cortado a los siete minutos porque ahí es donde toca encender el agua del arroz, no porque la salsa pida nada.",
+      "s": 420,
+      "saco": "vapor",
+      "t": "Chup-chup, primer tramo",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "cazuela",
+      "dep": [
+        "chup-chup-primer-tramo"
+      ],
+      "f": 9,
+      "holgura": "flexible",
+      "id": "agua-al-fuego",
+      "junto": null,
+      "meto": "600 ml de agua + 4 g de sal (ya están en la cazuela, en frío)",
+      "min": 8,
+      "nota": "Al 9 y tapada rompe a hervir en unos 8 minutos; destapada tardaría un 30 % más. Ni antes ni después: desde que rompe son 12 de cocción y 4 de reposo, y el arroz tiene que estar reposado en el 64.",
+      "off": 40,
+      "p": "En el minuto 40, no antes: cada minuto de hervor de más evapora agua medida al mililitro y esto va por absorción. Los 600 ml con los 4 g de sal, al 9 y con la tapa puesta. Tapada rompe en ocho minutos; destapada tardaría un 30 % más, porque el vapor que escapa se lleva el calor latente que estás metiendo. La sal va en el agua y no sobre el arroz al final: el grano solo se sala por dentro mientras absorbe. Y se enciende ahora y no antes porque cada minuto de hervor de más evapora agua que está medida al mililitro: esto va por absorción y no hay escurridor que corrija el error.",
+      "s": 480,
+      "saco": "",
+      "sinHitos": "Tapada y al 9 no hay nada que hacer dentro. Levantar la tapa para ver si rompe retrasa justo lo que estás esperando, y el aviso útil es el final del paso.",
+      "t": "Agua al fuego",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 480,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 960,
+          "t": "Remueve rascando el fondo otra vez"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "chup-chup-segundo-tramo",
+      "junto": null,
+      "meto": "",
+      "min": 21,
+      "nota": "Veintiún minutos, sin tocar la potencia ni la tapa. Remueve rascando el fondo cada 8 o 10 minutos. Este es el paso que aguanta lo que le echen: si vas tarde, aquí se recupera. Cuando suene, enciende el aceite de los huevos.",
+      "off": 35,
+      "p": "Veintiún minutos al mismo 3 y con la tapa igual, a un dedo. Aquí es donde pasa todo: de los 1.090 g que hay en la sartén se van unos 300 en vapor, el ácido se suaviza según se concentra el azúcar propio del tomate, y la grasa y la gelatina de los 100 g de bacon que se quedaron dentro se reparten por toda la salsa. Rascar el fondo cada ocho o diez minutos no es manía: el tomate sedimenta, la capa que queda contra el metal se seca antes que el resto y en cuanto se pega, amarga. Es el paso elástico del plan, el único que puedes estirar o encoger sin que se note.",
+      "s": 1260,
+      "saco": "vapor",
+      "t": "Chup-chup, segundo tramo",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "cazuela",
+      "dep": [],
+      "f": 4,
+      "holgura": "ajustado",
+      "id": "el-arroz-tapado-y-quieto",
+      "junto": null,
+      "meto": "el bol del arroz: 320 g de arroz de grano largo enjuagado, al agua que ya hierve",
+      "min": 12,
+      "nota": "Una sola vuelta de cuchara. Tapa puesta y al 4 desde el primer segundo: ya no se destapa, porque cada vez que la levantas pierdes vapor y el cálculo del agua deja de valer. Cuando este arroz lleve 8 minutos, enciende el aceite de los huevos.",
+      "off": 48,
+      "p": "Los 320 g al agua que ya hierve, una vuelta de cuchara y solo una: cada vuelta de más raspa el almidón de la superficie del grano y lo suelta al agua, y entonces el grano largo deja de salir suelto. Tapa y baja al 4, que es lo justo para mantener el hervor sin que se salga por el borde. Dieciséis minutos tapado y sin abrir, y esto no es una manía: los granos de arriba no tocan el agua, los cuece el vapor, y cada vez que levantas la tapa ese vapor se va y los 600 ml dejan de dar la cuenta. Doce minutos y no más: enjuagado y con 600 ml para 320 g, el grano largo tiene el punto justo ahí, y cada minuto de más lo pasa de suelto a blando sin que se vea hasta que lo sueltas.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "Aquí abrir es el error, no el aviso: los granos de arriba se cuecen con el vapor y cualquier apertura se lo lleva. Los doce minutos son ciegos a propósito.",
+      "t": "El arroz, tapado y quieto",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "huevos",
+      "dep": [
+        "chup-chup-segundo-tramo"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-el-aceite",
+      "junto": "chup-chup-ultimo-tramo",
+      "meto": "150 ml de aceite de girasol, del vaso donde los mediste",
+      "min": 5,
+      "nota": "Al 7. Girasol y no virgen extra: el punto de humo del virgen extra ronda los 190 °C y amargaría justo en el encaje. Punto: metes la punta de una cuchara de madera y burbujea vivo alrededor.",
+      "off": 56,
+      "p": "Enciende la sartén pequeña al 7 con los 150 ml de girasol, y solo con eso: la grasa que soltó el bacon se quedó en la sartén grande y acabó dentro de la salsa, así que aquí no hay nada que reaprovechar. Girasol y no el virgen extra del sofrito: su punto de humo ronda los 225 °C y el del virgen extra los 190, que es justo la temperatura a la que vas a freír, así que humearía y amargaría el huevo. Buscas 180-190 °C: por debajo la clara no se infla y el huevo chupa aceite; por encima el borde se quema antes de que cuaje la clara de arriba. Sin termómetro, la señal es meter la punta de una cuchara de madera y ver que burbujea vivo a su alrededor, que es el agua de la madera hirviendo. Los tres primeros minutos de este paso son la única ventana del plan con tres fuegos encendidos.",
+      "s": 300,
+      "saco": "",
+      "t": "Calentar el aceite",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 3,
+      "holgura": "flexible",
+      "id": "chup-chup-ultimo-tramo",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Dos minutos más y el chup-chup suma sus 30. Al acabar, fuera la tapa.",
+      "off": 56,
+      "p": "Dos minutos que cierran los treinta del chup-chup. El corte en tres tramos no se lo pide la salsa, te lo pide el cronómetro: cada tramo termina justo donde hay que encender otro fuego, el agua en el minuto 35 y el aceite de los huevos en el 56, y así el aviso te llega solo en vez de tener que acordarte a mitad de un tramo largo. La salsa no nota los cortes: sigue al mismo 3 y con la tapa a un dedo de principio a fin.",
+      "s": 120,
+      "saco": "vapor",
+      "t": "Chup-chup, último tramo",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 240,
+          "t": "Pasa la cuchara: ¿el surco tarda 2 segundos en cerrarse?"
+        },
+        {
+          "en": 300,
+          "t": "Prueba de sal, y de azúcar si sigue ácida"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "destapar-y-tomar-punto",
+      "junto": null,
+      "meto": "",
+      "min": 6,
+      "nota": "Fuera la tapa, sigue al 3. De 1.090 g bajas a unos 700 de salsa. La señal manda por encima del reloj: pasas la cuchara por el fondo y el surco tarda unos 2 segundos en cerrarse. Corrige de sal, y de azúcar si sigue ácida, 2 g como máximo.",
+      "off": 58,
+      "p": "Fuera la tapa y sin tocar la potencia. Con la tapa a medias la evaporación estaba frenada a propósito; destapada, la superficie libre se lleva los últimos 100 o 150 g y la salsa pasa de líquida a untuosa en estos seis minutos. La señal manda por encima del reloj: pasas la cuchara por el fondo y el surco tarda unos dos segundos en cerrarse. Corrige de sal ahora y no antes, porque al reducir se concentra la que ya había y lo que estaba justo al principio acaba pasado. Y si sigue ácida, hasta 2 g más de azúcar y no más: por encima deja de corregir y se nota dulce.",
+      "s": 360,
+      "saco": "la tapa, para que espese",
+      "t": "Destapar y tomar punto",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "cazuela",
+      "dep": [],
+      "f": 0,
+      "holgura": "flexible",
+      "id": "reposo-fuera-de-la-placa",
+      "junto": null,
+      "meto": "",
+      "min": 4,
+      "nota": "La cazuela fuera de la placa de verdad, no apagada encima: la vitro guarda calor. Cuatro minutos tapada y sin tocarla.",
+      "off": 60,
+      "p": "La cazuela fuera de la placa de verdad, no apagada encima: el cristal de la vitro guarda calor de sobra para seguir cociendo el arroz cuatro minutos más y pasarlo. Tapada esos cuatro minutos, el gradiente se iguala: el grano del fondo tiene más agua que el de arriba y la difusión la reparte. Y al bajar unos grados, el almidón que se gelatinizó durante la cocción se retrograda un poco y fija la forma del grano, que es lo que hace que luego se separen en vez de apelmazarse. Sin este reposo, el mismo arroz y la misma agua dan el fondo pastoso y la superficie seca.",
+      "s": 240,
+      "saco": "la cazuela, de la placa",
+      "t": "Reposo fuera de la placa",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "huevos",
+      "dep": [],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 75,
+          "t": "Fuera el 1.º, con su pizca de sal encima. Entra el 2.º"
+        },
+        {
+          "en": 150,
+          "t": "Fuera el 2.º. Entra el 3.º"
+        },
+        {
+          "en": 225,
+          "t": "Fuera el 3.º. Entra el 4.º, y el arroz ya se puede aliñar"
+        }
+      ],
+      "holgura": "critico",
+      "id": "los-cuatro-huevos",
+      "junto": null,
+      "meto": "4 huevos del cartón, de uno en uno",
+      "min": 5,
+      "nota": "De 60 a 75 segundos cada uno, escaldando el aceite sobre la clara con una cuchara. Con 1 cm de profundidad la clara sube y encaja. La sal al salir, nunca en el aceite.",
+      "off": 61,
+      "p": "De uno en uno y de sesenta a setenta y cinco segundos cada uno: los cuatro a la vez le tirarían la temperatura al aceite de golpe y saldrían cocidos en vez de fritos. Con el centímetro de profundidad que dan los 150 ml, la clara no se extiende por el fondo: se contrae sobre sí misma y encaja. Escáldala echándole aceite por encima con la cuchara en vez de darle la vuelta, y la yema queda líquida bajo una clara cuajada entera. La sal al salir y nunca en el aceite: dentro salta, y sobre la clara recién hecha se disuelve y deja de crujir, que es justo lo que venía a aportar.",
+      "s": 300,
+      "saco": "cada huevo, directo al plato",
+      "t": "Los cuatro huevos",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "destapar-y-tomar-punto",
+        "reposo-fuera-de-la-placa"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "alinar-el-arroz-y-montar",
+      "junto": null,
+      "meto": "el cuenco: las láminas de ajo con su cucharada de grasa, sobre el arroz reposado",
+      "min": 2,
+      "nota": "Remueve el arroz con tenedor, no con cuchara. Arroz a un lado, salsa al otro, huevo encima, los 100 g de bacon crujiente por arriba.",
+      "off": 64,
+      "p": "El cuenco del ajo con su cucharada de grasa sobre el arroz recién reposado y todavía caliente, que es cuando absorbe la grasa aromatizada en vez de dejarla resbalar. Remueve con tenedor y nunca con cuchara: el tenedor separa los granos, la cuchara los aplasta contra el fondo, rompe el almidón de la superficie y lo que sale es una pasta. En el plato, el arroz a un lado y la salsa al otro sin mezclarlos: mezclado, el arroz se empapa y pierde en un minuto el grano suelto que llevas cuidando veinte. El huevo encima y los 100 g de bacon crujiente lo último, para que no le dé el vapor de la salsa.",
+      "s": 120,
+      "saco": "todo, a los cuatro platos",
+      "t": "Aliñar el arroz y montar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "bacon en lonchas gruesas o en pieza",
+    "huevos",
+    "tomate triturado (la lata entera)"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. La suma de los tramos está en la lectura. Las horas de reloj, los avisos dentro de cada paso y el paso a paso corto están en el cronómetro. Vitrocerámica, potencias del 0 al 9.",
+  "porque": [
+    [
+      "El bacon partido en dos",
+      "El que pasa 30 minutos dentro del tomate deja de estar crujiente y se convierte en sabor de la salsa. Sacando 100 g cuando están dorados tienes las dos cosas sin gastar un cuarto fuego."
+    ],
+    [
+      "El aceite baja de 40 a 10 ml",
+      "Los 200 g de bacon sueltan unos 55 ml de grasa y la cebolla se suda en ella. Con los 40 ml de un sofrito normal la salsa saldría aceitosa."
+    ],
+    [
+      "El azúcar no es opcional",
+      "El triturado de lata se recolecta verde y se corrige con ácido cítrico, así que arranca más ácido que un tomate maduro. Y al quitar el plátano se fue el único dulce del plato."
+    ],
+    [
+      "La tapa, tres momentos",
+      "Fuera con el bacon, porque puesta le devuelve su agua y lo cuece en vez de dorarlo. Puesta al sudar la cebolla, para que se haga en su vapor sin coger color. A medias en el chup-chup, que reduce y no salpica. Fuera los últimos 6 minutos, que es cuando espesa."
+    ],
+    [
+      "El minuto de espera del ajo",
+      "La vitro sigue radiando el calor acumulado un par de minutos después de bajar de potencia, y el ajo se quema a partir de unos 140 °C. Ese minuto separa un ajo rubio de un ajo amargo."
+    ],
+    [
+      "Tres fuegos, solo 3 minutos",
+      "Los tres fuegos coinciden entre el minuto 56 y el 58: el chup-chup en la sartén grande, el arroz en la cazuela y el aceite calentándose en la pequeña. En el 59 la cazuela sale de la placa a reposar y vuelven a ser dos. Son tres minutos, y son los únicos en los que no puedes irte de la cocina."
+    ],
+    [
+      "Si vas tarde",
+      "El chup-chup aguanta lo que le echen: ahí se recupera el retraso. Lo que no espera son el ajo, los huevos y el emplatado."
+    ],
+    [
+      "Fuera: Laurel",
+      "no tienes, y no hace falta: el fondo amargo que aportaba ya lo pone el humo del bacon."
+    ],
+    [
+      "Fuera: Pimiento verde",
+      "amargo herbal que tapa el tomate, y alarga el sofrito 8 minutos."
+    ],
+    [
+      "Fuera: Zanahoria",
+      "endulza, pero para eso está el azúcar, y apaga el rojo hacia el naranja."
+    ],
+    [
+      "Fuera: Orégano y albahaca",
+      "esto se convertiría en salsa napolitana."
+    ],
+    [
+      "Fuera: Vino blanco",
+      "su ácido frena el ablandamiento de la cebolla y de ácido vas sobrado con la lata."
+    ],
+    [
+      "Fuera: Cebolla junto al bacon",
+      "soltaría agua justo cuando el bacon necesita superficie seca."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "arroz-a-la-cubana-con-bacon",
+  "tags": {
+    "base": "arroz",
+    "proteina": "bacon y huevo",
+    "tecnica": [
+      "sofrito",
+      "chup-chup",
+      "arroz-blanco-suelto",
+      "punto-del-aceite"
+    ]
+  },
+  "titulo": "Arroz a la cubana con bacon",
+  "totalMin": 66
+}

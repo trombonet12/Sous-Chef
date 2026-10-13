@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# CLI de Sous Chef (docs/herramientas.md). Recompila :tools solo si tools/ o receta/ cambiaron.
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BIN="$ROOT/tools/build/install/tools/bin/tools"
+MARCA="$ROOT/tools/build/install/.marca"
+if [ ! -f "$MARCA" ] || [ -n "$(find "$ROOT/tools/src" "$ROOT/receta/src" "$ROOT/tools/build.gradle.kts" "$ROOT/receta/build.gradle.kts" "$ROOT/gradle/libs.versions.toml" -newer "$MARCA" -type f -print -quit 2>/dev/null)" ]; then
+  (cd "$ROOT" && ./gradlew -q --console=plain :tools:installDist >&2)
+  touch "$MARCA"
+fi
+cd "$ROOT"
+exec "$BIN" "$@"

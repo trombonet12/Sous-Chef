@@ -1,0 +1,34 @@
+{
+  "actualizada": "2026-09-16T11:11:00Z",
+  "categoria": "fritura",
+  "consejos": [
+    "El aceite de girasol aguanta temperaturas de fritura mejor que el de oliva virgen, que humea antes: para freír, el de girasol.",
+    "Un aceite que ha humeado una vez pierde parte del punto de humo la próxima vez: no sirve para muchas frituras seguidas sin colar."
+  ],
+  "creada": "2026-09-16T11:11:00Z",
+  "pasos": [
+    {
+      "p": "3-4 cm de profundidad en una sartén honda basta para la mayoría de frituras caseras, sin gastar de más ni arriesgar salpicaduras.",
+      "t": "Llenar con la cantidad justa, no de más"
+    },
+    {
+      "p": "El aceite tarda 3-5 minutos en coger temperatura. Subir la potencia de golpe calienta la superficie antes que el fondo.",
+      "t": "Calentar sin prisa, potencia 6-7"
+    },
+    {
+      "p": "Si burbujea con fuerza nada más tocar el aceite y sube a la superficie en 1-2 segundos, está listo.",
+      "t": "Probar con una miga de pan o un trozo pequeño de lo que vas a freír"
+    },
+    {
+      "p": "Bajar a potencia 5 y esperar medio minuto antes de freír, o el rebozado se quema por fuera antes de hacerse por dentro.",
+      "t": "Si humea, ya se pasó de temperatura"
+    },
+    {
+      "p": "Cada tanda de comida fría que entra baja la temperatura del aceite. Subir de nuevo antes de meter la siguiente.",
+      "t": "Bajar un punto la potencia entre tandas"
+    }
+  ],
+  "resumen": "Cómo saber que el aceite está a temperatura para freír sin termómetro, con las señales que se ven y se oyen en la sartén.",
+  "slug": "punto-del-aceite",
+  "titulo": "Punto del aceite para freír"
+}

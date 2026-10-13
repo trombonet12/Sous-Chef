@@ -1,0 +1,34 @@
+{
+  "actualizada": "2026-09-28T20:00:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Si la costra está pálida y la pieza ya está hecha, sácala: una pieza pasada no se arregla, y una costra poco dorada apenas se nota.",
+    "El queso de la costra ya aporta sal. Sala poco la pieza de debajo."
+  ],
+  "creada": "2026-09-28T20:00:00Z",
+  "pasos": [
+    {
+      "p": "Pan rallado y queso duro rallado, con un poco de aceite frotado entre los dedos hasta que parezca arena húmeda: por ejemplo 20 g de pan, 15 g de queso y 10 ml de aceite. La miga cubierta de grasa se tuesta; la seca solo se seca.",
+      "t": "Mezclar la miga con la grasa"
+    },
+    {
+      "p": "Debajo de la costra va algo húmedo y con sabor (pesto, mostaza, una salsa espesa) que la sujeta a la pieza. Sin eso, la miga se cae a la bandeja en cuanto la mueves.",
+      "t": "Una capa que pegue"
+    },
+    {
+      "p": "El pan rallado absorbe la humedad de la capa de debajo en pocos minutos. Montada con veinte minutos de antelación, la costra entra al horno ya blanda y no tuesta.",
+      "t": "Montar justo antes de hornear"
+    },
+    {
+      "p": "Presionada, la costra forma una capa continua que no se desmorona y aísla la parte de arriba de la pieza. Suelta, se tuesta a trozos y deja zonas desnudas que se secan.",
+      "t": "Apretar con la palma"
+    },
+    {
+      "p": "A 200 °C y con aceite, la costra dora en el mismo tiempo en que se hace una pieza de unos 3 cm. El gratinador la pasa de dorada a quemada en un minuto.",
+      "t": "Horno a 200 °C, sin gratinador"
+    }
+  ],
+  "resumen": "Una capa de pan rallado, queso y aceite apretada sobre una pieza que va al horno: se tuesta arriba mientras la pieza se hace, y a la vez la protege del calor directo para que no se seque.",
+  "slug": "costra-al-horno",
+  "titulo": "Costra al horno"
+}

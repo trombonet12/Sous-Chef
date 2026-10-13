@@ -1,0 +1,378 @@
+{
+  "actualizada": "2026-09-16T12:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    }
+  ],
+  "compra": [],
+  "cortes": [
+    {
+      "p": "El corte pasa por el centro, donde está el corazón blanco, así cada gajo conserva su piel y su pared exterior y no se desmorona en el bol. Salarlo justo después de cortarlo, nunca antes: la sal necesita la carne expuesta para sacar el agua.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Tomate redondo con cuatro cortes en gajos desde el centro\"><circle cx=\"60\" cy=\"44\" r=\"38\" fill=\"#C1432B\" fill-opacity=\".16\" stroke=\"#C1432B\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"60\" y1=\"6\" x2=\"60\" y2=\"82\"/><line x1=\"26\" y1=\"18\" x2=\"94\" y2=\"70\"/><line x1=\"94\" y1=\"18\" x2=\"26\" y2=\"70\"/><line x1=\"22\" y1=\"44\" x2=\"98\" y2=\"44\"/></g></svg>",
+      "t": "Tomate · gajos de 2 cm"
+    },
+    {
+      "p": "Se corta en dados, no se desmenuza a mano: un dado entero se nota como bocado salado entre la lechuga, mientras que desmigado se disuelve en la salsa césar y desaparece.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Bloque de queso feta con una rejilla de cortes en dados\"><rect x=\"10\" y=\"14\" width=\"100\" height=\"60\" rx=\"4\" fill=\"#E8DDBF\" fill-opacity=\".55\" stroke=\"#8A7B4E\"/><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"><line x1=\"43\" y1=\"14\" x2=\"43\" y2=\"74\"/><line x1=\"76\" y1=\"14\" x2=\"76\" y2=\"74\"/><line x1=\"10\" y1=\"34\" x2=\"110\" y2=\"34\"/><line x1=\"10\" y1=\"54\" x2=\"110\" y2=\"54\"/></g></svg>",
+      "t": "Queso feta · dados de 1,5 cm"
+    }
+  ],
+  "datos": [
+    [
+      "19 min",
+      "de principio a fin"
+    ],
+    [
+      "10 + 12",
+      "mesa + fuego"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "8",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Ensalada de bolsa con atún y feta, rematada con ñoquis dorados en sartén como si fueran picatostes calientes. La única dificultad real es que los ñoquis lleguen a la mesa recién salidos del fuego: el resto es corte y montaje sin complicación.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 15,
+          "n": "aceite de oliva",
+          "u": "ml"
+        },
+        {
+          "a": 250,
+          "n": "ñoquis",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "semillas de sésamo",
+          "u": "g"
+        },
+        {
+          "esc": "sub",
+          "n": "pimentón picante",
+          "txt": "¼ cdta"
+        },
+        {
+          "esc": "sub",
+          "n": "albahaca seca",
+          "txt": "½ cdta"
+        }
+      ],
+      "n": "SARTÉN"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "ensalada de bolsa",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "n": "tomates medianos",
+          "u": ""
+        },
+        {
+          "esc": "sub",
+          "n": "sal, para el tomate",
+          "txt": "¼ cdta"
+        },
+        {
+          "a": 1,
+          "n": "atún en lata, escurrido",
+          "u": "lata"
+        },
+        {
+          "a": 60,
+          "n": "queso feta",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "cebollita crujiente",
+          "u": "g"
+        },
+        {
+          "a": 40,
+          "n": "salsa césar de bote",
+          "u": "g"
+        }
+      ],
+      "n": "BOL"
+    }
+  ],
+  "importada": true,
+  "lectura": "El sésamo y el aceite entran en el hueco que deja el tomate reposando, en el minuto 5, y los ñoquis se quedan dorando en la sartén hasta el 16 mientras se monta la ensalada en el 10. El minuto 16 es solo la albahaca con la vitro ya apagada. El aliño y el emplatado son lo único que no espera: entran juntos en el minuto 17, en cuanto salen los ñoquis del fuego.",
+  "mep": [
+    {
+      "l": [
+        "<b>Queso feta · 60 g</b> · en dados de 1,5 cm. Es lo más seco, y con la tabla limpia el cuchillo no arrastra nada.",
+        "<b>Tomate · 2 medianos, unos 250 g</b> · en gajos de 2 cm, después. Es el que moja la tabla, y lleva ¼ cdta de sal por encima enseguida para que empiece a soltar agua."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad, no el olor. Lo seco va primero porque una tabla mojada convierte el corte fino en un problema de seguridad.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>15 ml de aceite de oliva</b> → a la sartén, en frío.",
+        "<b>40 g de salsa césar</b> → directa al bol grande. Va la última porque es la más espesa y la que más film deja en el vaso."
+      ],
+      "orden": true,
+      "porq": "Con un solo vaso el orden lo decide el residuo: la medida más limpia va primero y la más grasa al final.",
+      "t": "VASO MEDIDOR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Colador</b> · los 250 g de tomate salado, escurriendo mientras se hace todo lo demás.",
+        "<b>Bol grande</b> · aquí acaba la ensalada entera: los 100 g de ensalada de bolsa, el tomate escurrido, el atún, los 60 g de feta y los 15 g de cebollita crujiente. Se monta a medias en el minuto 10 y se remata con el aliño en el 17.",
+        "<b>Platito</b> · los 5 g de sésamo tostado, tres minutos, hasta que entra al bol final."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra al plato en un momento distinto al del resto. La cebollita crujiente va directa del bote al bol en el minuto 10: fuera de su envase se humedece y deja de crujir, que es lo único que aporta.",
+      "t": "UN COLADOR, UN BOL Y UN PLATITO, NI UNO MÁS"
+    },
+    {
+      "l": [
+        "<b>Sartén, en frío</b> · no lleva nada hasta el minuto 5, que es cuando entran los 5 g de sésamo, en seco.",
+        "<b>El atún · 1 lata</b> se escurre directo al bol grande, sin pasar por ningún recipiente intermedio.",
+        "<b>Los 250 g de ñoquis</b> salen de su bolsa directos a la sartén en el minuto 9, cuando el aceite ya está caliente.",
+        "<b>Pimentón picante</b> · ¼ cdta, de su bote a la sartén a los 4 minutos de ñoquis. El pimentón sale de un bote de agujeros: el cuarto de cucharadita es una referencia, no una pesada, y aquí más vale quedarse corto que pasarse.",
+        "<b>Albahaca seca · ½ cdta</b> · del bote a la sartén en el minuto 16, con la vitro ya apagada."
+      ],
+      "orden": false,
+      "porq": "La sartén en frío y la lata ya abierta son sus propios recipientes de preparación: no hay nada que trasvasar antes de tiempo.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "La sal, el sésamo y el pimentón picante no escalan en línea recta: suben menos que el resto, y el picante es el que menos — al doblar la ración no se dobla, se sube apenas. Escalar tampoco alarga el fuego: los ñoquis dorados tardan casi lo mismo aunque dobles la ración, lo que cambia es que la sartén se satura antes; con más de 350 g conviene ir por tandas o subir el tiempo de dorado un 60 %.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "tomate",
+      "junto": null,
+      "meto": "2 tomates en gajos de 2 cm, sal por encima",
+      "min": 3,
+      "nota": "La sal saca el agua por ósmosis en los próximos diez minutos. Déjalo y olvídate.",
+      "off": 0,
+      "p": "Gajos de 2 cm, cortando de arriba abajo pasando por el centro para que cada gajo mantenga su pared. Sal por encima y al colador. La sal saca el agua de las células por ósmosis en los próximos diez minutos: sin este paso, esa agua sale igual pero directamente en el bol y diluye la salsa césar.",
+      "s": 180,
+      "saco": "al colador, a escurrir",
+      "t": "Cortar y salar el tomate",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "atunqueso",
+      "junto": null,
+      "meto": "atún escurrido y desmenuzado, 60 g de feta en dados",
+      "min": 2,
+      "nota": "Van al mismo bol: entran a la vez en el montaje.",
+      "off": 3,
+      "p": "Atún escurrido y desmenuzado con un tenedor, feta en dados de 1,5 cm sobre la tabla ya limpia. Van al mismo bol porque entran juntos en el montaje: separarlos en dos platos es un cacharro que no aporta nada.",
+      "s": 120,
+      "saco": "al bol grande, juntos",
+      "t": "Atún y queso feta",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "A partir de aquí quema rápido: no lo pierdas de vista"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sesamo",
+      "junto": null,
+      "meto": "5 g de semillas de sésamo",
+      "min": 3,
+      "nota": "En seco, sin dejar de mover. Del segundo minuto en adelante pasa de dorado a quemado muy rápido.",
+      "off": 5,
+      "p": "En seco, sin una gota de aceite, moviendo la sartén sin parar. Al 4 dora en tres minutos; a partir del segundo empieza a oscurecer muy rápido porque son semillas pequeñas con poca masa que amortigüe el calor. En cuanto cojan color, fuera al platito.",
+      "s": 180,
+      "saco": "al platito, en cuanto doren",
+      "t": "Tostar el sésamo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "aceite",
+      "junto": null,
+      "meto": "15 ml de aceite de oliva",
+      "min": 1,
+      "nota": "Misma sartén sin lavar: el sésamo no deja grasa que estorbe.",
+      "off": 8,
+      "p": "Los 15 ml a la misma sartén, sin lavarla: el sésamo tostado no deja grasa que estorbe y su rastro suma sabor al aceite. Un minuto al 7 hasta que brille y se mueva suelto por el fondo.",
+      "s": 60,
+      "saco": "",
+      "t": "Calentar el aceite",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Ya han dorado por abajo: empieza a moverlos"
+        },
+        {
+          "en": 240,
+          "t": "Añade el pimentón picante"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "gnocchi",
+      "junto": null,
+      "meto": "250 g de ñoquis; a los 4 minutos, ¼ cdta de pimentón picante",
+      "min": 7,
+      "nota": "Sube al 8 antes de echarlos. Quietos los primeros 3 minutos para que doren. El pimentón picante a los 4, nunca al principio, que se quema. Un cuarto de cucharadita y no más: este pimentón pica.",
+      "off": 9,
+      "p": "Sube al 8 y échalos al aceite ya caliente, en una sola capa. No los toques los primeros tres minutos: el Maillard necesita superficie seca y contacto quieto, y si remueves antes se quedan pálidos y gomosos por fuera. A los cuatro minutos, con la sartén ya un poco más fría por la grasa que han soltado los ñoquis, espolvorea el cuarto de cucharadita de pimentón picante junto con la pizca de pimienta negra y da unas vueltas. Ese medio minuto largo en la grasa caliente es lo que hace el plato: el pimentón se fríe, suelta su color rojo en el aceite y el pique pasa de crudo y punzante a seco y redondo, pegado a la costra del ñoqui. Al principio, con el aceite a máxima temperatura, se quemaría, y en un pimentón que ya pica el amargor del quemado se nota el doble y no hay forma de quitarlo. Sin tapa siempre: tapados se cuecen en su propio vapor y pierden la costra.",
+      "s": 420,
+      "saco": "",
+      "t": "Dorar los ñoquis",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "albahaca",
+      "junto": null,
+      "meto": "½ cdta de albahaca seca, con la vitro ya apagada",
+      "min": 1,
+      "nota": "Apaga la vitro. La albahaca por encima y un minuto de vueltas con el calor que queda en el metal.",
+      "off": 16,
+      "p": "Apaga la vitro antes de echarla: es un paso aparte y no un remate del anterior, porque lo que cambia es la potencia. Las hierbas secas necesitan calor y vapor para soltar su aroma, pero al 8 la albahaca se quema en segundos y amarga. Con la placa apagada, el calor que queda en el metal y el vapor de los propios ñoquis hacen ese trabajo en un minuto. Sin tapa, que la costra se ablanda.",
+      "s": 60,
+      "saco": "los ñoquis, calientes y directos al bol",
+      "t": "Albahaca, fuera del fuego",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "montaje",
+      "junto": "gnocchi",
+      "meto": "ensalada de bolsa, tomate escurrido, atún, feta, cebollita crujiente",
+      "min": 3,
+      "nota": "Se hace ahora, mientras los ñoquis siguen en la sartén, no antes: cuanto menos rato con el tomate, menos se ablanda la lechuga.",
+      "off": 10,
+      "p": "Mientras los ñoquis siguen en la sartén: ensalada de bolsa, tomate ya escurrido, atún, feta y cebollita crujiente al bol grande. Se hace ahora y no antes porque el tomate recién escurrido sigue soltando algo de agua, y cuanto menos rato pase sobre la lechuga, menos se ablanda.",
+      "s": 180,
+      "saco": "al bol grande",
+      "t": "Montar la ensalada",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "albahaca"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "final",
+      "junto": null,
+      "meto": "salsa césar, sésamo tostado, ñoquis recién sacados del fuego",
+      "min": 2,
+      "nota": "No espera: la lechuga se ablanda con el aliño en minutos y los ñoquis pierden la costra al enfriarse.",
+      "off": 17,
+      "p": "La salsa césar y el sésamo tostado al bol, mezcla suave, y encima los ñoquis recién sacados del fuego. Es el paso que no espera: la lechuga de bolsa, ya troceada con más superficie cortada expuesta, se ablanda con la grasa del aliño en minutos, y los ñoquis pierden su costra crujiente en cuanto se enfrían.",
+      "s": 120,
+      "saco": "a los platos",
+      "t": "Aliñar y emplatar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "queso feta",
+    "tomates medianos"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj y el paso a paso están en el cronómetro.",
+  "porque": [
+    [
+      "Ñoquis sin tapa nunca",
+      "La tapa retiene el vapor que ellos mismos sueltan al calentarse, y ese vapor los cuece por fuera en vez de dorarlos. Sin tapa el agua superficial se evapora libre y queda la superficie seca que pide el Maillard."
+    ],
+    [
+      "El sésamo antes que el aceite, misma sartén",
+      "Tostado en seco no deja ninguna grasa que limpiar, así que el aceite entra después sin fregar nada entre medias, y de paso se lleva el rastro tostado que ha quedado en el metal."
+    ],
+    [
+      "El tomate se sala diez minutos antes",
+      "Es tiempo, no atención: se sala, se deja en el colador y se olvida hasta que hace falta. Sin ese margen, el agua sale igual pero cae directa en el bol ya montado."
+    ],
+    [
+      "El aliño entra el último minuto",
+      "La ensalada de bolsa viene troceada, con más superficie cortada expuesta que una lechuga entera, y esa superficie es justo lo que la sal y la grasa de la salsa césar ablandan primero."
+    ],
+    [
+      "Se descarta un aliño de vinagreta o de limón",
+      "La salsa césar ya trae su propio ácido y su propia grasa emulsionada; añadir otro aliño encima no suma, tapa el sabor de los dos."
+    ],
+    [
+      "Pimentón a mitad de la sartén, no al principio",
+      "A fuego 8 con el aceite recién caliente se quemaría y amargaría en segundos; a mitad de dorado los ñoquis ya han soltado algo de grasa que baja un punto la temperatura de contacto, lo justo para que el pimentón se fría sin quemarse. Con el picante el margen es todavía más estrecho: quemado, el pique se vuelve áspero y se queda así hasta el plato."
+    ],
+    [
+      "Albahaca al final y fuera del fuego",
+      "Las hierbas secas necesitan calor y vapor para abrir su aroma, pero el fuego 8 las quemaría en segundos. Por eso el último minuto es un paso propio con la vitro apagada: el calor que queda en el metal y el vapor de los ñoquis hacen el mismo trabajo sin ese riesgo."
+    ],
+    [
+      "Pimentón picante en vez de ahumado, y la mitad de cantidad",
+      "En casa solo hay pimentón picante. El ahumado era el eje de este plato: daba un fondo de humo que hacía que los ñoquis dorados pasaran por picatostes de brasa, y ese fondo no lo sustituye nada de lo que hay en la despensa. El picante ocupa su sitio pero no hace su papel: aporta pique seco y color rojo, no humo, así que el plato pasa de ahumado a especiado y hay que leerlo como otra cosa. Por eso baja de ½ cdta a ¼: el ahumado es suave y admite mano larga, mientras que el picante a igual peso se nota mucho más, y media cucharadita sobre 250 g de ñoquis taparía el atún y el feta en vez de acompañarlos. Sigue saliendo de un bote de agujeros, así que el cuarto de cucharadita es una referencia, no una pesada: dos vueltas cortas de bote."
+    ],
+    [
+      "Sin pimienta, ahora que el pimentón pica",
+      "La pizca de pimienta negra estaba ahí porque sumaba un registro aparte: el pimentón daba humo y la pimienta daba el punto picante, y eran dos cosas distintas. Con pimentón picante los dos tiran del mismo lado y la pimienta deja de aportar nada que no esté ya, solo suma calor sobre calor. Fuera, que es un ingrediente menos que preparar y una línea menos en la checklist. Si algún día vuelve el ahumado, la pimienta vuelve con él."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "ensalada-de-noquis-con-atun-y-feta",
+  "tags": {
+    "base": "ensalada",
+    "proteina": "atún y feta",
+    "tecnica": [
+      "salteado",
+      "tostado"
+    ]
+  },
+  "titulo": "Ensalada de ñoquis con atún y feta",
+  "totalMin": 19
+}

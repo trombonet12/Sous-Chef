@@ -1,0 +1,34 @@
+{
+  "actualizada": "2026-09-16T11:01:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "El chisporroteo fuerte al tocar la sartén es la señal de que está lista para sellar; si entra en silencio, faltaba temperatura.",
+    "Sellar con la sartén fría o con poco aceite es la causa más habitual de que la carne hierva en vez de dorar."
+  ],
+  "creada": "2026-09-16T11:01:00Z",
+  "pasos": [
+    {
+      "p": "La humedad en la superficie hace que sude en la sartén en vez de dorar. Secar bien, por ejemplo 300 g de carne, antes de que toque el aceite.",
+      "t": "Secar la carne con papel"
+    },
+    {
+      "p": "Potencia 8, con 15 ml de aceite de oliva, hasta que el aceite se mueva suelto por la sartén y casi humee.",
+      "t": "Sartén y aceite bien calientes antes de meter la carne"
+    },
+    {
+      "p": "Dejar que se forme la costra. Moverla antes hace que se pegue y se rompa en vez de soltarse sola cuando está lista.",
+      "t": "No mover la pieza los primeros 1-2 minutos por lado"
+    },
+    {
+      "p": "Por ejemplo, 2 pechugas finas por vez en una sartén de 24 cm. Meter de más baja la temperatura y la carne sud en su jugo en vez de dorar.",
+      "t": "Tandas pequeñas, sin amontonar"
+    },
+    {
+      "p": "El sellado es solo el exterior. La cocción se termina después en el guiso, la sartén tapada o el horno.",
+      "t": "Sacar antes de que esté hecha por dentro"
+    }
+  ],
+  "resumen": "Dorar carne a fuego fuerte antes de guisarla o saltearla, para que quede costra por fuera y jugosa por dentro, sin que sude en su propio jugo.",
+  "slug": "sellado",
+  "titulo": "Sellado"
+}

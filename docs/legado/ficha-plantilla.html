@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pastel de patata gratinado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  /* La ficha es la REFERENCIA: qué lleva, cuánto dura, por qué se hace así.
+     El paso a paso, las potencias por paso y las horas de reloj viven en el
+     cronómetro y no se repiten aquí. Esta hoja habla en minutos, nunca en horas. */
+  :root{
+    --papel:#F3EFE4; --papel-2:#EAE3D2;
+    --tinta:#17150F; --tinta-2:#4E483C; --tinta-3:#857C6A; --linea:#D5CDB9;
+    /* colores saturados = solo los de los ingredientes de esta receta */
+    --patata:#C08A1E; --nata:#C9992B; --carne:#A15A3A; --horno:#B8402C;
+    --cebolla:#8A6C4A; --ajo:#6F7F3E;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--papel);color:var(--tinta);font-family:"Newsreader",Georgia,serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .hoja{max-width:840px;margin:0 auto;padding:40px 26px 70px}
+  h1,h2,h3,.dato,.num,.eti,button,.lbl{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+  h1{font-size:clamp(34px,8vw,56px);line-height:1;font-weight:700;letter-spacing:-.025em;margin:0}
+  h2{font-size:13px;font-weight:700;letter-spacing:.12em;margin:0 0 16px;padding-bottom:7px;border-bottom:1.5px solid var(--tinta);color:var(--tinta)}
+  h3{font-size:14.5px;font-weight:500;margin:0 0 3px}
+  p{margin:0 0 12px;max-width:70ch}
+  section{margin-top:38px}
+  .portada{border-bottom:3px double var(--tinta);padding-bottom:24px}
+  .desc{font-style:italic;font-size:18.5px;line-height:1.5;color:var(--tinta-2);margin:14px 0 20px;max-width:56ch}
+  .datos{display:flex;flex-wrap:wrap;gap:24px}
+  .dato{line-height:1.15}
+  .dato b{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .dato span{font-family:"Newsreader";font-size:12.5px;color:var(--tinta-3)}
+
+  /* ---------- ingredientes ---------- */
+  .raciones{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .raciones .lbl{font-size:11px;letter-spacing:.09em;color:var(--tinta-3)}
+  button{font-family:"Bricolage Grotesque";font-size:19px;font-weight:700;line-height:1;
+    width:36px;height:36px;border-radius:50%;border:1.5px solid var(--tinta);
+    background:transparent;color:var(--tinta);cursor:pointer;touch-action:manipulation}
+  button:active{background:var(--tinta);color:var(--papel)}
+  #n-rac{font-family:"Bricolage Grotesque";font-size:24px;font-weight:700;min-width:26px;text-align:center}
+  .grupos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px}
+  .grupo h3{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--tinta-3);margin-bottom:7px}
+  ul{list-style:none;padding:0;margin:0}
+  li{display:flex;gap:9px;padding:3.5px 0;font-size:15px;line-height:1.35;border-bottom:1px dotted var(--linea)}
+  li .c{font-family:"Bricolage Grotesque";font-weight:700;font-size:14.5px;white-space:nowrap;min-width:66px;text-align:right;flex:0 0 auto}
+  .nota-esc{font-size:13.5px;color:var(--tinta-3);margin-top:16px;max-width:62ch}
+
+  /* ---------- gráfico de tiempos ---------- */
+  .gantt{margin-top:4px}
+  .fila{display:grid;grid-template-columns:124px 1fr 62px;gap:11px;align-items:center;padding:4px 0}
+  .fila.regla{padding-bottom:2px}
+  .fila .et{min-width:0}
+  .fila .et b{font-family:"Bricolage Grotesque";font-weight:500;font-size:13.5px;display:block;line-height:1.2}
+  .fila .et span{font-family:"Bricolage Grotesque";font-size:10.5px;color:var(--tinta-3);letter-spacing:.02em}
+  .pista{position:relative;height:17px;border-radius:3px;
+    background-image:repeating-linear-gradient(to right,var(--linea) 0 1px,transparent 1px var(--paso))}
+  .barra{position:absolute;top:0;height:100%;border-radius:3px;opacity:.9}
+  .dur{font-family:"Bricolage Grotesque";font-size:11px;color:var(--tinta-3);text-align:right;line-height:1.25}
+  .dur b{display:block;font-size:13px;color:var(--tinta);font-weight:700}
+  .ticks{position:relative;height:14px}
+  .tick{position:absolute;transform:translateX(-50%);font-family:"Bricolage Grotesque";font-size:10.5px;color:var(--tinta-3)}
+  .tick:first-child{transform:none}
+  .tick:last-child{transform:translateX(-100%)}
+  .leyenda{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-family:"Bricolage Grotesque";font-size:11px;color:var(--tinta-3)}
+  .leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+  .lectura{font-size:14.5px;color:var(--tinta-2);margin-top:14px;max-width:66ch}
+
+  /* ---------- antes de empezar ---------- */
+  .mep{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 22px}
+  .mep>div{break-inside:avoid}
+  .mep h3{font-size:12px;font-weight:700;letter-spacing:.06em;margin:0 0 3px;color:var(--tinta)}
+  .mep .porq{font-size:13px;line-height:1.45;color:var(--tinta-3);margin:0 0 7px}
+  .mep ol,.mep ul{margin:0;padding:0;list-style:none;counter-reset:m}
+  .mep li{font-size:13.5px;line-height:1.4;padding:2.5px 0 2.5px 20px;position:relative;
+    border-bottom:1px dotted var(--linea);color:var(--tinta-2)}
+  .mep li:last-child{border-bottom:0}
+  .mep ol li{counter-increment:m}
+  .mep ol li::before{content:counter(m);position:absolute;left:0;top:3px;
+    font-family:"Bricolage Grotesque",sans-serif;font-size:10.5px;font-weight:700;color:var(--tinta-3)}
+  .mep ul li::before{content:"";position:absolute;left:4px;top:11px;width:5px;height:5px;
+    border:1px solid var(--tinta-3);border-radius:1px}
+  .mep b{font-weight:500;color:var(--tinta)}
+
+  /* ---------- los pasos ---------- */
+  .pasos{list-style:none;counter-reset:p;padding:0;margin:0}
+  .pasos li{display:block;counter-increment:p;position:relative;padding:0 0 13px 32px;
+    margin-bottom:13px;border-bottom:1px dotted var(--linea);font-size:15px;line-height:1.55}
+  .pasos li:last-child{border-bottom:0;margin-bottom:0}
+  .pasos li::before{content:counter(p);position:absolute;left:0;top:0;
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16px;color:var(--tinta-3)}
+  .pasos h3{font-size:15.5px;font-weight:500;margin:0 0 1px}
+  .pasos .meta{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:10.5px;
+    letter-spacing:.07em;color:var(--tinta-3);margin-bottom:5px}
+  .pasos p{font-size:14.5px;color:var(--tinta-2);margin:0;max-width:70ch;line-height:1.5}
+
+  /* ---------- técnica ---------- */
+  .corte{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start;margin-bottom:18px;break-inside:avoid}
+  .corte p{font-size:14px;margin:0;line-height:1.45}
+  .porque{margin-top:26px}
+  .porque div{break-inside:avoid;margin-top:13px}
+  .porque dt{font-family:"Bricolage Grotesque";font-weight:500;font-size:14px}
+  .porque dd{margin:2px 0 0;font-size:14.5px;color:var(--tinta-2);max-width:70ch;line-height:1.5}
+  .pie{margin-top:40px;padding-top:11px;border-top:1px solid var(--linea);font-size:12px;color:var(--tinta-3)}
+  .solo-pantalla{display:block}
+
+  @media (max-width:640px){
+    .hoja{padding:24px 16px 50px}
+    .grupos{grid-template-columns:1fr;gap:20px}
+    .corte{grid-template-columns:1fr}
+    .corte svg{max-width:160px}
+    .fila{grid-template-columns:96px 1fr 44px;gap:8px}
+    .fila .et b{font-size:12.5px}
+  }
+  @media print{
+    @page{size:A4;margin:13mm}
+    body{background:#fff;font-size:10pt;line-height:1.4}
+    .hoja{max-width:none;padding:0}
+    .solo-pantalla{display:none !important}
+    h1{font-size:30pt} h2{font-size:9.5pt}
+    section{margin-top:16pt;break-inside:avoid}
+    .corte,.porque div,.fila,.pasos li,.mep>div{break-inside:avoid}
+    .dato b{font-size:15pt}
+  }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+  <header class="portada">
+    <h1 id="f-titulo"></h1>
+    <p class="desc" id="f-desc"></p>
+    <div class="datos" id="f-datos"></div>
+  </header>
+
+  <section>
+    <h2>INGREDIENTES</h2>
+    <div class="raciones">
+      <span class="lbl">RACIONES</span>
+      <button id="menos" aria-label="Menos raciones">−</button>
+      <span id="n-rac">4</span>
+      <button id="mas" aria-label="Más raciones">+</button>
+    </div>
+    <div class="grupos" id="f-grupos"></div>
+    <p class="nota-esc" id="f-nota-esc"></p>
+  </section>
+
+  <section>
+    <h2>EL TIEMPO</h2>
+    <div class="gantt" id="f-gantt"></div>
+    <div class="leyenda" id="f-leyenda"></div>
+    <p class="lectura" id="f-lectura"></p>
+  </section>
+
+  <section>
+    <h2>ANTES DE EMPEZAR</h2>
+    <div class="mep" id="f-mep"></div>
+  </section>
+
+  <section>
+    <h2>LOS PASOS</h2>
+    <ol class="pasos" id="f-pasos"></ol>
+  </section>
+
+  <section>
+    <h2>TÉCNICA Y DECISIONES</h2>
+    <div id="f-cortes"></div>
+    <dl class="porque" id="f-porque"></dl>
+  </section>
+
+  <p class="pie" id="f-pie"></p>
+</div>
+
+<script>
+/* ============================================================
+   DATOS. Todo lo que cambia de una receta a otra está aquí.
+   Los minutos son relativos al arranque (minuto 0 = coges el
+   cuchillo). Las horas de reloj son cosa del cronómetro.
+   esc:"sub" = no escala en línea recta (sal, especias potentes).
+   ============================================================ */
+var D = {
+  titulo: "Macarrones con boloñesa",
+  descripcion: "Ragú corto de tomate y carne mixta, terminado con la pasta dentro de la sartén. Dos fuegos que se solapan en la segunda mitad: mientras la salsa reduce, el agua hierve y la pasta cuece.",
+  raciones: 4,
+  datos: [["82 min","de principio a fin"],["12 + 70","cortar + fuego"],["2","fuegos"]],
+  grupos: [
+    { n:"SARTÉN", items:[
+      {a:500,u:"g",n:"carne picada mixta de cerdo y ternera"},
+      {a:800,u:"g",n:"tomate triturado"},
+      {a:160,u:"g",n:"cebolla"},
+      {a:120,u:"g",n:"zanahoria"},
+      {a:2,u:"",n:"dientes de ajo"},
+      {a:40,u:"ml",n:"aceite de oliva"},
+      {a:120,u:"ml",n:"vino tinto"},
+      {a:8,u:"g",n:"sal",esc:"sub"},
+      {txt:"½ cdta",n:"pimienta negra",esc:"sub"},
+      {txt:"1 cdta",n:"orégano seco",esc:"sub"},
+      {txt:"1 cdta",n:"albahaca seca",esc:"sub"},
+      {txt:"2 pizcas",n:"nuez moscada",esc:"sub"}
+    ]},
+    { n:"OLLA", items:[
+      {a:360,u:"g",n:"macarrones secos"},
+      {a:3.5,u:"l",n:"agua"},
+      {a:25,u:"g",n:"sal",esc:"sub"},
+      {a:200,u:"ml",n:"agua de cocción reservada, se usan 120"}
+    ]}
+  ],
+  notaEscala: "Las cantidades marcadas con asterisco no escalan en línea recta: la sal y las especias suben menos que el resto. Escalar tampoco multiplica los tiempos, sobre todo el de reducción; el gráfico está calculado para las raciones de partida.",
+  tiempo: {
+    total: 82,
+    carriles: [
+      {n:"Mesa", color:"var(--tinta-3)"},
+      {n:"Sartén", color:"var(--carne)"},
+      {n:"Olla", color:"var(--agua)"}
+    ],
+    filas: [
+      {c:0, t:"Cortar y pesar", ini:0, fin:12, sub:"sin fuego"},
+      {c:1, t:"Aceite", ini:12, fin:13, sub:"fuego 6 · destapada"},
+      {c:1, t:"Sudar la verdura", ini:13, fin:24, sub:"fuego 5 · TAPADA"},
+      {c:1, t:"El ajo", ini:24, fin:25, sub:"fuego 5 · destapada"},
+      {c:1, t:"Dorar la carne", ini:25, fin:37, sub:"fuego 8 · destapada"},
+      {c:1, t:"Desglasar", ini:37, fin:41, sub:"fuego 8 · destapada"},
+      {c:1, t:"Tomate y especias", ini:41, fin:44, sub:"fuego 7 · destapada"},
+      {c:1, t:"Chup-chup", ini:44, fin:69, sub:"fuego 3 · TAPA A MEDIAS"},
+      {c:2, t:"Agua al fuego", ini:55, fin:69, sub:"fuego 9 · TAPADA"},
+      {c:1, t:"Reducir", ini:69, fin:79, sub:"fuego 3 · destapada"},
+      {c:2, t:"Macarrones", ini:69, fin:79, sub:"fuego 7 · destapada"},
+      {c:1, t:"Mantecatura", ini:79, fin:82, sub:"fuego 5 · destapada"}
+    ]
+  },
+  lectura: "Los dos solapes que hay que respetar: el agua entra en el minuto 55, a los once de chup-chup, para romper a hervir justo cuando la pasta tiene que entrar. Y en el minuto 69 pasan dos cosas a la vez: los macarrones al agua y la tapa fuera de la sartén.",
+  mep: [
+    { t:"CUATRO RECIPIENTES, NI UNO MÁS", orden:false,
+      porq:"Un recipiente solo se justifica cuando lo que guarda entra en la olla en un momento distinto al del resto. Todo lo que entra a la vez comparte vaso, y todo lo que entra desde el principio no necesita ninguno.",
+      l:["<b>Bol mediano</b> · cebolla y zanahoria juntas. Entran las dos en el minuto 13, así que separarlas no aporta nada.",
+         "<b>Platito</b> · el ajo, solo. Es el único que va aparte, porque entra en el minuto 24 y su ventana son sesenta segundos.",
+         "<b>Bol grande</b> · el tomate con la sal y las cuatro especias ya mezcladas dentro. Los seis entran juntos en el minuto 41.",
+         "<b>Vaso</b> · el vino. Medido de antemano porque el desglasado es un paso de cuatro minutos en el que no hay tiempo de medir."]},
+    { t:"ESTO NO NECESITA RECIPIENTE", orden:false,
+      porq:"La sartén y la olla son los dos mejores recipientes de preparación que tienes: lo que dejes dentro en frío ya está en su destino y no hay nada que trasvasar.",
+      l:["<b>Sartén, en frío</b> · los 40 ml de aceite. En el minuto 12 solo giras el mando.",
+         "<b>Olla, en frío</b> · los 3,5 l de agua y los 25 g de sal.",
+         "<b>La carne</b> se queda en su bandeja hasta el minuto 25. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla otra vez.",
+         "<b>Un vaso vacío</b> junto a la olla, para acordarte del agua de cocción antes de escurrir."]},
+    { t:"VASO MEDIDOR, EN ESTE ORDEN", orden:true,
+      porq:"Con un solo vaso el orden lo decide el residuo: cada medida solo puede dejar dentro algo que no moleste a la siguiente.",
+      l:["<b>120 ml de vino</b> → al vaso, con el medidor limpio.",
+         "<b>40 ml de aceite</b> → a la sartén. La grasa va siempre al final, porque es la única que deja un film que obliga a lavar.",
+         "<b>Enjuágalo en el chup-chup</b> y déjalo junto a la olla para los 200 ml de agua de cocción del minuto 79."]},
+    { t:"TABLA DE CORTAR, EN ESTE ORDEN", orden:true,
+      porq:"Con una sola tabla manda la humedad, no el olor. Lo seco va primero porque una tabla mojada convierte el corte fino en un problema de seguridad.",
+      l:["<b>Zanahoria</b> · lo más duro, y con la tabla seca no patina bajo el cuchillo.",
+         "<b>Cebolla</b> · después, porque es la que moja la tabla.",
+         "<b>Ajo</b> · al final. Su olor en la tabla ya no tiene nada que contaminar."]}
+  ],
+  pasos: [
+    { t:"Cortar y pesar", m:"MESA · 12 MIN · SIN FUEGO",
+      p:"Zanahoria en dados de 3 mm, cebolla en dados de 4 mm cortando en perpendicular a las vetas, ajo a 1 mm. En ese orden, que es el de la mise en place. Todo pesado y en su sitio antes de encender: los doce minutos siguientes no tienen huecos." },
+    { t:"Calentar el aceite", m:"SARTÉN · 1 MIN · FUEGO 6 · DESTAPADA",
+      p:"Los 40 ml ya están en la sartén desde la preparación, así que aquí solo giras el mando al 6 y esperas un minuto. Sartén de 28 cm o más: son cuatro raciones y la verdura tiene que quedar en una capa, no amontonada." },
+    { t:"Sudar la verdura", m:"SARTÉN · 11 MIN · FUEGO 5 · TAPADA",
+      p:"Cebolla y zanahoria juntas, tapadas y al 5. La tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, que es lo que quieres: el dulzor viene de ahí. Destapa solo para remover, cada tres minutos." },
+    { t:"El ajo", m:"SARTÉN · 1 MIN · FUEGO 5 · DESTAPADA",
+      p:"Sesenta segundos removiendo sin parar, y ni uno más: a los noventa el ajo amarga. Por eso entra ahora y no con la verdura, que lleva once minutos al fuego." },
+    { t:"Dorar la carne", m:"SARTÉN · 12 MIN · FUEGO 8 · DESTAPADA",
+      p:"Sube al 8 antes de echarla. Extiéndela y no la toques tres minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris. Si tu sartén es pequeña, dos tandas de 250 g." },
+    { t:"Desglasar", m:"SARTÉN · 4 MIN · FUEGO 8 · DESTAPADA",
+      p:"Los 120 ml de vino de golpe y rasca el fondo con la cuchara mientras hierve: ahí está pegado todo lo que ha dorado la carne. Termina casi seco, o el ragú sabrá a alcohol." },
+    { t:"Tomate y especias", m:"SARTÉN · 3 MIN · FUEGO 7 · DESTAPADA",
+      p:"El bol entero de una vez, tomate y especias juntos. Al 7 hasta que hierva en toda la superficie, no solo en el centro: eso indica que la masa está a temperatura y ya puedes bajar." },
+    { t:"Chup-chup tapado", m:"SARTÉN · 25 MIN · FUEGO 3 · TAPA A MEDIAS",
+      p:"Tapa apoyada dejando un dedo de hueco: sale vapor suficiente para que concentre, pero no tanto como para que se pegue. Es el paso más flexible del plan y donde se recupera cualquier retraso. A los once minutos toca poner el agua, y el cronómetro te avisa." },
+    { t:"Agua al fuego", m:"OLLA · 14 MIN · FUEGO 9 · TAPADA",
+      p:"Los 3,5 l con los 25 g de sal ya están en la olla en frío. Tapada y al 9. Catorce minutos es lo que tarda en romper, y arranca en el minuto 55 para que el hervor llegue justo cuando la pasta tiene que entrar. Ni antes, que evaporaría, ni después." },
+    { t:"Reducir destapado", m:"SARTÉN · 10 MIN · FUEGO 3 · DESTAPADA",
+      p:"Quita la tapa justo cuando los macarrones entran al agua. Sin tapa la evaporación es libre y la salsa espesa en esos diez minutos exactos que tarda la pasta." },
+    { t:"Los macarrones", m:"OLLA · 10 MIN · FUEGO 7 · DESTAPADA",
+      p:"Al agua hirviendo y al 7 para mantener el hervor sin que se desborde. Antes de escurrir, aparta 200 ml de agua de cocción en el vaso que dejaste junto a la olla: sin ella el paso siguiente no funciona." },
+    { t:"Mantecatura", m:"SARTÉN · 3 MIN · FUEGO 5 · DESTAPADA",
+      p:"La pasta escurrida a la sartén con 120 ml del agua reservada, y remueve fuerte tres minutos. El almidón del agua emulsiona con la grasa del ragú y forma una salsa que se agarra a la pasta en vez de resbalar. Este paso no espera: la pasta escurrida se pasa de punto sola." }
+  ],
+  cortes: [
+    { t:"Cebolla · dados de 4 mm",
+      p:"Las vetas van de la raíz al tallo. Córtalas en perpendicular: al romper las fibras la cebolla suelta su agua y se deshace en el sofrito. A favor de la fibra aguantaría entera y la encontrarías en el plato.",
+      svg:'<svg viewBox="0 0 120 88" width="120" height="88" role="img" aria-label="Cebolla con las vetas verticales y tres cortes horizontales"><rect x="5" y="5" width="110" height="78" rx="8" fill="#77558A" fill-opacity=".16" stroke="#77558A"/><g stroke="#77558A" stroke-width=".8" opacity=".7"><line x1="19" y1="11" x2="19" y2="77"/><line x1="33" y1="11" x2="33" y2="77"/><line x1="47" y1="11" x2="47" y2="77"/><line x1="61" y1="11" x2="61" y2="77"/><line x1="75" y1="11" x2="75" y2="77"/><line x1="89" y1="11" x2="89" y2="77"/><line x1="103" y1="11" x2="103" y2="77"/></g><g stroke="#17150F" stroke-width="1.4" stroke-dasharray="5 3"><line x1="1" y1="25" x2="119" y2="25"/><line x1="1" y1="44" x2="119" y2="44"/><line x1="1" y1="63" x2="119" y2="63"/></g></svg>' },
+    { t:"Zanahoria · dados de 3 mm",
+      p:"Fibra longitudinal y más dura que la cebolla. Empieza por rodajas de 3 mm, que ya cortan la fibra en corto, y de ahí a bastón y a dado. Más grande y queda crujiente: dentro del tomate ácido ya no se ablanda.",
+      svg:'<svg viewBox="0 0 120 88" width="120" height="88" role="img" aria-label="Zanahoria con la fibra horizontal y seis cortes verticales"><rect x="5" y="24" width="110" height="42" rx="10" fill="#D07A12" fill-opacity=".18" stroke="#D07A12"/><g stroke="#D07A12" stroke-width=".8" opacity=".75"><line x1="9" y1="35" x2="111" y2="35"/><line x1="9" y1="45" x2="111" y2="45"/><line x1="9" y1="55" x2="111" y2="55"/></g><g stroke="#17150F" stroke-width="1.4" stroke-dasharray="5 3"><line x1="22" y1="18" x2="22" y2="72"/><line x1="39" y1="18" x2="39" y2="72"/><line x1="56" y1="18" x2="56" y2="72"/><line x1="73" y1="18" x2="73" y2="72"/><line x1="90" y1="18" x2="90" y2="72"/><line x1="107" y1="18" x2="107" y2="72"/></g></svg>' }
+  ],
+  porque: [
+    ["Sofrito al 5 y tapado","La verdura tiene que sudar, no dorarse. La tapa le devuelve su propio vapor y por debajo del 6 la vitro no tuesta los bordes antes de que el interior ceda."],
+    ["La carne quieta tres minutos","Maillard necesita superficie seca y contacto. Si remueves desde el principio, la carne suelta agua, se cuece en su jugo y queda gris. Lo que se pega al fondo en esos minutos es lo que recuperas con el vino."],
+    ["Vino tinto y fuego alto","El alcohol arrastra aromas que ni el agua ni la grasa disuelven, y su acidez corta la grasa del cerdo. A fuego suave se quedaría crudo y sabría a bodega."],
+    ["La tapa a medias, y luego fuera","A medias evita salpicaduras y deja escapar vapor. Los últimos diez minutos van destapados porque es cuando la salsa espesa de verdad."],
+    ["Un minuto menos que el paquete","La pasta termina de cocerse en la sartén, absorbiendo salsa en vez de agua. Ese minuto es la diferencia entre salsa encima y salsa dentro."],
+    ["El agua de cocción","Lleva el almidón que suelta la pasta y es lo que emulsiona la grasa con el tomate. Sin ella la salsa se escurre al fondo del plato."]
+  ],
+  pie: "Minutos contados desde que coges el cuchillo. Las horas de reloj y el paso a paso están en el cronómetro."
+};
+
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var rac = D.raciones;
+
+  function num(v){
+    if (v >= 100) return String(Math.round(v));
+    if (v >= 10) return String(Math.round(v));
+    var r = Math.round(v * 10) / 10;
+    return String(r).replace('.', ',');
+  }
+  function cantidad(it){
+    var f = rac / D.raciones;
+    if (it.txt) return it.txt + (it.esc === 'sub' && f !== 1 ? ' *' : '');
+    var v = it.a * (it.esc === 'sub' ? Math.pow(f, 0.75) : f);
+    return num(v) + (it.u ? ' ' + it.u : '') + (it.esc === 'sub' && f !== 1 ? ' *' : '');
+  }
+
+  function pintaCabecera(){
+    $('f-titulo').textContent = D.titulo;
+    $('f-desc').textContent = D.descripcion;
+    $('f-datos').innerHTML =
+      '<div class="dato"><b id="d-rac">' + rac + '</b><span>raciones</span></div>' +
+      D.datos.map(function(d){ return '<div class="dato"><b>' + d[0] + '</b><span>' + d[1] + '</span></div>'; }).join('');
+    $('f-pie').textContent = D.pie;
+    $('f-nota-esc').textContent = D.notaEscala;
+  }
+
+  function pintaIngredientes(){
+    $('n-rac').textContent = rac;
+    var dr = $('d-rac'); if (dr) dr.textContent = rac;
+    $('f-grupos').innerHTML = D.grupos.map(function(g){
+      return '<div class="grupo"><h3>' + g.n + '</h3><ul>' +
+        g.items.map(function(it){
+          return '<li><span class="c">' + cantidad(it) + '</span><span>' + it.n + '</span></li>';
+        }).join('') + '</ul></div>';
+    }).join('');
+  }
+
+  function pintaTiempo(){
+    var T = D.tiempo, total = T.total;
+    var paso = total <= 60 ? 5 : 10;
+    var ticks = [];
+    for (var m = 0; m <= total; m += Math.ceil(total / 5 / paso) * paso) ticks.push(m);
+    if (ticks[ticks.length-1] !== total) ticks.push(total);
+
+    var html = '<div class="fila regla"><span></span><div class="ticks">' +
+      ticks.map(function(m){
+        return '<span class="tick" style="left:' + (m / total * 100) + '%">' + m + '</span>';
+      }).join('') + '</div><span></span></div>';
+
+    html += T.filas.map(function(f){
+      var c = T.carriles[f.c];
+      var izq = f.ini / total * 100, an = (f.fin - f.ini) / total * 100;
+      return '<div class="fila">' +
+        '<span class="et"><b>' + f.t + '</b><span>' + c.n.toUpperCase() + ' · ' + f.sub + '</span></span>' +
+        '<div class="pista" style="--paso:' + (100 / (total / 10)) + '%">' +
+          '<div class="barra" style="left:' + izq + '%;width:' + an + '%;background:' + c.color + '"></div></div>' +
+        '<span class="dur"><b>' + (f.fin - f.ini) + '′</b>min ' + f.ini + '-' + f.fin + '</span>' +
+      '</div>';
+    }).join('');
+
+    $('f-gantt').innerHTML = html;
+    $('f-leyenda').innerHTML = T.carriles.map(function(c){
+      return '<span><i style="background:' + c.color + '"></i>' + c.n + '</span>';
+    }).join('') + '<span>eje en minutos desde el arranque</span>';
+    $('f-lectura').textContent = D.lectura;
+  }
+
+  function pintaMep(){
+    $('f-mep').innerHTML = D.mep.map(function(b){
+      var tag = b.orden ? 'ol' : 'ul';
+      return '<div><h3>' + b.t + '</h3><p class="porq">' + b.porq + '</p>' +
+        '<' + tag + '>' + b.l.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</' + tag + '></div>';
+    }).join('');
+  }
+
+  function pintaPasos(){
+    $('f-pasos').innerHTML = D.pasos.map(function(p){
+      return '<li><h3>' + p.t + '</h3><span class="meta">' + p.m + '</span><p>' + p.p + '</p></li>';
+    }).join('');
+  }
+
+  function pintaTecnica(){
+    $('f-cortes').innerHTML = D.cortes.map(function(c){
+      return '<div class="corte">' + c.svg + '<div><h3>' + c.t + '</h3><p>' + c.p + '</p></div></div>';
+    }).join('');
+    $('f-porque').innerHTML = D.porque.map(function(p){
+      return '<div><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
+    }).join('');
+  }
+
+  $('menos').addEventListener('click', function(){ if (rac > 1){ rac--; pintaIngredientes(); } });
+  $('mas').addEventListener('click', function(){ if (rac < 20){ rac++; pintaIngredientes(); } });
+
+  pintaCabecera(); pintaIngredientes(); pintaTiempo(); pintaMep(); pintaPasos(); pintaTecnica();
+})();
+</script>
+</body>
+</html>

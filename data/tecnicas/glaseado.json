@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:06:00Z",
+  "categoria": "salsa",
+  "consejos": [
+    "Un glaseado con miel se quema antes que uno con soja sola: bajar a potencia 4 en los últimos minutos si lleva miel o azúcar.",
+    "Si se pasa y se agarra a la sartén, un chorro de agua caliente y raspar lo recupera en parte, aunque ya no queda tan brillante."
+  ],
+  "creada": "2026-09-16T11:06:00Z",
+  "pasos": [
+    {
+      "p": "Miel, soja, tomate o un fondo ya reducido. El glaseado concentra lo que ya hay, no lo crea de la nada.",
+      "t": "Partir de una salsa con cuerpo, no de agua sola"
+    },
+    {
+      "p": "Así el glaseado coge también el sabor de lo que se está cocinando, no solo el suyo propio.",
+      "t": "Potencia 5, en la misma sartén o bandeja del ingrediente"
+    },
+    {
+      "p": "Una sola pasada al final no cubre igual que ir bañándolo cada pocos minutos según espesa.",
+      "t": "Pincelar o voltear el ingrediente varias veces mientras reduce"
+    },
+    {
+      "p": "Pasado ese punto, el azúcar del glaseado se quema rápido y amarga en vez de caramelizar.",
+      "t": "Parar cuando cubra el dorso de una cuchara"
+    }
+  ],
+  "resumen": "Una salsa que se reduce hasta quedar espesa y brillante, pegada al ingrediente en vez de correr por el plato.",
+  "slug": "glaseado",
+  "titulo": "Glaseado"
+}

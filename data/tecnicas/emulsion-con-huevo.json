@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:12:00Z",
+  "categoria": "salsa",
+  "consejos": [
+    "Si se corta, un huevo nuevo en un vaso limpio y volcar encima la mezcla cortada, en hilo fino, casi siempre la recupera.",
+    "Con ajo majado se convierte en alioli: el ajo entra al principio, junto con el huevo, no al final."
+  ],
+  "creada": "2026-09-16T11:12:00Z",
+  "pasos": [
+    {
+      "p": "Huevo y aceite recién sacados de la nevera cortan la emulsión con más facilidad que a temperatura ambiente.",
+      "t": "Todo a temperatura ambiente"
+    },
+    {
+      "p": "Es la proporción que más margen de error da. Con solo la yema, la emulsión se corta más fácil.",
+      "t": "Un huevo entero por 200 ml de aceite de girasol"
+    },
+    {
+      "p": "Echado de golpe, el aceite no se integra y queda separado en vez de ligado con el huevo.",
+      "t": "Aceite en un hilo fino y constante, batiendo sin parar"
+    },
+    {
+      "p": "Salar desde el principio no ayuda a ligar y puede quedar repartida de forma desigual en la mezcla.",
+      "t": "Sal al final, 2-3 g, cuando ya ha espesado"
+    }
+  ],
+  "resumen": "La base de una mayonesa o un alioli casero: por qué se corta la emulsión y cómo se arregla si pasa.",
+  "slug": "emulsion-con-huevo",
+  "titulo": "Emulsión rápida con huevo"
+}

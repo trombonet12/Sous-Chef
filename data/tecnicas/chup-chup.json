@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:07:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Burbujas grandes y ruidosas no son chup-chup: es que la potencia sigue demasiado alta.",
+    "Si se queda seco antes de tiempo, un chorro de caldo caliente -nunca frío- sin subir la potencia lo arregla sin cortar la cocción."
+  ],
+  "creada": "2026-09-16T11:07:00Z",
+  "pasos": [
+    {
+      "p": "Arrancar a potencia 7-8 hasta que hierva, y bajar enseguida a 2-3 para el chup-chup propiamente dicho.",
+      "t": "Bajar la potencia después del primer hervor"
+    },
+    {
+      "p": "Tapar del todo con arroces que sueltan almidón puede hacer que rebose por los lados.",
+      "t": "Tapa puesta, ligeramente entreabierta si hace mucha espuma"
+    },
+    {
+      "p": "Un arroz o un guiso en chup-chup se remueve solo alguna vez, no todo el rato: remover de más rompe el grano o deshace la carne.",
+      "t": "Remover lo mínimo"
+    },
+    {
+      "p": "El chup-chup empieza a contar en el momento justo del primer hervor bajado, no antes.",
+      "t": "Contar el tiempo desde que baja la potencia, no desde que se enciende el fuego"
+    }
+  ],
+  "resumen": "Cocción suave y tapada, sin hervor fuerte, para arroces y guisos que no quieres que se rompan ni se peguen.",
+  "slug": "chup-chup",
+  "titulo": "Chup-chup"
+}

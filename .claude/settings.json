@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "skillListingBudgetFraction": 0.02,
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew *)",
+      "Bash(./gradlew.bat *)",
+      "Bash(scripts/sc *)",
+      "Bash(scripts/sc.cmd *)",
+      "Bash(node scripts/*)",
+      "Bash(bash scripts/*)",
+      "Bash(python -I scripts/*)",
+      "Bash(npx supabase start*)",
+      "Bash(npx supabase stop*)",
+      "Bash(npx supabase db reset*)",
+      "Bash(npx supabase test db*)",
+      "Bash(docker ps*)",
+      "Bash(docker info*)",
+      "Bash(adb *)",
+      "Bash(keytool *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git log*)",
+      "Bash(git show *)",
+      "Bash(git ls-files*)",
+      "Bash(git push origin main)",
+      "Bash(git push)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(!**/.env.example)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(!**/.env.example)",
+      "Read(**/secrets/**)",
+      "Edit(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Edit(**/*.pem)",
+      "Read(**/*.key)",
+      "Edit(**/*.key)",
+      "Read(**/*.jks)",
+      "Edit(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Edit(**/*.keystore)",
+      "Read(**/*.p12)",
+      "Edit(**/*.p12)",
+      "Read(**/local.properties)",
+      "Edit(**/local.properties)",
+      "Read(**/supabase/.temp/**)",
+      "Edit(**/supabase/.temp/**)",
+      "Read(~/.souschef/**)",
+      "Edit(~/.souschef/**)",
+      "Read(~/.trombito/**)",
+      "Edit(~/.trombito/**)",
+      "Read(~/.ssh/**)",
+      "Edit(~/.ssh/**)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git add -f *)",
+      "Bash(git add --force *)",
+      "Bash(npx supabase db push*)",
+      "Bash(npx supabase status*)",
+      "Bash(npx supabase db dump*)",
+      "Bash(npx supabase link*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/protect-secrets.sh\"", "timeout": 5 },
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/warn-generated.sh\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/block-secret-commands.sh\"", "timeout": 5 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/post-edit-lint.sh\"", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}

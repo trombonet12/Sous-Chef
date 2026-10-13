@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:05:00Z",
+  "categoria": "marinado",
+  "consejos": [
+    "La sal en la marinada actúa como el ácido: mucho tiempo con sal ya empieza a curar la superficie, no solo a sazonarla.",
+    "Guardar la marinada sobrante de carne cruda para salsear es peligroso sin hervirla antes al menos 1 minuto."
+  ],
+  "creada": "2026-09-16T11:05:00Z",
+  "pasos": [
+    {
+      "p": "La salsa de soja o el ajo dan sabor de superficie. Un ácido -limón, vinagre- o el yogur ablandan la fibra, pero solo en la parte que llegan a tocar.",
+      "t": "Separar lo que da sabor de lo que ablanda"
+    },
+    {
+      "p": "15 ml de vinagre de vino o el zumo de medio limón por 300 g de carne. Pasarse de esa cantidad en marinadas largas cuece la superficie en vez de ablandarla.",
+      "t": "Medir el ácido con cuidado"
+    },
+    {
+      "p": "Piezas fileteadas finas, 20-30 minutos bastan. Una pechuga entera pide 2-4 horas en la nevera para que el sabor llegue al centro.",
+      "t": "Tiempos según el corte"
+    },
+    {
+      "p": "La marinada moja la superficie. Secarla con papel antes de la sartén, o el sellado falla y la carne sud en vez de dorar.",
+      "t": "Secar antes de sellar"
+    }
+  ],
+  "resumen": "Adobar carne en crudo antes de cocinarla: qué hace cada ingrediente y cuánto tiempo necesita cada uno para notarse.",
+  "slug": "marinada",
+  "titulo": "Marinada"
+}

@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:02:00Z",
+  "categoria": "salsa",
+  "consejos": [
+    "Una reducción que no espesa por más tiempo que pase suele tener demasiada cantidad de golpe: mejor reducir en dos tandas que forzar el fuego.",
+    "El tomate triturado reduce más lento que el vino porque parte con menos agua libre: no compares tiempos entre los dos."
+  ],
+  "creada": "2026-09-16T11:02:00Z",
+  "pasos": [
+    {
+      "p": "La tapa condensa el vapor y lo devuelve al líquido: una reducción nunca se hace con la tapa puesta.",
+      "t": "Partir de un líquido caliente, sin tapa"
+    },
+    {
+      "p": "Un hervor demasiado fuerte reduce por fuera y quema el fondo de la sartén antes de concentrar bien el conjunto.",
+      "t": "Potencia 5-6, hervor suave y constante, no a borbotones"
+    },
+    {
+      "p": "Por ejemplo, reducir 200 ml de vino a la mitad, 100 ml, tarda lo que tarda: se mide mirando el líquido, no el reloj.",
+      "t": "Contar por volumen, no por tiempo"
+    },
+    {
+      "p": "Al reducirse, el líquido concentra también la sal que ya tenía. Salar al principio puede dejarlo pasado de sal al terminar.",
+      "t": "Probar de sal al final, no antes"
+    }
+  ],
+  "resumen": "Concentrar un líquido -vino, caldo, tomate- a fuego más suave hasta que espese y el sabor se cierre, en vez de quedarse aguado.",
+  "slug": "reduccion",
+  "titulo": "Reducción"
+}

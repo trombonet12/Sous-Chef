@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:09:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "El pan rallado tuesta más rápido que los frutos secos enteros: no tuestes las dos cosas juntas en la misma tanda.",
+    "Un toque de comino o pimentón se puede tostar 10-15 segundos igual que una especia entera, pero se quema aún más rápido: retirar del fuego antes de añadirlo al resto."
+  ],
+  "creada": "2026-09-16T11:09:00Z",
+  "pasos": [
+    {
+      "p": "El tostado se hace en seco. Con aceite se está friendo, no tostando.",
+      "t": "Sartén sin nada de grasa, potencia 4-5"
+    },
+    {
+      "p": "Por ejemplo, 30 g de pan rallado o de semillas de sésamo repartidos en toda la base de la sartén, no en montón.",
+      "t": "Cantidad en una sola capa, sin amontonar"
+    },
+    {
+      "p": "El tostado pasa de dorado a quemado en segundos si se deja quieto sobre el punto caliente de la sartén.",
+      "t": "Mover o remover cada 15-20 segundos"
+    },
+    {
+      "p": "La sartén caliente lo sigue tostando unos segundos más aunque se apague el fuego.",
+      "t": "Sacar de la sartén en cuanto huela y coja color, no esperar a que se enfríe dentro"
+    }
+  ],
+  "resumen": "Dorar en seco -sin aceite- pan, frutos secos o especias, para despertar su sabor antes de usarlos en el plato.",
+  "slug": "tostado",
+  "titulo": "Tostado"
+}

@@ -1,0 +1,1005 @@
+{
+  "actualizada": "2026-09-27T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarteng",
+      "nombre": "SARTÉN GRANDE",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#E8836B",
+      "id": "sartenm",
+      "nombre": "SARTÉN DE SALTEAR",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "compra": [
+    {
+      "a": 1000,
+      "n": "carne picada mixta (2 palanganas de 500 g; sobran 250 g)",
+      "u": "g"
+    },
+    {
+      "a": 500,
+      "n": "pechuga de pollo",
+      "u": "g"
+    },
+    {
+      "a": 100,
+      "n": "bacon en taquitos",
+      "u": "g"
+    },
+    {
+      "a": 180,
+      "n": "queso feta",
+      "u": "g"
+    },
+    {
+      "a": 350,
+      "n": "guacamole ya hecho",
+      "u": "g"
+    },
+    {
+      "a": 125,
+      "n": "yogur natural",
+      "u": "g"
+    },
+    {
+      "a": 48,
+      "n": "minitortillas de trigo",
+      "u": "uds"
+    },
+    {
+      "a": 350,
+      "n": "pepino",
+      "u": "g"
+    },
+    {
+      "a": 350,
+      "n": "tomates",
+      "u": "g"
+    },
+    {
+      "a": 250,
+      "n": "cebolla blanca",
+      "u": "g"
+    },
+    {
+      "a": 220,
+      "n": "cebolla morada",
+      "u": "g"
+    },
+    {
+      "a": 4,
+      "n": "limones",
+      "u": "uds"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Cruzando la fibra, no a lo largo. Las fibras de la pechuga corren de punta a punta; cortándolas se quedan cortas y el bocado se deshace, y siguiéndolas tendrías hebras largas y correosas. Centímetro y medio es el grosor que llega a 72 °C por dentro en los mismos 14 minutos que la costra de yogur tarda en tostarse.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Pechuga de pollo con las fibras a lo largo y cortes verticales que las cruzan\"><path d=\"M18 46c0-19 17-32 40-32 24 0 44 11 44 28 0 19-21 34-45 34-22 0-39-13-39-30z\" fill=\"#E8C9B0\" fill-opacity=\".35\" stroke=\"#B08968\"/><g stroke=\"#B08968\" stroke-width=\".8\" opacity=\".7\"><line x1=\"22\" y1=\"32\" x2=\"100\" y2=\"32\"/><line x1=\"19\" y1=\"40\" x2=\"102\" y2=\"40\"/><line x1=\"19\" y1=\"48\" x2=\"102\" y2=\"48\"/><line x1=\"22\" y1=\"56\" x2=\"100\" y2=\"56\"/><line x1=\"28\" y1=\"64\" x2=\"96\" y2=\"64\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"36\" y1=\"12\" x2=\"36\" y2=\"80\"/><line x1=\"52\" y1=\"10\" x2=\"52\" y2=\"82\"/><line x1=\"68\" y1=\"10\" x2=\"68\" y2=\"82\"/><line x1=\"84\" y1=\"12\" x2=\"84\" y2=\"80\"/></g></svg>",
+      "t": "Pechuga de pollo · tiras de 1,5 cm"
+    },
+    {
+      "p": "Los dos despepitados primero: el corazón acuoso del pepino y el gel del tomate son casi toda su agua. Ocho milímetros y no cinco porque tiene menos superficie por volumen y suelta bastante menos líquido, que es lo que decide si el bol aguanta la comida entera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Mitad de pepino con el corazon de pepitas marcado para retirar y una cuadricula de cortes\"><rect x=\"12\" y=\"20\" width=\"96\" height=\"48\" rx=\"6\" fill=\"#97C459\" fill-opacity=\".20\" stroke=\"#639922\"/><rect x=\"20\" y=\"36\" width=\"80\" height=\"16\" rx=\"6\" fill=\"#639922\" fill-opacity=\".22\" stroke=\"#639922\" stroke-dasharray=\"3 2\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"28\" y1=\"16\" x2=\"28\" y2=\"72\"/><line x1=\"44\" y1=\"16\" x2=\"44\" y2=\"72\"/><line x1=\"60\" y1=\"16\" x2=\"60\" y2=\"72\"/><line x1=\"76\" y1=\"16\" x2=\"76\" y2=\"72\"/><line x1=\"92\" y1=\"16\" x2=\"92\" y2=\"72\"/><line x1=\"8\" y1=\"30\" x2=\"112\" y2=\"30\"/><line x1=\"8\" y1=\"58\" x2=\"112\" y2=\"58\"/></g></svg>",
+      "t": "Pepino y tomate · dados de 8 mm"
+    },
+    {
+      "p": "Siguiendo la fibra, de polo a polo, no a lo ancho. Cortada a lo ancho se rompen las células y suelta los compuestos de azufre que pican; siguiendo la fibra las tiras aguantan enteras casi una hora en vinagre sin deshacerse. Tres milímetros es lo que el ácido atraviesa en ese rato sin ablandarla del todo.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla morada partida por la mitad con las capas en arco y cortes finos que las siguen\"><path d=\"M60 10c26 0 46 16 46 33 0 20-20 33-46 33S14 63 14 43c0-17 20-33 46-33z\" fill=\"#8E5A8C\" fill-opacity=\".18\" stroke=\"#8E5A8C\"/><g stroke=\"#8E5A8C\" stroke-width=\".8\" opacity=\".7\" fill=\"none\"><path d=\"M60 16c18 0 32 12 32 27\"/><path d=\"M60 24c14 0 25 9 25 19\"/><path d=\"M60 32c10 0 18 7 18 11\"/><path d=\"M60 16c-18 0-32 12-32 27\"/><path d=\"M60 24c-14 0-25 9-25 19\"/><path d=\"M60 32c-10 0-18 7-18 11\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\" fill=\"none\"><path d=\"M74 14l14 52\"/><path d=\"M67 11l8 58\"/><path d=\"M53 11l-8 58\"/><path d=\"M46 14l-14 52\"/><path d=\"M60 9v70\"/></g></svg>",
+      "t": "Cebolla morada · tiras de 3 mm"
+    },
+    {
+      "p": "Aquí al revés: perpendicular a las capas, cruzándolas, para que se deshaga rápido en el sofrito en vez de aguantar en tiras. Medio centímetro es grande para un brunoise, pero tiene veinte minutos de cocción por delante entre el sofrito y el guiso y acaba desapareciendo igual.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con capas horizontales y una cuadricula de cortes para brunoise\"><ellipse cx=\"60\" cy=\"44\" rx=\"50\" ry=\"30\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".75\"><line x1=\"16\" y1=\"32\" x2=\"104\" y2=\"32\"/><line x1=\"11\" y1=\"40\" x2=\"109\" y2=\"40\"/><line x1=\"11\" y1=\"48\" x2=\"109\" y2=\"48\"/><line x1=\"16\" y1=\"56\" x2=\"104\" y2=\"56\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"30\" y1=\"10\" x2=\"30\" y2=\"78\"/><line x1=\"48\" y1=\"10\" x2=\"48\" y2=\"78\"/><line x1=\"66\" y1=\"10\" x2=\"66\" y2=\"78\"/><line x1=\"84\" y1=\"10\" x2=\"84\" y2=\"78\"/><line x1=\"10\" y1=\"44\" x2=\"110\" y2=\"44\"/></g></svg>",
+      "t": "Cebolla blanca del sofrito · brunoise de 0,5 cm"
+    },
+    {
+      "p": "Láminas y no picado porque pasa cinco minutos al fuego con la cebolla ya sudada. Picado tendría superficie de sobra para dorarse y amargar en ese rato; en láminas de 2 mm aguanta. Más finas se tuestan igual que el picado, más gruesas se quedan crudas cuando la cebolla ya está.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo tumbado con cuatro cortes verticales que lo laminan\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".6\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"42\" y1=\"6\" x2=\"42\" y2=\"82\"/><line x1=\"51\" y1=\"4\" x2=\"51\" y2=\"84\"/><line x1=\"69\" y1=\"4\" x2=\"69\" y2=\"84\"/><line x1=\"78\" y1=\"6\" x2=\"78\" y2=\"82\"/></g></svg>",
+      "t": "Ajo · láminas de 2 mm"
+    },
+    {
+      "p": "Si lo compras en taquitos ya vienen así. Si viene en lonchas, seis milímetros es el tamaño que suelta la grasa en seis minutos sin quedarse seco por dentro: más fino se convierte en chicharrón y no queda grasa donde cocer las alubias, más grueso no llega a soltarla a tiempo.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Loncha de bacon con vetas de grasa y cortes transversales que la convierten en lardons\"><rect x=\"10\" y=\"26\" width=\"100\" height=\"36\" rx=\"4\" fill=\"#C4483B\" fill-opacity=\".16\" stroke=\"#C4483B\"/><g stroke=\"#E8C9B0\" stroke-width=\"3\" opacity=\".9\"><line x1=\"12\" y1=\"35\" x2=\"108\" y2=\"35\"/><line x1=\"12\" y1=\"47\" x2=\"108\" y2=\"47\"/><line x1=\"12\" y1=\"57\" x2=\"108\" y2=\"57\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"26\" y1=\"22\" x2=\"26\" y2=\"66\"/><line x1=\"42\" y1=\"22\" x2=\"42\" y2=\"66\"/><line x1=\"58\" y1=\"22\" x2=\"58\" y2=\"66\"/><line x1=\"74\" y1=\"22\" x2=\"74\" y2=\"66\"/><line x1=\"90\" y1=\"22\" x2=\"90\" y2=\"66\"/></g></svg>",
+      "t": "Bacon · lardons de 6 mm"
+    }
+  ],
+  "creada": "2026-09-22T00:00:00Z",
+  "datos": [
+    [
+      "92 min",
+      "de principio a fin"
+    ],
+    [
+      "38",
+      "de cuchillo, antes de encender"
+    ],
+    [
+      "2",
+      "fuegos a la vez"
+    ],
+    [
+      "21",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Tres rellenos para ocho, en tres bols: carne picada guisada con tomate y especias, alubias cocidas en la grasa del bacon, y pollo marinado en yogur asado al horno sobre una base fría de pepino y tomate en dados. Cada uno se monta el suyo sobre minitortilla caliente, con cebolla morada encurtida, feta, guacamole y jalapeños en la mesa. La dificultad no está en ningún relleno: está en que los tres y las tortillas lleguen al mismo minuto con solo dos fuegos encendidos.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 250,
+          "n": "cebolla blanca, para el sofrito (2 cebollas medianas)",
+          "u": "g"
+        },
+        {
+          "a": 20,
+          "n": "ajo, para el sofrito (5 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 40,
+          "n": "aceite de oliva, para el sofrito (3 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 750,
+          "n": "carne picada mixta (una palangana de 500 g entera y una de las dos mitades de 250 g de otra)",
+          "u": "g"
+        },
+        {
+          "a": 400,
+          "n": "tomate triturado (una lata de 400 g entera)",
+          "u": "g"
+        },
+        {
+          "a": 7,
+          "esc": "sub",
+          "n": "comino molido, para la carne (2 cucharaditas colmadas)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "pimentón picante, para la carne (5 vueltas del bote de agujeros)",
+          "u": "g"
+        },
+        {
+          "a": 11,
+          "esc": "sub",
+          "n": "sal, para la carne (2 cucharaditas rasas)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "pimienta negra (media cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 35,
+          "n": "zumo de limón, para el guiso (el zumo de un limón grande)",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN GRANDE · LA CARNE"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "bacon en taquitos (un paquete pequeño)",
+          "u": "g"
+        },
+        {
+          "a": 400,
+          "n": "alubias blancas cocidas, escurridas (una lata escurrida)",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "caldo de pollo (tres cuartos de vaso de agua)",
+          "u": "ml"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "comino molido, para las alubias (una cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimentón picante, para las alubias (2 vueltas del bote)",
+          "u": "g"
+        },
+        {
+          "n": "laurel",
+          "txt": "1 hoja"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal, para las alubias (un tercio de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN DE SALTEAR · LAS ALUBIAS"
+    },
+    {
+      "items": [
+        {
+          "a": 500,
+          "n": "pechuga de pollo (2 pechugas medianas)",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "yogur natural (4 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 4,
+          "esc": "sub",
+          "n": "ajo en polvo (cucharadita y media rasa)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "comino molido, para el pollo (una cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimentón picante, para el pollo (2 vueltas del bote)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "sal, para el pollo (una cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "zumo de limón, para la marinada (el zumo de medio limón)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "aceite de oliva, para la marinada (una cucharada sopera)",
+          "u": "ml"
+        }
+      ],
+      "n": "HORNO · EL POLLO"
+    },
+    {
+      "items": [
+        {
+          "a": 350,
+          "n": "pepino (1 pepino grande)",
+          "u": "g"
+        },
+        {
+          "a": 350,
+          "n": "tomates (3 tomates medianos)",
+          "u": "g"
+        },
+        {
+          "a": 6,
+          "esc": "sub",
+          "n": "sal, para escurrir el pepino (una cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "zumo de limón, para el bol (el zumo de medio limón)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "aceite de oliva, para el bol (una cucharada sopera)",
+          "u": "ml"
+        }
+      ],
+      "n": "MESA · LA BASE DEL BOL DEL POLLO"
+    },
+    {
+      "items": [
+        {
+          "a": 48,
+          "n": "minitortillas de trigo (4 packs de 12)",
+          "u": "uds"
+        }
+      ],
+      "n": "HORNO · LAS TORTILLAS"
+    },
+    {
+      "items": [
+        {
+          "a": 220,
+          "n": "cebolla morada (1 cebolla morada grande)",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "vinagre de vino, para el encurtido (medio vaso de agua)",
+          "u": "ml"
+        },
+        {
+          "a": 100,
+          "n": "agua, para el encurtido (medio vaso)",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "esc": "sub",
+          "n": "sal, para el encurtido (tres cuartos de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "n": "azúcar blanco, para el encurtido (2 cucharaditas rasas)",
+          "u": "g"
+        },
+        {
+          "a": 20,
+          "n": "zumo de limón, para el encurtido (el zumo de medio limón)",
+          "u": "ml"
+        },
+        {
+          "a": 180,
+          "n": "queso feta (una tarrina)",
+          "u": "g"
+        },
+        {
+          "a": 350,
+          "n": "guacamole ya hecho (dos tarrinas)",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "jalapeños encurtidos, escurridos (medio bote)",
+          "u": "g"
+        },
+        {
+          "a": 4,
+          "n": "limones (3 para exprimir, unos 85 ml, y 1 en gajos para la mesa)",
+          "u": "uds"
+        }
+      ],
+      "n": "MESA · EL ENCURTIDO Y LOS REMATES"
+    }
+  ],
+  "lectura": "La suma: 38 minutos de cuchillo antes de encender nada, 49 de fuego y horno solapados (del 38 al 87) y 5 de montaje: 92. Los dos fuegos coinciden del minuto 43 al 87, pero solo del 43 al 66 estás de verdad en dos sitios: la sartén grande hace el sofrito, sube al 8 y dora las dos tandas mientras la de saltear lleva el bacon y las alubias. A partir del 66 las alubias solo se mantienen al 1, tapadas, y toda tu atención va a la carne. La plancha no entra en el plan: ocuparía el fuego grande, que es el de la carne, así que las tortillas se calientan en el horno. El horno hace tres turnos encadenados: precalentar del 57 al 72, primera cara del pollo del 72 al 79, y segunda cara con las tortillas dentro del 79 al 86. Pollo y tortillas salen juntos en el 86, y eso es lo que hace que todo llegue a la vez sin que el pollo se pase. Hay tres cuentas que corren sin que las veas: la marinada desde el 11, el encurtido desde el 30 y el pepino escurriendo desde el 41. La ventana más cargada son los minutos 70 a 72: vuelcas plato, tomate y especias en la sartén grande mientras empiezas a escurrir el pepino, y el horno te pide el pollo en el 72.",
+  "mep": [
+    {
+      "l": [
+        "<b>Limones · 4 uds</b> · tres exprimidos al vaso (85 ml en total), el cuarto en 8 gajos de unos 2 cm para la mesa. Minuto 0: 15 ml a la marinada y 70 ml a la tacita.",
+        "<b>Pechuga de pollo · 500 g (2 pechugas medianas)</b> · tiras de 1,5 cm cruzando la fibra. A la marinada en el minuto 0; después se lava y se seca la tabla.",
+        "<b>Ajo · 20 g (5 dientes)</b> · láminas de 2 mm, al bol pequeño. Entra en el minuto 46.",
+        "<b>Bacon · 100 g (un paquete pequeño)</b> · si viene en lonchas, lardons de 6 mm; si viene en taquitos, no se corta. Entra en el minuto 43.",
+        "<b>Cebolla blanca del sofrito · 250 g (2 medianas)</b> · brunoise de 0,5 cm, al plato llano. Entra en el minuto 41.",
+        "<b>Cebolla morada · 220 g (1 grande)</b> · tiras de 3 mm siguiendo la fibra. Al bote en el minuto 25.",
+        "<b>Pepino · 350 g (1 pepino grande)</b> · despepitado con una cucharilla, dados de 8 mm, al colador. Se corta desde el minuto 30 y se sala al acabar, en el 41.",
+        "<b>Tomates · 350 g (3 medianos)</b> · despepitados, dados de 8 mm, al colador con el pepino. Se salan con él en el minuto 41.",
+        "<b>Jalapeños · 80 g (medio bote)</b> · escurridos, en rodajas de 3 mm si vienen enteros, a su bol. A la mesa en el minuto 87."
+      ],
+      "orden": true,
+      "porq": "Los limones van primero porque la marinada del minuto 0 ya lleva zumo, y se parten antes que el pollo para que la tabla solo se lave una vez. Después el pollo crudo, y la tabla se lava y se seca. A partir de ahí manda la humedad: el ajo, que es lo más seco; el bacon, graso pero sin agua; las dos cebollas; y el pepino y el tomate al final, porque son los que dejan la tabla mojada y sobre una tabla mojada el corte fino deja de ser preciso.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Fuente honda o bolsa de congelación</b> · el pollo en tiras de 1,5 cm con 80 g de yogur natural, 4 g de ajo en polvo, 3 g de comino molido, 1 g de pimentón picante, 5 g de sal, 15 ml de zumo de limón y 15 ml de aceite de oliva (1 cucharada sopera). En la nevera del minuto 11 al 72.",
+        "<b>Tacita del zumo</b> · 70 ml de zumo de limón: 20 ml (1½ cucharadas soperas) al bote en el minuto 25, 15 ml (1 cucharada) al bol del pollo en el 70 y los 35 ml que quedan al guiso en el 86.",
+        "<b>Bote de cristal con tapa</b> · los 220 g de cebolla morada con 100 ml de vinagre de vino, 100 ml de agua, 4 g de sal, 8 g de azúcar blanco y 20 ml de zumo de limón. Se cierra en el minuto 30 y no se toca hasta el 87.",
+        "<b>Colador sobre un bol</b> · los 350 g de pepino y los 350 g de tomates en dados de 8 mm, con 6 g de sal (una cucharadita rasa) por encima. Escurren del minuto 41 al 70.",
+        "<b>Plato llano</b> · los 250 g de cebolla blanca. Entra en el minuto 41; en el 51 recibe dos tercios del sofrito y en el 62 la primera tanda de carne.",
+        "<b>Bol pequeño</b> · los 20 g de ajo. Entra en el minuto 46; en el 51 recibe el tercio de sofrito, que va a las alubias en el 52.",
+        "<b>Bol de las alubias</b> · 400 g de alubias blancas cocidas escurridas, 150 ml de caldo de pollo, 3 g de comino molido, 1 g de pimentón picante, 1 hoja de laurel y 2 g de sal. Entra en el minuto 52.",
+        "<b>Platito de las especias de la carne</b> · 7 g de comino molido, 3 g de pimentón picante, 11 g de sal y 2 g de pimienta negra, mezclados. Entran con el tomate en el minuto 70.",
+        "<b>Tres boles de remate</b> · 180 g de queso feta desmigado en trozos de 1 cm, 350 g de guacamole y los 80 g de jalapeños, cada uno en el suyo, más los 8 gajos de limón. A la mesa en el minuto 87."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto al del resto. El bol pequeño trabaja dos veces: guarda el ajo hasta el minuto 46 y en el 51 recibe el tercio de sofrito de las alubias. El plato llano también: sale con la cebolla cruda y vuelve con dos tercios del sofrito y la primera tanda de carne. Las especias de las alubias van ya dentro de su bol porque entran con ellas.",
+      "t": "NUEVE RECIPIENTES, DOS REUTILIZADOS"
+    },
+    {
+      "l": [
+        "<b>85 ml de zumo de limón</b>, en el minuto 0: 15 ml a la marinada y 70 ml a la tacita.",
+        "<b>100 ml de agua</b> y <b>100 ml de vinagre de vino</b>, al bote del encurtido del minuto 25.",
+        "<b>150 ml de caldo de pollo</b>, al bol de las alubias, en los cortes del minuto 11 al 25.",
+        "<b>El aceite de oliva, con cuchara sopera y no con el vaso</b>: 15 ml (1 cucharada) a la marinada, 40 ml (3 cucharadas) a la sartén grande en el minuto 38 y 15 ml (1 cucharada) al bol del pollo en el 70."
+      ],
+      "orden": true,
+      "porq": "El orden lo decide el residuo. El zumo va primero porque se necesita en el minuto 0 y se enjuaga con un chorro de agua. Después el agua y el vinagre del bote, y el caldo al final. El aceite no pasa por el vaso: va a cucharadas soperas, así que no deja un film que obligue a lavarlo a mitad.",
+      "t": "UN SOLO VASO MEDIDOR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Los 750 g de carne picada mixta</b>, en su palangana: 375 g en el minuto 54 y los otros 375 g en el 62. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla al deshacer los grumos.",
+        "<b>Los 400 g de tomate triturado</b>, la lata entera, hasta el minuto 70.",
+        "<b>Los 100 g de bacon en taquitos</b>, en su paquete hasta el minuto 43.",
+        "<b>Las 48 minitortillas de trigo</b>, en sus packs hasta el minuto 75: ahí se sacan del plástico y se envuelven de doce en doce en papel de aluminio.",
+        "<b>La bandeja del horno</b>, forrada con papel de hornear: el pollo marinado se vuelca en ella en el minuto 72, en una sola capa."
+      ],
+      "orden": false,
+      "porq": "Lo que ya viene en su envase, va directo a la sartén o entra en la bandeja no se trasvasa. La única excepción son las tortillas: su bolsa de plástico no puede entrar en el horno.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Va a 8 raciones a propósito: es la versión de fiesta de los tacos de carne, que es la de 2. La sal, el comino, el pimentón y el ajo en polvo no escalan en línea recta: al subir raciones multiplícalos por 1,5 y corrige probando al final. El guiso de la carne es lo que peor escala de todo: la superficie de evaporación de la sartén no crece con la cantidad, así que cada ración de más pide minutos de tapa fuera, no más tomate. El pollo del horno casi no cambia con una bandeja, pero con dos hay que rotarlas en el volteo y sumar tres o cuatro minutos. Las minitortillas sí son proporcionales: 6 por persona, medio pack.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "marinar-pollo",
+      "junto": null,
+      "meto": "los 3 limones exprimidos al vaso (85 ml): 15 ml a la fuente y 70 ml a la tacita; 500 g de pechuga de pollo en tiras de 1,5 cm, con 80 g de yogur natural, 4 g de ajo en polvo, 3 g de comino molido, 1 g de pimentón picante, 5 g de sal, 15 ml de zumo de limón y 15 ml de aceite de oliva (1 cucharada sopera)",
+      "min": 11,
+      "nota": "Primero los tres limones al vaso: 15 ml a la fuente y el resto a la tacita. Después el pollo en tiras de 1,5 cm cruzando la fibra. Embadurna, a la nevera, y lava y seca la tabla.",
+      "off": 0,
+      "p": "El pollo va el primero por dos motivos que empujan en la misma dirección. Uno, la tabla: es la única carne cruda de la receta, así que se corta antes que nada y la tabla se lava una sola vez, sin que nada más haya pasado por ella. Y dos, la marinada necesita tiempo: aquí tiene una hora entera. Los limones van delante del pollo porque la marinada ya lleva zumo y porque, exprimidos de una vez en el minuto 0, los cuatro zumos de la receta quedan listos en la tacita. Las tiras se cortan cruzando la fibra, no siguiéndola: así las fibras musculares quedan cortas y el bocado se deshace, mientras que a favor de fibra tendrías hebras largas y correosas. El yogur es mejor marinada que el limón solo — su ácido láctico es suave y actúa despacio y de forma uniforme, así que una hora no pasa factura —, y sus proteínas se pegan a la carne y doran en el horno formando costra. El ajo va en polvo a propósito: sin agua y sin trozos, se reparte por toda la superficie y no se quema en pedacitos como haría el picado.",
+      "s": 660,
+      "saco": "la fuente del marinado, a la nevera; la tacita del zumo, a un lado; la tabla lavada y seca",
+      "t": "Cortar y marinar el pollo",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "cortar-base",
+      "junto": null,
+      "meto": "",
+      "min": 14,
+      "nota": "Ajo al bol pequeño, bacon, y cebolla blanca al plato, en ese orden. Aquí también desmigas el feta, escurres alubias y jalapeños, preparas el bol de las alubias y el platito de especias.",
+      "off": 11,
+      "p": "Catorce minutos que caben enteros antes de encender nada, y que son los que permiten que a partir del minuto 38 no tengas que volver a coger el cuchillo para nada del fuego. El orden lo manda la humedad, no el olor: el ajo es lo más seco y va primero, el bacon después porque es graso pero no moja, y la cebolla al final porque deja la tabla húmeda y sobre una tabla mojada el corte fino deja de ser preciso. El ajo va a un bol aparte y no al plato de la cebolla porque entra cinco minutos más tarde en el sofrito. Pesar ahora las especias y montar el bol de las alubias es lo que hace que en el minuto 52 y en el 70 solo tengas que volcar, con las dos sartenes encendidas.",
+      "s": 840,
+      "saco": "el bol pequeño con el ajo, el plato llano con la cebolla, el bol de las alubias, el platito de especias y los tres boles de remate",
+      "t": "Cortes del sofrito y los remates",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "encurtido",
+      "junto": null,
+      "meto": "220 g de cebolla morada en tiras de 3 mm, 100 ml de vinagre de vino, 100 ml de agua, 4 g de sal, 8 g de azúcar blanco y 20 ml de zumo de limón de la tacita (1½ cucharadas soperas)",
+      "min": 5,
+      "nota": "Tiras de 3 mm siguiendo la fibra, al bote, líquido encima y cerrar. No se vuelve a tocar.",
+      "off": 25,
+      "p": "Va antes del fuego porque el encurtido necesita tiempo: cincuenta y siete minutos en el ácido hasta el montaje. Va después de los cortes secos porque la cebolla moja la tabla, y justo delante del pepino y el tomate, que mojan más. Se corta siguiendo la fibra, de polo a polo, porque cortada a lo ancho se rompen las células y suelta los compuestos de azufre que pican; siguiendo la fibra las tiras aguantan enteras. Tres milímetros es el grosor que el ácido atraviesa en ese rato sin ablandarla del todo: curtida por fuera y con mordida por dentro. El agua rebaja el vinagre a la mitad porque en vinagre puro una hora la curte de más, y los 8 g de azúcar no la endulzan, equilibran el ácido. El pigmento vira a rosa fuerte al tocar el limón.",
+      "s": 300,
+      "saco": "el bote cerrado, a un lado de la encimera",
+      "t": "Encurtir la cebolla morada",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "pepino-tomate",
+      "junto": null,
+      "meto": "350 g de pepino y 350 g de tomates en dados de 8 mm, los dos despepitados, con 6 g de sal por encima",
+      "min": 11,
+      "nota": "Despepita los dos con una cucharilla antes de cortar. Dados de 8 mm al colador y, al acabar, la sal por encima. No los aliñes todavía.",
+      "off": 30,
+      "p": "Este es el paso que decide si el tercer bol aguanta veinte minutos en la mesa o se convierte en una sopa templada. Las pepitas y el gel del tomate son casi toda su agua, y el corazón del pepino igual: fuera los dos. La sal hace el resto por ósmosis, sacando el agua de las células antes de que esté en el bol en vez de dentro de él, y veintinueve minutos en el colador son de sobra para eso sin que los dados se queden flácidos. El dado de 8 mm y no de 5 no es capricho: tiene bastante menos superficie por unidad de volumen, así que suelta menos líquido y se sostiene mejor bajo el pollo caliente. El aliño espera al final porque el aceite sellaría la superficie y frenaría el escurrido.",
+      "s": 660,
+      "saco": "el colador sobre un bol, con la sal por encima, escurriendo hasta el minuto 70",
+      "t": "Pepino y tomate, en dados y con sal",
+      "tapa": null
+    },
+    {
+      "carril": "sarteng",
+      "dep": [
+        "cortar-base"
+      ],
+      "f": 5,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "calentar-sarteng",
+      "junto": null,
+      "meto": "los 40 ml de aceite de oliva (3 cucharadas soperas), en la sartén grande vacía",
+      "min": 3,
+      "nota": "Enciende al 5 con el aceite dentro y déjala tres minutos vacía mientras acabas los dados. El aceite tiene que brillar y correr suelto al inclinar la sartén.",
+      "off": 38,
+      "p": "Este paso no estaba y hacía falta. La vitrocerámica no calienta la sartén: calienta el cristal, y el cristal calienta la sartén, así que una sartén grande de fondo grueso tarda cerca de tres minutos en llegar a temperatura de sudado desde fría. Si echas los 250 g de cebolla sobre aceite templado, durante esos tres minutos la cebolla no suda — absorbe aceite, y acabas con un sofrito graso en vez de translúcido. La señal es visual y no hay que fiarse del reloj: el aceite pasa de espeso y quieto a líquido y corriendo, y si inclinas la sartén cubre el fondo en una película fina.",
+      "s": 180,
+      "saco": "",
+      "t": "Calentar la sartén grande",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Echa el ajo del bol pequeño y remueve"
+        },
+        {
+          "en": 480,
+          "t": "Mira el ajo: rubio sí, marrón no. Si corre, baja al 4"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sofrito",
+      "junto": null,
+      "meto": "el plato: 250 g de cebolla blanca en brunoise de 0,5 cm, sobre el aceite ya caliente; a los 5 minutos, el bol pequeño: 20 g de ajo en láminas de 2 mm",
+      "min": 10,
+      "nota": "Sigue al 5, sin tapa. Cinco minutos la cebolla sola y luego el ajo. Al acabar sale todo: un tercio al bol pequeño y dos tercios al plato.",
+      "off": 41,
+      "p": "Un solo sofrito para dos rellenos: es la decisión que quita un fuego y un cuarto de hora al plan. Al 5 y sin tapa la cebolla suda y suelta su agua durante cinco minutos antes de que entre el ajo, porque el ajo solo aguanta unos cinco minutos a esta potencia antes de pasar de rubio a marrón y amargar: diez minutos, como estaba antes, era jugárselo. Las láminas de 2 mm y el vapor de la cebolla ya sudada mantienen el fondo por debajo del punto en que se quema. No buscas color: a la cebolla le quedan todavía dieciséis minutos de guiso por delante. El tercio que sale al bol se va a las alubias y no se vuelve a calentar solo, así que sácalo cuando la cebolla ya esté translúcida del todo. Y la sartén se queda vacía: la carne necesita el metal desnudo.",
+      "s": 600,
+      "saco": "todo el sofrito: un tercio al bol pequeño de las alubias y los otros dos tercios al plato llano",
+      "t": "Sofrito único",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sartenm",
+      "dep": [
+        "cortar-base"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Ya debería chisporrotear: si no, sube al 7 un minuto"
+        },
+        {
+          "en": 420,
+          "t": "Remueve: que se doren por todas las caras"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "bacon",
+      "junto": null,
+      "meto": "100 g de bacon en taquitos, en la sartén de saltear en frío",
+      "min": 9,
+      "nota": "Al 6 desde la sartén de saltear fría, sin aceite. Los tres primeros minutos no pasa nada: es la vitro subiendo. Buscas grasa suelta y un dorado suave, no crujiente.",
+      "off": 43,
+      "p": "En frío y sin nada de aceite: si echas el bacon sobre una sartén ya caliente, la grasa exterior se sella antes de fundirse y el taquito se queda duro por fuera y crudo por dentro. Subiendo la temperatura con él dentro, la grasa se funde despacio y acaba siendo el medio en el que se fríe. Esa grasa es el punto del relleno: hace en las alubias exactamente lo que la manteca en unos frijoles refritos, aportar grasa, sal y umami de una vez. Al 6 y no más, porque el bacon del súper lleva azúcar en la salmuera y por encima del 7 se te quema antes de haber soltado nada. De los nueve minutos, los tres primeros son solo la vitro llegando a temperatura: la grasa no empieza a fundir antes.",
+      "s": 540,
+      "saco": "",
+      "t": "Sofreír el bacon",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 8,
+      "hitos": [],
+      "holgura": "ajustado",
+      "id": "subir-carne",
+      "junto": null,
+      "meto": "",
+      "min": 3,
+      "nota": "Con el sofrito ya fuera, sube al 8 y espera tres minutos con la sartén casi vacía. Una gota de agua tiene que evaporarse al instante.",
+      "off": 51,
+      "p": "Sacar el sofrito enfría la sartén, y justo después le vas a pedir el momento más exigente de la receta. La inercia de la vitro juega en contra al subir: el cristal tiene que ganar sesenta o setenta grados antes de que la sartén los tenga, y eso son tres minutos largos. Si echas los 375 g de carne antes, la temperatura del fondo cae por debajo de los 140 °C que necesita la reacción de Maillard y la carne suelta agua y se cuece. La prueba es una gota de agua: si baila y tarda, aún no; si desaparece de golpe con un chasquido, ya está.",
+      "s": 180,
+      "saco": "",
+      "t": "Subir la sartén al 8",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sartenm",
+      "dep": [
+        "sofrito"
+      ],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Machaca un tercio de las alubias contra la sartén"
+        },
+        {
+          "en": 600,
+          "t": "Remueve y mira la textura: cremosa, no caldosa"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "alubias",
+      "junto": null,
+      "meto": "el bol pequeño con el tercio de sofrito y el bol de las alubias: 400 g de alubias blancas escurridas, 150 ml de caldo de pollo, 3 g de comino molido, 1 g de pimentón picante, 1 hoja de laurel y 2 g de sal",
+      "min": 14,
+      "nota": "Baja al 4 y la tapa a medias. A los 5 minutos machacas un tercio contra la sartén. Al acabar, saca el laurel. Quedan cremosas, no caldosas.",
+      "off": 52,
+      "p": "La tapa a medias es la posición que hace las dos cosas a la vez: retiene bastante vapor para que las alubias se calienten por dentro sin romperse y deja escapar el suficiente para que los 150 ml de caldo se reduzcan a salsa. Con la tapa puesta del todo acabarías con alubias nadando; sin tapa, secas y con el fondo pegado. Machacar un tercio a mitad de cocción es lo que liga el relleno: el almidón que sueltan esas alubias rotas espesa el líquido y convierte el conjunto en algo que se queda en la minitortilla. La sartén de saltear ayuda aquí por sus paredes altas: machacas contra el fondo sin que salte nada fuera. El laurel entero y no molido porque en 14 minutos da lo justo y se retira al acabar; dejarlo otros veinte minutos amargaría.",
+      "s": 840,
+      "saco": "la hoja de laurel, fuera y a la basura",
+      "t": "Alubias en la grasa del bacon",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Rompe los grumos que queden con el canto de la cuchara"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "carne-1",
+      "junto": null,
+      "meto": "375 g de carne picada mixta, la mitad del total, sobre la sartén ya al 8 y casi vacía",
+      "min": 8,
+      "nota": "La sartén ya está al 8. Rompe los grumos hasta que no quede nada rosa y sácala al plato del sofrito.",
+      "off": 54,
+      "p": "Dos tandas y no una, y el sofrito fuera de la sartén: 750 g de carne de golpe sobre 250 g de cebolla bajan la temperatura de la sartén por debajo de los 140 °C que necesita la reacción de Maillard, y lo que obtienes es carne hervida en su propio jugo, gris y sin fondo. Con 375 g sobre metal casi desnudo al 8, la sartén aguanta el golpe y la carne se dora. El agua que suelta se evapora en lugar de acumularse. Los grumos hay que romperlos desde el principio: si se compactan, el interior sigue crudo cuando el exterior ya ha perdido el color y no hay forma de arreglarlo después.",
+      "s": 480,
+      "saco": "esta primera tanda, al plato donde está el sofrito",
+      "t": "Carne, primera tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "horno",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "precalentar",
+      "junto": null,
+      "meto": "",
+      "min": 15,
+      "nota": "210 °C con calor arriba y abajo, sin ventilador. Quince minutos, no los ocho del pitido. Lo enciendes y vuelves a la carne.",
+      "off": 57,
+      "p": "210 y no 180 porque la pechuga es magra y el margen entre hecha y seca es estrecho: a temperatura alta la superficie dora rápido y el interior llega al punto antes de que se evapore el agua del músculo. A 180 tardaría el doble y saldría pálida y estopa. Sin ventilador a propósito, que el aire forzado reseca la costra de yogur. Quince minutos y no los ocho del pitido: el termostato salta cuando el aire llega a 210, pero las paredes y la bandeja aún están frías y se comen el calor en cuanto abres. Arranca en el minuto 57 para que el pollo acabe en el 86, justo cuando empieza el montaje.",
+      "s": 900,
+      "saco": "",
+      "sinHitos": "Quince minutos de horno vacío calentándose: no hay nada dentro que mirar ni remover.",
+      "t": "Precalentar el horno a 210 °C",
+      "tapa": null
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Rompe los grumos: que no quede nada rosa"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "carne-2",
+      "junto": null,
+      "meto": "los otros 375 g de carne picada mixta",
+      "min": 8,
+      "nota": "Sigue al 8, misma sartén sin lavar. Dale un minuto a la sartén antes de echarla: mismo gesto, grumos rotos y nada rosa.",
+      "off": 62,
+      "p": "La sartén no se lava entre tandas: lo que ha quedado pegado en el fondo de la primera es fondo tostado, azúcares y proteínas caramelizadas, y es sabor que la segunda tanda arrastra y el tomate acabará desglasando. Mantener el 8 sin bajar es importante porque la sartén ha perdido calor al sacar la primera tanda y necesita recuperarlo antes de que la carne empiece a soltar agua. Si ves que la segunda tanda chapotea en vez de chisporrotear, es que has echado la carne demasiado pronto: sube y espera treinta segundos antes de tocar nada.",
+      "s": 480,
+      "saco": "",
+      "t": "Carne, segunda tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sartenm",
+      "dep": [],
+      "f": 1,
+      "hitos": [
+        {
+          "en": 600,
+          "t": "Remueve desde el fondo. Si se pega, baja al 0 y deja la tapa"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "alubias-reposo",
+      "junto": null,
+      "meto": "",
+      "min": 21,
+      "nota": "Baja al 1 y tapa del todo. Ya no cocinan: solo se mantienen calientes hasta el montaje.",
+      "off": 66,
+      "p": "Las alubias terminan en el 66 y no se comen hasta el 87, y antes nadie decía qué hacer con ellas en esos veintiún minutos. Al 1 el cristal da el calor justo para mantenerlas por encima de sesenta grados sin que sigan reduciendo, y con la tapa puesta del todo el vapor se queda dentro y no se forma costra por arriba. Apagar del todo no vale: cuatrocientos gramos en veinte minutos llegan tibios a la mesa. La sartén de saltear es mejor que la mediana para esto porque tiene más metal y menos superficie al aire, así que guarda el calor y pierde menos agua.",
+      "s": 1260,
+      "saco": "",
+      "t": "Alubias al 1, tapadas",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve rascando el fondo: ahí está el tostado de las tandas"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "guiso",
+      "junto": null,
+      "meto": "el plato: la primera tanda de carne y los dos tercios de sofrito, sobre la segunda tanda que sigue en la sartén; 400 g de tomate triturado; el platito: 7 g de comino molido, 3 g de pimentón picante, 11 g de sal y 2 g de pimienta negra",
+      "min": 8,
+      "nota": "Baja al 3 y pon la tapa a medias: el tomate recién echado salta. Ocho minutos.",
+      "off": 70,
+      "p": "Vuelve todo a la sartén y baja al 3: el tomate desglasa el fondo tostado de las dos tandas y ese es el sabor que separa esta carne de una carne picada con tomate. La tapa a medias en esta primera mitad es por las salpicaduras y porque el tomate crudo necesita unos minutos de chup-chup para perder la acidez; no se cierra del todo porque este guiso tiene que perder agua, no guardarla. La versión anterior lo dejaba dieciséis minutos con la tapa puesta y a la vez pedía surco al final, y las dos cosas no pueden pasar a la vez: tapado, el vapor condensa y vuelve a caer. Las especias entran ahora y no con la carne cruda porque el comino en grasa muy caliente amarga.",
+      "s": 480,
+      "saco": "",
+      "t": "Tomate y especias, tapa a medias",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "escurrir-bol",
+      "junto": null,
+      "meto": "el pepino y el tomate escurridos, con 15 ml de zumo de limón de la tacita (1 cucharada sopera) y 15 ml de aceite de oliva (1 cucharada sopera)",
+      "min": 5,
+      "nota": "Aprieta el colador con la mano, seca el fondo del bol y extiende los dados. Alíñalos ahora y déjalo en la mesa.",
+      "off": 70,
+      "p": "Aquí se aprieta de verdad, no se deja escurrir: entre el agua de ósmosis y la que sueltan al presionar salen cien mililitros largos que, de otro modo, acabarían en el fondo del bol. El fondo se seca antes de extender los dados, porque cualquier líquido ahí vuelve a subir por capilaridad. Se aliña ahora y no en el montaje para que el limón y el aceite tengan unos minutos de contacto, y porque en el minuto 87 no hay manos libres. La capa fría se queda esperando en la mesa: es el aislante que hará que el pollo caliente de encima no la cueza.",
+      "s": 300,
+      "saco": "el bol del pollo, con la capa fría ya dentro, esperando",
+      "t": "Montar la base del bol del pollo",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "marinar-pollo"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Deja junto al horno las pinzas y los cuatro paquetes de tortillas"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "asar-pollo",
+      "junto": null,
+      "meto": "las tiras de pollo marinadas, volcadas en la bandeja en una sola capa",
+      "min": 7,
+      "nota": "Altura media, sin tapar, a 210 °C. A los 7 minutos abres para voltear y meter las tortillas.",
+      "off": 72,
+      "p": "Una sola capa y sin amontonar, que es la diferencia entre asar y cocer: apiladas, las tiras sueltan agua que no evapora y acaban hervidas y blancas. El pollo va ahora al final del plan y no a mitad, porque antes salía en el 69 y volvía a entrar a 150 °C con las tortillas: 150 °C está muy por encima de los 72 °C del punto, así que seguía cocinándose y se secaba. Catorce minutos a 210 °C en total, siete por cada cara, es lo que tarda el centro de una tira de 1,5 cm en llegar a 72 °C mientras la costra de yogur se tuesta. La costra la forman las proteínas del yogur y los azúcares de la lactosa: es la que da el color, no la grasa.",
+      "s": 420,
+      "saco": "",
+      "t": "Asar el pollo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [],
+      "holgura": "flexible",
+      "id": "envolver-tortillas",
+      "junto": null,
+      "meto": "las 48 minitortillas de trigo, fuera de su plástico, en cuatro montones de 12",
+      "min": 3,
+      "nota": "Sácalas del plástico, que en el horno se funde. Montones de 12, cada uno bien cerrado en aluminio.",
+      "off": 75,
+      "p": "La versión anterior metía los packs en el horno tal cual, con su bolsa de plástico dentro del aluminio, y ese plástico no está hecho para 210 °C: se ablanda, se pega a la masa y huele. Fuera de la bolsa, el aluminio hace de tapa: cerrado por los cuatro lados, retiene el vapor de la propia tortilla. Cuatro montones de doce y no uno de cuarenta y ocho porque un taco de cuarenta y ocho no se calienta por el centro en siete minutos. Aprovecha el guiso, que no pide manos.",
+      "s": 180,
+      "saco": "cuatro paquetes cerrados en papel de aluminio, junto al horno",
+      "t": "Envolver las tortillas en aluminio",
+      "tapa": null
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve. Si salpica fuerte, baja al 3"
+        },
+        {
+          "en": 420,
+          "t": "Arrastra la cuchara por el fondo: buscas surco"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "guiso-reducir",
+      "junto": null,
+      "meto": "",
+      "min": 8,
+      "nota": "Tapa fuera y sube al 4. Al final la cuchara tiene que dejar surco en el fondo.",
+      "off": 78,
+      "p": "Ahora sí, tapa fuera: todo el vapor que sale se va, y en ocho minutos al 4 se evaporan el agua que ha soltado la carne y buena parte de la del tomate. Sube un punto porque sin tapa la superficie pierde calor al evaporar, y al 3 se quedaría en un hervor tímido. El punto final no es el reloj, es el surco: si arrastras la cuchara por el fondo y el hueco tarda en cerrarse, está. Más jugoso que eso y en una minitortilla de 15 cm el líquido traspasa la masa y el taco se rompe en la mano. Si llega antes al surco, baja al 1 y espera.",
+      "s": 480,
+      "saco": "",
+      "t": "Reducir sin tapa, hasta el surco",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "envolver-tortillas"
+      ],
+      "f": null,
+      "hitos": [],
+      "holgura": "ajustado",
+      "id": "pollo-tortillas",
+      "junto": null,
+      "meto": "los cuatro paquetes de 12 minitortillas envueltos en aluminio, en la rejilla de abajo",
+      "min": 7,
+      "nota": "Abre, voltea las tiras y mete los cuatro paquetes en la rejilla de abajo. Siete minutos más a 210 °C. Al terminar, horno apagado.",
+      "off": 79,
+      "p": "El volteo de la mitad es obligatorio porque la cara de abajo está en contacto con el metal y se hace al doble de velocidad. Las tortillas entran justo aquí porque el horno ya está abierto y porque siete minutos a 210 °C, bien cerradas en aluminio, es lo que tarda un montón de doce en calentarse hasta el centro sin secarse: el poco vapor que suelta la propia masa se queda dentro del paquete y la mantiene flexible. Van abajo para no taparle al pollo la resistencia de arriba, que es la que tuesta la cara que ahora mira hacia ella. Pollo y tortillas salen a la vez, y el pollo reposa tapado mientras montas: las fibras se relajan y reabsorben el jugo.",
+      "s": 420,
+      "saco": "la bandeja del pollo, tapada con papel de aluminio, y los cuatro paquetes cerrados, fuera del horno; el horno, apagado",
+      "sinHitos": "Siete minutos con la puerta cerrada: abrirla tira el calor que necesitan a la vez la costra del pollo y el vapor de los paquetes.",
+      "t": "Voltear el pollo y meter las tortillas",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarteng",
+      "dep": [],
+      "f": 0,
+      "hitos": [],
+      "holgura": "critico",
+      "id": "limon",
+      "junto": null,
+      "meto": "35 ml de zumo de limón",
+      "min": 1,
+      "nota": "Vitrocerámica al 0 y los 35 ml de zumo de limón dentro, destapado. Dos vueltas y prueba la sal.",
+      "off": 86,
+      "p": "El ácido entra con el fuego apagado porque hervido pierde el aroma volátil y se queda solo el agrio. Fuera del fuego levanta el comino y el pimentón, que llevan dieciséis minutos apelmazados en la grasa, y corta la sensación grasa de la carne mixta. Es también el momento de probar la sal, y hay que hacerlo ahora y no antes: el feta de la mesa sala bastante, así que la carne tiene que quedarse un punto por debajo de lo que te pediría el cuerpo probándola sola. La vitro guarda calor un par de minutos después de apagar, suficiente para que el zumo se integre sin volver a hervir.",
+      "s": 60,
+      "saco": "",
+      "t": "Fuera del fuego: el limón",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "limon",
+        "pollo-tortillas",
+        "alubias-reposo"
+      ],
+      "f": null,
+      "hitos": [],
+      "holgura": "critico",
+      "id": "montaje",
+      "junto": null,
+      "meto": "la sartén grande y la de saltear, la bandeja del pollo, que se vuelca sobre la base fría del bol, los cuatro paquetes de tortillas, el bote de encurtido escurrido y los boles de feta, guacamole, jalapeños y los gajos de limón",
+      "min": 5,
+      "nota": "Cinco minutos: dos sartenes, la bandeja, las tortillas y los boles de remate. El pollo se vuelca encima del pepino y el tomate sin mezclar, con su jugo.",
+      "off": 87,
+      "p": "El tercer bol se monta en capas y no se remueve, y esa es toda su gracia: el pollo caliente solo toca la superficie de la capa fría, así que el pepino de debajo sigue crujiente veinte minutos después, mientras que mezclado empezaría a soltar agua en cuanto el calor le llegara. Quien se sirve baja la cuchara hasta el fondo y coge las dos cosas a la vez. Las dos sartenes van directas a la mesa sobre salvamanteles en vez de trasvasar a fuentes: el metal caliente mantiene los rellenos templados durante toda la comida, que con ocho personas montando a su ritmo son más de veinte minutos, y una fuente fría se los enfría en cinco. El encurtido se escurre antes de salir, porque el líquido moja la tortilla por debajo.",
+      "s": 300,
+      "saco": "todo, a la mesa: tres bols de relleno, las tortillas y cuatro boles de remate",
+      "t": "Todo a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "carne picada mixta",
+    "bacon",
+    "pechuga de pollo",
+    "queso feta",
+    "guacamole",
+    "yogur natural",
+    "pepino",
+    "tomates",
+    "cebolla morada",
+    "limones"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj, los avisos de volteo y el paso a paso están en el cronómetro. Cantidades para 8; entre paréntesis, la medida de andar por casa.",
+  "porque": [
+    [
+      "La plancha no entra en el plan",
+      "Es la decisión que gobierna todo lo demás. La plancha ocupa el fuego grande, que es el único donde cabe la sartén de la carne, y la carne está encendida desde el minuto 38 hasta el 87. Cualquier plan que calentara las tortillas a la plancha obligaría a apagar la carne justo en su chup-chup, o a calentar 48 minitortillas de dos en dos en veinte tandas. El horno resuelve las dos cosas: ya está encendido por el pollo, no consume ningún fuego, y las cuarenta y ocho salen calientes a la vez en vez de por turnos."
+    ],
+    [
+      "Los precalentados son pasos, no suposiciones",
+      "En la primera versión el sofrito arrancaba en una sartén fría y la carne entraba justo al subir la vitro del 5 al 8. Las dos cosas escondían minutos: la vitrocerámica calienta el cristal y el cristal calienta la sartén, así que una sartén grande tarda tres minutos en llegar a temperatura desde fría y otros tres en subir de sudar a dorar. Metidos dentro de los pasos, esos seis minutos se los comían el sofrito y el dorado; ahora son dos pasos con su propia señal visual —el aceite corriendo suelto y la gota de agua que desaparece de golpe— y lo que dura cada paso es lo que de verdad se cocina. Lo mismo con el bacon, que arranca en frío y necesita nueve minutos y no seis, y con el horno, que estabiliza en quince y no en los ocho del pitido."
+    ],
+    [
+      "El pollo acaba con las tortillas, no las espera",
+      "La versión anterior asaba el pollo del 55 al 69 y lo volvía a meter a 150 °C con las tortillas otros catorce minutos, dando por hecho que a esa temperatura ya no se cocinaba. No es así: 150 °C está muy por encima de los 72 °C del punto, y unas tiras de 1,5 cm siguen subiendo hasta secarse. Ahora el pollo se asa al final, siete minutos por cara, y las tortillas entran en el volteo: salen juntas en el minuto 86 y desaparece el paso de bajar el horno."
+    ],
+    [
+      "Las tortillas, fuera de su plástico",
+      "Envolver los packs cerrados en aluminio mete la bolsa de plástico en el horno, y esa bolsa no aguanta 210 °C. Se sacan y se envuelven de doce en doce: el aluminio hace de tapa igual."
+    ],
+    [
+      "La sartén de saltear para las alubias",
+      "Encaja en el fuego mediano, así que no puede hacer la carne, que necesita el fuego grande para dorar; y el guiso, con poco más de un kilo, cabe en la sartén grande. Donde sí gana es en las alubias: sus paredes altas dejan machacar sin salpicar, y su masa de metal las mantiene calientes los veintiún minutos que esperan al 1 hasta el montaje."
+    ],
+    [
+      "Tres bols y solo tres",
+      "El tercer relleno podría haber sido pollo por un lado y pico de pepino y tomate por otro, y de hecho sabría parecido. Pero eso son dos bols más en una mesa que ya lleva cuatro boles de remate, y a partir de cierto número de recipientes nadie sabe qué va con qué. Un solo bol con las dos cosas montadas en capas da el mismo resultado en el plato y una mesa que se entiende de un vistazo."
+    ],
+    [
+      "El bol en capas y sin mezclar",
+      "Es lo que hace viable meter pepino crudo en un bol que va a estar veinte minutos en la mesa. Mezclado, el pollo a 65 °C calienta todo el volumen de golpe, las paredes celulares del pepino ceden y a los quince minutos hay un dedo de agua en el fondo. En capas, el calor solo toca la superficie de contacto y el resto sigue frío y crujiente. Y la cuchara, al bajar hasta el fondo, coge las dos cosas igual."
+    ],
+    [
+      "Pepino y tomate despepitados y salados antes",
+      "Sin este paso el bol no se sostiene. Las pepitas y el gel del tomate son casi toda su agua, y el corazón del pepino igual: se retiran los dos con una cucharilla. La sal saca el resto por ósmosis durante veintinueve minutos en el colador, y el agua acaba en el bol de debajo en vez de en el relleno. El dado de 8 mm en vez de 5 refuerza lo mismo por geometría: menos superficie por volumen, menos agua."
+    ],
+    [
+      "Ni cebolla ni ajo visible en el pollo",
+      "Cebolla, ninguna, en ninguna forma. Y el ajo en polvo en lugar de picado no es un apaño: el ajo deshidratado no tiene agua ni trozos, se reparte homogéneo por toda la superficie de la tira y no se quema en pedacitos, que es exactamente lo que le pasaría al picado en catorce minutos a 210 °C. Sabor de ajo sin un solo trozo a la vista."
+    ],
+    [
+      "Yogur y no limón solo para marinar",
+      "El ácido láctico del yogur es mucho más suave que el cítrico y actúa despacio y de forma uniforme; el zumo de limón en solitario, en media hora, deja la superficie de la pechuga blanca y harinosa porque desnaturaliza las proteínas demasiado rápido. Además el yogur aporta lo que un adobo de aceite no tiene: proteínas y lactosa que se pegan a la carne y forman costra tostada en el horno."
+    ],
+    [
+      "Un sofrito para dos rellenos",
+      "La carne y las alubias querían el mismo fondo: cebolla, ajo y aceite. Hacerlo dos veces serían dos recipientes, dos cortes y ocho minutos más de plan. Se hace uno de 250 g en la sartén grande y se le quita un tercio para las alubias en el momento en que está listo, antes de que entre la carne. El ajo entra a los cinco minutos y no al principio: diez minutos al 5 es más de lo que aguanta sin amargar."
+    ],
+    [
+      "El bacon dentro y no aparte",
+      "Unas alubias con sofrito y comino se quedan planas al lado de una carne guisada dieciséis minutos. Los 100 g de bacon hacen la función de la manteca en unos frijoles refritos: grasa, sal y umami de una vez, con un ingrediente que ya está en casa. La contrapartida es que el relleno deja de ser vegetariano — y con este tercer bol, en esta versión no queda ningún relleno que lo sea."
+    ],
+    [
+      "El pique fuera de la carne",
+      "Solo 3 g de pimentón picante para 750 g de carne, y 1 g para 500 g de pollo: en una mesa de ocho el pique no se puede imponer. Los jalapeños van en su bol y cada uno regula el suyo."
+    ],
+    [
+      "Cebolla morada de verdad, y antes del fuego",
+      "La versión de dos raciones encurtía cebolla blanca porque no había morada en la despensa. Ahora la hay: es menos agresiva en crudo, y su pigmento vira a rosa fuerte en contacto con el vinagre y el limón, que en una mesa de rellenos marrones y beis es lo único con color. Va en el minuto 25, después de los cortes secos, para no mojar la tabla antes del ajo, y aun así llega al montaje con cincuenta y siete minutos de ácido."
+    ],
+    [
+      "Descartes: pimientos, calabacín, maíz y berenjena",
+      "El tercer relleno fue primero rajas de pimiento asadas con nata, y se cayó: sabía a fajita Tex-Mex más que a taco. Con el pollo dentro, el pimiento ya no pinta nada. El calabacín suelta agua y en minitortilla eso es un taco roto; el maíz de lata aporta dulzor y agua, y tostarlo pediría el tercer fuego justo en la ventana más cargada; la berenjena absorbe el triple de aceite que el resto. Sin cilantro, como en la receta base: no hay hierbas frescas en casa y las secas no se echan crudas al final."
+    ],
+    [
+      "El guiso, más seco que en la receta de dos, y por eso sin tapa al final",
+      "El punto final del chup-chup no es el reloj, es el surco de la cuchara en el fondo. En una tortilla grande una carne jugosa se sostiene; en una minitortilla de 15 cm el líquido traspasa la masa antes de que el taco llegue al plato. Para llegar ahí el agua tiene que irse, y con la tapa puesta no se va: por eso ocho minutos al 3 con la tapa a medias, por las salpicaduras, y ocho al 4 con la tapa fuera."
+    ],
+    [
+      "Las sartenes a la mesa, sin trasvasar",
+      "Con ocho personas montando a su ritmo, la comida dura más de veinte minutos. El metal caliente de la sartén mantiene el relleno templado todo ese rato; una fuente de loza fría se lo enfría en cinco."
+    ]
+  ],
+  "raciones": 8,
+  "slug": "tacos-de-fiesta",
+  "tags": {
+    "base": "taco",
+    "proteina": "carne picada mixta, bacon y pollo",
+    "tecnica": [
+      "sofrito",
+      "chup-chup",
+      "marinada",
+      "reduccion"
+    ]
+  },
+  "titulo": "Tacos de fiesta, tres rellenos",
+  "totalMin": 92
+}

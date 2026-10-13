@@ -1,0 +1,344 @@
+{
+  "arroz-a-la-cubana-con-bacon": {
+    "abierto": true,
+    "arrancado": 1789372771653,
+    "carriles": {
+      "cazuela": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 480
+      },
+      "huevos": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 300
+      },
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 240
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 420
+      }
+    },
+    "foco": "mesa",
+    "marcados": [],
+    "servir": "15:30",
+    "slug": "arroz-a-la-cubana-con-bacon",
+    "ts": "2026-09-14T07:59:32.056Z"
+  },
+  "curry-de-pollo-con-arroz-blanco": {
+    "abierto": true,
+    "arrancado": 1789466625230,
+    "carriles": {
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 840
+      },
+      "olla": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 360
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 120
+      }
+    },
+    "foco": "mesa",
+    "marcados": [],
+    "servir": "14:00",
+    "slug": "curry-de-pollo-con-arroz-blanco",
+    "ts": "2026-09-15T10:03:45.652Z"
+  },
+  "ensalada-de-noquis-con-atun-y-feta": {
+    "abierto": true,
+    "arrancado": 1789372710941,
+    "carriles": {
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 180
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "pausado": false,
+        "restante": 180
+      }
+    },
+    "foco": "mesa",
+    "marcados": [],
+    "servir": "15:30",
+    "slug": "ensalada-de-noquis-con-atun-y-feta",
+    "ts": "2026-09-14T07:58:31.347Z"
+  },
+  "macarrones-bolonesa": {
+    "abierto": true,
+    "arrancado": 1791289791429,
+    "carriles": {
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 1,
+        "inicioPaso": null,
+        "pausado": false,
+        "restante": 720
+      },
+      "olla": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [
+          0,
+          1,
+          2
+        ],
+        "i": 2,
+        "inicioPaso": 1791291427518,
+        "pausado": false,
+        "restante": 780
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 9,
+        "inicioPaso": 1791293087538,
+        "pausado": false,
+        "restante": 180
+      }
+    },
+    "foco": "sarten",
+    "marcados": [],
+    "servir": "15:30",
+    "slug": "macarrones-bolonesa",
+    "ts": "2026-10-06T13:27:54.251Z"
+  },
+  "pastel-de-patata-gratinado": {
+    "abierto": true,
+    "arrancado": 1791374300657,
+    "carriles": {
+      "cazuela": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [
+          0,
+          1,
+          2
+        ],
+        "i": 2,
+        "inicioPaso": 1791375125967,
+        "pausado": false,
+        "restante": 1080
+      },
+      "horno": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [
+          0
+        ],
+        "i": 3,
+        "inicioPaso": 1791378976941,
+        "pausado": false,
+        "restante": 300
+      },
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 7,
+        "inicioPaso": 1791377491279,
+        "pausado": false,
+        "restante": 720
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 3,
+        "inicioPaso": 1791375852400,
+        "pausado": false,
+        "restante": 240
+      }
+    },
+    "foco": "mesa",
+    "marcados": [
+      "mep-0-0",
+      "mep-0-1",
+      "mep-0-2",
+      "mep-1-4",
+      "mep-2-0",
+      "mep-2-1",
+      "mep-2-3",
+      "mep-2-2",
+      "mep-3-1",
+      "mep-3-0",
+      "mep-3-2",
+      "mep-3-3"
+    ],
+    "servir": "15:30",
+    "slug": "pastel-de-patata-gratinado",
+    "ts": "2026-10-07T13:20:51.360Z"
+  },
+  "pizza-umami-asiatica": {
+    "abierto": true,
+    "arrancado": 1789646884311,
+    "carriles": {
+      "horno": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1789646884311,
+        "pausado": false,
+        "restante": 720
+      },
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1789646884311,
+        "pausado": false,
+        "restante": 300
+      },
+      "sarten": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1789646884311,
+        "pausado": false,
+        "restante": 240
+      }
+    },
+    "foco": "mesa",
+    "marcados": [
+      "mep-0-2"
+    ],
+    "servir": "14:00",
+    "slug": "pizza-umami-asiatica",
+    "ts": "2026-09-17T14:21:58.771Z"
+  },
+  "tacos-de-fiesta": {
+    "abierto": true,
+    "arrancado": 1790792488208,
+    "carriles": {
+      "horno": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1790792488208,
+        "pausado": false,
+        "restante": 900
+      },
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1790792488208,
+        "pausado": false,
+        "restante": 660
+      },
+      "sarteng": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1790792488208,
+        "pausado": false,
+        "restante": 180
+      },
+      "sartenm": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 0,
+        "inicioPaso": 1790792488208,
+        "pausado": false,
+        "restante": 540
+      }
+    },
+    "foco": "mesa",
+    "marcados": [],
+    "servir": "22:30",
+    "slug": "tacos-de-fiesta",
+    "ts": "2026-09-30T18:21:28.632Z"
+  },
+  "tarta-fina-de-manzana": {
+    "abierto": true,
+    "arrancado": 1790505278609,
+    "carriles": {
+      "cazo": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 1,
+        "inicioPaso": 1790505278609,
+        "pausado": false,
+        "restante": 180
+      },
+      "horno": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [
+          0,
+          1,
+          2
+        ],
+        "i": 2,
+        "inicioPaso": 1790505770345,
+        "pausado": false,
+        "restante": 1800
+      },
+      "mesa": {
+        "corriendo": false,
+        "finAt": null,
+        "hitos": [],
+        "i": 4,
+        "inicioPaso": 1790507619993,
+        "pausado": false,
+        "restante": 600
+      }
+    },
+    "foco": "mesa",
+    "marcados": [],
+    "servir": "15:30",
+    "slug": "tarta-fina-de-manzana",
+    "ts": "2026-09-27T11:13:40.394Z"
+  }
+}

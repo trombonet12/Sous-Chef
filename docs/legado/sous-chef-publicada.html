@@ -1,0 +1,4302 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sous Chef</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+
+<style>
+/* ============================================================
+   SHELL — la app que envuelve las dos vistas.
+   Neutros con sesgo oliva (la cocina), acentos tomados de los
+   colores que ya usan los carriles de las recetas.
+   ============================================================ */
+:root {
+  --papel: #EFEDE3;
+  --carta: #FBFAF6;
+  --carta-2: #E7E5D9;
+  --tinta: #191A14;
+  --tinta-2: #4A4C40;
+  --tinta-3: #6C6E60;
+  --linea: #D6D5C6;
+  --linea-fuerte: #BDBCAA;
+  --ambar: #B07408;
+  --ambar-fondo: #F6E7C6;
+  --azul: #2C6E92;
+  --azul-fondo: #D6E7F0;
+  --oliva: #4F6B26;
+  --oliva-fondo: #E0E8CD;
+  --teja: #A8421C;
+  --teja-fondo: #F5DED4;
+  --sombra: 0 1px 2px rgba(25,26,20,.07), 0 6px 18px -10px rgba(25,26,20,.18);
+  --r: 10px;
+  --barra-alto: 58px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #12130F;
+    --carta: #1B1C17;
+    --carta-2: #24261F;
+    --tinta: #EDEDE2;
+    --tinta-2: #BFC0B2;
+    --tinta-3: #939586;
+    --linea: #2E3028;
+    --linea-fuerte: #43463A;
+    --ambar: #E5AB46;
+    --ambar-fondo: #33280F;
+    --azul: #79BEDE;
+    --azul-fondo: #14262F;
+    --oliva: #A3C46A;
+    --oliva-fondo: #1D2611;
+    --teja: #E8865F;
+    --teja-fondo: #331709;
+    --sombra: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  --papel: #12130F;
+  --carta: #1B1C17;
+  --carta-2: #24261F;
+  --tinta: #EDEDE2;
+  --tinta-2: #BFC0B2;
+  --tinta-3: #939586;
+  --linea: #2E3028;
+  --linea-fuerte: #43463A;
+  --ambar: #E5AB46;
+  --ambar-fondo: #33280F;
+  --azul: #79BEDE;
+  --azul-fondo: #14262F;
+  --oliva: #A3C46A;
+  --oliva-fondo: #1D2611;
+  --teja: #E8865F;
+  --teja-fondo: #331709;
+  --sombra: 0 1px 2px rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.7);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+h1, h2, h3, .sc-ui { font-family: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ambar); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---------- armazón ---------- */
+#app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--barra-alto) + env(safe-area-inset-bottom));
+}
+.sc-cabecera {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 14px 16px 10px;
+  padding-top: calc(14px + env(safe-area-inset-top));
+  /* Opaca a propósito: con fondo semitransparente, un móvil sin
+     backdrop-filter deja ver el contenido a través del título. */
+  background: var(--papel);
+  border-bottom: 1px solid var(--linea);
+}
+.sc-cabecera[hidden] { display: none; }
+.sc-cabecera h1 {
+  font-size: 19px; font-weight: 800; letter-spacing: -.01em;
+  margin: 0; flex: 1 1 auto;
+}
+.sc-cabecera .sc-sub {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--tinta-3); flex: 0 0 auto;
+}
+main { flex: 1 1 auto; padding: 14px 16px 24px; max-width: 820px; width: 100%; margin: 0 auto; }
+
+.sc-barra {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--carta);
+  border-top: 1px solid var(--linea);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.sc-barra button {
+  appearance: none; background: none; border: 0;
+  padding: 8px 4px 9px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--tinta-3);
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  border-top: 2px solid transparent; margin-top: -1px;
+}
+.sc-barra button .sc-n {
+  font-size: 17px; font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.sc-barra button[aria-current="page"] { color: var(--tinta); border-top-color: var(--ambar); }
+
+@media (min-width: 760px) {
+  #app { padding-bottom: 0; }
+  .sc-barra {
+    /* En el DOM va al final (cabecera → contenido → navegación, que es
+       el orden en que se lee); en escritorio se coloca arriba. */
+    order: -1;
+    position: sticky; top: 0; bottom: auto;
+    grid-template-columns: repeat(3, minmax(0, 160px));
+    justify-content: center; border-top: 0; border-bottom: 1px solid var(--linea);
+  }
+  .sc-barra button { flex-direction: row; align-items: baseline; gap: 7px; padding: 11px 4px; border-top: 0; border-bottom: 2px solid transparent; }
+  .sc-barra button[aria-current="page"] { border-bottom-color: var(--ambar); }
+  .sc-cabecera { position: static; }
+}
+
+/* ---------- piezas comunes ---------- */
+.sc-aviso {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 9px 12px; margin: 0 0 14px;
+  background: var(--ambar-fondo); border: 1px solid color-mix(in srgb, var(--ambar) 35%, transparent);
+  border-radius: var(--r);
+  font-size: 13.5px; line-height: 1.4;
+}
+.sc-aviso.sc-malo { background: var(--teja-fondo); border-color: color-mix(in srgb, var(--teja) 35%, transparent); }
+.sc-vacio {
+  padding: 28px 18px; text-align: center; color: var(--tinta-3);
+  border: 1px dashed var(--linea-fuerte); border-radius: var(--r);
+}
+.sc-vacio b { display: block; color: var(--tinta); font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 15px; margin-bottom: 5px; }
+.sc-eyebrow {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--tinta-3); margin: 22px 0 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sc-eyebrow::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--linea); }
+.sc-eyebrow:first-child { margin-top: 0; }
+
+.sc-buscador { display: flex; gap: 8px; margin-bottom: 12px; }
+.sc-buscador input {
+  flex: 1 1 auto; min-width: 0;
+  padding: 9px 11px; font-size: 16px;
+  background: var(--carta); color: var(--tinta);
+  border: 1px solid var(--linea-fuerte); border-radius: var(--r);
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+.sc-buscador input::placeholder { color: var(--tinta-3); }
+
+/* chips de categoría: solo aparecen si hay más de una base distinta */
+.sc-catbar { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px; }
+.sc-cat {
+  appearance: none; cursor: pointer; touch-action: manipulation;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: .02em;
+  padding: 6px 11px; border-radius: 999px;
+  background: var(--carta); color: var(--tinta-2);
+  border: 1px solid var(--linea-fuerte);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.sc-cat[aria-current="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+.sc-cat-n { font-variant-numeric: tabular-nums; opacity: .75; font-size: 11px; }
+
+.sc-btn {
+  appearance: none; cursor: pointer; touch-action: manipulation;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: .01em;
+  padding: 9px 13px; border-radius: 8px;
+  background: var(--tinta); color: var(--papel); border: 1px solid var(--tinta);
+}
+.sc-btn.sc-sec { background: var(--carta); color: var(--tinta); border-color: var(--linea-fuerte); }
+.sc-btn.sc-min { background: none; border: 0; color: var(--tinta-3); padding: 6px 8px; font-size: 12px; }
+.sc-btn.sc-min:hover { color: var(--tinta); }
+.sc-btn[disabled] { opacity: .45; cursor: default; }
+
+/* ---------- lista de recetas ---------- */
+.sc-recetas { display: grid; gap: 10px; }
+@media (min-width: 620px) { .sc-recetas { grid-template-columns: 1fr 1fr; } }
+.sc-receta {
+  display: block; width: 100%; text-align: left;
+  background: var(--carta); border: 1px solid var(--linea);
+  border-radius: var(--r); padding: 12px 13px 11px;
+  cursor: pointer; box-shadow: var(--sombra);
+  font-family: inherit;
+}
+.sc-receta:hover { border-color: var(--linea-fuerte); }
+.sc-receta h3 {
+  margin: 0 0 3px; font-size: 16.5px; font-weight: 700; letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.sc-receta .sc-desc {
+  margin: 0 0 9px; font-size: 13.5px; line-height: 1.42; color: var(--tinta-2);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.sc-chips { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.sc-chip {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase;
+  padding: 2.5px 7px; border-radius: 999px;
+  background: var(--carta-2); color: var(--tinta-2);
+  white-space: nowrap;
+}
+.sc-chip.sc-min { background: none; padding-left: 0; padding-right: 4px; }
+.sc-chip.sc-tiempo { font-variant-numeric: tabular-nums; background: var(--carta-2); color: var(--tinta); font-weight: 600; }
+.sc-chip.sc-compra { background: var(--teja-fondo); color: var(--teja); }
+.sc-chip.sc-despensa { background: var(--oliva-fondo); color: var(--oliva); }
+
+/* estrella de favorita: hermana de la tarjeta (un botón dentro de otro
+   botón no es HTML válido), colocada encima de su esquina. Se queda
+   dentro del padding de la tarjeta, así que no ensancha la lista. */
+.sc-tarjeta { position: relative; display: flex; }
+.sc-tarjeta > .sc-receta { flex: 1 1 auto; }
+.sc-tarjeta > .sc-receta h3 { padding-right: 24px; }
+.sc-fav {
+  position: absolute; top: 4px; right: 4px; z-index: 1;
+  appearance: none; background: none; border: 0; cursor: pointer;
+  padding: 4px 7px; line-height: 1; font-size: 16px;
+  color: var(--linea-fuerte);
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.sc-fav:hover { color: var(--tinta-3); }
+.sc-fav[aria-pressed="true"] { color: var(--ambar); }
+
+/* enlaces a la ficha de una técnica, desde la ficha de una receta */
+.sc-tec-links { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.sc-chip.sc-tec-link {
+  appearance: none; cursor: pointer; touch-action: manipulation;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  text-transform: none; letter-spacing: 0; font-size: 12.5px; font-weight: 600;
+  padding: 6px 11px; border-radius: 999px;
+  background: var(--carta); color: var(--tinta); border: 1px solid var(--linea-fuerte);
+}
+
+/* huella de fuegos: mini-gantt de los carriles */
+.sc-huella { display: grid; gap: 2px; margin: 9px 0 8px; }
+.sc-huella .sc-h-fila { position: relative; height: 5px; background: var(--carta-2); border-radius: 3px; }
+.sc-huella .sc-h-barra { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.sc-huella-pie {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--tinta-3);
+  display: flex; gap: 9px; flex-wrap: wrap;
+}
+.sc-huella-pie span { display: inline-flex; align-items: center; gap: 4px; }
+.sc-huella-pie i { width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; }
+
+/* ---------- historial ---------- */
+.sc-chip.sc-urge { background: var(--teja-fondo); color: var(--teja); font-weight: 600; }
+.sc-hist { display: grid; gap: 0; }
+.sc-hito {
+  display: grid; grid-template-columns: 62px 1fr auto; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid var(--linea);
+  align-items: start;
+}
+/* «Repetir» y «Borrar» van pegados a la derecha del hito, uno debajo del
+   otro, y no roban ancho al título: en móvil el nombre del plato manda
+   y la columna de acciones se queda en su sitio. */
+.sc-hito .sc-hito-acciones {
+  align-self: center; white-space: nowrap;
+  display: flex; flex-direction: column; align-items: stretch; gap: 4px;
+}
+.sc-hito .sc-fecha {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 11.5px; letter-spacing: .04em; color: var(--tinta-3);
+  font-variant-numeric: tabular-nums; padding-top: 2px; text-transform: uppercase;
+}
+.sc-hito h3 { margin: 0 0 2px; font-size: 15px; font-weight: 600; }
+.sc-hito .sc-nota { margin: 4px 0 0; font-size: 13.5px; color: var(--tinta-2); font-style: italic; }
+.sc-repetido { color: var(--teja); }
+/* «Borrar» pide un segundo toque antes de hacer nada: mientras está
+   armado se pone del color de aviso, para que quede claro que el
+   siguiente toque sí borra. */
+.sc-borrar[data-armado="1"] { color: var(--teja); }
+
+/* Aviso con «Deshacer»: el mismo aviso de siempre, con el botón pegado
+   a la derecha en vez de debajo del texto. */
+.sc-aviso-deshacer { align-items: center; justify-content: space-between; }
+.sc-aviso-deshacer span { flex: 1 1 auto; }
+.sc-aviso-deshacer .sc-btn { flex: 0 0 auto; }
+
+/* ---------- detalle: barra de acciones ----------
+   En la vista de una receta, esta barra ES la cabecera: la de la app
+   se oculta para no repetir el título, que ya lo lleva la hoja. */
+.sc-acciones {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.sc-acciones .sc-btn { flex: 0 0 auto; }
+.sc-acciones.sc-pegada {
+  position: sticky; top: 0; z-index: 20;
+  margin: -14px -16px 14px; padding: 10px 16px;
+  padding-top: calc(10px + env(safe-area-inset-top));
+  background: var(--papel);
+  border-bottom: 1px solid var(--linea);
+}
+/* En el móvil esta barra tiene que caber en UNA fila: dos filas de
+   mandos son 110 px de los 844 que hay, y es contenido que el usuario
+   deja de ver. Imprimir no aparece (no se imprime desde el teléfono) y
+   el reloj se explica solo sin su etiqueta. */
+@media (max-width: 759px) {
+  .sc-acciones.sc-pegada { flex-wrap: nowrap; gap: 6px; }
+  .sc-acciones.sc-pegada #imprimir { display: none; }
+  .sc-acciones.sc-pegada .sc-hora-lanza label { display: none; }
+  .sc-acciones.sc-pegada .sc-btn { padding: 9px 11px; }
+  .sc-acciones.sc-pegada #ir-crono { margin-left: auto; }
+}
+/* Por debajo de 380 px (y con reloj de 12 h, que ensancha el campo de
+   hora) la fila ya no cabe entera: lo primero que sobra es la palabra
+   «Recetas», porque la flecha sola ya dice a dónde vuelve. */
+@media (max-width: 380px) {
+  .sc-acciones.sc-pegada #volver { font-size: 0; }
+  .sc-acciones.sc-pegada #volver::before { content: "←"; font-size: 13px; }
+  .sc-acciones.sc-pegada .sc-hora-lanza input[type="time"] { padding: 7px 6px; font-size: 14.5px; }
+}
+.sc-hora-lanza {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 12px;
+  color: var(--tinta-3);
+}
+.sc-hora-lanza input[type="time"] {
+  padding: 7px 8px; border-radius: 8px; font-size: 15px;
+  background: var(--carta); border: 1px solid var(--linea-fuerte); color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+  /* Un input de hora hereda el tema del sistema, no el del CSS: sin
+     esto, sobre fondo oscuro las cifras y el icono salen en negro. */
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sc-hora-lanza input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .75; }
+}
+:root[data-theme="dark"] .sc-hora-lanza input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .75; }
+
+/* ---------- capa del cronómetro ---------- */
+#capa-crono {
+  position: fixed; inset: 0; z-index: 100;
+  height: 100dvh; width: 100%;
+  background: #0D0C0A;
+  padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);
+  overscroll-behavior: none;
+}
+#capa-crono > .v-crono { height: 100%; }
+body.crono-abierto { overflow: hidden; }
+
+/* ---------- las dos vistas, empotradas ----------
+   `isolation: isolate` es la barrera: crea un contexto de apilamiento
+   propio, así ningún z-index de dentro de una vista puede subir por
+   encima de la cabecera o de la barra de navegación de la app. */
+.v-ficha, .v-crono { isolation: isolate; }
+
+/* La ficha se presenta como lo que es: una hoja de papel sobre la mesa
+   de trabajo de la app. Marco propio, y el gutter de 16px intacto. */
+.v-ficha-wrap {
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+@media print {
+  .sc-cabecera, .sc-barra, .sc-acciones, .sc-tec-links, #capa-crono { display: none !important; }
+  #app { padding: 0; }
+  main { padding: 0; max-width: none; }
+  .v-ficha-wrap { border: 0; border-radius: 0; box-shadow: none; }
+}
+</style>
+
+<style>
+/* ==========================================================================
+   vista-ficha.css — módulo de vista de la ficha imprimible A4.
+   TODO va acotado bajo .v-ficha. Las variables llevan prefijo --vf- y se
+   declaran en .v-ficha, nunca en :root. Ninguna regla sale del host.
+   No carga fuentes: la app ya sirve Bricolage Grotesque y Newsreader.
+   La ficha habla en minutos relativos, nunca en horas de reloj.
+   ========================================================================== */
+
+.v-ficha{
+  /* papel y tinta */
+  --vf-papel:#F3EFE4;
+  --vf-papel-2:#EAE3D2;
+  --vf-tinta:#17150F;
+  --vf-tinta-2:#4E483C;
+  --vf-tinta-3:#857C6A;
+  /* --vf-tinta-3 es de adorno (cifras de apoyo, leyenda, marcas de eje) y
+     a propósito no llega a 4,5:1: ahí no hace falta. Pero la línea de
+     «SARTÉN · MIN · FUEGO · TAPA» de cada paso es información de
+     seguridad, no adorno, así que tiene su propia tinta más oscura
+     (4,94:1 sobre --vf-papel, 5,68:1 sobre blanco de impresión). */
+  --vf-meta:#6E6656;
+  --vf-linea:#D5CDB9;
+  /* tipografías de la app */
+  --vf-titular:'Bricolage Grotesque', system-ui, sans-serif;
+  --vf-texto:'Newsreader', Georgia, serif;
+  /* rejilla del gráfico: la pinta el JS por fila */
+  --vf-paso:10%;
+
+  background:var(--vf-papel);
+  color:var(--vf-tinta);
+  font-family:var(--vf-texto);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.v-ficha *{box-sizing:border-box}
+
+.v-ficha .hoja{max-width:840px;margin:0 auto;padding:40px 26px 70px}
+
+.v-ficha h1,
+.v-ficha h2,
+.v-ficha h3,
+.v-ficha .dato,
+.v-ficha .eti,
+.v-ficha button,
+.v-ficha .lbl{font-family:var(--vf-titular)}
+
+.v-ficha h1{font-size:clamp(30px,7vw,56px);line-height:1;font-weight:700;letter-spacing:-.025em;margin:0}
+.v-ficha h2{font-size:13px;font-weight:700;letter-spacing:.12em;margin:0 0 16px;padding-bottom:7px;
+  border-bottom:1.5px solid var(--vf-tinta);color:var(--vf-tinta)}
+.v-ficha h3{font-size:14.5px;font-weight:500;margin:0 0 3px}
+.v-ficha p{margin:0 0 12px;max-width:70ch}
+.v-ficha section{margin-top:38px}
+
+.v-ficha .portada{border-bottom:3px double var(--vf-tinta);padding-bottom:24px}
+.v-ficha .desc{font-style:italic;font-size:18.5px;line-height:1.5;color:var(--vf-tinta-2);
+  margin:14px 0 20px;max-width:56ch}
+.v-ficha .datos{display:flex;flex-wrap:wrap;gap:24px}
+.v-ficha .dato{line-height:1.15}
+.v-ficha .dato b{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.v-ficha .dato span{font-family:var(--vf-texto);font-size:12.5px;color:var(--vf-tinta-3)}
+
+/* ---------- ingredientes ---------- */
+.v-ficha .raciones{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.v-ficha .raciones .lbl{font-size:11px;letter-spacing:.09em;color:var(--vf-tinta-3)}
+.v-ficha button{font-family:var(--vf-titular);font-size:19px;font-weight:700;line-height:1;
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--vf-tinta);
+  background:transparent;color:var(--vf-tinta);cursor:pointer;touch-action:manipulation;padding:0}
+.v-ficha button:active{background:var(--vf-tinta);color:var(--vf-papel)}
+.v-ficha .n-rac{font-family:var(--vf-titular);font-size:24px;font-weight:700;min-width:26px;text-align:center}
+.v-ficha .grupos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px}
+.v-ficha .grupo h3{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--vf-tinta-3);margin-bottom:7px}
+.v-ficha ul,
+.v-ficha ol{list-style:none;padding:0;margin:0}
+.v-ficha .grupo li{display:flex;gap:9px;padding:3.5px 0;font-size:15px;line-height:1.35;
+  border-bottom:1px dotted var(--vf-linea)}
+.v-ficha .grupo li .c{font-family:var(--vf-titular);font-weight:700;font-size:14.5px;
+  white-space:nowrap;min-width:66px;text-align:right;flex:0 0 auto}
+.v-ficha .nota-esc{font-size:13.5px;color:var(--vf-tinta-3);margin-top:16px;max-width:62ch}
+
+/* ---------- gráfico de tiempos ---------- */
+.v-ficha .gantt{margin-top:4px}
+.v-ficha .fila{display:grid;grid-template-columns:150px 1fr 66px;gap:11px;align-items:center;padding:4px 0}
+.v-ficha .fila.regla{padding-bottom:2px}
+.v-ficha .fila .et{min-width:0}
+.v-ficha .fila .et b{font-family:var(--vf-titular);font-weight:500;font-size:13.5px;display:block;line-height:1.2}
+.v-ficha .fila .et span{font-family:var(--vf-titular);font-size:10.5px;color:var(--vf-tinta-3);
+  letter-spacing:.02em;display:block;line-height:1.25;overflow-wrap:anywhere}
+.v-ficha .pista{position:relative;height:17px;border-radius:3px;min-width:0;
+  background-image:repeating-linear-gradient(to right,var(--vf-linea) 0 1px,transparent 1px var(--vf-paso))}
+.v-ficha .barra{position:absolute;top:0;height:100%;border-radius:3px;opacity:.9}
+.v-ficha .dur{font-family:var(--vf-titular);font-size:11px;color:var(--vf-tinta-3);text-align:right;line-height:1.25}
+.v-ficha .dur b{display:block;font-size:13px;color:var(--vf-tinta);font-weight:700}
+.v-ficha .dur .rango{display:block;white-space:nowrap}
+.v-ficha .ticks{position:relative;height:14px}
+.v-ficha .tick{position:absolute;transform:translateX(-50%);font-family:var(--vf-titular);
+  font-size:10.5px;color:var(--vf-tinta-3)}
+.v-ficha .tick:first-child{transform:none}
+.v-ficha .tick:last-child{transform:translateX(-100%)}
+.v-ficha .leyenda{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-family:var(--vf-titular);
+  font-size:11px;color:var(--vf-tinta-3)}
+.v-ficha .leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.v-ficha .lectura{font-size:14.5px;color:var(--vf-tinta-2);margin-top:14px;max-width:66ch}
+
+/* ---------- antes de empezar ---------- */
+.v-ficha .mep{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 22px}
+.v-ficha .mep>div{break-inside:avoid}
+.v-ficha .mep h3{font-size:12px;font-weight:700;letter-spacing:.06em;margin:0 0 3px;color:var(--vf-tinta)}
+.v-ficha .mep .porq{font-size:13px;line-height:1.45;color:var(--vf-tinta-3);margin:0 0 7px}
+.v-ficha .mep ol,
+.v-ficha .mep ul{margin:0;padding:0;list-style:none;counter-reset:vfm}
+.v-ficha .mep li{font-size:13.5px;line-height:1.4;padding:2.5px 0 2.5px 20px;position:relative;
+  border-bottom:1px dotted var(--vf-linea);color:var(--vf-tinta-2)}
+.v-ficha .mep li:last-child{border-bottom:0}
+.v-ficha .mep ol li{counter-increment:vfm}
+.v-ficha .mep ol li::before{content:counter(vfm);position:absolute;left:0;top:3px;
+  font-family:var(--vf-titular);font-size:10.5px;font-weight:700;color:var(--vf-tinta-3)}
+.v-ficha .mep ul li::before{content:"";position:absolute;left:4px;top:11px;width:5px;height:5px;
+  border:1px solid var(--vf-tinta-3);border-radius:1px}
+.v-ficha .mep b{font-weight:500;color:var(--vf-tinta)}
+
+/* ---------- los pasos ---------- */
+.v-ficha .pasos{list-style:none;counter-reset:vfp;padding:0;margin:0}
+.v-ficha .pasos li{display:block;counter-increment:vfp;position:relative;padding:0 0 13px 32px;
+  margin-bottom:13px;border-bottom:1px dotted var(--vf-linea);font-size:15px;line-height:1.55}
+.v-ficha .pasos li:last-child{border-bottom:0;margin-bottom:0}
+.v-ficha .pasos li::before{content:counter(vfp);position:absolute;left:0;top:0;
+  font-family:var(--vf-titular);font-weight:700;font-size:16px;color:var(--vf-tinta-3)}
+.v-ficha .pasos h3{font-size:15.5px;font-weight:500;margin:0 0 1px}
+.v-ficha .pasos .meta{display:block;font-family:var(--vf-titular);font-size:10.5px;
+  letter-spacing:.07em;color:var(--vf-meta);margin-bottom:5px}
+.v-ficha .pasos p{font-size:14.5px;color:var(--vf-tinta-2);margin:0;max-width:70ch;line-height:1.5}
+/* los hitos de dentro del paso: sangrados y con el minuto en tabular,
+   para leerlos como una cuenta y no como prosa */
+.v-ficha .pasos .hitos{list-style:none;padding:0;margin:7px 0 0;display:flex;flex-direction:column;gap:2px}
+.v-ficha .pasos .hitos li{
+  display:flex;gap:9px;padding:0 0 0 11px;margin:0;border:0;border-left:2px solid var(--vf-linea);
+  font-size:13.5px;line-height:1.4;color:var(--vf-tinta-2);counter-increment:none;
+}
+.v-ficha .pasos .hitos li::before{content:none}
+.v-ficha .pasos .hitos b{
+  font-family:var(--vf-titular);font-size:12px;font-weight:700;color:var(--vf-tinta);
+  font-variant-numeric:tabular-nums;flex:0 0 auto;min-width:38px;
+}
+
+/* ---------- técnica ---------- */
+.v-ficha .corte{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start;
+  margin-bottom:18px;break-inside:avoid}
+.v-ficha .corte svg{max-width:100%;height:auto}
+.v-ficha .corte p{font-size:14px;margin:0;line-height:1.45}
+.v-ficha .porque{margin-top:26px}
+.v-ficha .porque div{break-inside:avoid;margin-top:13px}
+.v-ficha .porque dt{font-family:var(--vf-titular);font-weight:500;font-size:14px}
+.v-ficha .porque dd{margin:2px 0 0;font-size:14.5px;color:var(--vf-tinta-2);max-width:70ch;line-height:1.5}
+
+/* ---------- la compra (nuevo en el esquema) ---------- */
+.v-ficha .compra li{display:flex;gap:9px;padding:3.5px 0;font-size:15px;line-height:1.35;
+  border-bottom:1px dotted var(--vf-linea);max-width:420px}
+.v-ficha .compra li:last-child{border-bottom:0}
+.v-ficha .compra li .c{font-family:var(--vf-titular);font-weight:700;font-size:14.5px;
+  white-space:nowrap;min-width:66px;text-align:right;flex:0 0 auto}
+.v-ficha .despensa{font-size:14.5px;color:var(--vf-tinta-2);margin:0}
+
+/* Copiar la compra al móvil. Es un botón de pantalla (.solo-pantalla lo
+   quita al imprimir): en papel no hay portapapeles.
+   El selector .b-copia va detrás de la regla genérica de .v-ficha button,
+   que es un círculo de 36 px para los +/- de las raciones. */
+.v-ficha .copia{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px}
+.v-ficha .copia .b-copia{
+  width:auto;height:auto;border-radius:999px;padding:7px 15px;
+  font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  border:1.5px solid var(--vf-tinta);color:var(--vf-tinta);background:transparent;
+}
+.v-ficha .copia .aviso{font-family:var(--vf-titular);font-size:11.5px;letter-spacing:.04em;
+  color:var(--vf-tinta-2);line-height:1.3}
+.v-ficha .copia .aviso[data-malo]{color:var(--vf-tinta)}
+/* El último recurso: el texto a la vista y ya seleccionado, para copiarlo
+   a mano cuando ni el API ni execCommand han podido. */
+.v-ficha .copia .copia-manual{
+  flex:1 0 100%;width:100%;min-height:104px;resize:vertical;
+  font-family:var(--vf-texto);font-size:13.5px;line-height:1.45;
+  color:var(--vf-tinta);background:var(--vf-papel-2);
+  border:1px solid var(--vf-linea);border-radius:6px;padding:9px 11px;
+}
+/* El textarea de usar y tirar del plan B: tiene que estar en el documento
+   y ser seleccionable, pero no verse ni mover la página. */
+.v-ficha .copia-oculta{position:fixed;top:0;left:0;width:1px;height:1px;
+  padding:0;border:0;opacity:0;pointer-events:none}
+
+.v-ficha .pie{margin-top:40px;padding-top:11px;border-top:1px solid var(--vf-linea);
+  font-size:12px;color:var(--vf-tinta-3)}
+
+/* ---------- móvil: una sola columna ---------- */
+@media (max-width:700px){
+  .v-ficha .hoja{padding:24px 16px 50px}
+  .v-ficha .grupos{grid-template-columns:1fr;gap:20px}
+  .v-ficha .mep{grid-template-columns:1fr}
+  .v-ficha .corte{grid-template-columns:1fr}
+  .v-ficha .corte svg{max-width:160px}
+  .v-ficha .fila{grid-template-columns:96px 1fr 52px;gap:8px}
+  .v-ficha .fila .et b{font-size:12.5px}
+  .v-ficha .dur{font-size:9.5px}
+  /* Cuatro cifras de portada: 2x2 en vez de tres arriba y una huérfana. */
+  .v-ficha .datos{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .v-ficha .dato b{font-size:23px}
+}
+
+/* ---------- pantalla estrecha: el gráfico a dos líneas ----------
+   Con la etiqueta y la barra en la misma fila, en un móvil la pista se
+   queda en 140 px y un paso de 11 minutos mide 24 px: el gráfico deja
+   de leerse, y es el corazón de la hoja. Debajo de 520 px cada paso
+   pasa a dos líneas y la pista se lleva el ancho completo. */
+@media (max-width:520px){
+  .v-ficha .fila{
+    grid-template-columns:1fr auto;
+    grid-template-areas:"et dur" "pista pista";
+    gap:2px 8px;padding:7px 0;
+    border-bottom:1px solid var(--vf-linea-suave,rgba(0,0,0,.06));
+  }
+  .v-ficha .fila .et{grid-area:et}
+  .v-ficha .fila .dur{grid-area:dur;align-self:end}
+  .v-ficha .fila .pista{grid-area:pista;height:14px;margin-top:2px}
+  .v-ficha .fila .et b{font-size:13.5px}
+  .v-ficha .dur{font-size:10px}
+  .v-ficha .dur b{display:inline;font-size:12px}
+  .v-ficha .dur .rango{display:inline;margin-left:5px}
+  /* La regla del eje se alinea con la pista, que ahora ocupa todo. */
+  .v-ficha .fila.regla{grid-template-areas:"pista pista";border-bottom:0;padding-bottom:0}
+  .v-ficha .fila.regla .ticks{grid-area:pista}
+  .v-ficha .fila.regla > span{display:none}
+}
+
+/* ---------- impresión A4 ---------- */
+@page{size:A4;margin:13mm}
+
+@media print{
+  .v-ficha{background:#fff;font-size:10pt;line-height:1.4}
+  .v-ficha .hoja{max-width:none;padding:0}
+  .v-ficha .solo-pantalla{display:none !important}
+  .v-ficha h1{font-size:30pt}
+  .v-ficha h2{font-size:9.5pt}
+  /* Sin break-inside:avoid aquí: una section entera (p.ej. «el tiempo» o
+     «los pasos») puede medir varias páginas, y forzarla a no partirse la
+     manda entera a la página siguiente en cuanto no cabe completa,
+     dejando la anterior a medio llenar. Lo que no debe partirse ya está
+     protegido pieza a pieza más abajo (fila, paso, bloque de mep...). */
+  .v-ficha section{margin-top:16pt}
+  .v-ficha .corte,
+  .v-ficha .porque div,
+  .v-ficha .fila,
+  .v-ficha .pasos li,
+  .v-ficha .mep>div{break-inside:avoid}
+  .v-ficha .dato b{font-size:15pt}
+  /* El gráfico de tiempos se pinta con background (la rejilla de .pista y
+     las .barra), no con bordes ni SVG: si el diálogo de impresión trae
+     "imprimir fondos" desactivado —el valor por defecto en casi todos—
+     Chromium se lo salta y el gráfico entero desaparece del papel, solo
+     quedan los números de al lado. Y es el corazón de la hoja: dice qué
+     pasa en cada fuego a la vez. */
+  .v-ficha .pista,
+  .v-ficha .barra,
+  .v-ficha .leyenda i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<style>
+/* ============================================================
+   vista-crono.css — módulo de vista del cronómetro multi-fuego.
+
+   TODO cuelga de .v-crono. Nada toca :root, body ni head.
+   El tema oscuro se queda dentro con `color-scheme:dark` en el host.
+
+   COLOR, una sola regla: el color del carril es SOLO acento
+   (borde superior de pestaña, nombre de pestaña, número de
+   potencia, relleno de la barra de progreso). Todo el texto sale
+   de --vc-texto / --vc-apagado / --vc-tenue, nunca de currentColor.
+   Ratios medidos (ver informe): tenue sobre carta-2 = 4,70:1, que
+   es el par peor y sigue por encima de 4,5:1.
+   El color de carril que se usa como texto lo aclara el JS hasta
+   4,6:1 sobre --vc-carta-2 y lo sirve en --tab-txt / --av-txt.
+   ============================================================ */
+
+.v-crono{
+  color-scheme:dark;
+  --vc-fondo:#0D0C0A; --vc-carta:#1C1915; --vc-carta-2:#272219; --vc-linea:#3A342C;
+  --vc-texto:#F4F1E8; --vc-apagado:#B0A899; --vc-tenue:#948B7C;
+  --vc-meto:#9ACB68; --vc-saco:#EE9B79; --vc-tapa:#E8836B;
+  --vc-alerta:#FF6B52; --vc-ok:#8FC97A;
+  --vc-acento:#F0AE4A;
+  --vc-borde-ok:#3E5A34; --vc-borde-mal:#5C2318;
+
+  height:100%;
+  min-height:0;
+  position:relative;      /* ancla de la hoja de la ficha, que va encima */
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  overscroll-behavior:none;
+  background:var(--vc-fondo);
+  color:var(--vc-texto);
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+.v-crono *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.v-crono button,.v-crono input{font-family:inherit}
+.v-crono button{
+  touch-action:manipulation;-webkit-user-select:none;user-select:none;
+  color:var(--vc-texto);
+  font-size:13.5px;font-weight:500;background:var(--vc-carta-2);
+  border:1px solid var(--vc-linea);border-radius:10px;padding:7px 6px;min-height:44px;cursor:pointer;
+}
+.v-crono button:active{background:var(--vc-linea)}
+.v-crono button:focus-visible{outline:2px solid var(--vc-texto);outline-offset:2px}
+.v-crono .vc-oculto{display:none !important}
+/* Muda a la vista, viva para un lector de pantalla: nunca display:none
+   (eso la saca del árbol de accesibilidad y deja de anunciarse). Ver
+   anuncia() en vista-crono.js. */
+.v-crono .vc-sr{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* ---------- campos y controles nativos ---------- */
+.v-crono .vc-campo{display:flex;flex-direction:column;gap:3px;min-width:0}
+.v-crono .vc-campo label{font-size:10px;letter-spacing:.09em;color:var(--vc-tenue);white-space:nowrap}
+.v-crono .vc-campo b{
+  font-size:19px;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;line-height:1.2;color:var(--vc-texto);
+}
+/* Un input nativo hereda el tema del sistema, no este CSS: sin esto las
+   cifras salen en negro sobre el fondo oscuro. */
+.v-crono input[type=time]{
+  -webkit-appearance:none;appearance:none;
+  font-size:17px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums;
+  background:var(--vc-carta);color:var(--vc-texto);
+  border:1px solid var(--vc-linea);border-radius:9px;padding:4px 7px;min-width:92px;
+}
+.v-crono input[type=time]:focus{outline:none;border-color:var(--vc-texto)}
+.v-crono input[type=time]::-webkit-datetime-edit,
+.v-crono input[type=time]::-webkit-datetime-edit-fields-wrapper,
+.v-crono input[type=time]::-webkit-datetime-edit-hour-field,
+.v-crono input[type=time]::-webkit-datetime-edit-minute-field,
+.v-crono input[type=time]::-webkit-datetime-edit-ampm-field,
+.v-crono input[type=time]::-webkit-datetime-edit-text,
+.v-crono input[type=time]::-webkit-date-and-time-value{color:var(--vc-texto);background:transparent}
+.v-crono input[type=time]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.55}
+.v-crono input[type=text]{
+  -webkit-appearance:none;appearance:none;
+  font-size:16px;line-height:1.25;width:100%;
+  background:var(--vc-carta);color:var(--vc-texto);
+  border:1px solid var(--vc-linea);border-radius:10px;padding:9px 10px;
+}
+.v-crono input[type=text]::placeholder{color:var(--vc-tenue);opacity:1}
+.v-crono input[type=text]:focus{outline:none;border-color:var(--vc-apagado)}
+
+/* ---------- volver: discreto, arriba a la izquierda, sin robar alto ---------- */
+.v-crono .vc-volver{
+  flex:0 0 auto;
+  width:30px;min-width:30px;height:30px;min-height:30px;
+  padding:0;border-radius:9px;
+  background:transparent;border:1px solid var(--vc-linea);
+  color:var(--vc-apagado);
+  font-size:17px;font-weight:700;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.v-crono .vc-volver:active{background:var(--vc-carta-2)}
+
+/* ---------- portada: mise en place ---------- */
+.v-crono .vc-portada{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+/* Sin justify-content:flex-end aquí bajo ningún concepto: con
+   overflow-y:auto deja inalcanzable lo que se sale por arriba. */
+.v-crono .vc-portada-scroll{
+  flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:8px 18px 14px;display:flex;flex-direction:column;gap:14px;
+}
+.v-crono .vc-portada-pie{
+  flex:0 0 auto;padding:12px 18px 10px;display:flex;flex-direction:column;gap:12px;
+  border-top:1px solid var(--vc-linea);background:var(--vc-fondo);
+}
+.v-crono .vc-portada h1{
+  font-size:clamp(28px,8.5vw,44px);font-weight:700;letter-spacing:-.03em;
+  line-height:1.02;margin:0;color:var(--vc-texto);
+}
+.v-crono .vc-portada p{
+  font-family:"Newsreader",Georgia,serif;font-size:16.5px;line-height:1.45;
+  color:var(--vc-apagado);margin:0;
+}
+.v-crono .vc-previo{display:flex;flex-direction:column;gap:13px}
+.v-crono .vc-previo>h2{
+  font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--vc-tenue);margin:0;
+}
+.v-crono .vc-bloque>b{
+  display:block;font-size:12.5px;font-weight:700;letter-spacing:.02em;
+  color:var(--vc-texto);margin-bottom:5px;
+}
+.v-crono .vc-previo ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}
+.v-crono .vc-previo li{padding:0}
+.v-crono .vc-previo li button{
+  display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;
+  background:transparent;border:none;border-radius:0;padding:3px 0;min-height:0;
+  font-size:13px;line-height:1.35;color:var(--vc-apagado);font-weight:400;
+}
+.v-crono .vc-previo li button::before{
+  content:"";flex:0 0 auto;width:13px;height:13px;margin-top:2px;
+  border:1px solid var(--vc-linea);border-radius:3px;
+}
+.v-crono .vc-previo li button>span{flex:1 1 auto;min-width:0}
+.v-crono .vc-previo li button b{color:var(--vc-texto);font-weight:700}
+.v-crono .vc-previo li button.vc-ok{color:var(--vc-tenue);text-decoration:line-through}
+.v-crono .vc-previo li button.vc-ok b{color:var(--vc-tenue);font-weight:500}
+.v-crono .vc-previo li button.vc-ok::before{background:var(--vc-ok);border-color:var(--vc-ok)}
+.v-crono .vc-ancho{width:100%;min-height:52px;font-size:16px;padding:14px 10px;border-radius:14px}
+
+/* ---------- cabecera: desvío + lista de ahora toca + pestañas ---------- */
+.v-crono .vc-cab{flex:0 0 auto;padding:8px 14px 0;background:var(--vc-fondo)}
+.v-crono .vc-sup{display:flex;align-items:flex-end;gap:11px;padding-bottom:9px}
+.v-crono .vc-sup input[type=time]{padding-left:7px;padding-right:7px}
+/* En la cabecera de la cocina el icono del selector son 20 px que no
+   caben: en el móvil el propio campo abre el selector al tocarlo. En la
+   portada, donde sobra sitio, se queda. */
+.v-crono .vc-sup input[type=time]::-webkit-calendar-picker-indicator{display:none}
+/* En pantallas estrechas esta fila lleva cuatro cosas: se aprietan los
+   huecos antes que dejar que se corte una hora. */
+@media (max-width:430px){
+  .v-crono .vc-sup{gap:8px}
+  .v-crono .vc-sup input[type=time]{min-width:78px}
+}
+/* Y en las estrechas se va la hora actual antes que cortar nada: es el
+   único dato de la fila que el teléfono ya enseña solo, arriba. 400 px
+   y no 380: a 390-393 px (el ancho de prueba y el de un móvil normal de
+   gama media) esta regla no saltaba nunca y SERVIR/AHORA/LLEGADA se
+   quedaban chafados igual. */
+@media (max-width:400px){
+  .v-crono .vc-sup .vc-ahora{display:none}
+}
+
+/* ---------- lo que venció mientras no mirabas ----------
+   El móvil puede congelar la app, pero no el reloj: al volver, esto
+   dice qué saltó y hace cuánto. También es donde vive el reinicio
+   rápido, así que la fila de acciones es su propia columna: con el
+   texto y los dos botones en una sola fila, en pantallas estrechas
+   "REINICIAR" empujaba la hora y se cortaba. */
+.v-crono .vc-devuelta{
+  display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;
+  background:var(--vc-carta);border:1px solid var(--vc-alerta);border-radius:11px;
+  padding:8px 8px 8px 11px;
+}
+.v-crono .vc-devuelta>div:first-child{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.v-crono .vc-devuelta b{font-size:10px;letter-spacing:.09em;color:var(--vc-alerta);font-weight:700}
+.v-crono .vc-devuelta span{font-size:13px;line-height:1.3;color:var(--vc-texto)}
+.v-crono .vc-devuelta-acc{flex:0 0 auto;display:flex;flex-direction:column;align-items:stretch;gap:5px}
+.v-crono .vc-devuelta button{
+  flex:0 0 auto;min-height:26px;padding:0;border-radius:8px;
+  background:transparent;border:1px solid var(--vc-linea);color:var(--vc-apagado);font-size:12px;
+}
+.v-crono .vc-devuelta [data-vc="cerrar-devuelta"]{width:26px;align-self:flex-end}
+.v-crono .vc-devuelta-reset{
+  width:auto;min-height:24px;padding:4px 9px;font-size:10px;font-weight:700;
+  letter-spacing:.06em;white-space:nowrap;
+}
+.v-crono .vc-devuelta-reset:active{background:var(--vc-carta-2)}
+.v-crono .vc-devuelta-reset[data-armado="1"]{
+  color:var(--vc-alerta);border-color:var(--vc-alerta);background:#33140F;
+}
+
+/* El bloque del desvío no puede comerse el panel del paso: se le pone
+   techo y es él el que se desplaza por dentro, no la pantalla. */
+.v-crono .vc-plan{
+  background:var(--vc-carta);border:1px solid var(--vc-linea);border-radius:13px;overflow:hidden;
+  display:flex;flex-direction:column;max-height:46vh;
+}
+.v-crono .vc-plan.vc-tarde{border-color:var(--vc-alerta)}
+.v-crono .vc-plan-cab{
+  flex:0 0 auto;
+  display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;
+  background:transparent;border:none;border-radius:0;padding:9px 11px;min-height:0;
+  font-size:13.5px;line-height:1.4;color:var(--vc-apagado);
+}
+/* El texto es de longitud variable («Vas en hora. Llegada 15:47,
+   prevista 15:30») y en pantallas estrechas envuelve a dos líneas: sin
+   min-width:0 el span no cede sitio y empuja la flecha fuera, que es lo
+   que se veía como "chafado". */
+.v-crono .vc-plan-cab [data-vc-n="plan-txt"]{flex:1 1 auto;min-width:0}
+.v-crono .vc-plan-cab b{color:var(--vc-texto);font-weight:700;font-variant-numeric:tabular-nums}
+.v-crono .vc-plan.vc-tarde .vc-plan-cab b{color:var(--vc-alerta)}
+.v-crono .vc-plan-cab .vc-flecha{margin-left:auto;flex:0 0 auto;padding-top:1px;color:var(--vc-tenue);font-size:12px}
+.v-crono .vc-plan-cuerpo{
+  border-top:1px solid var(--vc-linea);
+  flex:0 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.v-crono .vc-tarea{
+  display:flex;align-items:baseline;gap:9px;width:100%;text-align:left;
+  background:transparent;border:none;border-radius:0;padding:6px 11px;min-height:0;
+  border-bottom:1px solid var(--vc-linea);
+}
+.v-crono .vc-tarea:last-child{border-bottom:none}
+.v-crono .vc-tarea .vc-ord{font-size:11px;font-weight:700;color:var(--vc-tenue);min-width:13px;flex:0 0 auto}
+.v-crono .vc-tarea.vc-ya .vc-ord{color:var(--vc-ok)}
+.v-crono .vc-tarea.vc-atender .vc-ord{color:var(--vc-alerta)}
+.v-crono .vc-tarea .vc-cu{flex:1;min-width:0}
+.v-crono .vc-tarea .vc-ct{display:block;font-size:14px;font-weight:500;color:var(--vc-texto);line-height:1.25}
+.v-crono .vc-tarea .vc-ct span{
+  color:var(--tar-txt,var(--vc-apagado));font-weight:700;font-size:10.5px;
+  letter-spacing:.08em;margin-right:5px;
+}
+.v-crono .vc-tarea .vc-ce{display:block;font-size:11.5px;color:var(--vc-tenue);line-height:1.3;margin-top:2px}
+.v-crono .vc-tarea.vc-ya .vc-ce{color:var(--vc-ok)}
+.v-crono .vc-tarea.vc-atender .vc-ce{color:var(--vc-alerta)}
+.v-crono .vc-tarea.vc-bloq .vc-ce{color:var(--vc-saco)}
+.v-crono .vc-tarea .vc-creloj{
+  font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--vc-tenue);flex:0 0 auto;
+}
+.v-crono .vc-nota-plan{
+  font-size:12.5px;line-height:1.45;color:var(--vc-apagado);
+  padding:9px 11px;border-top:1px solid var(--vc-linea);
+  flex:0 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.v-crono .vc-nota-plan b{color:var(--vc-texto);font-weight:500}
+
+.v-crono .vc-tabs{
+  display:flex;gap:7px;overflow-x:auto;padding:9px 0 4px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.v-crono .vc-tabs::-webkit-scrollbar{display:none}
+.v-crono .vc-tab{
+  flex:1 1 0;min-width:112px;background:var(--vc-carta);
+  border:1px solid var(--vc-linea);border-top:3px solid var(--vc-linea);
+  border-radius:4px 4px 13px 13px;padding:6px 9px 8px;text-align:left;
+  display:flex;flex-direction:column;gap:2px;min-height:0;
+}
+.v-crono .vc-tab.vc-activo{background:var(--vc-carta-2);border-top-color:var(--tab-color)}
+.v-crono .vc-tab.vc-suena{border-color:var(--vc-alerta);border-top-color:var(--vc-alerta);background:#33140F}
+@media (prefers-reduced-motion:no-preference){
+  .v-crono .vc-tab.vc-suena{animation:vc-late 1.1s steps(1,end) infinite}
+}
+@keyframes vc-late{0%,49%{background:#33140F}50%,100%{background:var(--vc-carta)}}
+.v-crono .vc-tab .vc-tn{font-size:10px;font-weight:700;letter-spacing:.09em;color:var(--tab-txt)}
+.v-crono .vc-tab .vc-tt{
+  font-size:23px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  color:var(--vc-texto);line-height:1.1;
+}
+.v-crono .vc-tab .vc-tt.vc-parado{color:var(--vc-tenue)}
+.v-crono .vc-tab .vc-tt.vc-pasado{color:var(--vc-alerta)}
+.v-crono .vc-tab .vc-ts1{
+  font-size:11.5px;color:var(--vc-apagado);line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.v-crono .vc-tab .vc-ts2{
+  font-size:10.5px;color:var(--vc-tenue);letter-spacing:.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.v-crono .vc-tab .vc-ts2.vc-bloq{color:var(--vc-saco)}
+.v-crono .vc-pista{font-size:10.5px;color:var(--vc-tenue);letter-spacing:.03em;padding:2px 2px 5px}
+
+/* ---------- panel: un solo paso ---------- */
+.v-crono .vc-panel{
+  flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:4px 14px 6px;display:flex;flex-direction:column;
+}
+.v-crono .vc-pcab{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.v-crono .vc-idx{font-size:11px;letter-spacing:.05em;color:var(--vc-tenue)}
+.v-crono .vc-panel h2{
+  margin:3px 0 0;font-size:clamp(21px,6vw,28px);font-weight:700;
+  letter-spacing:-.025em;line-height:1.08;color:var(--vc-texto);
+}
+.v-crono .vc-quem{flex:0 0 auto;text-align:right}
+.v-crono .vc-quem .vc-n{font-size:38px;font-weight:700;line-height:.88;letter-spacing:-.04em;color:var(--vc-acento)}
+.v-crono .vc-quem .vc-n.vc-off{color:var(--vc-tenue)}
+.v-crono .vc-b9{display:flex;gap:2px;margin-top:5px;width:84px}
+.v-crono .vc-b9 i{flex:1;height:6px;border-radius:2px;background:var(--vc-linea)}
+.v-crono .vc-b9 i.vc-on{background:var(--vc-acento)}
+.v-crono .vc-tp{display:block;margin-top:6px;font-size:11px;font-weight:700;color:var(--vc-apagado)}
+.v-crono .vc-tp.vc-act{color:var(--vc-tapa)}
+.v-crono .vc-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11px}
+.v-crono .vc-pill{border:1px solid var(--vc-linea);border-radius:99px;padding:3px 8px;color:var(--vc-apagado)}
+.v-crono .vc-pill.vc-flexible{color:var(--vc-ok);border-color:var(--vc-borde-ok)}
+.v-crono .vc-pill.vc-critico{color:var(--vc-alerta);border-color:var(--vc-borde-mal)}
+.v-crono .vc-req{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+.v-crono .vc-req div{
+  font-size:12.5px;line-height:1.3;border-left:2px solid var(--vc-linea);
+  padding-left:8px;color:var(--vc-apagado);
+}
+.v-crono .vc-req div b{
+  font-weight:700;font-size:10.5px;letter-spacing:.07em;display:block;color:var(--vc-tenue);
+}
+.v-crono .vc-req div.vc-falta{border-color:var(--vc-alerta);color:var(--vc-texto)}
+.v-crono .vc-req div.vc-falta b{color:var(--vc-alerta)}
+.v-crono .vc-req div.vc-listo{border-color:var(--vc-borde-ok)}
+.v-crono .vc-req div.vc-listo b{color:var(--vc-ok)}
+.v-crono .vc-req div.vc-junto{border-color:var(--vc-acento)}
+.v-crono .vc-req div.vc-junto b{color:var(--vc-apagado)}
+.v-crono .vc-avisos{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.v-crono .vc-avisos>b{font-weight:700;font-size:10px;letter-spacing:.08em;color:var(--vc-tenue)}
+.v-crono .vc-aviso{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 8px;width:100%;text-align:left;
+  background:var(--vc-carta-2);border:1px solid var(--vc-linea);border-left:3px solid var(--av);
+  border-radius:8px;padding:6px 9px;min-height:0;font-size:13px;
+}
+.v-crono .vc-aviso em{
+  font-style:normal;font-weight:700;font-size:11.5px;color:var(--av-txt);
+  flex:0 0 auto;min-width:56px;
+}
+.v-crono .vc-aviso span{flex:1 1 110px;color:var(--vc-texto);line-height:1.25}
+.v-crono .vc-aviso i{
+  font-style:normal;font-size:11px;color:var(--vc-tenue);flex:1 0 100%;padding-left:64px;
+}
+.v-crono .vc-aviso.vc-urge{border-color:var(--av);background:var(--vc-carta)}
+.v-crono .vc-reloj{
+  font-size:clamp(40px,13vw,64px);font-weight:700;letter-spacing:-.045em;line-height:.92;
+  font-variant-numeric:tabular-nums;margin:7px 0 0;color:var(--vc-texto);
+}
+.v-crono .vc-reloj.vc-parado{color:var(--vc-tenue)}
+.v-crono .vc-reloj.vc-pasado{color:var(--vc-alerta)}
+.v-crono .vc-prog{height:3px;background:var(--vc-linea);border-radius:99px;margin-top:7px;position:relative}
+.v-crono .vc-prog i{display:block;height:100%;width:0;background:var(--vc-acento);border-radius:99px}
+/* marcas de los hitos sobre la barra: dicen de un vistazo que este paso
+   no es "enciende y espera", que tiene cosas dentro */
+.v-crono .vc-prog u{
+  position:absolute;top:-3px;width:2px;height:9px;margin-left:-1px;
+  background:var(--vc-apagado);border-radius:1px;text-decoration:none;
+}
+.v-crono .vc-prog u.vc-pasada{background:var(--vc-acento)}
+
+/* ---------- hitos: los avisos de dentro del paso ---------- */
+.v-crono .vc-hitos{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.v-crono .vc-hito{
+  display:inline-flex;align-items:baseline;gap:6px;max-width:100%;
+  border:1px solid var(--vc-linea);border-radius:99px;padding:3px 10px 3px 7px;
+  font-size:12.5px;line-height:1.25;color:var(--vc-apagado);
+}
+.v-crono .vc-hito em{
+  font-style:normal;font-weight:700;font-size:11px;color:var(--vc-tenue);
+  font-variant-numeric:tabular-nums;flex:0 0 auto;
+}
+.v-crono .vc-hito.vc-vivo{
+  border-color:var(--vc-acento);background:var(--vc-carta-2);color:var(--vc-texto);font-weight:500;
+}
+.v-crono .vc-hito.vc-vivo em{color:var(--vc-acento)}
+.v-crono .vc-hito.vc-pasado{color:var(--vc-tenue);border-style:dashed}
+
+/* ---------- el porqué del paso, plegado ---------- */
+.v-crono .vc-porque{margin-top:8px}
+.v-crono .vc-porque-btn{
+  min-height:0;padding:3px 9px;font-size:11.5px;letter-spacing:.04em;
+  background:transparent;border:1px solid var(--vc-linea);color:var(--vc-tenue);border-radius:99px;
+}
+.v-crono .vc-porque p{
+  font-family:"Newsreader",Georgia,serif;font-size:15px;line-height:1.45;
+  color:var(--vc-apagado);margin:8px 0 0;border-left:2px solid var(--vc-linea);padding-left:10px;
+}
+.v-crono .vc-tecnicas{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+.v-crono .vc-tec-link{
+  min-height:0;padding:5px 10px;font-size:12px;letter-spacing:.01em;font-weight:600;
+  background:transparent;border:1px solid var(--vc-acento);color:var(--vc-acento);border-radius:99px;
+}
+.v-crono .vc-detalle{margin-top:10px;display:flex;flex-direction:column;gap:7px}
+.v-crono .vc-fila{display:flex;gap:9px;align-items:flex-start;font-size:15.5px;line-height:1.32;color:var(--vc-texto)}
+.v-crono .vc-fila em{
+  font-style:normal;font-weight:700;font-size:11px;letter-spacing:.05em;
+  padding-top:3px;min-width:42px;flex:0 0 auto;
+}
+.v-crono .vc-f-meto em{color:var(--vc-meto)}
+.v-crono .vc-f-saco em{color:var(--vc-saco)}
+.v-crono .vc-f-tapa em{color:var(--vc-tapa)}
+.v-crono .vc-nota{
+  font-family:"Newsreader",Georgia,serif;font-size:16px;line-height:1.42;
+  color:var(--vc-apagado);margin:8px 0 0;
+}
+.v-crono .vc-sig{margin-top:auto;padding-top:10px;font-size:12.5px;color:var(--vc-tenue);line-height:1.35}
+.v-crono .vc-sig b{color:var(--vc-apagado);font-weight:500}
+
+/* ---------- mandos: los tres en una fila baja ---------- */
+.v-crono .vc-mandos{
+  flex:0 0 auto;display:grid;grid-template-columns:1.5fr 1.15fr .75fr;gap:6px;
+  padding:6px 14px 10px;background:var(--vc-fondo);border-top:1px solid var(--vc-linea);
+}
+/* Los tres mandos en UNA fila de ~44px de alto: son los que se tocan
+   docenas de veces por receta con las manos mojadas, así que llevan el
+   mínimo de 44 px de toque fiable (el de portada, .vc-ancho, ya lo
+   pasaba de sobra con 52; estos se quedaban en 38). Subir el alto no
+   toca el ancho: las columnas siguen medidas para que los rótulos más
+   largos ("Empezar igual", "Hecho · siguiente") quepan en una línea; el
+   de bloqueado cabe en dos sin estirar la fila. */
+.v-crono .vc-mandos>button{overflow:hidden;line-height:1.15;font-size:13px;min-height:44px}
+/* carril cerrado: no hay temporizador que mandar, solo la salida al
+   siguiente carril, y ocupa la fila entera */
+.v-crono .vc-mandos.vc-solo{grid-template-columns:1fr}
+.v-crono .vc-principal{
+  background:var(--vc-texto);color:#0D0C0A;border-color:var(--vc-texto);
+  font-weight:700;font-size:14.5px;min-height:44px;line-height:1.15;
+}
+.v-crono .vc-principal:active{background:#D8D3C6}
+.v-crono .vc-principal.vc-urge{background:var(--vc-alerta);border-color:var(--vc-alerta);color:#2A0A05}
+.v-crono .vc-principal.vc-bloq{
+  background:transparent;color:var(--vc-alerta);border:1.5px solid var(--vc-alerta);
+  font-size:11.5px;line-height:1.12;padding:4px 5px;letter-spacing:-.005em;
+}
+
+/* ---------- remate: ya está, a la mesa ---------- */
+.v-crono .vc-final{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.v-crono .vc-final-scroll{
+  flex:1 1 auto;min-height:0;overflow-y:auto;
+  padding:8px 18px 14px;display:flex;flex-direction:column;gap:12px;
+}
+.v-crono .vc-final h2{
+  margin:0;font-size:clamp(26px,8vw,40px);font-weight:700;letter-spacing:-.03em;
+  line-height:1.04;color:var(--vc-texto);
+}
+.v-crono .vc-final p{
+  font-family:"Newsreader",Georgia,serif;font-size:16.5px;line-height:1.45;
+  color:var(--vc-apagado);margin:0;
+}
+.v-crono .vc-final-pie{
+  flex:0 0 auto;padding:12px 18px 10px;display:flex;flex-direction:column;gap:10px;
+  border-top:1px solid var(--vc-linea);background:var(--vc-fondo);
+}
+.v-crono .vc-final-pie label{font-size:10px;letter-spacing:.09em;color:var(--vc-tenue)}
+.v-crono .vc-resumen{display:flex;flex-direction:column;gap:5px;margin:0;padding:0;list-style:none}
+.v-crono .vc-resumen li{font-size:12.5px;color:var(--vc-apagado);line-height:1.35}
+.v-crono .vc-resumen li b{color:var(--vc-texto);font-weight:700;font-size:10.5px;letter-spacing:.08em;margin-right:6px}
+
+/* ---------- pantallas cortas ---------- */
+@media (max-height:680px){
+  .v-crono .vc-plan{max-height:37vh}
+  .v-crono .vc-plan-cab{padding:7px 11px}
+  .v-crono .vc-reloj{font-size:clamp(34px,11vw,48px);margin-top:5px}
+  .v-crono .vc-nota{font-size:14.5px;margin-top:8px}
+  .v-crono .vc-tab .vc-tt{font-size:20px}
+  /* Esto ya no toca a Hecho/Empezar/+30 s: .vc-mandos>button (más
+     específica) los mantiene en 44 px también en pantallas cortas. Aquí
+     se sigue encogiendo todo lo demás para ganar el alto que haga
+     falta. */
+  .v-crono button{min-height:34px;padding:5px 6px;font-size:13px}
+  .v-crono .vc-principal{min-height:34px;font-size:13.5px}
+  .v-crono .vc-avisos{margin-top:7px}
+  .v-crono .vc-volver{height:28px;min-height:28px;width:28px;min-width:28px}
+  .v-crono .vc-ancho{min-height:46px;font-size:15px;padding:11px 10px}
+}
+</style>
+
+<div id="app">
+  <header class="sc-cabecera" id="cabecera">
+    <h1 id="titulo">Sous Chef</h1>
+    <span class="sc-sub" id="subtitulo"></span>
+  </header>
+  <main id="vista" tabindex="-1"></main>
+  <nav class="sc-barra" id="barra">
+    <button type="button" data-ir="recetas"><span class="sc-n" id="n-recetas">·</span>Recetas</button>
+    <button type="button" data-ir="historial"><span class="sc-n" id="n-hist">·</span>Historial</button>
+    <button type="button" data-ir="tecnicas"><span class="sc-n" id="n-tecnicas">·</span>Técnicas</button>
+  </nav>
+</div>
+
+<div id="capa-crono" hidden></div>
+
+<script>
+/* ==========================================================================
+   vista-ficha.js — módulo de vista de la ficha imprimible.
+   Contrato: window.VistaFicha = { render(host, receta), destroy() }.
+   Pinta SOLO dentro de host (un <div class="v-ficha"> vacío que ya existe).
+   No toca body, head, :root ni html. Sin almacenamiento, sin red, sin deps.
+
+   El esquema nuevo tiene UN array receta.pasos y de él se derivan las dos
+   vistas de esta ficha: las filas del gráfico (off, min, carril) y la línea
+   meta de cada paso de la lista (carril, min, f, tapa). receta.tiempo ya no
+   existe: el total es receta.totalMin.
+
+   La ficha habla en minutos relativos al arranque. Nunca en horas de reloj.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var COLOR_NEUTRO = '#857C6A';
+
+  /* ---------------- utilidades ---------------- */
+
+  function esc(v) {
+    if (v === null || v === undefined) return '';
+    return String(v)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  /* Los campos que el esquema declara como HTML (mep.l, cortes.svg) pasan
+     tal cual; todo lo demás se escapa. */
+  function crudo(v) {
+    return v === null || v === undefined ? '' : String(v);
+  }
+
+  function lista(v) {
+    return Object.prototype.toString.call(v) === '[object Array]' ? v : [];
+  }
+
+  function hay(v) {
+    return lista(v).length > 0;
+  }
+
+  function txt(v) {
+    return typeof v === 'string' && v.replace(/\s+/g, '') !== '';
+  }
+
+  /* Formato del original: entero desde 10, un decimal por debajo, coma. */
+  function num(v) {
+    if (v >= 100) return String(Math.round(v));
+    if (v >= 10) return String(Math.round(v));
+    var r = Math.round(v * 10) / 10;
+    return String(r).replace('.', ',');
+  }
+
+  /* ---------------- estado del módulo ---------------- */
+
+  var st = null; // { host, receta, rac, onMenos, onMas, onCopiar, elMenos, elMas, elCopiar, avisoTO }
+
+  function carrilDe(receta, id) {
+    var cs = lista(receta.carriles);
+    for (var i = 0; i < cs.length; i++) {
+      if (cs[i] && cs[i].id === id) return cs[i];
+    }
+    return { id: id, nombre: id ? String(id) : '', color: COLOR_NEUTRO };
+  }
+
+  function nombreCarril(c) {
+    return String(c && c.nombre ? c.nombre : (c && c.id) || '').toUpperCase();
+  }
+
+  function colorCarril(c) {
+    return c && txt(c.color) ? c.color : COLOR_NEUTRO;
+  }
+
+  function dur(paso) {
+    var m = Number(paso.min);
+    return isFinite(m) && m > 0 ? m : 0;
+  }
+
+  /* Minutos del plan. num() redondea a entero a partir de 10 —correcto para
+     gramos— y ahí se perdía el minuto 114,5 del salteado. Aquí el medio
+     minuto se conserva siempre, y con coma. */
+  function minNum(v) {
+    var r = Math.round((+v || 0) * 2) / 2;
+    return String(r).replace('.', ',');
+  }
+
+  function ini(paso) {
+    var o = Number(paso.off);
+    return isFinite(o) ? o : 0;
+  }
+
+  /* Línea meta de la lista de pasos, en mayúsculas:
+     SARTÉN · 12 MIN · FUEGO 8 · SIN TAPA   (SIN FUEGO si f es null;
+     el tramo de tapa se omite si tapa es null) */
+  function metaPaso(receta, paso) {
+    var t = [];
+    var n = nombreCarril(carrilDe(receta, paso.carril));
+    if (n) t.push(n);
+    /* num() y no el número crudo: desde el salteado hay pasos de 2,5 min,
+       y en una hoja donde todas las cantidades llevan coma, un «2.5 MIN»
+       con punto canta como un dato sin formatear. */
+    t.push(minNum(dur(paso)) + ' MIN');
+    t.push(paso.f === null || paso.f === undefined ? 'SIN FUEGO' : 'FUEGO ' + paso.f);
+    if (txt(paso.tapa)) t.push(String(paso.tapa).toUpperCase());
+    return t.join(' · ');
+  }
+
+  /* Sublínea de la fila del gráfico: "fuego 5 · TAPA PUESTA".
+     El fuego en minúscula; la tapa tal cual viene en el dato. */
+  function subFila(paso) {
+    var s = paso.f === null || paso.f === undefined ? 'sin fuego' : 'fuego ' + paso.f;
+    if (txt(paso.tapa)) s += ' · ' + paso.tapa;
+    return s;
+  }
+
+  /* ---------------- escalado de raciones (matemática del original) ---------------- */
+
+  function cantidad(it) {
+    var base = Number(st.receta.raciones) || 1;
+    var f = st.rac / base;
+    var marca = it.esc === 'sub' && f !== 1 ? ' *' : '';
+    if (txt(it.txt)) return it.txt + marca;
+    var a = Number(it.a);
+    if (!isFinite(a)) return '';
+    var v = a * (it.esc === 'sub' ? Math.pow(f, 0.75) : f);
+    return num(v) + (txt(it.u) ? ' ' + it.u : '') + marca;
+  }
+
+  /* ---------------- secciones ---------------- */
+
+  function htmlPortada(r) {
+    var datos = lista(r.datos)
+      .map(function (d) {
+        return '<div class="dato"><b>' + esc(d[0]) + '</b><span>' + esc(d[1]) + '</span></div>';
+      })
+      .join('');
+    return '<header class="portada">' +
+      '<h1>' + esc(r.titulo) + '</h1>' +
+      (txt(r.descripcion) ? '<p class="desc">' + esc(r.descripcion) + '</p>' : '') +
+      '<div class="datos">' +
+        '<div class="dato"><b data-vf="d-rac">' + st.rac + '</b><span>raciones</span></div>' +
+        datos +
+      '</div>' +
+    '</header>';
+  }
+
+  function htmlIngredientes(r) {
+    if (!hay(r.grupos)) return '';
+    return '<section>' +
+      '<h2>INGREDIENTES</h2>' +
+      '<div class="raciones solo-pantalla">' +
+        '<span class="lbl">RACIONES</span>' +
+        '<button type="button" data-vf="menos" aria-label="Menos raciones">−</button>' +
+        '<span class="n-rac" data-vf="n-rac">' + st.rac + '</span>' +
+        '<button type="button" data-vf="mas" aria-label="Más raciones">+</button>' +
+      '</div>' +
+      '<div class="grupos" data-vf="grupos">' + htmlGrupos(r) + '</div>' +
+      (txt(r.notaEscala) ? '<p class="nota-esc">' + esc(r.notaEscala) + '</p>' : '') +
+    '</section>';
+  }
+
+  function htmlGrupos(r) {
+    return lista(r.grupos)
+      .map(function (g) {
+        return '<div class="grupo">' +
+          (txt(g.n) ? '<h3>' + esc(g.n) + '</h3>' : '') +
+          '<ul>' + lista(g.items).map(function (it) {
+            return '<li><span class="c">' + esc(cantidad(it)) + '</span><span>' + esc(it.n) + '</span></li>';
+          }).join('') + '</ul>' +
+        '</div>';
+      })
+      .join('');
+  }
+
+  function htmlTiempo(r) {
+    var pasos = lista(r.pasos);
+    if (!pasos.length) return '';
+
+    var total = Number(r.totalMin);
+    if (!isFinite(total) || total <= 0) {
+      total = pasos.reduce(function (m, p) { return Math.max(m, ini(p) + dur(p)); }, 0) || 1;
+    }
+
+    /* eje de minutos: mismo cálculo por tramos que la plantilla original */
+    var granu = total <= 60 ? 5 : 10;
+    var salto = Math.ceil(total / 5 / granu) * granu;
+    if (!isFinite(salto) || salto <= 0) salto = total;
+    var ticks = [];
+    for (var m = 0; m <= total; m += salto) ticks.push(m);
+    if (ticks[ticks.length - 1] !== total) {
+      /* el último tramo puede quedar muy corto: si la marca anterior cae
+         encima del total, se retira antes de añadirlo */
+      if (ticks.length > 1 && total - ticks[ticks.length - 1] < salto * 0.5) ticks.pop();
+      ticks.push(total);
+    }
+
+    var html = '<div class="fila regla"><span></span><div class="ticks">' +
+      ticks.map(function (v) {
+        return '<span class="tick" style="left:' + (v / total * 100) + '%">' + v + '</span>';
+      }).join('') +
+      '</div><span></span></div>';
+
+    var rejilla = (100 / (total / 10)) + '%';
+
+    html += pasos.map(function (p) {
+      var c = carrilDe(r, p.carril);
+      var a = ini(p), d = dur(p);
+      var izq = Math.max(0, Math.min(100, a / total * 100));
+      var ancho = Math.max(0, Math.min(100 - izq, d / total * 100));
+      return '<div class="fila">' +
+        '<span class="et"><b>' + esc(p.t) + '</b>' +
+          '<span>' + esc(nombreCarril(c) + ' · ' + subFila(p)) + '</span></span>' +
+        '<div class="pista" style="--vf-paso:' + rejilla + '">' +
+          '<div class="barra" style="left:' + izq + '%;width:' + ancho + '%;background:' + esc(colorCarril(c)) + '"></div>' +
+        '</div>' +
+        '<span class="dur"><b>' + minNum(d) + '′</b>' +
+          '<span class="rango">min ' + minNum(a) + '-' + minNum(a + d) + '</span></span>' +
+      '</div>';
+    }).join('');
+
+    var leyenda = lista(r.carriles).map(function (c) {
+      return '<span><i style="background:' + esc(colorCarril(c)) + '"></i>' + esc(c.nombre || c.id) + '</span>';
+    }).join('') + '<span>eje en minutos desde el arranque</span>';
+
+    return '<section>' +
+      '<h2>EL TIEMPO</h2>' +
+      '<div class="gantt" data-vf="gantt">' + html + '</div>' +
+      '<div class="leyenda">' + leyenda + '</div>' +
+      (txt(r.lectura) ? '<p class="lectura">' + esc(r.lectura) + '</p>' : '') +
+    '</section>';
+  }
+
+  function htmlMep(r) {
+    if (!hay(r.mep)) return '';
+    var bloques = lista(r.mep).map(function (b) {
+      var tag = b.orden ? 'ol' : 'ul';
+      return '<div>' +
+        (txt(b.t) ? '<h3>' + esc(b.t) + '</h3>' : '') +
+        (txt(b.porq) ? '<p class="porq">' + esc(b.porq) + '</p>' : '') +
+        '<' + tag + '>' + lista(b.l).map(function (x) {
+          return '<li>' + crudo(x) + '</li>';
+        }).join('') + '</' + tag + '>' +
+      '</div>';
+    }).join('');
+    return '<section><h2>ANTES DE EMPEZAR</h2><div class="mep">' + bloques + '</div></section>';
+  }
+
+  /* Hitos: lo que hay que hacer DENTRO del paso, en minutos desde que
+     ese paso arranca. En la ficha se leen sentado, así que van como
+     lista bajo la prosa; en el cronómetro suenan. */
+  function htmlHitos(p) {
+    var hs = lista(p.hitos).filter(function (h) {
+      return h && isFinite(Number(h.en)) && Number(h.en) > 0;
+    });
+    if (!hs.length) return '';
+    return '<ul class="hitos">' + hs.map(function (h) {
+      var en = Math.round(Number(h.en));
+      var mm = Math.floor(en / 60), ss = en % 60;
+      return '<li><b>+' + mm + ':' + String(ss).padStart(2, '0') + '</b>' + esc(h.t) + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function htmlPasos(r) {
+    var pasos = lista(r.pasos);
+    if (!pasos.length) return '';
+    var items = pasos.map(function (p) {
+      var prosa = txt(p.p) ? p.p : (txt(p.nota) ? p.nota : '');
+      return '<li>' +
+        '<h3>' + esc(p.t) + '</h3>' +
+        '<span class="meta">' + esc(metaPaso(r, p)) + '</span>' +
+        (prosa ? '<p>' + esc(prosa) + '</p>' : '') +
+        htmlHitos(p) +
+      '</li>';
+    }).join('');
+    return '<section><h2>LOS PASOS</h2><ol class="pasos" data-vf="pasos">' + items + '</ol></section>';
+  }
+
+  function htmlTecnica(r) {
+    if (!hay(r.cortes) && !hay(r.porque)) return '';
+    var cortes = lista(r.cortes).map(function (c) {
+      return '<div class="corte">' + crudo(c.svg) +
+        '<div>' + (txt(c.t) ? '<h3>' + esc(c.t) + '</h3>' : '') +
+        (txt(c.p) ? '<p>' + esc(c.p) + '</p>' : '') + '</div></div>';
+    }).join('');
+    var porque = lista(r.porque).map(function (p) {
+      return '<div><dt>' + esc(p[0]) + '</dt><dd>' + esc(p[1]) + '</dd></div>';
+    }).join('');
+    return '<section>' +
+      '<h2>TÉCNICA Y DECISIONES</h2>' +
+      (cortes ? '<div>' + cortes + '</div>' : '') +
+      (porque ? '<dl class="porque">' + porque + '</dl>' : '') +
+    '</section>';
+  }
+
+  /* Lo que aporta el esquema nuevo y la plantilla no tenía: la compra.
+     Las cantidades pasan por cantidad(), el mismo escalado que los
+     ingredientes: si la ficha está puesta en 4 raciones, comprar para 2
+     sería un error silencioso. */
+  function htmlListaCompra(r) {
+    var items = lista(r.compra);
+    if (!items.length) return '<p class="despensa">Sale entera de la despensa.</p>';
+    return '<ul class="compra">' + items.map(function (c) {
+      return '<li><span class="c">' + esc(cantidad(c)) + '</span><span>' + esc(c.n) + '</span></li>';
+    }).join('') + '</ul>';
+  }
+
+  function htmlCompra(r) {
+    if (r.compra === null || r.compra === undefined) return '';
+    /* El botón y el hueco del aviso van fuera del div que se repinta al
+       cambiar las raciones, para no perder el listener ni el mensaje. */
+    var copiar = hay(r.compra)
+      ? '<div class="copia solo-pantalla">' +
+          '<button type="button" class="b-copia" data-vf="copiar">Copiar la lista</button>' +
+          '<span class="aviso" data-vf="aviso-copia" role="status" aria-live="polite"></span>' +
+          '<textarea class="copia-manual" data-vf="copia-manual" readonly hidden ' +
+            'aria-label="Lista de la compra para copiar a mano"></textarea>' +
+        '</div>'
+      : '';
+    return '<section><h2>HAY QUE COMPRAR</h2>' +
+      '<div data-vf="compra">' + htmlListaCompra(r) + '</div>' +
+      copiar +
+    '</section>';
+  }
+
+  /* ---------------- copiar la compra al portapapeles ---------------- */
+
+  /* Texto plano pensado para pegarlo en las notas del móvil: una cosa por
+     línea, «500 g carne picada», sin viñetas ni HTML, y una cabecera que
+     diga de qué plato y para cuántas raciones es la lista. */
+  function textoCompra(r) {
+    var lineas = [];
+    var t = txt(r.titulo) ? r.titulo : 'Receta';
+    lineas.push('Compra · ' + t + ' · ' + st.rac + (st.rac === 1 ? ' ración' : ' raciones'));
+    lineas.push('');
+    lista(r.compra).forEach(function (c) {
+      /* La marca « *» remite a la nota de escala de la ficha; en el móvil
+         esa nota no viaja, así que el asterisco solo despistaría. */
+      var q = cantidad(c).replace(/ \*$/, '');
+      var n = txt(c.n) ? c.n : '';
+      lineas.push(q && n ? q + ' ' + n : q || n);
+    });
+    return lineas.join('\n');
+  }
+
+  function avisa(mensaje, malo) {
+    var a = sel('aviso-copia');
+    if (!a) return;
+    a.textContent = mensaje;
+    if (malo) a.setAttribute('data-malo', '1'); else a.removeAttribute('data-malo');
+    clearTimeout(st.avisoTO);
+    /* Un fallo se lee más despacio que un «copiado», y encima deja texto
+       seleccionado abajo: se queda el doble de tiempo. */
+    st.avisoTO = setTimeout(function () {
+      if (!st) return;
+      var e = sel('aviso-copia');
+      if (e) { e.textContent = ''; e.removeAttribute('data-malo'); }
+    }, malo ? 8000 : 2500);
+  }
+
+  /* Plan B cuando no hay navigator.clipboard (contexto no seguro, permiso
+     denegado, navegador viejo): el truco clásico del textarea temporal más
+     execCommand, que sigue funcionando dentro del gesto del usuario.
+     Devuelve true solo si el navegador confirma la copia. */
+  function copiaConExec(texto) {
+    var ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.setAttribute('readonly', 'readonly');
+    /* Fuera de la vista pero dentro del documento y sin position:absolute
+       con top negativo enorme: en iOS eso impide seleccionar. */
+    ta.className = 'copia-oculta';
+    st.host.appendChild(ta);
+    var bien = false;
+    try {
+      ta.select();
+      if (ta.setSelectionRange) ta.setSelectionRange(0, texto.length);
+      bien = document.execCommand('copy') === true;
+    } catch (e) {
+      bien = false;
+    }
+    if (ta.parentNode) ta.parentNode.removeChild(ta);
+    return bien;
+  }
+
+  /* Último recurso: si ni el API ni execCommand, se enseña el texto ya
+     seleccionado para copiarlo a mano. Lo que no puede pasar es que el
+     usuario se quede sin saber si tiene la lista o no. */
+  function copiaAMano(texto) {
+    var ta = sel('copia-manual');
+    if (!ta) { avisa('No he podido copiar.', true); return; }
+    ta.hidden = false;
+    ta.value = texto;
+    try {
+      ta.focus();
+      ta.select();
+      if (ta.setSelectionRange) ta.setSelectionRange(0, texto.length);
+    } catch (e) {}
+    avisa('No he podido copiar solo: ahí tienes el texto seleccionado.', true);
+  }
+
+  function copiaCompra() {
+    var texto = textoCompra(st.receta);
+    /* El API responde más tarde: si para entonces la ficha ya es otra
+       (otra receta, o cerrada), este resultado no le pertenece. */
+    var mio = st;
+    var ta = sel('copia-manual');
+    if (ta) { ta.hidden = true; ta.value = ''; }
+
+    var api = null;
+    try {
+      api = navigator.clipboard && typeof navigator.clipboard.writeText === 'function'
+        ? navigator.clipboard : null;
+    } catch (e) {
+      api = null;
+    }
+
+    if (!api) {
+      if (copiaConExec(texto)) avisa('Copiado'); else copiaAMano(texto);
+      return;
+    }
+
+    /* El API puede resolver o rechazar más tarde (permiso, foco perdido);
+       en el rechazo aún queda el plan B, aunque ya fuera del gesto. */
+    var p;
+    try {
+      p = api.writeText(texto);
+    } catch (e) {
+      if (copiaConExec(texto)) avisa('Copiado'); else copiaAMano(texto);
+      return;
+    }
+    if (!p || typeof p.then !== 'function') { avisa('Copiado'); return; }
+    p.then(function () {
+      if (st === mio) avisa('Copiado');
+    }, function () {
+      if (st !== mio) return;
+      if (copiaConExec(texto)) avisa('Copiado'); else copiaAMano(texto);
+    });
+  }
+
+  /* ---------------- pintado ---------------- */
+
+  function sel(nombre) {
+    return st.host.querySelector('[data-vf="' + nombre + '"]');
+  }
+
+  function repintaIngredientes() {
+    var n = sel('n-rac');
+    if (n) n.textContent = st.rac;
+    var d = sel('d-rac');
+    if (d) d.textContent = st.rac;
+    var g = sel('grupos');
+    if (g) g.innerHTML = htmlGrupos(st.receta);
+    /* La compra escala con las mismas raciones: si no se repintara, la
+       lista de la pantalla y la que se copia dirían cosas distintas. */
+    var c = sel('compra');
+    if (c) c.innerHTML = htmlListaCompra(st.receta);
+  }
+
+  window.VistaFicha = {
+    render: function (host, receta) {
+      if (!host) return;
+      if (st) window.VistaFicha.destroy();
+      var r = receta || {};
+      st = { host: host, receta: r, rac: Number(r.raciones) || 2 };
+
+      host.innerHTML = '<div class="hoja">' +
+        htmlPortada(r) +
+        htmlIngredientes(r) +
+        htmlTiempo(r) +
+        htmlMep(r) +
+        htmlPasos(r) +
+        htmlTecnica(r) +
+        htmlCompra(r) +
+        (txt(r.pie) ? '<p class="pie">' + esc(r.pie) + '</p>' : '') +
+      '</div>';
+
+      st.elMenos = sel('menos');
+      st.elMas = sel('mas');
+      st.onMenos = function () { if (st.rac > 1) { st.rac--; repintaIngredientes(); } };
+      st.onMas = function () { if (st.rac < 20) { st.rac++; repintaIngredientes(); } };
+      st.elCopiar = sel('copiar');
+      st.onCopiar = function () { copiaCompra(); };
+      if (st.elMenos) st.elMenos.addEventListener('click', st.onMenos);
+      if (st.elMas) st.elMas.addEventListener('click', st.onMas);
+      if (st.elCopiar) st.elCopiar.addEventListener('click', st.onCopiar);
+    },
+
+    destroy: function () {
+      if (!st) return;
+      if (st.elMenos && st.onMenos) st.elMenos.removeEventListener('click', st.onMenos);
+      if (st.elMas && st.onMas) st.elMas.removeEventListener('click', st.onMas);
+      if (st.elCopiar && st.onCopiar) st.elCopiar.removeEventListener('click', st.onCopiar);
+      clearTimeout(st.avisoTO);
+      if (st.host) st.host.innerHTML = '';
+      st = null;
+    }
+  };
+})();
+</script>
+<script>
+/* ============================================================
+   vista-crono.js — módulo de vista del cronómetro multi-fuego.
+
+   window.VistaCrono.render(host, receta, api)
+   window.VistaCrono.destroy()
+
+   Nada global más. Sin localStorage, sin fetch, sin dependencias.
+   El estado que debe sobrevivir sale por api.guardar(); el estado
+   volátil (qué pestaña miras, si el porqué está abierto) vive aquí.
+
+   Datos: receta.carriles son metadatos y receta.pasos es un array
+   plano; la cola de cada carril se reconstruye agrupando por
+   paso.carril y CONSERVANDO EL ORDEN DEL ARRAY.
+
+   EL TIEMPO VA POR RELOJ DE PARED. Un carril en marcha no guarda
+   "segundos que quedan" y les resta uno por tic: guarda `finAt`, el
+   instante absoluto en que acaba. Lo que queda se calcula siempre
+   contra Date.now(). Así el móvil puede congelar el intervalo —
+   bloqueado, en segundo plano, con la pestaña dormida— que al volver
+   la cuenta es la correcta, y el tic pasa a ser solo pintura. Es
+   también lo que permite que el cronómetro sobreviva a una recarga:
+   un instante absoluto se puede guardar; una cuenta atrás, no.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- utilidades de texto ---------- */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+  /* Las líneas de mise en place conservan sus <b>, que marcan el
+     recipiente. Se escapa todo y se devuelve solo <b>/</b>. */
+  function conNegritas(s) {
+    return esc(s).replace(/&lt;(\/?)b&gt;/g, '<$1b>');
+  }
+  function dos(n) { return String(n).padStart(2, '0'); }
+  function corta(s, n) {
+    s = String(s == null ? '' : s);
+    return s.length > n ? s.slice(0, n - 1).replace(/\s+$/, '') + '…' : s;
+  }
+
+  /* ---------- contraste: el color de carril que se usa como texto
+       se aclara hasta 4,6:1 sobre el fondo más claro del módulo ---------- */
+  function rgb(hex) {
+    var h = String(hex || '').replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
+    return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+  }
+  function lum(c) {
+    var a = c.map(function (v) {
+      v = v / 255;
+      return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+  }
+  function ratio(a, b) {
+    var la = lum(a), lb = lum(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+  var FONDO_CLARO = [0x27, 0x22, 0x19]; /* --vc-carta-2, el peor caso */
+  function textoSeguro(hex, min) {
+    var c = rgb(hex);
+    if (!c) return '#B0A899';
+    for (var m = 0; m <= 100; m++) {
+      var f = m / 100;
+      var d = [
+        Math.round(c[0] + (255 - c[0]) * f),
+        Math.round(c[1] + (255 - c[1]) * f),
+        Math.round(c[2] + (255 - c[2]) * f)
+      ];
+      if (ratio(d, FONDO_CLARO) >= min) {
+        return '#' + d.map(function (v) { return dos(v.toString(16)); }).join('');
+      }
+    }
+    return '#FFFFFF';
+  }
+
+  /* Un estado guardado hace más de esto no se reanuda: es de otro día,
+     y reanudarlo sería enseñar un temporizador vencido hace horas. */
+  var CADUCA_ESTADO = 12 * 3600 * 1000;
+  /* Un hito se queda «vivo» (resaltado) este rato desde que salta. */
+  var HITO_VIVO = 90;
+  /* Doble toque con el dedo mojado, o el ghost click del móvil: dos
+     eventos de click para un solo gesto, procesados uno detrás de otro
+     en la misma vuelta del bucle de eventos. En un mando que avanza un
+     paso, arranca/pausa un fuego o cierra la receta, ese segundo evento
+     pegado al primero no es una segunda intención y hay que
+     descartarlo — pero solo ESE, no cualquier toque rápido de verdad
+     (dos pasos cortos seguidos): ver M.bloqueoToque en onClick, que por
+     eso es un cerrojo de una vuelta del bucle, no una ventana de
+     tiempo. En un mando que solo pliega, cambia de pestaña, marca una
+     casilla o ya tiene su propio candado de dos toques (reiniciar),
+     repetir el toque no rompe nada: ahí la guardia solo estorbaría. */
+
+  /* ---------- estado del módulo ---------- */
+  var M = null;
+
+  function limpia() {
+    if (!M) return;
+    if (M.tic) { clearInterval(M.tic); M.tic = null; }
+    if (M.reinicioTO) { clearTimeout(M.reinicioTO); M.reinicioTO = null; }
+    if (M.onVis) { document.removeEventListener('visibilitychange', M.onVis); M.onVis = null; }
+    if (M.onKey) { document.removeEventListener('keydown', M.onKey); M.onKey = null; }
+    if (M.lock) { try { M.lock.release(); } catch (e) { } M.lock = null; }
+    if (M.ac) { try { M.ac.close(); } catch (e) { } M.ac = null; }
+    if (M.zonaPanel) {
+      if (M.onTS) M.zonaPanel.removeEventListener('touchstart', M.onTS);
+      if (M.onTE) M.zonaPanel.removeEventListener('touchend', M.onTE);
+      M.zonaPanel = null;
+    }
+    if (M.host) {
+      if (M.onClick) M.host.removeEventListener('click', M.onClick);
+      if (M.onInput) M.host.removeEventListener('input', M.onInput);
+      M.host.innerHTML = '';
+      M.host.style.removeProperty('--vc-acento');
+    }
+    M = null;
+  }
+
+  function render(host, receta, api) {
+    limpia();
+    if (!host) return;
+    receta = receta || {};
+    api = api || {};
+    var estadoPrevio = api.estado || {};
+
+    /* ---------- 1. carriles: metadatos + cola de pasos agrupada ---------- */
+    var metas = Array.isArray(receta.carriles) ? receta.carriles : [];
+    var carriles = [], porId = {};
+    metas.forEach(function (c) {
+      if (!c || !c.id || porId[c.id]) return;
+      var n = {
+        id: String(c.id),
+        nombre: c.nombre ? String(c.nombre) : String(c.id).toUpperCase(),
+        color: rgb(c.color) ? c.color : '#B0A899',
+        tipo: c.tipo || 'mesa',
+        pasos: []
+      };
+      n.txt = textoSeguro(n.color, 4.6);
+      porId[n.id] = n;
+      carriles.push(n);
+    });
+    var mapa = {};
+    (Array.isArray(receta.pasos) ? receta.pasos : []).forEach(function (p) {
+      if (!p) return;
+      var cid = String(p.carril == null ? '' : p.carril);
+      var c = porId[cid];
+      if (!c) { /* carril no declarado: no se pierde el paso */
+        c = {
+          id: cid, nombre: cid ? cid.toUpperCase() : 'SIN CARRIL',
+          color: '#B0A899', tipo: 'mesa', pasos: []
+        };
+        c.txt = textoSeguro(c.color, 4.6);
+        porId[cid] = c; carriles.push(c);
+      }
+      var s = (p.s != null && isFinite(p.s)) ? Math.max(0, Math.round(p.s))
+        : Math.max(0, Math.round((+p.min || 0) * 60));
+      /* Hitos: avisos DENTRO del paso, en segundos desde que arranca.
+         Uno que cae en el final o más allá no es un hito, es el propio
+         final del paso, así que se descarta. */
+      var hitos = (Array.isArray(p.hitos) ? p.hitos : []).map(function (h) {
+        if (!h) return null;
+        var en = (h.en != null && isFinite(h.en)) ? Math.round(+h.en) : null;
+        if (en == null || en <= 0 || en >= s) return null;
+        return { en: en, t: h.t ? String(h.t) : 'Aviso' };
+      }).filter(Boolean).sort(function (a, b) { return a.en - b.en; });
+      var paso = {
+        id: p.id != null ? String(p.id) : (cid + '-' + c.pasos.length),
+        t: p.t ? String(p.t) : 'Paso',
+        s: s,
+        off: (p.off != null && isFinite(p.off)) ? +p.off : 0,
+        f: (p.f != null && isFinite(p.f)) ? +p.f : null,
+        tapa: p.tapa || null,
+        holgura: (p.holgura === 'flexible' || p.holgura === 'critico') ? p.holgura : 'ajustado',
+        dep: Array.isArray(p.dep) ? p.dep.map(String) : [],
+        junto: p.junto ? String(p.junto) : null,
+        meto: p.meto || '', saco: p.saco || '', nota: p.nota || '',
+        /* la prosa larga de la ficha: el cronómetro la enseña bajo
+           demanda, con el botón «ver el porqué» */
+        porq: p.p || '',
+        hitos: hitos
+      };
+      c.pasos.push(paso);
+      mapa[paso.id] = { carril: c, k: c.pasos.length - 1, paso: paso };
+    });
+    carriles = carriles.filter(function (c) { return c.pasos.length > 0; });
+    if (!carriles.length) {
+      host.innerHTML = '<div class="vc-final"><div class="vc-final-scroll">' +
+        '<h2>Esta receta no tiene pasos</h2><p>No hay nada que cronometrar.</p>' +
+        '</div><div class="vc-final-pie">' +
+        '<button class="vc-principal vc-ancho" data-vc="volver-final">Volver</button>' +
+        '</div></div>';
+      M = { host: host, api: api };
+      M.onClick = function () { try { if (api.volver) api.volver(); } catch (e) { } };
+      host.addEventListener('click', M.onClick);
+      return;
+    }
+
+    var totalMin = (receta.totalMin != null && isFinite(receta.totalMin))
+      ? +receta.totalMin
+      : carriles.reduce(function (m, c) {
+        var p = c.pasos[c.pasos.length - 1];
+        return Math.max(m, p.off + Math.round(p.s / 60));
+      }, 0);
+
+    /* ---------- 2. estado por carril, con lo que venga guardado ----------
+       `restante` son los segundos del paso cuando NO corre (sin arrancar
+       o en pausa) y `finAt` el instante de fin cuando sí corre. Solo uno
+       de los dos manda en cada momento, y lo dice `corriendo`. */
+    var est = {};
+    var guardadoCar = (estadoPrevio && estadoPrevio.carriles) || {};
+    var tsPrevio = Date.parse(estadoPrevio && estadoPrevio.ts || '') || 0;
+    var caducado = !tsPrevio || (Date.now() - tsPrevio > CADUCA_ESTADO);
+    carriles.forEach(function (c) {
+      var g = guardadoCar[c.id] || {};
+      var i = (g.i != null && isFinite(g.i)) ? Math.max(0, Math.floor(g.i)) : 0;
+      if (i > c.pasos.length) i = c.pasos.length;
+      var fin = i >= c.pasos.length;
+      if (fin) i = c.pasos.length - 1;
+      var s = {
+        i: i, restante: c.pasos[i].s, finAt: null,
+        corriendo: false, pausado: false,
+        a10: false, aFin: false, hechos: {},
+        fin: fin, salto: false, avisado: false,
+        /* Desde cuándo es «actual» este paso, en reloj de pared: es lo
+           que mide cuánto se tarda de verdad en cada uno, no solo en el
+           total. Se recupera del estado guardado para que una recarga a
+           mitad de paso no reinicie la cuenta desde cero. */
+        inicioPaso: (!fin && !caducado && isFinite(g.inicioPaso) && g.inicioPaso) ? +g.inicioPaso : null
+      };
+      /* Un cronómetro en marcha se reanuda tal cual estaba: es la
+         diferencia entre recargar y perder la comida. */
+      if (!fin && !caducado) {
+        if (g.corriendo && g.pausado && isFinite(g.restante)) {
+          s.corriendo = true; s.pausado = true; s.restante = Math.round(g.restante);
+        } else if (g.corriendo && isFinite(g.finAt)) {
+          s.corriendo = true; s.finAt = +g.finAt;
+        } else if (isFinite(g.restante) && g.restante >= 0) {
+          s.restante = Math.round(g.restante);
+        }
+        (Array.isArray(g.hitos) ? g.hitos : []).forEach(function (k) { s.hechos[k] = true; });
+        /* Si al reanudar ya estaba vencido, el aviso de fin no se
+           vuelve a dar aquí: lo da el barrido de reanudación. */
+      }
+      est[c.id] = s;
+    });
+
+    var marcados = {};
+    if (estadoPrevio && Array.isArray(estadoPrevio.marcados)) {
+      estadoPrevio.marcados.forEach(function (id) { marcados[String(id)] = true; });
+    }
+    var horaServir = /^\d{1,2}:\d{2}$/.test(estadoPrevio && estadoPrevio.servir || '')
+      ? estadoPrevio.servir
+      : (/^\d{1,2}:\d{2}$/.test(api.servir || '') ? api.servir : '15:30');
+
+    M = {
+      host: host, api: api, ac: null, lock: null, tic: null,
+      abierto: false, planAbierto: true, cerrado: false,
+      foco: carriles.length > 1 ? carriles[1].id : carriles[0].id,
+      x0: null, y0: null, pistaVista: false,
+      porqueAbierto: false,
+      oculto: 0, reanudado: false, reinicioTO: null,
+      /* cerrojo anti-rebote de cada mando protegido, por clave
+         «mando:carril» (o solo «mando» cuando no hay carril) — ver
+         M.bloqueoToque en onClick — y último texto anunciado al lector
+         de pantalla — ver anuncia() más abajo. */
+      bloqueoToque: {}, ultimoAnuncio: '',
+      arrancado: (estadoPrevio && isFinite(estadoPrevio.arrancado) && !caducado)
+        ? +estadoPrevio.arrancado : null,
+      /* Segundos reales por paso, por id de paso: solo se guarda, no se
+         usa para nada dentro del cronómetro. Sobrevive a una recarga
+         igual que el resto del estado. */
+      pasosReales: (estadoPrevio && !caducado && estadoPrevio.pasosReales && typeof estadoPrevio.pasosReales === 'object')
+        ? JSON.parse(JSON.stringify(estadoPrevio.pasosReales)) : {}
+    };
+
+    /* ---------- 3. helpers ---------- */
+    function carril(id) { return porId[id]; }
+    function indice(id) {
+      for (var k = 0; k < carriles.length; k++) if (carriles[k].id === id) return k;
+      return 0;
+    }
+    /* LA función del módulo: lo que queda, siempre contra el reloj real. */
+    function quedan(c) {
+      var s = est[c.id];
+      if (s.fin) return 0;
+      if (!s.corriendo || s.pausado) return s.restante;
+      return Math.ceil((s.finAt - Date.now()) / 1000);
+    }
+    function corre(c) {
+      var s = est[c.id];
+      return s.corriendo && !s.pausado && !s.fin;
+    }
+    function terminado(pid) {
+      var m = mapa[pid];
+      if (!m) return true;
+      var s = est[m.carril.id];
+      if (!s) return true;
+      return s.fin || s.i > m.k;
+    }
+    function faltan(paso) {
+      if (!paso.dep || !paso.dep.length) return [];
+      return paso.dep.filter(function (d) { return !terminado(d); });
+    }
+    function etiqueta(pid) {
+      var m = mapa[pid];
+      return m ? m.paso.t + ' (' + m.carril.nombre + ')' : String(pid);
+    }
+    function mmss(s) {
+      var neg = s < 0; s = Math.abs(s);
+      return (neg ? '+' : '') + dos(Math.floor(s / 60)) + ':' + dos(s % 60);
+    }
+    /* Minutos de un paso para enseñarlos, no para calcular. Math.round()
+     convertía los 2:30 del salteado en «3 min»: el cronómetro contaba bien
+     y el texto de al lado mentía en medio minuto por paso. Medio minuto se
+     escribe, el resto se redondea como siempre. */
+  function minTxt(seg) {
+    var m = (+seg || 0) / 60;
+    var r = Math.round(m * 2) / 2;
+    return String(r).replace('.', ',');
+  }
+
+  function hhmm(d) { return dos(d.getHours()) + ':' + dos(d.getMinutes()); }
+    /* los dos inputs de hora se mantienen sincronizados con horaServir */
+    function valorServir() { return horaServir; }
+    function servirDate() {
+      var v = valorServir().split(':');
+      var d = new Date();
+      d.setHours(+v[0] || 0, +v[1] || 0, 0, 0);
+      return d;
+    }
+    function sugerido(off) {
+      var d = servirDate();
+      d.setMinutes(d.getMinutes() - (totalMin - off));
+      return d;
+    }
+    function restante(c) {
+      var s = est[c.id];
+      if (s.fin) return 0;
+      var t = Math.max(0, quedan(c));
+      for (var j = s.i + 1; j < c.pasos.length; j++) t += c.pasos[j].s;
+      return t;
+    }
+    /* Segundos transcurridos DENTRO del paso actual. Es lo que sitúa los
+       hitos, y vale igual esté corriendo o en pausa. */
+    function transcurrido(c) {
+      var p = c.pasos[est[c.id].i];
+      return p.s - quedan(c);
+    }
+    function tapaCorta(p) {
+      if (!p.tapa) return '';
+      if (/PUESTA/i.test(p.tapa)) return 'tapada';
+      if (/MEDIAS/i.test(p.tapa)) return 'tapa a medias';
+      return 'destapada';
+    }
+    function todoHecho() {
+      return carriles.every(function (c) { return est[c.id].fin; });
+    }
+
+    /* ---------- 4. persistencia: nunca bloquea la pintura ----------
+       Se guarda el instante de fin, no la cuenta atrás: es lo único que
+       se puede volver a leer mañana y seguir significando lo mismo. */
+    function estadoPlano() {
+      var cs = {};
+      carriles.forEach(function (c) {
+        var s = est[c.id];
+        cs[c.id] = {
+          i: s.fin ? c.pasos.length : s.i,
+          corriendo: !!s.corriendo, pausado: !!s.pausado,
+          finAt: s.corriendo && !s.pausado ? s.finAt : null,
+          restante: s.corriendo && !s.pausado ? null : s.restante,
+          hitos: Object.keys(s.hechos).filter(function (k) { return s.hechos[k]; }).map(Number),
+          inicioPaso: s.inicioPaso || null
+        };
+      });
+      return {
+        marcados: Object.keys(marcados).filter(function (k) { return marcados[k]; }),
+        carriles: cs,
+        servir: valorServir(),
+        abierto: !!M.abierto && !M.cerrado,
+        foco: M.foco,
+        arrancado: M.arrancado,
+        pasosReales: M.pasosReales
+      };
+    }
+    function guarda() {
+      if (typeof api.guardar !== 'function') return;
+      try {
+        var r = api.guardar(estadoPlano());
+        if (r && typeof r.then === 'function') r.then(null, function () { });
+      } catch (e) { }
+    }
+
+    /* ---------- 5. audio, vibración, wake lock ---------- */
+    function ctx() {
+      if (!M) return null;
+      if (!M.ac) {
+        var C = window.AudioContext || window.webkitAudioContext;
+        if (C) { try { M.ac = new C(); } catch (e) { M.ac = null; } }
+      }
+      if (M.ac && M.ac.state === 'suspended') { try { M.ac.resume(); } catch (e) { } }
+      return M.ac;
+    }
+    function pito(cuando, hz, dur) {
+      var a = ctx(); if (!a) return;
+      try {
+        var o = a.createOscillator(), g = a.createGain();
+        o.type = 'sine'; o.frequency.value = hz;
+        g.gain.setValueAtTime(0.0001, a.currentTime + cuando);
+        g.gain.exponentialRampToValueAtTime(0.55, a.currentTime + cuando + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + cuando + dur);
+        o.connect(g); g.connect(a.destination);
+        o.start(a.currentTime + cuando); o.stop(a.currentTime + cuando + dur + 0.05);
+      } catch (e) { }
+    }
+    function unPito() { pito(0, 880, 0.18); }
+    function tresPitos() { pito(0, 1046, 0.2); pito(0.3, 1046, 0.2); pito(0.6, 1046, 0.45); }
+    /* El hito suena distinto del fin de paso: no es «apaga», es «haz
+       esto ahora y sigue». Dos notas cortas que suben. */
+    function pitoHito() { pito(0, 660, 0.14); pito(0.2, 990, 0.18); }
+    function vibra(p) {
+      if (navigator.vibrate) { try { navigator.vibrate(p); } catch (e) { } }
+    }
+    /* Aviso como notificación del sistema, además del pitido: sirve para
+       cuando la pantalla está apagada o estás en otra app, mientras la
+       pestaña siga viva (cerrarla del todo la mata, como a cualquier
+       notificación web). No hay servidor detrás, así que no sobrevive a
+       cerrar el navegador ni llega si el móvil mata la pestaña. */
+    function pideNotis() {
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'default') {
+        try { Notification.requestPermission(); } catch (e) { }
+      }
+    }
+    function notifica(titulo, cuerpo) {
+      if (!('Notification' in window) || Notification.permission !== 'granted') return;
+      try {
+        var n = new Notification(titulo, { body: cuerpo, tag: 'sous-chef', renotify: true });
+        n.onclick = function () { try { window.focus(); } catch (e) { } };
+      } catch (e) { }
+    }
+    function despierta() {
+      if (!M || !('wakeLock' in navigator) || M.lock) return;
+      try {
+        var pr = navigator.wakeLock.request('screen');
+        if (pr && pr.then) pr.then(function (l) { if (M) M.lock = l; }, function () { });
+      } catch (e) { }
+    }
+
+    /* ---------- 6. estado de cada carril para la lista "ahora toca" ---------- */
+    function estado(c) {
+      var s = est[c.id];
+      if (s.fin) return { cl: 'fin', orden: 9, txt: 'terminado', reloj: '' };
+      var p = c.pasos[s.i], f = faltan(p), q = quedan(c);
+      if (s.corriendo && q <= 0) return { cl: 'atender', orden: 0, txt: '¡listo! pulsa Hecho', reloj: mmss(q) };
+      if (s.corriendo && s.pausado) return { cl: 'pausa', orden: 5, txt: 'en pausa', reloj: mmss(q) };
+      if (s.corriendo) return { cl: 'marcha', orden: 4, txt: 'en marcha', reloj: mmss(q) };
+      if (f.length) return { cl: 'bloq', orden: 6, txt: 'espera a ' + etiqueta(f[0]), reloj: '' };
+      var d = sugerido(p.off), ahora = new Date();
+      if (d - ahora > 180000) return { cl: 'espera', orden: 3, txt: 'a las ' + hhmm(d), reloj: '' };
+      return { cl: 'ya', orden: 1, txt: 'empieza ya' + (d < ahora ? ' · tocaba a las ' + hhmm(d) : ''), reloj: '' };
+    }
+
+    /* ---------- 6 bis. a qué carril mirar
+       Un carril terminado no ofrece nada que pulsar, así que en cuanto se
+       cierra el último paso de uno hay que mover el foco solo. El orden es
+       el mismo que al abrir la app: primero lo que ya sonó, luego lo que
+       toca ya, luego lo que está en marcha, y un carril bloqueado nunca
+       si hay alternativa. Un panel sin ningún botón no es un estado
+       válido de esta app. ---------- */
+    var RANGO = { atender: 0, ya: 1, marcha: 2, pausa: 3, espera: 4, bloq: 5, fin: 9 };
+    function rango(c) {
+      var r = RANGO[estado(c).cl];
+      return r == null ? 9 : r;
+    }
+    function horaDe(c) {
+      var s = est[c.id];
+      return s.fin ? Infinity : sugerido(c.pasos[s.i].off).getTime();
+    }
+    /* Accionable es todo lo que no está cerrado ni bloqueado: incluso un
+       carril que aún espera su hora tiene un "Empezar" que funciona. Solo
+       el bloqueado se descarta, porque ahí el mando principal no cocina,
+       solo salta a otro carril. */
+    function cola(soloAccionables) {
+      return carriles
+        .filter(function (c) {
+          if (est[c.id].fin) return false;
+          return soloAccionables ? rango(c) <= RANGO.espera : true;
+        })
+        .map(function (c) { return { c: c, r: rango(c), h: horaDe(c) }; })
+        .sort(function (a, b) { return a.r - b.r || a.h - b.h; })
+        .map(function (x) { return x.c; });
+    }
+    /* el carril accionable que toca mirar, o null si no queda ninguno */
+    function siguienteAccionable() { return cola(true)[0] || null; }
+    /* la salida de emergencia: el carril pendiente cuyo paso toca antes */
+    function siguientePorHora() {
+      return carriles.filter(function (c) { return !est[c.id].fin; })
+        .sort(function (a, b) { return horaDe(a) - horaDe(b); })[0] || null;
+    }
+
+    /* ---------- 7. armazón ---------- */
+    /* Las recetas antiguas no traen mise en place. Antes que dejar la
+       portada en blanco, se usa la lista de ingredientes agrupada por
+       recipiente: sigue siendo lo que hay que sacar antes de encender. */
+    function bloquesPortada() {
+      if (Array.isArray(receta.mep) && receta.mep.length) {
+        return { titulo: 'ANTES DE ENCENDER NADA', bloques: receta.mep };
+      }
+      var grupos = Array.isArray(receta.grupos) ? receta.grupos : [];
+      if (!grupos.length) return { titulo: '', bloques: [] };
+      return {
+        titulo: 'SACA ESTO ANTES DE EMPEZAR',
+        bloques: grupos.map(function (g) {
+          return {
+            t: g && g.n || 'INGREDIENTES',
+            l: (Array.isArray(g && g.items) ? g.items : []).map(function (it) {
+              var cant = it.txt || ((it.a != null ? it.a : '') + (it.u ? ' ' + it.u : ''));
+              return (cant ? '<b>' + cant + '</b> · ' : '') + (it.n || '');
+            })
+          };
+        })
+      };
+    }
+
+    function mepBloques() {
+      var mep = bloquesPortada().bloques;
+      return mep.map(function (b, bi) {
+        var lineas = Array.isArray(b && b.l) ? b.l : [];
+        /* se quitan los porqués: son de la ficha */
+        return '<div class="vc-bloque"><b>' + esc(b && b.t || '') + '</b><ul>' +
+          lineas.map(function (x, li) {
+            var id = 'mep-' + bi + '-' + li;
+            return '<li><button type="button" data-vc="mep" data-id="' + id + '"' +
+              ' aria-pressed="' + (marcados[id] ? 'true' : 'false') + '"' +
+              ' class="' + (marcados[id] ? 'vc-ok' : '') + '">' +
+              /* el texto va en un span: si el <b> queda como hijo directo del
+                 botón flex se convierte en un item aparte y la línea se
+                 parte en dos columnas */
+              '<span>' + conNegritas(x) + '</span></button></li>';
+          }).join('') + '</ul></div>';
+      }).join('');
+    }
+
+    host.innerHTML =
+      '<div class="vc-portada" data-vc-zona="portada">' +
+        '<div class="vc-portada-scroll">' +
+          '<button class="vc-volver" data-vc="volver" type="button" aria-label="Volver al índice">‹</button>' +
+          '<h1>' + esc(receta.titulo || 'Cronómetro') + '</h1>' +
+          '<p>' + esc(receta.descripcion || '') + '</p>' +
+          '<div class="vc-previo">' +
+            (bloquesPortada().titulo ? '<h2>' + esc(bloquesPortada().titulo) + '</h2>' : '') +
+            mepBloques() +
+          '</div>' +
+        '</div>' +
+        '<div class="vc-portada-pie">' +
+          '<div class="vc-campo">' +
+            '<label for="vc-servir0">SERVIR A LAS</label>' +
+            '<input type="time" id="vc-servir0" data-vc="servir">' +
+          '</div>' +
+          '<button class="vc-principal vc-ancho" data-vc="abrir" type="button">Abrir la cocina</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="vc-cab vc-oculto" data-vc-zona="cab">' +
+        /* role="alert" es un aria-live="assertive" implícito: al
+           reaparecer con el texto ya puesto (avisaVuelta() lo escribe
+           antes de quitar vc-oculto), el lector de pantalla lo corta y
+           lo lee, que es justo lo que hace falta con algo que llevaba
+           rato sonando sin que nadie mirase. */
+        '<div class="vc-devuelta vc-oculto" data-vc-n="devuelta" role="alert">' +
+          '<div data-vc-n="devuelta-txt"></div>' +
+          '<div class="vc-devuelta-acc">' +
+            '<button type="button" class="vc-devuelta-reset" data-vc="reiniciar" aria-label="Reiniciar toda la cocina">REINICIAR</button>' +
+            '<button type="button" data-vc="cerrar-devuelta" aria-label="Entendido">✕</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vc-sup">' +
+          '<button class="vc-volver" data-vc="volver" type="button" aria-label="Volver al índice">‹</button>' +
+          '<div class="vc-campo">' +
+            '<label for="vc-servir">SERVIR</label>' +
+            '<input type="time" id="vc-servir" data-vc="servir">' +
+          '</div>' +
+          '<div class="vc-campo vc-ahora"><label>AHORA</label><b data-vc-n="ahora">--:--</b></div>' +
+          '<div class="vc-campo"><label>LLEGADA</label><b data-vc-n="real">--:--</b></div>' +
+        '</div>' +
+        '<div class="vc-plan" data-vc-n="plan">' +
+          '<button class="vc-plan-cab" data-vc="plegar" type="button">' +
+            '<span data-vc-n="plan-txt"></span>' +
+            '<span class="vc-flecha" data-vc-n="plan-flecha">▴</span>' +
+          '</button>' +
+          '<div class="vc-plan-cuerpo" data-vc-n="plan-cuerpo"></div>' +
+          '<div class="vc-nota-plan" data-vc-n="nota-plan"></div>' +
+        '</div>' +
+        '<nav class="vc-tabs" data-vc-n="tabs"></nav>' +
+        '<div class="vc-pista" data-vc-n="pista">Toca una tarea o una pestaña para ir a ese recipiente</div>' +
+      '</div>' +
+
+      '<main class="vc-panel vc-oculto" data-vc-zona="panel">' +
+        /* región muda a la vista, viva para el lector de pantalla: ver
+           anuncia() más arriba. Nunca lleva el reloj. */
+        '<div class="vc-sr" data-vc-n="anuncio" aria-live="polite" aria-atomic="true"></div>' +
+        '<div class="vc-pcab">' +
+          '<div><div class="vc-idx" data-vc-n="idx"></div><h2 data-vc-n="titulo"></h2></div>' +
+          '<div class="vc-quem" data-vc-n="quem">' +
+            '<div class="vc-n" data-vc-n="n-fuego">0</div>' +
+            '<div class="vc-b9" data-vc-n="b-fuego"></div>' +
+            '<span class="vc-tp" data-vc-n="tp-fuego"></span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vc-pills" data-vc-n="pills"></div>' +
+        '<div class="vc-req" data-vc-n="req"></div>' +
+        '<div class="vc-avisos" data-vc-n="avisos"></div>' +
+        '<div class="vc-reloj" data-vc-n="reloj">00:00</div>' +
+        '<div class="vc-prog"><i data-vc-n="prog"></i><span data-vc-n="marcas"></span></div>' +
+        '<div class="vc-hitos" data-vc-n="hitos"></div>' +
+        '<div class="vc-detalle" data-vc-n="detalle"></div>' +
+        '<p class="vc-nota" data-vc-n="nota"></p>' +
+        '<div class="vc-porque" data-vc-n="porque"></div>' +
+        '<div class="vc-sig" data-vc-n="sig"></div>' +
+      '</main>' +
+
+      '<footer class="vc-mandos vc-oculto" data-vc-zona="mandos">' +
+        '<button class="vc-principal" data-vc="hecho" type="button">Hecho · siguiente</button>' +
+        '<button data-vc="play" type="button">Empezar</button>' +
+        '<button data-vc="mas" type="button">+30 s</button>' +
+      '</footer>' +
+
+      '<div class="vc-final vc-oculto" data-vc-zona="final">' +
+        '<div class="vc-final-scroll">' +
+          '<button class="vc-volver" data-vc="volver" type="button" aria-label="Volver al índice">‹</button>' +
+          '<h2>Todo fuera del fuego</h2>' +
+          '<p>' + esc(receta.titulo || 'El plato') + ', listo. Emplata y llévalo antes de que pierda temperatura.</p>' +
+          '<ul class="vc-resumen" data-vc-n="resumen"></ul>' +
+        '</div>' +
+        '<div class="vc-final-pie">' +
+          '<label for="vc-nota-final">LA PRÓXIMA VEZ… (OPCIONAL)</label>' +
+          '<input type="text" id="vc-nota-final" data-vc-n="nota-final" maxlength="160" ' +
+            'placeholder="la próxima vez…" autocomplete="off">' +
+          '<button class="vc-principal vc-ancho" data-vc="cocinado" type="button">Ya está, a la mesa</button>' +
+        '</div>' +
+      '</div>';
+
+    var N = {};
+    Array.prototype.forEach.call(host.querySelectorAll('[data-vc-n]'), function (el) {
+      N[el.getAttribute('data-vc-n')] = el;
+    });
+    var Z = {};
+    Array.prototype.forEach.call(host.querySelectorAll('[data-vc-zona]'), function (el) {
+      Z[el.getAttribute('data-vc-zona')] = el;
+    });
+    host.querySelector('#vc-servir0').value = horaServir;
+    host.querySelector('#vc-servir').value = horaServir;
+
+    /* ---------- 8. pintado ---------- */
+    function tabsHTML() {
+      N.tabs.innerHTML = carriles.map(function (c) {
+        return '<button class="vc-tab" type="button" data-vc="foco" data-foco="' + esc(c.id) + '"' +
+          ' data-tab="' + esc(c.id) + '" style="--tab-color:' + esc(c.color) + ';--tab-txt:' + esc(c.txt) + '">' +
+          '<span class="vc-tn">' + esc(c.nombre) + '</span>' +
+          '<span class="vc-tt">00:00</span>' +
+          '<span class="vc-ts1"></span>' +
+          '<span class="vc-ts2"></span></button>';
+      }).join('');
+    }
+    function tabDe(id) { return N.tabs.querySelector('[data-tab="' + id + '"]'); }
+
+    function ir(id) {
+      if (!porId[id]) return;
+      if (id !== M.foco && !M.pistaVista) { M.pistaVista = true; N.pista.classList.add('vc-oculto'); }
+      if (id !== M.foco) M.porqueAbierto = false;
+      M.foco = id;
+      var t = tabDe(id);
+      if (t && t.scrollIntoView) {
+        try { t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); }
+        catch (e) { }
+      }
+      pinta();
+    }
+    function rota(paso) {
+      var k = indice(M.foco) + paso;
+      if (k < 0) k = carriles.length - 1;
+      if (k >= carriles.length) k = 0;
+      ir(carriles[k].id);
+    }
+
+    function pintaTabs() {
+      carriles.forEach(function (c) {
+        var s = est[c.id], p = c.pasos[s.i], e = estado(c), t = tabDe(c.id);
+        if (!t) return;
+        var q = quedan(c);
+        var tt = t.querySelector('.vc-tt');
+        tt.textContent = s.fin ? '—' : mmss(q);
+        tt.className = 'vc-tt' + (s.fin ? ' vc-parado'
+          : (q <= 0 ? ' vc-pasado' : (corre(c) ? '' : ' vc-parado')));
+        t.querySelector('.vc-ts1').textContent = s.fin ? 'terminado' : p.t;
+        var r2 = t.querySelector('.vc-ts2');
+        if (s.fin) { r2.textContent = 'fuera del plan'; r2.className = 'vc-ts2'; }
+        else if (e.cl === 'bloq') { r2.textContent = e.txt; r2.className = 'vc-ts2 vc-bloq'; }
+        else {
+          var res = (c.tipo === 'fuego' ? 'fuego ' + (p.f || 0) : 'sin fuego');
+          var tc = tapaCorta(p);
+          if (tc) res += ' · ' + tc;
+          r2.textContent = res + ' · ' + e.txt;
+          r2.className = 'vc-ts2';
+        }
+        t.className = 'vc-tab' + (M.foco === c.id ? ' vc-activo' : '') +
+          (!s.fin && q <= 0 && s.corriendo ? ' vc-suena' : '');
+        t.setAttribute('aria-current', M.foco === c.id ? 'true' : 'false');
+      });
+    }
+
+    function pintaPlan() {
+      var ahora = new Date();
+      N.ahora.textContent = hhmm(ahora);
+      var pend = 0;
+      carriles.forEach(function (c) { pend = Math.max(pend, restante(c)); });
+      var real = new Date(ahora.getTime() + pend * 1000);
+      N.real.textContent = hhmm(real);
+
+      var lista = carriles.filter(function (c) { return !est[c.id].fin; })
+        .map(function (c) { return { c: c, e: estado(c) }; })
+        .sort(function (a, b) { return a.e.orden - b.e.orden; });
+
+      var retraso = 0;
+      lista.forEach(function (x) {
+        if (x.e.cl !== 'ya') return;
+        var d = sugerido(x.c.pasos[est[x.c.id].i].off);
+        var m = Math.round((ahora - d) / 60000);
+        if (m > retraso) retraso = m;
+      });
+      var difFin = Math.round((real - servirDate()) / 60000);
+      var tarde = retraso > 2 || difFin > 1;
+      var atender = lista.filter(function (x) { return x.e.cl === 'atender'; })[0];
+
+      N.plan.className = 'vc-plan' + (tarde || atender ? ' vc-tarde' : '');
+      var cabTxt;
+      if (atender) cabTxt = '<b>' + esc(atender.c.nombre) + ' ya está</b> · pulsa Hecho para seguir';
+      else if (tarde) cabTxt = '<b>' + Math.max(retraso, difFin) + ' min por detrás.</b> Comerás sobre las <b>' + hhmm(real) + '</b>';
+      else cabTxt = '<b>Vas en hora.</b> Llegada <b>' + hhmm(real) + '</b>, prevista <b>' + hhmm(servirDate()) + '</b>';
+      N['plan-txt'].innerHTML = cabTxt;
+      N['plan-flecha'].textContent = M.planAbierto ? '▴' : '▾';
+      N['plan-cuerpo'].classList.toggle('vc-oculto', !M.planAbierto);
+      N['nota-plan'].classList.toggle('vc-oculto', !M.planAbierto || !tarde);
+
+      N['plan-cuerpo'].innerHTML = lista.map(function (x, n) {
+        var p = x.c.pasos[est[x.c.id].i];
+        return '<button class="vc-tarea vc-' + x.e.cl + '" type="button" data-vc="foco" data-foco="' +
+          esc(x.c.id) + '" style="--tar-txt:' + esc(x.c.txt) + '">' +
+          '<span class="vc-ord">' + (n + 1) + '</span>' +
+          '<span class="vc-cu"><span class="vc-ct"><span>' + esc(x.c.nombre) + '</span>' + esc(p.t) + '</span>' +
+          '<span class="vc-ce">' + esc(x.e.txt) + '</span></span>' +
+          '<span class="vc-creloj">' + esc(x.e.reloj) + '</span></button>';
+      }).join('');
+
+      if (tarde) {
+        var aguantan = [], criticos = [];
+        carriles.forEach(function (c) {
+          var s = est[c.id];
+          if (s.fin) return;
+          for (var j = s.i; j < c.pasos.length; j++) {
+            var p = c.pasos[j];
+            if (p.holgura === 'flexible' && aguantan.indexOf(p.t) < 0) aguantan.push(p.t);
+            if (p.holgura === 'critico' && criticos.indexOf(p.t) < 0) criticos.push(p.t);
+          }
+        });
+        N['nota-plan'].innerHTML =
+          '<b>Prevista</b> ' + hhmm(servirDate()) + ' · <b>realista</b> ' + hhmm(real) + '<br>' +
+          (aguantan.length ? '<b>Aguantan la espera:</b> ' + esc(aguantan.join(', ')) + '.<br>' : '') +
+          (criticos.length ? '<b>No esperan, encadénalos:</b> ' + esc(criticos.join(', ')) + '.' : '');
+      }
+    }
+
+    /* qué toca en los otros recipientes mientras este corre, desde los off */
+    function paralelo() {
+      var ahora = new Date(), out = [];
+      carriles.forEach(function (c) {
+        if (c.id === M.foco) return;
+        var s = est[c.id];
+        if (s.fin) return;
+        if (corre(c) && quedan(c) > 0) return;
+        var p = c.pasos[s.i];
+        if (faltan(p).length) return;
+        var m = Math.round((sugerido(p.off) - ahora) / 60000);
+        if (m > 12) return;
+        out.push({ c: c, p: p, m: m, atender: (s.corriendo && quedan(c) <= 0), pausado: s.pausado });
+      });
+      out.sort(function (a, b) { return a.m - b.m; });
+      return out;
+    }
+
+    function pintaAvisos() {
+      var a = paralelo(), n = N.avisos;
+      if (!a.length) { n.innerHTML = ''; n.style.display = 'none'; return; }
+      n.style.display = '';
+      n.innerHTML = '<b>MIENTRAS ESTO CORRE</b>' + a.map(function (x) {
+        var cuando = x.atender ? 'ya · Hecho'
+          : x.pausado ? 'en pausa'
+            : x.m <= 0 ? 'ahora' : 'en ' + x.m + ' min';
+        var tc = tapaCorta(x.p);
+        var res = x.c.tipo === 'fuego'
+          ? ('fuego ' + (x.p.f || 0) + (tc ? ' · ' + tc : ''))
+          : 'sin fuego';
+        return '<button class="vc-aviso' + (x.m <= 0 ? ' vc-urge' : '') + '" type="button"' +
+          ' data-vc="foco" data-foco="' + esc(x.c.id) + '"' +
+          ' style="--av:' + esc(x.c.color) + ';--av-txt:' + esc(x.c.txt) + '">' +
+          '<em>' + cuando + '</em><span>' + esc(x.c.nombre) + ' · ' + esc(x.p.t) + '</span>' +
+          '<i>' + res + ' · ' + minTxt(x.p.s) + ' min · sugerido ' + hhmm(sugerido(x.p.off)) + '</i>' +
+          '</button>';
+      }).join('');
+    }
+
+    function reiniciaAvisos() {
+      carriles.forEach(function (c) {
+        var s = est[c.id];
+        s.avisado = !s.fin && (sugerido(c.pasos[s.i].off) - new Date() <= 0);
+      });
+    }
+
+    /* Los hitos del paso que estás mirando: las marcas de la barra y la
+       tira de abajo. El que acaba de saltar se queda resaltado un rato,
+       porque el aviso sonó mientras tenías las manos en la sartén. */
+    function pintaHitos(c, p) {
+      if (!p.hitos.length) {
+        N.hitos.innerHTML = ''; N.hitos.style.display = 'none';
+        N.marcas.innerHTML = '';
+        return;
+      }
+      N.hitos.style.display = '';
+      var s = est[c.id], t = transcurrido(c);
+      N.marcas.innerHTML = p.hitos.map(function (h) {
+        return '<u style="left:' + (h.en / p.s * 100).toFixed(2) + '%"' +
+          (t >= h.en ? ' class="vc-pasada"' : '') + '></u>';
+      }).join('');
+      N.hitos.innerHTML = p.hitos.map(function (h, k) {
+        var dado = t >= h.en;
+        var vivo = dado && (t - h.en) < HITO_VIVO && !s.fin;
+        var falta = h.en - t;
+        var cuando = dado ? (vivo ? 'ahora' : 'hecho') : mmss(Math.max(0, falta));
+        return '<span class="vc-hito' + (vivo ? ' vc-vivo' : (dado ? ' vc-pasado' : '')) + '">' +
+          '<em>' + esc(cuando) + '</em>' + esc(h.t) + '</span>';
+      }).join('');
+    }
+
+    /* ---------- 7 bis. lo que se lee en voz alta ----------
+       pintaPanel() se llama cada segundo por el latido del reloj, haya
+       cambiado algo o no: si la región viva colgara del reloj o se
+       reescribiera sin más en cada pintado, un lector de pantalla la
+       leería cada segundo y quedaría inservible. Por eso anuncia() solo
+       toca el DOM cuando el TEXTO es distinto del último anunciado, y
+       ese texto nunca lleva el mm:ss — solo el estado ya digerido
+       («en marcha», «en pausa», «¡listo! pulsa Hecho»...), igual que en
+       las pestañas y el plan. La cuenta atrás en sí se queda muda a
+       propósito. */
+    function anuncia(t) {
+      if (!N.anuncio || t === M.ultimoAnuncio) return;
+      M.ultimoAnuncio = t;
+      N.anuncio.textContent = t;
+    }
+
+    function pintaPanel() {
+      var c = carril(M.foco), s = est[c.id];
+      var h = host.querySelector('[data-vc="hecho"]');
+      var pl = host.querySelector('[data-vc="play"]');
+      var ms = host.querySelector('[data-vc="mas"]');
+      host.style.setProperty('--vc-acento', c.color);
+      if (s.fin) {
+        N.idx.textContent = c.nombre;
+        N.titulo.textContent = 'Terminado';
+        anuncia(c.nombre + ': terminado.');
+        N.quem.style.visibility = 'hidden';
+        N.pills.innerHTML = ''; N.req.innerHTML = '';
+        N.reloj.textContent = '00:00'; N.reloj.className = 'vc-reloj vc-parado';
+        N.prog.style.width = '100%'; N.marcas.innerHTML = '';
+        N.hitos.innerHTML = ''; N.hitos.style.display = 'none';
+        N.detalle.innerHTML = ''; N.nota.textContent = '';
+        N.porque.innerHTML = '';
+        /* Aquí no hay paso que cronometrar, pero tampoco puede quedarse el
+           pie sin mandos: se deja la salida al carril que toca antes. */
+        var sig = siguienteAccionable() || siguientePorHora();
+        if (sig) {
+          N.sig.innerHTML = 'Este recipiente ya está fuera del plan. Sigue por <b>' +
+            esc(sig.nombre) + '</b>.';
+          Z.mandos.classList.remove('vc-oculto');
+          Z.mandos.classList.add('vc-solo');
+          pl.classList.add('vc-oculto');
+          ms.classList.add('vc-oculto');
+          h.className = 'vc-principal';
+          h.textContent = 'Siguiente: ' + sig.nombre + ' · ' +
+            hhmm(sugerido(sig.pasos[est[sig.id].i].off));
+          h.dataset.ir = sig.id;
+        } else {
+          N.sig.textContent = 'Este recipiente ya está fuera del plan.';
+          Z.mandos.classList.add('vc-oculto');
+        }
+        return;
+      }
+      Z.mandos.classList.remove('vc-oculto');
+      Z.mandos.classList.remove('vc-solo');
+      pl.classList.remove('vc-oculto');
+      ms.classList.remove('vc-oculto');
+      var p = c.pasos[s.i], f = faltan(p), q = quedan(c);
+      var bloqueado = f.length > 0 && !s.corriendo && !s.salto;
+      N.idx.textContent = c.nombre + ' · paso ' + (s.i + 1) + ' de ' + c.pasos.length +
+        ' · sugerido ' + hhmm(sugerido(p.off));
+      N.titulo.textContent = p.t;
+      anuncia(c.nombre + ' — ' + p.t + ': ' + estado(c).txt);
+
+      if (c.tipo === 'fuego') {
+        N.quem.style.visibility = 'visible';
+        var fu = p.f || 0;
+        N['n-fuego'].textContent = fu;
+        N['n-fuego'].className = 'vc-n' + (fu ? '' : ' vc-off');
+        var b = '';
+        for (var k = 1; k <= 9; k++) b += '<i class="' + (k <= fu ? 'vc-on' : '') + '"></i>';
+        N['b-fuego'].innerHTML = b;
+        N['tp-fuego'].textContent = p.tapa || '';
+        N['tp-fuego'].className = 'vc-tp' + (/PUESTA|MEDIAS/i.test(p.tapa || '') ? ' vc-act' : '');
+      } else {
+        N.quem.style.visibility = 'hidden';
+      }
+
+      N.pills.innerHTML =
+        '<span class="vc-pill vc-' + p.holgura + '">' +
+        (p.holgura === 'flexible' ? 'aguanta espera' : p.holgura === 'critico' ? 'no espera' : 'ajustado') +
+        '</span>' +
+        '<span class="vc-pill">' + minTxt(p.s) + ' min</span>' +
+        (!s.corriendo ? '<span class="vc-pill">sin arrancar</span>'
+          : (s.pausado ? '<span class="vc-pill">en pausa</span>' : ''));
+
+      var rq = '';
+      if (p.dep.length) {
+        rq += f.length
+          ? '<div class="vc-falta"><b>ANTES HAY QUE TERMINAR</b>' + esc(p.dep.map(etiqueta).join(' · ')) + '</div>'
+          : '<div class="vc-listo"><b>REQUISITO CUMPLIDO</b>' + esc(p.dep.map(etiqueta).join(' · ')) + '</div>';
+      }
+      if (p.junto) rq += '<div class="vc-junto"><b>A LA VEZ QUE</b>' + esc(etiqueta(p.junto)) + '</div>';
+      N.req.innerHTML = rq;
+
+      N.reloj.textContent = mmss(q);
+      N.reloj.className = 'vc-reloj' + (q <= 0 ? ' vc-pasado' : (corre(c) ? '' : ' vc-parado'));
+      N.prog.style.width = (p.s > 0 ? Math.min(100, Math.max(0, (p.s - q) / p.s * 100)) : 100) + '%';
+      pintaHitos(c, p);
+
+      var d = '';
+      if (p.meto) d += '<div class="vc-fila vc-f-meto"><em>METO</em><span>' + esc(p.meto) + '</span></div>';
+      if (p.saco) d += '<div class="vc-fila vc-f-saco"><em>SACO</em><span>' + esc(p.saco) + '</span></div>';
+      if (p.tapa) d += '<div class="vc-fila vc-f-tapa"><em>TAPA</em><span>' + esc(p.tapa) + '</span></div>';
+      N.detalle.innerHTML = d;
+      N.nota.textContent = p.nota || '';
+
+      /* La nota dicta con las manos ocupadas; el porqué argumenta. Es el
+         mismo texto de la ficha y está a un toque, sin salir de aquí. Las
+         técnicas de la receta -sofrito, reducción...- son del plato entero,
+         no de este paso en concreto, así que solo se enseñan aquí dentro,
+         junto al porqué abierto, para no ocupar sitio permanente. */
+      var tecnicas = Array.isArray(api.tecnicas) ? api.tecnicas : [];
+      var htmlTecnicas = tecnicas.length
+        ? '<div class="vc-tecnicas">' + tecnicas.map(function (tc) {
+            return '<button type="button" class="vc-tec-link" data-vc="tecnica" data-tec="' +
+              esc(tc.slug) + '">Técnica: ' + esc(tc.titulo) + ' →</button>';
+          }).join('') + '</div>'
+        : '';
+      if (p.porq || tecnicas.length) {
+        N.porque.innerHTML =
+          '<button type="button" class="vc-porque-btn" data-vc="porque" aria-expanded="' +
+            (M.porqueAbierto ? 'true' : 'false') + '">' +
+            (M.porqueAbierto ? 'Menos ▴' : 'Ver el porqué ▾') + '</button>' +
+          (M.porqueAbierto ? (p.porq ? '<p>' + esc(p.porq) + '</p>' : '') + htmlTecnicas : '');
+      } else {
+        N.porque.innerHTML = '';
+      }
+
+      var n2 = c.pasos[s.i + 1];
+      N.sig.innerHTML = n2
+        ? 'Después aquí: <b>' + esc(n2.t) + '</b> · ' + minTxt(n2.s) + ' min' +
+          (n2.f != null ? ' al ' + n2.f : '')
+        : 'Último paso de este recipiente.';
+
+      if (bloqueado) {
+        h.className = 'vc-principal vc-bloq';
+        /* el rótulo se acorta hasta que quepa en su columna: lo que no
+           puede perderse es el nombre del carril al que hay que ir */
+        h.textContent = 'Antes: ' + corta(mapa[f[0]].paso.t, 16) + ' · ir a ' + mapa[f[0]].carril.nombre;
+        h.dataset.ir = mapa[f[0]].carril.id;
+        pl.textContent = 'Empezar igual';
+      } else {
+        delete h.dataset.ir;
+        h.className = 'vc-principal' + (q <= 0 ? ' vc-urge' : '');
+        h.textContent = n2 ? 'Hecho · siguiente' : 'Hecho · cerrar';
+        pl.textContent = !s.corriendo ? 'Empezar' : (s.pausado ? 'Seguir' : 'Pausa');
+      }
+    }
+
+    function pinta() {
+      if (!M || M.cerrado) return;
+      pintaTabs(); pintaPanel(); pintaAvisos(); pintaPlan();
+    }
+
+    /* ---------- 9. remate ---------- */
+    function cierra() {
+      M.cerrado = true;
+      if (M.tic) { clearInterval(M.tic); M.tic = null; }
+      ['cab', 'panel', 'mandos'].forEach(function (z) { Z[z].classList.add('vc-oculto'); });
+      Z.final.classList.remove('vc-oculto');
+      var reales = M.arrancado ? Math.round((Date.now() - M.arrancado) / 60000) : null;
+      N.resumen.innerHTML = carriles.map(function (c) {
+        var min = Math.round(c.pasos.reduce(function (a, p) { return a + p.s; }, 0) / 60);
+        return '<li><b>' + esc(c.nombre) + '</b>' +
+          c.pasos.length + (c.pasos.length === 1 ? ' paso' : ' pasos') + ' · ' +
+          min + ' min' + (c.tipo === 'fuego' ? ' de fuego' : '') + '</li>';
+      }).join('') +
+        (reales ? '<li><b>HAS TARDADO</b>' + reales + ' min desde que abriste la cocina</li>' : '') +
+        '<li><b>SERVIDO</b>' + hhmm(new Date()) + ', previsto ' + hhmm(servirDate()) + '</li>';
+      tresPitos();
+      vibra([200, 100, 200]);
+      notifica(receta.titulo || 'Sous Chef', 'Todo listo. A la mesa.');
+      if (M.lock) { try { M.lock.release(); } catch (e) { } M.lock = null; }
+    }
+
+    /* ---------- 10. barrido de avisos ----------
+       No cuenta nada: mira el reloj y dispara lo que haya vencido desde
+       la última vez. Por eso da igual que el móvil se salte tics —
+       bloqueado, en otra app o con la pestaña dormida—: al volver, este
+       mismo barrido pone al día todo de golpe. */
+    function barre() {
+      carriles.forEach(function (c) {
+        var s = est[c.id];
+        if (s.fin) return;
+        var p = c.pasos[s.i];
+
+        if (corre(c)) {
+          var q = quedan(c), t = p.s - q;
+          /* hitos del paso: los que ya han vencido y no se han dado */
+          p.hitos.forEach(function (hito, k) {
+            if (s.hechos[k] || t < hito.en) return;
+            s.hechos[k] = true;
+            /* uno vencido hace mucho (estabas fuera) no merece pitido
+               propio: se apunta y ya suena el resumen de vuelta */
+            if (t - hito.en < HITO_VIVO) {
+              pitoHito(); vibra([90, 70, 90]);
+              notifica(c.nombre, hito.t);
+            }
+          });
+          if (!s.a10 && q <= 10 && q > 0) { s.a10 = true; unPito(); vibra(120); }
+          if (!s.aFin && q <= 0) {
+            s.aFin = true; s.a10 = true;
+            tresPitos(); vibra([150, 100, 150, 100, 300]);
+            notifica(c.nombre, p.t + ': hecho');
+          }
+          return;
+        }
+
+        /* pita una vez cuando a un recipiente parado le llega su hora */
+        if (s.corriendo) return;
+        if (faltan(p).length) { s.avisado = false; return; }
+        if (sugerido(p.off) - new Date() <= 0 && !s.avisado) {
+          s.avisado = true; unPito(); vibra([100, 80, 100]);
+          notifica(c.nombre, 'Toca empezar: ' + p.t);
+        }
+      });
+    }
+
+    function latido() {
+      if (!M || M.cerrado) return;
+      barre();
+      pinta();
+    }
+
+    /* Qué te has perdido. No se apunta cuando suena la alarma —un tic
+       rezagado en segundo plano se la habría comido—: se lee del estado
+       al volver, que es lo que de verdad hay en los fuegos. `fuera` son
+       los segundos que has estado fuera, y acota qué cuenta como nuevo. */
+    function resumenDeVuelta(fuera) {
+      var out = [];
+      function desde(seg) {
+        var m = Math.round(seg / 60);
+        return m >= 1 ? ' · hace ' + m + ' min' : '';
+      }
+      carriles.forEach(function (c) {
+        var s = est[c.id];
+        if (s.fin) return;
+        var p = c.pasos[s.i];
+        if (corre(c)) {
+          var q = quedan(c), t = p.s - q;
+          p.hitos.forEach(function (h) {
+            if (t < h.en || t - h.en > fuera) return;
+            out.push(c.nombre + ': ' + h.t + desde(t - h.en));
+          });
+          /* vencido es vencido: aunque sonara antes de irte, al volver
+             lo primero que quieres saber es qué está esperándote */
+          if (q <= 0) out.push(c.nombre + ' · ' + p.t + ': terminado' + desde(-q));
+          return;
+        }
+        if (s.corriendo || faltan(p).length) return;
+        var tarde = Math.round((new Date() - sugerido(p.off)) / 1000);
+        if (tarde >= 0 && tarde <= fuera) out.push(c.nombre + ': toca empezar ' + p.t + desde(tarde));
+      });
+      return out;
+    }
+
+    /* ---------- 11. reiniciar toda la cocina ----------
+       Vive en el mismo aviso de «reanudado»/«mientras no mirabas». Dos
+       toques: el primero arma el botón (texto de aviso, 4 s para
+       arrepentirse), el segundo borra el progreso guardado y vuelve a
+       montar la vista desde cero, como si no se hubiera abierto la
+       receta. */
+    function desarma(boton) {
+      if (M.reinicioTO) { clearTimeout(M.reinicioTO); M.reinicioTO = null; }
+      if (boton) {
+        boton.removeAttribute('data-armado');
+        boton.textContent = 'REINICIAR';
+      }
+    }
+    function reiniciar() {
+      try { if (typeof api.reinicia === 'function') api.reinicia(); } catch (e) { }
+      api.estado = {};
+      render(host, receta, api);
+    }
+
+    function avisaVuelta(lista) {
+      if (!lista.length) { return; }
+      N['devuelta-txt'].innerHTML = '<b>MIENTRAS NO MIRABAS</b>' +
+        lista.slice(0, 4).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('');
+      N.devuelta.classList.remove('vc-oculto');
+      tresPitos();
+      vibra([200, 90, 200]);
+    }
+
+    /* ---------- 12. eventos ---------- */
+    function abre(focoPreferido) {
+      M.abierto = true;
+      host.querySelector('#vc-servir').value = valorServir();
+      Z.portada.classList.add('vc-oculto');
+      ['cab', 'panel', 'mandos'].forEach(function (z) { Z[z].classList.remove('vc-oculto'); });
+      /* el foco arranca en el primer carril accionable, nunca en uno bloqueado */
+      M.foco = (focoPreferido && porId[focoPreferido] && !est[focoPreferido].fin)
+        ? focoPreferido
+        : (siguienteAccionable() || siguientePorHora() || carriles[0]).id;
+      if (!M.arrancado) M.arrancado = Date.now();
+      /* El paso «actual» de cada carril, en cuanto se abre la cocina de
+         verdad, si no venía ya de una recarga: es el punto de partida
+         para medir cuánto se tarda de verdad en cada uno. */
+      carriles.forEach(function (c) {
+        var s = est[c.id];
+        if (!s.fin && !s.inicioPaso) s.inicioPaso = Date.now();
+      });
+      reiniciaAvisos();
+      ctx(); despierta(); tabsHTML(); pinta();
+      pideNotis();
+      guarda();
+      if (M.tic) clearInterval(M.tic);
+      M.tic = setInterval(latido, 1000);
+      if (todoHecho()) cierra();
+    }
+
+    M.onClick = function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('[data-vc]') : null;
+      if (!t || !host.contains(t)) return;
+      var q = t.getAttribute('data-vc');
+
+      /* Guardia anti-rebote: 'hecho' salta un paso entero y no hay vuelta
+         atrás; 'play' arranca/pausa un fuego de verdad, no un adorno;
+         'cocinado' cierra la receta. El bote del dedo mojado o el ghost
+         click son DOS eventos de click para un solo gesto, procesados
+         uno detrás de otro en la misma vuelta del bucle de eventos —
+         sin que el usuario haya soltado y vuelto a tocar. Eso NO es lo
+         mismo que dos toques deliberados y rápidos (dos pasos cortos
+         seguidos, con las manos en la sartén): esos sí llegan como
+         eventos separados, con el navegador de por medio, aunque sean
+         solo unas décimas de segundo. Por eso esto no es una ventana de
+         tiempo — 400 ms de por sí bloqueaban pasos cortos legítimos,
+         seguidos en el mismo carril, como demostró la batería— sino un
+         cerrojo por mando+carril que se suelta en cuanto el bucle de
+         eventos respira (setTimeout 0): un segundo click que ya estaba
+         en cola detrás del primero lo encuentra cerrado y se descarta;
+         uno que llega después, en su propia vuelta del bucle aunque sea
+         poco después, ya lo encuentra abierto.
+         Va por mando+carril (M.foco), no solo por mando: cambiar de
+         pestaña y tocar «Hecho» en OTRO recipiente es una acción
+         distinta y legítima aunque lleguen pegadas. 'cocinado' no tiene
+         carril que valga, así que su cerrojo es global sin más.
+         'reiniciar' NO lleva guardia: ya tiene la suya propia y mejor —
+         arma con el primer toque («¿SEGURO?») y solo el segundo, real,
+         confirma en un plazo de varios segundos; aquí un cerrojo solo
+         estorbaría el flujo normal de confirmar. */
+      if (q === 'hecho' || q === 'play' || q === 'cocinado') {
+        var claveToque = (q === 'cocinado') ? q : (q + ':' + M.foco);
+        if (M.bloqueoToque[claveToque]) return;
+        M.bloqueoToque[claveToque] = true;
+        setTimeout(function () {
+          if (M) M.bloqueoToque[claveToque] = false;
+        }, 0);
+      }
+
+      if (q === 'volver' || q === 'volver-final') {
+        if (typeof api.volver === 'function') { try { api.volver(); } catch (er) { } }
+        return;
+      }
+      if (q === 'mep') {
+        var id = t.getAttribute('data-id');
+        marcados[id] = !marcados[id];
+        t.classList.toggle('vc-ok', !!marcados[id]);
+        t.setAttribute('aria-pressed', marcados[id] ? 'true' : 'false');
+        guarda();
+        return;
+      }
+      if (q === 'abrir') { abre(null); return; }
+      if (q === 'reiniciar') {
+        if (t.getAttribute('data-armado') === '1') { reiniciar(); return; }
+        t.setAttribute('data-armado', '1');
+        t.textContent = '¿SEGURO?';
+        desarma(null);
+        M.reinicioTO = setTimeout(function () { desarma(t); }, 4000);
+        return;
+      }
+      if (q === 'cerrar-devuelta') {
+        desarma(host.querySelector('[data-vc="reiniciar"]'));
+        N.devuelta.classList.add('vc-oculto');
+        return;
+      }
+      if (q === 'porque') { M.porqueAbierto = !M.porqueAbierto; pintaPanel(); return; }
+      if (q === 'tecnica') {
+        if (typeof api.abrirTecnica === 'function') { try { api.abrirTecnica(t.getAttribute('data-tec')); } catch (er) { } }
+        return;
+      }
+      if (q === 'foco') { ir(t.getAttribute('data-foco')); return; }
+      if (q === 'plegar') { M.planAbierto = !M.planAbierto; pinta(); return; }
+      if (q === 'play') {
+        var c = carril(M.foco), s = est[M.foco];
+        ctx(); despierta();
+        if (!s.corriendo) {
+          s.salto = true; s.corriendo = true; s.pausado = false;
+          s.finAt = Date.now() + s.restante * 1000;
+        } else if (s.pausado) {
+          s.pausado = false;
+          s.finAt = Date.now() + s.restante * 1000;
+        } else {
+          s.restante = quedan(c);
+          s.pausado = true;
+        }
+        guarda();
+        pinta();
+        return;
+      }
+      if (q === 'mas') {
+        var cm = carril(M.foco), sm = est[M.foco];
+        if (corre(cm)) sm.finAt += 30000; else sm.restante += 30;
+        var qm = quedan(cm);
+        if (qm > 0) sm.aFin = false;
+        if (qm > 10) sm.a10 = false;
+        guarda();
+        pinta();
+        return;
+      }
+      if (q === 'hecho') {
+        if (t.dataset.ir) { ir(t.dataset.ir); return; }
+        var ch = carril(M.foco), sh = est[M.foco];
+        /* El tiempo real del paso que se acaba de dar por hecho: desde
+           que se volvió «actual» hasta ahora, mande o no el reloj. */
+        var pasoHecho = ch.pasos[sh.i];
+        if (sh.inicioPaso) {
+          M.pasosReales[pasoHecho.id] = Math.max(1, Math.round((Date.now() - sh.inicioPaso) / 1000));
+        }
+        if (sh.i < ch.pasos.length - 1) {
+          sh.i++;
+          sh.restante = ch.pasos[sh.i].s; sh.finAt = null;
+          sh.corriendo = false; sh.pausado = false;
+          sh.a10 = false; sh.aFin = false; sh.salto = false; sh.hechos = {};
+          sh.avisado = (sugerido(ch.pasos[sh.i].off) - new Date() <= 0);
+          sh.inicioPaso = Date.now();
+          M.porqueAbierto = false;
+          guarda();
+          pinta();
+        } else {
+          sh.fin = true; sh.corriendo = false; sh.pausado = false;
+          guarda();
+          if (todoHecho()) { cierra(); return; }
+          /* este carril ya no ofrece nada que pulsar: el foco se va solo al
+             siguiente accionable. Si no hay ninguno, se queda aquí y el pie
+             enseña la salida (lo resuelve pintaPanel). */
+          var sig = siguienteAccionable();
+          if (sig && sig.id !== M.foco) ir(sig.id); else pinta();
+        }
+        return;
+      }
+      if (q === 'cocinado') {
+        var campo = N['nota-final'];
+        var nota = campo && campo.value ? String(campo.value).trim() : '';
+        var reales = M.arrancado ? Math.round((Date.now() - M.arrancado) / 60000) : null;
+        if (typeof api.cocinado === 'function') {
+          try { api.cocinado(nota || undefined, reales, M.pasosReales); } catch (er) { }
+        }
+        return;
+      }
+    };
+    host.addEventListener('click', M.onClick);
+
+    M.onInput = function (e) {
+      var t = e.target;
+      if (!t || t.getAttribute('data-vc') !== 'servir') return;
+      var v = t.value;
+      if (!/^\d{1,2}:\d{2}$/.test(v)) return;
+      horaServir = v;
+      host.querySelector('#vc-servir0').value = v;
+      host.querySelector('#vc-servir').value = v;
+      reiniciaAvisos();
+      if (M.abierto && !M.cerrado) pinta();
+      guarda();
+    };
+    host.addEventListener('input', M.onInput);
+
+    M.onTS = function (e) {
+      if (!e.touches || e.touches.length !== 1) return;
+      M.x0 = e.touches[0].clientX; M.y0 = e.touches[0].clientY;
+    };
+    M.onTE = function (e) {
+      if (M.x0 === null || !M.abierto || M.cerrado) return;
+      var c = e.changedTouches && e.changedTouches[0];
+      if (c) {
+        var dx = c.clientX - M.x0, dy = c.clientY - M.y0;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.8) rota(dx < 0 ? 1 : -1);
+      }
+      M.x0 = M.y0 = null;
+    };
+    Z.panel.addEventListener('touchstart', M.onTS, { passive: true });
+    Z.panel.addEventListener('touchend', M.onTE, { passive: true });
+    M.zonaPanel = Z.panel;
+
+    M.onKey = function (e) {
+      if (!M || !M.abierto || M.cerrado) return;
+      var a = document.activeElement;
+      if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+      if (e.key === 'ArrowRight') { rota(1); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { rota(-1); e.preventDefault(); }
+    };
+    document.addEventListener('keydown', M.onKey);
+
+    /* Volver a la app es el momento de la verdad: el intervalo puede
+       haber estado congelado, pero los instantes de fin no. Se barre
+       todo lo vencido, se cuenta qué pasó y se pide otra vez el wake
+       lock, que el sistema suelta al minimizar. */
+    M.onVis = function () {
+      if (!M) return;
+      if (document.visibilityState === 'hidden') { M.oculto = Date.now(); return; }
+      if (!M.abierto || M.cerrado) return;
+      M.lock = null;
+      despierta();
+      ctx();
+      var fuera = M.oculto ? Date.now() - M.oculto : 0;
+      M.oculto = 0;
+      barre();
+      pinta();
+      if (fuera > 8000) {
+        avisaVuelta(resumenDeVuelta(Math.round(fuera / 1000) + 5));
+        guarda();
+      }
+    };
+    document.addEventListener('visibilitychange', M.onVis);
+
+    /* Si veníamos de una cocina abierta (recarga, pestaña descartada,
+       vuelta al día siguiente no), se entra directo donde estabas en vez
+       de a la portada de la mise en place. */
+    if (estadoPrevio && estadoPrevio.abierto && !caducado && !todoHecho()) {
+      M.reanudado = true;
+      abre(estadoPrevio.foco);
+      barre();
+      pinta();
+      var pendientes = resumenDeVuelta(Math.round((Date.now() - tsPrevio) / 1000) + 5);
+      if (pendientes.length) avisaVuelta(pendientes);
+      else {
+        N['devuelta-txt'].innerHTML = '<b>REANUDADO</b><span>Seguimos donde lo dejaste.</span>';
+        N.devuelta.classList.remove('vc-oculto');
+      }
+    }
+  }
+
+  window.VistaCrono = {
+    render: render,
+    destroy: limpia
+  };
+})();
+</script>
+<script>
+/* ==========================================================================
+   vista-tecnica.js — módulo de vista de una técnica (no una receta).
+   Contrato: window.VistaTecnica = { render(host, tecnica), destroy() }.
+   Pinta SOLO dentro de host. Sin almacenamiento, sin red, sin deps.
+
+   Una técnica no es una receta cronometrada: no tiene raciones, ni
+   carriles, ni cronómetro. Es la explicación de un gesto o una destreza
+   (cómo hacer un corte, una masa, una fritura) que varias recetas pueden
+   usar sin repetirla cada vez. Por eso reutiliza el papel de la ficha
+   (mismas clases .v-ficha / .hoja / .portada / .corte de vista-ficha.css)
+   en vez de traer una hoja de estilos propia: es el mismo objeto —una
+   hoja de papel— con menos secciones.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  function esc(v) {
+    if (v === null || v === undefined) return '';
+    return String(v)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  function crudo(v) { return v === null || v === undefined ? '' : String(v); }
+  function lista(v) { return Object.prototype.toString.call(v) === '[object Array]' ? v : []; }
+  function hay(v) { return lista(v).length > 0; }
+  function txt(v) { return typeof v === 'string' && v.replace(/\s+/g, '') !== ''; }
+
+  function htmlPortada(t) {
+    var pasos = lista(t.pasos).length;
+    var datos = [];
+    if (txt(t.categoria)) datos.push(['<span style="text-transform:capitalize">' + esc(t.categoria) + '</span>', 'categoría']);
+    if (pasos) datos.push([String(pasos), pasos === 1 ? 'paso' : 'pasos']);
+    return '<header class="portada">' +
+      '<h1>' + esc(t.titulo) + '</h1>' +
+      (txt(t.resumen) ? '<p class="desc">' + esc(t.resumen) + '</p>' : '') +
+      (datos.length ? '<div class="datos">' + datos.map(function (d) {
+        return '<div class="dato"><b>' + crudo(d[0]) + '</b><span>' + esc(d[1]) + '</span></div>';
+      }).join('') + '</div>' : '') +
+    '</header>';
+  }
+
+  function htmlPasos(t) {
+    var pasos = lista(t.pasos);
+    if (!pasos.length) return '';
+    var items = pasos.map(function (p) {
+      return '<li>' +
+        (txt(p.t) ? '<h3>' + esc(p.t) + '</h3>' : '') +
+        (txt(p.p) ? '<p>' + esc(p.p) + '</p>' : '') +
+      '</li>';
+    }).join('');
+    return '<section><h2>CÓMO SE HACE</h2><ol class="pasos">' + items + '</ol></section>';
+  }
+
+  function htmlCortes(t) {
+    if (!hay(t.cortes)) return '';
+    var cortes = lista(t.cortes).map(function (c) {
+      return '<div class="corte">' + crudo(c.svg) +
+        '<div>' + (txt(c.t) ? '<h3>' + esc(c.t) + '</h3>' : '') +
+        (txt(c.p) ? '<p>' + esc(c.p) + '</p>' : '') + '</div></div>';
+    }).join('');
+    return '<section><h2>EL CORTE</h2><div>' + cortes + '</div></section>';
+  }
+
+  function htmlConsejos(t) {
+    if (!hay(t.consejos)) return '';
+    var items = lista(t.consejos).map(function (c) {
+      return '<p>— ' + esc(c) + '</p>';
+    }).join('');
+    return '<section><h2>CONSEJOS</h2>' + items + '</section>';
+  }
+
+  window.VistaTecnica = {
+    render: function (host, tecnica) {
+      if (!host) return;
+      var t = tecnica || {};
+      host.innerHTML = '<div class="hoja">' +
+        htmlPortada(t) +
+        htmlPasos(t) +
+        htmlCortes(t) +
+        htmlConsejos(t) +
+        (txt(t.pie) ? '<p class="pie">' + esc(t.pie) + '</p>' : '') +
+      '</div>';
+    },
+    destroy: function () {}
+  };
+})();
+</script>
+<script>
+/* ============================================================
+   SHELL — router, base de datos, caché y las dos pantallas
+   propias (recetas e historial). Las vistas de ficha y
+   cronómetro son módulos aparte (window.VistaFicha / VistaCrono).
+
+   Diseño de arranque: la app se pinta PRIMERO desde la caché del
+   navegador y luego se pone al día cuando la base de datos
+   responde. En la cocina eso es la diferencia entre abrir y
+   esperar.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* v3: la caché v2 guardaba también la cola, que ya no existe. Subir
+     la versión es más barato que migrar y deja el teléfono limpio. */
+  var K_CACHE = 'sous-chef-cache-v3';
+  var K_PEND = 'sous-chef-pendientes-v1';
+  /* La hora de servir por defecto es SIEMPRE 15:30: no se recuerda
+     entre recetas ni entre sesiones, así que no vive en localStorage.
+     Lo único que viaja es la hora que acabas de elegir en la ficha, de
+     ahí a "Cronómetro →", y solo esa vez: HORA_TRANSITO se consume en
+     cuanto se abre la cocina y vuelve a quedar en null. */
+  var HORA_DEFECTO = '15:30';
+  var horaTransito = null;
+
+  var S = {
+    db: null,
+    estadoDb: 'conectando',   // conectando | listo | sin-db
+    recetas: {},
+    tecnicas: {},
+    hist: {},
+    /* Marcas del usuario receta a receta: la estrella y las raciones que
+       elegiste la última vez. Van en la base de datos y no en este
+       navegador porque son decisiones tuyas, no de este teléfono: la
+       estrella que pones en el sofá tiene que estar en la cocina. */
+    prefs: {},
+    vista: 'recetas',
+    slug: null,
+    filtro: '',
+    categoria: '',
+    filtroTec: '',
+    categoriaTec: '',
+    filtroHist: '',
+    aviso: null,
+    subs: [],
+    /* Qué colecciones ya han traído su primera foto. El cronómetro la usa
+       para no abrir con las técnicas a medio cargar tras una recarga: sin
+       esto, una recarga justo en mitad de un paso podría abrir la cocina
+       antes de que llegue `tecnicas` y perder los enlaces para siempre en
+       esa sesión, porque una vez abierta la cocina ya no se vuelve a mirar. */
+    listas: {}
+  };
+
+  /* ---------------- utilidades ---------------- */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function vals(o) { return Object.keys(o).map(function (k) { return o[k]; }); }
+  function hoy() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  var MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  function fechaCorta(iso) {
+    if (!iso) return '';
+    var p = String(iso).slice(0, 10).split('-');
+    if (p.length < 3) return iso;
+    return Number(p[2]) + ' ' + (MESES[Number(p[1]) - 1] || '');
+  }
+  function guardaLocal(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function leeLocal(k, pordefecto) {
+    try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : pordefecto; } catch (e) { return pordefecto; }
+  }
+
+  /* Cuánto ha avanzado un estado de cocina guardado: la suma de en qué
+     paso va cada carril. Sirve para comparar dos guardados del mismo
+     `sous-chef-estado-<slug>` y decidir cuál va más lejos — no basta con
+     "quién escribe el último", que es justo lo que hacía que una
+     pestaña atrasada pisara el progreso de otra más avanzada. */
+  function progresoEstado(doc) {
+    var car = (doc && doc.carriles) || {};
+    var total = 0;
+    Object.keys(car).forEach(function (k) {
+      var i = car[k] && car[k].i;
+      if (isFinite(i)) total += i;
+    });
+    return total;
+  }
+  /* Puerta de escritura del estado del cronómetro en este navegador: la
+     clave la comparten todas las pestañas del mismo origen, así que
+     antes de escribir se mira qué hay ya guardado y no se pisa si va MÁS
+     avanzado que lo que se quiere guardar ahora (empate de pasos: gana
+     el `ts` más nuevo). Un reinicio a propósito no se bloquea con esto:
+     `reinicia()` (en pintaCrono) borra la clave ANTES de que este
+     guardado llegue, así que no hay nada guardado con lo que comparar y
+     el reinicio siempre se escribe. */
+  function guardaEstadoLocal(slug, doc) {
+    var previo = leeLocal('sous-chef-estado-' + slug, null);
+    if (previo) {
+      var pAntes = progresoEstado(previo), pAhora = progresoEstado(doc);
+      if (pAhora < pAntes) return;
+      if (pAhora === pAntes && String(doc.ts || '') < String(previo.ts || '')) return;
+    }
+    guardaLocal('sous-chef-estado-' + slug, doc);
+  }
+
+  /* ---------------- caché y escrituras pendientes ---------------- */
+  function guardaCache() {
+    guardaLocal(K_CACHE, { recetas: S.recetas, tecnicas: S.tecnicas, hist: S.hist, prefs: S.prefs, ts: Date.now() });
+  }
+  function cargaCache() {
+    var c = leeLocal(K_CACHE, null);
+    if (!c) return false;
+    S.recetas = c.recetas || {};
+    S.tecnicas = c.tecnicas || {};
+    S.hist = c.hist || {};
+    S.prefs = c.prefs || {};
+    return true;
+  }
+  var pendId = 0;
+  function encola(op) {
+    var p = leeLocal(K_PEND, []);
+    /* Cada pendiente lleva su propio id (no el índice del array): así
+       vuelcaPendientes() puede quitar de la cola justo la que ha
+       confirmado, aunque la cola haya cambiado por debajo mientras
+       tanto (otra escritura fallida metida en medio del volcado). */
+    op.id = 'p' + Date.now() + '-' + (pendId++);
+    p.push(op);
+    guardaLocal(K_PEND, p);
+  }
+  /* Si algún día K_PEND sube de versión (v1 -> v2...) esto rescata la
+     cola de la versión anterior antes de tirarla: es lo que no se hizo
+     cuando la caché pasó de v2 a v3 y la cola vieja se abandonó. Corre
+     una vez al arrancar, encuentre o no algo que rescatar. */
+  function rescataPendientesViejas() {
+    var prefijo = 'sous-chef-pendientes-v';
+    var claves = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k !== K_PEND && k.indexOf(prefijo) === 0) claves.push(k);
+      }
+    } catch (e) { return; }
+    claves.forEach(function (k) {
+      var vieja = leeLocal(k, []);
+      if (Array.isArray(vieja) && vieja.length) {
+        var actual = leeLocal(K_PEND, []);
+        guardaLocal(K_PEND, actual.concat(vieja));
+      }
+      try { localStorage.removeItem(k); } catch (e) {}
+    });
+  }
+  function vuelcaPendientes() {
+    var p = leeLocal(K_PEND, []);
+    if (!p.length || !S.db) return;
+    /* Las que vengan de una cola rescatada (o de antes de este cambio)
+       pueden no traer id: se lo ponemos aquí para que quitaDePendientes
+       pueda identificarlas una a una. */
+    var faltaId = false;
+    p.forEach(function (op) { if (!op.id) { op.id = 'p' + Date.now() + '-' + (pendId++); faltaId = true; } });
+    if (faltaId) guardaLocal(K_PEND, p);
+    /* La cola NO se vacía de golpe antes de saber qué ha ido bien: cada
+       pendiente sale sola cuando SU reintento confirma que se ha
+       escrito. Si la conexión cae a mitad del volcado, lo que no se
+       haya confirmado se queda en la cola en vez de darse por enviado
+       sin estarlo. */
+    p.forEach(function (op) {
+      escribe(op.ruta, op.datos, op.borrar, true).then(function (ok) {
+        if (ok) quitaDePendientes(op.id);
+      });
+    });
+  }
+  function quitaDePendientes(id) {
+    var p = leeLocal(K_PEND, []);
+    var quedan = p.filter(function (op) { return op.id !== id; });
+    if (quedan.length !== p.length) {
+      guardaLocal(K_PEND, quedan);
+      if (!capaCronoAbierta()) pinta();
+    }
+  }
+
+  /* Una sola puerta para escribir: si no hay base de datos o falla,
+     el cambio se queda en la cola de pendientes y se reintenta. */
+  function escribe(ruta, datos, borrar, esReintento) {
+    if (!S.db) {
+      if (!esReintento) encola({ ruta: ruta, datos: datos, borrar: !!borrar });
+      return Promise.resolve(false);
+    }
+    var ref;
+    try { ref = S.db.doc(ruta); } catch (e) { return Promise.resolve(false); }
+    var pr = borrar ? ref.delete() : ref.set(datos);
+    return pr.then(function () { return true; }).catch(function () {
+      /* Antes solo se encolaba si el error venía marcado como
+         "unavailable" o "revoked": cualquier otro código (o ninguno) se
+         tragaba el fallo en silencio y el cambio desaparecía sin más.
+         Un fallo es un fallo: si no se ha podido escribir, se encola,
+         sea cual sea la causa. */
+      if (!esReintento) encola({ ruta: ruta, datos: datos, borrar: !!borrar });
+      return false;
+    });
+  }
+
+  /* ---------------- conexión ---------------- */
+  function conecta() {
+    var use = (window.claude && typeof window.claude.use === 'function')
+      ? window.claude.use('db')
+      : Promise.resolve(window.__MOCK_DB__ || null);
+
+    return use.then(function (db) {
+      S.db = db || window.__MOCK_DB__ || null;
+      if (!S.db) {
+        S.estadoDb = 'sin-db';
+        /* Sin base de datos no va a llegar ninguna foto más: lo que haya en
+           caché es todo lo que hay, así que se da por «listo» ya mismo. */
+        S.listas.recetas = S.listas.tecnicas = S.listas.hist = S.listas.prefs = true;
+        pinta();
+        return;
+      }
+      S.estadoDb = 'listo';
+      vuelcaPendientes();
+      suscribe('recetas', 'recetas');
+      suscribe('tecnicas', 'tecnicas');
+      suscribe('historial', 'hist');
+      suscribe('preferencias', 'prefs');
+    }).catch(function () {
+      S.estadoDb = 'sin-db';
+      S.listas.recetas = S.listas.tecnicas = S.listas.hist = S.listas.prefs = true;
+      pinta();
+    });
+  }
+
+  function suscribe(coleccion, clave) {
+    try {
+      var un = S.db.collection(coleccion).onSnapshot(function (snap) {
+        var m = {};
+        snap.docs.forEach(function (d) {
+          var o = d.data(); if (!o) return;
+          o = JSON.parse(JSON.stringify(o));
+          o._id = d.id;
+          m[d.id] = o;
+        });
+        S[clave] = m;
+        S.listas[clave] = true;
+        guardaCache();
+        if (!capaCronoAbierta()) pinta();
+        else contadores();
+      }, function () {
+        /* suscripción muerta: seguimos con la caché, pero contada como
+           «lista» para no bloquear el cronómetro esperando algo que no
+           va a llegar. */
+        S.listas[clave] = true;
+      });
+      S.subs.push(un);
+    } catch (e) { S.listas[clave] = true; }
+  }
+
+  /* ---------------- router ---------------- */
+  function leeRuta() {
+    var h = (location.hash || '').replace(/^#\/?/, '');
+    var p = h.split('/').filter(Boolean);
+    if (!p.length) return { vista: 'recetas' };
+    if (p[0] === 'r' && p[1]) return { vista: 'receta', slug: decodeURIComponent(p[1]) };
+    if (p[0] === 'c' && p[1]) return { vista: 'crono', slug: decodeURIComponent(p[1]) };
+    if (p[0] === 't' && p[1]) return { vista: 'tecnica', slug: decodeURIComponent(p[1]) };
+    if (p[0] === 'tecnicas') return { vista: 'tecnicas' };
+    if (p[0] === 'historial') return { vista: 'historial' };
+    return { vista: 'recetas' };
+  }
+  function ve(ruta) { location.hash = '#/' + ruta; }
+  function alCambiarRuta() {
+    var r = leeRuta();
+    var eraCrono = S.vista === 'crono';
+    S.vista = r.vista;
+    S.slug = r.slug || null;
+    if (eraCrono && r.vista !== 'crono') cierraCrono();
+    pinta();
+  }
+
+  /* ---------------- derivados de la receta ---------------- */
+  function carrilesDe(receta) {
+    var m = {};
+    (receta.carriles || []).forEach(function (c) { m[c.id] = c; });
+    return m;
+  }
+  function huella(receta) {
+    /* Mini-gantt: una línea por carril. Dice de un vistazo si el
+       plato es de un fuego o de tres solapados, que es la primera
+       cosa que quieres saber al elegir qué cocinar. */
+    var total = receta.totalMin || 1;
+    var cs = receta.carriles || [];
+    var pasos = receta.pasos || [];
+    if (!cs.length || !pasos.length) return '';
+    var filas = cs.map(function (c) {
+      var barras = pasos.filter(function (p) { return p.carril === c.id; }).map(function (p) {
+        var izq = Math.max(0, (p.off || 0) / total * 100);
+        var an = Math.max(1.2, (p.min || 1) / total * 100);
+        return '<span class="sc-h-barra" style="left:' + izq.toFixed(2) + '%;width:' + Math.min(100 - izq, an).toFixed(2) + '%;background:' + esc(c.color || '#888') + '"></span>';
+      }).join('');
+      return '<div class="sc-h-fila">' + barras + '</div>';
+    }).join('');
+    /* Cada nombre lleva su punto de color: sin él la leyenda no dice
+       qué línea de la huella es cada recipiente. */
+    var leyenda = cs.map(function (c) {
+      return '<span><i style="background:' + esc(c.color || '#888') + '"></i>' + esc(c.nombre) + '</span>';
+    }).join('');
+    return '<div class="sc-huella">' + filas + '</div><div class="sc-huella-pie">' + leyenda + '</div>';
+  }
+  function fuegosDe(receta) {
+    var cs = carrilesDe(receta);
+    var n = 0;
+    Object.keys(cs).forEach(function (k) { if (cs[k].tipo === 'fuego') n++; });
+    return n;
+  }
+  function ultimaVez(slug) {
+    var f = null;
+    vals(S.hist).forEach(function (h) {
+      if (h.slug === slug && (!f || h.fecha > f)) f = h.fecha;
+    });
+    return f;
+  }
+
+  /* ---------------- marcas del usuario (preferencias/<slug>) ----------------
+     Colección aparte y no `estado/<slug>`: el estado del cronómetro se
+     reescribe entero en cada guardado, se borra al reiniciar y se limpia
+     sola al anotar el plato en el historial. Una estrella metida ahí
+     duraría hasta la primera vez que cocinaras la receta, que es justo
+     cuando más ganas tienes de tenerla marcada. */
+  function esFavorita(slug) {
+    var p = S.prefs[slug];
+    return !!(p && p.favorito);
+  }
+  /* Se escribe el documento entero partiendo del que ya había, así que
+     una marca no pisa la otra: cambiar las raciones no apaga la estrella. */
+  function guardaPref(slug, cambios) {
+    var p = S.prefs[slug] || {};
+    var doc = { slug: slug, favorito: !!p.favorito, raciones: p.raciones || null };
+    Object.keys(cambios).forEach(function (k) { doc[k] = cambios[k]; });
+    doc.ts = new Date().toISOString();
+    S.prefs[slug] = doc;
+    guardaCache();
+    escribe('preferencias/' + slug, doc, false);
+  }
+
+  function aMedianoche(iso) {
+    var p = String(iso || '').slice(0, 10).split('-');
+    if (p.length < 3) return null;
+    var t = Date.UTC(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+    return isFinite(t) ? t : null;
+  }
+  /* Días enteros desde esa fecha. Se comparan medianoches en UTC para que
+     un cambio de hora no invente ni se coma un día. */
+  function diasDesde(fecha) {
+    var a = aMedianoche(fecha), b = aMedianoche(hoy());
+    if (a === null || b === null) return null;
+    return Math.round((b - a) / 86400000);
+  }
+  /* «hace 3 semanas» se lee de un vistazo; «últ. 24 ago» hay que
+     restarlo mentalmente contra el día que sea hoy. */
+  function haceCuanto(dias) {
+    if (dias <= 0) return 'hoy';
+    if (dias === 1) return 'ayer';
+    if (dias < 7) return 'hace ' + dias + ' días';
+    if (dias < 30) {
+      var sem = Math.floor(dias / 7);
+      return 'hace ' + sem + (sem === 1 ? ' semana' : ' semanas');
+    }
+    if (dias < 365) {
+      var mes = Math.floor(dias / 30);
+      return 'hace ' + mes + (mes === 1 ? ' mes' : ' meses');
+    }
+    var an = Math.floor(dias / 365);
+    return 'hace ' + an + (an === 1 ? ' año' : ' años');
+  }
+  /* El umbral de destacado son 60 días. Cocinando un par de veces por
+     semana, el recetario entero rota en menos de un mes: dos meses no es
+     «hace tiempo», es que la receta se ha caído de la rotación sin que te
+     dieras cuenta. Por debajo de ahí el dato se lee sin gritar, con el
+     mismo gris que tenía la fecha. La que no se ha hecho nunca se destaca
+     siempre: es la que más fácil se queda para otro día. */
+  var DIAS_FRIA = 60;
+  function chipUltimaVez(fecha) {
+    if (!fecha) return '<span class="sc-chip sc-urge">sin estrenar</span>';
+    var d = diasDesde(fecha);
+    if (d === null) return '';
+    /* La fecha exacta no desaparece, se repliega al title: en la tarjeta
+       manda el tiempo transcurrido, que es lo que se decide de un vistazo. */
+    return '<span class="sc-chip ' + (d >= DIAS_FRIA ? 'sc-urge' : 'sc-min') +
+      '" title="últ. ' + esc(fechaCorta(fecha)) + '">' + esc(haceCuanto(d)) + '</span>';
+  }
+  /* Las técnicas que cita una receta (tags.tecnica) solo cuentan si esa
+     técnica existe de verdad como ficha propia: el tag es libre desde
+     siempre, y no todos han tenido su ficha hasta ahora. */
+  function tecnicasDe(receta) {
+    var tags = (receta.tags && receta.tags.tecnica) || [];
+    return tags.map(function (slug) { return S.tecnicas[slug]; })
+      .filter(Boolean)
+      .map(function (t) { return { slug: t.slug, titulo: t.titulo }; });
+  }
+  /* El enlace al revés: qué recetas citan esta técnica. Mismo criterio
+     que tecnicasDe (coincidencia por slug en tags.tecnica), pero
+     recorriendo todas las recetas en vez de una sola. */
+  function recetasConTecnica(slug) {
+    return vals(S.recetas)
+      .filter(function (r) { return r.tags && (r.tags.tecnica || []).indexOf(slug) !== -1; })
+      .map(function (r) { return { slug: r.slug, titulo: r.titulo }; })
+      .sort(function (a, b) { return String(a.titulo || '').localeCompare(String(b.titulo || '')); });
+  }
+
+  /* ---------------- pintado ---------------- */
+  function contadores() {
+    $('n-recetas').textContent = Object.keys(S.recetas).length || '0';
+    $('n-tecnicas').textContent = Object.keys(S.tecnicas).length || '0';
+    $('n-hist').textContent = Object.keys(S.hist).length || '0';
+    var b = $('barra').querySelectorAll('button');
+    var actual = S.vista === 'receta' || S.vista === 'crono' ? 'recetas'
+      : S.vista === 'tecnica' ? 'tecnicas' : S.vista;
+    for (var i = 0; i < b.length; i++) {
+      if (b[i].getAttribute('data-ir') === actual) b[i].setAttribute('aria-current', 'page');
+      else b[i].removeAttribute('aria-current');
+    }
+  }
+
+  function bandaAviso() {
+    var partes = [];
+    if (S.estadoDb === 'sin-db') {
+      partes.push('<div class="sc-aviso sc-malo"><span>Sin conexión con la base de datos. Ves la última copia guardada en este teléfono y lo que marques se enviará cuando vuelva.</span></div>');
+    } else if (S.estadoDb === 'conectando' && !Object.keys(S.recetas).length) {
+      partes.push('<div class="sc-aviso"><span>Conectando…</span></div>');
+    }
+    var pend = leeLocal(K_PEND, []).length;
+    if (pend) partes.push('<div class="sc-aviso"><span>' + pend + (pend === 1 ? ' cambio pendiente' : ' cambios pendientes') + ' de enviar.</span></div>');
+    if (S.aviso) {
+      if (Date.now() - S.aviso.ts > (S.aviso.ms || 20000)) S.aviso = null;
+      else {
+        partes.push('<div class="sc-aviso' + (S.aviso.deshacer ? ' sc-aviso-deshacer' : '') + '"><span>' + esc(S.aviso.txt) + '</span>' +
+          (S.aviso.deshacer ? '<button type="button" class="sc-btn sc-sec" data-deshacer="1">Deshacer</button>' : '') +
+          '</div>');
+      }
+    }
+    return partes.join('');
+  }
+
+  function pinta() {
+    contadores();
+    var m = $('vista');
+    if (S.vista === 'crono') { pintaCrono(); return; }
+    document.body.classList.remove('crono-abierto');
+    $('capa-crono').hidden = true;
+
+    if (S.vista === 'receta') { pintaReceta(m); return; }
+    if (S.vista === 'tecnica') { pintaTecnica(m); return; }
+    /* Las tres pantallas propias llevan la cabecera de la app; la ficha
+       no, porque la hoja ya trae su título y quedaban dos seguidos. */
+    $('cabecera').hidden = false;
+    $('titulo').textContent = 'Sous Chef';
+    if (S.vista === 'historial') pintaHistorial(m);
+    else if (S.vista === 'tecnicas') pintaTecnicas(m);
+    else pintaRecetas(m);
+  }
+
+  /* --- pantalla 1: recetas --- */
+  function pintaRecetas(m) {
+    var todas = vals(S.recetas);
+    var f = S.filtro.trim().toLowerCase();
+    var porTexto = !f ? todas : todas.filter(function (r) {
+      var saco = [r.titulo, r.descripcion, (r.tags && r.tags.base) || ''];
+      (r.grupos || []).forEach(function (g) { (g.items || []).forEach(function (it) { saco.push(it.n); }); });
+      (r.pasos || []).forEach(function (p) { saco.push(p.t); });
+      return saco.join(' ').toLowerCase().indexOf(f) !== -1;
+    });
+
+    /* Categorías: cuántas recetas de cada base hay entre las que ya
+       cumplen la búsqueda de texto, para que los números de los chips
+       bajen a la vez que escribes en vez de quedarse fijos. */
+    var basesCont = {};
+    porTexto.forEach(function (r) {
+      var b = r.tags && r.tags.base;
+      if (b) basesCont[b] = (basesCont[b] || 0) + 1;
+    });
+    var bases = Object.keys(basesCont).sort();
+
+    var lista = !S.categoria ? porTexto : porTexto.filter(function (r) { return r.tags && r.tags.base === S.categoria; });
+    /* Las favoritas arriba, pase lo que pase con la fecha: ese es justo
+       el problema que resuelven, que una receta buena de hace meses se
+       hundía bajo cualquier retoque reciente. Dentro de cada mitad se
+       sigue ordenando por la más reciente. */
+    lista.sort(function (a, b) {
+      var fa = esFavorita(a.slug) ? 1 : 0, fb = esFavorita(b.slug) ? 1 : 0;
+      if (fa !== fb) return fb - fa;
+      return String(b.actualizada || '').localeCompare(String(a.actualizada || ''));
+    });
+
+    $('subtitulo').textContent = lista.length ? lista.length + (lista.length === 1 ? ' receta' : ' recetas') : '';
+
+    var html = bandaAviso();
+    html += '<div class="sc-buscador"><input type="search" id="q" placeholder="Buscar por plato o ingrediente" value="' + esc(S.filtro) + '" autocomplete="off"></div>';
+
+    /* Los chips de categoría solo aparecen si hay más de una base
+       distinta: con una sola no filtran nada, solo estorban. */
+    if (bases.length > 1) {
+      html += '<div class="sc-catbar" role="group" aria-label="Filtrar por categoría">' +
+        '<button type="button" class="sc-cat" data-cat="" aria-current="' + (!S.categoria) + '">Todas' +
+          '<span class="sc-cat-n">' + porTexto.length + '</span></button>' +
+        bases.map(function (b) {
+          return '<button type="button" class="sc-cat" data-cat="' + esc(b) + '" aria-current="' + (S.categoria === b) + '">' + esc(b) +
+            '<span class="sc-cat-n">' + basesCont[b] + '</span></button>';
+        }).join('') +
+      '</div>';
+    }
+
+    if (!lista.length) {
+      html += Object.keys(S.recetas).length
+        ? '<div class="sc-vacio"><b>Nada con eso</b>Prueba con un ingrediente' + (S.categoria ? ' o quita el filtro de categoría' : '') + '.</div>'
+        : '<div class="sc-vacio"><b>Todavía no hay recetas</b>Pídeme una en el chat y aparecerá aquí sola.</div>';
+    } else {
+      html += '<div class="sc-recetas">' + lista.map(function (r) {
+        var uv = ultimaVez(r.slug);
+        var chips = [];
+        chips.push('<span class="sc-chip sc-tiempo">' + (r.totalMin || '?') + ' min</span>');
+        var nf = fuegosDe(r);
+        if (nf) chips.push('<span class="sc-chip">' + nf + (nf === 1 ? ' fuego' : ' fuegos') + '</span>');
+        if (r.tags && r.tags.base) chips.push('<span class="sc-chip">' + esc(r.tags.base) + '</span>');
+        chips.push((r.compra && r.compra.length)
+          ? '<span class="sc-chip sc-compra">compra</span>'
+          : '<span class="sc-chip sc-despensa">despensa</span>');
+        chips.push(chipUltimaVez(uv));
+        /* La estrella va FUERA de la tarjeta, no dentro: un botón dentro
+           de otro botón no es HTML válido y el navegador lo desmonta. Es
+           hermana suya, colocada encima por CSS, y así marcar favorita no
+           abre la receta. */
+        var fav = esFavorita(r.slug);
+        var rotulo = fav ? 'Quitar de favoritas' : 'Marcar como favorita';
+        return '<div class="sc-tarjeta">' +
+          '<button type="button" class="sc-receta" data-slug="' + esc(r.slug) + '">' +
+          '<h3>' + esc(r.titulo) + '</h3>' +
+          (r.descripcion ? '<p class="sc-desc">' + esc(r.descripcion) + '</p>' : '') +
+          huella(r) +
+          '<div class="sc-chips">' + chips.join('') + '</div>' +
+          '</button>' +
+          '<button type="button" class="sc-fav" data-fav="' + esc(r.slug) + '"' +
+            ' aria-pressed="' + (fav ? 'true' : 'false') + '" aria-label="' + rotulo + '" title="' + rotulo + '">' +
+            (fav ? '★' : '☆') + '</button>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    m.innerHTML = html;
+
+    var q = $('q');
+    if (q) {
+      q.addEventListener('input', function () {
+        S.filtro = q.value;
+        var pos = q.selectionStart;
+        pintaRecetas(m);
+        var q2 = $('q');
+        if (q2) { q2.focus(); try { q2.setSelectionRange(pos, pos); } catch (e) {} }
+      });
+    }
+    m.querySelectorAll('.sc-cat').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var cat = b.getAttribute('data-cat');
+        S.categoria = (cat === S.categoria) ? '' : cat;
+        pintaRecetas(m);
+      });
+    });
+    m.querySelectorAll('.sc-receta').forEach(function (b) {
+      b.addEventListener('click', function () { ve('r/' + encodeURIComponent(b.getAttribute('data-slug'))); });
+    });
+    /* Repintar entera tras marcar es lo que se quiere ver: la receta sube
+       al principio delante de tus ojos, que es la prueba de que la marca
+       ha hecho algo. */
+    m.querySelectorAll('.sc-fav').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var slug = b.getAttribute('data-fav');
+        guardaPref(slug, { favorito: !esFavorita(slug) });
+        pintaRecetas(m);
+      });
+    });
+  }
+
+  /* --- pantalla 3: técnicas ---
+     Lista aparte de las recetas: aquí no hay cronómetro ni raciones,
+     solo gestos y destrezas (cómo hacer un corte, una masa, una
+     fritura) que varias recetas pueden dar por sabidas. Mismo patrón
+     de buscador + chips de categoría que en recetas, para que no haga
+     falta aprender una pantalla nueva. */
+  function pintaTecnicas(m) {
+    var todas = vals(S.tecnicas);
+    var f = S.filtroTec.trim().toLowerCase();
+    var porTexto = !f ? todas : todas.filter(function (t) {
+      var saco = [t.titulo, t.resumen, t.categoria || ''];
+      (t.pasos || []).forEach(function (p) { saco.push(p.t); saco.push(p.p); });
+      (t.consejos || []).forEach(function (c) { saco.push(c); });
+      return saco.join(' ').toLowerCase().indexOf(f) !== -1;
+    });
+
+    var catsCont = {};
+    porTexto.forEach(function (t) {
+      if (t.categoria) catsCont[t.categoria] = (catsCont[t.categoria] || 0) + 1;
+    });
+    var cats = Object.keys(catsCont).sort();
+
+    var lista = !S.categoriaTec ? porTexto : porTexto.filter(function (t) { return t.categoria === S.categoriaTec; });
+    lista.sort(function (a, b) { return String(a.titulo || '').localeCompare(String(b.titulo || '')); });
+
+    $('subtitulo').textContent = lista.length ? lista.length + (lista.length === 1 ? ' técnica' : ' técnicas') : '';
+
+    var html = bandaAviso();
+    html += '<div class="sc-buscador"><input type="search" id="qt" placeholder="Buscar por técnica" value="' + esc(S.filtroTec) + '" autocomplete="off"></div>';
+
+    if (cats.length > 1) {
+      html += '<div class="sc-catbar" role="group" aria-label="Filtrar por categoría">' +
+        '<button type="button" class="sc-cat" data-cat="" aria-current="' + (!S.categoriaTec) + '">Todas' +
+          '<span class="sc-cat-n">' + porTexto.length + '</span></button>' +
+        cats.map(function (c) {
+          return '<button type="button" class="sc-cat" data-cat="' + esc(c) + '" aria-current="' + (S.categoriaTec === c) + '">' + esc(c) +
+            '<span class="sc-cat-n">' + catsCont[c] + '</span></button>';
+        }).join('') +
+      '</div>';
+    }
+
+    if (!lista.length) {
+      html += Object.keys(S.tecnicas).length
+        ? '<div class="sc-vacio"><b>Nada con eso</b>Prueba otra palabra' + (S.categoriaTec ? ' o quita el filtro de categoría' : '') + '.</div>'
+        : '<div class="sc-vacio"><b>Todavía no hay técnicas</b>Pídeme una en el chat y aparecerá aquí sola.</div>';
+    } else {
+      html += '<div class="sc-recetas">' + lista.map(function (t) {
+        var chips = [];
+        if (t.categoria) chips.push('<span class="sc-chip">' + esc(t.categoria) + '</span>');
+        var np = (t.pasos || []).length;
+        if (np) chips.push('<span class="sc-chip sc-min">' + np + (np === 1 ? ' paso' : ' pasos') + '</span>');
+        return '<button type="button" class="sc-receta" data-slug="' + esc(t.slug) + '">' +
+          '<h3>' + esc(t.titulo) + '</h3>' +
+          (t.resumen ? '<p class="sc-desc">' + esc(t.resumen) + '</p>' : '') +
+          '<div class="sc-chips">' + chips.join('') + '</div>' +
+          '</button>';
+      }).join('') + '</div>';
+    }
+    m.innerHTML = html;
+
+    var q = $('qt');
+    if (q) {
+      q.addEventListener('input', function () {
+        S.filtroTec = q.value;
+        var pos = q.selectionStart;
+        pintaTecnicas(m);
+        var q2 = $('qt');
+        if (q2) { q2.focus(); try { q2.setSelectionRange(pos, pos); } catch (e) {} }
+      });
+    }
+    m.querySelectorAll('.sc-cat').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var cat = b.getAttribute('data-cat');
+        S.categoriaTec = (cat === S.categoriaTec) ? '' : cat;
+        pintaTecnicas(m);
+      });
+    });
+    m.querySelectorAll('.sc-receta').forEach(function (b) {
+      b.addEventListener('click', function () { ve('t/' + encodeURIComponent(b.getAttribute('data-slug'))); });
+    });
+  }
+
+  /* --- pantalla 2: historial ---
+     Con la cola fuera, el historial es la otra mitad de la app: además
+     de lo cocinado, es por donde se vuelve a un plato que ya salió
+     bien. De ahí el buscador y el «repetir». El aviso de dos bases
+     seguidas se calcula SIEMPRE sobre la lista completa, no sobre la
+     filtrada: filtrar por «pasta» no puede inventarse repeticiones. */
+  function pintaHistorial(m) {
+    var todos = vals(S.hist).sort(function (a, b) { return String(b.fecha || '').localeCompare(String(a.fecha || '')); });
+    var repetida = {};
+    todos.forEach(function (h, i) {
+      var prev = todos[i + 1];
+      if (prev && h.base && prev.base === h.base) repetida[h._id || (h.slug + '-' + h.fecha)] = true;
+    });
+
+    var f = S.filtroHist.trim().toLowerCase();
+    var lista = !f ? todos : todos.filter(function (h) {
+      return [h.titulo, h.slug, h.base, h.nota, (h.tecnica || []).join(' ')]
+        .join(' ').toLowerCase().indexOf(f) !== -1;
+    });
+    $('subtitulo').textContent = todos.length ? todos.length + (todos.length === 1 ? ' vez' : ' veces') : '';
+
+    var html = bandaAviso();
+    if (todos.length) {
+      html += '<div class="sc-buscador"><input type="search" id="qh" placeholder="Buscar por plato, base o nota" value="' + esc(S.filtroHist) + '" autocomplete="off"></div>';
+    }
+    if (!todos.length) {
+      html += '<div class="sc-vacio"><b>Nada cocinado todavía</b>Al terminar un plato en el cronómetro, se anota aquí.</div>';
+    } else if (!lista.length) {
+      html += '<div class="sc-vacio"><b>Nada con eso</b>Prueba con el nombre del plato o su base.</div>';
+    } else {
+      html += '<div class="sc-hist">' + lista.map(function (h) {
+        var mismaBase = repetida[h._id || (h.slug + '-' + h.fecha)];
+        var chips = [];
+        if (h.base) chips.push('<span class="sc-chip' + (mismaBase ? ' sc-urge' : '') + '">' + esc(h.base) + (mismaBase ? ' · dos seguidas' : '') + '</span>');
+        (h.tecnica || []).slice(0, 3).forEach(function (t) { chips.push('<span class="sc-chip sc-min">' + esc(t) + '</span>'); });
+        if (h.minutosReales) chips.push('<span class="sc-chip sc-tiempo">' + h.minutosReales + ' min reales</span>');
+        var hayReceta = !!S.recetas[h.slug];
+        var hid = esc(h._id || (h.slug + '-' + h.fecha));
+        return '<div class="sc-hito">' +
+          '<div class="sc-fecha">' + esc(fechaCorta(h.fecha)) + '</div>' +
+          '<div><h3>' + esc(h.titulo || h.slug) + '</h3>' +
+          '<div class="sc-chips">' + chips.join('') + '</div>' +
+          (h.nota ? '<p class="sc-nota">«' + esc(h.nota) + '»</p>' : '') +
+          '</div>' +
+          '<div class="sc-hito-acciones">' +
+          (hayReceta ? '<button type="button" class="sc-btn sc-min sc-repetir" data-repite="' + esc(h.slug) + '">Repetir →</button>' : '') +
+          '<button type="button" class="sc-btn sc-min sc-borrar" data-borra="' + hid + '">Borrar</button>' +
+          '</div>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    m.innerHTML = html;
+
+    var q = $('qh');
+    if (q) {
+      q.addEventListener('input', function () {
+        S.filtroHist = q.value;
+        var pos = q.selectionStart;
+        pintaHistorial(m);
+        var q2 = $('qh');
+        if (q2) { q2.focus(); try { q2.setSelectionRange(pos, pos); } catch (e) {} }
+      });
+    }
+    m.querySelectorAll('[data-repite]').forEach(function (b) {
+      b.addEventListener('click', function () { ve('r/' + encodeURIComponent(b.getAttribute('data-repite'))); });
+    });
+    /* Borrar, en dos toques: el primero arma el botón, el segundo borra
+       de verdad. Sin diálogo del navegador, con el mismo patrón que
+       «reiniciar» en el cronómetro. */
+    var armadoTO = null;
+    m.querySelectorAll('.sc-borrar').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('data-armado') === '1') {
+          borraHistorial(b.getAttribute('data-borra'));
+          pintaHistorial(m);
+          return;
+        }
+        m.querySelectorAll('.sc-borrar[data-armado="1"]').forEach(function (o) {
+          o.removeAttribute('data-armado'); o.textContent = 'Borrar';
+        });
+        clearTimeout(armadoTO);
+        b.setAttribute('data-armado', '1');
+        b.textContent = '¿Seguro?';
+        armadoTO = setTimeout(function () { b.removeAttribute('data-armado'); b.textContent = 'Borrar'; }, 4000);
+      });
+    });
+  }
+
+  /* --- pantalla 4: la ficha --- */
+  function pintaReceta(m) {
+    var r = S.recetas[S.slug];
+    if (!r) {
+      $('cabecera').hidden = false;
+      $('titulo').textContent = 'Sous Chef';
+      $('subtitulo').textContent = '';
+      m.innerHTML = bandaAviso() + '<div class="sc-vacio"><b>No encuentro esa receta</b>Puede que aún no esté guardada.</div>' +
+        '<div class="sc-acciones"><button type="button" class="sc-btn sc-sec" id="volver">← Recetas</button></div>';
+      $('volver').addEventListener('click', function () { ve('recetas'); });
+      return;
+    }
+    /* La hoja trae su propio título: la cabecera de la app se retira y
+       la barra de acciones se queda pegada arriba haciendo de cabecera. */
+    $('cabecera').hidden = true;
+    var hora = HORA_DEFECTO;
+    var tecs = tecnicasDe(r);
+
+    m.innerHTML = bandaAviso() +
+      '<div class="sc-acciones sc-pegada">' +
+        '<button type="button" class="sc-btn sc-sec" id="volver">← Recetas</button>' +
+        '<span class="sc-hora-lanza"><label for="hora-servir">Servir a</label>' +
+        '<input type="time" id="hora-servir" value="' + esc(hora) + '"></span>' +
+        '<button type="button" class="sc-btn" id="ir-crono">Cronómetro →</button>' +
+        '<button type="button" class="sc-btn sc-sec" id="imprimir">Imprimir</button>' +
+      '</div>' +
+      (tecs.length ? '<div class="sc-tec-links">' + tecs.map(function (t) {
+        return '<button type="button" class="sc-chip sc-tec-link" data-tec="' + esc(t.slug) + '">Técnica: ' + esc(t.titulo) + '</button>';
+      }).join('') + '</div>' : '') +
+      '<div class="v-ficha-wrap"><div class="v-ficha" id="host-ficha"></div></div>';
+
+    $('volver').addEventListener('click', function () { ve('recetas'); });
+    $('imprimir').addEventListener('click', function () { window.print(); });
+    $('ir-crono').addEventListener('click', function () {
+      /* Solo para este salto: no es un default que se recuerde, es la
+         hora que acabas de elegir aquí mismo. */
+      horaTransito = $('hora-servir').value;
+      ve('c/' + encodeURIComponent(r.slug));
+    });
+    m.querySelectorAll('.sc-tec-link').forEach(function (b) {
+      b.addEventListener('click', function () { ve('t/' + encodeURIComponent(b.getAttribute('data-tec'))); });
+    });
+
+    /* El mando de raciones es de la ficha; aquí solo se escucha para
+       recordar la última cantidad, leyendo el número que ella misma acaba
+       de pintar. Va en el contenedor y no en los botones porque el
+       listener sobrevive a los repintados de dentro de la ficha. */
+    var host = $('host-ficha');
+    host.addEventListener('click', function (e) {
+      if (reponiendoRac) return;
+      var b = e.target && e.target.closest ? e.target.closest('[data-vf="mas"],[data-vf="menos"]') : null;
+      if (!b) return;
+      var n = host.querySelector('[data-vf="n-rac"]');
+      var v = n ? Number(n.textContent) : 0;
+      if (isFinite(v) && v > 0) recuerdaRaciones(r.slug, v);
+    });
+
+    try { window.VistaFicha.render(host, r); reponRaciones(r, host); }
+    catch (e) { host.innerHTML = '<div class="sc-vacio"><b>La ficha no se ha podido pintar</b>' + esc(e.message) + '</div>'; }
+  }
+
+  /* Las raciones que elegiste la última vez, repuestas al abrir la ficha.
+     VistaFicha.render(host, receta) arranca siempre en receta.raciones y
+     no admite otra cosa; lo que sí expone es su mando de raciones en el
+     DOM, así que se repone pulsándolo, que es exactamente lo que harías
+     tú. El escalado lo sigue haciendo la ficha: aquí no se copia su
+     aritmética ni se toca su módulo. Pasar una receta con `raciones`
+     cambiada no valdría: ese número es también la BASE del escalado, y
+     las cantidades saldrían sin escalar. */
+  var reponiendoRac = false;
+  function reponRaciones(r, host) {
+    var pref = S.prefs[r.slug];
+    var quiero = pref ? Number(pref.raciones) : 0;
+    var base = Number(r.raciones) || 2;
+    if (!isFinite(quiero) || quiero <= 0 || quiero === base) return;
+    var pasos = Math.abs(quiero - base);
+    /* La ficha topa en 1..20, así que más de 19 pulsaciones no pueden
+       mover nada: con un dato corrupto sería darle al botón para nada. */
+    if (pasos > 19) return;
+    var boton = host.querySelector(quiero > base ? '[data-vf="mas"]' : '[data-vf="menos"]');
+    if (!boton) return;
+    reponiendoRac = true;
+    for (var i = 0; i < pasos; i++) boton.click();
+    reponiendoRac = false;
+  }
+
+  /* Un toque en «+» rara vez va solo: se espera a que pares de pulsar
+     antes de escribir, para no mandar cinco versiones de la misma
+     decisión. */
+  var racTO = null;
+  function recuerdaRaciones(slug, n) {
+    clearTimeout(racTO);
+    racTO = setTimeout(function () { guardaPref(slug, { raciones: n }); }, 600);
+  }
+
+  /* --- pantalla: la ficha de una técnica ---
+     Más simple que la de receta: sin hora de servir, sin cronómetro.
+     Solo volver e imprimir. */
+  function pintaTecnica(m) {
+    var t = S.tecnicas[S.slug];
+    if (!t) {
+      $('cabecera').hidden = false;
+      $('titulo').textContent = 'Sous Chef';
+      $('subtitulo').textContent = '';
+      m.innerHTML = bandaAviso() + '<div class="sc-vacio"><b>No encuentro esa técnica</b>Puede que aún no esté guardada.</div>' +
+        '<div class="sc-acciones"><button type="button" class="sc-btn sc-sec" id="volver">← Técnicas</button></div>';
+      $('volver').addEventListener('click', function () { ve('tecnicas'); });
+      return;
+    }
+    $('cabecera').hidden = true;
+    var recs = recetasConTecnica(t.slug);
+
+    m.innerHTML = bandaAviso() +
+      '<div class="sc-acciones sc-pegada">' +
+        '<button type="button" class="sc-btn sc-sec" id="volver">← Técnicas</button>' +
+        '<button type="button" class="sc-btn sc-sec" id="imprimir">Imprimir</button>' +
+      '</div>' +
+      (recs.length ? '<div class="sc-tec-links">' + recs.map(function (r) {
+        return '<button type="button" class="sc-chip sc-tec-link" data-rec="' + esc(r.slug) + '">Receta: ' + esc(r.titulo) + '</button>';
+      }).join('') + '</div>' : '') +
+      '<div class="v-ficha-wrap"><div class="v-ficha" id="host-tecnica"></div></div>';
+
+    $('volver').addEventListener('click', function () { ve('tecnicas'); });
+    $('imprimir').addEventListener('click', function () { window.print(); });
+    m.querySelectorAll('.sc-tec-link[data-rec]').forEach(function (b) {
+      b.addEventListener('click', function () { ve('r/' + encodeURIComponent(b.getAttribute('data-rec'))); });
+    });
+
+    try { window.VistaTecnica.render($('host-tecnica'), t); }
+    catch (e) { $('host-tecnica').innerHTML = '<div class="sc-vacio"><b>La ficha no se ha podido pintar</b>' + esc(e.message) + '</div>'; }
+  }
+
+  /* --- pantalla 5: el cronómetro, en capa completa --- */
+  var cronoActivo = null;
+  function capaCronoAbierta() { return !!cronoActivo; }
+
+  function pintaCrono() {
+    var r = S.recetas[S.slug];
+    /* Esperar también a `tecnicas`, no solo a la receta: la cocina se abre
+       una vez y ya no se vuelve a montar sola, así que si el enlace «ver
+       más» de una técnica llegase tarde (una recarga a mitad de un paso,
+       por ejemplo) se quedaría sin él el resto de esa sesión. */
+    if (!r || !S.listas.tecnicas) {
+      /* Abrir el cronómetro directo por URL con la caché vacía (teléfono
+         nuevo, o la pestaña recargada antes de que responda la base de
+         datos) no puede acabar en el índice: se espera, y la
+         suscripción vuelve a llamar aquí cuando lleguen las recetas. */
+      if (S.estadoDb === 'conectando') {
+        $('cabecera').hidden = false;
+        $('titulo').textContent = 'Sous Chef';
+        $('subtitulo').textContent = '';
+        $('vista').innerHTML = '<div class="sc-aviso"><span>Abriendo el cronómetro…</span></div>';
+        return;
+      }
+      if (!r) { ve('recetas'); return; }
+      return; // hay receta pero aún no han llegado las técnicas: se espera
+    }
+    if (cronoActivo === S.slug) return;
+    cierraCrono();
+
+    var capa = $('capa-crono');
+    capa.hidden = false;
+    capa.innerHTML = '<div class="v-crono" id="host-crono"></div>';
+    document.body.classList.add('crono-abierto');
+    cronoActivo = S.slug;
+
+    var slug = r.slug;
+    var horaInicial = (/^\d{1,2}:\d{2}$/.test(horaTransito || '')) ? horaTransito : HORA_DEFECTO;
+    horaTransito = null;   // se consume una sola vez, no se queda pegada
+    var guardando = null;
+    var api = {
+      servir: horaInicial,
+      estado: {},
+      guardar: function (parcial) {
+        clearTimeout(guardando);
+        guardando = setTimeout(function () {
+          var doc = {
+            slug: slug,
+            marcados: parcial.marcados || [],
+            carriles: parcial.carriles || {},
+            servir: parcial.servir || null,
+            /* Lo que hace que el cronómetro sobreviva a una recarga: la
+               cocina abierta, en qué recipiente estabas y desde cuándo
+               cocinas. Los instantes de fin de cada carril van dentro de
+               `carriles`, en tiempo absoluto. */
+            abierto: !!parcial.abierto,
+            foco: parcial.foco || null,
+            arrancado: parcial.arrancado || null,
+            ts: new Date().toISOString()
+          };
+          guardaEstadoLocal(slug, doc);
+          escribe('estado/' + slug, doc, false);
+        }, 400);
+      },
+      /* Reinicio rápido: se llama al pedirlo desde el aviso de
+         "reanudado". Borra el progreso guardado —local y en la base de
+         datos— para que no haya nada que reanudar la próxima vez. */
+      reinicia: function () {
+        clearTimeout(guardando);
+        try { localStorage.removeItem('sous-chef-estado-' + slug); } catch (e) {}
+        escribe('estado/' + slug, null, true);
+      },
+      cocinado: function (nota, minutosReales, pasosReales) { anotaCocinado(r, nota, minutosReales, pasosReales); },
+      volver: function () { ve('r/' + encodeURIComponent(slug)); },
+      /* Las técnicas de la receta, para el «ver más» junto al porqué del
+         paso. Cierra la cocina para abrir la ficha de la técnica: el
+         progreso no se pierde, `estado/<slug>` ya lo guarda solo. */
+      tecnicas: tecnicasDe(r),
+      abrirTecnica: function (tSlug) { ve('t/' + encodeURIComponent(tSlug)); }
+    };
+
+    /* El estado local va primero (instantáneo y funciona sin red);
+       si la base de datos trae uno más nuevo, se usa ese. */
+    var local = leeLocal('sous-chef-estado-' + slug, null);
+    if (local) api.estado = local;
+
+    /* Bandera para que arranca() no se ejecute dos veces: antes, si la
+       base de datos tardaba más de 1200 ms, el setTimeout ya había
+       pintado el cronómetro y la promesa lo volvía a pintar por debajo
+       con un api.estado que no llevaba nada de lo que el usuario hubiera
+       tocado entre medias (clearTimeout(t) solo sirve si gana la
+       promesa). */
+    var arrancado = false;
+    function arranca() {
+      if (arrancado) return;
+      arrancado = true;
+      try { window.VistaCrono.render($('host-crono'), r, api); }
+      catch (e) {
+        capa.innerHTML = '<div style="padding:24px;color:#EDEDE2;font-family:system-ui">' +
+          '<p>El cronómetro no se ha podido abrir: ' + esc(e.message) + '</p>' +
+          '<button class="sc-btn" onclick="location.hash=\'#/r/' + esc(slug) + '\'">Volver a la ficha</button></div>';
+      }
+    }
+
+    if (S.db) {
+      var t = setTimeout(arranca, 1200);   // no esperamos a la red más de lo justo
+      S.db.doc('estado/' + slug).get().then(function (snap) {
+        if (!cronoActivo) return;
+        clearTimeout(t);
+        if (arrancado) {
+          /* Llegó tarde: el timeout ya disparó y el cronómetro está en
+             pantalla con el estado local, puede que ya tocado por el
+             usuario. Repintar por debajo con lo que trae la base de
+             datos sería peor que quedarse con lo local, así que esto se
+             descarta aquí — el próximo guardar() de esta sesión lo
+             sobrescribirá de todas formas en cuanto el usuario haga
+             cualquier cosa. */
+          return;
+        }
+        var d = snap.exists ? snap.data() : null;
+        if (d && (!local || String(d.ts || '') > String(local.ts || ''))) api.estado = d;
+        arranca();
+      }).catch(function () { clearTimeout(t); arranca(); });
+    } else {
+      arranca();
+    }
+  }
+
+  function cierraCrono() {
+    if (!cronoActivo) return;
+    try { window.VistaCrono.destroy(); } catch (e) {}
+    var capa = $('capa-crono');
+    capa.innerHTML = '';
+    capa.hidden = true;
+    document.body.classList.remove('crono-abierto');
+    cronoActivo = null;
+  }
+
+  /* Deshacer «ya está, a la mesa»: unos segundos de margen antes de dar
+     por perdido el estado de la cocina. El plato ya queda anotado en el
+     historial al momento (no depende de que nadie vuelva a mirar), pero
+     el estado de la cocina —todo hecho, listo para el remate— no se
+     borra hasta que pasa la ventana, por si hay que volver. */
+  var DESHACER_MS = 8000;
+  var deshacerTO = null;
+  var deshacerInfo = null;   // { id, slug } de lo último anotado, mientras se puede deshacer
+
+  /* HHMMSS del momento en que se anota: solo hace falta para que el id
+     del historial no choque cuando se cocina el mismo plato dos veces el
+     mismo día. */
+  function horaCompacta() {
+    var d = new Date();
+    function dos(n) { return String(n).padStart(2, '0'); }
+    return dos(d.getHours()) + dos(d.getMinutes()) + dos(d.getSeconds());
+  }
+
+  function anotaCocinado(r, nota, minutosReales, pasosReales) {
+    var fecha = hoy();
+    /* Antes el id era slug+fecha a secas: cocinar el mismo plato dos
+       veces el mismo día (tacos a mediodía y por la noche) escribía
+       encima del primero, porque escribe()->set() reemplaza el
+       documento entero. Con la hora detrás caben las dos. Esto cambia
+       cómo se generan los ids NUEVOS; los que ya existen en el
+       historial (solo slug+fecha, sin hora) se siguen leyendo igual, no
+       se tocan. */
+    var id = r.slug + '-' + fecha + '-' + horaCompacta();
+    /* Los minutos reales los mide el cronómetro desde que abres la
+       cocina. Más de 12 h es que la pestaña se quedó abierta de un día
+       para otro: no es un dato de cocina y no se anota. */
+    var min = Number(minutosReales);
+    if (!isFinite(min) || min <= 0 || min > 720) min = null;
+    else min = Math.round(min);
+
+    /* Cuánto ha tardado de verdad cada paso, no solo el total: se anota
+       para poder afinar recetas que siempre se pasan de tiempo, pero no
+       se hace nada más con el dato por ahora. */
+    var pasosMap = {};
+    (r.pasos || []).forEach(function (p) { pasosMap[p.id] = p.t; });
+    var pReal = [];
+    if (pasosReales && typeof pasosReales === 'object') {
+      Object.keys(pasosReales).forEach(function (pid) {
+        var seg = Number(pasosReales[pid]);
+        if (isFinite(seg) && seg > 0) pReal.push({ id: pid, t: pasosMap[pid] || pid, segundos: Math.round(seg) });
+      });
+    }
+
+    var doc = {
+      slug: r.slug,
+      titulo: r.titulo,
+      fecha: fecha,
+      base: (r.tags && r.tags.base) || null,
+      tecnica: (r.tags && r.tags.tecnica) || [],
+      nota: nota || null,
+      minutosReales: min,
+      pasosReales: pReal.length ? pReal : null,
+      /* El resto del archivo (pintaHistorial, borrar, el aviso de «dos
+         seguidas») busca primero `_id` y solo si falta reconstruye
+         slug+fecha a la vieja usanza. Con el id nuevo llevando hora esa
+         reconstrucción ya no valdría, así que se pone `_id` desde ya
+         mismo en vez de esperar a que vuelva de la base de datos (que es
+         quien lo pondría, vía d.id, en cuanto llegue el snapshot). */
+      _id: id
+    };
+    S.hist[id] = doc;
+    guardaCache();
+    escribe('historial/' + id, doc, false);
+
+    /* El estado (todo hecho) se queda tal cual durante la ventana de
+       deshacer: si te arrepientes, «Deshacer» vuelve a dejar la cocina
+       donde estaba, lista para repetir el remate. Pasada la ventana, se
+       limpia como siempre. */
+    clearTimeout(deshacerTO);
+    deshacerInfo = { id: id, slug: r.slug };
+    deshacerTO = setTimeout(function () {
+      escribe('estado/' + r.slug, null, true);
+      try { localStorage.removeItem('sous-chef-estado-' + r.slug); } catch (e) {}
+      deshacerInfo = null;
+    }, DESHACER_MS);
+
+    S.aviso = {
+      txt: 'Anotado: ' + r.titulo + (nota ? ' · «' + nota + '»' : ''),
+      ts: Date.now(), ms: DESHACER_MS, deshacer: id
+    };
+    cierraCrono();
+    ve('historial');
+  }
+
+  /* El «Deshacer» del aviso: borra la anotación recién hecha y devuelve
+     la cocina a como estaba (el estado no se había llegado a limpiar). */
+  function deshaceAnotado() {
+    if (!deshacerInfo) return;
+    clearTimeout(deshacerTO);
+    var id = deshacerInfo.id;
+    deshacerInfo = null;
+    delete S.hist[id];
+    guardaCache();
+    escribe('historial/' + id, null, true);
+    S.aviso = null;
+    pinta();
+  }
+
+  /* Borrar cualquier entrada del historial, sin ventana de tiempo: dos
+     toques (armar, confirmar) para no borrar de un roce, el mismo patrón
+     que «reiniciar» en el cronómetro. */
+  function borraHistorial(id) {
+    delete S.hist[id];
+    guardaCache();
+    escribe('historial/' + id, null, true);
+  }
+
+  /* ---------------- arranque ---------------- */
+  function inicia() {
+    $('barra').querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () { ve(b.getAttribute('data-ir')); });
+    });
+    window.addEventListener('hashchange', alCambiarRuta);
+    /* Delegado en el contenedor, que no se sustituye entero en cada
+       pintado (solo su innerHTML): así el botón «Deshacer» del aviso
+       funciona sin volver a engancharlo pantalla por pantalla. */
+    $('vista').addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('[data-deshacer]') : null;
+      if (t) deshaceAnotado();
+    });
+
+    rescataPendientesViejas();
+    cargaCache();
+    var r = leeRuta();
+    S.vista = r.vista; S.slug = r.slug || null;
+    pinta();
+    conecta();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inicia);
+  else inicia();
+})();
+</script>
+
+</body></html>

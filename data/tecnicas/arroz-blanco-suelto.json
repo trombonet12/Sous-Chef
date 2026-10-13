@@ -1,0 +1,34 @@
+{
+  "actualizada": "2026-09-16T11:13:00Z",
+  "categoria": "arroz",
+  "consejos": [
+    "Remover a mitad de cocción es la causa más habitual de que el arroz blanco largo salga pegajoso: suelta almidón que no debería.",
+    "Este arroz es el largo, no el redondo: el redondo suelta almidón a propósito y pide otra técnica, la del arroz meloso o el risotto."
+  ],
+  "creada": "2026-09-16T11:13:00Z",
+  "pasos": [
+    {
+      "p": "300 ml de agua por 150 g de arroz blanco largo: la ración para 2.",
+      "t": "Proporción de 2 partes de agua por 1 de arroz"
+    },
+    {
+      "p": "3 g de sal en el agua antes de echar el arroz. No se sofríe ni se enjuaga antes: va directo al agua hirviendo.",
+      "t": "Arroz directo al agua ya hirviendo con sal, potencia 8"
+    },
+    {
+      "p": "Desde ahí, 12 minutos sin levantar la tapa ni remover en ningún momento.",
+      "t": "Bajar a potencia 2-3 en cuanto vuelva a hervir, tapado"
+    },
+    {
+      "p": "El vapor que queda dentro de la olla termina de secarlo por fuera sin necesidad de más fuego.",
+      "t": "Apagar y dejar reposar 5 minutos con la tapa puesta"
+    },
+    {
+      "p": "El tenedor separa el grano ya cocido sin aplastarlo, al contrario que una cuchara.",
+      "t": "Soltar los granos con un tenedor, no con cuchara"
+    }
+  ],
+  "resumen": "Proporción de agua, reposo y por qué no hay que removerlo, para que el arroz blanco largo quede suelto en vez de apelmazado.",
+  "slug": "arroz-blanco-suelto",
+  "titulo": "Arroz blanco suelto"
+}

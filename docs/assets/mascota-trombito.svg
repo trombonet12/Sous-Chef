@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="160" height="160" role="img" aria-label="Trombito, la mascota">
+  <path d="M46,47H27A7,7 0 0 0 27,61H46" fill="none" stroke="#B97A0C" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46,47H27A7,7 0 0 0 27,61H46" fill="none" stroke="#F5C033" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42,44V64" fill="none" stroke="#B97A0C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30,48C46,48 54,36 66,26.5L66,81.5C54,72 46,60 30,60Z" fill="#E8A92A"/>
+  <path d="M49,54a19,28 0 1,0 38,0a19,28 0 1,0 -38,0Z" fill="#C98A12"/>
+  <path d="M52.2,54a15.8,24.6 0 1,0 31.6,0a15.8,24.6 0 1,0 -31.6,0Z" fill="#F9D768"/>
+  <path d="M52.5,63a3,3 0 1,0 6,0a3,3 0 1,0 -6,0Z" fill="#F6A58A"/>
+  <path d="M77.5,63a3,3 0 1,0 6,0a3,3 0 1,0 -6,0Z" fill="#F6A58A"/>
+  <path d="M52.4,50a7.6,7.6 0 1,0 15.2,0a7.6,7.6 0 1,0 -15.2,0Z" fill="#FFFFFF" stroke="#D8232A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M68.4,50a7.6,7.6 0 1,0 15.2,0a7.6,7.6 0 1,0 -15.2,0Z" fill="#FFFFFF" stroke="#D8232A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M57.4,51a3.4,3.4 0 1,0 6.8,0a3.4,3.4 0 1,0 -6.8,0Z" fill="#2B1B0E"/>
+  <path d="M73.39999999999999,51a3.4,3.4 0 1,0 6.8,0a3.4,3.4 0 1,0 -6.8,0Z" fill="#2B1B0E"/>
+  <path d="M60.8,49.8a1.2,1.2 0 1,0 2.4,0a1.2,1.2 0 1,0 -2.4,0Z" fill="#FFFFFF"/>
+  <path d="M76.8,49.8a1.2,1.2 0 1,0 2.4,0a1.2,1.2 0 1,0 -2.4,0Z" fill="#FFFFFF"/>
+  <path d="M62,64Q68,70 74,64" fill="none" stroke="#6B3F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

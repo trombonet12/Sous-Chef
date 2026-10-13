@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:03:00Z",
+  "categoria": "acabado",
+  "consejos": [
+    "Si la salsa se corta y la grasa queda separada, casi siempre es porque estaba demasiado caliente: retirar del fuego y añadir un chorro de agua fría de golpe suele recuperarla.",
+    "Funciona igual con Grana Padano o queso rallado en vez de mantequilla, cambiando grasa por proteína láctea."
+  ],
+  "creada": "2026-09-16T11:03:00Z",
+  "pasos": [
+    {
+      "p": "100 ml por cada 200 g de pasta cocida: es agua con el almidón que ha soltado al hervir, la que liga la salsa.",
+      "t": "Guardar agua de la cocción antes de escurrir"
+    },
+    {
+      "p": "La mantecatura no se hace a fuego fuerte: el calor alto separa la grasa en vez de emulsionarla con el agua.",
+      "t": "Sartén fuera del fuego o a potencia 1"
+    },
+    {
+      "p": "Fría, no derretida de antemano, para que ligue poco a poco con el almidón del agua en vez de separarse de golpe.",
+      "t": "Mantequilla fría en trozos, 20 g por 200 g de pasta"
+    },
+    {
+      "p": "Hasta que la salsa brille y se pegue a la pasta, sin quedar líquida ni con la grasa separada por un lado.",
+      "t": "Remover con movimiento envolvente, añadiendo agua de cocción poco a poco"
+    }
+  ],
+  "resumen": "Ligar la pasta con mantequilla y un poco de su agua de cocción fuera del fuego, para que la salsa se pegue a la pasta en vez de quedarse suelta en el fondo.",
+  "slug": "mantecatura",
+  "titulo": "Mantecatura"
+}

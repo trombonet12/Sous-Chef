@@ -1,0 +1,30 @@
+{
+  "actualizada": "2026-09-16T11:04:00Z",
+  "categoria": "salsa",
+  "consejos": [
+    "El vino blanco desglasa más rápido que el tinto porque tiene menos azúcar que caramelizar de más.",
+    "Si no hay vino a mano, el caldo de pollo cumple la misma función, solo que sin el punto ácido."
+  ],
+  "creada": "2026-09-16T11:04:00Z",
+  "pasos": [
+    {
+      "p": "Esos restos oscuros del fondo son sabor concentrado, no suciedad que limpiar antes de seguir.",
+      "t": "Sacar la carne o el pescado sellado y dejar la sartén con los restos pegados"
+    },
+    {
+      "p": "100 ml de vino blanco o caldo de pollo, de golpe. Si salta mucho vapor, apartar la sartén del fuego un instante al verter.",
+      "t": "Verter el líquido en caliente, con la sartén todavía a potencia 6-7"
+    },
+    {
+      "p": "Los trozos pegados se despegan solos con el líquido caliente y el raspado, sin necesidad de forzar.",
+      "t": "Raspar el fondo con una cuchara de madera mientras hierve"
+    },
+    {
+      "p": "El líquido recién echado sabe a alcohol o a caldo suelto. Reducido un poco, sabe a lo que había en la sartén.",
+      "t": "Dejar reducir 1-2 minutos antes de usarlo"
+    }
+  ],
+  "resumen": "Recuperar con vino o caldo lo que se queda pegado en la sartén después de sellar, para meterlo en la salsa en vez de tirarlo al fregar.",
+  "slug": "desglasado",
+  "titulo": "Desglasado"
+}

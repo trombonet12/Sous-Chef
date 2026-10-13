@@ -1,0 +1,14 @@
+{
+  "pastel-de-patata-gratinado": {
+    "favorito": false,
+    "raciones": 2,
+    "slug": "pastel-de-patata-gratinado",
+    "ts": "2026-10-07T10:49:26.498Z"
+  },
+  "tarta-fina-de-manzana": {
+    "favorito": false,
+    "raciones": 6,
+    "slug": "tarta-fina-de-manzana",
+    "ts": "2026-09-19T18:01:55.231Z"
+  }
+}

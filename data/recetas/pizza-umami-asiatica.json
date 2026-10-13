@@ -1,0 +1,400 @@
+{
+  "actualizada": "2026-09-16T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "compra": [
+    {
+      "a": 1,
+      "n": "masa de pizza refrigerada Mercadona (~245 g, ya estirada)",
+      "u": "base"
+    },
+    {
+      "a": 150,
+      "n": "piña en lata, escurrida",
+      "u": "g"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Las vetas de grasa corren a lo largo de la loncha. Cortando en perpendicular, cada tira lleva su parte de grasa y de magro y dora pareja; a lo largo, la tira se curva y se encoge por el lado graso.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Tira de bacon con las vetas de grasa horizontales y cuatro cortes verticales\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#B4574A\" fill-opacity=\".16\" stroke=\"#B4574A\"/><g stroke=\"#B4574A\" stroke-width=\".8\" opacity=\".7\"><line x1=\"11\" y1=\"18\" x2=\"109\" y2=\"18\"/><line x1=\"11\" y1=\"30\" x2=\"109\" y2=\"30\"/><line x1=\"11\" y1=\"44\" x2=\"109\" y2=\"44\"/><line x1=\"11\" y1=\"58\" x2=\"109\" y2=\"58\"/><line x1=\"11\" y1=\"70\" x2=\"109\" y2=\"70\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"27\" y1=\"1\" x2=\"27\" y2=\"87\"/><line x1=\"49\" y1=\"1\" x2=\"49\" y2=\"87\"/><line x1=\"71\" y1=\"1\" x2=\"71\" y2=\"87\"/><line x1=\"93\" y1=\"1\" x2=\"93\" y2=\"87\"/></g></svg>",
+      "t": "Bacon · tiras de 1 cm, cruzando las vetas"
+    },
+    {
+      "p": "Aquí no manda la fibra, manda el tamaño. Dos centímetros aguantan tres minutos de sartén y once de horno sin deshacerse; en trozos más finos la piña suelta su agua y moja la masa por debajo.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Rodaja de piña con las fibras verticales y una cuadrícula de cortes de 2 cm\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#DBA42B\" fill-opacity=\".16\" stroke=\"#DBA42B\"/><g stroke=\"#DBA42B\" stroke-width=\".8\" opacity=\".7\"><line x1=\"18\" y1=\"11\" x2=\"18\" y2=\"77\"/><line x1=\"34\" y1=\"11\" x2=\"34\" y2=\"77\"/><line x1=\"50\" y1=\"11\" x2=\"50\" y2=\"77\"/><line x1=\"66\" y1=\"11\" x2=\"66\" y2=\"77\"/><line x1=\"82\" y1=\"11\" x2=\"82\" y2=\"77\"/><line x1=\"98\" y1=\"11\" x2=\"98\" y2=\"77\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"42\" y1=\"1\" x2=\"42\" y2=\"87\"/><line x1=\"78\" y1=\"1\" x2=\"78\" y2=\"87\"/><line x1=\"1\" y1=\"44\" x2=\"119\" y2=\"44\"/></g></svg>",
+      "t": "Piña · trozos de 2 cm"
+    },
+    {
+      "p": "Un milímetro, que es el picado más fino que se sostiene con cuchillo. El ajo entra en los últimos treinta segundos del salteado, en grasa de bacon ya caliente: a 1 mm suelta todo el aroma en ese medio minuto, y en trozo más grande se quedaría crudo por dentro mientras la cara de fuera se tuesta. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadrícula muy fina de cortes para picarlo a 1 mm\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".55\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"5\" x2=\"48\" y2=\"83\"/><line x1=\"56\" y1=\"4\" x2=\"56\" y2=\"84\"/><line x1=\"64\" y1=\"4\" x2=\"64\" y2=\"84\"/><line x1=\"72\" y1=\"5\" x2=\"72\" y2=\"83\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"33\" y1=\"26\" x2=\"87\" y2=\"26\"/><line x1=\"30\" y1=\"40\" x2=\"90\" y2=\"40\"/><line x1=\"30\" y1=\"54\" x2=\"90\" y2=\"54\"/><line x1=\"35\" y1=\"68\" x2=\"85\" y2=\"68\"/></g></svg>",
+      "t": "Ajo · picado de 1 mm"
+    }
+  ],
+  "creada": "2026-09-13T00:00:00Z",
+  "datos": [
+    [
+      "29 min",
+      "de principio a fin"
+    ],
+    [
+      "5 + 24",
+      "cortar + cocinar"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "250 °C",
+      "horno"
+    ],
+    [
+      "8",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Fuera la base clásica: nada de tomate triturado. Rompería el perfil umami-asiático y competiría con la soja, así que la sustituye un glaseado soja-miel en dos tandas. La dificultad no está en la técnica, está en el orden: bacon y piña se saltean y se montan ya cocinados, para que el horno solo tenga que dorar.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 80,
+          "n": "bacon, en tiras de 1 cm cortadas perpendicular a las vetas de grasa",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "piña en lata, escurrida, en trozos de 2 cm",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "n": "ajo (1 diente), picado de 1 mm",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "n": "jengibre fresco, rallado",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "semillas de sésamo",
+          "u": "g"
+        },
+        {
+          "esc": "sub",
+          "n": "pimienta",
+          "txt": "1 pizca"
+        }
+      ],
+      "n": "SARTÉN · BACON, PIÑA Y SÉSAMO"
+    },
+    {
+      "items": [
+        {
+          "a": 1,
+          "n": "masa de pizza refrigerada Mercadona (~245 g, ya estirada)",
+          "u": "base"
+        },
+        {
+          "a": 100,
+          "n": "queso rallado",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "salsa de soja",
+          "u": "ml"
+        },
+        {
+          "a": 10,
+          "n": "miel",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "esc": "sub",
+          "n": "cebollita crujiente",
+          "u": "g"
+        }
+      ],
+      "n": "MESA · MASA Y GLASEADO"
+    }
+  ],
+  "lectura": "La suma la marca el horno: 12 de precalentado + 5 de montaje + 11 de horno + 1 de remate = 29 minutos. Los 5 de cuchillo, los 4 del bacon y los 3 de la piña caben enteros dentro de los 12 del precalentado, así que no suman nada. Dos solapes, y los dos son gratis: el horno calienta solo mientras cortas y usas la sartén, y el sésamo se tuesta en el minuto 26 con la pizza ya dentro del horno, que es sartén y horno a la vez pero nunca dos fuegos de la vitro. Lo único que no espera es el final: glaseado, sésamo y cebollita van sobre la pizza recién salida, con el calor todavía alto.",
+  "mep": [
+    {
+      "l": [
+        "<b>Bacon · 80 g</b> · tiras de 1 cm cruzando las vetas de grasa. Va primero, con la tabla seca.",
+        "<b>Piña escurrida · 150 g</b> · trozos de 2 cm, después: moja la tabla y ya no hay nada seco detrás.",
+        "<b>Ajo · 3 g (1 diente)</b> · picado de 1 mm, al final. Su olor en la tabla ya no tiene nada que contaminar.",
+        "<b>Jengibre · 5 g</b> · rallado fino, sin tabla, directo al mismo platito del ajo. Entran juntos y no hay nada que separar."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad, no el olor: lo seco primero, porque una tabla mojada convierte el corte fino en un problema de seguridad. El bacon crudo no obliga a lavar entre medias porque todo lo que viene detrás pasa por la sartén o por el horno.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol pequeño</b> · los 30 ml de salsa de soja y los 10 g de miel, mezclados en frío. Se reparte en dos mitades: una sobre la masa en el minuto 12 y la otra sobre la pizza recién salida, en el minuto 28.",
+        "<b>Platito del salteado</b> · los 3 g de ajo picado de 1 mm y los 5 g de jengibre rallado, juntos. Entran los dos a la vez, en los últimos 30 segundos de la piña.",
+        "<b>Platito del sésamo</b> · los 5 g de semillas de sésamo, pesados. Van a la sartén seca en el minuto 26 y vuelven al mismo platito ya tostados: dejarlos en la sartén caliente mientras montas es lo que los quema.",
+        "<b>Platito del remate</b> · los 10 g de cebollita crujiente. No pasa por fuego ni por horno: cae en el minuto 28 sobre la pizza ya glaseada, que es lo único que la deja crujiente."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto al del resto. Aquí hay cuatro momentos: el glaseado, que se usa en el 12 y en el 28 pero sale del mismo bol; el ajo con el jengibre en el 11 y medio; el sésamo en el 26; y la cebollita en el 28. El sésamo y la cebollita no comparten platito porque uno va a la sartén y la otra no toca el fuego.",
+      "t": "CUATRO RECIPIENTES, CUATRO MOMENTOS"
+    },
+    {
+      "l": [
+        "<b>1 base de masa de pizza refrigerada</b> (Mercadona, ≈245 g, ya estirada) · se queda en su papel de horno hasta el minuto 12, y el papel es la bandeja.",
+        "<b>Los 100 g de queso rallado</b>, pesados y en su bolsa hasta el minuto 12. Van directos del paquete a la masa glaseada.",
+        "<b>Los 80 g de bacon y los 150 g de piña</b> salen de la sartén a un mismo plato, ya cocinados, y esperan ahí al montaje del minuto 12.",
+        "<b>1 pizca de pimienta</b> molida sobre el bacon dentro de la sartén, en el minuto 5. Es lo único que no se pesa: media vuelta de molinillo.",
+        "<b>Sartén, en frío y seca</b> · sin nada de aceite. El bacon suelta su propia grasa en el minuto 5, y esa grasa es la que fríe la piña después."
+      ],
+      "orden": false,
+      "porq": "Lo que ya viene en su envase o va directo a la sartén no se trasvasa. El papel de horno de la masa hace de bandeja y ahorra el único cacharro grande del plan.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Doblar raciones no duplica el horno: una segunda masa pide bandeja aparte o una segunda tanda, y el tiempo de horneado casi no cambia por bandeja. El glaseado y el relleno sí escalan en línea recta; el sésamo y la pimienta, no.",
+  "pasos": [
+    {
+      "carril": "horno",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "precalentar-horno",
+      "junto": null,
+      "meto": "",
+      "min": 12,
+      "nota": "Enciende a 250°C y olvídate: dentro de estos doce minutos cabe todo lo demás. No abras la puerta.",
+      "off": 0,
+      "p": "Enciende el horno a 250°C, calor arriba y abajo, con la rejilla a media altura. Tarda alrededor de doce minutos en llegar a temperatura real, y esos doce minutos son justo los que necesitas para cortar, dorar el bacon, saltear la piña y montar: no se pierde nada de tiempo, se solapa con el resto. La masa refrigerada solo funciona si el horno ya está arriba cuando entra; si le metes la pizza a medio calentar, la base se seca antes de que el borde suba.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "Doce minutos en los que abrir la puerta es el error: el horno pierde de golpe el calor que lleva todo ese rato acumulando y el precalentado vuelve a empezar. No hay nada que mirar dentro; la señal es el piloto, no la vista.",
+      "t": "Precalentar el horno",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "junto": null,
+      "meto": "",
+      "min": 5,
+      "nota": "Bacon en tiras de 1 cm, piña en trozos de 2 cm, ajo picado de 1 mm y jengibre rallado. Y los 30 ml de soja con los 10 g de miel, mezclados en el bol.",
+      "off": 0,
+      "p": "Cinco minutos de cuchillo que caben enteros dentro del precalentado del horno, así que no cuestan tiempo. El bacon primero, que es lo seco: cortado en tiras de 1 cm perpendiculares a las vetas de grasa, cada tira dora por igual en vez de encogerse solo por un lado. Después la piña, que moja la tabla, en trozos de 2 cm: más pequeños se deshacen entre el salteado y los once minutos de horno. El ajo picado de 1 mm y el jengibre rallado al final y al mismo platito, porque entran juntos en el último medio minuto de la sartén. La soja y la miel se mezclan aquí, en frío: con la miel caliente el glaseado se separa y deja de pincelarse bien.",
+      "s": 300,
+      "saco": "los cuatro recipientes llenos y la tabla libre",
+      "t": "Cortar y mezclar el glaseado",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve el bacon"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "dorar-bacon",
+      "junto": null,
+      "meto": "80 g de bacon en tiras de 1 cm, a la sartén seca, y 1 pizca de pimienta por encima",
+      "min": 4,
+      "nota": "Cuatro minutos, sin llegar a crujiente: le quedan once de horno.",
+      "off": 5,
+      "p": "Sartén al 7, sin nada de aceite: el bacon suelta su propia grasa enseguida y es la que va a freír la piña después. Cortarlo perpendicular a las vetas de grasa hace que cada tira dore por igual en vez de encogerse solo por un lado. La pizca de pimienta cae ahora, sobre la grasa caliente, que es donde suelta el aroma. Cuatro minutos moviendo de vez en cuando bastan, sin llegar a crujiente del todo: todavía le quedan once minutos de horno a 250°C.",
+      "s": 240,
+      "saco": "el bacon dorado, a un plato",
+      "t": "Dorar el bacon",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 150,
+          "t": "Entra el ajo picado y el jengibre rallado"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "saltear-pina",
+      "junto": null,
+      "meto": "150 g de piña en trozos de 2 cm, en la grasa que dejó el bacon; el platito del ajo y el jengibre en los últimos 30 s",
+      "min": 3,
+      "nota": "En la grasa del bacon, sin lavar la sartén. El aviso del ajo salta solo.",
+      "off": 9,
+      "p": "Baja a 6 y echa la piña en la misma sartén, sin lavarla, aprovechando la grasa que soltó el bacon. Los últimos treinta segundos entran el ajo picado y el jengibre rallado, justo lo que tardan en soltar aroma sin quemarse: en grasa caliente pasan de dorados a amargos en menos de un minuto.",
+      "s": 180,
+      "saco": "la piña salteada, al mismo plato que el bacon",
+      "t": "Saltear la piña, ajo y jengibre",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "saltear-pina"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "montar-pizza",
+      "junto": null,
+      "meto": "la base sobre su papel de horno, la mitad del glaseado del bol, los 100 g de queso rallado y el plato con los 80 g de bacon y los 150 g de piña",
+      "min": 5,
+      "nota": "Glaseado, queso, y encima el bacon y la piña ya salteados.",
+      "off": 12,
+      "p": "Sobre la base estirada y encima de su propio papel de horno, pincela solo la mitad del glaseado de soja y miel: la otra mitad se guarda para pintar al salir. Reparte los 100 g de queso rallado y encima el bacon y la piña, ya cocinados y no crudos, que es lo que evita que suelten agua extra dentro del horno y mojen la masa por debajo. Deja un dedo de borde sin nada: es lo que sube y dora, y el glaseado ahí solo se quemaría.",
+      "s": 300,
+      "saco": "la pizza ya montada, lista para el horno",
+      "t": "Montar la pizza",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "montar-pizza"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 420,
+          "t": "Mira el borde: si dora desigual, gira la bandeja"
+        },
+        {
+          "en": 600,
+          "t": "Levanta un borde con la pala: la base tiene que estar seca y con manchas tostadas"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "hornear",
+      "junto": null,
+      "meto": "la pizza montada, a 250°C",
+      "min": 11,
+      "nota": "Hasta que el borde esté dorado y el queso burbujee.",
+      "off": 17,
+      "p": "Directa al horno ya a 250°C, once minutos. La masa refrigerada necesita ese golpe de calor fuerte para que el borde suba y dore antes de que el centro se seque; a menos temperatura quedaría pálida y blanda. Está lista cuando el borde está dorado, el queso burbujea y la base, levantada con la pala, se ve seca y con manchas tostadas. Si tu horno dora de un lado, gira la bandeja a los siete minutos y no antes: abrir antes de que el borde haya subido lo deja plano.",
+      "s": 660,
+      "saco": "la pizza, del horno a la tabla, sin apagarlo",
+      "t": "Hornear",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "holgura": "critico",
+      "id": "tostar-sesamo",
+      "junto": null,
+      "meto": "el platito: 5 g de semillas de sésamo, a la sartén vacía",
+      "min": 1,
+      "nota": "Papel de cocina a la sartén, y al 4 en seco moviendo sin parar. En cuanto doren, de vuelta al platito: se queman rápido.",
+      "off": 26,
+      "p": "La sartén viene de la piña, así que pásale un papel de cocina antes de encender: el sésamo se tuesta en seco, y la grasa del bacon y el azúcar de la piña que queden en el fondo se queman al 4 y le pegan ese amargor. Después, al 4 y el sésamo dentro. Un minuto moviendo sin parar hasta que doren y empiecen a oler: son semillas pequeñas y pasan de doradas a quemadas en pocos segundos, y quemadas amargan el plato entero. Sácalas al platito en cuanto estén, que en la sartén apagada pero caliente siguen tostándose.",
+      "s": 60,
+      "saco": "el sésamo tostado, a un platito",
+      "t": "Tostar el sésamo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "hornear",
+        "tostar-sesamo"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "glasear-final",
+      "junto": null,
+      "meto": "la otra mitad del glaseado, los 5 g de sésamo tostado y los 10 g de cebollita crujiente",
+      "min": 1,
+      "nota": "Recién salida del horno, para que el glaseado se adhiera con el calor.",
+      "off": 28,
+      "p": "Nada más salir del horno, pincela el resto del glaseado de soja y miel: el calor residual lo funde sobre la superficie y lo deja brillante sin volver a hornearlo, que es lo que quemaría la miel. Encima, los 5 g de sésamo tostado y los 10 g de cebollita crujiente, que aportan el crujiente final sin pasar por el horno. Los dos van al final por lo mismo: dentro del horno el sésamo se quema y la cebollita se reblandece. Corta en la tabla, no en el papel.",
+      "s": 60,
+      "saco": "la pizza entera, a la mesa",
+      "t": "Glasear y rematar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "bacon"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Sin tomate triturado",
+      "La base clásica rompería el perfil umami-asiático y competiría con la soja; el glaseado soja-miel ocupa ese lugar sin pelear con el resto."
+    ],
+    [
+      "Ajo y jengibre, últimos 30 s de la piña",
+      "Ambos se queman y amargan si entran antes; el calor residual del salteado basta para que suelten aroma sin pasarse."
+    ],
+    [
+      "Cebollita crujiente en vez de cebolla fresca",
+      "Aporta el mismo crocante sin pelear con el jengibre, que ya cubre la nota de allium fresco del plato."
+    ],
+    [
+      "El glaseado en dos tandas",
+      "La mitad entra antes de hornear para que la masa se impregne; la otra mitad se pinta al salir, para que brille sin quemarse dentro del horno."
+    ],
+    [
+      "Sésamo tostado en seco, aparte",
+      "Saca más aroma que echarlo crudo encima, y no pelea con el tiempo del horno."
+    ],
+    [
+      "Sin orégano ni albahaca",
+      "Pelearían con el perfil umami-asiático; la nota herbal fresca la pone el jengibre."
+    ],
+    [
+      "El sésamo y la cebollita, fuera del horno",
+      "Los dos son el crujiente del plato y los dos lo pierden dentro: el sésamo pasa de tostado a quemado en los once minutos de horno, y la cebollita crujiente se reblandece con el vapor del queso. Por eso el sésamo se tuesta aparte en el minuto 26 y los dos caen sobre la pizza ya glaseada, en el 28."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "pizza-umami-asiatica",
+  "tags": {
+    "base": "masa de pizza",
+    "proteina": "bacon",
+    "tecnica": [
+      "salteado",
+      "tostado",
+      "glaseado"
+    ]
+  },
+  "titulo": "Pizza umami-asiática",
+  "totalMin": 29
+}

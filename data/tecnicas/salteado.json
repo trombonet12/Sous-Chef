@@ -1,0 +1,34 @@
+{
+  "actualizada": "2026-09-16T11:08:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Si suelta mucha agua y no dora, casi siempre es por exceso de cantidad en la sartén, no por falta de fuego.",
+    "La cebolla en pluma y el pimiento en tiras aguantan mejor el salteado que un corte muy fino, que se quema antes de que dore el resto."
+  ],
+  "creada": "2026-09-16T11:08:00Z",
+  "pasos": [
+    {
+      "p": "Un salteado no da tiempo a cortar a mitad de la cocción: todo tiene que estar listo antes de que la sartén esté caliente.",
+      "t": "Cortar todo del mismo grosor antes de encender el fuego"
+    },
+    {
+      "p": "Dejar que la sartén coja temperatura vacía unos segundos antes de añadir 15 ml de aceite de girasol.",
+      "t": "Sartén muy caliente antes del aceite, potencia 8"
+    },
+    {
+      "p": "Más cantidad de golpe baja la temperatura de la sartén y el salteado se convierte en hervido.",
+      "t": "Tandas de 150-200 g como mucho por vez, en una sartén de 24-28 cm"
+    },
+    {
+      "p": "El contacto suficiente con el metal caliente dora la superficie, sin dejar que se queme en un punto fijo.",
+      "t": "Mover o voltear cada 20-30 segundos, no sin parar"
+    },
+    {
+      "p": "Un salteado sigue cociéndose con el calor residual fuera del fuego: sacarlo justo antes de que parezca hecho del todo.",
+      "t": "Sacar en cuanto esté en su punto"
+    }
+  ],
+  "resumen": "Fuego fuerte y movimiento constante en tandas pequeñas, para que la verdura o la carne dore en vez de sudar en su propio jugo.",
+  "slug": "salteado",
+  "titulo": "Salteado"
+}

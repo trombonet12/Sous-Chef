@@ -1,0 +1,636 @@
+{
+  "actualizada": "2026-10-06T10:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "cazuela",
+      "nombre": "CAZUELA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "compra": [],
+  "cortes": [
+    {
+      "p": "Tres milímetros es el grosor que se cuece entero en los dieciocho minutos de cazuela y que apila sin dejar aire entre rodaja y rodaja. A cinco el centro se queda duro; a uno se deshace en puré. Y no las enjuagues después de cortar: el almidón que queda en la superficie es lo que espesa la leche y lo que sostiene la porción al cortarla.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Patata alargada con diez cortes verticales muy juntos\"><ellipse cx=\"60\" cy=\"44\" rx=\"55\" ry=\"27\" fill=\"#C08A1E\" fill-opacity=\".18\" stroke=\"#C08A1E\"/><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"17\" y1=\"14\" x2=\"17\" y2=\"74\"/><line x1=\"26\" y1=\"12\" x2=\"26\" y2=\"76\"/><line x1=\"35\" y1=\"11\" x2=\"35\" y2=\"77\"/><line x1=\"44\" y1=\"10\" x2=\"44\" y2=\"78\"/><line x1=\"53\" y1=\"10\" x2=\"53\" y2=\"78\"/><line x1=\"62\" y1=\"10\" x2=\"62\" y2=\"78\"/><line x1=\"71\" y1=\"10\" x2=\"71\" y2=\"78\"/><line x1=\"80\" y1=\"11\" x2=\"80\" y2=\"77\"/><line x1=\"89\" y1=\"12\" x2=\"89\" y2=\"76\"/><line x1=\"98\" y1=\"14\" x2=\"98\" y2=\"74\"/></g></svg>",
+      "t": "Patata · rodajas de 3 mm"
+    },
+    {
+      "p": "Dados pequeños y parejos: con 3 mm la cebolla suelta su agua en los diez minutos que tiene, queda translúcida a la vez en toda la sartén y desaparece dentro de la carne. Más grandes, la encontrarías entera en la capa del medio.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla con las vetas de raíz a tallo, cortes en las dos direcciones a 3 mm\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#8A6C4A\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".7\"><line x1=\"19\" y1=\"11\" x2=\"19\" y2=\"77\"/><line x1=\"33\" y1=\"11\" x2=\"33\" y2=\"77\"/><line x1=\"47\" y1=\"11\" x2=\"47\" y2=\"77\"/><line x1=\"61\" y1=\"11\" x2=\"61\" y2=\"77\"/><line x1=\"75\" y1=\"11\" x2=\"75\" y2=\"77\"/><line x1=\"89\" y1=\"11\" x2=\"89\" y2=\"77\"/><line x1=\"103\" y1=\"11\" x2=\"103\" y2=\"77\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"1\" y1=\"25\" x2=\"119\" y2=\"25\"/><line x1=\"1\" y1=\"44\" x2=\"119\" y2=\"44\"/><line x1=\"1\" y1=\"63\" x2=\"119\" y2=\"63\"/></g></svg>",
+      "t": "Cebolla · dados de 3 mm"
+    },
+    {
+      "p": "Láminas finas y no picado: en la leche a 90 °C sueltan su aroma poco a poco durante los veinticinco minutos de cazuela y se ablandan hasta deshacerse entre las patatas. Picado fino se perdería en el fondo y podría pegarse.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo tumbado y laminado a lo ancho en láminas de 2 mm\"><path d=\"M14 58 Q20 26 60 22 Q100 26 106 58 Z\" fill=\"#6F7F3E\" fill-opacity=\".14\" stroke=\"#6F7F3E\"/><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\"><line x1=\"30\" y1=\"30\" x2=\"30\" y2=\"60\"/><line x1=\"40\" y1=\"26\" x2=\"40\" y2=\"60\"/><line x1=\"50\" y1=\"24\" x2=\"50\" y2=\"60\"/><line x1=\"60\" y1=\"23\" x2=\"60\" y2=\"60\"/><line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"60\"/><line x1=\"80\" y1=\"26\" x2=\"80\" y2=\"60\"/><line x1=\"90\" y1=\"30\" x2=\"90\" y2=\"60\"/></g><text x=\"60\" y=\"78\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">láminas de 2 mm</text></svg>",
+      "t": "Ajo · láminas de 2 mm"
+    },
+    {
+      "p": "De abajo arriba: la mitad de las rodajas como tejas con crema hasta su altura, toda la carne extendida, el resto de las patatas con crema que asome, y encima la nata y el queso. Con 500 g de carne la capa del medio queda en unos 2 cm sobre una fuente de 28×20; más gruesa que eso y el pastel se parte al servir, porque la carne no liga con nada y hace de plano de rotura.",
+      "svg": "<svg viewBox=\"0 0 120 152\" width=\"120\" height=\"152\" role=\"img\" aria-label=\"Corte de la fuente con cuatro capas: patata, carne, patata y costra de queso\"><rect x=\"12\" y=\"98\" width=\"96\" height=\"36\" fill=\"#C08A1E\" fill-opacity=\".3\"/><g stroke=\"#8A6316\" stroke-width=\".7\" opacity=\".8\"><line x1=\"12\" y1=\"134\" x2=\"28\" y2=\"98\"/><line x1=\"28\" y1=\"134\" x2=\"44\" y2=\"98\"/><line x1=\"44\" y1=\"134\" x2=\"60\" y2=\"98\"/><line x1=\"60\" y1=\"134\" x2=\"76\" y2=\"98\"/><line x1=\"76\" y1=\"134\" x2=\"92\" y2=\"98\"/><line x1=\"92\" y1=\"134\" x2=\"108\" y2=\"98\"/></g><rect x=\"12\" y=\"76\" width=\"96\" height=\"22\" fill=\"#A15A3A\" fill-opacity=\".75\"/><rect x=\"12\" y=\"38\" width=\"96\" height=\"38\" fill=\"#C08A1E\" fill-opacity=\".3\"/><g stroke=\"#8A6316\" stroke-width=\".7\" opacity=\".8\"><line x1=\"12\" y1=\"76\" x2=\"28\" y2=\"38\"/><line x1=\"28\" y1=\"76\" x2=\"44\" y2=\"38\"/><line x1=\"44\" y1=\"76\" x2=\"60\" y2=\"38\"/><line x1=\"60\" y1=\"76\" x2=\"76\" y2=\"38\"/><line x1=\"76\" y1=\"76\" x2=\"92\" y2=\"38\"/><line x1=\"92\" y1=\"76\" x2=\"108\" y2=\"38\"/></g><rect x=\"12\" y=\"26\" width=\"96\" height=\"12\" fill=\"#B8402C\" fill-opacity=\".6\"/><rect x=\"8\" y=\"20\" width=\"104\" height=\"118\" rx=\"6\" fill=\"none\" stroke=\"#857C6A\" stroke-width=\"1.4\"/></svg>",
+      "t": "Montaje · cuatro capas"
+    }
+  ],
+  "creada": "2026-10-06T10:00:00Z",
+  "datos": [
+    [
+      "108 min",
+      "de principio a fin"
+    ],
+    [
+      "22 + 37 + 49",
+      "cortar + fuegos + horno"
+    ],
+    [
+      "2",
+      "fuegos, más el horno"
+    ],
+    [
+      "200 °C",
+      "horno"
+    ],
+    [
+      "15",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Patata en rodajas finas cocida en leche, nata y ajo, con una capa de carne picada en medio y queso gratinado encima. La dificultad no está en ninguna técnica suelta, sino en el reparto: dos fuegos y el horno tienen que acabar a la vez. En total salen de la despensa 5 dientes de ajo, un brik entero de 400 ml de nata para cocinar y 12 g de sal (2 cucharaditas), repartidos entre la cazuela y la sartén.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 1300,
+          "n": "patatas peladas, en rodajas de 3 mm (unas 7 medianas)",
+          "u": "g"
+        },
+        {
+          "a": 500,
+          "n": "leche entera (2 tazas)",
+          "u": "ml"
+        },
+        {
+          "a": 300,
+          "n": "nata para cocinar (¾ del brik de 400 ml)",
+          "u": "ml"
+        },
+        {
+          "a": 16,
+          "n": "ajo, en láminas de 2 mm (4 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "n": "laurel",
+          "u": "hoja"
+        },
+        {
+          "a": 7,
+          "esc": "sub",
+          "n": "sal (1 cucharadita colmada)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "nuez moscada rallada (½ cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "CAZUELA"
+    },
+    {
+      "items": [
+        {
+          "a": 500,
+          "n": "carne picada mixta (una palangana de 500 g)",
+          "u": "g"
+        },
+        {
+          "a": 200,
+          "n": "cebolla, en dados de 3 mm (1 cebolla grande)",
+          "u": "g"
+        },
+        {
+          "a": 25,
+          "n": "aceite de oliva (1 cucharada sopera y 2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "esc": "sub",
+          "n": "salsa de soja (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "sal (1 cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimienta negra (½ cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN"
+    },
+    {
+      "items": [
+        {
+          "a": 120,
+          "n": "queso rallado (unas 12 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "nata para cocinar, por encima (el ¼ que queda del brik)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "mantequilla, para untar (1 cucharada sopera)",
+          "u": "g"
+        },
+        {
+          "a": 4,
+          "n": "diente de ajo partido por la mitad, para frotar la fuente (1 diente)",
+          "u": "g"
+        }
+      ],
+      "n": "FUENTE"
+    }
+  ],
+  "importada": true,
+  "lectura": "La cazuela y la sartén suman 52 minutos de trabajo que caben en 29 de reloj (del minuto 22 al 51), y ahí está todo el ahorro del plan. El horno se enciende en el minuto 44, en pleno chup-chup, y llega a temperatura justo cuando terminas de montar, así que precalentar no cuesta ni un minuto; en ese mismo hueco se unta la fuente. El único margen antes del horno son los cuatro minutos que las patatas acaban por delante de la carne: si algo se retrasa, que sea la cazuela. Suma por el camino largo: 22 de cortar + 7 de leche + 18 de patatas + 4 de espera a la carne + 8 de montaje + 32 de horno + 5 de grill + 12 de reposo = 108.",
+  "mep": [
+    {
+      "l": [
+        "<b>Patata · 1300 g (unas 7 medianas)</b> · pelada, en rodajas de 3 mm, al bol grande sin agua.",
+        "<b>Cebolla · 200 g (1 grande)</b> · en dados de 3 mm, directa a la sartén en frío.",
+        "<b>Ajo · 16 g (4 dientes)</b> en láminas de 2 mm, a la cazuela en frío. Y aparte <b>4 g (1 diente)</b> partido por la mitad, junto a la fuente."
+      ],
+      "orden": true,
+      "porq": "La patata va primero porque es la que más tiempo lleva y no suelta jugo; la cebolla después, y el ajo al final, que es el que deja olor en la tabla.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>1 · Nata · 100 ml</b> (el ¼ del brik de 400 ml) → al vaso pequeño, a la nevera.",
+        "<b>2 · Nata · 300 ml</b> (el resto del brik) → a la cazuela.",
+        "<b>3 · Leche · 500 ml</b> (2 tazas) → a la cazuela.",
+        "<b>4 · Soja · 15 ml</b> (1 cucharada sopera) → a la taza de los aliños.",
+        "<b>5 · Aceite de oliva · 25 ml</b> (1 cucharada sopera y 2 cucharaditas) → a la sartén."
+      ],
+      "orden": true,
+      "porq": "Primero la nata y la leche, que comparten destino; la soja después, y el aceite al final, porque es la única que deja película.",
+      "t": "VASO MEDIDOR, EN ESTE ORDEN Y SIN LAVARLO"
+    },
+    {
+      "l": [
+        "<b>Bol grande</b> · los 1300 g de rodajas crudas de 3 mm; se vacía en la cazuela en el minuto 29 y en el 51 recibe otra vez las rodajas cocidas.",
+        "<b>Vaso pequeño</b> · 100 ml de nata para cocinar, en la nevera hasta el minuto 57.",
+        "<b>Taza pequeña</b> · 15 ml de soja + 5 g de sal (1 cucharadita rasa) + 1 g de pimienta negra (½ cucharadita), juntos. Entra en el minuto 47.",
+        "<b>Bol pequeño</b> · 120 g de queso rallado (unas 12 cucharadas soperas). Entra en el minuto 57."
+      ],
+      "orden": false,
+      "porq": "Cada uno guarda algo que entra en un momento distinto. El bol grande se usa dos veces: con las rodajas crudas al principio y con las cocidas al montar.",
+      "t": "CUATRO RECIPIENTES, NI UNO MÁS"
+    },
+    {
+      "l": [
+        "<b>Cazuela en frío</b> · 500 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal (1 cucharadita colmada) + 1 g de nuez moscada (½ cucharadita). Se enciende en el minuto 22.",
+        "<b>Sartén en frío</b> · 25 ml de aceite de oliva + 200 g de cebolla. Se enciende en el minuto 24.",
+        "<b>Carne picada · 500 g</b> (una palangana) · en su bandeja, en la nevera hasta el minuto 34.",
+        "<b>Junto a la fuente de 28×20 cm</b> · 15 g de mantequilla (1 cucharada sopera) y el medio diente de ajo. Se usan en el minuto 44."
+      ],
+      "orden": false,
+      "porq": "Lo que entra desde el principio se deja ya en su destino, y lo que viene en su envase se queda en él.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Se queda en 4 raciones a propósito: el tamaño lo marca la fuente de 28×20 cm, y la proporción de 500 g de carne sobre 1300 g de patata es la que hace cuajar la capa del medio. La sal, la nuez moscada, la pimienta y la soja suben menos que el resto. Y escalar no multiplica los tiempos: a dos raciones el horno son 25 minutos en vez de 32 y la sartén 8 en vez de 13, mientras que cortar y gratinar apenas cambian.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "junto": null,
+      "meto": "1300 g de patata en rodajas de 3 mm al bol grande · 200 g de cebolla en dados de 3 mm a la sartén · 16 g de ajo laminado a la cazuela",
+      "min": 22,
+      "nota": "Pela y corta la patata en rodajas de 3 mm, al bol grande sin agua y sin enjuagar. Pica la cebolla en dados de 3 mm, lamina 4 dientes de ajo a 2 mm y parte el quinto por la mitad. Carga la cazuela en frío con la leche, 300 ml de nata, el ajo laminado, el laurel, 7 g de sal y la nuez moscada; la sartén con el aceite y la cebolla. Los otros 100 ml de nata, a un vaso a la nevera; soja, 5 g de sal y pimienta, juntos en una taza; y el queso en un bol.",
+      "off": 0,
+      "p": "Pela 1300 g de patata y córtala en rodajas de 3 mm, a cuchillo o con mandolina. Déjalas en un bol sin agua y sin enjuagar: el almidón pegado a la superficie es lo que después espesará la leche. Pica 200 g de cebolla en dados de 3 mm. Lamina 4 dientes de ajo y parte el quinto por la mitad, que se queda aparte para frotar la fuente. Pesa el resto y déjalo en su sitio: la cazuela y la sartén se cargan en frío y la carne espera en su bandeja. En cuanto enciendas los fuegos no hay tiempo de buscar nada.",
+      "s": 1320,
+      "saco": "",
+      "t": "Pelar y cortar",
+      "tapa": null
+    },
+    {
+      "carril": "cazuela",
+      "dep": [
+        "cortar"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Mira: si ya humea por los bordes, prepárate para echar la patata"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "infusion",
+      "junto": null,
+      "meto": "la cazuela cargada en frío: 500 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal + 1 g de nuez moscada",
+      "min": 7,
+      "nota": "Enciende al 7 con la tapa puesta. Tiene que humear por los bordes con burbujas pequeñas en el fondo, sin llegar a hervir fuerte.",
+      "off": 22,
+      "p": "Tapada y al 7 hasta que humee por los bordes y aparezcan burbujas pequeñas en el fondo, sin llegar al borbotón. Ochocientos mililitros tardan unos siete minutos. Si rompe a hervir fuerte, la leche sube de golpe, se sale y se pega al fondo, y esa capa quemada amarga toda la crema; por eso en cuanto llega al temblor baja al 3, que es justo lo que pide el paso siguiente. El ajo y la nuez moscada empiezan a infusionar desde el primer minuto: su aroma pasa a la grasa de la nata y de ahí a cada rodaja.",
+      "s": 420,
+      "saco": "",
+      "t": "Leche, nata y ajo",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 240,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 360,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 480,
+          "t": "Destapa y remueve: translúcida, sin bordes dorados"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "cebolla",
+      "junto": null,
+      "meto": "la sartén cargada en frío: 25 ml de aceite de oliva + 200 g de cebolla",
+      "min": 10,
+      "nota": "Enciende al 5 con la tapa puesta. Tiene que quedar translúcida, sin bordes dorados.",
+      "off": 24,
+      "p": "Dos minutos después de poner la leche al fuego, la sartén de 25 ml de aceite de oliva y 200 g de cebolla se enciende al 5 y tapada: el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla. Se destapa solo para remover, cada dos minutos. Tiene que quedar translúcida, sin bordes dorados. Con 200 g tarda un 40 % más que con 100, porque es más masa sobre la misma superficie.",
+      "s": 600,
+      "saco": "",
+      "t": "Sudar la cebolla",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "cazuela",
+      "dep": [],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Remueve con cuidado desde el fondo para que no se peguen"
+        },
+        {
+          "en": 600,
+          "t": "Remueve con cuidado desde el fondo"
+        },
+        {
+          "en": 960,
+          "t": "Prueba una rodaja: el cuchillo entra sin resistencia y no se rompe"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "patatas",
+      "junto": null,
+      "meto": "1300 g de patata en rodajas, del bol grande",
+      "min": 18,
+      "nota": "Baja al 3, echa las rodajas y sepáralas enseguida con una cuchara de madera. Tapa a medias, con un dedo de hueco. Cuando estén, apaga el fuego y déjalas en su líquido hasta el minuto 51. Si vas tarde, ponla al 1 y que esperen aquí.",
+      "off": 29,
+      "p": "Echa las rodajas y sepáralas enseguida con una cuchara de madera, o se pegarán en bloque contra el fondo. Tapa a medias, dejando un dedo de hueco: así sale algo de vapor sin que se evapore media cazuela. Al 3 el conjunto se queda temblando alrededor de los 90 °C. Están listas cuando un cuchillo entra sin resistencia pero la rodaja no se rompe al levantarla, unos dieciocho minutos con este peso. Es el paso más flexible de todo el plan: si vas tarde, baja al 1 y déjalas ahí sin miedo.",
+      "s": 1080,
+      "saco": "",
+      "t": "Cocer las patatas",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Ahora sí: empieza a deshacer los grumos con la cuchara"
+        },
+        {
+          "en": 420,
+          "t": "Remueve y sigue deshaciendo grumos"
+        },
+        {
+          "en": 660,
+          "t": "Remueve: dorada por todas partes, sin nada rosa"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "carne",
+      "junto": null,
+      "meto": "500 g de carne picada, de su bandeja, sobre la cebolla",
+      "min": 13,
+      "nota": "Quita la tapa, sube al 8 y espera 30 segundos. Echa la carne, extiéndela en una capa y no la toques en 3 minutos. Si la sartén es de 24 cm o menos, hazlo en dos tandas de 250 g.",
+      "off": 34,
+      "p": "Sube al 8, quita la tapa y espera treinta segundos a que la sartén recupere temperatura. Echa los 500 g de carne, extiéndela en una capa y no la toques durante los tres primeros minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris en su propio jugo. Después ve deshaciendo los grumos. Hace falta una sartén de 28 cm o más; si la tuya es de 24 cm o menos, hazlo en dos tandas de 250 g de seis minutos: amontonada no dora, se guisa.",
+      "s": 780,
+      "saco": "",
+      "t": "Dorar la carne",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "untar-fuente",
+      "junto": null,
+      "meto": "la fuente de 28×20 cm + 15 g de mantequilla + el medio diente de ajo (4 g)",
+      "min": 2,
+      "nota": "Unta toda la fuente con la mantequilla, fondo y paredes, y después frótala con la cara cortada del medio ajo.",
+      "off": 44,
+      "p": "La fuente se prepara ahora, con la carne dorándose sola y la cazuela en su chup-chup, porque es el único hueco libre de la mesa antes del montaje. La mantequilla hace de antiadherente y dora el fondo de la primera capa; el ajo crudo frotado encima deja un perfume que sí se nota al primer bocado, al contrario que el ajo cocido en la leche.",
+      "s": 120,
+      "saco": "",
+      "t": "Preparar la fuente",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "precalentar",
+      "junto": null,
+      "meto": "",
+      "min": 15,
+      "nota": "Pon la rejilla a media altura y enciende el horno a 200 °C, calor arriba y abajo, sin ventilador.",
+      "off": 44,
+      "p": "Cuando la carne lleva unos diez minutos, enciende el horno a 200 °C con calor arriba y abajo, sin ventilador, y la rejilla a media altura. Estos quince minutos no cuestan nada: caen enteros dentro del trabajo de los fuegos, y el horno llega a temperatura justo cuando acabas de montar la fuente.",
+      "s": 900,
+      "saco": "",
+      "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro, y el trabajo está en los fuegos.",
+      "t": "Precalentar a 200 °C",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 6,
+      "holgura": "ajustado",
+      "id": "secar",
+      "junto": null,
+      "meto": "la taza de los aliños: 15 ml de soja + 5 g de sal + 1 g de pimienta",
+      "min": 4,
+      "nota": "Baja al 6, echa la taza y remueve hasta que el fondo quede seco, sin charco.",
+      "off": 47,
+      "p": "Añade 15 ml de salsa de soja, 5 g de sal y 1 g de pimienta. Baja al 6 y remueve hasta que el fondo quede seco, sin charco. Este paso no es para cocinar, es para evaporar: cada gota de líquido que entre en la fuente volverá a salir por debajo del gratén y lo desmontará en el plato.",
+      "s": 240,
+      "saco": "nada: apaga el fuego y la carne espera en la sartén hasta el minuto 55",
+      "t": "Ligar y secar",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "patatas",
+        "secar"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "vaciar",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Con la espumadera, pasa todas las rodajas al bol grande y tira el laurel. La crema se queda en la cazuela: es la que vas a usar al montar.",
+      "off": 51,
+      "p": "La cazuela se queda solo con el líquido, que ya no es leche: es una crema espesada con el almidón que han soltado las patatas. Sacarlas todas de una vez permite repartir la crema a cucharones entre las dos capas sabiendo cuánta queda. Que las rodajas se enfríen dos minutos en el bol da igual: van a pasar media hora a 200 °C.",
+      "s": 120,
+      "saco": "todas las rodajas al bol grande con la espumadera; el laurel, a la basura",
+      "t": "Sacar las patatas de la cazuela",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "critico",
+      "id": "capa1",
+      "junto": null,
+      "meto": "la mitad de las rodajas a la fuente, y crema de la cazuela hasta el alto de la capa",
+      "min": 2,
+      "nota": "Coloca la mitad de las rodajas como tejas, sin huecos. Echa crema con un cucharón hasta el alto de la capa, no por encima.",
+      "off": 53,
+      "p": "Las rodajas van superpuestas como tejas, sin huecos: el aire atrapado quema el queso por arriba y deja la patata cruda debajo. La crema llega al alto de la capa y no la cubre, porque si la tapas la carne de encima flota sobre el líquido y la capa del medio no se asienta.",
+      "s": 120,
+      "saco": "",
+      "t": "Capa 1 · patata y crema",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "critico",
+      "id": "capa2",
+      "junto": null,
+      "meto": "los 500 g de carne de la sartén",
+      "min": 2,
+      "nota": "Extiende toda la carne hasta las esquinas y aplánala con el dorso de la cuchara. Fina y pareja.",
+      "off": 55,
+      "p": "Toda la carne encima, extendida hasta las esquinas y aplanada con el dorso de la cuchara. Fina y pareja: si se amontona en el centro, ahí el pastel no cuaja y la porción se abre al servir. Con 500 g sobre una fuente de 28×20 cm la capa queda en unos 2 cm.",
+      "s": 120,
+      "saco": "",
+      "t": "Capa 2 · carne",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "critico",
+      "id": "montar",
+      "junto": null,
+      "meto": "el resto de las rodajas + el resto de la crema + los 100 ml de nata del vaso (sácalo de la nevera) + 120 g de queso rallado",
+      "min": 2,
+      "nota": "Coloca el resto de las rodajas como tejas. Echa crema hasta que asome entre ellas sin cubrirlas; si sobra en la cazuela, no la fuerces. Encima, la nata del vaso repartida y el queso hasta los bordes.",
+      "off": 57,
+      "p": "El resto de las patatas, otra vez como tejas. La crema asoma entre las rodajas de arriba pero no las cubre: lo que sobresale es lo único que se seca al aire del horno y se tuesta. Encima, los 100 ml de nata fría repartidos, en crudo, que son los que hacen la costra cremosa debajo del queso, y los 120 g de queso rallado hasta los bordes para que el gratinado llegue a todas las esquinas.",
+      "s": 120,
+      "saco": "",
+      "t": "Capas 3 y 4 · patata, crema, nata y queso",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "montar"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 900,
+          "t": "Mira por el cristal, sin abrir: los bordes tienen que empezar a burbujear"
+        },
+        {
+          "en": 1680,
+          "t": "Abre y pincha el centro con un cuchillo: tiene que entrar sin resistencia"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "hornear",
+      "junto": null,
+      "meto": "la fuente, a media altura, sin papel y sin tapar",
+      "min": 32,
+      "nota": "Mete la fuente a media altura y cierra. Al final tiene que burbujear por los bordes.",
+      "off": 59,
+      "p": "A media altura, sin papel y sin tapar, porque el vapor tiene que poder salir. Treinta y dos minutos: siete más que con la mitad de cantidad, porque la fuente es más grande y el calor tarda más en llegar al centro. A mitad de horneado los bordes empiezan a burbujear, y al final burbujea toda la superficie: es la crema hirviendo entre las rodajas y la señal de que el centro ya está caliente.",
+      "s": 1920,
+      "saco": "",
+      "t": "Hornear a 200 °C",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [],
+      "f": null,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Mira por el cristal cada 20 segundos: sácalo en cuanto esté dorado"
+        }
+      ],
+      "holgura": "critico",
+      "id": "gratinar",
+      "junto": null,
+      "meto": "la fuente, un piso más arriba",
+      "min": 5,
+      "nota": "Sube la fuente un piso y pon el grill fuerte. No te vayas: entre dorado y quemado hay 40 segundos.",
+      "off": 91,
+      "p": "Sube la fuente un piso y pon el grill fuerte. Cinco minutos sin salir de la cocina: el queso pasa de dorado a quemado en cuarenta segundos, porque el grill calienta solo la superficie y muy cerca. Si tu horno no tiene grill, sube a 230 °C con la resistencia de arriba y dale cuatro minutos más.",
+      "s": 300,
+      "saco": "la fuente, fuera del horno, a la encimera. Apaga el horno",
+      "t": "Gratinar",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "gratinar"
+      ],
+      "f": null,
+      "holgura": "flexible",
+      "id": "reposo",
+      "junto": null,
+      "meto": "la fuente recién salida, sobre la encimera",
+      "min": 12,
+      "nota": "Doce minutos sin cortarlo. Aguanta hasta 20 si vas tarde.",
+      "off": 96,
+      "p": "Doce minutos sobre la encimera. No es opcional: el almidón de la crema solo cuaja cuando baja de unos 80 °C, y con este peso tarda más en bajar que con dos raciones. Si cortas al salir del horno la crema corre por el plato; si esperas, la porción se sostiene.",
+      "s": 720,
+      "saco": "el pastel, cortado en 4 porciones, a los platos",
+      "t": "Reposo fuera del horno",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "carne picada mixta",
+    "nata para cocinar",
+    "leche"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Las patatas se cuecen antes, no crudas al horno",
+      "Cocidas en la propia leche sueltan almidón, que es lo que liga la crema y lo que impide que la nata se separe en el horno. De paso el horneado baja de más de hora y media a 32 minutos: sumergida a 90 °C la patata se cocina mucho más rápido que rodeada de aire a 200."
+    ],
+    [
+      "La leche no debe romper a hervir",
+      "A borbotones la leche sube de golpe y se sale, y lo que se queda pegado al fondo se quema y amarga toda la crema. Al 3 con la tapa a medias se queda en un temblor constante, que cuece la patata igual sin ese riesgo."
+    ],
+    [
+      "El ajo va en la leche, no en la sartén",
+      "En grasa caliente el ajo pasa de dulce a amargo en noventa segundos. Infusionado a 90 °C suelta sus compuestos poco a poco y perfuma las patatas de dentro afuera. El diente crudo frotado en la fuente es el contrapunto: ese sí se nota al primer bocado."
+    ],
+    [
+      "La carne sale seca de la sartén",
+      "Cada gota de líquido que entra en la fuente vuelve a salir por debajo del gratén. Los cuatro minutos finales al 6 y destapado no son para cocinar, son para evaporar."
+    ],
+    [
+      "500 g de carne piden 1300 g de patata",
+      "La carne picada no gelifica ni se pega a nada: la capa del medio se sostiene solo por el almidón de las patatas que tiene encima y debajo. Con menos patata la proporción se invierte, la capa engorda y el pastel se convierte en dos pisos que se separan al levantar la porción."
+    ],
+    [
+      "Las patatas cocidas vuelven al bol grande",
+      "El montaje necesita la crema en la cazuela y las rodajas a mano. Sacarlas todas al bol que ya se usó para las crudas evita un recipiente más; la bandeja de horno no sirve para esto, porque no tiene borde y escurre."
+    ],
+    [
+      "La fuente se unta en el minuto 44",
+      "Es el único hueco libre en la mesa entre el corte y el montaje. Dejarlo para la capa 1 metía tres gestos en dos minutos que ya no esperan."
+    ],
+    [
+      "Nuez moscada, y ninguna especia más",
+      "Su aroma es liposoluble, así que viaja en la nata y llega a todas las capas. Se descartan el pimentón y el comino: los dos son más potentes y taparían justo lo que se busca."
+    ],
+    [
+      "Sin tomate ni vino en la carne",
+      "El ácido de cualquiera de los dos cortaría la crema en cuanto se encuentren en el horno. La profundidad la pone la salsa de soja, que aporta umami sin bajar el pH."
+    ],
+    [
+      "Sin bechamel",
+      "La harina espesaría, sí, pero añadiría su propio sabor por encima del de la leche y el ajo. El almidón de la patata hace el mismo trabajo y no tapa nada."
+    ],
+    [
+      "La crema no llega a cubrir la última capa",
+      "Es lo que separa un gratén de un guiso: la parte de las rodajas que sobresale se seca al aire del horno y se tuesta, mientras el resto se cuece sumergido. Si el líquido las tapa, arriba solo hay queso flotando."
+    ],
+    [
+      "Sin bacon, aunque pegaría",
+      "Entre el queso, la sal y la soja el plato ya va justo de sal. El bacon lo pasaría de rosca y su grasa se sumaría a la de la nata."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "pastel-de-patata-gratinado",
+  "tags": {
+    "base": "patata",
+    "proteina": "carne picada",
+    "tecnica": [
+      "sellado"
+    ]
+  },
+  "titulo": "Pastel de patata gratinado",
+  "totalMin": 108
+}
