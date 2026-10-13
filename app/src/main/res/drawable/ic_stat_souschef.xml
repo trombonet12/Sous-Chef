@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono de notificación: gorro de chef en silueta blanca. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M6,15V9.5A3.5,3.5 0 0 1 8.2,3.6A4.5,4.5 0 0 1 15.8,3.6A3.5,3.5 0 0 1 18,9.5V15Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M6,16.5H18V20A1,1 0 0 1 17,21H7A1,1 0 0 1 6,20Z" />
+</vector>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Silueta para iconos temáticos (Android 13+): solo cuenta el alfa. Ojos como huecos (evenOdd). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:translateY="8.4">
+        <group
+            android:pivotX="54"
+            android:pivotY="54"
+            android:scaleX="0.75"
+            android:scaleY="0.75">
+            <path android:pathData="M46,47H27A7,7 0 0 0 27,61H46" android:strokeColor="#FF000000" android:strokeWidth="5.4" android:strokeLineCap="round" android:strokeLineJoin="round" />
+            <path android:pathData="M42,44V64" android:strokeColor="#FF000000" android:strokeWidth="3.4" android:strokeLineCap="round" />
+            <path android:pathData="M30,48C46,48 54,36 66,26.5L66,81.5C54,72 46,60 30,60Z" android:fillColor="#FF000000" />
+            <path
+                android:fillType="evenOdd"
+                android:fillColor="#FF000000"
+                android:pathData="M49,54a19,28 0 1,0 38,0a19,28 0 1,0 -38,0ZM53.4,50a6.6,6.6 0 1,0 13.2,0a6.6,6.6 0 1,0 -13.2,0ZM69.4,50a6.6,6.6 0 1,0 13.2,0a6.6,6.6 0 1,0 -13.2,0Z" />
+            <path android:pathData="M52,26L52,20A7,7 0 0 1 59,13A9.5,9.5 0 0 1 77,13A7,7 0 0 1 84,20L84,26Z" android:fillColor="#FF000000" />
+            <path android:pathData="M51,28H85V33H51Z" android:fillColor="#FF000000" />
+        </group>
+    </group>
+</vector>

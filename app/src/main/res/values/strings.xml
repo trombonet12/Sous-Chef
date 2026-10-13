@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sous Chef</string>
+    <string name="tab_recetas">Recetas</string>
+    <string name="tab_despensa">Despensa</string>
+    <string name="tab_historial">Historial</string>
+    <string name="menu_tecnicas">Técnicas</string>
+    <string name="menu_ajustes">Ajustes</string>
+    <string name="menu_cerrar_sesion">Cerrar sesión</string>
+    <string name="menu_mas">Más opciones</string>
+</resources>
