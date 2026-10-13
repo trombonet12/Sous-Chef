@@ -117,12 +117,12 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 9. ERROR · Ninguna línea describe dos formas de corte para el mismo ingrediente.
 10. ERROR · Ningún paso de fuego u horno de 6 min o más sin `hitos` ni `sinHitos`.
 11. ERROR · El último paso declara `saco`.
-12. ERROR · Nada que no esté en la despensa se usa sin estar en `compra`.
-13. ERROR · Cantidad legible: cada ingrediente tiene `a`+`u` o `txt`, nunca «al gusto» ni «un chorrito».
-14. ERROR · Todo ingrediente de `grupos` está en la despensa o en `compra` (comprobación de despensa de Supabase si hay credenciales, si no `data/despensa-semilla.md`; la salida lo dice).
-15. ERROR · Si la receta corta algo hay al menos dos cortes con medida (mm o cm) en `cortes`/`mep`.
+12. ERROR · Todo ingrediente de `grupos` está en la despensa o en `compra` (despensa de Supabase si hay credenciales, si no `data/despensa-semilla.md`; la salida dice cuál). Coincidencia por palabra completa, sin acentos ni mayúsculas.
+13. ERROR · Cantidad legible: cada ingrediente tiene `a` o `txt`, y ningún texto dice «al gusto», «un chorrito» o «c/s».
+14. ERROR · Hay al menos un paso que arranca en el minuto 0 en un carril de tipo `mesa` si la receta tiene `cortes` (el corte es un paso, no una nota previa).
+15. AVISO (estricto) · Si algún paso de mesa corta algo (cortar, picar, laminar, trocear…), `cortes` no está vacío.
 16. ERROR · No hay solape entre dos pasos del mismo carril.
-17. ERROR · `s` coherente con `min`·60.
+17. ERROR · `s` coherente con `min`: |s − min·60| ≤ 30 s.
 18. ERROR · `mep` solo usa la etiqueta `<b>`.
 19. AVISO (estricto) · Corte sin medida (mm o cm).
 20. AVISO (estricto) · Cambio de potencia que el texto del paso no nombra.
@@ -131,7 +131,7 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 23. AVISO (estricto) · Tag de `tags.tecnica` sin ficha en `data/tecnicas/`.
 24. AVISO · Veto presente en ingredientes (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco).
 
-Los puntos 15 y 17-18 no estaban en la skill legada; la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
+Los puntos 14, 15 y 17-18 no estaban en la skill legada (14 y 15 salen de su §3a y §5); la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
 
 ## Decisiones y fuentes
 - Origen: `docs/legado/skill-receta-cronometrada.md` §5 y `docs/spec/app-legado.md` §7.
