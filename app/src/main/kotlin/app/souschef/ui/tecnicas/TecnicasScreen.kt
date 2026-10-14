@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -82,7 +83,7 @@ private fun LazyListScope.cuerpo(
             item {
                 Text(
                     pluralStringResource(R.plurals.tecnicas_conteo, estado.tecnicas.size, estado.tecnicas.size),
-                    style = MaterialTheme.typography.labelLarge,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -99,11 +100,12 @@ private fun TarjetaTecnica(
 ) {
     Card(onClick = onAbrir, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(tecnica.titulo, style = MaterialTheme.typography.titleLarge)
+            Text(tecnica.titulo, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Medium)
             if (tecnica.resumen.isNotBlank()) {
                 Text(
                     tecnica.resumen,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                 )

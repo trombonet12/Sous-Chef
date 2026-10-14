@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -38,11 +39,11 @@ fun Huella(
 ) {
     val total = receta.totalEfectivo
     if (total > 0 && receta.carriles.isNotEmpty()) {
-        Column(modifier.clearAndSetSemantics {}, verticalArrangement = Arrangement.spacedBy(3.dp)) {
+        Column(modifier.clearAndSetSemantics {}, verticalArrangement = Arrangement.spacedBy(4.dp)) {
             receta.carriles.forEach { c ->
                 FilaHuella(c, receta.pasos.filter { it.carril == c.id }, total)
             }
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            FlowRow(Modifier.padding(top = 2.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 receta.carriles.forEach { LeyendaCarril(it) }
             }
         }

@@ -109,8 +109,9 @@ internal fun VistaCompra(
                 item(key = "cg-${g.clave}") {
                     Text(
                         g.clave.ifEmpty { stringResource(R.string.compra_sin_zona) },
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 16.dp, bottom = 2.dp),
                     )
                 }
                 items(g.items, key = { "ci-${it.id}" }) { item ->
@@ -186,7 +187,7 @@ private fun FilaCompra(
             Checkbox(checked = item.marcado, onCheckedChange = null, modifier = Modifier.padding(12.dp))
             Text(
                 item.texto,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 textDecoration = if (item.marcado) TextDecoration.LineThrough else null,
                 modifier = Modifier.alpha(if (item.marcado) 0.6f else 1f),
             )

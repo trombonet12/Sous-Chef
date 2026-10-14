@@ -3,8 +3,6 @@ package app.souschef.ui.recetas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,9 +21,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,6 +40,7 @@ import app.souschef.ui.comun.EstadoVacio
 import app.souschef.ui.comun.Etiqueta
 import app.souschef.ui.comun.Tono
 import app.souschef.ui.shell.Icono
+import app.souschef.ui.theme.Espacio
 
 @Composable
 fun RecetasScreen(
@@ -58,7 +62,7 @@ fun RecetasContenido(
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(Espacio.m),
     ) {
         item { CampoBusqueda(estado.consulta, stringResource(R.string.recetas_buscar), onBuscar) }
         if (estado.mostrarChips) {
@@ -70,7 +74,7 @@ fun RecetasContenido(
             item {
                 Text(
                     pluralStringResource(R.plurals.recetas_conteo, estado.tarjetas.size, estado.tarjetas.size),
-                    style = MaterialTheme.typography.labelLarge,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -120,26 +124,28 @@ private fun TarjetaRecetaVista(
 ) {
     val receta = tarjeta.receta
     Card(onClick = onAbrir, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(start = 16.dp, top = 12.dp, end = 4.dp, bottom = 16.dp)) {
-            Row(verticalAlignment = Alignment.Top) {
+        Column(Modifier.padding(start = Espacio.l, top = Espacio.s, end = Espacio.xs, bottom = Espacio.m)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     receta.titulo,
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.weight(1f).padding(top = 8.dp),
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(1f),
                 )
                 BotonFavorita(tarjeta.favorita, receta.titulo, onFavorita)
             }
-            Column(Modifier.padding(end = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(Modifier.padding(end = Espacio.m), verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
                 if (receta.descripcion.isNotBlank()) {
                     Text(
                         receta.descripcion,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 2,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 3,
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
                 Huella(receta)
-                EtiquetasTarjeta(tarjeta)
+                PieTarjeta(tarjeta)
             }
         }
     }
@@ -162,25 +168,45 @@ private fun BotonFavorita(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+/** Una sola línea de metadatos (tiempo, fuegos, base, última vez) y el estado de compra a la derecha. */
 @Composable
-private fun EtiquetasTarjeta(tarjeta: TarjetaReceta) {
+private fun PieTarjeta(tarjeta: TarjetaReceta) {
     val receta = tarjeta.receta
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Etiqueta(
-            stringResource(R.string.tarjeta_minutos, Escalado.minutos(receta.totalEfectivo)),
-            negrita = true,
-        )
-        if (tarjeta.fuegos > 0) {
-            Etiqueta(pluralStringResource(R.plurals.tarjeta_fuegos, tarjeta.fuegos, tarjeta.fuegos))
+    val hace = tarjeta.hace.texto()
+    val resalte = if (tarjeta.hace.resaltado) MaterialTheme.colorScheme.error else Color.Unspecified
+    val fuegos =
+        if (tarjeta.fuegos >
+            0
+        ) {
+            pluralStringResource(R.plurals.tarjeta_fuegos, tarjeta.fuegos, tarjeta.fuegos)
+        } else {
+            null
         }
-        receta.tags.base?.let { Etiqueta(it) }
+    val inicio =
+        listOfNotNull(
+            stringResource(R.string.tarjeta_minutos, Escalado.minutos(receta.totalEfectivo)),
+            fuegos,
+        ).joinToString(" · ")
+    val texto =
+        buildAnnotatedString {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(inicio) }
+            append(" · ")
+            withStyle(SpanStyle(color = resalte)) { append(hace) }
+        }
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Espacio.s)) {
+        Text(
+            texto,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+        )
         if (receta.compra.isNotEmpty()) {
             Etiqueta(stringResource(R.string.tarjeta_compra), tono = Tono.Teja)
         } else {
             Etiqueta(stringResource(R.string.tarjeta_despensa), tono = Tono.Oliva)
         }
-        Etiqueta(tarjeta.hace.texto(), tono = if (tarjeta.hace.resaltado) Tono.Teja else Tono.Neutro)
     }
 }
 

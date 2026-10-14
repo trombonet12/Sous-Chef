@@ -42,7 +42,7 @@ fun SeccionPapel(
     modifier: Modifier = Modifier,
     contenido: @Composable ColumnScope.() -> Unit,
 ) {
-    Column(modifier.fillMaxWidth().padding(vertical = 14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(modifier.fillMaxWidth().padding(vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Column {
             Text(
                 titulo.uppercase(),
@@ -63,8 +63,8 @@ fun CeldaDato(
     pequeno: String,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier.padding(end = 20.dp, bottom = 8.dp)) {
-        Text(grande, style = MaterialTheme.typography.titleLarge.merge(Tabular))
+    Column(modifier.padding(end = 24.dp)) {
+        Text(grande, style = MaterialTheme.typography.titleMedium.merge(Tabular))
         Text(pequeno, style = MaterialTheme.typography.labelMedium, color = FichaPalette.meta)
     }
 }

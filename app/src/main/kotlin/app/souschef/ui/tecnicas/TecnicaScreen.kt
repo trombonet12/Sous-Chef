@@ -100,11 +100,11 @@ private fun EnlacesRecetas(
 @Composable
 private fun HojaTecnica(tecnica: Tecnica) {
     Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-        Text(tecnica.titulo, style = MaterialTheme.typography.headlineLarge)
+        Text(tecnica.titulo, style = MaterialTheme.typography.headlineSmall)
         if (tecnica.resumen.isNotBlank()) {
             Text(
                 tecnica.resumen,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontStyle = FontStyle.Italic,
                 color = FichaPalette.tinta2,
             )

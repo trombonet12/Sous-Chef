@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
@@ -142,11 +144,11 @@ private fun VistaDespensaLista(
                         Icon(Icono.Anadir.vector, contentDescription = null, modifier = Modifier.size(18.dp))
                         Text(stringResource(R.string.despensa_anadir), modifier = Modifier.padding(start = 6.dp))
                     }
+                    OutlinedButton(
+                        onClick = vm::pasarACompra,
+                        modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                    ) { Text(stringResource(R.string.despensa_pasar_compra), maxLines = 2) }
                 }
-                OutlinedButton(
-                    onClick = vm::pasarACompra,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                ) { Text(stringResource(R.string.despensa_pasar_compra)) }
                 estado.avisoPasados?.let { n -> Aviso(textoPasados(n), vm::descartarAviso) }
             }
         }
@@ -194,7 +196,10 @@ private fun FiltroEstados(
     activo: EstadoDespensa?,
     onElegir: (EstadoDespensa?) -> Unit,
 ) {
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    Row(
+        Modifier.horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         FilterChip(
             selected = activo == null,
             onClick = { onElegir(null) },
@@ -233,8 +238,9 @@ private fun LazyListScope.cuerpoDespensa(
                 item(key = "g-${g.categoria}-${g.esVetados}") {
                     Text(
                         if (g.esVetados) stringResource(R.string.despensa_vetados) else g.categoria,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 16.dp, bottom = 2.dp),
                     )
                 }
                 items(g.items, key = { "i-${it.id}" }) { item ->
@@ -272,7 +278,7 @@ private fun FilaDespensa(
         ) {
             Text(
                 item.nombre,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 textDecoration = if (vetado) TextDecoration.LineThrough else null,
                 modifier = Modifier.weight(1f).alpha(if (vetado) 0.6f else 1f),
             )

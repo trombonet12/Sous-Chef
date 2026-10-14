@@ -36,17 +36,17 @@ fun PortadaFicha(
     receta: Receta,
     raciones: Int,
 ) {
-    Column(Modifier.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(receta.titulo, style = MaterialTheme.typography.headlineLarge)
+    Column(Modifier.padding(top = 4.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(receta.titulo, style = MaterialTheme.typography.headlineSmall)
         if (receta.descripcion.isNotBlank()) {
             Text(
                 receta.descripcion,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontStyle = FontStyle.Italic,
                 color = FichaPalette.tinta2,
             )
         }
-        FlowRow(Modifier.padding(top = 8.dp)) {
+        FlowRow(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             CeldaDato(raciones.toString(), pluralStringResource(R.plurals.ficha_unidad_racion, raciones))
             receta.datos.filter { it.isNotEmpty() }.forEach { CeldaDato(it[0], it.getOrElse(1) { "" }) }
         }
@@ -78,12 +78,12 @@ fun IngredientesFicha(
         }
         val f = Escalado.factor(raciones, receta.raciones)
         receta.grupos.forEach { g ->
-            Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 6.dp))
+            Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 8.dp))
             g.items.forEach { item ->
-                Row(Modifier.fillMaxWidth()) {
+                Row(Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
                     Text(
                         Escalado.cantidad(item, f),
-                        Modifier.width(96.dp).padding(end = 12.dp),
+                        Modifier.width(84.dp).padding(end = 12.dp),
                         style = MaterialTheme.typography.bodyMedium.merge(Tabular),
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.End,

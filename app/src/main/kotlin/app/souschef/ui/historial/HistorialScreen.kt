@@ -3,8 +3,6 @@ package app.souschef.ui.historial
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -84,7 +83,7 @@ private fun LazyListScope.cuerpo(
             item {
                 Text(
                     pluralStringResource(R.plurals.historial_conteo, estado.filas.size, estado.filas.size),
-                    style = MaterialTheme.typography.labelLarge,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -100,7 +99,6 @@ private fun LazyListScope.cuerpo(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FilaHistorialVista(
     fila: FilaHistorial,
@@ -110,31 +108,38 @@ private fun FilaHistorialVista(
 ) {
     val e = fila.entrada
     Card(Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(
-                fechaCorta(e.fecha),
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Text(e.titulo, style = MaterialTheme.typography.titleLarge)
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
-            ) {
-                e.base?.let {
-                    if (fila.repite) {
-                        Etiqueta(stringResource(R.string.historial_dos_seguidas, it), tono = Tono.Teja)
-                    } else {
-                        Etiqueta(it)
-                    }
+        Column(
+            Modifier.padding(start = 16.dp, top = 12.dp, end = 8.dp, bottom = 4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    fechaCorta(e.fecha),
+                    modifier = Modifier.weight(1f),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (fila.repite && e.base != null) {
+                    Etiqueta(stringResource(R.string.historial_dos_seguidas, e.base), tono = Tono.Teja)
                 }
-                e.tecnica.take(3).forEach { Etiqueta(it) }
-                e.minutosReales?.let { Etiqueta(stringResource(R.string.historial_min_reales, it)) }
+            }
+            Text(e.titulo, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Medium)
+            val minutos = e.minutosReales?.let { stringResource(R.string.historial_min_reales, it) }
+            val meta =
+                (listOfNotNull(e.base.takeUnless { fila.repite }) + e.tecnica.take(3) + listOfNotNull(minutos))
+                    .joinToString(" · ")
+            if (meta.isNotEmpty()) {
+                Text(
+                    meta,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
             e.nota?.takeIf { it.isNotBlank() }?.let {
                 Text(
                     stringResource(R.string.historial_nota, it),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontStyle = FontStyle.Italic,
                 )
             }
