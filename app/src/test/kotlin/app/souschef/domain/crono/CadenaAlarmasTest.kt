@@ -91,4 +91,44 @@ class CadenaAlarmasTest {
             cadena.procesar()
             assertTrue(notificador.publicados.all { it.aviso.silencioso })
         }
+
+    @Test
+    fun repintarSoloPintaLasCocinadasVivas() =
+        runTest {
+            cocinando("a", T0)
+            almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
+            cadena.repintar()
+            assertEquals(setOf("a"), notificador.enMarchaPorSlug.keys)
+        }
+
+    @Test
+    fun repintarQuitaLaOngoingDeUnaCocinadaCaducada() =
+        runTest {
+            cocinando("a", T0)
+            cadena.repintar()
+            reloj.ms = T0 + SesionCrono.CADUCIDAD_MS + 1
+            cadena.repintar()
+            assertTrue(notificador.enMarchaPorSlug.isEmpty())
+        }
+
+    @Test
+    fun otraVivaIgnoraLaPropiaYLasSinArrancar() =
+        runTest {
+            cocinando("a", T0)
+            almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
+            assertNull(cadena.otraViva("a"))
+            assertEquals("a", cadena.otraViva("b")?.slug)
+        }
+
+    @Test
+    fun abandonarBorraElEstadoLimpiaYRearma() =
+        runTest {
+            cocinando("a", T0)
+            cadena.reprogramar()
+            cadena.abandonar("a")
+            assertNull(repo.obtener("a"))
+            assertEquals(listOf("a"), notificador.limpiados)
+            assertTrue(notificador.enMarchaPorSlug.isEmpty())
+            assertNull(sistema.programada)
+        }
 }

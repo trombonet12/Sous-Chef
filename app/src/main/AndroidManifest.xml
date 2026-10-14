@@ -61,6 +61,20 @@
             android:name=".data.alarma.SiguienteReceiver"
             android:exported="false" />
 
+        <receiver
+            android:name=".data.alarma.PararReceiver"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.crono.AlarmaActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:showWhenLocked="true"
+            android:taskAffinity="app.souschef.alarma"
+            android:theme="@style/Theme.SousChef"
+            android:turnScreenOn="true" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

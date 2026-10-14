@@ -212,6 +212,16 @@
     <string name="crono_potencia">Potencia %1$d</string>
     <string name="crono_notif_siguiente">Siguiente</string>
     <string name="crono_notif_abrir">Abrir</string>
+    <string name="crono_notif_parar">Parar</string>
+    <string name="crono_alarma_parar">Parar</string>
+    <string name="crono_alarma_hecho_siguiente">Hecho → siguiente</string>
+    <string name="crono_alarma_abrir">Abrir cocina</string>
+    <string name="crono_abandonar">ABANDONAR</string>
+    <string name="crono_abandonar_titulo">¿Abandonar esta cocinada?</string>
+    <string name="crono_abandonar_detalle">Se pierde el progreso y no se guarda en el historial.</string>
+    <string name="crono_abandonar_si">Abandonar</string>
+    <string name="crono_abandonar_no">Seguir cocinando</string>
+    <string name="crono_ya_cocinando">Ya estás cocinando %1$s. ¿Abandonarla?</string>
     <string name="crono_pantalla_aviso">Los avisos no pueden encender la pantalla bloqueada.</string>
     <string name="crono_pantalla_ajustes">Permitir</string>
     <string name="crono_guardado">Cocinada guardada en el historial</string>

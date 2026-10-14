@@ -41,6 +41,9 @@ interface Notificador {
 
     /** Cierre de la cocinada: fuera todos sus avisos y la ongoing. */
     fun limpiar(slug: String)
+
+    /** Para el sonido de alarma y quita los avisos publicados de la cocinada (la ongoing se queda). */
+    fun silenciar(slug: String)
 }
 
 /**
@@ -48,6 +51,7 @@ interface Notificador {
  * cocinadas abiertas; [procesar] (al sonar la alarma, tras un reinicio o un cambio de hora) emite lo vencido,
  * lo persiste y arma la siguiente.
  */
+@Suppress("TooManyFunctions")
 class CadenaAlarmas(
     val almacen: AlmacenCrono,
     private val recetas: RecetasRepo,
@@ -71,14 +75,31 @@ class CadenaAlarmas(
         repintar()
     }
 
-    /** Repinta la ongoing "En marcha" de cada cocinada guardada (o la quita si ya no hay nada en marcha). */
+    /** Repinta la ongoing "En marcha" solo de las cocinadas vivas; las demás (sin arrancar, caducadas) la pierden. */
     suspend fun repintar() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
-            val modelo = recetas.obtener(e.slug)?.let { ConstructorEnMarcha.construir(it, e, ahora) }
+            val modelo =
+                recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }?.let { ConstructorEnMarcha.construir(it, e, ahora) }
             notificador.enMarcha(e.slug, modelo)
         }
     }
+
+    /** Otra cocinada viva distinta de [slug] (solo se cocina una a la vez), o null. */
+    suspend fun otraViva(slug: String): EstadoCrono? {
+        val ahora = reloj.ahoraMs()
+        return almacen.todos().firstOrNull { it.slug != slug && vivo(it, ahora) }
+    }
+
+    /** Abandona una cocinada: borra su estado, quita avisos y ongoing y rearma la cadena. */
+    suspend fun abandonar(slug: String) {
+        almacen.borrar(slug)
+        notificador.limpiar(slug)
+        reprogramar()
+    }
+
+    /** Para el sonido y quita los avisos de la cocinada. */
+    fun silenciar(slug: String) = notificador.silenciar(slug)
 
     /** Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. */
     fun descartarObsoletos(

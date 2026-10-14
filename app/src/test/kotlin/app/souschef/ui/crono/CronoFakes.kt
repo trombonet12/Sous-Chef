@@ -87,6 +87,12 @@ class FakeNotificador : Notificador {
         canceladas += slug to carriles.toSet()
     }
 
+    val silenciados = mutableListOf<String>()
+
+    override fun silenciar(slug: String) {
+        silenciados += slug
+    }
+
     override fun limpiar(slug: String) {
         limpiados += slug
         enMarchaPorSlug.remove(slug)

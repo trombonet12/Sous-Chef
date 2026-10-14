@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +18,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -60,6 +62,7 @@ fun CronoScreen(
     }
     AvisarAlSalirDeLaVista(viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
+    ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
     MaterialTheme(colorScheme = DarkColors, typography = MaterialTheme.typography, shapes = MaterialTheme.shapes) {
         Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
             Box(Modifier.fillMaxSize()) {
@@ -142,7 +145,13 @@ private fun AvisarAlSalirDeLaVista(viewModel: CronoViewModel) {
     val propietario = LocalLifecycleOwner.current
     DisposableEffect(propietario) {
         val observador =
-            LifecycleEventObserver { _, evento -> if (evento == Lifecycle.Event.ON_STOP) viewModel.enSegundoPlano() }
+            LifecycleEventObserver { _, evento ->
+                when (evento) {
+                    Lifecycle.Event.ON_RESUME -> viewModel.alVer()
+                    Lifecycle.Event.ON_STOP -> viewModel.enSegundoPlano()
+                    else -> Unit
+                }
+            }
         propietario.lifecycle.addObserver(observador)
         onDispose {
             propietario.lifecycle.removeObserver(observador)
@@ -187,4 +196,22 @@ private fun EncenderPantallaConAvisos() {
             }
         }
     }
+}
+
+/** Solo se cocina una receta a la vez: abrir esta exige abandonar la que sigue en marcha. */
+@Composable
+private fun DialogoOtraCocinada(
+    titulo: String,
+    viewModel: CronoViewModel,
+) {
+    AlertDialog(
+        onDismissRequest = viewModel::descartarConflicto,
+        text = { Text(stringResource(R.string.crono_ya_cocinando, titulo)) },
+        confirmButton = {
+            TextButton(onClick = viewModel::abandonarOtraYAbrir) { Text(stringResource(R.string.crono_abandonar_si)) }
+        },
+        dismissButton = {
+            TextButton(onClick = viewModel::descartarConflicto) { Text(stringResource(R.string.crono_abandonar_no)) }
+        },
+    )
 }

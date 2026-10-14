@@ -58,6 +58,8 @@ data class CronoUi(
     val salida: Boolean = false,
     /** Técnicas de la receta que existen: slug a título (enlaces de "Ver el porqué"). */
     val tecnicas: Map<String, String> = emptyMap(),
+    /** Título de otra cocinada viva que habría que abandonar para abrir esta cocina (solo se cocina una a la vez). */
+    val conflicto: String? = null,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -95,6 +97,7 @@ class CronoViewModel
         private var jobReiniciar: Job? = null
         private var jobCierre: Job? = null
         private var cierre: (suspend () -> Unit)? = null
+        private var otraSlug: String? = null
 
         init {
             viewModelScope.launch {
@@ -216,7 +219,46 @@ class CronoViewModel
         // --- mandos ---------------------------------------------------------------------------------------------
 
         /** "Abrir la cocina": fija el inicio y arma la cadena de alarmas. */
-        fun abrirCocina() = mutar { e, r, t -> SesionCrono.abrir(e, r, t) }
+        fun abrirCocina() {
+            viewModelScope.launch {
+                val otra = cadena.otraViva(slug)
+                if (otra == null) {
+                    ejecutar { e, r, t -> SesionCrono.abrir(e, r, t) }
+                } else {
+                    otraSlug = otra.slug
+                    val titulo = recetas.obtener(otra.slug)?.titulo ?: otra.slug
+                    _ui.update { it.copy(conflicto = titulo) }
+                }
+            }
+        }
+
+        /** El usuario acepta abandonar la otra cocinada para abrir esta. */
+        fun abandonarOtraYAbrir() {
+            val otra = otraSlug
+            otraSlug = null
+            _ui.update { it.copy(conflicto = null) }
+            viewModelScope.launch {
+                if (otra != null) cadena.abandonar(otra)
+                ejecutar { e, r, t -> SesionCrono.abrir(e, r, t) }
+            }
+        }
+
+        fun descartarConflicto() {
+            otraSlug = null
+            _ui.update { it.copy(conflicto = null) }
+        }
+
+        /** Abandona esta cocinada: se borra el estado, sin historial, y se sale. */
+        fun abandonar() {
+            jobReiniciar?.cancel()
+            viewModelScope.launch {
+                cadena.abandonar(slug)
+                _ui.update { it.copy(salida = true) }
+            }
+        }
+
+        /** La pantalla se ve (o vuelve a verse): se calla la alarma y se quitan los avisos de esta cocinada. */
+        fun alVer() = cadena.silenciar(slug)
 
         fun marcar(
             idCasilla: String,

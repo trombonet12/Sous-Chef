@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -278,7 +279,7 @@ private fun CuerpoPlan(
                 )
             }
         }
-        BotonReiniciar(reiniciarArmado, viewModel::reiniciar, Modifier.align(Alignment.End))
+        MandosPlan(reiniciarArmado, viewModel, Modifier.align(Alignment.End))
     }
 }
 
@@ -326,6 +327,43 @@ private fun FilaPlan(
             textAlign = TextAlign.End,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+@Composable
+private fun MandosPlan(
+    reiniciarArmado: Boolean,
+    viewModel: CronoViewModel,
+    modifier: Modifier,
+) {
+    var confirmar by remember { mutableStateOf(false) }
+    Row(modifier) {
+        TextButton(onClick = { confirmar = true }, Modifier.heightIn(min = 48.dp)) {
+            Text(
+                stringResource(R.string.crono_abandonar),
+                color = CronoPalette.tenue,
+                style = MaterialTheme.typography.labelMedium,
+            )
+        }
+        BotonReiniciar(reiniciarArmado, viewModel::reiniciar)
+    }
+    if (confirmar) {
+        AlertDialog(
+            onDismissRequest = { confirmar = false },
+            title = { Text(stringResource(R.string.crono_abandonar_titulo)) },
+            text = { Text(stringResource(R.string.crono_abandonar_detalle)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    confirmar = false
+                    viewModel.abandonar()
+                }) {
+                    Text(stringResource(R.string.crono_abandonar_si))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { confirmar = false }) { Text(stringResource(R.string.crono_abandonar_no)) }
+            },
         )
     }
 }
