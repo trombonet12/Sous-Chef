@@ -1,0 +1,68 @@
+@file:Suppress("MatchingDeclarationName")
+
+package app.souschef.data.repo
+
+import app.souschef.data.db.DespensaItemEntity
+import app.souschef.data.db.HistorialEntity
+import app.souschef.domain.EntradaHistorial
+import app.souschef.domain.EstadoDespensa
+import app.souschef.domain.ItemDespensa
+import app.souschef.domain.PasoReal
+import app.souschef.receta.RecetaJson
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.serializer
+
+@Serializable
+data class PasoRealDto(
+    val id: String = "",
+    val t: String = "",
+    val segundos: Int = 0,
+)
+
+private val listaTexto = ListSerializer(String.serializer())
+private val listaPasos = ListSerializer(PasoRealDto.serializer())
+
+fun HistorialEntity.aDominio(): EntradaHistorial =
+    EntradaHistorial(
+        id = id,
+        slug = slug,
+        titulo = titulo,
+        fecha = fecha,
+        base = base,
+        tecnica = RecetaJson.decodeFromString(listaTexto, tecnicaJson),
+        raciones = raciones,
+        minutosReales = minutosReales,
+        nota = nota,
+        pasosReales =
+            pasosRealesJson
+                ?.let { RecetaJson.decodeFromString(listaPasos, it) }
+                .orEmpty()
+                .map { PasoReal(it.id, it.t, it.segundos) },
+    )
+
+fun EntradaHistorial.aEntidad(): HistorialEntity =
+    HistorialEntity(
+        id = id,
+        slug = slug,
+        titulo = titulo,
+        fecha = fecha,
+        base = base,
+        tecnicaJson = RecetaJson.encodeToString(listaTexto, tecnica),
+        raciones = raciones,
+        minutosReales = minutosReales,
+        nota = nota,
+        pasosRealesJson =
+            pasosReales
+                .takeIf { it.isNotEmpty() }
+                ?.let { l -> RecetaJson.encodeToString(listaPasos, l.map { PasoRealDto(it.id, it.t, it.segundos) }) },
+    )
+
+fun DespensaItemEntity.aDominio(): ItemDespensa =
+    ItemDespensa(
+        id = id,
+        nombre = nombre,
+        categoria = categoria,
+        estado = runCatching { EstadoDespensa.valueOf(estado) }.getOrDefault(EstadoDespensa.HAY),
+        nota = nota,
+    )

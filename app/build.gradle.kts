@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
+import javax.inject.Inject
 
 plugins {
     alias(libs.plugins.android.application)
@@ -118,6 +119,46 @@ android {
         compose = true
         buildConfig = true
     }
+}
+
+// Datos del repo (recetas, técnicas, legado, despensa) empaquetados como assets para el seed local.
+abstract class CopiarDatos : DefaultTask() {
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val origen: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val destino: DirectoryProperty
+
+    @get:Inject
+    abstract val fs: FileSystemOperations
+
+    @TaskAction
+    fun copiar() {
+        fs.sync {
+            from(origen) {
+                include("recetas/**", "tecnicas/**", "legado/**", "despensa-semilla.md")
+            }
+            into(destino)
+        }
+    }
+}
+
+val copiarDatos =
+    tasks.register<CopiarDatos>("copiarDatos") {
+        origen.set(rootProject.layout.projectDirectory.dir("data"))
+        destino.set(layout.buildDirectory.dir("generated/souschef-datos"))
+    }
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(copiarDatos, CopiarDatos::destino)
+    }
+}
+
+// Robolectric (SDK 36) necesita abrir internals del JDK 21.
+tasks.withType<Test>().configureEach {
+    jvmArgs("--add-exports=java.base/jdk.internal.access=ALL-UNNAMED", "--add-opens=java.base/java.lang=ALL-UNNAMED")
 }
 
 room {
