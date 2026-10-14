@@ -94,6 +94,10 @@
     <string name="ficha_anadida">Añadido a la lista de la compra.</string>
     <string name="ficha_clip_etiqueta">Compra</string>
     <string name="ficha_cantidad_nombre">%1$s %2$s</string>
+    <string name="ficha_imprimir">Imprimir o guardar como PDF</string>
+    <string name="ficha_pdf_nombre">Sous Chef – %1$s</string>
+    <string name="ficha_meto">Meto</string>
+    <string name="ficha_saco">Saco</string>
 
     <!-- Técnicas -->
     <string name="tecnicas_titulo">Técnicas</string>

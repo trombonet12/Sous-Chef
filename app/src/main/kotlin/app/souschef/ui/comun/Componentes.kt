@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -131,12 +132,18 @@ fun BarraTitulo(
     titulo: String,
     onAtras: () -> Unit,
     modifier: Modifier = Modifier,
+    acciones: @Composable RowScope.() -> Unit = {},
 ) {
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = onAtras) {
             Icon(Icono.Atras.vector, contentDescription = stringResource(R.string.atras))
         }
-        Text(titulo, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(start = 4.dp))
+        Text(
+            titulo,
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(start = 4.dp).weight(1f),
+        )
+        acciones()
     }
 }
 

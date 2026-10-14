@@ -206,7 +206,7 @@ private fun copiarTexto(
     cm.setPrimaryClip(ClipData.newPlainText("compra", texto))
 }
 
-private fun compartirTexto(
+internal fun compartirTexto(
     contexto: Context,
     texto: String,
     titulo: String,

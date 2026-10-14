@@ -106,3 +106,26 @@ fun textoCompra(grupos: List<GrupoCompra>): String =
                 else -> (listOf("${g.clave}:") + lineas).joinToString("\n")
             }
         }.joinToString("\n\n")
+
+/** Markdown: `# titulo` y una sección por estado con `- nombre (categoría)`. */
+fun textoDespensa(
+    items: List<ItemDespensa>,
+    titulo: String,
+    etiqueta: (EstadoDespensa) -> String,
+): String {
+    val ordenEstados =
+        listOf(EstadoDespensa.HAY, EstadoDespensa.POCO, EstadoDespensa.FALTA, EstadoDespensa.VETADO)
+    val secciones =
+        ordenEstados.mapNotNull { e ->
+            val lineas =
+                items
+                    .filter { it.estado == e }
+                    .sortedBy { normalizar(it.nombre) }
+                    .map { i ->
+                        val c = i.categoria.trim()
+                        if (c.isEmpty()) "- ${i.nombre.trim()}" else "- ${i.nombre.trim()} ($c)"
+                    }
+            if (lineas.isEmpty()) null else (listOf("## ${etiqueta(e)}") + lineas).joinToString("\n")
+        }
+    return (listOf("# $titulo") + secciones).joinToString("\n\n")
+}

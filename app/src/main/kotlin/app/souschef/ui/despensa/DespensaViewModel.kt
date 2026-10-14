@@ -56,6 +56,9 @@ class DespensaViewModel
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), DespensaUiState())
 
+        /** Toda la despensa, sin filtros, para compartirla como texto. */
+        suspend fun itemsParaCompartir(): List<ItemDespensa> = despensa.observar().first()
+
         fun elegirVista(vista: VistaDespensa) = controles.update { it.copy(vista = vista) }
 
         fun buscar(texto: String) = controles.update { it.copy(consulta = texto) }

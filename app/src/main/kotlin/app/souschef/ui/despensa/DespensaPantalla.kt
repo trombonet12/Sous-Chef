@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -68,6 +69,8 @@ import app.souschef.ui.comun.EstadoVacio
 import app.souschef.ui.comun.Etiqueta
 import app.souschef.ui.comun.Tono
 import app.souschef.ui.shell.Icono
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -149,6 +152,7 @@ private fun VistaDespensaLista(
                         modifier = Modifier.weight(1f).heightIn(min = 48.dp),
                     ) { Text(stringResource(R.string.despensa_pasar_compra), maxLines = 2) }
                 }
+                BotonCompartirDespensa(vm)
                 estado.avisoPasados?.let { n -> Aviso(textoPasados(n), vm::descartarAviso) }
             }
         }
@@ -163,6 +167,26 @@ private fun VistaDespensaLista(
                 dialogo = false
             },
         )
+    }
+}
+
+@Composable
+private fun BotonCompartirDespensa(vm: DespensaViewModel) {
+    val contexto = LocalContext.current
+    val alcance = rememberCoroutineScope()
+    val titulo = stringResource(R.string.despensa_texto_titulo, LocalDate.now().toString())
+    val tituloEnvio = stringResource(R.string.despensa_compartir_titulo)
+    val etiquetas = EstadoDespensa.entries.associateWith { etiquetaEstado(it) }
+    OutlinedButton(
+        onClick = {
+            alcance.launch {
+                val texto = textoDespensa(vm.itemsParaCompartir(), titulo) { etiquetas.getValue(it) }
+                compartirTexto(contexto, texto, tituloEnvio)
+            }
+        },
+        modifier = Modifier.heightIn(min = 48.dp),
+    ) {
+        Text(stringResource(R.string.despensa_compartir))
     }
 }
 

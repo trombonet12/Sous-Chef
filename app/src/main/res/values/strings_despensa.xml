@@ -43,4 +43,7 @@
     <string name="compra_compartir">Compartir</string>
     <string name="compra_copiada">Lista copiada</string>
     <string name="compra_compartir_titulo">Compartir lista de la compra</string>
+    <string name="despensa_compartir">Compartir despensa</string>
+    <string name="despensa_compartir_titulo">Compartir la despensa</string>
+    <string name="despensa_texto_titulo">Despensa (%1$s)</string>
 </resources>

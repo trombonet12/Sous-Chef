@@ -228,3 +228,22 @@ class DespensaViewModelTest {
             assertEquals(listOf("Leche"), compra.datos.value.map { it.texto })
         }
 }
+
+class TextoDespensaTest {
+    @Test
+    fun markdownPorEstadoConCategoria() {
+        val items =
+            listOf(
+                ItemDespensa(1, "sal", "Especias", EstadoDespensa.HAY),
+                ItemDespensa(2, "aceite", "", EstadoDespensa.FALTA),
+                ItemDespensa(3, "coliflor", "Verdura", EstadoDespensa.VETADO),
+                ItemDespensa(4, "arroz", "Cereales", EstadoDespensa.HAY),
+            )
+        val texto =
+            textoDespensa(items, "Despensa (2026-10-14)") { it.name.lowercase().replaceFirstChar(Char::uppercase) }
+        val esperado =
+            "# Despensa (2026-10-14)\n\n## Hay\n- arroz (Cereales)\n- sal (Especias)\n\n## Falta\n- aceite\n\n" +
+                "## Vetado\n- coliflor (Verdura)"
+        org.junit.Assert.assertEquals(esperado, texto)
+    }
+}
