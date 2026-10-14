@@ -89,6 +89,7 @@ class FichaViewModelTest {
                 FakeTecnicasRepo(listOf(Tecnica("plancha", "A la plancha"))),
                 prefs,
                 compra,
+                backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
         return vm
@@ -121,6 +122,20 @@ class FichaViewModelTest {
             advanceTimeBy(2)
             runCurrent()
             assertEquals(listOf("sopa" to 4), prefs.racionesGuardadas)
+        }
+
+    @Test
+    fun alSalirAntesDelDebounceGuardaLoPendiente() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            vm.cambiarRaciones(6)
+            advanceTimeBy(100)
+            vm.guardarPendiente()
+            runCurrent()
+            assertEquals(listOf("sopa" to 6), prefs.racionesGuardadas)
+            advanceTimeBy(1_000)
+            runCurrent()
+            assertEquals(listOf("sopa" to 6), prefs.racionesGuardadas)
         }
 
     @Test

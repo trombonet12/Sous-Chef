@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
-val LocalFonts = staticCompositionLocalOf<SousChefFonts> { error("SousChefTheme no aplicado") }
+/** Alias de compatibilidad: ambas familias son la letra del sistema. */
+val LocalFonts = staticCompositionLocalOf { SousChefFonts() }
 
 private val SousChefShapes =
     Shapes(
@@ -27,8 +27,7 @@ fun SousChefTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val assets = LocalContext.current.assets
-    val fonts = remember(assets) { sousChefFonts(assets) }
+    val fonts = remember { SousChefFonts() }
     val typography = remember(fonts) { sousChefTypography(fonts) }
     CompositionLocalProvider(LocalFonts provides fonts) {
         MaterialTheme(

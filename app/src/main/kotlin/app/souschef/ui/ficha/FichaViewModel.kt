@@ -3,6 +3,7 @@ package app.souschef.ui.ficha
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.souschef.di.ApplicationScope
 import app.souschef.domain.CompraRepo
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
@@ -10,6 +11,7 @@ import app.souschef.domain.TecnicasRepo
 import app.souschef.receta.Escalado
 import app.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,7 +43,9 @@ class FichaViewModel
         tecnicas: TecnicasRepo,
         private val preferencias: PreferenciasRepo,
         private val compra: CompraRepo,
+        @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
+        private var pendiente: Int? = null
         private val slug: String = checkNotNull(savedStateHandle[Rutas.ARG_SLUG])
         private val local = MutableStateFlow(Local())
         private var jobGuardar: Job? = null
@@ -68,12 +72,26 @@ class FichaViewModel
         fun cambiarRaciones(nuevas: Int) {
             val valor = nuevas.coerceIn(Escalado.RACIONES_MIN, Escalado.RACIONES_MAX)
             local.update { it.copy(raciones = valor) }
+            pendiente = valor
             jobGuardar?.cancel()
             jobGuardar =
                 viewModelScope.launch {
                     delay(DEBOUNCE_RACIONES_MS)
+                    pendiente = null
                     preferencias.fijarRaciones(slug, valor)
                 }
+        }
+
+        /** Si se sale antes del debounce, guarda el valor pendiente en un scope que sobrevive. */
+        internal fun guardarPendiente() {
+            val valor = pendiente ?: return
+            pendiente = null
+            jobGuardar?.cancel()
+            ambito.launch { preferencias.fijarRaciones(slug, valor) }
+        }
+
+        override fun onCleared() {
+            guardarPendiente()
         }
 
         fun ajustarServir(delta: Int) {

@@ -26,7 +26,7 @@ import app.souschef.R
 import app.souschef.ui.Rutas
 import app.souschef.ui.SousChefNavGraph
 
-/** Shell con tres pestañas abajo y menú superior (Técnicas, Ajustes, Cerrar sesión). */
+/** Shell con tres pestañas abajo y menú superior (Técnicas). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SousChefShell(navController: NavHostController) {
@@ -50,9 +50,6 @@ fun SousChefShell(navController: NavHostController) {
                                 navController.navigate(Rutas.TECNICAS) { launchSingleTop = true }
                             },
                         )
-                        listOf(R.string.menu_ajustes, R.string.menu_cerrar_sesion).forEach {
-                            DropdownMenuItem(text = { Text(stringResource(it)) }, onClick = { menuAbierto = false })
-                        }
                     }
                 },
             )
