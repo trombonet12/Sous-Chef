@@ -8,4 +8,137 @@
     <string name="menu_ajustes">Ajustes</string>
     <string name="menu_cerrar_sesion">Cerrar sesión</string>
     <string name="menu_mas">Más opciones</string>
+
+    <!-- Comunes -->
+    <string name="atras">Volver</string>
+    <string name="limpiar_busqueda">Borrar la búsqueda</string>
+    <string name="cargando">Cargando…</string>
+    <string name="filtro_todas">Todas</string>
+    <string name="filtro_todas_n">Todas (%1$d)</string>
+    <string name="filtro_n">%1$s (%2$d)</string>
+
+    <!-- Lista de recetas -->
+    <string name="recetas_buscar">Buscar por plato o ingrediente</string>
+    <plurals name="recetas_conteo">
+        <item quantity="one">%d receta</item>
+        <item quantity="other">%d recetas</item>
+    </plurals>
+    <string name="recetas_vacio_titulo">Todavía no hay recetas</string>
+    <string name="recetas_vacio_detalle">Se publican desde el repositorio y aparecen aquí al sincronizar.</string>
+    <string name="recetas_nada_titulo">Nada con eso</string>
+    <string name="recetas_nada_detalle">Prueba con un ingrediente.</string>
+    <string name="recetas_nada_detalle_filtro">Prueba con un ingrediente o quita el filtro de categoría.</string>
+    <string name="favorita_marcar">Marcar %1$s como favorita</string>
+    <string name="favorita_quitar">Quitar %1$s de favoritas</string>
+    <string name="tarjeta_minutos">%1$s min</string>
+    <plurals name="tarjeta_fuegos">
+        <item quantity="one">%d fuego</item>
+        <item quantity="other">%d fuegos</item>
+    </plurals>
+    <string name="tarjeta_compra">compra</string>
+    <string name="tarjeta_despensa">despensa</string>
+
+    <!-- Hace X -->
+    <string name="hace_sin_estrenar">sin estrenar</string>
+    <string name="hace_hoy">hoy</string>
+    <string name="hace_ayer">ayer</string>
+    <plurals name="hace_dias">
+        <item quantity="one">hace %d día</item>
+        <item quantity="other">hace %d días</item>
+    </plurals>
+    <plurals name="hace_semanas">
+        <item quantity="one">hace %d semana</item>
+        <item quantity="other">hace %d semanas</item>
+    </plurals>
+    <plurals name="hace_meses">
+        <item quantity="one">hace %d mes</item>
+        <item quantity="other">hace %d meses</item>
+    </plurals>
+    <plurals name="hace_anos">
+        <item quantity="one">hace %d año</item>
+        <item quantity="other">hace %d años</item>
+    </plurals>
+    <string name="hace_ultima">últ. %1$s</string>
+
+    <!-- Ficha -->
+    <string name="ficha_no_encontrada">No encuentro esta receta</string>
+    <string name="ficha_servir_a">Servir a</string>
+    <string name="ficha_servir_mas">Servir 15 minutos más tarde</string>
+    <string name="ficha_servir_menos">Servir 15 minutos antes</string>
+    <string name="ficha_cocinar">Cronómetro</string>
+    <string name="ficha_tecnica">Técnica: %1$s</string>
+    <string name="ficha_raciones_etiqueta">Raciones</string>
+    <string name="ficha_raciones_mas">Una ración más</string>
+    <string name="ficha_raciones_menos">Una ración menos</string>
+    <string name="ficha_raciones_valor">%1$d raciones</string>
+    <plurals name="ficha_unidad_racion">
+        <item quantity="one">ración</item>
+        <item quantity="other">raciones</item>
+    </plurals>
+    <string name="ficha_sec_ingredientes">Ingredientes</string>
+    <string name="ficha_sec_tiempo">El tiempo</string>
+    <string name="ficha_sec_mep">Antes de empezar</string>
+    <string name="ficha_sec_pasos">Los pasos</string>
+    <string name="ficha_sec_tecnica">Técnica y decisiones</string>
+    <string name="ficha_sec_compra">Hay que comprar</string>
+    <string name="ficha_eje">Eje en minutos desde el arranque</string>
+    <string name="ficha_min_rango">min %1$s-%2$s</string>
+    <string name="ficha_duracion">%1$s′</string>
+    <string name="ficha_minutos_meta">%1$s MIN</string>
+    <string name="ficha_fuego_meta">FUEGO %1$d</string>
+    <string name="ficha_sin_fuego">SIN FUEGO</string>
+    <string name="ficha_sin_fuego_bajo">sin fuego</string>
+    <string name="ficha_fuego_bajo">fuego %1$d</string>
+    <string name="ficha_compra_vacia">Sale entera de la despensa.</string>
+    <string name="ficha_copiar">Copiar la lista</string>
+    <string name="ficha_anadir_compra">Añadir a la lista de la compra</string>
+    <string name="ficha_copiada">Lista copiada.</string>
+    <string name="ficha_anadida">Añadido a la lista de la compra.</string>
+    <string name="ficha_clip_etiqueta">Compra</string>
+    <string name="ficha_cantidad_nombre">%1$s %2$s</string>
+
+    <!-- Técnicas -->
+    <string name="tecnicas_titulo">Técnicas</string>
+    <string name="tecnicas_buscar">Buscar técnica</string>
+    <plurals name="tecnicas_conteo">
+        <item quantity="one">%d técnica</item>
+        <item quantity="other">%d técnicas</item>
+    </plurals>
+    <plurals name="tecnica_pasos_n">
+        <item quantity="one">%d paso</item>
+        <item quantity="other">%d pasos</item>
+    </plurals>
+    <plurals name="tecnica_unidad_paso">
+        <item quantity="one">paso</item>
+        <item quantity="other">pasos</item>
+    </plurals>
+    <string name="tecnicas_vacio">Todavía no hay técnicas</string>
+    <string name="tecnicas_nada">Nada con eso</string>
+    <string name="tecnica_no_encontrada">No encuentro esta técnica</string>
+    <string name="tecnica_receta">Receta: %1$s</string>
+    <string name="tecnica_sec_como">Cómo se hace</string>
+    <string name="tecnica_sec_corte">El corte</string>
+    <string name="tecnica_sec_consejos">Consejos</string>
+    <string name="tecnica_consejo">— %1$s</string>
+
+    <!-- Historial -->
+    <string name="historial_buscar">Buscar en lo cocinado</string>
+    <plurals name="historial_conteo">
+        <item quantity="one">%d vez</item>
+        <item quantity="other">%d veces</item>
+    </plurals>
+    <string name="historial_vacio_titulo">Nada cocinado todavía</string>
+    <string name="historial_vacio_detalle">Al terminar un plato en el cronómetro, se anota aquí.</string>
+    <string name="historial_nada">Nada con eso</string>
+    <string name="historial_dos_seguidas">%1$s · dos seguidas</string>
+    <string name="historial_min_reales">%1$d min reales</string>
+    <string name="historial_nota">«%1$s»</string>
+    <string name="historial_repetir">Repetir →</string>
+    <string name="historial_borrar">Borrar</string>
+    <string name="historial_seguro">¿Seguro?</string>
+    <string name="historial_borrar_desc">Borrar %1$s del historial</string>
+    <string name="historial_repetir_desc">Repetir %1$s</string>
+
+    <!-- Cronómetro (placeholder) -->
+    <string name="crono_proximamente">Cronómetro próximamente</string>
 </resources>

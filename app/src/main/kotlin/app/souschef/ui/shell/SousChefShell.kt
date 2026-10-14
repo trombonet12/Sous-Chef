@@ -1,7 +1,5 @@
 package app.souschef.ui.shell
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -19,15 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import app.souschef.R
+import app.souschef.ui.Rutas
+import app.souschef.ui.SousChefNavGraph
 
 /** Shell con tres pestañas abajo y menú superior (Técnicas, Ajustes, Cerrar sesión). */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +42,14 @@ fun SousChefShell(navController: NavHostController) {
                         Icon(Icono.Mas.vector, contentDescription = stringResource(R.string.menu_mas))
                     }
                     DropdownMenu(expanded = menuAbierto, onDismissRequest = { menuAbierto = false }) {
-                        listOf(R.string.menu_tecnicas, R.string.menu_ajustes, R.string.menu_cerrar_sesion).forEach {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_tecnicas)) },
+                            onClick = {
+                                menuAbierto = false
+                                navController.navigate(Rutas.TECNICAS) { launchSingleTop = true }
+                            },
+                        )
+                        listOf(R.string.menu_ajustes, R.string.menu_cerrar_sesion).forEach {
                             DropdownMenuItem(text = { Text(stringResource(it)) }, onClick = { menuAbierto = false })
                         }
                     }
@@ -53,30 +57,26 @@ fun SousChefShell(navController: NavHostController) {
             )
         },
         bottomBar = {
-            NavigationBar {
-                Pestana.entries.forEach { p ->
-                    NavigationBarItem(
-                        selected = rutaActual == p.ruta,
-                        onClick = {
-                            navController.navigate(p.ruta) {
-                                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = { Icon(p.icono.vector, contentDescription = null) },
-                        label = { Text(stringResource(p.titulo)) },
-                    )
+            if (Pestana.entries.any { it.ruta == rutaActual }) {
+                NavigationBar {
+                    Pestana.entries.forEach { p ->
+                        NavigationBarItem(
+                            selected = rutaActual == p.ruta,
+                            onClick = {
+                                navController.navigate(p.ruta) {
+                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            icon = { Icon(p.icono.vector, contentDescription = null) },
+                            label = { Text(stringResource(p.titulo)) },
+                        )
+                    }
                 }
             }
         },
     ) { padding ->
-        NavHost(navController, startDestination = Pestana.Recetas.ruta, modifier = Modifier.padding(padding)) {
-            Pestana.entries.forEach { p ->
-                composable(p.ruta) {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(stringResource(p.titulo)) }
-                }
-            }
-        }
+        SousChefNavGraph(navController, Modifier.padding(padding))
     }
 }
