@@ -13,15 +13,17 @@ import android.webkit.WebViewClient
 /** WebViews con una impresión en curso: la referencia fuerte evita que se recojan antes de terminar. */
 private val enCurso = mutableSetOf<WebView>()
 
-/** Abre el diálogo de impresión del sistema (también "Guardar como PDF") con la ficha en [html]. */
+/**
+ * Abre el diálogo de impresión del sistema (también "Guardar como PDF") con la ficha en [html]. [context] tiene que
+ * ser el de la Activity: `PrintManager.print` lanza IllegalStateException con el de la aplicación.
+ */
 fun imprimirFicha(
     context: Context,
     nombre: String,
     html: String,
 ) {
-    val app = context.applicationContext
-    val impresion = app.getSystemService(Context.PRINT_SERVICE) as PrintManager
-    val web = WebView(app)
+    val impresion = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+    val web = WebView(context)
     enCurso += web
     web.webViewClient =
         object : WebViewClient() {
