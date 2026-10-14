@@ -52,3 +52,11 @@
   expone el setter), cuenta atrás nativa y `shortCriticalText`; "Siguiente" = Hecho del paso más urgente + arrancar
   el siguiente del carril.
 - Avisos: tag = slug, id = carril+tipo, `setTimeoutAfter` 2/10 min, se cancelan al avanzar el carril o cerrar.
+
+## 2026-10-14 · Ronda 3
+- Avisos: el sonido lo pone la app (`SonidoAlarma`, MediaPlayer USAGE_ALARM en bucle, tope 60 s), no el canal; canal
+  `crono_avisos_v2` solo vibra (los ajustes de canal son inmutables, se borra el viejo). El full-screen intent abre
+  `AlarmaActivity` con `showWhenLocked`/`turnScreenOn` en el manifest: activarlos desde Compose llegaba tarde.
+- Una sola cocinada viva a la vez (decisión de Joan); "En marcha" solo para estados vivos; deslizarla abandona.
+- CI `android.yml` y `claude-assets.yml` solo en PR o `workflow_dispatch`; el gate se pasa en local y se hace push
+  una vez por ronda. Release: secretos de Supabase opcionales hasta F3.

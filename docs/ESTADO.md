@@ -22,6 +22,10 @@
 - 2026-10-14 · Ronda 2 (probado en el móvil, Android 16): avisos HIGH verificados con pantalla apagada; notificación
   "En marcha" promocionada (Live Update) con cuenta atrás y acción Siguiente; avisos con id estable y caducidad;
   full-screen intent; plan plegable y hoja del porqué rediseñados; Deshacer al cerrar; letra del sistema.
+- 2026-10-14 · Ronda 3 (v0.2.0): alarma estilo reloj (`AlarmaActivity` sobre el bloqueo, sonido en bucle hasta
+  Parar, máx. 60 s); una sola cocinada viva a la vez (diálogo para abandonar, menú ⋮ con Abandonar/Reiniciar);
+  sin "En marcha" fantasma; pulido de crono (plan en una línea, línea de tiempo, tapada/destapada en pestañas) y de
+  lista/ficha/despensa/historial; CI `android.yml` solo en PR o a mano; release sin secretos de Supabase.
 
 ## Entorno
 | Herramienta | Estado |
@@ -33,11 +37,12 @@
 | `~/.souschef/supabase.env` | falta (no hace falta para el MVP) |
 
 ## Pendiente del usuario
-- Ver `docs/sesion-final.md`: probar en el móvil, secretos de GitHub, decisiones aplazadas.
+- Subir los 4 secretos de firma y lanzar *Release Android* (`docs/sesion-final.md` §4).
+- Probar la ronda 3 en el móvil (pantalla apagada con un aviso).
 
 ## Problemas conocidos / TODO
-- Crono: falta la línea tapada/destapada en las pestañas de carril.
-- Sin probar en el móvil: pantalla encendida con aviso (full-screen intent), hoja del porqué, Deshacer, barra de estado.
+- Sin probar en el móvil: AlarmaActivity con pantalla apagada (encender, Parar, Hecho → siguiente), diálogo de
+  abandonar, deslizar "En marcha", hoja del porqué, Deshacer. Fuente al 1.3 sin revisar.
 - `shortCriticalText` del chip es estático entre repintados (la cuenta atrás nativa sí corre).
 - Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, imprimir/PDF, completitud heurística del validador,
   revisión culinaria F9b.
