@@ -11,17 +11,7 @@ on:
       - 'gradle.properties'
       - 'data/**'
       - '.github/workflows/android.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'app/**'
-      - 'receta/**'
-      - 'tools/**'
-      - 'gradle/**'
-      - '*.gradle.kts'
-      - 'gradle.properties'
-      - 'data/**'
-      - '.github/workflows/android.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

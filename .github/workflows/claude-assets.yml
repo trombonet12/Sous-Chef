@@ -8,14 +8,7 @@ on:
       - 'scripts/**'
       - 'CLAUDE.md'
       - '.github/workflows/claude-assets.yml'
-  push:
-    branches: [main]
-    paths:
-      - '.claude/**'
-      - 'docs/**'
-      - 'scripts/**'
-      - 'CLAUDE.md'
-      - '.github/workflows/claude-assets.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

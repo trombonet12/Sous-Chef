@@ -3,7 +3,7 @@ name: Release Android
 # Solo manual. Compila el APK release firmado y publica una GitHub Release (tag v<versionName>).
 # Secrets requeridos (Settings > Secrets and variables > Actions):
 # ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD,
-# SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY.
+# Opcionales hasta F3: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY (vacios = app solo local).
 on:
   workflow_dispatch:
     inputs:
@@ -35,9 +35,9 @@ jobs:
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         run: |
           missing=0
-          for name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD SUPABASE_URL SUPABASE_PUBLISHABLE_KEY; do
+          for name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
             if [ -z "${!name}" ]; then
-              echo "::error::Falta el secret $name. Configuralo en Settings > Secrets and variables > Actions (un release sin firma o sin backend no sirve)."
+              echo "::error::Falta el secret $name. Configuralo en Settings > Secrets and variables > Actions (un release sin firma no sirve)."
               missing=1
             fi
           done
