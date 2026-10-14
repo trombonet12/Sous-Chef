@@ -36,7 +36,6 @@ import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EtiquetaParalelo
 import app.souschef.receta.crono.Paralelo
 import app.souschef.ui.comun.Tabular
-import app.souschef.ui.comun.colorCarril
 import app.souschef.ui.theme.CronoPalette
 
 private const val SEGMENTOS_POTENCIA = 9
@@ -51,7 +50,7 @@ fun PanelCarril(
     onEnfocar: (String) -> Unit,
 ) {
     val paso = datos.paso(carril.id)
-    val color = colorCarril(carril.color)
+    val color = datos.color(carril.id)
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -149,7 +148,7 @@ private fun Pildoras(
     paso: Paso,
 ) {
     val ec = datos.ec(carril)
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         when (paso.holguraTipo) {
             Holgura.FLEXIBLE -> Pildora(stringResource(R.string.crono_holgura_flexible), CronoPalette.ok)
             Holgura.AJUSTADO -> Pildora(stringResource(R.string.crono_holgura_ajustado), CronoPalette.acento)
@@ -257,7 +256,7 @@ private fun FilaParalela(
     ) {
         Text(
             datos.nombre(fila.carril),
-            color = datos.carril(fila.carril)?.let { colorCarril(it.color) } ?: CronoPalette.apagado,
+            color = datos.color(fila.carril),
             fontWeight = FontWeight.Bold,
             fontSize = 12.sp,
         )

@@ -26,6 +26,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +35,6 @@ import app.souschef.receta.Carril
 import app.souschef.receta.Paso
 import app.souschef.receta.TipoCarril
 import app.souschef.ui.comun.Tabular
-import app.souschef.ui.comun.colorCarril
 import app.souschef.ui.comun.textoRico
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.LocalFonts
@@ -51,11 +51,12 @@ fun RelojDelPaso(
     onTecnica: (String) -> Unit,
 ) {
     val q = datos.quedan(carril.id)
-    val color = colorCarril(carril.color)
+    val color = datos.color(carril.id)
     Text(
         formatoReloj(q),
         Modifier.fillMaxWidth(),
         fontSize = 76.sp,
+        textAlign = TextAlign.Center,
         fontWeight = FontWeight.ExtraBold,
         style = MaterialTheme.typography.displayLarge.merge(Tabular),
         color = if (q < 0) CronoPalette.alerta else CronoPalette.texto,
@@ -85,8 +86,10 @@ private fun BarraProgreso(
     val hitos = paso.hitosValidos
     Canvas(Modifier.fillMaxWidth().height(14.dp)) {
         val alto = size.height
-        drawRoundRect(CronoPalette.carta2, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
-        drawRoundRect(color, size = Size(size.width * fraccion, alto), cornerRadius = CornerRadius(alto / 2))
+        drawRoundRect(CronoPalette.linea, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
+        if (fraccion > 0f) {
+            drawRoundRect(color, size = Size(size.width * fraccion, alto), cornerRadius = CornerRadius(alto / 2))
+        }
         hitos.forEach {
             val x = size.width * (it.en / paso.segundos).toFloat()
             drawLine(CronoPalette.texto, Offset(x, 0f), Offset(x, alto), strokeWidth = 2.dp.toPx())
@@ -106,7 +109,7 @@ private fun ChipsHitos(
     if (hitos.isEmpty()) return
     val ec = datos.ec(carril)
     val transcurrido = paso.segundos - quedan
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         hitos.forEachIndexed { i, h ->
             val avisado = ec != null && i in ec.hitosAvisados
             val reciente = avisado && ec?.corriendo == true && transcurrido - h.en <= MARGEN_AHORA_HITO_S

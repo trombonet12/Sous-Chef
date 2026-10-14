@@ -62,12 +62,12 @@ fun CronoScreen(
     }
     AvisarAlSalirDeLaVista(viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
-    ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
     MaterialTheme(colorScheme = DarkColors, typography = MaterialTheme.typography, shapes = MaterialTheme.shapes) {
         Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
             Box(Modifier.fillMaxSize()) {
                 Contenido(ui, viewModel, onSalir, onTecnica)
                 SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+                ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
             }
         }
     }
@@ -206,12 +206,18 @@ private fun DialogoOtraCocinada(
 ) {
     AlertDialog(
         onDismissRequest = viewModel::descartarConflicto,
+        containerColor = CronoPalette.carta2,
+        textContentColor = CronoPalette.texto,
         text = { Text(stringResource(R.string.crono_ya_cocinando, titulo)) },
         confirmButton = {
-            TextButton(onClick = viewModel::abandonarOtraYAbrir) { Text(stringResource(R.string.crono_abandonar_si)) }
+            TextButton(onClick = viewModel::abandonarOtraYAbrir) {
+                Text(stringResource(R.string.crono_abandonar_si), color = CronoPalette.alerta)
+            }
         },
         dismissButton = {
-            TextButton(onClick = viewModel::descartarConflicto) { Text(stringResource(R.string.crono_abandonar_no)) }
+            TextButton(onClick = viewModel::descartarConflicto) {
+                Text(stringResource(R.string.crono_abandonar_no), color = CronoPalette.texto)
+            }
         },
     )
 }

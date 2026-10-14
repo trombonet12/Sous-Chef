@@ -1,6 +1,7 @@
 package app.souschef.ui.crono
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import app.souschef.R
 import app.souschef.receta.Carril
@@ -35,6 +36,46 @@ class DatosCrono(
     fun vista(id: String): VistaEstado = ConsultasCrono.vista(estado, receta, id, ahoraMs)
 
     fun cola(id: String): List<Paso> = colaDe(receta, id)
+
+    /** Color del carril; los neutros (grises o beige) reciben uno de la paleta para distinguirlos. */
+    fun color(id: String): Color {
+        val i = carriles.indexOfFirst { it.id == id }
+        return colorDeCarril(carriles.getOrNull(i)?.color.orEmpty(), i)
+    }
+
+    /** Nadie ha arrancado nada todavía (cocina abierta, sin pasos en marcha ni hechos). */
+    val sinEmpezar: Boolean
+        get() = estado.carriles.values.all { !it.corriendo && !it.pausado && !it.fin && it.i == 0 }
+}
+
+private const val SATURACION_MINIMA = 0.2f
+private val COLORES_NEUTROS =
+    listOf(Color(0xFF7FB7D6), Color(0xFFB79BE0), Color(0xFF6FCBB5), Color(0xFFE58FB0))
+
+internal fun colorDeCarril(
+    hex: String,
+    indice: Int,
+): Color {
+    val argb = runCatching { android.graphics.Color.parseColor(hex) }.getOrNull()
+    val hsv = FloatArray(3)
+    if (argb != null) android.graphics.Color.colorToHSV(argb, hsv)
+    return if (argb != null && hsv[1] >= SATURACION_MINIMA) {
+        Color(argb)
+    } else {
+        COLORES_NEUTROS[indice.coerceAtLeast(0) % COLORES_NEUTROS.size]
+    }
+}
+
+/** Recurso de "tapada / destapada / a medias" según el campo `tapa` del paso, o null si no hay valor claro. */
+fun recursoTapa(tapa: String?): Int? {
+    val t = tapa?.uppercase().orEmpty()
+    return when {
+        t.isBlank() -> null
+        "MEDIAS" in t -> R.string.crono_tapa_medias
+        "SIN" in t || "FUERA" in t -> R.string.crono_destapada
+        "PUESTA" in t -> R.string.crono_tapada
+        else -> null
+    }
 }
 
 /** Texto de estado de un carril ("empieza ya", "a las 14:05", "espera a ..."). */

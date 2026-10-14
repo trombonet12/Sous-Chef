@@ -4,17 +4,22 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +38,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,14 +47,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.receta.Receta
+import app.souschef.receta.crono.ClaseEstado
+import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.ui.comun.Tabular
-import app.souschef.ui.comun.colorCarril
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 
 private const val PASO_SERVIR_MIN = 15
-private const val CHIP_ALFA = 0.18f
+private val BOTON_CABECERA = 44.dp
 
 /** A dónde puede ir el usuario desde el crono: salir, o abrir una técnica. */
 class SalidasCrono(
@@ -80,8 +87,8 @@ fun CronoCocina(
     }
     Column(Modifier.fillMaxSize()) {
         if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
-        Cabecera(datos, viewModel, salidas.salir)
-        PlanPlegable(datos, ui.reiniciarArmado, viewModel)
+        Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir)
+        PlanPlegable(datos, viewModel)
         PestanasCarriles(datos, indiceFoco, viewModel::enfocar)
         HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { datos.carriles[it].id }) { pagina ->
             PanelCarril(datos, datos.carriles[pagina], ui.tecnicas, salidas.tecnica, viewModel::enfocar)
@@ -137,19 +144,20 @@ private fun BotonReiniciar(
 @Composable
 private fun Cabecera(
     datos: DatosCrono,
+    reiniciarArmado: Boolean,
     viewModel: CronoViewModel,
     onSalir: () -> Unit,
 ) {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = onSalir, Modifier.heightIn(min = 48.dp)) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+        IconButton(onClick = onSalir, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Atras.vector, stringResource(R.string.atras))
         }
         Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-            IconButton({ viewModel.cambiarServir(-PASO_SERVIR_MIN) }, Modifier.heightIn(min = 48.dp)) {
+            IconButton({ viewModel.cambiarServir(-PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
                 Icon(Icono.Menos.vector, stringResource(R.string.ficha_servir_menos))
             }
             DatoCabecera(R.string.crono_servir, formatoHora(datos.estado.servirMs), CronoPalette.texto)
-            IconButton({ viewModel.cambiarServir(PASO_SERVIR_MIN) }, Modifier.heightIn(min = 48.dp)) {
+            IconButton({ viewModel.cambiarServir(PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
                 Icon(Icono.Anadir.vector, stringResource(R.string.ficha_servir_mas))
             }
         }
@@ -160,6 +168,7 @@ private fun Cabecera(
             formatoHora(llegada.llegadaMs),
             if (llegada.tarde) CronoPalette.alerta else CronoPalette.ok,
         )
+        MenuCocina(reiniciarArmado, viewModel)
     }
 }
 
@@ -169,7 +178,7 @@ private fun DatoCabecera(
     valor: String,
     color: Color,
 ) {
-    Column(Modifier.padding(horizontal = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.padding(horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(stringResource(rotulo), style = MaterialTheme.typography.labelSmall, color = CronoPalette.tenue)
         Text(
             valor,
@@ -180,177 +189,49 @@ private fun DatoCabecera(
     }
 }
 
+/** Menú de tres puntos: reiniciar (doble toque, el primero pide confirmación) y abandonar (con diálogo). */
 @Composable
-private fun PlanPlegable(
-    datos: DatosCrono,
+private fun MenuCocina(
     reiniciarArmado: Boolean,
     viewModel: CronoViewModel,
 ) {
-    var abierto by rememberSaveable { mutableStateOf(true) }
-    val plan = datos.plan
-    val aviso = plan.vencido != null || plan.tarde
-    Surface(
-        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
-        shape = RoundedCornerShape(12.dp),
-        color = CronoPalette.carta,
-        border = BorderStroke(1.dp, if (aviso) CronoPalette.bordeMal else CronoPalette.linea),
-    ) {
-        Column {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .heightIn(
-                        min = 48.dp,
-                    ).clickable { abierto = !abierto }
-                    .padding(horizontal = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(cabeceraPlan(datos), Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
-                Text(if (abierto) "▴" else "▾", color = CronoPalette.apagado)
-            }
-            if (abierto) CuerpoPlan(datos, reiniciarArmado, viewModel)
-        }
-    }
-}
-
-@Composable
-private fun cabeceraPlan(datos: DatosCrono): String {
-    val plan = datos.plan
-    val vencido = plan.vencido
-    return when {
-        vencido != null -> {
-            stringResource(R.string.crono_plan_vencido, datos.nombre(vencido))
-        }
-
-        plan.tarde -> {
-            stringResource(R.string.crono_plan_tarde, plan.minutosPorDetras, formatoHora(plan.llegadaMs))
-        }
-
-        else -> {
-            stringResource(
-                R.string.crono_plan_en_hora,
-                formatoHora(plan.llegadaMs),
-                formatoHora(datos.estado.servirMs),
-            )
-        }
-    }
-}
-
-@Composable
-private fun CuerpoPlan(
-    datos: DatosCrono,
-    reiniciarArmado: Boolean,
-    viewModel: CronoViewModel,
-) {
-    val plan = datos.plan
-    val vivos =
-        datos.carriles
-            .filter { datos.ec(it.id)?.fin == false }
-            .sortedBy { datos.vista(it.id).clase.orden }
-    Column(
-        Modifier.padding(horizontal = 12.dp).padding(bottom = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        Text(
-            stringResource(R.string.crono_ahora_toca),
-            style = MaterialTheme.typography.labelSmall,
-            color = CronoPalette.tenue,
-        )
-        vivos.forEach { c -> FilaPlan(datos, c.id) { viewModel.enfocar(c.id) } }
-        if (plan.tarde) {
-            Text(
-                stringResource(
-                    R.string.crono_prevista_realista,
-                    formatoHora(datos.estado.servirMs),
-                    formatoHora(plan.llegadaMs),
-                ),
-                style = MaterialTheme.typography.bodySmall,
-            )
-            if (plan.aguantan.isNotEmpty()) {
-                Text(
-                    stringResource(R.string.crono_aguantan, plan.aguantan.joinToString(", ")),
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
-            if (plan.noEsperan.isNotEmpty()) {
-                Text(
-                    stringResource(R.string.crono_no_esperan, plan.noEsperan.joinToString(", ")),
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
-        }
-        MandosPlan(reiniciarArmado, viewModel, Modifier.align(Alignment.End))
-    }
-}
-
-/** Una fila por recipiente: chip de color con el carril, título (2 líneas como mucho) y estado a la derecha. */
-@Composable
-private fun FilaPlan(
-    datos: DatosCrono,
-    carrilId: String,
-    onClick: () -> Unit,
-) {
-    val carril = datos.carril(carrilId) ?: return
-    val vista = datos.vista(carrilId)
-    val color = colorCarril(carril.color)
-    Row(
-        Modifier.fillMaxWidth().heightIn(min = 40.dp).clickable(onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text(
-            carril.nombre,
-            Modifier
-                .widthIn(min = 56.dp, max = 88.dp)
-                .clip(RoundedCornerShape(50))
-                .background(color.copy(alpha = CHIP_ALFA))
-                .padding(horizontal = 10.dp, vertical = 4.dp),
-            color = color,
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Center,
-        )
-        Text(
-            datos.paso(carrilId)?.t.orEmpty(),
-            Modifier.weight(1f),
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        Text(
-            textoEstado(datos, vista, mostrarTocaba = datos.plan.tarde),
-            Modifier.widthIn(max = 104.dp),
-            color = CronoPalette.apagado,
-            style = MaterialTheme.typography.labelMedium,
-            textAlign = TextAlign.End,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
-
-@Composable
-private fun MandosPlan(
-    reiniciarArmado: Boolean,
-    viewModel: CronoViewModel,
-    modifier: Modifier,
-) {
+    var abierto by remember { mutableStateOf(false) }
     var confirmar by remember { mutableStateOf(false) }
-    Row(modifier) {
-        TextButton(onClick = { confirmar = true }, Modifier.heightIn(min = 48.dp)) {
-            Text(
-                stringResource(R.string.crono_abandonar),
-                color = CronoPalette.tenue,
-                style = MaterialTheme.typography.labelMedium,
+    Box {
+        IconButton({ abierto = true }, Modifier.size(BOTON_CABECERA)) {
+            Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
+        }
+        DropdownMenu(abierto, { abierto = false }, containerColor = CronoPalette.carta2) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        stringResource(
+                            if (reiniciarArmado) R.string.crono_reiniciar_seguro else R.string.crono_reiniciar,
+                        ),
+                        color = if (reiniciarArmado) CronoPalette.alerta else CronoPalette.texto,
+                        fontWeight = if (reiniciarArmado) FontWeight.Bold else FontWeight.Normal,
+                    )
+                },
+                onClick = {
+                    if (reiniciarArmado) abierto = false
+                    viewModel.reiniciar()
+                },
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.crono_abandonar), color = CronoPalette.texto) },
+                onClick = {
+                    abierto = false
+                    confirmar = true
+                },
             )
         }
-        BotonReiniciar(reiniciarArmado, viewModel::reiniciar)
     }
     if (confirmar) {
         AlertDialog(
             onDismissRequest = { confirmar = false },
+            containerColor = CronoPalette.carta2,
+            titleContentColor = CronoPalette.texto,
+            textContentColor = CronoPalette.apagado,
             title = { Text(stringResource(R.string.crono_abandonar_titulo)) },
             text = { Text(stringResource(R.string.crono_abandonar_detalle)) },
             confirmButton = {
@@ -358,11 +239,13 @@ private fun MandosPlan(
                     confirmar = false
                     viewModel.abandonar()
                 }) {
-                    Text(stringResource(R.string.crono_abandonar_si))
+                    Text(stringResource(R.string.crono_abandonar_si), color = CronoPalette.alerta)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { confirmar = false }) { Text(stringResource(R.string.crono_abandonar_no)) }
+                TextButton(onClick = { confirmar = false }) {
+                    Text(stringResource(R.string.crono_abandonar_no), color = CronoPalette.texto)
+                }
             },
         )
     }

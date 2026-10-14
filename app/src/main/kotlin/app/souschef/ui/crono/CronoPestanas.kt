@@ -1,13 +1,11 @@
 package app.souschef.ui.crono
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,7 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,10 +29,9 @@ import app.souschef.receta.Carril
 import app.souschef.receta.TipoCarril
 import app.souschef.receta.crono.ClaseEstado
 import app.souschef.ui.comun.Tabular
-import app.souschef.ui.comun.colorCarril
 import app.souschef.ui.theme.CronoPalette
 
-/** Pestañas de recipientes: nombre en su color, reloj, paso actual y estado. La activa lleva borde superior. */
+/** Pestañas de recipientes: nombre, reloj, paso y fuego/tapa. La activa lleva borde y fondo de su color. */
 @Composable
 fun PestanasCarriles(
     datos: DatosCrono,
@@ -62,44 +59,44 @@ private fun Pestana(
     onClick: () -> Unit,
 ) {
     val vista = datos.vista(carril.id)
-    val color = colorCarril(carril.color)
+    val color = datos.color(carril.id)
     val pasado = vista.clase == ClaseEstado.ATENDER
     val parpadeo = pasado && (datos.ahoraMs / 1000) % 2 == 0L
     val fondo =
         when {
             parpadeo -> CronoPalette.parpadeo
-            activa -> CronoPalette.carta2
+            activa -> color.copy(alpha = FONDO_ACTIVA).compositeOver(CronoPalette.carta)
             else -> CronoPalette.carta
         }
+    val forma = RoundedCornerShape(12.dp)
     Column(
         Modifier
             .width(150.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .clip(forma)
             .background(fondo)
-            .clickable(onClick = onClick),
+            .border(if (activa) 2.dp else 1.dp, if (activa) color else CronoPalette.linea, forma)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 10.dp, vertical = 8.dp),
     ) {
-        Box(Modifier.fillMaxWidth().height(3.dp).background(if (activa) color else Color.Transparent))
-        Column(Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
-            Text(carril.nombre, color = color, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-            Text(
-                relojPestana(datos, carril.id, vista.clase),
-                style = MaterialTheme.typography.titleMedium.merge(Tabular),
-                color = if (pasado) CronoPalette.alerta else CronoPalette.texto,
-            )
-            Text(
-                datos.paso(carril.id)?.t ?: stringResource(R.string.crono_terminado),
-                fontSize = 12.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                segundaLinea(datos, carril),
-                fontSize = 11.sp,
-                color = CronoPalette.apagado,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
+        Text(carril.nombre, color = color, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+        Text(
+            relojPestana(datos, carril.id, vista.clase),
+            style = MaterialTheme.typography.titleMedium.merge(Tabular),
+            color = if (pasado) CronoPalette.alerta else CronoPalette.texto,
+        )
+        Text(
+            datos.paso(carril.id)?.t ?: stringResource(R.string.crono_terminado),
+            fontSize = 12.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            segundaLinea(datos, carril),
+            fontSize = 11.sp,
+            color = CronoPalette.apagado,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 
@@ -117,20 +114,27 @@ private fun relojPestana(
         formatoReloj(datos.quedan(carril))
     }
 
-/** "fuego N · tapada · estado" / "sin fuego · estado". */
+/** Una sola línea: "fuego N · tapada"; si hay algo que atender o esperar, el estado en su lugar. */
 @Composable
 private fun segundaLinea(
     datos: DatosCrono,
     carril: Carril,
 ): String {
     val vista = datos.vista(carril.id)
-    val estado = textoEstado(datos, vista)
-    val potencia = datos.paso(carril.id)?.f ?: 0
+    val paso = datos.paso(carril.id)
+    if (paso == null || vista.clase !in listOf(ClaseEstado.ESPERA, ClaseEstado.YA, ClaseEstado.MARCHA)) {
+        return textoEstado(datos, vista)
+    }
+    val potencia = paso.f ?: 0
     val fuego =
         when {
-            carril.tipoCarril != TipoCarril.FUEGO || datos.paso(carril.id) == null -> null
+            carril.tipoCarril != TipoCarril.FUEGO -> null
             potencia > 0 -> stringResource(R.string.ficha_fuego_bajo, potencia)
             else -> stringResource(R.string.ficha_sin_fuego_bajo)
         }
-    return if (fuego == null) estado else "$fuego · $estado"
+    val tapa = recursoTapa(paso.tapa)?.let { stringResource(it) }
+    return listOfNotNull(fuego, tapa).joinToString(" · ").ifEmpty { NBSP }
 }
+
+private const val NBSP = " "
+private const val FONDO_ACTIVA = 0.16f
