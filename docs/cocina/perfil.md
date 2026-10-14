@@ -23,7 +23,7 @@
 - Platos con caldo: sal poco a poco a mitad; pimienta al final, antes de mantecar.
 
 ## Cómo quiere que trabaje Claude
-- Leer la despensa (`scripts/sc despensa`) antes de preguntar o proponer nada: es la fuente de verdad, no la memoria.
+- Leer la despensa (la que Joan pega desde la app o `data/despensa-semilla.md`) antes de preguntar o proponer nada: es la fuente de verdad, no la memoria.
 - Si falta algo, proponer la sustitución desde la despensa (lima → limón, queso fresco mexicano → feta, albaricoque → melocotón).
 - Enseñar la receta completa para revisar antes de publicar; Joan ajusta los tiempos si hace falta.
 - Comprobar aritméticamente las tablas de tiempos: Joan pilla los errores.

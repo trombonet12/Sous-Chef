@@ -1,35 +1,36 @@
 ---
 name: despensa
-description: Consulta y cambia la despensa y la lista de la compra con scripts/sc (despensa, despensa poner, compra añadir). Úsala para saber qué hay, marcar falta o poco, o apuntar compra.
+description: Lee la despensa de Joan (pegada desde la app o semilla) y mantiene data/despensa-semilla.md alineada para el validador; apunta la compra. Úsala para saber qué hay o qué falta.
 ---
 
 # despensa
 
+La despensa real vive en la app (pantalla Despensa). La sincronización con Supabase se pospone a F3: hoy no hay `sc despensa` ni `sc compra`.
+
 ## Cuándo usarla
 - Saber qué hay en casa o qué falta antes de diseñar o hablar de una receta.
-- Joan dice que se le ha acabado algo, que ha comprado algo o que hay que apuntar compra.
+- Joan pega su despensa, dice que se le ha acabado algo o que hay que apuntar compra.
 
 ## Cuándo NO usarla
-- Diseñar una receta → `receta-cronometrada` (ella ya lee la despensa).
+- Diseñar una receta → `receta-cronometrada` (ella usa la despensa).
 - Cambiar las reglas de cocina o los vetos → editar `docs/cocina/reglas.md`.
 
 ## Precondiciones
-- Credenciales en `~/.souschef/supabase.env` para leer y escribir en Supabase; sin ellas la CLI usa `data/despensa-semilla.md` y lo dice (solo lectura). No imprimas nunca secretos.
+- `data/despensa-semilla.md` existe: es la despensa que comprueba el validador (regla 12; «agua» siempre vale).
 
 ## Pasos
-1. **Consultar:** `scripts/sc despensa` (por categoría y estado: hay, poco, falta, vetado, más la compra pendiente). `--json` para procesarla.
-2. **Cambiar estado:** `scripts/sc despensa poner <hay|poco|falta|vetado> <nombre…>`. Si el producto no existe pide `--categoria`.
-3. **Apuntar compra:** `scripts/sc compra añadir <nombre> [--cantidad X] [--receta slug]`.
-4. Los vetos (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco) son `vetado`: no los pongas como `hay` aunque Joan los mencione de pasada; pregunta.
-5. Al listar la compra: separa «ya hay» y «hay que comprar», con cantidades, agrupado por zona del súper y marcando sustitutos de la despensa (`docs/cocina/reglas.md § Compra`).
-6. Confirma a Joan lo que cambiaste en una línea.
+1. **Fuente:** si Joan pega el texto de «Compartir despensa» (markdown agrupado por estado), esa es la verdad. Si no, lee `data/despensa-semilla.md` y dilo.
+2. **Alinear la semilla:** si pegó una despensa distinta, ofrece actualizar `data/despensa-semilla.md` para que `scripts/sc validar --estricto` coincida con la realidad. Edítala solo con su OK.
+3. Los vetos (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco) son `vetado`: no los pongas como `hay` aunque Joan los mencione de pasada; pregunta.
+4. **Compra:** lo que falte para una receta va en su `compra`. Al listarla separa «ya hay» y «hay que comprar», con cantidades, agrupado por zona del súper y marcando sustitutos (`docs/cocina/reglas.md § Compra`). La lista viva se edita en la app.
+5. Confirma a Joan en una línea lo que has leído o cambiado.
 
 ## Validaciones / tests
-- Repite `scripts/sc despensa` y comprueba que el cambio aparece.
+- Tras tocar la semilla: `scripts/sc validar --estricto` sin errores de despensa.
 
 ## Definition of Done
-- [ ] El estado o la compra reflejan lo pedido al releer con `scripts/sc despensa`.
-- [ ] Ningún vetado marcado como `hay`.
+- [ ] Fuente indicada (pegada o semilla) y ningún vetado como `hay`.
+- [ ] Semilla alineada solo si Joan lo aprobó.
 
 ## Docs a actualizar
-- Ninguno salvo que cambie la semilla (`data/despensa-semilla.md`) · docs/ESTADO.md si queda algo pendiente.
+- docs/ESTADO.md si queda algo pendiente · el sync con Supabase (`sc despensa`, `sc compra`) es de F3.

@@ -3,13 +3,13 @@
 > Propósito: reglas fijas de cocina del proyecto (vetos, raciones, potencias, tapa, completitud, compra, estilo) · Audiencia: Claude Code y Joan · Actualizado: 2026-10-13
 
 ## Resumen
-Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más. El repo (`data/recetas/`) manda; `scripts/sc publicar` sube a Supabase y la app nunca edita recetas. Esquema y comprobaciones: `esquema-receta.md`. Quién es Joan y cómo trabaja: `perfil.md`.
+Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más. El repo (`data/recetas/`) manda; las recetas viajan en el APK (publicar = commit + versión + gate + release; `sc publicar` a Supabase llegará en F3) y la app nunca edita recetas. Esquema y comprobaciones: `esquema-receta.md`. Quién es Joan y cómo trabaja: `perfil.md`.
 
 ## Datos fijos
 - **Raciones: 2 por defecto.** Si no se dice nada, son 2. Hay recetas que van a 4 o a 6 a propósito (tarta, macarrones, arroz a la cubana): está decidido y justificado en su `notaEscala`, no es un descuido.
 - **Fuegos: vitrocerámica**, potencia 0-9, **3 fuegos utilizables a la vez como máximo**. Horno y microondas disponibles.
 - **Hora de servir por defecto: 15:30.** La receta habla en minutos relativos (minuto 0 = coges el cuchillo); la app calcula el reloj desde la hora que se ponga al abrir el cronómetro.
-- **Despensa:** la de `scripts/sc despensa` (semilla en `data/despensa-semilla.md`). Se da por disponible sin preguntar; no se propone nada que dependa de algo que no esté ahí.
+- **Despensa:** la que Joan pega desde la app («Compartir despensa»); si no pega nada, la semilla `data/despensa-semilla.md`. Se da por disponible sin preguntar; no se propone nada que dependa de algo que no esté ahí.
 
 ## Fuera de la mesa
 Nunca: garbanzos, guisantes, champiñones, coliflor, brócoli, casquería (hígado, callos, mollejas...), anchoas, alcaparras.
@@ -45,7 +45,7 @@ Salió de una revisión en la que el ajo de los tacos estaba en los ingredientes
 `scripts/sc validar --estricto` lo comprueba solo; se pasa siempre antes de publicar.
 
 ## Dónde vive la receta
-Una sola copia: `data/recetas/<slug>.json` en el repo. `scripts/sc publicar` la valida en estricto y la sube a Supabase; `scripts/sc comparar` detecta deriva. Ya no hay «espejo» app/carpeta ni escritura doble.
+Una sola copia: `data/recetas/<slug>.json` en el repo; se empaqueta en el APK en el siguiente release (en F3, `sc publicar` la subirá a Supabase y `sc comparar` detectará deriva). Ya no hay «espejo» app/carpeta ni escritura doble.
 
 ## Compra
 - Lista separada en «ya hay» y «hay que comprar», con cantidades.

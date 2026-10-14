@@ -22,7 +22,7 @@ description: Crea una ficha de técnica culinaria en data/tecnicas/<slug>.json c
 3. Respeta las reglas de cocina: potencias en escala 0-9 de vitrocerámica, medidas de corte, sin ingredientes vetados.
 4. Enlázala: pon el `slug` en `tags.tecnica` de las recetas que la usan (edita `data/recetas/<slug>.json`).
 5. `scripts/sc formatear` y `scripts/sc validar --estricto`.
-6. Con el OK de Joan, `scripts/sc publicar`.
+6. Con el OK de Joan, publica como en `receta-cronometrada` (commit, versión, gate, push, release).
 
 ## Validaciones / tests
 - `scripts/sc validar --estricto` sin errores; ningún tag de técnica sin ficha.

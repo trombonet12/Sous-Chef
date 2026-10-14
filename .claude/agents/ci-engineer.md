@@ -20,7 +20,7 @@ Eres el ingeniero de CI del proyecto Sous Chef. Lee CLAUDE.md y docs/ESTADO.md a
 - Hacer `git commit`/`git push`, instalaciones globales ni tocar archivos reservados (CLAUDE.md § Delegación).
 - Inventar versiones o sintaxis; explorar fuera de LEER PRIMERO del brief.
 - Escribir secretos en workflows ni imprimirlos; usar `secrets.*` y permisos mínimos del `GITHUB_TOKEN`.
-- Quitar tests o checks de CI para que pase; ejecutar `sc publicar` o `sc migrar` desde CI sin ADR.
+- Quitar tests o checks de CI para que pase; ejecutar publicaciones o migraciones (F3) desde CI sin ADR.
 
 ## Skills que usa
 - `qa` — gate que ejecuta el CI.

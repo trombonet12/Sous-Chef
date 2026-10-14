@@ -14,7 +14,7 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
 - Técnica nueva → `tecnica-nueva`.
 
 ## Precondiciones
-- Leídos `docs/cocina/reglas.md` y `docs/cocina/esquema-receta.md` (y la despensa con `scripts/sc despensa`).
+- Leídos `docs/cocina/reglas.md` y `docs/cocina/esquema-receta.md` (y la despensa: la que Joan pegue desde la app o `data/despensa-semilla.md`).
 - Receta existente en `data/recetas/<slug>.json`.
 
 ## Pasos
@@ -25,11 +25,11 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
    - **Cambios de plato** (sustituir ingrediente, cambiar potencia o tiempo con efecto en el resultado, quitar o añadir algo): no los apliques. Anótalos como propuesta en `docs/revision-recetas.md` (crea el archivo si no existe) con receta, qué cambiaría, por qué y qué efecto tiene en el plato.
 4. `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>`.
 5. Informa a Joan en pocas líneas: qué se corrigió y qué propuestas hay pendientes de su decisión. Si decide aplicar una, trátala como edición de receta y repite el paso 4.
-6. Con su OK: `scripts/sc publicar`.
+6. Con su OK: publicar = commit del JSON, subir `versionCode`/`versionName` en `app/build.gradle.kts`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug`, push a main y `node scripts/gh.mjs workflow run release-android.yml`.
 
 ## Validaciones / tests
 - `scripts/sc validar --estricto <slug>` sin errores.
-- `scripts/sc comparar` para ver la deriva repo ↔ Supabase antes de publicar.
+- Sin `sc comparar` hasta F3 (sync con Supabase pospuesta): el repo es la única copia.
 
 ## Definition of Done
 - [ ] Correcciones objetivas aplicadas y `validar --estricto` en verde.

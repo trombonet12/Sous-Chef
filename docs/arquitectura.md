@@ -8,7 +8,7 @@ Sous Chef es una app Android personal de recetas cronometradas. Las recetas se e
 ## Principios
 | Principio | Consecuencia arquitectónica |
 |---|---|
-| El repo manda en las recetas | `data/*.json` es la fuente de verdad; `sc publicar` sube; la app nunca edita recetas ([ADR-0003](adr/0003-el-repo-manda-en-las-recetas.md)). |
+| El repo manda en las recetas | `data/*.json` es la fuente de verdad; `sc publicar` (F3, aún no existe) sube; la app nunca edita recetas ([ADR-0003](adr/0003-el-repo-manda-en-las-recetas.md)). |
 | Una sola implementación de las reglas | Validador y motor del crono en `:receta`, compartidos por la app y la CLI ([ADR-0001](adr/0001-stack-android-y-modulos.md)). |
 | Offline-first | Room es la fuente de la UI; las escrituras van al outbox y se sincronizan después ([ADR-0004](adr/0004-sync-outbox-lww.md)). |
 | No tocar lo de Trombito | Esquema propio y runner de migraciones propio; nunca `db push` ni `apply_migration` ([ADR-0002](adr/0002-supabase-compartido-esquema-sous-chef.md)). |
@@ -55,12 +55,12 @@ sequenceDiagram
   participant S as sc
   participant DB as Supabase sous_chef
   J->>C: pide una receta
-  C->>S: sc despensa
+  C->>S: sc despensa (F3, aún no existe)
   S->>DB: lee despensa (sesión de usuario)
   C->>R: escribe data/recetas/slug.json
   C->>S: sc validar --estricto
   S-->>C: informe
-  C->>S: sc publicar
+  C->>S: sc publicar (F3, aún no existe)
   S->>DB: JDBC, una transacción, hash por documento
   Note over DB: la app baja la receta en su siguiente sync
 ```

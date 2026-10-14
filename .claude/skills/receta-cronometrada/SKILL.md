@@ -13,21 +13,30 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 ## Cuándo NO usarla
 - Corregir una receta existente → `receta-revisar`.
 - Crear una ficha de técnica → `tecnica-nueva`.
-- Solo consultar o cambiar despensa y compra → `despensa`.
+- Solo consultar o alinear despensa y compra → `despensa`.
 
 ## Precondiciones
-- `scripts/sc despensa` responde (si no, `data/despensa-semilla.md`, y dilo). Diseñar a ciegas es como se cuela un vetado.
-- Esquema completo en `docs/cocina/esquema-receta.md` (no se copia aquí).
+- Esquema completo en `docs/cocina/esquema-receta.md` (no se copia aquí). El validador comprueba las reglas 1-8, 10-21, 23 y 24; la 9 y la 22 las revisas tú.
+- Hoy solo existen `scripts/sc validar` y `scripts/sc formatear`; no hay `sc despensa`, `publicar`, `comparar` ni `historial` (Supabase llega en F3).
 
 ## Pasos
 1. **Pregunta lo que cambia el plan**, con opciones, máx. tres preguntas y ninguna ya respondida: raciones (si no lo dice, 2 y avísalo), hora de servir solo si cambia el plato (defecto 15:30), equipo solo si el plan depende de él, restricciones. Nunca preguntes qué ingredientes hay ni preferencias que puedas decidir y justificar.
-2. **Mira lo que hay:** `scripts/sc despensa` (diseña solo con eso; lo que mencione Joan cuenta como disponible) y `scripts/sc historial` (no repitas base ni técnica dos platos seguidos). Mira `data/recetas/` por si el plato ya existe: corrige en vez de duplicar.
-3. **Diseña la receta** (ver abajo y `references/`). Lo que haga falta comprar va en `compra`; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** según `docs/cocina/sugerencias-compra.md`.
-4. Escribe `data/recetas/<slug>.json`, luego `scripts/sc formatear <slug>`.
-5. `scripts/sc validar --estricto <slug>` y corrige hasta que pase. Comprueba tú la aritmética además.
-6. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
-7. Con el OK: `scripts/sc publicar` (usa `--seco` para ver antes qué subiría). Una línea final: qué plato y dónde ha quedado.
-8. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
+2. **Despensa:** la que Joan pegue desde la app (Despensa → «Compartir despensa», texto markdown por estado); si no pega nada, `data/despensa-semilla.md`, y dilo. Si pega una distinta, ofrece actualizar la semilla para que el validador coincida (skill `despensa`). Diseña solo con eso; lo que mencione Joan cuenta como disponible.
+3. **Repeticiones:** mira `data/recetas/` (si el plato existe, corrige en vez de duplicar) y el historial en `data/legado/historial.json` o pregúntaselo a Joan: no repitas base ni técnica dos platos seguidos.
+4. **Diseña** (ver abajo y `references/`) con los campos que mueven el cronómetro: `carril`, `s`, `off`, `f`, `tapa`, `dep`, `junto`, `meto`/`saco`, `nota`, `hitos`/`sinHitos` y `mep`. Lo que haga falta comprar va en `compra`; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** (`docs/cocina/sugerencias-compra.md`).
+5. Escribe `data/recetas/<slug>.json` y ejecuta `scripts/sc formatear <slug>`.
+6. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Comprueba tú la aritmética además.
+7. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, reglas 9 y 22).
+8. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
+9. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `app/build.gradle.kts`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug`, push a main y `node scripts/gh.mjs workflow run release-android.yml` (crea el release de GitHub; el móvil se actualiza con Obtainium o `adb install -r`).
+10. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
+
+## Errores típicos
+- Todo ingrediente aparece en `mep`, también los opcionales (maicena) y los condimentos (soja).
+- Los títulos de corte llevan tamaño en mm/cm («en dados de 1 cm»).
+- La potencia nueva se escribe como número en el texto del paso (`t`, `nota` o `p`): «baja al 3».
+- `p` de 120 caracteres o más, con el porqué físico.
+- Cantidades en g/ml con equivalencia de andar por casa; nada de «al gusto».
 
 ## La receta (resumen; detalle en references/)
 - **Solo lo necesario.** Que algo esté en la despensa no es motivo para meterlo. Por cada cosa que descartas y Joan podría esperar, una línea con el motivo («curry: el comino y la cúrcuma se comen el tomate») en `porque`.
@@ -48,13 +57,13 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 Español, de tú, directo, sin relleno ni «¡delicioso plato!». Si algo puede salir mal, di la señal concreta («cuando el fondo esté casi seco», «si burbujea fuerte, baja al 2»), no un aviso genérico.
 
 ## Validaciones / tests
-- `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>` sin errores ni avisos.
+- `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>` con 0 errores y 0 avisos.
 - Lista numerada de comprobaciones: `docs/cocina/esquema-receta.md § Validación`.
 
 ## Definition of Done
 - [ ] JSON en `data/recetas/<slug>.json` con formato canónico y `validar --estricto` en verde.
 - [ ] Sin vetados; todo ingrediente en despensa o en `compra`; todo ingrediente en `mep` con cantidad y minuto.
-- [ ] Joan ha visto la receta completa y dado su OK; publicada con `scripts/sc publicar`.
+- [ ] Joan ha visto la receta completa y dado su OK; publicada vía release (versión subida, gate en verde, workflow lanzado).
 
 ## Docs a actualizar
 - `docs/cocina/*` solo si cambia una regla · docs/ESTADO.md (skill session-handoff).
