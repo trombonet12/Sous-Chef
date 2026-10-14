@@ -1,6 +1,14 @@
 name: Claude assets
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.claude/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'CLAUDE.md'
+      - '.github/workflows/claude-assets.yml'
   pull_request:
     paths:
       - '.claude/**'

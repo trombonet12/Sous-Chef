@@ -25,27 +25,22 @@ Al primer arranque se cargan las 13 recetas, 17 técnicas, el historial, las fav
 El APK sale en **Releases** (columna derecha del repo), no en "Packages" (eso es GitHub Packages y siempre está vacío).
 El CI `Android` solo compila y pasa tests; no publica nada instalable.
 
-Una vez, en GitHub → Settings → Secrets and variables → Actions → *New repository secret*:
+`gh` usa el token de Git Credential Manager a través de `node scripts/gh.mjs <args>` (sin `gh auth login`).
 
-| Secreto | Valor |
-|---|---|
-| `ANDROID_KEYSTORE_PASSWORD` | `SOUSCHEF_KEYSTORE_PASSWORD` de `%USERPROFILE%\.souschef\release-signing.properties` |
-| `ANDROID_KEY_ALIAS` | `SOUSCHEF_KEY_ALIAS` del mismo archivo |
-| `ANDROID_KEY_PASSWORD` | `SOUSCHEF_KEY_PASSWORD` del mismo archivo |
-| `ANDROID_KEYSTORE_BASE64` | el `.jks` de `SOUSCHEF_KEYSTORE_FILE` en base64 (ver abajo) |
-
-```powershell
-# Copia al portapapeles el keystore en base64 (pon la ruta de SOUSCHEF_KEYSTORE_FILE)
-[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\ruta\al\keystore.jks")) | Set-Clipboard
-```
+Secretos de firma (una vez; repetir si cambia el keystore): `node scripts/subir-secretos-release.mjs` lee
+`%USERPROFILE%\.souschef\release-signing.properties` y el `.jks`, y sube `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
+`ANDROID_KEY_PASSWORD` y `ANDROID_KEYSTORE_BASE64` sin imprimir valores. Comprobar: `node scripts/gh.mjs secret list`.
 `SUPABASE_URL` y `SUPABASE_PUBLISHABLE_KEY` son opcionales hasta F3.
 
-Cada versión: subir `versionCode`/`versionName` en `app/build.gradle.kts`, push, y Actions → *Release Android* →
-*Run workflow*. Crea el tag `v<versionName>` con el APK y `checksums.txt` (Obtainium puede seguir el repo).
-El CI `Android` ya no corre en cada push (solo en PR o a mano); el gate se pasa en local.
+Cada versión: subir `versionCode`/`versionName` en `app/build.gradle.kts`, push y
+`node scripts/gh.mjs workflow run release-android.yml` (o Actions → *Release Android* → *Run workflow*). Crea el tag
+`v<versionName>` con el APK y `checksums.txt` (Obtainium puede seguir el repo).
+
+CI: `Android` y `Claude assets` corren en push a `main` (con filtro de rutas), en PR y a mano; se hace un push por
+ronda. `main` está protegida: sin force-push ni borrado, historial lineal y check `Gate Android, dominio y recetas`
+obligatorio en PR (el admin puede hacer push directo).
 
 ## 5. Aplazado (cuando haya presupuesto)
 - Supabase: `~/.souschef/supabase.env`, exponer `sous_chef`, migraciones, sync, login (`docs/pasos-manuales.md`).
-- Imprimir/PDF de la ficha.
 - Revisión culinaria F9b con `chef-reviewer` y validador de completitud.
 - TODOs de `docs/ESTADO.md § Problemas conocidos`.
