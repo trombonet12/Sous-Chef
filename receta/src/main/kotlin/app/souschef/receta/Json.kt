@@ -36,9 +36,15 @@ object JsonCanonico {
         nivel: Int,
     ) {
         when (e) {
-            is JsonNull -> sb.append("null")
-            is JsonPrimitive -> if (e.isString) cadena(e.content, sb) else sb.append(e.content)
-            is JsonArray ->
+            is JsonNull -> {
+                sb.append("null")
+            }
+
+            is JsonPrimitive -> {
+                if (e.isString) cadena(e.content, sb) else sb.append(e.content)
+            }
+
+            is JsonArray -> {
                 if (e.isEmpty()) {
                     sb.append("[]")
                 } else {
@@ -51,7 +57,9 @@ object JsonCanonico {
                     sangra(sb, nivel)
                     sb.append("]")
                 }
-            is JsonObject ->
+            }
+
+            is JsonObject -> {
                 if (e.isEmpty()) {
                     sb.append("{}")
                 } else {
@@ -67,6 +75,7 @@ object JsonCanonico {
                     sangra(sb, nivel)
                     sb.append("}")
                 }
+            }
         }
     }
 
@@ -85,19 +94,41 @@ object JsonCanonico {
         sb.append('"')
         for (c in s) {
             when (c) {
-                '"' -> sb.append("\\\"")
-                '\\' -> sb.append("\\\\")
-                '\n' -> sb.append("\\n")
-                '\r' -> sb.append("\\r")
-                '\t' -> sb.append("\\t")
-                '\b' -> sb.append("\\b")
-                '\u000C' -> sb.append("\\f")
-                else ->
+                '"' -> {
+                    sb.append("\\\"")
+                }
+
+                '\\' -> {
+                    sb.append("\\\\")
+                }
+
+                '\n' -> {
+                    sb.append("\\n")
+                }
+
+                '\r' -> {
+                    sb.append("\\r")
+                }
+
+                '\t' -> {
+                    sb.append("\\t")
+                }
+
+                '\b' -> {
+                    sb.append("\\b")
+                }
+
+                '\u000C' -> {
+                    sb.append("\\f")
+                }
+
+                else -> {
                     if (c < ' ' || c == '\u007F') {
                         sb.append("\\u").append(c.code.toString(16).padStart(4, '0'))
                     } else {
                         sb.append(c)
                     }
+                }
             }
         }
         sb.append('"')

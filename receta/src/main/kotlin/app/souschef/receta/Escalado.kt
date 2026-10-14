@@ -21,11 +21,26 @@ object Escalado {
         f: Double,
     ): String {
         val marca = if (item.sublineal && f != 1.0) " *" else ""
-        item.txt?.let { return it + marca }
-        val a = item.a ?: return marca.trim()
-        val v = a * if (item.sublineal) f.pow(EXPONENTE_SUB) else f
-        val u = item.u?.takeIf { it.isNotBlank() }?.let { " $it" }.orEmpty()
-        return numero(v) + u + marca
+        val a = item.a
+        return when {
+            item.txt != null -> {
+                item.txt + marca
+            }
+
+            a == null -> {
+                marca.trim()
+            }
+
+            else -> {
+                val v = a * if (item.sublineal) f.pow(EXPONENTE_SUB) else f
+                val u =
+                    item.u
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let { " $it" }
+                        .orEmpty()
+                numero(v) + u + marca
+            }
+        }
     }
 
     /** ≥ 10 → entero; si no, un decimal con coma y sin ",0". */
