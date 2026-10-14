@@ -1,14 +1,24 @@
 # Estado
 
-| Fase | Estado | Último commit |
-|---|---|---|
-| F0 Repo y gobierno | completada | ver `git log -1` |
-| F1 Esqueleto Android | en curso | — |
+| Fase | Estado |
+|---|---|
+| F0 Repo y gobierno | completada |
+| F1 Esqueleto Android, CI, release, spike de alarmas | completada |
+| MVP local-first (modo ahorro, ver plan) | **completado**: app funcional sin backend |
+| F3/F4 Supabase + sync + login | aplazada |
+| F9b Revisión culinaria | aplazada |
 
 ## Completado
-- 2026-10-13 · F0: `.claude/` (49 skills, 18 agentes, hooks con 98 tests), CLAUDE.md, docs (spec de la app vieja,
-  reglas de cocina, 6 ADRs, arquitectura, herramientas), datos legados en `data/` y `docs/legado/`.
-- 2026-10-13 · Trombito: `sous_chef` en `[api] schemas` de `supabase/config.toml` (commit local `c447863`, sin push).
+- 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
+- 2026-10-14 · MVP local-first:
+  - `:receta`: modelos, JSON canónico, escalado, gantt, validador estructural (reglas 1-7, 10, 11, 16-18, 21, 23) y
+    motor puro del cronómetro (`crono/`).
+  - `sc validar [--estricto]` / `sc formatear [--comprobar]`: 13 recetas y 17 técnicas sin errores ni avisos.
+  - App: recetas/técnicas empaquetadas en el APK desde `data/`; Room local (historial, preferencias, despensa,
+    compra, estado del crono) sembrado desde `data/legado/` y `data/despensa-semilla.md` (vetos como `VETADO`).
+  - Pantallas: lista de recetas, ficha, técnicas, historial, despensa + compra, cronómetro con cadena de
+    `setAlarmClock`, notificaciones y deep link `souschef://crono/{slug}`.
+  - APK release firmado instalado en el emulador; capturas `docs/capturas/mvp-*.png`.
 
 ## Entorno
 | Herramienta | Estado |
@@ -16,17 +26,20 @@
 | JDK 21 (Gradle) | OK vía `~/.gradle/gradle.properties` |
 | Android SDK 36 / build-tools 36.0.0 | OK |
 | Emulador | AVD `trombito-36` |
-| Docker | OK (29.8.1) |
-| `~/.souschef/supabase.env` | **falta** → se trabaja contra el Supabase local hasta que exista |
-| `local.properties` | generado por `scripts/preparar-local-properties.py` (URL y clave de Trombito) |
+| Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
+| `~/.souschef/supabase.env` | falta (no hace falta para el MVP) |
 
 ## Pendiente del usuario
-- Crear `~/.souschef/supabase.env` (`SUPABASE_DB_URL`, `SOUS_CHEF_EMAIL`, `SOUS_CHEF_PASSWORD`) y exponer `sous_chef`
-  en Supabase → Data API (ver `docs/pasos-manuales.md`).
-- Push del commit de Trombito `c447863` cuando lo revises.
+- Ver `docs/sesion-final.md`: probar en el móvil, secretos de GitHub, decisiones aplazadas.
 
-## Problemas conocidos
-- Ninguno.
+## Problemas conocidos / TODO
+- Ficha: si sales antes de 600 ms tras cambiar raciones, no se guarda (debounce en `viewModelScope`).
+- Crono: sin enlaces "Técnica: X →" en "Ver el porqué", sin notificación en curso por carril (canal LOW), sin línea
+  tapada/destapada en pestañas; el estado se borra al cerrar (sin Deshacer de 8 s).
+- Barra de estado clara sobre el crono oscuro (cosmético).
+- Menú: "Ajustes" y "Cerrar sesión" aún no hacen nada (no hay login en el MVP).
+- Alarmas con Doze profundo sin probar en hardware real (el emulador no entra en Doze).
+- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, imprimir/PDF, completitud heurística del validador.
 
 ## Próxima acción exacta
-F1: keystore en `~/.souschef/`, workflows de CI y release, spike de alarmas en el emulador, gate completo.
+Sesión con el móvil (`docs/sesion-final.md`); después, F3 Supabase cuando haya presupuesto.
