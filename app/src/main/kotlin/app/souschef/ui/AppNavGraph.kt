@@ -1,18 +1,16 @@
 package app.souschef.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import app.souschef.R
+import app.souschef.ui.crono.CronoScreen
+import app.souschef.ui.despensa.DespensaPantalla
 import app.souschef.ui.ficha.FichaScreen
 import app.souschef.ui.historial.HistorialScreen
 import app.souschef.ui.recetas.RecetasScreen
@@ -22,7 +20,7 @@ import app.souschef.ui.tecnicas.TecnicasScreen
 
 private val ARG_SLUG = navArgument(Rutas.ARG_SLUG) { type = NavType.StringType }
 
-/** Grafo de destinos. El cronómetro es un placeholder hasta el lote que lo implemente. */
+/** Grafo de destinos. */
 @Composable
 fun SousChefNavGraph(
     navController: NavHostController,
@@ -31,7 +29,7 @@ fun SousChefNavGraph(
     val abrirFicha: (String) -> Unit = { navController.navigate(Rutas.ficha(it)) }
     NavHost(navController, startDestination = Pestana.Recetas.ruta, modifier = modifier) {
         composable(Pestana.Recetas.ruta) { RecetasScreen(onAbrir = abrirFicha) }
-        composable(Pestana.Despensa.ruta) { Marcador(R.string.tab_despensa) }
+        composable(Pestana.Despensa.ruta) { DespensaPantalla() }
         composable(Pestana.Historial.ruta) { HistorialScreen(onRepetir = abrirFicha) }
         composable(Rutas.FICHA, arguments = listOf(ARG_SLUG)) { entrada ->
             val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
@@ -64,11 +62,7 @@ fun SousChefNavGraph(
                         defaultValue = Rutas.SERVIR_DEFECTO
                     },
                 ),
-        ) { Marcador(R.string.crono_proximamente) }
+            deepLinks = listOf(navDeepLink { uriPattern = "souschef://crono/{${Rutas.ARG_SLUG}}" }),
+        ) { CronoScreen(onSalir = { navController.popBackStack() }) }
     }
-}
-
-@Composable
-private fun Marcador(texto: Int) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(stringResource(texto)) }
 }

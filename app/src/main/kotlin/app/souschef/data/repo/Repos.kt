@@ -206,6 +206,9 @@ class CronoEstadoRepoRoom
                 CronoEstado(it.slug, it.json, it.actualizadoMs)
             }
 
+        override suspend fun todos(): List<CronoEstado> =
+            dao.todos().map { CronoEstado(it.slug, it.json, it.actualizadoMs) }
+
         override suspend fun guardar(
             slug: String,
             json: String,

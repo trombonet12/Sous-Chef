@@ -158,6 +158,9 @@ interface CronoEstadoDao {
     @Query("SELECT * FROM crono_estado WHERE slug = :slug")
     suspend fun obtener(slug: String): CronoEstadoEntity?
 
+    @Query("SELECT * FROM crono_estado")
+    suspend fun todos(): List<CronoEstadoEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun guardar(estado: CronoEstadoEntity)
 

@@ -102,6 +102,9 @@ interface CronoEstadoRepo {
 
     suspend fun obtener(slug: String): CronoEstado?
 
+    /** Todas las cocinadas guardadas (la cadena de alarmas las recorre tras un reinicio). */
+    suspend fun todos(): List<CronoEstado>
+
     suspend fun guardar(
         slug: String,
         json: String,

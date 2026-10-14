@@ -35,6 +35,7 @@ fun SousChefShell(navController: NavHostController) {
     var menuAbierto by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
+            if (rutaActual?.startsWith("crono") == true) return@Scaffold
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineSmall) },
                 actions = {
