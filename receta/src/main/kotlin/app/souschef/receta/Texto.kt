@@ -44,7 +44,7 @@ object Texto {
             else -> palabra
         }
 
-    /** Palabra núcleo de un nombre: sin paréntesis ni lo que sigue a la coma, la primera palabra de 3 o más letras no genérica. */
+    /** Palabra núcleo: sin paréntesis ni lo que sigue a la coma, la primera palabra de 3+ letras no genérica. */
     fun nucleo(nombre: String): String {
         val limpio = normalizar(nombre).substringBefore(',').replace(Regex("\\([^)]*\\)"), " ").trim()
         val palabras = limpio.split(Regex("[^a-z0-9]+")).filter { it.isNotEmpty() }
