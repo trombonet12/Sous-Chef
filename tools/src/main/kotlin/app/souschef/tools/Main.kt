@@ -42,10 +42,13 @@ private fun validar(args: List<String>): Int {
 
     fun elegidos(dir: String) = jsons(File(raiz, dir)).filter { slugs.isEmpty() || it.nameWithoutExtension in slugs }
     val tecnicasExistentes = jsons(File(raiz, "data/tecnicas")).map { it.nameWithoutExtension }.toSet()
+    val semilla = File(raiz, "data/despensa-semilla.md")
+    val despensa = if (semilla.isFile) Despensa.parsearSemilla(semilla.readText()) else emptySet()
+    println("despensa: semilla data/despensa-semilla.md (${despensa.size} entradas; sin Supabase)")
     val hallazgos = mutableListOf<Hallazgo>()
     for (f in elegidos("data/recetas")) {
         runCatching { leerReceta(f.readText()) }
-            .onSuccess { hallazgos += Validador.receta(it, tecnicasExistentes) }
+            .onSuccess { hallazgos += Validador.receta(it, tecnicasExistentes) + Despensa.comprobar(it, despensa) }
             .onFailure { hallazgos += ilegible(f, it) }
     }
     for (f in elegidos("data/tecnicas")) {

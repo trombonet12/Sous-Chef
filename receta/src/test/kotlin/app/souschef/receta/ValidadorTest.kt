@@ -96,6 +96,162 @@ class ValidadorTest {
     @Test
     fun r23TecnicaSinFicha() = assertTrue(23 in reglas(base(), Nivel.AVISO, emptySet()))
 
+    private fun conGrupo(
+        vararg i: Ingrediente,
+        mep: List<String> = emptyList(),
+    ) = base().copy(
+        grupos = listOf(Grupo("G", i.toList())),
+        mep = if (mep.isEmpty()) emptyList() else listOf(BloqueMep("m", l = mep)),
+    )
+
+    private fun ing(
+        n: String,
+        a: Double? = 1.0,
+        txt: String? = null,
+    ) = Ingrediente(n = n, a = a, u = "g", txt = txt)
+
+    @Test
+    fun r8IngredienteAusenteDelMep() =
+        assertTrue(8 in reglas(conGrupo(ing("cebolla"), mep = listOf("<b>Bol</b> · 100 g de zanahoria"))))
+
+    @Test
+    fun r8PalabraCompletaConPluralYSinAcentos() {
+        val r =
+            conGrupo(ing("cebolla"), ing("pan"), ing("jamón"), mep = listOf("<b>Bol</b> · 2 cebollas, panes y JAMON"))
+        assertTrue(8 !in reglas(r))
+    }
+
+    @Test
+    fun r8NoCasaPorSubcadena() = assertTrue(8 in reglas(conGrupo(ing("sal"), mep = listOf("250 g de salsa"))))
+
+    @Test
+    fun r8PluralEsSoloTrasConsonanteDeLaLista() {
+        assertTrue(8 in reglas(conGrupo(ing("tomate"), mep = listOf("3 tomatees"))))
+        assertTrue(8 !in reglas(conGrupo(ing("sal"), mep = listOf("sales finas"))))
+    }
+
+    @Test
+    fun r8NombreLargoCasaPorPalabraNucleo() =
+        assertTrue(8 !in reglas(conGrupo(ing("carne picada mixta"), mep = listOf("500 g de carne"))))
+
+    @Test
+    fun r8CualquierPalabraClaveNoGenerica() {
+        assertTrue(8 !in reglas(conGrupo(ing("semillas de sésamo"), mep = listOf("1 cdta de sésamo"))))
+        assertTrue(8 !in reglas(conGrupo(ing("salsa de soja (1 cucharada)"), mep = listOf("15 ml de soja"))))
+        assertTrue(8 in reglas(conGrupo(ing("salsa de soja"), mep = listOf("1 vaso de salsa y semillas"))))
+    }
+
+    @Test
+    fun r8SinMepNoAplica() = assertTrue(8 !in reglas(conGrupo(ing("cebolla"))))
+
+    @Test
+    fun r13SinCantidad() = assertTrue(13 in reglas(conGrupo(ing("sal", a = null))))
+
+    @Test
+    fun r13TextoVago() {
+        assertTrue(13 in reglas(conGrupo(ing("sal", a = null, txt = "al gusto"))))
+        assertTrue(13 in reglas(conGrupo(ing("aceite", a = null, txt = "un Chorrito"))))
+        assertTrue(13 in reglas(conGrupo(ing("sal", a = null, txt = "c/s"))))
+        assertTrue(13 !in reglas(conGrupo(ing("sal", a = null, txt = "½ cdta"))))
+    }
+
+    private fun conCortes(
+        off: Double,
+        textoPaso: String = "Cortar",
+        cortes: List<Corte> = listOf(Corte("Cebolla · dados de 4 mm")),
+    ) = base().copy(
+        cortes = cortes,
+        pasos = listOf(paso("p1"), paso("p2", "b", off = off) { it.copy(t = textoPaso) }),
+        totalMin = 10.0 + off,
+    )
+
+    @Test
+    fun r14CortesSinPasoDeMesaEnElMinuto0() = assertTrue(14 in reglas(conCortes(off = 2.0)))
+
+    @Test
+    fun r14ConPasoDeMesaEnElMinuto0Pasa() = assertTrue(14 !in reglas(conCortes(off = 0.0)))
+
+    @Test
+    fun r15CortaEnMesaSinCortes() {
+        val r = conCortes(off = 0.0, cortes = emptyList())
+        assertTrue(15 in reglas(r, Nivel.AVISO))
+        val sinCorte = conCortes(off = 0.0, textoPaso = "Reposar", cortes = emptyList())
+        assertTrue(15 !in reglas(sinCorte, Nivel.AVISO))
+    }
+
+    @Test
+    fun r15PicanteNoEsPicar() =
+        assertTrue(15 !in reglas(conCortes(off = 0.0, textoPaso = "Salsa picante", cortes = emptyList()), Nivel.AVISO))
+
+    @Test
+    fun r19CorteSinMedida() {
+        val sin = conCortes(off = 0.0, cortes = listOf(Corte("Cebolla · dados", "finos")))
+        assertTrue(19 in reglas(sin, Nivel.AVISO))
+        assertTrue(19 !in reglas(conCortes(off = 0.0), Nivel.AVISO))
+        val enP = conCortes(off = 0.0, cortes = listOf(Corte("Cebolla", "dados de 1,5 cm")))
+        assertTrue(19 !in reglas(enP, Nivel.AVISO))
+    }
+
+    private fun conPotencias(texto: String) =
+        base().copy(
+            totalMin = 20.0,
+            pasos =
+                listOf(
+                    paso("p1") { it.copy(f = 7, t = "Sofreír a 7") },
+                    paso("p2", off = 10.0) { it.copy(f = 3, t = texto) },
+                ),
+        )
+
+    @Test
+    fun r20CambioDePotenciaSinNombrarla() {
+        assertTrue(20 in reglas(conPotencias("Bajar el fuego"), Nivel.AVISO))
+        assertTrue(20 !in reglas(conPotencias("Bajar a 3"), Nivel.AVISO))
+        assertTrue(20 in reglas(conPotencias("Bajar a 13"), Nivel.AVISO))
+    }
+
+    @Test
+    fun r20PotenciaCeroAceptaApagar() {
+        fun a0(t: String) =
+            conPotencias(t).let { r ->
+                r.copy(
+                    pasos =
+                        r.pasos.map {
+                            if (it.id ==
+                                "p2"
+                            ) {
+                                it.copy(f = 0)
+                            } else {
+                                it
+                            }
+                        },
+                )
+            }
+        listOf(
+            "Apagar el fuego",
+            "Retira la cazuela",
+            "Fuera de la placa",
+            "Reposo tapado",
+            "Fuera del fuego",
+        ).forEach {
+            assertTrue(20 !in reglas(a0(it), Nivel.AVISO), it)
+        }
+        assertTrue(20 in reglas(a0("Seguir"), Nivel.AVISO))
+        assertTrue(20 !in reglas(conPotencias("Bajar 3/9"), Nivel.AVISO))
+    }
+
+    @Test
+    fun r20PotenciaIgualNoAvisa() {
+        val r = conPotencias("Seguir").let { it.copy(pasos = it.pasos.map { p -> p.copy(f = 7) }) }
+        assertTrue(20 !in reglas(r, Nivel.AVISO))
+    }
+
+    @Test
+    fun r24VetoEnIngrediente() {
+        assertTrue(24 in reglas(conGrupo(ing("champiñones laminados")), Nivel.AVISO))
+        assertTrue(24 in reglas(conGrupo(ing("Gambas")), Nivel.AVISO))
+        assertTrue(24 !in reglas(conGrupo(ing("cebolla")), Nivel.AVISO))
+    }
+
     @Test
     fun losDatosRealesNoTienenErrores() {
         val data = File("../data")

@@ -18,7 +18,10 @@ private const val TOLERANCIA_S = 30.0
 private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
-/** Validador (reglas 1-7, 10, 11, 16-18, 21 y 23 de docs/cocina/esquema-receta.md § Validación). Lógica pura. */
+/**
+ * Validador (reglas 1-8, 10, 11, 13-21, 23 y 24 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
+ */
 object Validador {
     /** Si [tecnicasExistentes] es null no se comprueba la regla 23. */
     fun receta(
@@ -33,10 +36,16 @@ object Validador {
         ctx.regla4y5()
         ctx.regla6y23(tecnicasExistentes)
         ctx.regla7y10y17()
+        ctx.regla8()
         ctx.regla11()
+        ctx.regla13()
+        ctx.regla14y15()
         ctx.regla16()
         ctx.regla18()
+        ctx.regla19()
+        ctx.regla20()
         ctx.regla21()
+        ctx.regla24()
         return h
     }
 
@@ -211,4 +220,118 @@ private class Ctx(
             if (n < P_MIN_CHARS) aviso(21, "${p.id}: p de $n caracteres (< $P_MIN_CHARS)")
         }
     }
+
+    /**
+     * Regla 8. Heurística: el nombre `n` (sin paréntesis) casa si aparece entero en alguna línea de `mep` o,
+     * si no, si aparece su palabra núcleo (primera palabra de 3 o más letras, o cualquier palabra clave
+     * de 4+ letras no genérica; también en singular).
+     * Palabra completa; ver [Texto.contienePalabra].
+     */
+    fun regla8() {
+        if (r.mep.isEmpty()) return
+        val lineas = r.mep.flatMap { it.l }.map { it.replace(Regex("</?b>"), "") }
+        for (i in r.grupos.flatMap { it.items }) {
+            val entero =
+                Texto
+                    .normalizar(i.n)
+                    .substringBefore(',')
+                    .replace(Regex("\\([^)]*\\)"), " ")
+                    .trim()
+            val nucleo = Texto.nucleo(i.n)
+            val formas = (listOf(entero, nucleo, Texto.singular(nucleo)) + Texto.palabrasClave(i.n)).distinct()
+            val ok = lineas.any { l -> formas.any { Texto.contienePalabra(l, it) } }
+            if (!ok) err(8, "ingrediente '${i.n}' no aparece en el mep")
+        }
+    }
+
+    fun regla13() {
+        val prohibidas = listOf("al gusto", "chorrito", "c/s")
+        for (i in r.grupos.flatMap { it.items }) {
+            if (i.a == null && i.txt.isNullOrBlank()) err(13, "'${i.n}' sin cantidad (ni a ni txt)")
+            val texto = Texto.normalizar("${i.n} ${i.txt.orEmpty()}")
+            prohibidas
+                .filter { Regex("(?<![a-z])" + Regex.escape(it) + "(?![a-z])").containsMatchIn(texto) }
+                .forEach { err(13, "'${i.n}': cantidad vaga («$it»)") }
+        }
+    }
+
+    fun regla14y15() {
+        val mesa = r.pasos.filter { tipo(it.carril) == TipoCarril.MESA }
+        if (r.cortes.isNotEmpty() && mesa.none { abs(it.off) <= EPS }) {
+            err(14, "hay cortes pero ningún paso de mesa arranca en el minuto 0")
+        }
+        if (r.cortes.isEmpty()) {
+            mesa
+                .firstOrNull { CORTA.containsMatchIn(Texto.normalizar("${it.t} ${it.nota.orEmpty()}")) }
+                ?.let { aviso(15, "${it.id}: corta algo en mesa y 'cortes' está vacío") }
+        }
+    }
+
+    fun regla19() {
+        for (c in r.cortes) {
+            if (!MEDIDA.containsMatchIn("${c.t} ${c.p.orEmpty()}")) aviso(19, "corte '${c.t}' sin medida (mm o cm)")
+        }
+    }
+
+    fun regla20() {
+        val fuego = r.pasos.filter { tipo(it.carril) == TipoCarril.FUEGO }
+        for ((carril, pasos) in fuego.groupBy { it.carril }) {
+            for ((a, b) in pasos.sortedBy { it.off }.zipWithNext()) {
+                val f = b.f ?: continue
+                val texto = Texto.normalizar("${b.t} ${b.nota.orEmpty()} ${b.p}")
+                val nombrada =
+                    Regex("(?<![0-9])$f(?![0-9])").containsMatchIn(texto) ||
+                        (f == 0 && APAGAR.containsMatchIn(texto))
+                if (f != a.f && !nombrada) aviso(20, "${b.id}: pasa a potencia $f en '$carril' y el texto no la nombra")
+            }
+        }
+    }
+
+    fun regla24() {
+        for (i in r.grupos.flatMap { it.items } + r.compra) {
+            val n = Texto.normalizar(i.n)
+            VETOS
+                .firstOrNull { Regex("(?<![a-z])$it").containsMatchIn(n) }
+                ?.let { aviso(24, "ingrediente vetado: '${i.n}'") }
+        }
+    }
 }
+
+private val CORTA =
+    Regex(
+        "\\b(cort(a|ar|ado|ados|ada|adas|amos|e|es)|pic(a|ar|ado|ados|ada|adas|amos)|lamin(a|ar|ado|ados|ada|adas)|" +
+            "troce(a|ar|ado|ados|ada|adas)|ralla(r|do|dos|da|das)?|dados?)\\b",
+    )
+private val APAGAR = Regex("apag|retira|fuera del fuego|fuera de la placa|reposo")
+private val MEDIDA = Regex("\\d+([.,]\\d+)?\\s*(mm|cm)\\b|por la mitad")
+
+// Raíces normalizadas (sin acentos); se buscan al inicio de palabra.
+private val VETOS =
+    listOf(
+        "garbanzo",
+        "guisante",
+        "champinon",
+        "coliflor",
+        "brocoli",
+        "casqueria",
+        "higado",
+        "rinon",
+        "callos",
+        "sesos",
+        "molleja",
+        "anchoa",
+        "alcaparra",
+        "marisco",
+        "gamba",
+        "langostino",
+        "mejillon",
+        "calamar",
+        "pulpo",
+        "sepia",
+        "almeja",
+        "ostra",
+        "vieira",
+        "cigala",
+        "berberecho",
+        "navaja",
+    )

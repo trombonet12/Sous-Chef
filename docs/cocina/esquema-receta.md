@@ -113,11 +113,11 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 5. ERROR · Todo `carril` usado por un paso está declarado, y todo carril declarado se usa.
 6. ERROR · `tags.base` y `tags.tecnica` puestos (el historial los usa para avisar de repeticiones).
 7. ERROR · Los `hitos` van en orden y ninguno llega a la duración del paso.
-8. ERROR · Todo ingrediente de `grupos` aparece en alguna línea de `mep`, con cantidad y minuto de entrada. La coincidencia es por palabra completa; el plural admite `-es` solo tras l, r, n, d, z, s, x, y, j (cebolla/cebollas, pan/panes, sal/sales; no «ajo» dentro de «ajos» por subcadena).
+8. ERROR · Todo ingrediente de `grupos` aparece en alguna línea de `mep`, con cantidad y minuto de entrada. La coincidencia es por palabra completa; el plural admite `-es` solo tras l, r, n, d, z, s, x, y, j (cebolla/cebollas, pan/panes, sal/sales); `-s` tras vocal. Nunca por subcadena («sal» no casa en «salsa»). Heurística: se usa `n` sin paréntesis ni lo que sigue a la coma; si no casa entero, vale su palabra núcleo (primera de 3+ letras, también en singular). Sin `mep` no aplica. Limitación: «semillas de sésamo» o «salsa de soja» solo casan si el mep dice «semillas» / «salsa».
 9. ERROR · Ninguna línea describe dos formas de corte para el mismo ingrediente.
 10. ERROR · Ningún paso de fuego u horno de 6 min o más sin `hitos` ni `sinHitos`.
 11. ERROR · El último paso declara `saco`.
-12. ERROR · Todo ingrediente de `grupos` está en la despensa o en `compra` (despensa de Supabase si hay credenciales, si no `data/despensa-semilla.md`; la salida dice cuál). Coincidencia por palabra completa, sin acentos ni mayúsculas.
+12. ERROR · Todo ingrediente de `grupos` está en la despensa o en `compra` (despensa de Supabase si hay credenciales, si no `data/despensa-semilla.md`; la salida dice cuál). Coincidencia por palabra completa, sin acentos ni mayúsculas, en ambos sentidos (la entrada «Ajos» casa con «diente de ajo»; se usa el nombre sin paréntesis ni coma y su palabra núcleo). «agua» siempre vale. La implementa `tools/` (`Despensa.kt`); de momento solo con la semilla (`sc validar` imprime `despensa: semilla …`).
 13. ERROR · Cantidad legible: cada ingrediente tiene `a` o `txt`, y ningún texto dice «al gusto», «un chorrito» o «c/s».
 14. ERROR · Hay al menos un paso que arranca en el minuto 0 en un carril de tipo `mesa` si la receta tiene `cortes` (el corte es un paso, no una nota previa).
 15. AVISO (estricto) · Si algún paso de mesa corta algo (cortar, picar, laminar, trocear…), `cortes` no está vacío.
@@ -130,6 +130,8 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 22. AVISO (estricto) · Tapa que cambia a mitad de un paso (debía ser dos pasos).
 23. AVISO (estricto) · Tag de `tags.tecnica` sin ficha en `data/tecnicas/`.
 24. AVISO · Veto presente en ingredientes (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco).
+
+**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21, 23 y 24. **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos` y `compra`.
 
 Los puntos 14, 15 y 17-18 no estaban en la skill legada (14 y 15 salen de su §3a y §5); la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
 
