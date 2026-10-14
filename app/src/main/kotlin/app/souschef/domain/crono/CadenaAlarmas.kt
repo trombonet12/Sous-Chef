@@ -26,6 +26,21 @@ data class AvisoNotificacion(
 
 interface Notificador {
     fun publicar(avisos: List<AvisoNotificacion>)
+
+    /** Pinta (o, con null, quita) la notificación ongoing "En marcha" de una cocinada. */
+    fun enMarcha(
+        slug: String,
+        modelo: EnMarcha?,
+    )
+
+    /** Cancela los avisos pendientes de unos carriles (su paso se ha dado por hecho). */
+    fun cancelarAvisos(
+        slug: String,
+        carriles: Collection<String>,
+    )
+
+    /** Cierre de la cocinada: fuera todos sus avisos y la ongoing. */
+    fun limpiar(slug: String)
 }
 
 /**
@@ -53,6 +68,46 @@ class CadenaAlarmas(
     suspend fun reprogramar() {
         val evento = proximoEvento()
         if (evento == null) sistema.cancelar() else sistema.programar(evento.ms)
+        repintar()
+    }
+
+    /** Repinta la ongoing "En marcha" de cada cocinada guardada (o la quita si ya no hay nada en marcha). */
+    suspend fun repintar() {
+        val ahora = reloj.ahoraMs()
+        for (e in almacen.todos()) {
+            val modelo = recetas.obtener(e.slug)?.let { ConstructorEnMarcha.construir(it, e, ahora) }
+            notificador.enMarcha(e.slug, modelo)
+        }
+    }
+
+    /** Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. */
+    fun descartarObsoletos(
+        antes: EstadoCrono?,
+        despues: EstadoCrono,
+    ) {
+        val avanzados = IdsNotificacion.carrilesAvanzados(antes, despues)
+        if (avanzados.isNotEmpty()) notificador.cancelarAvisos(despues.slug, avanzados)
+    }
+
+    /** Cierre de una cocinada: sin avisos ni ongoing. */
+    fun cerrado(slug: String) = notificador.limpiar(slug)
+
+    /** Acción "Siguiente" de la notificación. Devuelve el carril afectado o null si no había nada que hacer. */
+    suspend fun siguiente(slug: String): String? {
+        val receta = recetas.obtener(slug) ?: return null
+        val ahora = reloj.ahoraMs()
+        var antes: EstadoCrono? = null
+        var carril: String? = null
+        val nuevo =
+            almacen.modificar(slug) { actual ->
+                antes = actual
+                val r = AccionSiguiente.aplicar(actual, receta, ahora)
+                carril = r.carril
+                r.estado
+            }
+        if (nuevo != null) descartarObsoletos(antes, nuevo)
+        reprogramar()
+        return carril
     }
 
     suspend fun procesar() {

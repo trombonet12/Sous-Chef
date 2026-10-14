@@ -43,3 +43,12 @@
 - 2026-10-13 · hooks · `block-secret-commands.sh` solo considera sensibles los directorios `/.souschef` y `/.trombito` (antes cualquier `.trombito`, que bloqueaba el paquete `app.trombito` al portar código).
 - 2026-10-13 · build · `debug` apunta al Supabase remoto (local.properties) y `localDebug` al stack local (supabase-local.properties). Release firmado con keystore propia en `~/.souschef/` (`scripts/crear-keystore.py`).
 - 2026-10-13 · CLI · `sc despensa` y el resto de herramientas usan JDBC con `SUPABASE_DB_URL` y resuelven el `user_id` por `SOUS_CHEF_EMAIL` (una sola vía de acceso; la contraseña solo la usa el login de la app en el emulador).
+
+## 2026-10-14 · Ronda 2 tras probar en el móvil
+- Letra del sistema (`FontFamily.Default`) en toda la app; se retiran Bricolage/Newsreader (petición de Joan). ADR-0006
+  y la spec legada siguen citándolas como historia.
+- Alarmas en hardware real (Android 16, LineageOS): `setAlarmClock` dispara a su hora con pantalla apagada.
+- Notificación "En marcha" sin FGS: ongoing LOW con `android.requestPromotedOngoing` (extra a mano: la API 36.0 no
+  expone el setter), cuenta atrás nativa y `shortCriticalText`; "Siguiente" = Hecho del paso más urgente + arrancar
+  el siguiente del carril.
+- Avisos: tag = slug, id = carril+tipo, `setTimeoutAfter` 2/10 min, se cancelan al avanzar el carril o cerrar.

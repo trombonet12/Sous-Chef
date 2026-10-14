@@ -5,6 +5,7 @@ import app.souschef.domain.CronoEstadoRepo
 import app.souschef.domain.Reloj
 import app.souschef.domain.crono.AlarmaSistema
 import app.souschef.domain.crono.AvisoNotificacion
+import app.souschef.domain.crono.EnMarcha
 import app.souschef.domain.crono.Notificador
 import app.souschef.receta.Carril
 import app.souschef.receta.Paso
@@ -68,6 +69,28 @@ class FakeAlarmaSistema : AlarmaSistema {
 
 class FakeNotificador : Notificador {
     val publicados = mutableListOf<AvisoNotificacion>()
+    val enMarchaPorSlug = mutableMapOf<String, EnMarcha>()
+    val canceladas = mutableListOf<Pair<String, Set<String>>>()
+    val limpiados = mutableListOf<String>()
+
+    override fun enMarcha(
+        slug: String,
+        modelo: EnMarcha?,
+    ) {
+        if (modelo == null) enMarchaPorSlug.remove(slug) else enMarchaPorSlug[slug] = modelo
+    }
+
+    override fun cancelarAvisos(
+        slug: String,
+        carriles: Collection<String>,
+    ) {
+        canceladas += slug to carriles.toSet()
+    }
+
+    override fun limpiar(slug: String) {
+        limpiados += slug
+        enMarchaPorSlug.remove(slug)
+    }
 
     override fun publicar(avisos: List<AvisoNotificacion>) {
         publicados += avisos

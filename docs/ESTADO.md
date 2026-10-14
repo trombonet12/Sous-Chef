@@ -19,6 +19,9 @@
   - Pantallas: lista de recetas, ficha, técnicas, historial, despensa + compra, cronómetro con cadena de
     `setAlarmClock`, notificaciones y deep link `souschef://crono/{slug}`.
   - APK release firmado instalado en el emulador; capturas `docs/capturas/mvp-*.png`.
+- 2026-10-14 · Ronda 2 (probado en el móvil, Android 16): avisos HIGH verificados con pantalla apagada; notificación
+  "En marcha" promocionada (Live Update) con cuenta atrás y acción Siguiente; avisos con id estable y caducidad;
+  full-screen intent; plan plegable y hoja del porqué rediseñados; Deshacer al cerrar; letra del sistema.
 
 ## Entorno
 | Herramienta | Estado |
@@ -33,13 +36,11 @@
 - Ver `docs/sesion-final.md`: probar en el móvil, secretos de GitHub, decisiones aplazadas.
 
 ## Problemas conocidos / TODO
-- Ficha: si sales antes de 600 ms tras cambiar raciones, no se guarda (debounce en `viewModelScope`).
-- Crono: sin enlaces "Técnica: X →" en "Ver el porqué", sin notificación en curso por carril (canal LOW), sin línea
-  tapada/destapada en pestañas; el estado se borra al cerrar (sin Deshacer de 8 s).
-- Barra de estado clara sobre el crono oscuro (cosmético).
-- Menú: "Ajustes" y "Cerrar sesión" aún no hacen nada (no hay login en el MVP).
-- Alarmas con Doze profundo sin probar en hardware real (el emulador no entra en Doze).
-- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, imprimir/PDF, completitud heurística del validador.
+- Crono: falta la línea tapada/destapada en las pestañas de carril.
+- Sin probar en el móvil: pantalla encendida con aviso (full-screen intent), hoja del porqué, Deshacer, barra de estado.
+- `shortCriticalText` del chip es estático entre repintados (la cuenta atrás nativa sí corre).
+- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, imprimir/PDF, completitud heurística del validador,
+  revisión culinaria F9b.
 
 ## Próxima acción exacta
 Sesión con el móvil (`docs/sesion-final.md`); después, F3 Supabase cuando haya presupuesto.

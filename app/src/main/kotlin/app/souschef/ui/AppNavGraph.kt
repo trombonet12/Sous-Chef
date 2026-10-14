@@ -63,6 +63,11 @@ fun SousChefNavGraph(
                     },
                 ),
             deepLinks = listOf(navDeepLink { uriPattern = "souschef://crono/{${Rutas.ARG_SLUG}}" }),
-        ) { CronoScreen(onSalir = { navController.popBackStack() }) }
+        ) {
+            CronoScreen(
+                onSalir = { navController.popBackStack() },
+                onTecnica = { navController.navigate(Rutas.tecnica(it)) },
+            )
+        }
     }
 }

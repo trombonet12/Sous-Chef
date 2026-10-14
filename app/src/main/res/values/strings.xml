@@ -5,8 +5,6 @@
     <string name="tab_despensa">Despensa</string>
     <string name="tab_historial">Historial</string>
     <string name="menu_tecnicas">Técnicas</string>
-    <string name="menu_ajustes">Ajustes</string>
-    <string name="menu_cerrar_sesion">Cerrar sesión</string>
     <string name="menu_mas">Más opciones</string>
 
     <!-- Comunes -->
@@ -191,8 +189,7 @@
     <string name="crono_meto">METO</string>
     <string name="crono_saco">SACO</string>
     <string name="crono_tapa">TAPA</string>
-    <string name="crono_ver_porque">Ver el porqué ▾</string>
-    <string name="crono_ocultar_porque">Ocultar el porqué ▴</string>
+    <string name="crono_ver_porque">Ver el porqué</string>
     <string name="crono_ultimo_paso">Último paso de este recipiente.</string>
     <string name="crono_despues">Después aquí: %1$s · %2$s</string>
     <string name="crono_despues_fuego">Después aquí: %1$s · %2$s al %3$d</string>
@@ -212,6 +209,16 @@
     <string name="crono_servido_previsto">SERVIDO %1$s, previsto %2$s</string>
     <string name="crono_proxima_vez">LA PRÓXIMA VEZ… (OPCIONAL)</string>
     <string name="crono_ya_esta">Ya está, a la mesa</string>
+    <string name="crono_potencia">Potencia %1$d</string>
+    <string name="crono_notif_siguiente">Siguiente</string>
+    <string name="crono_notif_abrir">Abrir</string>
+    <string name="crono_pantalla_aviso">Los avisos no pueden encender la pantalla bloqueada.</string>
+    <string name="crono_pantalla_ajustes">Permitir</string>
+    <string name="crono_guardado">Cocinada guardada en el historial</string>
+    <string name="crono_deshacer">Deshacer</string>
+    <string name="crono_tecnica_enlace">Técnica: %1$s →</string>
+    <string name="crono_porque_cerrar">Cerrar</string>
+    <string name="crono_porque_hitos">Hitos</string>
     <string name="crono_canal_avisos">Avisos del cronómetro</string>
     <string name="crono_canal_silencioso">Avisos pasados del cronómetro</string>
 </resources>

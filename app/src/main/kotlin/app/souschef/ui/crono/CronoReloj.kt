@@ -47,6 +47,8 @@ fun RelojDelPaso(
     datos: DatosCrono,
     carril: Carril,
     paso: Paso,
+    tecnicas: Map<String, String>,
+    onTecnica: (String) -> Unit,
 ) {
     val q = datos.quedan(carril.id)
     val color = colorCarril(carril.color)
@@ -69,7 +71,7 @@ fun RelojDelPaso(
             fontStyle = FontStyle.Italic,
         )
     }
-    Porque(datos, carril.id, paso)
+    Porque(datos, carril, paso, tecnicas, onTecnica)
     PieDelPaso(datos, carril.id)
 }
 
@@ -132,7 +134,7 @@ private fun LineasMeto(
 }
 
 @Composable
-private fun LineaEtiquetada(
+internal fun LineaEtiquetada(
     rotulo: Int,
     color: Color,
     texto: String,
@@ -147,22 +149,24 @@ private fun LineaEtiquetada(
     )
 }
 
-/** "Ver el porqué": se pliega solo al pasar al paso siguiente (la clave incluye el índice). */
+/** "Ver el porqué": abre una hoja con el paso completo; se cierra sola al pasar al paso siguiente. */
 @Composable
 private fun Porque(
     datos: DatosCrono,
-    carril: String,
+    carril: Carril,
     paso: Paso,
+    tecnicas: Map<String, String>,
+    onTecnica: (String) -> Unit,
 ) {
-    val texto = paso.p?.takeIf { it.isNotBlank() } ?: return
-    var abierto by remember(carril, datos.ec(carril)?.i) { mutableStateOf(false) }
+    if (paso.p.isNullOrBlank() && tecnicas.isEmpty()) return
+    var abierto by remember(carril.id, datos.ec(carril.id)?.i) { mutableStateOf(false) }
     Text(
-        stringResource(if (abierto) R.string.crono_ocultar_porque else R.string.crono_ver_porque),
-        Modifier.heightIn(min = 48.dp).clickable { abierto = !abierto },
+        stringResource(R.string.crono_ver_porque),
+        Modifier.heightIn(min = 48.dp).clickable { abierto = true },
         color = CronoPalette.acento,
         style = MaterialTheme.typography.labelLarge,
     )
-    if (abierto) Text(textoRico(texto), style = MaterialTheme.typography.bodyMedium, color = CronoPalette.apagado)
+    if (abierto) PorqueSheet(paso, carril, tecnicas, onTecnica) { abierto = false }
 }
 
 @Composable

@@ -46,6 +46,8 @@ private const val SEGMENTOS_POTENCIA = 9
 fun PanelCarril(
     datos: DatosCrono,
     carril: Carril,
+    tecnicas: Map<String, String>,
+    onTecnica: (String) -> Unit,
     onEnfocar: (String) -> Unit,
 ) {
     val paso = datos.paso(carril.id)
@@ -75,7 +77,7 @@ fun PanelCarril(
             Pildoras(datos, carril.id, paso)
             Requisitos(datos, paso, onEnfocar)
             Paralelos(datos, carril.id, onEnfocar)
-            RelojDelPaso(datos, carril, paso)
+            RelojDelPaso(datos, carril, paso, tecnicas, onTecnica)
         }
     }
 }

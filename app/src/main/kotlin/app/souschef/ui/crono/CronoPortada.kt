@@ -103,6 +103,7 @@ fun CronoPortada(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             BarraTitulo(receta.titulo, onSalir)
+            AvisoPantallaCompleta()
             if (receta.descripcion.isNotBlank()) {
                 Text(receta.descripcion, color = CronoPalette.apagado, style = MaterialTheme.typography.bodyMedium)
             }

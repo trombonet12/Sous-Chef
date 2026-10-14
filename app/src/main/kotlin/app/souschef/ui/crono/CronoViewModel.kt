@@ -7,6 +7,7 @@ import app.souschef.domain.EntradaHistorial
 import app.souschef.domain.HistorialRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
+import app.souschef.domain.TecnicasRepo
 import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.receta.Receta
 import app.souschef.receta.crono.Aviso
@@ -20,12 +21,14 @@ import app.souschef.receta.crono.TipoAviso
 import app.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -49,12 +52,17 @@ data class CronoUi(
     val reiniciarArmado: Boolean = false,
     /** Presente cuando todos los recipientes han terminado: pantalla de cierre. */
     val resumen: ResumenCrono? = null,
+    /** El cierre está hecho pero sin confirmar: ventana de [VENTANA_DESHACER_MS] para deshacer. */
+    val cierrePendiente: Boolean = false,
     /** La pantalla debe cerrarse (cierre guardado). */
     val salida: Boolean = false,
+    /** Técnicas de la receta que existen: slug a título (enlaces de "Ver el porqué"). */
+    val tecnicas: Map<String, String> = emptyMap(),
 )
 
 private const val PERIODO_TIC_MS = 1_000L
 const val VENTANA_REINICIAR_MS = 4_000L
+const val VENTANA_DESHACER_MS = 8_000L
 const val MAX_NOTA = 160
 private const val MAX_LINEAS_BANDA = 4
 private const val MS_MINUTO = 60_000L
@@ -63,10 +71,12 @@ private const val MS_MINUTO = 60_000L
 @Suppress("TooManyFunctions")
 @HiltViewModel
 class CronoViewModel
+    @Suppress("LongParameterList")
     @Inject
     constructor(
         savedStateHandle: SavedStateHandle,
         private val recetas: RecetasRepo,
+        private val tecnicas: TecnicasRepo,
         private val historial: HistorialRepo,
         private val cadena: CadenaAlarmas,
         private val reloj: Reloj,
@@ -83,6 +93,8 @@ class CronoViewModel
         /** Cerrojos "mando:carril" contra el doble toque; se sueltan en el siguiente tic. */
         private val cerrojos = mutableSetOf<String>()
         private var jobReiniciar: Job? = null
+        private var jobCierre: Job? = null
+        private var cierre: (suspend () -> Unit)? = null
 
         init {
             viewModelScope.launch {
@@ -123,7 +135,12 @@ class CronoViewModel
                     }
                 }
             cadena.almacen.fijar(estado)
-            _ui.update { it.copy(cargando = false, receta = receta) }
+            val enlaces =
+                receta.tags.tecnica
+                    .distinct()
+                    .mapNotNull { s -> tecnicas.obtener(s)?.let { s to it.titulo } }
+                    .toMap()
+            _ui.update { it.copy(cargando = false, receta = receta, tecnicas = enlaces) }
             aplicar(estado, ahora)
             cadena.reprogramar()
         }
@@ -250,6 +267,7 @@ class CronoViewModel
                 val ahora = reloj.ahoraMs()
                 val nuevo = cadena.almacen.modificar(slug) { SesionCrono.reiniciar(it, receta, ahora) } ?: return@launch
                 _ui.update { it.copy(reiniciarArmado = false, banda = emptyList(), resumen = null) }
+                cadena.cerrado(slug)
                 aplicar(nuevo, ahora)
                 cadena.reprogramar()
             }
@@ -257,37 +275,66 @@ class CronoViewModel
 
         /** La pantalla deja de verse: la cadena de alarmas queda armada con el estado persistido. */
         fun enSegundoPlano() {
+            confirmarCierre()
             viewModelScope.launch { cadena.reprogramar() }
         }
 
-        /** Cierre: anota la cocinada en el historial, borra el estado y pide salir. */
+        /**
+         * Cierre con 8 s para deshacer: se quitan avisos y ongoing, pero el historial y el borrado del estado solo se
+         * confirman al vencer la ventana o al salir ([confirmarCierre]).
+         */
         fun cerrar(nota: String) {
             val actual = _ui.value
             val receta = actual.receta
             val estado = actual.estado
             val resumen = actual.resumen
+            if (actual.cierrePendiente) return
             if (receta == null || estado == null || resumen == null) return
-            viewModelScope.launch {
-                val momento = Instant.ofEpochMilli(resumen.servidoMs).atZone(zona)
-                val sello = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT).format(momento)
-                historial.agregar(
-                    EntradaHistorial(
-                        id = "$slug-$sello",
-                        slug = slug,
-                        titulo = receta.titulo,
-                        fecha = DateTimeFormatter.ISO_LOCAL_DATE.format(momento),
-                        base = receta.tags.base,
-                        tecnica = receta.tags.tecnica,
-                        raciones = estado.raciones,
-                        minutosReales = resumen.minutosReales,
-                        nota = nota.trim().take(MAX_NOTA).ifBlank { null },
-                        pasosReales = resumen.pasosReales.map { PasoRealHistorial(it.id, it.t, it.segundos) },
-                    ),
+            val momento = Instant.ofEpochMilli(resumen.servidoMs).atZone(zona)
+            val sello = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT).format(momento)
+            val entrada =
+                EntradaHistorial(
+                    id = "$slug-$sello",
+                    slug = slug,
+                    titulo = receta.titulo,
+                    fecha = DateTimeFormatter.ISO_LOCAL_DATE.format(momento),
+                    base = receta.tags.base,
+                    tecnica = receta.tags.tecnica,
+                    raciones = estado.raciones,
+                    minutosReales = resumen.minutosReales,
+                    nota = nota.trim().take(MAX_NOTA).ifBlank { null },
+                    pasosReales = resumen.pasosReales.map { PasoRealHistorial(it.id, it.t, it.segundos) },
                 )
+            cierre = {
+                historial.agregar(entrada)
                 cadena.almacen.borrar(slug)
                 cadena.reprogramar()
                 _ui.update { it.copy(salida = true) }
             }
+            _ui.update { it.copy(cierrePendiente = true) }
+            cadena.cerrado(slug)
+            jobCierre =
+                viewModelScope.launch {
+                    delay(VENTANA_DESHACER_MS)
+                    confirmarCierre()
+                }
+        }
+
+        fun deshacerCierre() {
+            if (!_ui.value.cierrePendiente) return
+            jobCierre?.cancel()
+            jobCierre = null
+            cierre = null
+            _ui.update { it.copy(cierrePendiente = false) }
+        }
+
+        /** Confirma ya un cierre pendiente (vence la ventana o se sale de la pantalla). */
+        fun confirmarCierre() {
+            val pendiente = cierre ?: return
+            cierre = null
+            jobCierre?.cancel()
+            jobCierre = null
+            viewModelScope.launch { withContext(NonCancellable) { pendiente() } }
         }
 
         // --- infraestructura ------------------------------------------------------------------------------------
@@ -306,7 +353,13 @@ class CronoViewModel
         private suspend fun ejecutar(cambio: (EstadoCrono, Receta, Long) -> EstadoCrono) {
             val receta = _ui.value.receta ?: return
             val ahora = reloj.ahoraMs()
-            val nuevo = cadena.almacen.modificar(slug) { cambio(it, receta, ahora) } ?: return
+            var antes: EstadoCrono? = null
+            val nuevo =
+                cadena.almacen.modificar(slug) {
+                    antes = it
+                    cambio(it, receta, ahora)
+                } ?: return
+            cadena.descartarObsoletos(antes, nuevo)
             aplicar(nuevo, ahora)
             cadena.reprogramar()
         }

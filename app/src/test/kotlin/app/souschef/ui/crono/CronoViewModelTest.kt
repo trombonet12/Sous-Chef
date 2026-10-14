@@ -8,6 +8,7 @@ import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.TipoAviso
 import app.souschef.ui.FakeHistorialRepo
 import app.souschef.ui.FakeRecetasRepo
+import app.souschef.ui.FakeTecnicasRepo
 import app.souschef.ui.Rutas
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,7 +41,8 @@ class CronoViewModelTest {
     private val avisador = FakeAvisador()
     private val almacen = AlmacenCrono(repo)
     private val recetas = FakeRecetasRepo(listOf(recetaCrono()))
-    private val cadena = CadenaAlarmas(almacen, recetas, reloj, sistema, FakeNotificador())
+    private val notificador = FakeNotificador()
+    private val cadena = CadenaAlarmas(almacen, recetas, reloj, sistema, notificador)
 
     @Before
     fun antes() = Dispatchers.setMain(StandardTestDispatcher())
@@ -53,7 +55,15 @@ class CronoViewModelTest {
         servir: String = "12:15",
     ): CronoViewModel {
         val args = mapOf(Rutas.ARG_SLUG to "r", Rutas.ARG_RACIONES to raciones, Rutas.ARG_SERVIR to servir)
-        return CronoViewModel(SavedStateHandle(args), recetas, historial, cadena, reloj, avisador).also {
+        return CronoViewModel(
+            SavedStateHandle(args),
+            recetas,
+            FakeTecnicasRepo(),
+            historial,
+            cadena,
+            reloj,
+            avisador,
+        ).also {
             creados += it
             runCurrent()
         }
@@ -159,6 +169,12 @@ class CronoViewModelTest {
 
             vm.cerrar("  menos sal  ")
             runCurrent()
+            assertTrue(vm.ui.value.cierrePendiente)
+            assertTrue(historial.datos.value.isEmpty())
+            assertNotNull(repo.obtener("r"))
+            assertEquals(listOf("r"), notificador.limpiados)
+            advanceTimeBy(VENTANA_DESHACER_MS + 100)
+            runCurrent()
             val entrada = historial.datos.value.single()
             assertEquals("r", entrada.slug)
             assertEquals("Receta r", entrada.titulo)
@@ -170,6 +186,60 @@ class CronoViewModelTest {
             assertNull(repo.obtener("r"))
             assertTrue(vm.ui.value.salida)
             assertNull(sistema.programada)
+        }
+
+    @Test
+    fun deshacerElCierreNoEscribeNadaYVuelveAlResumen() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            listOf("m", "f0", "f0").forEach {
+                vm.hecho(it)
+                runCurrent()
+                siguienteTic()
+            }
+            vm.cerrar("")
+            runCurrent()
+            vm.deshacerCierre()
+            advanceTimeBy(VENTANA_DESHACER_MS + 100)
+            runCurrent()
+            assertFalse(vm.ui.value.cierrePendiente)
+            assertFalse(vm.ui.value.salida)
+            assertTrue(historial.datos.value.isEmpty())
+            assertNotNull(repo.obtener("r"))
+            assertNotNull(vm.ui.value.resumen)
+        }
+
+    @Test
+    fun salirDuranteLaVentanaConfirmaElCierreAlMomento() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            listOf("m", "f0", "f0").forEach {
+                vm.hecho(it)
+                runCurrent()
+                siguienteTic()
+            }
+            vm.cerrar("")
+            runCurrent()
+            vm.enSegundoPlano()
+            runCurrent()
+            assertEquals(1, historial.datos.value.size)
+            assertNull(repo.obtener("r"))
+        }
+
+    @Test
+    fun hechoCancelaLosAvisosDelCarrilYLaOngoingSeRepinta() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            assertEquals("Receta r", notificador.enMarchaPorSlug.getValue("r").titulo)
+            vm.hecho("f0")
+            runCurrent()
+            assertEquals(listOf("r" to setOf("f0")), notificador.canceladas)
         }
 
     @Test
