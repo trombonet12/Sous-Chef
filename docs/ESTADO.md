@@ -26,9 +26,9 @@
   Parar, máx. 60 s); una sola cocinada viva a la vez (diálogo para abandonar, menú ⋮ con Abandonar/Reiniciar);
   sin "En marcha" fantasma; pulido de crono (plan en una línea, línea de tiempo, tapada/destapada en pestañas) y de
   lista/ficha/despensa/historial; CI `android.yml` solo en PR o a mano; release sin secretos de Supabase.
-- 2026-10-14 · Ronda 4 (v0.3.0): `scripts/gh.mjs` y subida de secretos por script; CI en push a main y main
+- 2026-10-14 · Ronda 4 (v0.3.1): `scripts/gh.mjs` y subida de secretos por script; CI en push a main y main
   protegida; validador con reglas 8, 12-15, 19, 20, 24 (13 recetas: 0 errores, 0 avisos); imprimir/guardar la ficha
-  en PDF; "Compartir despensa"; skill `receta-cronometrada` al flujo real (sin `sc publicar/despensa`).
+  en PDF y "Compartir despensa" (probados en el móvil; releases v0.3.0 y v0.3.1 publicadas); skill `receta-cronometrada` al flujo real (sin `sc publicar/despensa`).
 
 ## Entorno
 | Herramienta | Estado |
@@ -40,9 +40,7 @@
 | `~/.souschef/supabase.env` | falta (no hace falta para el MVP) |
 
 ## Pendiente del usuario
-- Subir los 4 secretos: `node scripts/subir-secretos-release.mjs` (el clasificador de permisos no deja a Claude
-  hacerlo) y lanzar `node scripts/gh.mjs workflow run release-android.yml` para la v0.3.0.
-- Probar imprimir → Guardar como PDF (tarta a 6 raciones) y "Compartir despensa".
+- Instalar la v0.3.1 (Obtainium o `adb install -r`): la v0.3.0 se cerraba al imprimir.
 - Probar la ronda 3 en el móvil (pantalla apagada con un aviso).
 
 ## Problemas conocidos / TODO
