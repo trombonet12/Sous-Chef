@@ -26,6 +26,9 @@
   Parar, máx. 60 s); una sola cocinada viva a la vez (diálogo para abandonar, menú ⋮ con Abandonar/Reiniciar);
   sin "En marcha" fantasma; pulido de crono (plan en una línea, línea de tiempo, tapada/destapada en pestañas) y de
   lista/ficha/despensa/historial; CI `android.yml` solo en PR o a mano; release sin secretos de Supabase.
+- 2026-10-14 · Ronda 4 (v0.3.0): `scripts/gh.mjs` y subida de secretos por script; CI en push a main y main
+  protegida; validador con reglas 8, 12-15, 19, 20, 24 (13 recetas: 0 errores, 0 avisos); imprimir/guardar la ficha
+  en PDF; "Compartir despensa"; skill `receta-cronometrada` al flujo real (sin `sc publicar/despensa`).
 
 ## Entorno
 | Herramienta | Estado |
@@ -37,15 +40,17 @@
 | `~/.souschef/supabase.env` | falta (no hace falta para el MVP) |
 
 ## Pendiente del usuario
-- Subir los 4 secretos de firma y lanzar *Release Android* (`docs/sesion-final.md` §4).
+- Subir los 4 secretos: `node scripts/subir-secretos-release.mjs` (el clasificador de permisos no deja a Claude
+  hacerlo) y lanzar `node scripts/gh.mjs workflow run release-android.yml` para la v0.3.0.
+- Probar imprimir → Guardar como PDF (tarta a 6 raciones) y "Compartir despensa".
 - Probar la ronda 3 en el móvil (pantalla apagada con un aviso).
 
 ## Problemas conocidos / TODO
 - Sin probar en el móvil: AlarmaActivity con pantalla apagada (encender, Parar, Hecho → siguiente), diálogo de
   abandonar, deslizar "En marcha", hoja del porqué, Deshacer. Fuente al 1.3 sin revisar.
 - `shortCriticalText` del chip es estático entre repintados (la cuenta atrás nativa sí corre).
-- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, imprimir/PDF, completitud heurística del validador,
-  revisión culinaria F9b.
+- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, revisión culinaria F9b (opus, por lotes de recetas;
+  el validador ya no marca nada, la revisión es de criterio).
 
 ## Próxima acción exacta
 Sesión con el móvil (`docs/sesion-final.md`); después, F3 Supabase cuando haya presupuesto.

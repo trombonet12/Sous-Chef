@@ -60,3 +60,16 @@
 - Una sola cocinada viva a la vez (decisión de Joan); "En marcha" solo para estados vivos; deslizarla abandona.
 - CI `android.yml` y `claude-assets.yml` solo en PR o `workflow_dispatch`; el gate se pasa en local y se hace push
   una vez por ronda. Release: secretos de Supabase opcionales hasta F3.
+
+## 2026-10-14 · Ronda 4
+- `gh` sin `gh auth login`: `scripts/gh.mjs` le pasa el token de Git Credential Manager por `GH_TOKEN` (solo en
+  memoria). `scripts/subir-secretos-release.mjs` sube los 4 secretos de firma por stdin sin imprimir valores.
+- CI vuelve a correr en push a `main` (con filtro de rutas). `main` protegida: sin force-push ni borrado, historial
+  lineal, check `Gate Android, dominio y recetas` obligatorio en PR; `enforce_admins` desactivado para el push directo.
+- Validador: reglas 8, 12-15, 19, 20 y 24 automáticas; 9 y 22 se quedan fuera (no detectables con fiabilidad).
+  R8 casa por palabra completa (núcleo no genérico: «salsa», «semillas», «hoja»… no cuentan). R12 contra
+  `data/despensa-semilla.md`, con «agua» siempre permitida. R20 busca la potencia en `t`, `nota` y `p`; potencia 0
+  vale con «apaga/retira/fuera del fuego/reposo». R19 acepta «por la mitad».
+- Imprimir/PDF: HTML A4 generado en la app + WebView fuera de pantalla + `PrintManager`; el PDF lo da el diálogo del
+  sistema (sin dependencias nuevas).
+- Revisión culinaria opus de las 13 recetas aplazada por presupuesto; esta ronda solo corrige lo que marca el validador.
