@@ -83,3 +83,6 @@
   Deslizar una notificación ya no abandona la cocinada (solo el menú ⋮).
 - Android 16 deniega por defecto `USE_FULL_SCREEN_INTENT`: el cronómetro avisa y enlaza al ajuste.
 - Recetas de pescado: `tags.base = "pescado"`.
+- Trombito chef: mascota Compose dentro del cronómetro (no overlay del sistema). Consejos de `Consejero` (receta/crono),
+  solo con datos existentes: "en nada toca" (<60 s), siguiente evento de otro carril (<5 min), "ve adelantando" (mep sin
+  marcar). No repite la nota del paso, que ya está en pantalla. Bocadillo de 3 líneas como máximo.

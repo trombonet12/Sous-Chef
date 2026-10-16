@@ -27,6 +27,20 @@ object AvisosCrono {
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
 
+    /** Como [siguienteEvento], pero ignorando el carril [excepto] (el que se está mirando). */
+    fun siguienteEventoFuera(
+        e: EstadoCrono,
+        receta: Receta,
+        excepto: String?,
+    ): Evento? {
+        val plano = Plano(receta)
+        return plano.carriles
+            .filter { it.id != excepto }
+            .flatMap { pendientes(plano, e, it.id) }
+            .map { it.evento }
+            .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
+    }
+
     /**
      * Avisos cuya hora ya llegó, más el estado con sus flags marcados. Los que llevan > 90 s vencidos salen
      * `silencioso`. El `DIEZ_S` que se salta (el cero ya pasó) se marca sin avisar.

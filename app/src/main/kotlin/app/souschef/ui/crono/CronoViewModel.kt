@@ -12,6 +12,8 @@ import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.receta.Receta
 import app.souschef.receta.crono.Aviso
 import app.souschef.receta.crono.AvisosCrono
+import app.souschef.receta.crono.Consejero
+import app.souschef.receta.crono.Consejo
 import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.MotorCrono
@@ -60,6 +62,8 @@ data class CronoUi(
     val tecnicas: Map<String, String> = emptyMap(),
     /** Título de otra cocinada viva que habría que abandonar para abrir esta cocina (solo se cocina una a la vez). */
     val conflicto: String? = null,
+    /** Consejo de Trombito chef para ahora mismo; null si no tiene nada que decir. */
+    val consejo: Consejo? = null,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -207,7 +211,8 @@ class CronoViewModel
             ahora: Long,
         ) {
             val receta = _ui.value.receta
-            _ui.update { it.copy(estado = estado, ahoraMs = ahora) }
+            val consejo = receta?.takeIf { estado.inicioMs != null }?.let { Consejero.consejo(it, estado, ahora) }
+            _ui.update { it.copy(estado = estado, ahoraMs = ahora, consejo = consejo) }
             val cerrada = estado.inicioMs != null && ConsultasCrono.todoTerminado(estado)
             if (receta != null && cerrada && _ui.value.resumen == null) {
                 avisador.cierre()

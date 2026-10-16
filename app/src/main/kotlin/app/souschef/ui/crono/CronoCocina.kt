@@ -29,6 +29,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -40,6 +41,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,6 +54,7 @@ import app.souschef.receta.crono.ClaseEstado
 import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.ui.comun.Tabular
+import app.souschef.ui.crono.trombito.TrombitoConsejero
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 
@@ -73,6 +77,7 @@ fun CronoCocina(
     salidas: SalidasCrono,
 ) {
     val datos = DatosCrono(receta, estado, ui.ahoraMs)
+    var alturaMandos by remember { mutableIntStateOf(0) }
     val indiceFoco = datos.carriles.indexOfFirst { it.id == estado.foco }.coerceAtLeast(0)
     val pager = rememberPagerState(initialPage = indiceFoco) { datos.carriles.size }
     val focoActual = rememberUpdatedState(estado.foco)
@@ -85,15 +90,25 @@ fun CronoCocina(
                 ?.let { viewModel.enfocar(it.id) }
         }
     }
-    Column(Modifier.fillMaxSize()) {
-        if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
-        Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir)
-        PlanPlegable(datos, viewModel)
-        PestanasCarriles(datos, indiceFoco, viewModel::enfocar)
-        HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { datos.carriles[it].id }) { pagina ->
-            PanelCarril(datos, datos.carriles[pagina], ui.tecnicas, salidas.tecnica, viewModel::enfocar)
+    Box(Modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize()) {
+            if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
+            Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir)
+            PlanPlegable(datos, viewModel)
+            PestanasCarriles(datos, indiceFoco, viewModel::enfocar)
+            HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { datos.carriles[it].id }) { pagina ->
+                PanelCarril(datos, datos.carriles[pagina], ui.tecnicas, salidas.tecnica, viewModel::enfocar)
+            }
+            Box(Modifier.onSizeChanged { alturaMandos = it.height }) {
+                datos.carriles.getOrNull(indiceFoco)?.let { MandosCarril(datos, it, viewModel) }
+            }
         }
-        datos.carriles.getOrNull(indiceFoco)?.let { MandosCarril(datos, it, viewModel) }
+        TrombitoConsejero(
+            ui.consejo,
+            Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 12.dp, bottom = with(LocalDensity.current) { alturaMandos.toDp() } + 4.dp),
+        )
     }
 }
 
