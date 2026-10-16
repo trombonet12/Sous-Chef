@@ -25,7 +25,20 @@ data class AvisoNotificacion(
 )
 
 interface Notificador {
+    /**
+     * Avisos que suenan: cada uno vuelve a publicar la notificación de su carril en el canal de alarma (sonido
+     * insistente hasta Parar, Hecho/Siguiente o 60 s). Los silenciosos no llegan aquí, solo repintan el carril.
+     */
     fun publicar(avisos: List<AvisoNotificacion>)
+
+    /**
+     * Pinta una notificación por carril de la cocinada y quita las de los carriles que ya no están. Un carril que
+     * está sonando no se pisa hasta que se pare.
+     */
+    fun carriles(
+        slug: String,
+        carriles: List<CarrilNotificacion>,
+    )
 
     /** Pinta (o, con null, quita) la notificación ongoing "En marcha" de una cocinada. */
     fun enMarcha(
@@ -33,16 +46,16 @@ interface Notificador {
         modelo: EnMarcha?,
     )
 
-    /** Cancela los avisos pendientes de unos carriles (su paso se ha dado por hecho). */
+    /** Quita la notificación (y su sonido) de unos carriles: su paso se ha dado por hecho. */
     fun cancelarAvisos(
         slug: String,
         carriles: Collection<String>,
     )
 
-    /** Cierre de la cocinada: fuera todos sus avisos y la ongoing. */
+    /** Cierre de la cocinada: fuera las notificaciones de sus carriles y la ongoing. */
     fun limpiar(slug: String)
 
-    /** Para el sonido de alarma y quita los avisos publicados de la cocinada (la ongoing se queda). */
+    /** Para el sonido: las notificaciones de carril que están sonando se quitan (la ongoing se queda). */
     fun silenciar(slug: String)
 }
 
@@ -75,13 +88,16 @@ class CadenaAlarmas(
         repintar()
     }
 
-    /** Repinta la ongoing "En marcha" solo de las cocinadas vivas; las demás (sin arrancar, caducadas) la pierden. */
+    /**
+     * Repinta la ongoing "En marcha" y las notificaciones de carril solo de las cocinadas vivas; las demás (sin
+     * arrancar, caducadas) las pierden.
+     */
     suspend fun repintar() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
-            val modelo =
-                recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }?.let { ConstructorEnMarcha.construir(it, e, ahora) }
-            notificador.enMarcha(e.slug, modelo)
+            val receta = recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }
+            notificador.enMarcha(e.slug, receta?.let { ConstructorEnMarcha.construir(it, e, ahora) })
+            notificador.carriles(e.slug, receta?.let { ConstructorCarriles.construir(it, e, ahora) }.orEmpty())
         }
     }
 
@@ -99,7 +115,10 @@ class CadenaAlarmas(
     }
 
     /** Para el sonido y quita los avisos de la cocinada. */
-    fun silenciar(slug: String) = notificador.silenciar(slug)
+    suspend fun silenciar(slug: String) {
+        notificador.silenciar(slug)
+        repintar()
+    }
 
     /** Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. */
     fun descartarObsoletos(
@@ -145,7 +164,8 @@ class CadenaAlarmas(
             }
             publicar += avisos.map { AvisoNotificacion(e.slug, receta.titulo, nombres[it.carril] ?: it.carril, it) }
         }
-        if (publicar.isNotEmpty()) notificador.publicar(publicar)
+        val suenan = publicar.filter { IdsNotificacion.despiertaPantalla(it.aviso.tipo, it.aviso.silencioso) }
+        if (suenan.isNotEmpty()) notificador.publicar(suenan)
         reprogramar()
     }
 

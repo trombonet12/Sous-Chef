@@ -89,28 +89,23 @@ object ConstructorEnMarcha {
     )
 }
 
-/** Ids y caducidad de los avisos: uno por carril y tipo, de modo que cada aviso nuevo sustituye al anterior. */
+/** Ids de las notificaciones: una por carril (tag `carril:<slug>`, id estable) y la ongoing "En marcha". */
 object IdsNotificacion {
     const val ID_EN_MARCHA = 1
-    private const val DOS_MIN_MS = 2 * 60_000L
-    private const val DIEZ_MIN_MS = 10 * 60_000L
+    const val ID_RESUMEN = 2
 
-    fun aviso(
-        carril: String,
-        tipo: TipoAviso,
-    ): Int = "$carril/$tipo".hashCode()
+    /** Tope del sonido insistente de un aviso (el sistema lo corta al caducar la notificación). */
+    const val CADUCIDAD_ALARMA_MS = 60_000L
 
-    fun avisosDe(carril: String): List<Int> = TipoAviso.entries.map { aviso(carril, it) }
+    fun carril(carril: String): Int = carril.hashCode()
+
+    fun tagCarril(slug: String): String = "carril:$slug"
+
+    fun grupoCarriles(slug: String): String = "carriles:$slug"
 
     fun tagEnMarcha(slug: String): String = "enmarcha:$slug"
 
-    fun caducidadMs(tipo: TipoAviso): Long =
-        when (tipo) {
-            TipoAviso.DIEZ_S, TipoAviso.HITO -> DOS_MIN_MS
-            TipoAviso.FIN, TipoAviso.TOCA_EMPEZAR -> DIEZ_MIN_MS
-        }
-
-    /** Avisos que despiertan la pantalla: los que piden una acción o marcan un hito, si no llegan tarde. */
+    /** Avisos que despiertan la pantalla y suenan: los que piden una acción o marcan un hito, si no llegan tarde. */
     fun despiertaPantalla(
         tipo: TipoAviso,
         silencioso: Boolean,

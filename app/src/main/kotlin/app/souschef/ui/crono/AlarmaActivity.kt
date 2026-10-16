@@ -30,15 +30,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.lifecycle.lifecycleScope
 import app.souschef.MainActivity
 import app.souschef.R
-import app.souschef.data.alarma.SonidoAlarma
 import app.souschef.domain.crono.CadenaAlarmas
+import app.souschef.domain.crono.IdsNotificacion
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.DarkColors
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
@@ -46,13 +47,10 @@ import javax.inject.Inject
 
 /**
  * Pantalla de alarma al estilo reloj: se muestra sobre el bloqueo, enciende la pantalla y permite parar el sonido
- * o dar el paso por hecho. La abre el full-screen intent del aviso.
+ * o dar el paso por hecho. La abre el full-screen intent del aviso; el sonido es de la notificación, no de aquí.
  */
 @AndroidEntryPoint
 class AlarmaActivity : ComponentActivity() {
-    @Inject
-    lateinit var sonido: SonidoAlarma
-
     @Inject
     lateinit var cadena: CadenaAlarmas
 
@@ -92,26 +90,38 @@ class AlarmaActivity : ComponentActivity() {
         )
     }
 
+    // El sonido es el de la notificación: quitarla lo corta. Después se repinta el carril en su estado normal.
     private fun silenciar(d: DatosAlarma) {
-        sonido.parar()
-        if (d.id != 0) getSystemService(NotificationManager::class.java).cancel(d.slug, d.id)
+        if (d.id != 0) {
+            getSystemService(NotificationManager::class.java).cancel(IdsNotificacion.tagCarril(d.slug), d.id)
+        }
+    }
+
+    // Ámbito propio: la actividad se cierra enseguida y no debe cancelar el repintado.
+    private fun enSegundoPlano(trabajo: suspend () -> Unit) {
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch { trabajo() }
     }
 
     private fun parar() {
-        datos?.let { silenciar(it) }
+        val d = datos
+        if (d != null) {
+            silenciar(d)
+            enSegundoPlano { cadena.repintar() }
+        }
         finish()
     }
 
     private fun hechoYSiguiente() {
         val d = datos ?: return
         silenciar(d)
-        lifecycleScope.launch(Dispatchers.IO) { cadena.siguiente(d.slug) }
+        enSegundoPlano { cadena.siguiente(d.slug) }
         finish()
     }
 
     private fun abrirCocina() {
         val d = datos ?: return
         silenciar(d)
+        enSegundoPlano { cadena.repintar() }
         startActivity(
             Intent(Intent.ACTION_VIEW, "souschef://crono/${d.slug}".toUri(), this, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP),

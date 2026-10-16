@@ -237,6 +237,13 @@ class CronoViewModelTest {
             vm.abrirCocina()
             runCurrent()
             assertEquals("Receta r", notificador.enMarchaPorSlug.getValue("r").titulo)
+            assertEquals(
+                setOf("f0", "m"),
+                notificador.carrilesPorSlug
+                    .getValue("r")
+                    .map { it.carril }
+                    .toSet(),
+            )
             vm.hecho("f0")
             runCurrent()
             assertEquals(listOf("r" to setOf("f0")), notificador.canceladas)

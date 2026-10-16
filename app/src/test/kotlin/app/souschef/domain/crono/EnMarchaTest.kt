@@ -58,20 +58,11 @@ class EnMarchaTest {
     }
 
     @Test
-    fun cadaCarrilYTipoTienenSuIdYSeSustituyen() {
-        val ids = TipoAviso.entries.flatMap { t -> listOf("f0", "m").map { IdsNotificacion.aviso(it, t) } }
-        assertEquals(ids.size, ids.toSet().size)
-        assertEquals(IdsNotificacion.aviso("f0", TipoAviso.FIN), IdsNotificacion.aviso("f0", TipoAviso.FIN))
-        assertEquals(TipoAviso.entries.size, IdsNotificacion.avisosDe("f0").toSet().size)
-        assertFalse(IdsNotificacion.avisosDe("f0").contains(IdsNotificacion.ID_EN_MARCHA))
-    }
-
-    @Test
-    fun caducidadSegunElTipo() {
-        assertEquals(120_000L, IdsNotificacion.caducidadMs(TipoAviso.DIEZ_S))
-        assertEquals(120_000L, IdsNotificacion.caducidadMs(TipoAviso.HITO))
-        assertEquals(600_000L, IdsNotificacion.caducidadMs(TipoAviso.FIN))
-        assertEquals(600_000L, IdsNotificacion.caducidadMs(TipoAviso.TOCA_EMPEZAR))
+    fun cadaCarrilTieneSuIdEstableYNoChocaConLasOtras() {
+        assertEquals(IdsNotificacion.carril("f0"), IdsNotificacion.carril("f0"))
+        assertFalse(IdsNotificacion.carril("f0") == IdsNotificacion.carril("m"))
+        assertFalse(IdsNotificacion.carril("f0") == IdsNotificacion.ID_EN_MARCHA)
+        assertEquals("carril:r", IdsNotificacion.tagCarril("r"))
     }
 
     @Test

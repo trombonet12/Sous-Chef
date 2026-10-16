@@ -258,7 +258,9 @@ class CronoViewModel
         }
 
         /** La pantalla se ve (o vuelve a verse): se calla la alarma y se quitan los avisos de esta cocinada. */
-        fun alVer() = cadena.silenciar(slug)
+        fun alVer() {
+            viewModelScope.launch { cadena.silenciar(slug) }
+        }
 
         fun marcar(
             idCasilla: String,

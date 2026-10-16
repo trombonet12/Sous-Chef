@@ -89,7 +89,34 @@ class CadenaAlarmasTest {
             cocinando("a", T0)
             reloj.ms = T0 + 300_000L + 120_000L
             cadena.procesar()
-            assertTrue(notificador.publicados.all { it.aviso.silencioso })
+            assertTrue(notificador.publicados.isEmpty())
+            assertEquals(2, notificador.carrilesPorSlug.getValue("a").size)
+        }
+
+    @Test
+    fun elAvisoDeDiezSegundosSoloRepintaElCarrilSinSonar() =
+        runTest {
+            cocinando("a", T0)
+            reloj.ms = T0 + 291_000L
+            cadena.procesar()
+            assertTrue(notificador.publicados.isEmpty())
+            assertEquals(
+                setOf("f0", "m"),
+                notificador.carrilesPorSlug
+                    .getValue("a")
+                    .map { it.carril }
+                    .toSet(),
+            )
+        }
+
+    @Test
+    fun repintarPintaUnaNotificacionPorCarrilYLaQuitaAlCerrar() =
+        runTest {
+            cocinando("a", T0)
+            cadena.repintar()
+            assertEquals(2, notificador.carrilesPorSlug.getValue("a").size)
+            cadena.cerrado("a")
+            assertTrue(notificador.carrilesPorSlug.isEmpty())
         }
 
     @Test
