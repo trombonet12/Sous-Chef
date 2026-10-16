@@ -25,11 +25,19 @@ data class CarrilNotificacion(
     val texto: String,
     val situacion: SituacionCarril,
     val finAtMs: Long?,
+    /** Segundos que quedan del paso (0 si no corre con tiempo por delante). */
+    val quedanS: Int = 0,
 ) {
     val titulo: String get() = "$nombre · paso $indice/$total"
 
     /** Pasos ya hechos (el actual no cuenta). */
     val hechos: Int get() = indice - 1
+
+    /** Progreso sobre [tramos]: [PASO] unidades por paso hecho. Los pendientes quedan difuminados. */
+    val progreso: Int get() = hechos * PASO
+
+    /** Tiempo corto para el chip de la barra de estado: cuenta atrás "m:ss" o, sin reloj, el nombre del carril. */
+    val cortoCritico: String get() = if (finAtMs != null) reloj(quedanS) else nombre
 
     /** Texto de la notificación: el paso y, si hace falta, en qué situación está. */
     val detalle: String
@@ -42,6 +50,33 @@ data class CarrilNotificacion(
             }
 
     val id: Int get() = IdsNotificacion.carril(carril)
+
+    companion object {
+        /** Longitud de cada tramo de la barra de progreso. */
+        const val PASO = 100
+
+        private const val SEGUNDOS_HORA = 3600
+        private const val SEGUNDOS_MINUTO = 60
+
+        /** "m:ss" o "h:mm:ss". */
+        fun reloj(segundos: Int): String {
+            val s = maxOf(0, segundos)
+            val h = s / SEGUNDOS_HORA
+            val m = s % SEGUNDOS_HORA / SEGUNDOS_MINUTO
+            val resto = s % SEGUNDOS_MINUTO
+            return if (h > 0) "%d:%02d:%02d".format(h, m, resto) else "%d:%02d".format(m, resto)
+        }
+
+        /**
+         * Carril que se promociona a Live Update: el que acaba antes (menor `finAtMs` entre los que corren) o, si
+         * ninguno tiene reloj, el primero. null si no hay carriles.
+         */
+        fun promocionado(carriles: List<CarrilNotificacion>): String? =
+            (
+                carriles.filter { it.finAtMs != null }.minByOrNull { it.finAtMs ?: Long.MAX_VALUE }
+                    ?: carriles.firstOrNull()
+            )?.carril
+    }
 }
 
 object ConstructorCarriles {
@@ -76,6 +111,7 @@ object ConstructorCarriles {
                 texto = paso.t,
                 situacion = situacion,
                 finAtMs = ec.finAtMs.takeIf { situacion == SituacionCarril.CORRIENDO },
+                quedanS = if (situacion == SituacionCarril.CORRIENDO) quedan else 0,
             )
         }
     }

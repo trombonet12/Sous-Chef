@@ -73,3 +73,13 @@
 - Imprimir/PDF: HTML A4 generado en la app + WebView fuera de pantalla + `PrintManager`; el PDF lo da el diálogo del
   sistema (sin dependencias nuevas).
 - Revisión culinaria opus de las 13 recetas aplazada por presupuesto; esta ronda solo corrige lo que marca el validador.
+
+## 2026-10-16 · Ronda 5
+- Sonido del aviso: lo reproduce el sistema desde el canal `crono_alarma_v3` (HIGH, tono de alarma, `USAGE_ALARM`) con
+  `FLAG_INSISTENT` y tope de 60 s. El `MediaPlayer` en el receptor moría con el proceso (sin FGS) y no sonaba en el móvil.
+- Una notificación por carril (`crono_carriles`, DEFAULT sin sonido, grupo `carriles:<slug>`), con paso i/n, cuenta atrás y
+  `ProgressStyle` por pasos. Al acabar un paso se repinta el mismo id en el canal de alarma; Parar/Siguiente lo devuelven.
+- Se elimina la "En marcha" (duplicaba los carriles). El chip de Live Update lo lleva el carril con el `finAt` más próximo.
+  Deslizar una notificación ya no abandona la cocinada (solo el menú ⋮).
+- Android 16 deniega por defecto `USE_FULL_SCREEN_INTENT`: el cronómetro avisa y enlaza al ajuste.
+- Recetas de pescado: `tags.base = "pescado"`.

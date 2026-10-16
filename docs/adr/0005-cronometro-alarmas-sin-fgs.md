@@ -14,7 +14,7 @@
 - Una **única cadena de alarmas**: `AlarmManager.setAlarmClock` programa solo el próximo evento. El receiver recarga el estado de Room, emite todo lo vencido (los hitos con más de 90 s de retraso se marcan sin sonar) y programa el siguiente.
 - Permisos: `USE_EXACT_ALARM` (API 33+) y `SCHEDULE_EXACT_ALARM` con `maxSdk=32`.
 - Se reprograma en `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `TIME_SET`, `TIMEZONE_CHANGED` y al cambiar el permiso de alarmas exactas.
-- Notificaciones: canales HIGH con `USAGE_ALARM` (fin de paso, hito, toca empezar) y un canal LOW, silencioso, para la notificación en curso de cada carril con cronómetro en cuenta atrás. `POST_NOTIFICATIONS` se pide al abrir la cocina.
+- Notificaciones (actualizado en la ronda 5, ver decisiones.md): una por carril en `crono_carriles` y, al vencer un paso, la misma en `crono_alarma_v3` (`USAGE_ALARM`, `FLAG_INSISTENT`): el sonido lo pone el sistema, no el proceso. `POST_NOTIFICATIONS` se pide al abrir la cocina.
 - Con el crono abierto, `FLAG_KEEP_SCREEN_ON`.
 
 ## Alternativas consideradas

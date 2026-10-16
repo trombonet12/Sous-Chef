@@ -6,7 +6,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import app.souschef.domain.crono.AvisoNotificacion
 import app.souschef.domain.crono.ConstructorCarriles
-import app.souschef.domain.crono.ConstructorEnMarcha
 import app.souschef.domain.crono.IdsNotificacion
 import app.souschef.receta.crono.Aviso
 import app.souschef.receta.crono.MotorCrono
@@ -56,13 +55,18 @@ class NotificadorAndroidTest {
         )
 
     @Test
-    fun enMarchaNoLlevaDescarteAsiNoAbandonaAlDeslizar() {
-        val modelo = checkNotNull(ConstructorEnMarcha.construir(receta, estado, T0 + 10_000L))
-        notificador.enMarcha("r", modelo)
-        val n = gestor.activeNotifications.single { it.id == IdsNotificacion.ID_EN_MARCHA }.notification
-        assertNull(n.deleteIntent)
-        assertEquals("crono_carriles", n.channelId)
-        assertNull(n.group)
+    fun noSePublicaEnMarchaYSeLimpiaLaAntigua() {
+        gestor.notify(
+            IdsNotificacion.tagEnMarcha("r"),
+            IdsNotificacion.ID_EN_MARCHA,
+            android.app.Notification
+                .Builder(ApplicationProvider.getApplicationContext<Context>(), "crono_carriles")
+                .setSmallIcon(app.souschef.R.drawable.ic_stat_souschef)
+                .build(),
+        )
+        pintar()
+        assertTrue(gestor.activeNotifications.none { it.tag == IdsNotificacion.tagEnMarcha("r") })
+        assertTrue(gestor.activeNotifications.all { it.notification.contentIntent != null })
     }
 
     @Test
@@ -113,9 +117,8 @@ class NotificadorAndroidTest {
     }
 
     @Test
-    fun limpiarQuitaCarrilesResumenYOngoing() {
+    fun limpiarQuitaCarrilesYResumen() {
         pintar()
-        notificador.enMarcha("r", ConstructorEnMarcha.construir(receta, estado, T0))
         notificador.limpiar("r")
         assertTrue(gestor.activeNotifications.isEmpty())
     }

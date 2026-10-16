@@ -17,7 +17,6 @@ import app.souschef.MainActivity
 import app.souschef.R
 import app.souschef.domain.crono.AvisoNotificacion
 import app.souschef.domain.crono.CarrilNotificacion
-import app.souschef.domain.crono.EnMarcha
 import app.souschef.domain.crono.IdsNotificacion
 import app.souschef.domain.crono.Notificador
 import app.souschef.ui.crono.AlarmaActivity
@@ -28,8 +27,9 @@ import javax.inject.Inject
  * Notificaciones del cronómetro. Una por carril en el canal silencioso `crono_carriles` (ongoing, con cuenta atrás y
  * progreso); cuando acaba un paso, el mismo id se vuelve a publicar en el canal `crono_alarma_v3` (HIGH, tono de alarma
  * del sistema, insistente hasta que se cancela o a los 60 s) y Parar/Hecho/Siguiente lo devuelven a su estado normal.
- * El sonido lo pone solo el canal: no hay reproductor propio ni servicio (ADR-0005). "En marcha" es el resumen ongoing
- * promocionado (Live Update en Android 16), suelto y sin acción de descarte.
+ * El sonido lo pone solo el canal: no hay reproductor propio ni servicio (ADR-0005). En Android 16 el carril que acaba
+ * antes se
+ * promociona a Live Update (chip con cuenta atrás en la barra de estado).
  */
 @Suppress("TooManyFunctions")
 class NotificadorAndroid
@@ -71,6 +71,8 @@ class NotificadorAndroid
             slug: String,
             carriles: List<CarrilNotificacion>,
         ) {
+            // La antigua "En marcha" ya no existe: se limpia por si quedó de una versión anterior.
+            gestor.cancel(IdsNotificacion.tagEnMarcha(slug), IdsNotificacion.ID_EN_MARCHA)
             val tag = IdsNotificacion.tagCarril(slug)
             val activas = gestor.activeNotifications.filter { it.tag == tag }
             val ids = carriles.map { it.id }.toSet()
@@ -84,39 +86,11 @@ class NotificadorAndroid
             crearCanales()
             // Un carril que está sonando no se pisa: lo devuelve a normal Parar, Hecho o Siguiente.
             val sonando = activas.filter { it.notification.channelId == CANAL_ALARMA }.map { it.id }.toSet()
-            carriles.filter { it.id !in sonando }.forEach { gestor.notify(tag, it.id, notificacionCarril(it)) }
+            val promocionado = CarrilNotificacion.promocionado(carriles)
+            carriles
+                .filter { it.id !in sonando }
+                .forEach { gestor.notify(tag, it.id, notificacionCarril(it, it.carril == promocionado)) }
             gestor.notify(tag, IdsNotificacion.ID_RESUMEN, resumen(slug, carriles.first().tituloReceta))
-        }
-
-        override fun enMarcha(
-            slug: String,
-            modelo: EnMarcha?,
-        ) {
-            val tag = IdsNotificacion.tagEnMarcha(slug)
-            if (modelo == null) {
-                gestor.cancel(tag, IdsNotificacion.ID_EN_MARCHA)
-                return
-            }
-            crearCanales()
-            val builder =
-                Notification
-                    .Builder(context, CANAL_CARRILES)
-                    .setSmallIcon(R.drawable.ic_stat_souschef)
-                    .setContentTitle(modelo.titulo)
-                    .setContentText(modelo.resumen)
-                    .setStyle(Notification.BigTextStyle().bigText(modelo.lineas.joinToString("\n")))
-                    .setCategory(Notification.CATEGORY_PROGRESS)
-                    .setOngoing(true)
-                    .setOnlyAlertOnce(true)
-                    .setContentIntent(abrirCrono(slug))
-                    .addAction(accion(R.string.crono_notif_siguiente, siguiente(slug)))
-                    .addAction(accion(R.string.crono_notif_abrir, abrirCrono(slug)))
-            cuentaAtras(builder, modelo.finAtMs)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-                builder.addExtras(Bundle().apply { putBoolean(EXTRA_PEDIR_PROMOCION, true) })
-                if (modelo.cortoCritico.isNotEmpty()) builder.setShortCriticalText(modelo.cortoCritico)
-            }
-            gestor.notify(tag, IdsNotificacion.ID_EN_MARCHA, builder.build())
         }
 
         override fun cancelarAvisos(
@@ -139,7 +113,10 @@ class NotificadorAndroid
             gestor.cancel(IdsNotificacion.tagEnMarcha(slug), IdsNotificacion.ID_EN_MARCHA)
         }
 
-        private fun notificacionCarril(c: CarrilNotificacion): Notification {
+        private fun notificacionCarril(
+            c: CarrilNotificacion,
+            promocionar: Boolean,
+        ): Notification {
             val color = colorDe(c.color)
             val builder =
                 Notification
@@ -151,19 +128,25 @@ class NotificadorAndroid
                     .setOngoing(true)
                     .setOnlyAlertOnce(true)
                     .setColor(color)
+                    .setColorized(false)
                     .setGroup(IdsNotificacion.grupoCarriles(c.slug))
                     .setContentIntent(abrirCrono(c.slug))
                     .addAction(accion(R.string.crono_notif_siguiente, siguiente(c.slug)))
             cuentaAtras(builder, c.finAtMs)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-                val tramos = List(c.total) { Notification.ProgressStyle.Segment(1).setColor(color) }
+                val tramos =
+                    List(c.total) { Notification.ProgressStyle.Segment(CarrilNotificacion.PASO).setColor(color) }
                 builder.setStyle(
                     Notification
                         .ProgressStyle()
                         .setProgressSegments(tramos)
-                        .setProgress(c.hechos)
-                        .setStyledByProgress(false),
+                        .setProgress(c.progreso)
+                        .setStyledByProgress(true),
                 )
+                if (promocionar) {
+                    builder.addExtras(Bundle().apply { putBoolean(EXTRA_PEDIR_PROMOCION, true) })
+                    builder.setShortCriticalText(c.cortoCritico)
+                }
             } else {
                 builder.setProgress(c.total, c.hechos, false)
             }

@@ -225,7 +225,6 @@
     <string name="crono_ya_esta">Ya está, a la mesa</string>
     <string name="crono_potencia">Potencia %1$d</string>
     <string name="crono_notif_siguiente">Siguiente</string>
-    <string name="crono_notif_abrir">Abrir</string>
     <string name="crono_notif_parar">Parar</string>
     <string name="crono_alarma_parar">Parar</string>
     <string name="crono_alarma_hecho_siguiente">Hecho → siguiente</string>

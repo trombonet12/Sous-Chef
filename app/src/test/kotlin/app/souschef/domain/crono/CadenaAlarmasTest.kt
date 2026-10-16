@@ -125,17 +125,17 @@ class CadenaAlarmasTest {
             cocinando("a", T0)
             almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
             cadena.repintar()
-            assertEquals(setOf("a"), notificador.enMarchaPorSlug.keys)
+            assertEquals(setOf("a"), notificador.carrilesPorSlug.keys)
         }
 
     @Test
-    fun repintarQuitaLaOngoingDeUnaCocinadaCaducada() =
+    fun repintarQuitaLosCarrilesDeUnaCocinadaCaducada() =
         runTest {
             cocinando("a", T0)
             cadena.repintar()
             reloj.ms = T0 + SesionCrono.CADUCIDAD_MS + 1
             cadena.repintar()
-            assertTrue(notificador.enMarchaPorSlug.isEmpty())
+            assertTrue(notificador.carrilesPorSlug.isEmpty())
         }
 
     @Test
@@ -155,7 +155,7 @@ class CadenaAlarmasTest {
             cadena.abandonar("a")
             assertNull(repo.obtener("a"))
             assertEquals(listOf("a"), notificador.limpiados)
-            assertTrue(notificador.enMarchaPorSlug.isEmpty())
+            assertTrue(notificador.carrilesPorSlug.isEmpty())
             assertNull(sistema.programada)
         }
 }

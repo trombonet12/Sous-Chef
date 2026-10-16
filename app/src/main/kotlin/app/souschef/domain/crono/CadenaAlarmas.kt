@@ -40,22 +40,16 @@ interface Notificador {
         carriles: List<CarrilNotificacion>,
     )
 
-    /** Pinta (o, con null, quita) la notificación ongoing "En marcha" de una cocinada. */
-    fun enMarcha(
-        slug: String,
-        modelo: EnMarcha?,
-    )
-
     /** Quita la notificación (y su sonido) de unos carriles: su paso se ha dado por hecho. */
     fun cancelarAvisos(
         slug: String,
         carriles: Collection<String>,
     )
 
-    /** Cierre de la cocinada: fuera las notificaciones de sus carriles y la ongoing. */
+    /** Cierre de la cocinada: fuera las notificaciones de sus carriles. */
     fun limpiar(slug: String)
 
-    /** Para el sonido: las notificaciones de carril que están sonando se quitan (la ongoing se queda). */
+    /** Para el sonido: las notificaciones de carril que están sonando se quitan. */
     fun silenciar(slug: String)
 }
 
@@ -89,14 +83,13 @@ class CadenaAlarmas(
     }
 
     /**
-     * Repinta la ongoing "En marcha" y las notificaciones de carril solo de las cocinadas vivas; las demás (sin
+     * Repinta las notificaciones de carril solo de las cocinadas vivas; las demás (sin
      * arrancar, caducadas) las pierden.
      */
     suspend fun repintar() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
             val receta = recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }
-            notificador.enMarcha(e.slug, receta?.let { ConstructorEnMarcha.construir(it, e, ahora) })
             notificador.carriles(e.slug, receta?.let { ConstructorCarriles.construir(it, e, ahora) }.orEmpty())
         }
     }
@@ -107,7 +100,7 @@ class CadenaAlarmas(
         return almacen.todos().firstOrNull { it.slug != slug && vivo(it, ahora) }
     }
 
-    /** Abandona una cocinada: borra su estado, quita avisos y ongoing y rearma la cadena. */
+    /** Abandona una cocinada: borra su estado, quita avisos y notificaciones y rearma la cadena. */
     suspend fun abandonar(slug: String) {
         almacen.borrar(slug)
         notificador.limpiar(slug)
@@ -129,7 +122,7 @@ class CadenaAlarmas(
         if (avanzados.isNotEmpty()) notificador.cancelarAvisos(despues.slug, avanzados)
     }
 
-    /** Cierre de una cocinada: sin avisos ni ongoing. */
+    /** Cierre de una cocinada: sin avisos ni notificaciones. */
     fun cerrado(slug: String) = notificador.limpiar(slug)
 
     /** Acción "Siguiente" de la notificación. Devuelve el carril afectado o null si no había nada que hacer. */

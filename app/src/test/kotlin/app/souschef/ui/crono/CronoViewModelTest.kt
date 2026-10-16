@@ -231,12 +231,11 @@ class CronoViewModelTest {
         }
 
     @Test
-    fun hechoCancelaLosAvisosDelCarrilYLaOngoingSeRepinta() =
+    fun hechoCancelaLosAvisosDelCarrilYSeRepintan() =
         prueba {
             val vm = crear()
             vm.abrirCocina()
             runCurrent()
-            assertEquals("Receta r", notificador.enMarchaPorSlug.getValue("r").titulo)
             assertEquals(
                 setOf("f0", "m"),
                 notificador.carrilesPorSlug

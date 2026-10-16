@@ -1,6 +1,5 @@
 package app.souschef.domain.crono
 
-import app.souschef.receta.crono.EstadoCarril
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.MotorCrono
 import app.souschef.receta.crono.SesionCrono
@@ -13,7 +12,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class EnMarchaTest {
+class IdsNotificacionTest {
     private val receta = recetaCrono()
 
     private fun portada(): EstadoCrono = SesionCrono.inicial(receta, T0 + 15 * 60_000L, T0, 2)
@@ -21,47 +20,9 @@ class EnMarchaTest {
     private fun abierto(): EstadoCrono = SesionCrono.abrir(portada(), receta, T0)
 
     @Test
-    fun sinAbrirLaCocinaNoHayOngoing() {
-        assertNull(ConstructorEnMarcha.construir(receta, portada(), T0))
-    }
-
-    @Test
-    fun cuentaAtrasDelPasoQueAcabaAntesYUnaLineaPorCarril() {
-        var e = MotorCrono.empezar(abierto(), receta, "f0", T0)
-        e = MotorCrono.empezar(e, receta, "m", T0)
-        val m = checkNotNull(ConstructorEnMarcha.construir(receta, e, T0 + 10_000L))
-        assertEquals("Receta r", m.titulo)
-        assertEquals(T0 + 2 * 60_000L, m.finAtMs)
-        assertEquals("1:50", m.cortoCritico)
-        assertEquals(2, m.lineas.size)
-        assertTrue(m.lineas.contains("F0 · Sofrito · 4:50"))
-        assertEquals("M · Cortar · 1:50", m.resumen)
-    }
-
-    @Test
-    fun sinArrancarYVencido() {
-        val m0 = checkNotNull(ConstructorEnMarcha.construir(receta, abierto(), T0))
-        assertNull(m0.finAtMs)
-        assertTrue(m0.lineas.all { it.endsWith("sin arrancar") })
-        val e = MotorCrono.empezar(abierto(), receta, "m", T0)
-        val vencido = checkNotNull(ConstructorEnMarcha.construir(receta, e, T0 + 3 * 60_000L))
-        assertNull(vencido.finAtMs)
-        assertEquals("¡Hecho!", vencido.cortoCritico)
-        assertTrue(vencido.resumen.endsWith("¡listo!"))
-    }
-
-    @Test
-    fun terminadoNoHayOngoing() {
-        val e = abierto()
-        val fin = e.copy(carriles = e.carriles.mapValues { EstadoCarril(fin = true) })
-        assertNull(ConstructorEnMarcha.construir(receta, fin, T0))
-    }
-
-    @Test
     fun cadaCarrilTieneSuIdEstableYNoChocaConLasOtras() {
         assertEquals(IdsNotificacion.carril("f0"), IdsNotificacion.carril("f0"))
         assertFalse(IdsNotificacion.carril("f0") == IdsNotificacion.carril("m"))
-        assertFalse(IdsNotificacion.carril("f0") == IdsNotificacion.ID_EN_MARCHA)
         assertEquals("carril:r", IdsNotificacion.tagCarril("r"))
     }
 
@@ -82,5 +43,45 @@ class EnMarchaTest {
         assertEquals(setOf("f0"), IdsNotificacion.carrilesAvanzados(antes, hecho))
         assertEquals(setOf("m"), IdsNotificacion.carrilesAvanzados(hecho, fin))
         assertTrue(IdsNotificacion.carrilesAvanzados(antes, antes).isEmpty())
+    }
+
+    private fun carril(
+        id: String,
+        indice: Int,
+        total: Int,
+        fin: Long?,
+    ) = CarrilNotificacion(
+        "r",
+        "Receta",
+        id,
+        id.uppercase(),
+        "#112233",
+        indice,
+        total,
+        "t",
+        if (fin != null) SituacionCarril.CORRIENDO else SituacionCarril.SIN_ARRANCAR,
+        fin,
+        if (fin != null) 125 else 0,
+    )
+
+    @Test
+    fun seAsciendeElCarrilQueAcabaAntes() {
+        val cs = listOf(carril("a", 1, 2, 9_000L), carril("b", 1, 2, 5_000L), carril("c", 1, 2, null))
+        assertEquals("b", CarrilNotificacion.promocionado(cs))
+    }
+
+    @Test
+    fun sinRelojSePromocionaElPrimeroYSinCarrilesNinguno() {
+        assertEquals("a", CarrilNotificacion.promocionado(listOf(carril("a", 1, 2, null), carril("b", 1, 2, null))))
+        assertNull(CarrilNotificacion.promocionado(emptyList()))
+    }
+
+    @Test
+    fun progresoDePasoIDeNYChipCorto() {
+        val c = carril("a", 1, 4, 5_000L)
+        assertEquals(0, c.progreso)
+        assertEquals(2 * CarrilNotificacion.PASO, carril("a", 3, 4, null).progreso)
+        assertEquals("2:05", c.cortoCritico)
+        assertEquals("A", carril("a", 1, 4, null).cortoCritico)
     }
 }
