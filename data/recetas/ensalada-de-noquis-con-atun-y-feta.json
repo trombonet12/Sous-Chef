@@ -96,9 +96,9 @@
           "txt": "¼ cdta"
         },
         {
-          "a": 1,
-          "n": "atún en lata, escurrido",
-          "u": "lata"
+          "a": 110,
+          "n": "atún en lata, escurrido (2 latas pequeñas)",
+          "u": "g"
         },
         {
           "a": 60,
@@ -133,12 +133,11 @@
     },
     {
       "l": [
-        "<b>15 ml de aceite de oliva</b> → a la sartén, en frío.",
-        "<b>40 g de salsa césar</b> → directa al bol grande. Va la última porque es la más espesa y la que más film deja en el vaso."
+        "<b>15 ml de aceite de oliva</b> → a la sartén, en frío."
       ],
-      "orden": true,
-      "porq": "Con un solo vaso el orden lo decide el residuo: la medida más limpia va primero y la más grasa al final.",
-      "t": "VASO MEDIDOR, EN ESTE ORDEN"
+      "orden": false,
+      "porq": "Una sola medida, la del aceite: sin residuo que limpiar antes de nada.",
+      "t": "VASO MEDIDOR"
     },
     {
       "l": [
@@ -153,9 +152,10 @@
     {
       "l": [
         "<b>Sartén, en frío</b> · no lleva nada hasta el minuto 5, que es cuando entran los 5 g de sésamo, en seco.",
-        "<b>El atún · 1 lata</b> se escurre directo al bol grande, sin pasar por ningún recipiente intermedio.",
+        "<b>La salsa césar</b> se queda en su bote; en el minuto 17, 40 g (2 cucharadas y media) sobre la ensalada.",
+        "<b>El atún · 110 g (2 latas pequeñas)</b> se escurre directo al bol grande, sin pasar por ningún recipiente intermedio.",
         "<b>Los 250 g de ñoquis</b> salen de su bolsa directos a la sartén en el minuto 9, cuando el aceite ya está caliente.",
-        "<b>Pimentón picante</b> · ¼ cdta, de su bote a la sartén a los 4 minutos de ñoquis. El pimentón sale de un bote de agujeros: el cuarto de cucharadita es una referencia, no una pesada, y aquí más vale quedarse corto que pasarse.",
+        "<b>Pimentón picante</b> · ¼ cdta, de su bote a la sartén a los 6 minutos de ñoquis. El pimentón sale de un bote de agujeros: el cuarto de cucharadita es una referencia, no una pesada, y aquí más vale quedarse corto que pasarse.",
         "<b>Albahaca seca · ½ cdta</b> · del bote a la sartén en el minuto 16, con la vitro ya apagada."
       ],
       "orden": false,
@@ -249,18 +249,18 @@
           "t": "Ya han dorado por abajo: empieza a moverlos"
         },
         {
-          "en": 240,
+          "en": 360,
           "t": "Añade el pimentón picante"
         }
       ],
       "holgura": "ajustado",
       "id": "gnocchi",
       "junto": null,
-      "meto": "250 g de ñoquis; a los 4 minutos, ¼ cdta de pimentón picante",
+      "meto": "250 g de ñoquis; a los 6 minutos, ¼ cdta de pimentón picante",
       "min": 7,
-      "nota": "Sube al 8 antes de echarlos. Quietos los primeros 3 minutos para que doren. El pimentón picante a los 4, nunca al principio, que se quema. Un cuarto de cucharadita y no más: este pimentón pica.",
+      "nota": "Sube al 8 antes de echarlos. Quietos los primeros 3 minutos para que doren. El pimentón picante en el último minuto, nunca al principio, que se quema. Un cuarto de cucharadita y no más: este pimentón pica.",
       "off": 9,
-      "p": "Sube al 8 y échalos al aceite ya caliente, en una sola capa. No los toques los primeros tres minutos: el Maillard necesita superficie seca y contacto quieto, y si remueves antes se quedan pálidos y gomosos por fuera. A los cuatro minutos, con la sartén ya un poco más fría por la grasa que han soltado los ñoquis, espolvorea el cuarto de cucharadita de pimentón picante junto con la pizca de pimienta negra y da unas vueltas. Ese medio minuto largo en la grasa caliente es lo que hace el plato: el pimentón se fríe, suelta su color rojo en el aceite y el pique pasa de crudo y punzante a seco y redondo, pegado a la costra del ñoqui. Al principio, con el aceite a máxima temperatura, se quemaría, y en un pimentón que ya pica el amargor del quemado se nota el doble y no hay forma de quitarlo. Sin tapa siempre: tapados se cuecen en su propio vapor y pierden la costra.",
+      "p": "Sube al 8 y échalos al aceite ya caliente, en una sola capa. No los toques los primeros tres minutos: el Maillard necesita superficie seca y contacto quieto, y si remueves antes se quedan pálidos y gomosos por fuera. En el último minuto, con los ñoquis ya dorados, espolvorea el cuarto de cucharadita de pimentón picante y da unas vueltas. Ese último minuto en la grasa caliente es lo que hace el plato: el pimentón se fríe, suelta su color rojo en el aceite y el pique pasa de crudo y punzante a seco y redondo, pegado a la costra del ñoqui. Al principio, con el aceite a máxima temperatura, se quemaría, y en un pimentón que ya pica el amargor del quemado se nota el doble y no hay forma de quitarlo. Sin tapa siempre: tapados se cuecen en su propio vapor y pierden la costra.",
       "s": 420,
       "saco": "",
       "t": "Dorar los ñoquis",
@@ -309,7 +309,7 @@
       "holgura": "critico",
       "id": "final",
       "junto": null,
-      "meto": "salsa césar, sésamo tostado, ñoquis recién sacados del fuego",
+      "meto": "40 g de salsa césar (2 cucharadas y media), sésamo tostado, ñoquis recién sacados del fuego",
       "min": 2,
       "nota": "No espera: la lechuga se ablanda con el aliño en minutos y los ñoquis pierden la costra al enfriarse.",
       "off": 17,
@@ -347,8 +347,8 @@
       "La salsa césar ya trae su propio ácido y su propia grasa emulsionada; añadir otro aliño encima no suma, tapa el sabor de los dos."
     ],
     [
-      "Pimentón a mitad de la sartén, no al principio",
-      "A fuego 8 con el aceite recién caliente se quemaría y amargaría en segundos; a mitad de dorado los ñoquis ya han soltado algo de grasa que baja un punto la temperatura de contacto, lo justo para que el pimentón se fría sin quemarse. Con el picante el margen es todavía más estrecho: quemado, el pique se vuelve áspero y se queda así hasta el plato."
+      "Pimentón en el último minuto, no al principio",
+      "A fuego 8 con el aceite recién caliente se quemaría y amargaría en segundos; en el último minuto los ñoquis ya están dorados y al pimentón le bastan unas vueltas en la grasa caliente para freírse sin llegar a quemarse. Con el picante el margen es todavía más estrecho: quemado, el pique se vuelve áspero y se queda así hasta el plato."
     ],
     [
       "Albahaca al final y fuera del fuego",

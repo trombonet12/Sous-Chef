@@ -174,11 +174,11 @@
       "n": "HORNO · LAS PATATAS"
     }
   ],
-  "lectura": "El camino largo es el horno: 10 de precalentar + 32 de patatas + 2 de emplatar = 44 minutos. Lo demás cae dentro. El salmoriglio se hace mientras el horno termina de subir y reposa todo el horneado, que es lo que necesita. El emperador sale de la nevera en el minuto 14 para llegar templado a la plancha. La plancha se enciende en el 32, con las patatas a diez minutos de acabar; el pescado se aceita y se sala en el 37, justo antes de ir a ella, y sale en el 42, justo con la bandeja: los dos terminan a la vez. Solo hay un fuego en todo el plan, el grande, porque la plancha no cabe en otro.",
+  "lectura": "El camino largo es el horno: 10 de precalentar + 32 de patatas + 2 de emplatar = 44 minutos. Lo demás cae dentro. El salmoriglio (sin el perejil, que espera en su platito hasta el 42) se hace mientras el horno termina de subir y reposa todo el horneado, que es lo que necesita. El emperador sale de la nevera en el minuto 14 para llegar templado a la plancha. La plancha se enciende en el 32, con las patatas a diez minutos de acabar; el pescado se aceita y se sala en el 37, justo antes de ir a ella, y sale en el 42, justo con la bandeja: los dos terminan a la vez. Solo hay un fuego en todo el plan, el grande, porque la plancha no cabe en otro.",
   "mep": [
     {
       "l": [
-        "<b>Perejil fresco · 6 g (un puñadito de hojas)</b> · solo las hojas, picado de 3 mm. A un bol mediano en el minuto 0: es el bol del salmoriglio.",
+        "<b>Perejil fresco · 6 g (un puñadito de hojas)</b> · solo las hojas, picado de 3 mm. A un platito en el minuto 0: espera hasta el 42, cuando se remueve en el salmoriglio.",
         "<b>Patatas · 450 g (3 medianas)</b> · lavadas, secadas, con piel, cada una a lo largo en 8 gajos de 2 cm en la parte más gruesa. A la bandeja en el minuto 0.",
         "<b>Limón · 1 entero</b> · primero 2 g de ralladura sobre el bol, solo la parte amarilla, después partido y exprimido: 30 ml de zumo. Minuto 6.",
         "<b>Ajo · 4 g (1 diente mediano)</b> · rallado en la cara fina, directo al bol. Minuto 6."
@@ -190,12 +190,13 @@
     {
       "l": [
         "<b>Bandeja con papel</b> · 450 g de gajos de 2 cm + 20 ml de aceite de oliva (1 cucharada sopera y 1 cucharadita) + 3 g de sal (½ cucharadita), mezclados ahí mismo. Al horno en el minuto 10.",
-        "<b>Bol mediano</b> · el salmoriglio: 6 g de perejil fresco + 2 g de ralladura de limón + 4 g de ajo + 1 g de orégano seco (1 cucharadita rasa) + 1 g de sal (una pizca) + 1 pizca de pimienta negra + 30 ml de zumo de limón + 15 ml de agua caliente (1 cucharada sopera, del grifo bien caliente o 10 segundos de microondas) + 45 ml de aceite de oliva (3 cucharadas soperas). Se monta del minuto 6 al 14 y se usa en el 42.",
+        "<b>Bol mediano</b> · el salmoriglio: 2 g de ralladura de limón + 4 g de ajo + 1 g de orégano seco (1 cucharadita rasa) + 1 g de sal (una pizca) + 1 pizca de pimienta negra + 30 ml de zumo de limón + 15 ml de agua caliente (1 cucharada sopera, del grifo bien caliente o 10 segundos de microondas) + 45 ml de aceite de oliva (3 cucharadas soperas). Se monta del minuto 6 al 14 y se usa en el 42.",
+        "<b>Platito</b> · los 6 g de perejil picado, desde el minuto 0. Se remueve en el salmoriglio en el minuto 42, justo antes de servir.",
         "<b>Plato con papel</b> · los 2 filetes de emperador (400 g), fuera de la nevera desde el minuto 14. Si traen la tira de piel del borde, 2 cortes de 1 cm en ella, sobre el mismo plato. En el 37, justo antes de la plancha, 10 ml de aceite de oliva (2 cucharaditas) extendido con una brocha o los dedos, y 2 g de sal (un pellizco por cara)."
       ],
       "orden": false,
-      "porq": "Un recipiente se justifica si su contenido entra en un momento distinto. La patata se aliña en la bandeja porque es donde va a hornearse. El salmoriglio tiene su bol porque se hace en el minuto 6 y no se usa hasta el 42. El emperador espera en su plato porque sale de la nevera en el 14 y su aceite y su sal no entran hasta la plancha.",
-      "t": "TRES SITIOS, TRES MOMENTOS"
+      "porq": "Un recipiente se justifica si su contenido entra en un momento distinto. La patata se aliña en la bandeja porque es donde va a hornearse. El salmoriglio tiene su bol porque se hace en el minuto 6 y no se usa hasta el 42. El perejil espera en su platito, aparte del bol, porque entra al final y no con el resto. El emperador espera en su plato porque sale de la nevera en el 14 y su aceite y su sal no entran hasta la plancha.",
+      "t": "CUATRO SITIOS, CUATRO MOMENTOS"
     },
     {
       "l": [
@@ -217,9 +218,9 @@
       "holgura": "flexible",
       "id": "cortar-patatas",
       "junto": null,
-      "meto": "6 g de perejil picado a un bol mediano · 450 g de patata en gajos a la bandeja con papel + 20 ml de aceite de oliva + 3 g de sal",
+      "meto": "6 g de perejil picado a un platito · 450 g de patata en gajos a la bandeja con papel + 20 ml de aceite de oliva + 3 g de sal",
       "min": 6,
-      "nota": "Pica 6 g de hojas de perejil con la tabla aún seca y échalas a un bol mediano: ahí harás la salsa. Lava y seca las patatas, córtalas a lo largo en 8 gajos (por la mitad, cada mitad en dos y cada cuarto otra vez), ponlas en la bandeja con papel, echa el aceite y la sal, mézclalo con las manos y deja cada gajo tumbado sobre una cara cortada.",
+      "nota": "Pica 6 g de hojas de perejil con la tabla aún seca y échalas a un platito: va al salmoriglio al final, justo antes de servir. Lava y seca las patatas, córtalas a lo largo en 8 gajos (por la mitad, cada mitad en dos y cada cuarto otra vez), ponlas en la bandeja con papel, echa el aceite y la sal, mézclalo con las manos y deja cada gajo tumbado sobre una cara cortada.",
       "off": 0,
       "p": "El perejil va primero porque es lo único que necesita la tabla seca: sobre una tabla mojada del almidón de la patata la hoja se pega al cuchillo y se machaca en vez de cortarse, y suelta el verde en la madera. Luego la patata, con piel, lavada y secada con un trapo: el agua en la superficie tiene que evaporarse antes de que empiece a dorar, y cada gota es un minuto de horno perdido. Ocho gajos iguales de 2 cm en la parte ancha se hacen todos a la vez en 32 minutos. El aceite y la sal se reparten directamente en la bandeja, sin bol: es donde van a acabar.",
       "s": 360,
@@ -252,11 +253,11 @@
       "holgura": "flexible",
       "id": "salmoriglio",
       "junto": null,
-      "meto": "al bol del perejil, en este orden: la ralladura de 1 limón (2 g, solo lo amarillo) → 4 g de ajo rallado → 1 g de orégano + 1 g de sal + 1 pizca de pimienta → 30 ml de zumo de limón → 15 ml de agua caliente → 45 ml de aceite de oliva, en hilo",
+      "meto": "a un bol mediano vacío, en este orden: la ralladura de 1 limón (2 g, solo lo amarillo) → 4 g de ajo rallado → 1 g de orégano + 1 g de sal + 1 pizca de pimienta → 30 ml de zumo de limón → 15 ml de agua caliente → 45 ml de aceite de oliva, en hilo",
       "min": 8,
-      "nota": "Ralla el limón entero sobre el bol y el ajo encima; después parte y exprime el limón en el vaso medidor. Calienta el agua 10 segundos en el microondas. El aceite va el último, en hilo y batiendo con un tenedor hasta que quede turbio, y el bol se queda en la encimera hasta el minuto 42.",
+      "nota": "Ralla el limón entero sobre el bol mediano y el ajo encima; después parte y exprime el limón en el vaso medidor. Calienta el agua 10 segundos en el microondas. El aceite va el último, en hilo y batiendo con un tenedor hasta que quede turbio, y el bol se queda en la encimera hasta el minuto 42.",
       "off": 6,
-      "p": "La ralladura se saca con el limón entero, porque partido ya no se puede rallar, y solo la capa amarilla: ahí están los aceites aromáticos, y la parte blanca de debajo amarga. El ajo va rallado y no picado: hecho pasta se reparte por toda la salsa en vez de quedar en trocitos que pican en un bocado y faltan en el siguiente. El orégano seco se hidrata con el zumo y el agua caliente, y el calor le ayuda a soltar el aceite esencial, que es por lo que el salmoriglio siciliano lleva agua. El aceite entra el último, en hilo y batiendo: así se reparte en gotas finas dentro del ácido y la salsa queda turbia y ligada, en vez de separarse en dos capas sobre el pescado. Luego reposa casi treinta minutos, y en ese tiempo el ajo pierde el golpe crudo y lo pasa al aceite.",
+      "p": "La ralladura se saca con el limón entero, porque partido ya no se puede rallar, y solo la capa amarilla: ahí están los aceites aromáticos, y la parte blanca de debajo amarga. El ajo va rallado y no picado: hecho pasta se reparte por toda la salsa en vez de quedar en trocitos que pican en un bocado y faltan en el siguiente. El orégano seco se hidrata con el zumo y el agua caliente, y el calor le ayuda a soltar el aceite esencial, que es por lo que el salmoriglio siciliano lleva agua. El aceite entra el último, en hilo y batiendo: así se reparte en gotas finas dentro del ácido y la salsa queda turbia y ligada, en vez de separarse en dos capas sobre el pescado. El perejil no entra aquí, sino al final: troceado fresco pierde el verde en el ácido si espera media hora. Luego reposa casi treinta minutos, y en ese tiempo el ajo pierde el golpe crudo y lo pasa al aceite.",
       "s": 480,
       "saco": "",
       "t": "Hacer el salmoriglio, la salsa de limón",
@@ -287,7 +288,7 @@
       "off": 10,
       "p": "A 220 °C la superficie cortada pierde agua rápido y el almidón de fuera se dora mientras el interior se cuece en su propio vapor, que es lo que da el gajo crujiente por fuera y cremoso por dentro. La cara que toca la bandeja dora mucho más que la de arriba, así que a los 15 minutos se les da la vuelta, y así cada gajo tiene sus dos caras cortadas doradas. No antes: hasta entonces la patata está pegada al papel, y si la mueves se rompe la costra que empieza a formarse.",
       "s": 1920,
-      "saco": "la bandeja, fuera del horno, a la encimera. Apaga el horno",
+      "saco": "Apaga el horno y deja la bandeja dentro, puerta cerrada, hasta emplatar",
       "t": "Hornear las patatas",
       "tapa": null
     },
@@ -383,11 +384,11 @@
       "holgura": "critico",
       "id": "emplatar",
       "junto": null,
-      "meto": "el salmoriglio del bol + los gajos de la bandeja",
+      "meto": "el salmoriglio del bol + 6 g de perejil picado, removido en el salmoriglio justo antes de servir + los gajos de la bandeja",
       "min": 2,
-      "nota": "Remueve el salmoriglio con una cuchara y reparte la mitad sobre cada filete. Pon los gajos al lado y espera 2 minutos antes de comer.",
+      "nota": "Echa el perejil del platito al salmoriglio y remuévelo con una cuchara y reparte la mitad sobre cada filete. Pon los gajos al lado y espera 2 minutos antes de comer.",
       "off": 42,
-      "p": "El salmoriglio va sobre el filete recién salido y caliente, no al servir en la mesa: con el calor el ajo y el orégano sueltan otra vez su aroma, y el filete, que se relaja en esos dos minutos de reposo, absorbe parte del aliño en vez de perder su jugo en el plato. Se remueve antes porque en veinte minutos el aceite ya ha empezado a separarse. Los gajos van al lado y recogen lo que escurre del pescado.",
+      "p": "El salmoriglio va sobre el filete recién salido y caliente, no al servir en la mesa: con el calor el ajo y el orégano sueltan otra vez su aroma, y el filete, que se relaja en esos dos minutos de reposo, absorbe parte del aliño en vez de perder su jugo en el plato. El perejil entra aquí y no antes, para que conserve el verde y el aroma fresco. Se remueve todo junto antes porque en veinte minutos el aceite ya ha empezado a separarse. Los gajos van al lado y recogen lo que escurre del pescado.",
       "s": 120,
       "saco": "2 platos: un filete de emperador con el salmoriglio por encima y los gajos de patata al lado",
       "t": "Salmoriglio encima, reposo y a la mesa",

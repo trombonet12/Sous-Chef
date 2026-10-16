@@ -81,9 +81,10 @@
           "u": ""
         },
         {
+          "a": 5,
           "esc": "sub",
-          "n": "jengibre en polvo",
-          "txt": "1 cdta"
+          "n": "jengibre fresco rallado (2 cm de raíz)",
+          "u": "g"
         },
         {
           "a": 200,
@@ -96,38 +97,45 @@
           "u": "ml"
         },
         {
-          "n": "aceite de girasol (15 ml)",
-          "txt": "1 cda"
+          "a": 25,
+          "n": "aceite de girasol (15 ml para sellar y 10 ml para el ajo)",
+          "u": "ml"
         },
         {
+          "a": 4,
           "esc": "sub",
-          "n": "curry en polvo",
-          "txt": "2 cdta"
+          "n": "curry en polvo (2 cucharaditas)",
+          "u": "g"
         },
         {
+          "a": 1,
           "esc": "sub",
-          "n": "comino molido",
-          "txt": "½ cdta"
+          "n": "comino molido (½ cucharadita)",
+          "u": "g"
         },
         {
+          "a": 5,
           "esc": "sub",
-          "n": "salsa de soja",
-          "txt": "1 cdta"
+          "n": "salsa de soja (1 cucharadita)",
+          "u": "ml"
         },
         {
+          "a": 4,
           "esc": "sub",
-          "n": "sal, y algo más al final",
-          "txt": "¾ cdta"
+          "n": "sal, y algo más al final (¾ cucharadita)",
+          "u": "g"
         },
         {
+          "a": 20,
           "esc": "sub",
-          "n": "limón, solo el zumo",
-          "txt": "½"
+          "n": "limón, solo el zumo (½ limón)",
+          "u": "ml"
         },
         {
+          "a": 3,
           "esc": "sub",
-          "n": "maicena, solo si la salsa no espesa",
-          "txt": "1 cdta"
+          "n": "maicena, solo si la salsa no espesa (1 cucharadita)",
+          "u": "g"
         }
       ],
       "n": "SARTÉN · EL CURRY"
@@ -159,10 +167,11 @@
     {
       "l": [
         "<b>Pollo · 400 g</b> · con la tabla seca, que es cuando la pechuga menos patina. Tiras de 2,5 cm y de ahí a dados.",
-        "<b>Lava la tabla y sécala.</b> Es el único lavado del plan y cae antes de encender nada, así que no le quita tiempo a ningún fuego.",
+        "<b>Lava tabla, cuchillo y manos con jabón.</b> Sécalos bien. Es el único lavado del plan y cae antes de encender nada, así que no le quita tiempo a ningún fuego.",
         "<b>Pimiento rojo · 100 g</b> · seco y firme, en tiras de 1 cm.",
         "<b>Cebolla · 150 g</b> · después, porque es la que moja la tabla. Medias lunas de 3 mm.",
-        "<b>Ajo · 3 dientes (unos 12 g)</b> · al final, picado de 2 mm. Su olor en la tabla ya no tiene nada que contaminar."
+        "<b>Ajo · 3 dientes (unos 12 g)</b> · al final, picado de 2 mm. Su olor en la tabla ya no tiene nada que contaminar.",
+        "<b>Jengibre · 5 g (2 cm de raíz)</b> · pelado y rallado fino, al mismo platito que el ajo."
       ],
       "orden": true,
       "porq": "Aquí la regla de lo seco primero se invierte por una razón concreta: el pollo crudo obliga a lavar la tabla, así que el orden lo manda él. Y lo manda hacia delante, no hacia atrás, porque cortar 400 g de pechuga sobre jugo de cebolla es el corte más resbaladizo del plan.",
@@ -173,7 +182,7 @@
         "<b>270 ml de agua</b> → directos a la olla. El agua no deja nada, así que va primero y el vaso sigue limpio.",
         "<b>100 ml de agua</b> → al vaso, y esta se queda.",
         "<b>Leche de coco encima, hasta la marca de 300 ml.</b> Una sola lectura para los dos líquidos, porque entran juntos. Y el resto del brik se queda en el brik.",
-        "<b>El aceite no pasa por el vaso</b> · 15 ml es una cucharada rasa y va directa a la sartén. La grasa es la única que deja un film que obliga a lavar, y sacándola del medidor no hay que lavarlo en todo el plan."
+        "<b>El aceite no pasa por el vaso</b> · 15 ml es una cucharada rasa y va directa a la sartén, y los 10 ml (2 cucharaditas) del ajo, con cucharilla directos a la sartén en el minuto 29. La grasa es la única que deja un film que obliga a lavar, y sacándola del medidor no hay que lavarlo en todo el plan."
       ],
       "orden": true,
       "porq": "Con un solo vaso el orden lo decide el residuo: cada medida solo puede dejar dentro algo que no moleste a la siguiente. Aquí se miden los tres líquidos sin lavarlo ni una vez, y el truco está en sacar la grasa del vaso.",
@@ -182,8 +191,8 @@
     {
       "l": [
         "<b>Bol mediano</b> · los 150 g de cebolla y los 100 g de pimiento, juntos. Entran los dos en el minuto 21, así que separarlos no aporta nada.",
-        "<b>Platito</b> · los 3 dientes de ajo picados de 2 mm (unos 12 g). Caen en el minuto 29 y su ventana son sesenta segundos: con las manos ocupadas no da tiempo a nada más.",
-        "<b>Taza pequeña</b> · las 2 cdta de curry, la ½ cdta de comino y 1 cdta de jengibre en polvo, ya medidas juntas. Entran en el minuto 30, un minuto después del ajo, y ese minuto es la única razón por la que no comparten platito: al 4 y removiendo no puedes separar tres montones con la cuchara.",
+        "<b>Platito</b> · los 3 dientes de ajo picados de 2 mm (unos 12 g) y los 5 g de jengibre fresco rallado (2 cm de raíz). Caen en el minuto 29 y su ventana son sesenta segundos: con las manos ocupadas no da tiempo a nada más.",
+        "<b>Taza pequeña</b> · los 4 g de curry (2 cdta) y el 1 g de comino (½ cdta), ya medidos juntos. Entran en el minuto 30, un minuto después del ajo, y ese minuto es la única razón por la que no comparten platito: al 4 y removiendo no puedes separar dos montones con la cuchara.",
         "<b>Vaso medidor</b> · los 100 ml de agua con la leche de coco encima hasta 300 ml. No es una medida guardada, es el recipiente de la salsa: los dos líquidos entran en el mismo minuto 31."
       ],
       "orden": false,
@@ -196,10 +205,10 @@
         "<b>Olla, en frío</b> · los 270 ml de agua y ½ cdta de sal.",
         "<b>Los 400 g de pollo</b> se quedan en su bandeja hasta el minuto 16. No lo sales ahora: la sal saca agua y tendrías que evaporarla justo cuando quieres dorar.",
         "<b>Los 150 g de arroz blanco largo</b> · enjuagados en el colador hasta que el agua salga clara y escurridos ahí mismo, que es donde esperan hasta el minuto 34. El colador es el que ya usas para enjuagar, no un cacharro más.",
-        "<b>Los dos platos de comer</b>, uno de ellos sacado a la encimera. Ahí sale el pollo sellado en el minuto 21, y el jugo que suelte vuelve a la sartén con él en el 43. No es un cacharro más: ese plato se ensucia igual media hora después.",
-        "<b>El medio limón</b> se queda entero hasta el minuto 49. Partido y exprimido antes, pierde aroma esperando.",
-        "<b>La soja y la sal, del bote</b> · 1 cdta de salsa de soja y ¾ cdta de sal se miden en el minuto 31, directas a la sartén junto al vaso: medirlas antes solo ensucia otro platito.",
-        "<b>La maicena se queda en su bote</b> · 1 cdta, y solo si a los 8 minutos de reducir la salsa no ha espesado; entonces se disuelve en 15 ml de agua fría."
+        "<b>Un plato llano aparte (no el de comer)</b> para el pollo sellado; se friega después. Ahí sale el pollo en el minuto 21, y el jugo que suelte vuelve a la sartén con él en el 43.",
+        "<b>El medio limón</b> (20 ml de zumo) se queda entero hasta el minuto 49. Partido y exprimido antes, pierde aroma esperando.",
+        "<b>La soja y la sal, del bote</b> · 5 ml (1 cdta) de salsa de soja y 4 g (¾ cdta) de sal se miden en el minuto 31, directas a la sartén junto al vaso: medirlas antes solo ensucia otro platito.",
+        "<b>La maicena se queda en su bote</b> · 3 g (1 cdta), y solo si a los 8 minutos de reducir la salsa no ha espesado; entonces se disuelve en 15 ml de agua fría."
       ],
       "orden": false,
       "porq": "La sartén y la olla en frío son los dos mejores recipientes de preparación que tienes: lo que dejes dentro ya está en su destino y no hay nada que trasvasar después.",
@@ -217,9 +226,9 @@
       "junto": null,
       "meto": "",
       "min": 14,
-      "nota": "Pollo primero con la tabla seca, lavas la tabla, y luego pimiento, cebolla y ajo.",
+      "nota": "Pollo primero con la tabla seca, lavas tabla, cuchillo y manos con jabón, y luego pimiento, cebolla y ajo.",
       "off": 0,
-      "p": "Sigue el orden de la mise en place: pollo primero con la tabla seca, lavas la tabla, y después pimiento, cebolla y ajo. Catorce minutos parecen muchos para dos raciones, pero desde que enciendas no hay ni un hueco de más de dos minutos hasta el 33, así que lo que no esté cortado ahora no se corta.",
+      "p": "Sigue el orden de la mise en place: pollo primero con la tabla seca, lavas tabla, cuchillo y manos con jabón, y después pimiento, cebolla y ajo. Catorce minutos parecen muchos para dos raciones, pero desde que enciendas no hay ni un hueco de más de dos minutos hasta el 33, así que lo que no esté cortado ahora no se corta.",
       "s": 840,
       "saco": "",
       "t": "Cortar y pesar",
@@ -255,9 +264,9 @@
       "min": 5,
       "nota": "Extendido y sin tocarlo los 2 primeros minutos. Si remueves antes suelta agua y queda gris.",
       "off": 16,
-      "p": "Los dados de una vez, extendidos, y no los toques los dos primeros minutos. La reacción de Maillard necesita superficie seca y contacto: si remueves antes, el pollo suelta agua, se cuece en su propio vapor y queda gris en vez de dorado. A los cinco minutos está tostado por fuera y crudo por dentro, que es exactamente lo que quieres. Sácalo a uno de los platos y no lo tapes, o se cuece con su propio calor.",
+      "p": "Los dados de una vez, extendidos, y no los toques los dos primeros minutos. La reacción de Maillard necesita superficie seca y contacto: si remueves antes, el pollo suelta agua, se cuece en su propio vapor y queda gris en vez de dorado. A los cinco minutos está tostado por fuera y crudo por dentro, que es exactamente lo que quieres. Sácalo al plato llano aparte y no lo tapes, o se cuece con su propio calor.",
       "s": 300,
-      "saco": "el pollo, al plato de comer, sin tapar",
+      "saco": "el pollo, al plato llano aparte, sin tapar",
       "t": "Sellar el pollo",
       "tapa": "sin tapa"
     },
@@ -320,11 +329,11 @@
       "holgura": "critico",
       "id": "ajo",
       "junto": null,
-      "meto": "el platito: 3 ajos picados",
+      "meto": "10 ml (2 cucharaditas) de aceite de girasol + el platito: 3 ajos picados y 5 g de jengibre rallado",
       "min": 1,
       "nota": "Sesenta segundos removiendo sin parar. A los noventa el ajo amarga.",
       "off": 29,
-      "p": "Quita la tapa y déjala fuera hasta el final del plato. El platito entero de golpe y remueve sin parar sesenta segundos. Ni uno más: a los noventa el ajo amarga. Por eso entra ahora y no con la verdura, que lleva ocho minutos al fuego.",
+      "p": "Quita la tapa, echa 10 ml (2 cucharaditas) de aceite de girasol y el ajo encima, con el jengibre rallado. Déjala fuera hasta el final del plato. El platito entero de golpe y remueve sin parar sesenta segundos. Ni uno más: a los noventa el ajo amarga. Por eso entra ahora y no con la verdura, que lleva ocho minutos al fuego.",
       "s": 60,
       "saco": "la tapa, y ya no vuelve",
       "t": "Ajo",
@@ -337,11 +346,11 @@
       "holgura": "critico",
       "id": "especias",
       "junto": null,
-      "meto": "la taza: 2 cdta de curry + ½ cdta de comino + 1 cdta de jengibre en polvo",
+      "meto": "la taza: 4 g de curry (2 cdta) + 1 g de comino (½ cdta)",
       "min": 1,
       "nota": "Baja al 4 ANTES de echarlas y remueve sin parar. Si huele a quemado, mete el líquido ya.",
       "off": 30,
-      "p": "Baja al 4 antes de echarlas, no después. El curry, el comino y el jengibre en polvo van a la grasa y no al líquido: sus aromáticos son liposolubles, así que un minuto en aceite caliente extrae más que veinte de hervor en agua. La señal es que huela a especia tostada y el fondo se vea como una pasta. Si ves humo o huele a quemado, el líquido entra ya: en polvo y sin líquido, estas especias pasan de tostadas a amargas en segundos.",
+      "p": "Baja al 4 antes de echarlas, no después. El curry y el comino van a la grasa y no al líquido: sus aromáticos son liposolubles, así que un minuto en aceite caliente extrae más que veinte de hervor en agua. La señal es que huela a especia tostada y el fondo se vea como una pasta. Si ves humo o huele a quemado, el líquido entra ya: en polvo y sin líquido, estas especias pasan de tostadas a amargas en segundos.",
       "s": 60,
       "saco": "",
       "t": "Florear las especias",
@@ -354,11 +363,11 @@
       "holgura": "flexible",
       "id": "coco",
       "junto": null,
-      "meto": "el vaso: 300 ml de coco y agua + 1 cdta de soja + ¾ cdta de sal",
+      "meto": "el vaso: 300 ml de coco y agua + 5 ml de soja (1 cdta) + 4 g de sal (¾ cdta)",
       "min": 2,
       "nota": "Rasca el fondo mientras arranca. Sube al 7 hasta que burbujee en toda la superficie.",
       "off": 31,
-      "p": "El vaso entero de una vez, los 100 ml de agua y los 200 de leche de coco juntos, más la cucharadita de soja y tres cuartos de cucharadita de sal. Rasca el fondo con la cuchara de madera mientras arranca: ahí está pegado todo lo que doró el pollo, y es lo que sustituye al caldo. Sube al 7 hasta que burbujee en toda la superficie y no solo en el centro, que es la señal de que la masa entera está a temperatura y ya puedes bajar.",
+      "p": "El vaso entero de una vez, los 100 ml de agua y los 200 de leche de coco juntos, más 5 ml de soja (1 cucharadita) y 4 g de sal (¾ de cucharadita). Rasca el fondo con la cuchara de madera mientras arranca: ahí está pegado todo lo que doró el pollo, y es lo que sustituye al caldo. Sube al 7 hasta que burbujee en toda la superficie y no solo en el centro, que es la señal de que la masa entera está a temperatura y ya puedes bajar.",
       "s": 120,
       "saco": "",
       "t": "Coco, agua y soja",
@@ -377,11 +386,11 @@
       "holgura": "flexible",
       "id": "reducir",
       "junto": null,
-      "meto": "la maicena en 15 ml de agua fría, solo si no espesa",
+      "meto": "3 g de maicena (1 cdta) en 15 ml de agua fría, solo si no espesa",
       "min": 10,
       "nota": "Listo cuando cubre el dorso de la cuchara y el surco tarda un segundo en cerrarse.",
       "off": 33,
-      "p": "Al 3 y sin tapa. De los 300 ml de líquido tienen que irse unos 100, y la tapa aquí sería el error del plato: devolvería a la sartén exactamente el agua que quieres perder. A los diez minutos la salsa cubre el dorso de la cuchara y deja un surco que tarda un segundo en cerrarse. Si no lo hace, disuelve la cucharadita de maicena en 15 ml de agua fría y échala removiendo; en seco sobre la salsa caliente gelatiniza en grumos al instante y no hay forma de deshacerlos.",
+      "p": "Al 3 y sin tapa. De los 300 ml de líquido tienen que irse unos 100, y la tapa aquí sería el error del plato: devolvería a la sartén exactamente el agua que quieres perder. A los diez minutos la salsa cubre el dorso de la cuchara y deja un surco que tarda un segundo en cerrarse. Si no lo hace, disuelve los 3 g de maicena (1 cucharadita) en 15 ml de agua fría y échala removiendo; en seco sobre la salsa caliente gelatiniza en grumos al instante y no hay forma de deshacerlos.",
       "s": 600,
       "saco": "unos 100 ml, evaporados",
       "t": "Reducir destapado",
@@ -456,11 +465,11 @@
       "holgura": "critico",
       "id": "limon",
       "junto": null,
-      "meto": "el zumo de ½ limón",
+      "meto": "20 ml de zumo (½ limón)",
       "min": 1,
       "nota": "Apaga, medio minuto, y entonces el limón. Prueba la sal al final: la soja ya saló.",
       "off": 49,
-      "p": "Apaga, espera medio minuto y entonces el zumo de medio limón. Fuera del fuego porque los aromáticos del limón se volatilizan por encima de los ochenta grados y dentro solo quedaría el ácido, sin el perfume que es la mitad de lo que aporta. Prueba y corrige la sal ahora, al final: la soja ya saló, así que puede que no haga falta ni una pizca. Este paso no espera; con el limón dentro, el plato va al plato.",
+      "p": "Apaga, espera medio minuto y entonces los 20 ml de zumo (medio limón). Fuera del fuego porque los aromáticos del limón se volatilizan por encima de los ochenta grados y dentro solo quedaría el ácido, sin el perfume que es la mitad de lo que aporta. Prueba y corrige la sal ahora, al final: la soja ya saló, así que puede que no haga falta ni una pizca. Este paso no espera; con el limón dentro, el plato va al plato.",
       "s": 60,
       "saco": "todo, a los platos",
       "t": "Limón y sal",
