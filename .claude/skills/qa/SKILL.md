@@ -19,7 +19,7 @@ Ejecuta el gate del modo `$ARGUMENTS` (por defecto `fast`) y explica cada paso. 
 
 ## Precondiciones
 - JDK 21 configurado para Gradle (`~/.gradle/gradle.properties`) y SDK Android (`local.properties` o `ANDROID_HOME`).
-- `scripts/sc validar` usa la despensa de Supabase si hay credenciales en `~/.souschef/`; si no, la semilla, y lo dice. No imprimir valores de entorno.
+- `scripts/sc validar` usa hoy `data/despensa-semilla.md`; con la despensa de Supabase (F3, aún no existe) lo dirá. No imprimir valores de entorno.
 - Si hay migraciones nuevas: Docker en marcha para `npx supabase test db`.
 
 ## Pasos

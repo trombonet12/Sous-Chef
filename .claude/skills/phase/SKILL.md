@@ -45,7 +45,7 @@ Operación `$0` sobre la fase `$1` (`docs/fases/NN-*.md`, estructura de `docs/_t
 
 ### complete
 1. Recorrer `## Criterios de aceptación` y `## Definition of Done`; marcar `[x]` solo lo comprobado con evidencia (comando, test, archivo).
-2. Ejecutar los gates de la fase: `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest :receta:test assembleDebug`, `scripts/sc validar --estricto`, `node scripts/check-claude-assets.mjs`, `bash scripts/test-hooks.sh`, `node scripts/check-docs.mjs`; si hay migraciones, `scripts/sc migrar --local` y `npx supabase test db`.
+2. Ejecutar los gates de la fase: `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest :receta:test assembleDebug`, `scripts/sc validar --estricto`, `node scripts/check-claude-assets.mjs`, `bash scripts/test-hooks.sh`, `node scripts/check-docs.mjs`; si hay migraciones, `scripts/sc migrar --local` (F3, aún no existe) y `npx supabase test db`.
 3. Cambios sensibles sin revisar → revisión de seguridad [opus] antes de cerrar.
 4. Si algo falla o queda abierto: no cerrar; listarlo en `## Riesgos` o como TODO registrado en ESTADO.md.
 5. Si todo pasa: `Estado: completada` y entregar al agente principal el texto de ESTADO.md (completado, decisiones, siguiente fase propuesta sin iniciarla).
