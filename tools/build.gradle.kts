@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-// CLI `scripts/sc`: validar, publicar, comparar, despensa, migrar, importar-legado (docs/herramientas.md).
+// CLI `scripts/sc`: validar y formatear (docs/herramientas.md).
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
@@ -37,7 +37,6 @@ detekt {
 
 dependencies {
     implementation(project(":receta"))
-    implementation(libs.postgresql)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit)
 }

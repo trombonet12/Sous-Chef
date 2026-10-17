@@ -23,24 +23,21 @@ Al primer arranque se cargan las 13 recetas, 17 técnicas, el historial, las fav
 
 ## 4. GitHub Release
 El APK sale en **Releases** (columna derecha del repo), no en "Packages" (eso es GitHub Packages y siempre está vacío).
-El CI `Android` solo compila y pasa tests; no publica nada instalable.
 
 `gh` usa el token de Git Credential Manager a través de `node scripts/gh.mjs <args>` (sin `gh auth login`).
 
 Secretos de firma (una vez; repetir si cambia el keystore): `node scripts/subir-secretos-release.mjs` lee
 `%USERPROFILE%\.souschef\release-signing.properties` y el `.jks`, y sube `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
 `ANDROID_KEY_PASSWORD` y `ANDROID_KEYSTORE_BASE64` sin imprimir valores. Comprobar: `node scripts/gh.mjs secret list`.
-`SUPABASE_URL` y `SUPABASE_PUBLISHABLE_KEY` son opcionales hasta F3.
 
-Cada versión: subir `versionCode`/`versionName` en `app/build.gradle.kts`, push y
-`node scripts/gh.mjs workflow run release-android.yml` (o Actions → *Release Android* → *Run workflow*). Crea el tag
-`v<versionName>` con el APK y `checksums.txt` (Obtainium puede seguir el repo).
+Cada versión: subir `versionName` y `versionCode` en `version.properties` y push a `main`; el CI publica la release
+`v<versionName>` con el APK y `checksums.txt` si el gate pasa (Obtainium puede seguir el repo). Un push sin cambio de
+versión no publica nada.
 
 CI: `Android` y `Claude assets` corren en push a `main` (con filtro de rutas), en PR y a mano; se hace un push por
 ronda. `main` está protegida: sin force-push ni borrado, historial lineal y check `Gate Android, dominio y recetas`
 obligatorio en PR (el admin puede hacer push directo).
 
 ## 5. Aplazado (cuando haya presupuesto)
-- Supabase: `~/.souschef/supabase.env`, exponer `sous_chef`, migraciones, sync, login (`docs/pasos-manuales.md`).
 - Revisión culinaria F9b con `chef-reviewer` y validador de completitud.
 - TODOs de `docs/ESTADO.md § Problemas conocidos`.

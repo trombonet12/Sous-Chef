@@ -55,8 +55,6 @@ class DomainDependencyRuleTest {
             listOf(
                 "android.",
                 "androidx.",
-                "io.github.jan.supabase",
-                "io.ktor",
                 "dagger",
                 "javax.inject",
             )
@@ -66,10 +64,5 @@ class DomainDependencyRuleTest {
     @Test
     fun domainDoesNotImportDataNorUi() {
         assertNone(violations("domain", listOf("app.souschef.data", "app.souschef.ui")))
-    }
-
-    @Test
-    fun uiHasNoSupabaseImports() {
-        assertNone(violations("ui", listOf("io.github.jan.supabase", "io.ktor")))
     }
 }

@@ -28,30 +28,17 @@ val releaseKeyPassword: String? = System.getenv("SOUSCHEF_KEY_PASSWORD")
 val hasReleaseSigning =
     listOf(releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword).all { !it.isNullOrBlank() }
 
-// Supabase en BuildConfig. Archivo o clave ausente => "" (CI compila igual). Nunca se loguean valores.
-fun loadProps(file: File): Properties {
-    val props = Properties()
-    if (file.isFile) file.inputStream().use { props.load(it) }
-    return props
-}
-
-fun Properties.asBuildConfig(key: String): String {
-    val raw = getProperty(key).orEmpty().trim()
-    return "\"" + raw.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
-}
-
-fun requireHttps(
-    props: Properties,
-    variant: String,
-) {
-    val url = props.getProperty("supabase.url").orEmpty().trim()
-    require(url.isEmpty() || url.startsWith("https://")) {
-        "supabase.url remota de $variant debe empezar por https://"
+// Versión de la app: version.properties en la raíz (fuente única).
+val versionProps =
+    Properties().apply {
+        val file = rootProject.file("version.properties")
+        check(file.isFile) { "Falta version.properties en la raíz del repo (versionName, versionCode)" }
+        file.inputStream().use { load(it) }
     }
-}
 
-val remoteProps = loadProps(rootProject.file("local.properties"))
-val localProps = loadProps(rootProject.file("supabase-local.properties"))
+fun versionProp(key: String): String =
+    versionProps.getProperty(key)?.trim()?.takeIf { it.isNotEmpty() }
+        ?: error("version.properties: falta la clave '$key'")
 
 android {
     namespace = "app.souschef"
@@ -61,8 +48,8 @@ android {
         applicationId = "app.souschef"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.5.0"
+        versionCode = versionProp("versionCode").toInt()
+        versionName = versionProp("versionName")
     }
 
     signingConfigs {
@@ -77,27 +64,13 @@ android {
     }
 
     buildTypes {
-        // debug: Supabase remoto (local.properties). localDebug: stack local de `npx supabase` (supabase-local.properties).
         debug {
             applicationIdSuffix = ".dev"
-            requireHttps(remoteProps, "debug")
-            buildConfigField("String", "SUPABASE_URL", remoteProps.asBuildConfig("supabase.url"))
-            buildConfigField("String", "SUPABASE_PUBLISHABLE_KEY", remoteProps.asBuildConfig("supabase.publishableKey"))
-        }
-        create("localDebug") {
-            initWith(getByName("debug"))
-            matchingFallbacks += "debug"
-            applicationIdSuffix = ".local"
-            buildConfigField("String", "SUPABASE_URL", localProps.asBuildConfig("supabase.url"))
-            buildConfigField("String", "SUPABASE_PUBLISHABLE_KEY", localProps.asBuildConfig("supabase.publishableKey"))
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            requireHttps(remoteProps, "release")
-            buildConfigField("String", "SUPABASE_URL", remoteProps.asBuildConfig("supabase.url"))
-            buildConfigField("String", "SUPABASE_PUBLISHABLE_KEY", remoteProps.asBuildConfig("supabase.publishableKey"))
             if (hasReleaseSigning) {
                 signingConfig = signingConfigs.getByName("release")
             }
@@ -117,7 +90,6 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 }
 
@@ -192,20 +164,12 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    implementation(platform(libs.supabase.bom))
-    implementation(libs.supabase.auth)
-    implementation(libs.supabase.postgrest)
-    implementation(libs.ktor.client.okhttp)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-
-    implementation(libs.androidx.work.runtime.ktx)
-    implementation(libs.androidx.hilt.work)
-    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.tink.android)
@@ -218,7 +182,6 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.mockk)
     testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.work.testing)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.ext.junit)

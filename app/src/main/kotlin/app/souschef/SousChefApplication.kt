@@ -2,8 +2,6 @@ package app.souschef
 
 import android.app.Application
 import android.util.Log
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import app.souschef.data.seed.Seeder
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -13,19 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class SousChefApplication :
-    Application(),
-    Configuration.Provider {
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-
+class SousChefApplication : Application() {
     @Inject
     lateinit var seeder: Seeder
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
         super.onCreate()
