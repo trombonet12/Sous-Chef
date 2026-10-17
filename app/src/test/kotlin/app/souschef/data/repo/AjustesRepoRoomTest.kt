@@ -36,7 +36,7 @@ class AjustesRepoRoomTest {
     @Test
     fun sinDatosDevuelveElDefecto() =
         runBlocking {
-            assertEquals(Ajustes(DisposicionCrono.FOCO, true), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.APILADA, true), repo.observar().first())
         }
 
     @Test

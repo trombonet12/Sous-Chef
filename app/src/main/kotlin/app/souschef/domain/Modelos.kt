@@ -51,7 +51,7 @@ enum class DisposicionCrono { FOCO, APILADA }
 
 /** Preferencias globales de la app. */
 data class Ajustes(
-    val disposicion: DisposicionCrono = DisposicionCrono.FOCO,
+    val disposicion: DisposicionCrono = DisposicionCrono.APILADA,
     val vozActiva: Boolean = true,
 )
 

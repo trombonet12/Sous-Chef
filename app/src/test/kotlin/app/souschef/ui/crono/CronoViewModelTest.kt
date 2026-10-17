@@ -391,12 +391,12 @@ class CronoViewModelTest {
     fun laDisposicionDeLaCocinaSigueAlosAjustes() =
         prueba {
             val vm = crear()
-            assertEquals(DisposicionCrono.FOCO, vm.ui.value.disposicion)
+            assertEquals(DisposicionCrono.APILADA, vm.ui.value.disposicion)
 
-            ajustes.fijarDisposicion(DisposicionCrono.APILADA)
+            ajustes.fijarDisposicion(DisposicionCrono.FOCO)
             runCurrent()
 
-            assertEquals(DisposicionCrono.APILADA, vm.ui.value.disposicion)
+            assertEquals(DisposicionCrono.FOCO, vm.ui.value.disposicion)
         }
 
     @Test
