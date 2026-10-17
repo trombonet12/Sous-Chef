@@ -134,3 +134,16 @@
   - Joan cerró el diseño: zanahoria y calabacín; salsa de soja, caldo y maicena sin dulce; arroz en la olla; marinada
     larga de 1 h; almendra cruda pelada entera tostada en seco durante la nevera.
   - Opus fijó los detalles técnicos. La despensa añade «Frutos secos · almendras crudas peladas».
+
+## 2026-10-17 · Ronda 8 (tras probar la v0.7.0)
+- Arreglado el cierre al abrir `pollo-almendras`. `Gantt.barra` ensanchaba la barra al 1 % mínimo, pero el último
+  paso (1 min, que acaba justo en el 136) no tenía sitio y `coerceIn` recibía un rango vacío. Ahora una barra
+  ensanchada que no cabe se corre a la izquierda.
+  - `DatosRealesTest` comprueba las barras de todas las recetas reales.
+- Tarjeta compacta, elegida por Joan. Cuando la tarjeta no da para la parte fija, una línea de título y el reloj
+  mínimo, se pinta en dos filas:
+  - arriba, número, nombre, paso, fuego y la «i»;
+  - abajo, el reloj con su barra, Pausa/+30 y el botón principal.
+  - Ocurre con 4 carriles o con la letra del sistema grande: `tarjetaCompacta` escala el umbral con `fontScale`.
+  - Se quitan «Después», METO/SACO y la nota, y el chip «destapada» porque es lo normal.
+  - Un carril bloqueado muestra «Empezar igual» en lugar del botón deshabilitado.

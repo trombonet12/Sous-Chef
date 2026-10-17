@@ -48,6 +48,10 @@
   - Insignia con el número en cada carril.
   - Salir de la cocina pide abandonarla.
   - Receta nueva `pollo-almendras` (136 min, 24 pasos, 2 fuegos).
+- 2026-10-17 · Ronda 8 → v0.7.1:
+  - Arreglado el cierre al abrir `pollo-almendras` (barra final del gantt).
+  - Tarjeta compacta cuando falta alto: 4 carriles o letra grande.
+  - Probado en el emulador con letra a 1,0× y 1,3×.
 
 ## Entorno
 | Herramienta | Estado |
@@ -58,13 +62,8 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Instalar la v0.7.0 desde Obtainium y probar la voz:
-  - «chef 2 minutos más al 2»;
-  - «chef por qué del 1»;
-  - «chef dame info del 2»;
-  - «chef qué tengo que hacer»;
-  - «chef pausa el 1» / «chef para».
-  - Las frases que sigan sin entenderse se apuntan para la ronda 8.
+- Instalar la v0.7.1 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: los relojes deben verse.
+- La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.
 - (De la v0.6.0) Cocinar con ella:
@@ -82,10 +81,10 @@
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
-- Ronda 7 sin probar en el móvil, porque se ejecutó desatendida: insignias, diálogo al salir y voz nueva.
+- Sin probar en el móvil: el diálogo al salir (ronda 7) y la tarjeta compacta (ronda 8, solo emulador).
 - Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Joan prueba la v0.7.0 (voz con números de carril, salir de la cocina, apilada por defecto) y la receta
-`pollo-almendras` → ajustes de la ronda 8.
+Ronda 9: aviso en la app cuando hay una versión nueva publicada (petición de Joan, 2026-10-17). Antes de implementarlo,
+cerrar con Joan el diseño: red (ADR-0007 dice «solo local»), cuándo se comprueba y qué abre la notificación.
