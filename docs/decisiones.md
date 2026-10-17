@@ -112,3 +112,25 @@
     Se acepta.
   - Causa raíz del «+30 s lento»: `masTreinta` pasaba por el cerrojo de acciones, que descartaba pulsaciones seguidas.
     Ahora va por `mutar`.
+
+## 2026-10-17 · Ronda 7 (tras probar la v0.6.0)
+- Disposición por defecto: carriles apilados (APILADA). Si se guardó FOCO en Ajustes, se respeta.
+- Voz, gramática ampliada (`InterpreteVoz`):
+  - prórroga con cualquier cantidad: «2 minutos más», «medio minuto», «un minuto y medio», o la cantidad sola. Tope de
+    30 min. `MotorCrono.prorrogar`, y `masTreinta` delega en él;
+  - «por qué» lee el porqué del paso;
+  - «info» o «dame info» dice título, nota, fuego, tapa y cuánto queda;
+  - «qué tengo que hacer» y sus variantes;
+  - más sinónimos de hecho, seguir y pausa;
+  - activadores chef, jef, shef, jefe, chefs y sheff.
+- Carriles numerados desde 1, en el orden de la receta, con una insignia en pantalla. Por voz se nombran por número
+  («del 2», «al 1», «el 3») o por nombre. «para + carril» pausa el carril; «para» solo silencia.
+  - Si el número del carril no existe, la orden va al carril en foco.
+  - «N más» sin unidad solo cuenta como segundos si N ≥ 10.
+- Salir de una cocina en marcha (gesto atrás o flecha) pide confirmación y la abandona: no se quedan cocinas vivas por
+  detrás. Salir al escritorio o apagar la pantalla no la abandona, porque la alarma tiene que seguir sonando.
+- Receta nueva `pollo-almendras` en vez de añadir almendras al salteado: es otro plato, con dados, maicena, salsa
+  espesada y arroz.
+  - Joan cerró el diseño: zanahoria y calabacín; salsa de soja, caldo y maicena sin dulce; arroz en la olla; marinada
+    larga de 1 h; almendra cruda pelada entera tostada en seco durante la nevera.
+  - Opus fijó los detalles técnicos. La despensa añade «Frutos secos · almendras crudas peladas».

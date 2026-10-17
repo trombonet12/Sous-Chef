@@ -42,6 +42,12 @@
   - Fuera el Trombito. Cronómetro sin scroll con disposiciones FOCO y APILADA en Ajustes.
   - Notificaciones: ninguna en pantalla, una fija y una alarma agrupada (ADR-0005 actualizado).
   - Voz «Chef» con TTS (ADR-0008).
+- 2026-10-17 · Ronda 7 → v0.7.0:
+  - APILADA por defecto.
+  - Gramática de voz ampliada: prórroga arbitraria, por qué, info, qué tengo que hacer, y carriles por número.
+  - Insignia con el número en cada carril.
+  - Salir de la cocina pide abandonarla.
+  - Receta nueva `pollo-almendras` (136 min, 24 pasos, 2 fuegos).
 
 ## Entorno
 | Herramienta | Estado |
@@ -52,7 +58,16 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Instalar la v0.6.0 (Obtainium) y cocinar con ella:
+- Instalar la v0.7.0 desde Obtainium y probar la voz:
+  - «chef 2 minutos más al 2»;
+  - «chef por qué del 1»;
+  - «chef dame info del 2»;
+  - «chef qué tengo que hacer»;
+  - «chef pausa el 1» / «chef para».
+  - Las frases que sigan sin entenderse se apuntan para la ronda 8.
+- Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
+  almendras al 5.
+- (De la v0.6.0) Cocinar con ella:
   - con la cocina en pantalla, sin notificaciones;
   - fuera de ella, una fija más la alarma agrupada;
   - pantalla completa con el móvil bloqueado;
@@ -67,6 +82,10 @@
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
+- Ronda 7 sin probar en el móvil, porque se ejecutó desatendida: insignias, diálogo al salir y voz nueva.
+- Quedan en disco dos carpetas de worktree viejas (`.claude/worktrees/agent-ab0f…`, `agent-a193…`). Se borran con
+  `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Resultado del spike de voz y de la cocinada con la v0.6.0 → ajustes de la ronda 7.
+Joan prueba la v0.7.0 (voz con números de carril, salir de la cocina, apilada por defecto) y la receta
+`pollo-almendras` → ajustes de la ronda 8.
