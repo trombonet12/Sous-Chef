@@ -279,10 +279,26 @@ class RespuestasVozTest {
     fun `confirmacion de las ordenes cortas`() {
         val v = corriendo(100)
         assertEquals("En pausa.", RespuestasVoz.confirmacion(OrdenVoz.Pausa(null), v))
-        assertEquals("Treinta segundos más.", RespuestasVoz.confirmacion(OrdenVoz.MasTreinta(null), v))
+        assertEquals("Treinta segundos más.", RespuestasVoz.confirmacion(OrdenVoz.Prorrogar(30, null), v))
         assertEquals("Sigo.", RespuestasVoz.confirmacion(OrdenVoz.Seguir(null), v))
         assertEquals("Silencio.", RespuestasVoz.confirmacion(OrdenVoz.Para, null))
         assertEquals("Vamos.", RespuestasVoz.confirmacion(OrdenVoz.Empezar(null), v))
+    }
+
+    @Test
+    fun `confirmacion de prorrogar dice la duracion en letra`() {
+        fun dice(segundos: Int) = RespuestasVoz.confirmacion(OrdenVoz.Prorrogar(segundos, null), corriendo(100))
+        assertEquals("Treinta segundos más.", dice(30))
+        assertEquals("Dos minutos más.", dice(120))
+        assertEquals("Un minuto y medio más.", dice(90))
+        assertEquals("Un segundo más.", dice(1))
+        assertEquals("Un minuto más.", dice(60))
+        assertEquals("Veintiún segundos más.", dice(21))
+        assertEquals("Cuarenta y cinco segundos más.", dice(45))
+        assertEquals("Dos minutos y medio más.", dice(150))
+        assertEquals("Un minuto y veinte segundos más.", dice(80))
+        assertEquals("Veintiún minutos más.", dice(1260))
+        assertEquals("Treinta minutos más.", dice(1800))
     }
 
     @Test
@@ -292,6 +308,57 @@ class RespuestasVozTest {
             RespuestasVoz.confirmacion(OrdenVoz.CuantoQueda(null), corriendo(100)),
         )
         assertEquals(RespuestasVoz.NO_ENTENDIDO, RespuestasVoz.confirmacion(OrdenVoz.CuantoQueda(null), null))
+    }
+
+    // ---- porQue
+
+    @Test
+    fun `porQue lee el texto del paso sin etiquetas`() {
+        val v = corriendo(100).copy(porque = "Sella a <b>fuego fuerte</b>  para dorar")
+        assertEquals("Sella a fuego fuerte para dorar.", RespuestasVoz.porQue(v))
+    }
+
+    @Test
+    fun `porQue sin texto dice que no hay explicacion`() {
+        assertEquals("Este paso no tiene explicación.", RespuestasVoz.porQue(corriendo(100)))
+        assertEquals("Este paso no tiene explicación.", RespuestasVoz.porQue(corriendo(100).copy(porque = " <b></b> ")))
+    }
+
+    @Test
+    fun `porQue recorta por palabras a 300 caracteres`() {
+        val v = corriendo(100).copy(porque = "palabra ".repeat(100).trim())
+        val frase = RespuestasVoz.porQue(v)
+        assertTrue(frase, frase.length <= 300)
+        assertTrue(frase, frase.endsWith("palabra."))
+    }
+
+    // ---- info
+
+    @Test
+    fun `info junta titulo nota fuego tapa y tiempo`() {
+        val v = corriendo(120, nombre = "SARTÉN").copy(nota = "Remueve", fuego = 7, tapa = "PUESTA")
+        assertEquals("Sartén: Sofrito. Remueve. Fuego 7, tapada. Quedan 2 minutos.", RespuestasVoz.info(v))
+    }
+
+    @Test
+    fun `info sin nota ni fuego y segun el estado del carril`() {
+        assertEquals("Sartén grande: Sofrito. Queda 1 minuto.", RespuestasVoz.info(corriendo(60)))
+        assertEquals("Sartén grande: Sofrito. Ya está, di hecho.", RespuestasVoz.info(corriendo(0)))
+        val pausa = vista(accion = AccionCarril.SEGUIR, quedanS = 180, clase = ClaseEstado.PAUSA)
+        assertEquals("Sartén grande: Sofrito. En pausa, quedan 3 minutos.", RespuestasVoz.info(pausa))
+        val sin = vista(accion = AccionCarril.EMPEZAR, clase = ClaseEstado.YA)
+        assertEquals("Sartén grande: Sofrito. Sin empezar.", RespuestasVoz.info(sin))
+        val fin = vista(accion = AccionCarril.TERMINADO, quedanS = 0, clase = ClaseEstado.FIN)
+        assertEquals("Sartén grande: terminado.", RespuestasVoz.info(fin))
+    }
+
+    @Test
+    fun `info no pasa de 200 caracteres y conserva el tiempo`() {
+        val largo = "Remueve con calma ".repeat(30).trim()
+        val v = corriendo(120, titulo = largo).copy(nota = largo, fuego = 5, tapa = "PUESTA")
+        val frase = RespuestasVoz.info(v)
+        assertTrue(frase, frase.length <= 200)
+        assertTrue(frase, frase.endsWith("Fuego 5, tapada. Quedan 2 minutos."))
     }
 
     @Test

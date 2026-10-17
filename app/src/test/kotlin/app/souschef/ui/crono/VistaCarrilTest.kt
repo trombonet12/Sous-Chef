@@ -285,6 +285,14 @@ class VistaCarrilTest {
         assertTrue(vistas(r = conTecnica)[0].tienePorque)
     }
 
+    @Test
+    fun `porque es el texto p del paso actual o null`() {
+        assertEquals("Porque sí", vistas()[0].porque)
+        assertNull(vistas()[1].porque)
+        val enBlanco = receta.copy(pasos = receta.pasos.map { if (it.id == "p1") it.copy(p = "  ") else it })
+        assertNull(vistas(r = enBlanco)[0].porque)
+    }
+
     // ---- elegirFoco
 
     private fun v(

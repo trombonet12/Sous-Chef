@@ -138,7 +138,7 @@ class CronoViewModel
                     MandosVoz(
                         hecho = ::hecho,
                         alternar = ::alternar,
-                        masTreinta = ::masTreinta,
+                        prorrogar = ::prorrogar,
                         empezarIgual = ::empezarIgual,
                         silenciarAlarma = { viewModelScope.launch { cadena.silenciar(slug) } },
                     ),
@@ -356,6 +356,12 @@ class CronoViewModel
 
         // Acumulable: sin cerrojo (cada toque suma 30 s); `mutar` ya serializa vía `almacen.modificar`.
         fun masTreinta(carril: String) = mutar { e, r, t -> MotorCrono.masTreinta(e, r, carril, t) }
+
+        /** +[segundos] en el carril (voz: «chef dos minutos más al 2»); acumulable como [masTreinta]. */
+        fun prorrogar(
+            carril: String,
+            segundos: Int,
+        ) = mutar { e, r, t -> MotorCrono.prorrogar(e, r, carril, segundos, t) }
 
         fun empezarIgual(carril: String) =
             mando("igual:$carril") { e, r, t -> MotorCrono.empezarIgual(e, r, carril, t) }

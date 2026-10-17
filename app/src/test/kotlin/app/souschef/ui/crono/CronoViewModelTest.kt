@@ -129,6 +129,20 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun prorrogarSumaLosSegundosPedidosAlCarril() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("f0")
+            runCurrent()
+            val fin0 = guardado().carriles.getValue("f0").finAtMs
+            vm.prorrogar("f0", 120)
+            runCurrent()
+            assertEquals(fin0?.plus(120_000L), guardado().carriles.getValue("f0").finAtMs)
+        }
+
+    @Test
     fun elDobleToqueDeHechoSoloCuentaUnaVezHastaElSiguienteTic() =
         prueba {
             val vm = crear()

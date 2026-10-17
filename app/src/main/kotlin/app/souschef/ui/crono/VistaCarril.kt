@@ -52,6 +52,8 @@ data class VistaCarril(
     val finAtMs: Long?,
     /** El paso tiene `p` o la receta enlaza técnicas. */
     val tienePorque: Boolean,
+    /** Texto `p` del paso actual (el porqué que la voz puede leer); null si no tiene. */
+    val porque: String? = null,
 ) {
     val terminado: Boolean get() = accion == AccionCarril.TERMINADO
 
@@ -100,6 +102,7 @@ private fun vistaTerminada(
     sugeridoMs = null,
     finAtMs = null,
     tienePorque = false,
+    porque = null,
 )
 
 private fun vistaActiva(
@@ -144,6 +147,7 @@ private fun vistaActiva(
         sugeridoMs = vista.sugeridoMs,
         finAtMs = ec.finAtMs,
         tienePorque = !paso.p.isNullOrBlank() || tecnicas.isNotEmpty(),
+        porque = paso.p?.takeIf { it.isNotBlank() },
     )
 }
 

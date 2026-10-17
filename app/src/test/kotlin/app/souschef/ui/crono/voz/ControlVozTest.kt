@@ -81,7 +81,7 @@ class ControlVozTest {
                 MandosVoz(
                     hecho = { mandos += "hecho:$it" },
                     alternar = { mandos += "alternar:$it" },
-                    masTreinta = { mandos += "mas30:$it" },
+                    prorrogar = { id, s -> mandos += "prorrogar:$id:$s" },
                     empezarIgual = { mandos += "igual:$it" },
                     silenciarAlarma = { mandos += "silenciar" },
                 ),
@@ -125,9 +125,10 @@ class ControlVozTest {
     )
 
     private fun sarten(accion: AccionCarril = AccionCarril.PAUSAR) =
-        vista("f0", "SARTÉN GRANDE", accion, finAtMs = 1_000_000L)
+        vista("f0", "SARTÉN GRANDE", accion, finAtMs = 1_000_000L).copy(tienePorque = true, porque = "Sellar da sabor.")
 
-    private fun mesa(accion: AccionCarril = AccionCarril.EMPEZAR) = vista("m", "MESA", accion)
+    private fun mesa(accion: AccionCarril = AccionCarril.EMPEZAR) =
+        vista("m", "MESA", accion).copy(indiceCarril = 1, nota = "Con calma")
 
     // ---- órdenes que accionan
 
@@ -192,8 +193,23 @@ class ControlVozTest {
     @Test
     fun masTreinta() {
         escucha.oir("chef treinta segundos más")
-        assertEquals(listOf("mas30:f0"), mandos)
+        assertEquals(listOf("prorrogar:f0:30"), mandos)
         assertEquals(listOf("Treinta segundos más."), habla.dichas)
+    }
+
+    @Test
+    fun prorrogarAlCarrilPorNumero() {
+        vistas = listOf(sarten(), mesa(AccionCarril.PAUSAR))
+        escucha.oir("chef 2 minutos más al 2")
+        assertEquals(listOf("prorrogar:m:120"), mandos)
+        assertEquals(listOf("Dos minutos más."), habla.dichas)
+    }
+
+    @Test
+    fun prorrogarUnCarrilQueNoCorreNoTocaNadaYDiceComoEsta() {
+        escucha.oir("chef 2 minutos más al 2")
+        assertTrue(mandos.isEmpty())
+        assertEquals("Mesa: sin empezar.", habla.dichas.single())
     }
 
     @Test
@@ -220,6 +236,34 @@ class ControlVozTest {
             listOf(RespuestasVoz.queToca(vistas, null), RespuestasVoz.queViene(vistas)),
             habla.dichas,
         )
+    }
+
+    @Test
+    fun queTocaDeUnCarrilNumeradoDiceEseCarrilAunqueOtroEsteEnFoco() {
+        foco = "m"
+        escucha.oir("chef qué tengo que hacer del 1")
+        assertEquals(listOf("Sartén grande: Sofrito."), habla.dichas)
+        assertTrue(mandos.isEmpty())
+    }
+
+    @Test
+    fun porQueDiceElPorqueDelCarrilNumerado() {
+        escucha.oir("chef por qué del 1")
+        assertEquals(listOf("Sellar da sabor."), habla.dichas)
+    }
+
+    @Test
+    fun porQueSinCarrilUsaElDelFocoYSinTextoLoDice() {
+        foco = "m"
+        escucha.oir("chef por qué")
+        assertEquals(listOf(RespuestasVoz.SIN_PORQUE), habla.dichas)
+    }
+
+    @Test
+    fun infoDiceLaFichaDelCarrilNumerado() {
+        escucha.oir("chef dame info del 2")
+        assertEquals(listOf("Mesa: Sofrito. Con calma. Sin empezar."), habla.dichas)
+        assertTrue(mandos.isEmpty())
     }
 
     @Test

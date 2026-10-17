@@ -60,14 +60,18 @@ fun FilaCarrilCompacta(
                 .background(color),
         )
         Column(Modifier.weight(1f)) {
-            Text(
-                v.nombre,
-                color = color,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                InsigniaCarril(v, color, tamano = 20.dp)
+                Text(
+                    v.nombre,
+                    Modifier.weight(1f, fill = false),
+                    color = color,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             Text(
                 v.titulo ?: stringResource(R.string.crono_terminado),
                 style = MaterialTheme.typography.bodyMedium,

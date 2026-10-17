@@ -16,7 +16,8 @@ class MandosVoz(
     val hecho: (String) -> Unit,
     /** Pausa o sigue según el estado del carril (igual que el botón de la pantalla). */
     val alternar: (String) -> Unit,
-    val masTreinta: (String) -> Unit,
+    /** Suma segundos al carril (id, segundos). */
+    val prorrogar: (String, Int) -> Unit,
     val empezarIgual: (String) -> Unit,
     /** Lo mismo que pulsar Parar en la alarma. */
     val silenciarAlarma: () -> Unit,
@@ -25,8 +26,9 @@ class MandosVoz(
 /**
  * Control por voz del cronómetro (ADR-0008): interpreta lo que oye la [Escucha], acciona los [mandos] y contesta con
  * el [Habla]. Sin Android: se prueba en JVM con falsos. No guarda ni registra audio ni transcripciones; al [registro]
- * solo llega el tipo de orden.
+ * solo llega el tipo de orden. Tiene una función por tipo de orden y de respuesta (es un despachador).
  */
+@Suppress("TooManyFunctions")
 class ControlVoz(
     private val escucha: Escucha,
     private val habla: Habla,
@@ -61,7 +63,7 @@ class ControlVoz(
 
     private fun alOir(alternativas: List<String>) {
         val actuales = vistas()
-        val carriles = actuales.map { CarrilVoz(it.id, it.nombre) }
+        val carriles = actuales.map { CarrilVoz(it.id, it.nombre, it.indiceCarril + 1) }
         val orden = InterpreteVoz.interpretar(alternativas, carriles)
         when {
             orden != null -> {
@@ -98,17 +100,24 @@ class ControlVoz(
                     sobreCarril(orden, orden.carril, actuales) { it.accion in EMPEZABLES }
                 }
 
-                is OrdenVoz.MasTreinta -> {
+                is OrdenVoz.Prorrogar -> {
                     sobreCarril(orden, orden.carril, actuales) { it.accion in PRORROGABLES }
                 }
 
                 is OrdenVoz.CuantoQueda -> {
-                    elegir(orden.carril, actuales)?.let(RespuestasVoz::cuantoQueda)
-                        ?: RespuestasVoz.queToca(actuales, null)
+                    deCarril(orden.carril, actuales, RespuestasVoz::cuantoQueda)
                 }
 
                 is OrdenVoz.QueToca -> {
-                    RespuestasVoz.queToca(actuales, foco())
+                    queTocaDe(orden.carril, actuales)
+                }
+
+                is OrdenVoz.PorQue -> {
+                    deCarril(orden.carril, actuales, RespuestasVoz::porQue)
+                }
+
+                is OrdenVoz.Info -> {
+                    deCarril(orden.carril, actuales, RespuestasVoz::info)
                 }
 
                 is OrdenVoz.QueViene -> {
@@ -163,8 +172,8 @@ class ControlVoz(
                 mandos.hecho(v.id)
             }
 
-            is OrdenVoz.MasTreinta -> {
-                mandos.masTreinta(v.id)
+            is OrdenVoz.Prorrogar -> {
+                mandos.prorrogar(v.id, orden.segundos)
             }
 
             is OrdenVoz.Empezar -> {
@@ -176,6 +185,21 @@ class ControlVoz(
             }
         }
     }
+
+    /** Qué toca en el carril nombrado; sin carril (o inexistente), lo más urgente según el foco. */
+    private fun queTocaDe(
+        carril: String?,
+        actuales: List<VistaCarril>,
+    ): String =
+        actuales.firstOrNull { it.id == carril }?.let(RespuestasVoz::queTocaCarril)
+            ?: RespuestasVoz.queToca(actuales, foco())
+
+    /** Respuesta sobre el carril nombrado o el del foco; sin ninguno, lo que toca ahora. */
+    private fun deCarril(
+        carril: String?,
+        actuales: List<VistaCarril>,
+        respuesta: (VistaCarril) -> String,
+    ): String = elegir(carril, actuales)?.let(respuesta) ?: RespuestasVoz.queToca(actuales, null)
 
     private fun elegir(
         carril: String?,
@@ -193,10 +217,9 @@ class ControlVoz(
     }
 
     private companion object {
-        fun nombraAlChef(texto: String): Boolean = Texto.normalizar(texto).split(NO_PALABRA).any { it in ACTIVADORES }
+        fun nombraAlChef(texto: String): Boolean =
+            Texto.normalizar(texto).split(NO_PALABRA).any { it in InterpreteVoz.ACTIVADORES }
 
-        /** Mismas variantes de «chef» que reconoce el intérprete. */
-        val ACTIVADORES = setOf("chef", "jef", "shef")
         val NO_PALABRA = Regex("[^a-z0-9]+")
         val HECHABLES = setOf(AccionCarril.PAUSAR, AccionCarril.HECHO, AccionCarril.SEGUIR, AccionCarril.EMPEZAR)
         val EMPEZABLES = setOf(AccionCarril.EMPEZAR, AccionCarril.BLOQUEADO)

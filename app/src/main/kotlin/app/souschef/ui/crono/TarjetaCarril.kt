@@ -101,6 +101,7 @@ private fun FilaTitulo(
                     .clip(RoundedCornerShape(2.dp))
                     .background(color),
             )
+            InsigniaCarril(v, color)
             Text(
                 v.nombre,
                 Modifier.weight(1f, fill = false),

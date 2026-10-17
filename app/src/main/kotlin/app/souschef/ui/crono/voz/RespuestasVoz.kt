@@ -11,6 +11,7 @@ import app.souschef.ui.crono.elegirFoco
  */
 object RespuestasVoz {
     const val NO_ENTENDIDO = "No te he entendido."
+    const val SIN_PORQUE = "Este paso no tiene explicación."
 
     /** Tiempo que queda de un carril, o el estado en que está si no corre. */
     fun cuantoQueda(v: VistaCarril): String {
@@ -45,6 +46,28 @@ object RespuestasVoz {
         return limitar(frase)
     }
 
+    /** El porqué (`p`) del paso actual, sin marcas; recortado por palabras a [MAX_PORQUE] caracteres. */
+    fun porQue(v: VistaCarril): String {
+        val texto = v.porque?.let(::sinMarcas)?.takeIf { it.isNotEmpty() } ?: return SIN_PORQUE
+        return limitar(cerrar(texto), MAX_PORQUE)
+    }
+
+    /** Ficha hablada del paso: título, nota, fuego y tapa, y el tiempo (hasta [MAX_INFO] caracteres). */
+    fun info(v: VistaCarril): String {
+        val nombre = nombreHablado(v.nombre)
+        if (v.terminado) return "$nombre: terminado."
+        val cola = detalles(v) + " " + estadoHablado(v)
+        val cabeza =
+            listOfNotNull(
+                "$nombre: ${v.titulo.orEmpty()}",
+                v.nota?.let(::sinMarcas)?.takeIf { it.isNotEmpty() },
+            ).joinToString(" ") { cerrar(it) }
+        return limitar(cabeza, MAX_INFO - cola.length) + cola
+    }
+
+    /** Qué toca en un carril concreto (aunque otro esté en foco); si ya terminó, cómo está. */
+    fun queTocaCarril(v: VistaCarril): String = if (v.terminado) cuantoQueda(v) else queToca(listOf(v), v.id)
+
     /** El siguiente fin entre los carriles que corren. */
     fun queViene(vistas: List<VistaCarril>): String {
         val v =
@@ -78,10 +101,21 @@ object RespuestasVoz {
             is OrdenVoz.Pausa -> "En pausa."
             is OrdenVoz.Seguir -> "Sigo."
             is OrdenVoz.Empezar -> "Vamos."
-            is OrdenVoz.MasTreinta -> "Treinta segundos más."
+            is OrdenVoz.Prorrogar -> "${duracionHablada(orden.segundos)} más."
             is OrdenVoz.Para -> "Silencio."
             is OrdenVoz.CuantoQueda -> v?.let(::cuantoQueda) ?: NO_ENTENDIDO
-            is OrdenVoz.QueToca, is OrdenVoz.QueViene, is OrdenVoz.Repite -> "Vale."
+            is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info -> "Vale."
+            is OrdenVoz.QueViene, is OrdenVoz.Repite -> "Vale."
+        }
+
+    /** Lo que falta del paso según la acción del carril, ya como frase con inicial mayúscula. */
+    private fun estadoHablado(v: VistaCarril): String =
+        when (v.accion) {
+            AccionCarril.HECHO -> "Ya está, di hecho."
+            AccionCarril.EMPEZAR -> "Sin empezar."
+            AccionCarril.BLOQUEADO -> "Espera a ${v.bloqueadoPor ?: "otro carril"}."
+            AccionCarril.SEGUIR -> "En pausa, quedan ${tiempo(v.quedanS)}."
+            else -> "${verboQuedar(v.quedanS).replaceFirstChar { it.titlecase() }} ${tiempo(v.quedanS)}."
         }
 
     private fun confirmarHecho(v: VistaCarril?): String =
@@ -93,6 +127,8 @@ object RespuestasVoz {
 }
 
 private const val MAX_FRASE = 120
+private const val MAX_PORQUE = 300
+private const val MAX_INFO = 200
 private const val SEG_MINUTO = 60
 private const val SEG_DIEZ_MINUTOS = 600
 private const val MEDIO_MINUTO = 30
@@ -151,9 +187,12 @@ private fun normalizarNombre(linea: String): String {
 
 private fun cerrar(frase: String): String = if (frase.last() in cierres) frase else "$frase."
 
-/** Recorta por palabras hasta [MAX_FRASE] caracteres y cierra con punto. */
-private fun limitar(frase: String): String {
-    if (frase.length <= MAX_FRASE) return frase
-    val corte = frase.take(MAX_FRASE - 1).substringBeforeLast(' ')
+/** Recorta por palabras hasta [max] caracteres y cierra con punto. */
+private fun limitar(
+    frase: String,
+    max: Int = MAX_FRASE,
+): String {
+    if (frase.length <= max) return frase
+    val corte = frase.take(max - 1).substringBeforeLast(' ')
     return corte.trimEnd(',', '.', ':', ';', ' ') + "."
 }
