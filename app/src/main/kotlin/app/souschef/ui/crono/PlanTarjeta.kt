@@ -28,6 +28,21 @@ internal fun tarjetaCompacta(
     escalaLetra: Float,
 ): Boolean = alturaDp < (FIJO_DP + LINEA_TITULO_DP + RELOJ_MIN_SP * ALTO_POR_SP) * maxOf(1f, escalaLetra)
 
+// Tarjeta compacta: márgenes y botones (dp fijos), fila de cabecera y cada línea extra (crecen con la letra).
+private const val COMPACTA_FIJO_DP = 8 + 48 + 8
+private const val COMPACTA_CABECERA_DP = 28
+private const val COMPACTA_LINEA_DP = 19
+
+/** Cuántas líneas extra (hito, después, nota, en ese orden) caben en una tarjeta compacta. */
+internal fun lineasExtraCompacta(
+    alturaDp: Float,
+    escalaLetra: Float,
+): Int {
+    val escala = maxOf(1f, escalaLetra)
+    val libre = alturaDp - COMPACTA_FIJO_DP - COMPACTA_CABECERA_DP * escala
+    return (libre / (COMPACTA_LINEA_DP * escala)).toInt().coerceIn(0, 3)
+}
+
 /**
  * Reparte la altura: primero se quita la nota, luego METO/SACO (siempre con 4 o más carriles) y por último el título
  * pasa a una línea. El reloj ocupa lo que sobra, entre [RELOJ_MIN_SP] y [RELOJ_MAX_SP].

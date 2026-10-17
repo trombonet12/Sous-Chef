@@ -315,6 +315,14 @@ class CocinaUiTest {
     }
 
     @Test
+    fun `la tarjeta compacta mete hito, despues y nota segun el alto`() {
+        assertEquals(3, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1f))
+        assertEquals(2, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1.3f))
+        assertEquals(0, lineasExtraCompacta(alturaDp = 90f, escalaLetra = 1f))
+        assertEquals(3, lineasExtraCompacta(alturaDp = 400f, escalaLetra = 1f))
+    }
+
+    @Test
     fun `con cuatro o mas carriles meto y saco nunca se muestran`() {
         val plan = planTarjeta(alturaDp = 560f, carriles = 4, hayMetoSaco = true, hayNota = true)
         assertFalse(plan.metoSaco)

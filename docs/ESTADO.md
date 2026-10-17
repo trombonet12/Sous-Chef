@@ -52,6 +52,9 @@
   - Arreglado el cierre al abrir `pollo-almendras` (barra final del gantt).
   - Tarjeta compacta cuando falta alto: 4 carriles o letra grande.
   - Probado en el emulador con letra a 1,0× y 1,3×.
+- 2026-10-17 · v0.7.2:
+  - La tarjeta compacta muestra además el próximo hito, «Después» y la nota, si caben.
+  - Repo hecho público.
 
 ## Entorno
 | Herramienta | Estado |
@@ -62,7 +65,7 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Instalar la v0.7.1 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: los relojes deben verse.
+- Instalar la v0.7.2 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
 - La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.

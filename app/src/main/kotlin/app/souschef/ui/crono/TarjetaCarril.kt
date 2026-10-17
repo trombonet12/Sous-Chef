@@ -67,8 +67,9 @@ fun TarjetaCarril(
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
             .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
     ) {
-        if (tarjetaCompacta(maxHeight.value, LocalDensity.current.fontScale)) {
-            ContenidoCompacto(v, color, acciones)
+        val escala = LocalDensity.current.fontScale
+        if (tarjetaCompacta(maxHeight.value, escala)) {
+            ContenidoCompacto(v, color, acciones, lineasExtraCompacta(maxHeight.value, escala))
             return@BoxWithConstraints
         }
         val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()

@@ -147,3 +147,11 @@
   - Ocurre con 4 carriles o con la letra del sistema grande: `tarjetaCompacta` escala el umbral con `fontScale`.
   - Se quitan «Después», METO/SACO y la nota, y el chip «destapada» porque es lo normal.
   - Un carril bloqueado muestra «Empezar igual» en lugar del botón deshabilitado.
+- Tras probar la v0.7.1, Joan pide más información en la tarjeta compacta. Debajo del reloj se añaden, por prioridad y
+  según el alto que quede (`lineasExtraCompacta`, escalado con la letra):
+  - el próximo hito;
+  - «Después: …»;
+  - la nota del paso (una línea cada uno).
+- Repo de GitHub hecho público, por decisión de Joan, para que la app pueda consultar las releases sin token.
+  - Antes se revisó el historial entero: sin secretos.
+  - Quedan visibles el Gmail de los commits y `data/legado/`; Joan lo aceptó.
