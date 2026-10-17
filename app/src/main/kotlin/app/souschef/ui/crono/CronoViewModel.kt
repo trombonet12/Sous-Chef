@@ -3,6 +3,8 @@ package app.souschef.ui.crono
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.souschef.domain.AjustesRepo
+import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.EntradaHistorial
 import app.souschef.domain.HistorialRepo
 import app.souschef.domain.RecetasRepo
@@ -60,6 +62,8 @@ data class CronoUi(
     val tecnicas: Map<String, String> = emptyMap(),
     /** Título de otra cocinada viva que habría que abandonar para abrir esta cocina (solo se cocina una a la vez). */
     val conflicto: String? = null,
+    /** Cómo se reparte la cocina (Ajustes): un carril en foco con el resto compacto, o todos apilados. */
+    val disposicion: DisposicionCrono = DisposicionCrono.FOCO,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -83,6 +87,7 @@ class CronoViewModel
         private val cadena: CadenaAlarmas,
         private val reloj: Reloj,
         private val avisador: Avisador,
+        private val ajustes: AjustesRepo,
     ) : ViewModel() {
         private val slug: String = checkNotNull(savedStateHandle.get<String>(Rutas.ARG_SLUG))
         private val racionesRuta: Int = savedStateHandle.get<Int>(Rutas.ARG_RACIONES) ?: 0
@@ -100,6 +105,9 @@ class CronoViewModel
         private var otraSlug: String? = null
 
         init {
+            viewModelScope.launch {
+                ajustes.observar().collect { a -> _ui.update { it.copy(disposicion = a.disposicion) } }
+            }
             viewModelScope.launch {
                 cargar()
                 while (isActive) {
@@ -272,7 +280,21 @@ class CronoViewModel
         fun cambiarServir(deltaMin: Int) =
             mutar { e, _, t -> SesionCrono.servir(e, e.servirMs + deltaMin * MS_MINUTO, t) }
 
-        fun hecho(carril: String) = mando("hecho:$carril") { e, r, t -> MotorCrono.hecho(e, r, carril, t) }
+        /** Si el carril era el fijado en el foco, se suelta: el foco salta solo al siguiente más urgente. */
+        fun hecho(carril: String) =
+            mando("hecho:$carril") { e, r, t ->
+                val nuevo = MotorCrono.hecho(e, r, carril, t)
+                if (e.foco == carril) soltarFoco(nuevo, r, t) else nuevo
+            }
+
+        private fun soltarFoco(
+            e: EstadoCrono,
+            receta: Receta,
+            ahoraMs: Long,
+        ): EstadoCrono {
+            val urgente = elegirFoco(vistasCarriles(DatosCrono(receta, e, ahoraMs)), null)
+            return if (urgente != null) SesionCrono.enfocar(e, urgente, ahoraMs) else e
+        }
 
         // Acumulable: sin cerrojo (cada toque suma 30 s); `mutar` ya serializa vía `almacen.modificar`.
         fun masTreinta(carril: String) = mutar { e, r, t -> MotorCrono.masTreinta(e, r, carril, t) }

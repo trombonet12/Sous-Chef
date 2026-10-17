@@ -1,9 +1,6 @@
 package app.souschef.ui.crono
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,50 +9,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.souschef.R
-import app.souschef.receta.Receta
-import app.souschef.receta.crono.ClaseEstado
-import app.souschef.receta.crono.ConsultasCrono
-import app.souschef.receta.crono.EstadoCrono
+import app.souschef.domain.DisposicionCrono
 import app.souschef.ui.comun.Tabular
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 
 private const val PASO_SERVIR_MIN = 15
-private val BOTON_CABECERA = 44.dp
+private val BOTON_CABECERA = 48.dp
 
 /** A dónde puede ir el usuario desde el crono: salir, o abrir una técnica. */
 class SalidasCrono(
@@ -63,38 +43,57 @@ class SalidasCrono(
     val tecnica: (String) -> Unit,
 )
 
-/** Cocina en marcha: cabecera, plan, pestañas de recipientes, panel del paso y mandos. */
+/**
+ * Cocina en marcha: cabecera y los carriles repartidos según la disposición elegida en Ajustes. Todo a la vista, sin
+ * scroll; solo "Ver el porqué" (hoja) y el menú de tres puntos quedan detrás de un toque.
+ */
 @Composable
 fun CronoCocina(
-    receta: Receta,
-    estado: EstadoCrono,
     ui: CronoUi,
     viewModel: CronoViewModel,
     salidas: SalidasCrono,
+    slotMicrofono: @Composable () -> Unit = {},
 ) {
+    val receta = ui.receta ?: return
+    val estado = ui.estado ?: return
     val datos = DatosCrono(receta, estado, ui.ahoraMs)
-    val indiceFoco = datos.carriles.indexOfFirst { it.id == estado.foco }.coerceAtLeast(0)
-    val pager = rememberPagerState(initialPage = indiceFoco) { datos.carriles.size }
-    val focoActual = rememberUpdatedState(estado.foco)
-    LaunchedEffect(indiceFoco) { if (pager.currentPage != indiceFoco) pager.animateScrollToPage(indiceFoco) }
-    LaunchedEffect(pager, datos.carriles) {
-        snapshotFlow { pager.settledPage }.collect { pagina ->
-            datos.carriles
-                .getOrNull(pagina)
-                ?.takeIf { it.id != focoActual.value }
-                ?.let { viewModel.enfocar(it.id) }
-        }
-    }
+    val vistas = vistasCarriles(datos)
+    var porque by remember { mutableStateOf<Pair<String, Int>?>(null) }
+    val acciones =
+        AccionesCarril(
+            hecho = viewModel::hecho,
+            alternar = viewModel::alternar,
+            masTreinta = viewModel::masTreinta,
+            empezarIgual = viewModel::empezarIgual,
+            enfocar = viewModel::enfocar,
+            porque = { id -> porque = id to (datos.ec(id)?.i ?: 0) },
+        )
     Column(Modifier.fillMaxSize()) {
         if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
-        Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir)
-        PlanPlegable(datos, viewModel)
-        PestanasCarriles(datos, indiceFoco, viewModel::enfocar)
-        HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { datos.carriles[it].id }) { pagina ->
-            PanelCarril(datos, datos.carriles[pagina], ui.tecnicas, salidas.tecnica, viewModel::enfocar)
+        Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir, slotMicrofono)
+        val cuerpo = Modifier.weight(1f).fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 8.dp)
+        when (ui.disposicion) {
+            DisposicionCrono.FOCO -> CronoFoco(vistas, elegirFoco(vistas, estado.foco), acciones, cuerpo)
+            DisposicionCrono.APILADA -> CronoApilado(vistas, acciones, cuerpo)
         }
-        datos.carriles.getOrNull(indiceFoco)?.let { MandosCarril(datos, it, viewModel) }
     }
+    HojaPorque(datos, porque, ui, salidas) { porque = null }
+}
+
+/** La hoja del porqué se cierra sola cuando el carril cambia de paso. */
+@Composable
+private fun HojaPorque(
+    datos: DatosCrono,
+    abierto: Pair<String, Int>?,
+    ui: CronoUi,
+    salidas: SalidasCrono,
+    onCerrar: () -> Unit,
+) {
+    val (id, indice) = abierto ?: return
+    val paso = datos.paso(id)
+    val carril = datos.carril(id)
+    if (paso == null || carril == null || datos.ec(id)?.i != indice) return
+    PorqueSheet(paso, carril, ui.tecnicas, salidas.tecnica, onCerrar)
 }
 
 @Composable
@@ -147,6 +146,7 @@ private fun Cabecera(
     reiniciarArmado: Boolean,
     viewModel: CronoViewModel,
     onSalir: () -> Unit,
+    slotMicrofono: @Composable () -> Unit,
 ) {
     Row(Modifier.fillMaxWidth().padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = onSalir, Modifier.size(BOTON_CABECERA)) {
@@ -156,30 +156,38 @@ private fun Cabecera(
             IconButton({ viewModel.cambiarServir(-PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
                 Icon(Icono.Menos.vector, stringResource(R.string.ficha_servir_menos))
             }
-            DatoCabecera(R.string.crono_servir, formatoHora(datos.estado.servirMs), CronoPalette.texto)
+            DatoCabecera(stringResource(R.string.crono_servir), formatoHora(datos.estado.servirMs), CronoPalette.texto)
             IconButton({ viewModel.cambiarServir(PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
                 Icon(Icono.Anadir.vector, stringResource(R.string.ficha_servir_mas))
             }
         }
-        DatoCabecera(R.string.crono_ahora, formatoHora(datos.ahoraMs), CronoPalette.texto)
-        val llegada = datos.plan
+        val plan = datos.plan
+        val rotuloLlegada =
+            if (plan.tarde) {
+                stringResource(R.string.crono_llegada_tarde, plan.minutosPorDetras)
+            } else {
+                stringResource(R.string.crono_llegada)
+            }
         DatoCabecera(
-            R.string.crono_llegada,
-            formatoHora(llegada.llegadaMs),
-            if (llegada.tarde) CronoPalette.alerta else CronoPalette.ok,
+            rotuloLlegada,
+            formatoHora(plan.llegadaMs),
+            if (plan.tarde) CronoPalette.alerta else CronoPalette.ok,
+            rotuloColor = if (plan.tarde) CronoPalette.alerta else CronoPalette.tenue,
         )
+        slotMicrofono()
         MenuCocina(reiniciarArmado, viewModel)
     }
 }
 
 @Composable
 private fun DatoCabecera(
-    rotulo: Int,
+    rotulo: String,
     valor: String,
     color: Color,
+    rotuloColor: Color = CronoPalette.tenue,
 ) {
     Column(Modifier.padding(horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(rotulo), style = MaterialTheme.typography.labelSmall, color = CronoPalette.tenue)
+        Text(rotulo, style = MaterialTheme.typography.labelSmall, color = rotuloColor)
         Text(
             valor,
             style = MaterialTheme.typography.titleMedium.merge(Tabular),

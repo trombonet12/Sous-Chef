@@ -2,6 +2,7 @@ package app.souschef.ui.crono
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.crono.AlmacenCrono
 import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.receta.crono.EstadoCrono
@@ -39,6 +40,7 @@ class CronoViewModelTest {
     private val reloj = RelojFalso()
     private val sistema = FakeAlarmaSistema()
     private val avisador = FakeAvisador()
+    private val ajustes = FakeAjustesRepo()
     private val almacen = AlmacenCrono(repo)
     private val recetas = FakeRecetasRepo(listOf(recetaCrono()))
     private val notificador = FakeNotificador()
@@ -63,6 +65,7 @@ class CronoViewModelTest {
             cadena,
             reloj,
             avisador,
+            ajustes,
         ).also {
             creados += it
             runCurrent()
@@ -301,6 +304,51 @@ class CronoViewModelTest {
                 vm.ui.value.estado
                     ?.inicioMs,
             )
+        }
+
+    @Test
+    fun laDisposicionDeLaCocinaSigueAlosAjustes() =
+        prueba {
+            val vm = crear()
+            assertEquals(DisposicionCrono.FOCO, vm.ui.value.disposicion)
+
+            ajustes.fijarDisposicion(DisposicionCrono.APILADA)
+            runCurrent()
+
+            assertEquals(DisposicionCrono.APILADA, vm.ui.value.disposicion)
+        }
+
+    @Test
+    fun hechoDelCarrilFijadoSueltaElFocoYSaltaAlSiguienteUrgente() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("m")
+            vm.enfocar("f0")
+            runCurrent()
+            assertEquals("f0", guardado().foco)
+
+            vm.hecho("f0")
+            runCurrent()
+
+            assertEquals("m", guardado().foco)
+        }
+
+    @Test
+    fun hechoDeUnCarrilQueNoEraElFijadoNoMueveElFoco() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("m")
+            vm.enfocar("f0")
+            runCurrent()
+
+            vm.hecho("m")
+            runCurrent()
+
+            assertEquals("f0", guardado().foco)
         }
 
     @Test

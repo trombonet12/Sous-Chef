@@ -113,7 +113,7 @@ private fun Contenido(
         }
 
         else -> {
-            CronoCocina(receta, estado, ui, viewModel, SalidasCrono(onSalir, onTecnica))
+            CronoCocina(ui, viewModel, SalidasCrono(onSalir, onTecnica))
         }
     }
 }

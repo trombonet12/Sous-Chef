@@ -1,7 +1,10 @@
 package app.souschef.ui.crono
 
+import app.souschef.domain.Ajustes
+import app.souschef.domain.AjustesRepo
 import app.souschef.domain.CronoEstado
 import app.souschef.domain.CronoEstadoRepo
+import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.Reloj
 import app.souschef.domain.crono.AlarmaSistema
 import app.souschef.domain.crono.AvisoNotificacion
@@ -50,6 +53,20 @@ class FakeCronoEstadoRepo : CronoEstadoRepo {
 
     override suspend fun borrar(slug: String) {
         datos.value = datos.value - slug
+    }
+}
+
+class FakeAjustesRepo : AjustesRepo {
+    val actual = MutableStateFlow(Ajustes())
+
+    override fun observar(): Flow<Ajustes> = actual
+
+    override suspend fun fijarDisposicion(d: DisposicionCrono) {
+        actual.value = actual.value.copy(disposicion = d)
+    }
+
+    override suspend fun fijarVoz(activa: Boolean) {
+        actual.value = actual.value.copy(vozActiva = activa)
     }
 }
 

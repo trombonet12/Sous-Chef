@@ -1,13 +1,10 @@
 package app.souschef.ui.crono
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import app.souschef.R
 import app.souschef.receta.Carril
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
-import app.souschef.receta.crono.ClaseEstado
 import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCarril
 import app.souschef.receta.crono.EstadoCrono
@@ -42,10 +39,6 @@ class DatosCrono(
         val i = carriles.indexOfFirst { it.id == id }
         return colorDeCarril(carriles.getOrNull(i)?.color.orEmpty(), i)
     }
-
-    /** Nadie ha arrancado nada todavía (cocina abierta, sin pasos en marcha ni hechos). */
-    val sinEmpezar: Boolean
-        get() = estado.carriles.values.all { !it.corriendo && !it.pausado && !it.fin && it.i == 0 }
 }
 
 private const val SATURACION_MINIMA = 0.2f
@@ -77,47 +70,3 @@ fun recursoTapa(tapa: String?): Int? {
         else -> null
     }
 }
-
-/** Texto de estado de un carril ("empieza ya", "a las 14:05", "espera a ..."). */
-@Composable
-fun textoEstado(
-    datos: DatosCrono,
-    v: VistaEstado,
-    mostrarTocaba: Boolean = false,
-): String =
-    when (v.clase) {
-        ClaseEstado.FIN -> {
-            stringResource(R.string.crono_est_fin)
-        }
-
-        ClaseEstado.ATENDER -> {
-            stringResource(R.string.crono_est_atender)
-        }
-
-        ClaseEstado.PAUSA -> {
-            stringResource(R.string.crono_est_pausa)
-        }
-
-        ClaseEstado.MARCHA -> {
-            stringResource(R.string.crono_est_marcha)
-        }
-
-        ClaseEstado.BLOQ -> {
-            val de = v.bloqueadoPor.firstOrNull()
-            stringResource(R.string.crono_est_bloq, de?.let { "${it.first} (${datos.nombre(it.second)})" }.orEmpty())
-        }
-
-        ClaseEstado.ESPERA -> {
-            stringResource(R.string.crono_est_espera, formatoHora(v.sugeridoMs ?: datos.ahoraMs))
-        }
-
-        ClaseEstado.YA -> {
-            val base = stringResource(R.string.crono_est_ya)
-            val sugerido = v.sugeridoMs
-            if (mostrarTocaba && sugerido != null) {
-                base + " · " + stringResource(R.string.crono_est_tocaba, formatoHora(sugerido))
-            } else {
-                base
-            }
-        }
-    }
