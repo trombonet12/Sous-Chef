@@ -55,6 +55,7 @@
 - 2026-10-17 · v0.7.2:
   - La tarjeta compacta muestra además el próximo hito, «Después» y la nota, si caben.
   - Repo hecho público.
+- 2026-10-17 · v0.8.0: aviso de versión nueva (ADR-0009), al abrir y una vez al día; al tocar abre Obtainium.
 
 ## Entorno
 | Herramienta | Estado |
@@ -65,7 +66,7 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Instalar la v0.7.2 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
+- Instalar la v0.8.0 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
 - La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.
@@ -84,10 +85,11 @@
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
-- Sin probar en el móvil: el diálogo al salir (ronda 7) y la tarjeta compacta (ronda 8, solo emulador).
+- Sin probar en el móvil: el diálogo al salir (ronda 7), la tarjeta compacta (ronda 8, solo emulador) y el aviso de
+  versión nueva (v0.8.0, probado en el emulador).
 - Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 9: aviso en la app cuando hay una versión nueva publicada (petición de Joan, 2026-10-17). Antes de implementarlo,
-cerrar con Joan el diseño: red (ADR-0007 dice «solo local»), cuándo se comprueba y qué abre la notificación.
+Joan instala la v0.8.0 y prueba los 4 carriles (reloj, hito, después y nota). El aviso de versión se verá con la
+siguiente release: comprobar que llega y que al tocarlo abre Obtainium.

@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Voz del cronómetro (ADR-0008): permiso en tiempo de ejecución, solo con la cocina en pantalla. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Aviso de versión nueva (ADR-0009): solo consulta la API pública de releases de GitHub. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Visibilidad de paquetes (API 30+): SpeechRecognizer y TextToSpeech buscan estos servicios. -->
     <queries>
@@ -21,6 +24,9 @@
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
+        <!-- La notificación de versión nueva abre Obtainium si está instalado. -->
+        <package android:name="dev.imranr.obtainium" />
+        <package android:name="dev.imranr.obtainium.fdroid" />
     </queries>
 
     <application
@@ -83,6 +89,10 @@
             android:taskAffinity="app.souschef.alarma"
             android:theme="@style/Theme.SousChef"
             android:turnScreenOn="true" />
+        <service
+            android:name=".data.actualizacion.TrabajoActualizaciones"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

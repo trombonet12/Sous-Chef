@@ -3,7 +3,7 @@
 > Propósito: describir la arquitectura de Sous Chef, sus componentes y fronteras · Audiencia: desarrolladores y agentes · Actualizado: 2026-10-17 · Relacionado: docs/adr/, docs/herramientas.md, docs/spec/app-legado.md
 
 ## Resumen
-Sous Chef es una app Android personal de recetas cronometradas que funciona solo en local ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)). Las recetas se escriben y validan en este repo con Claude Code, y viajan empaquetadas en el APK desde `data/`. La app lee recetas y técnicas, edita despensa, lista de la compra, historial y preferencias en Room, y ejecuta el cronómetro con alarmas del sistema. No hay backend, sync ni login. **Estado:** descripción de la arquitectura actual; se implementa por fases (`docs/fases/`).
+Sous Chef es una app Android personal de recetas cronometradas que funciona solo en local ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)). Las recetas se escriben y validan en este repo con Claude Code, y viajan empaquetadas en el APK desde `data/`. La app lee recetas y técnicas, edita despensa, lista de la compra, historial y preferencias en Room, y ejecuta el cronómetro con alarmas del sistema. No hay backend, sync ni login; la única red es la consulta de versión nueva ([ADR-0009](adr/0009-aviso-de-version-nueva.md)). **Estado:** descripción de la arquitectura actual; se implementa por fases (`docs/fases/`).
 
 ## Principios
 | Principio | Consecuencia arquitectónica |
@@ -96,7 +96,9 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0004 Sync outbox y LWW](adr/0004-sync-outbox-lww.md) (sustituido por ADR-0007)
 - [ADR-0005 Cronómetro con alarmas, sin FGS](adr/0005-cronometro-alarmas-sin-fgs.md)
 - [ADR-0006 Ficha nativa e impresión HTML](adr/0006-ficha-nativa-e-impresion-html.md)
-- [ADR-0007 Solo local, sin Supabase](adr/0007-app-solo-local-sin-supabase.md)
+- [ADR-0007 Solo local, sin Supabase](adr/0007-app-solo-local-sin-supabase.md) (matizado por ADR-0009)
+- [ADR-0008 Voz en el cronómetro](adr/0008-voz-en-el-cronometro.md)
+- [ADR-0009 Aviso de versión nueva](adr/0009-aviso-de-version-nueva.md)
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente

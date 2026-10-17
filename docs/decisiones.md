@@ -155,3 +155,13 @@
 - Repo de GitHub hecho público, por decisión de Joan, para que la app pueda consultar las releases sin token.
   - Antes se revisó el historial entero: sin secretos.
   - Quedan visibles el Gmail de los commits y `data/legado/`; Joan lo aceptó.
+
+## 2026-10-17 · Aviso de versión nueva (v0.8.0, ADR-0009)
+- La app consulta `releases/latest` de la API pública de GitHub, sin token ni datos del usuario:
+  - al abrir, como mucho cada 6 h;
+  - una vez al día con `JobScheduler` (persistente y con red).
+- Si el tag es mayor que la versión instalada y no se avisó ya, notifica en el canal «Actualizaciones». Al tocar abre
+  Obtainium (`dev.imranr.obtainium` o `.fdroid`) o, si no está, la página de la release.
+- Permisos nuevos: `INTERNET` y `ACCESS_NETWORK_STATE`. La build debug no comprueba.
+- Probado en el emulador con una build temporal de 0.7.0 sin el filtro de debug: aparece «Sous Chef 0.7.2
+  disponible», el trabajo queda programado y la versión avisada se guarda.
