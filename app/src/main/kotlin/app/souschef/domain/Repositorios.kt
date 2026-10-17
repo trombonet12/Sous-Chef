@@ -97,6 +97,14 @@ interface CompraRepo {
     suspend fun reordenar(idsEnOrden: List<Long>)
 }
 
+interface AjustesRepo {
+    fun observar(): Flow<Ajustes>
+
+    suspend fun fijarDisposicion(d: DisposicionCrono)
+
+    suspend fun fijarVoz(activa: Boolean)
+}
+
 interface CronoEstadoRepo {
     fun observar(slug: String): Flow<CronoEstado?>
 

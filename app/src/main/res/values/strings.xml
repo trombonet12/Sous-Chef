@@ -6,6 +6,17 @@
     <string name="tab_historial">Historial</string>
     <string name="menu_tecnicas">Técnicas</string>
     <string name="menu_mas">Más opciones</string>
+    <string name="menu_ajustes">Ajustes</string>
+
+    <!-- Ajustes -->
+    <string name="ajustes_titulo">Ajustes</string>
+    <string name="ajustes_crono">Cronómetro</string>
+    <string name="ajustes_foco">Foco y resto compacto</string>
+    <string name="ajustes_foco_detalle">Un recipiente grande a la vista y los demás en una línea.</string>
+    <string name="ajustes_apilada">Carriles apilados</string>
+    <string name="ajustes_apilada_detalle">Todos los recipientes a la vez, uno debajo de otro.</string>
+    <string name="ajustes_voz">Hablar con el chef</string>
+    <string name="ajustes_voz_detalle">Con el cronómetro en pantalla, di \"Chef, …\" para preguntar o mandar sin tocar.</string>
 
     <!-- Comunes -->
     <string name="atras">Volver</string>

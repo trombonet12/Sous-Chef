@@ -11,6 +11,7 @@ object Rutas {
 
     const val FICHA = "receta/{$ARG_SLUG}"
     const val TECNICAS = "tecnicas"
+    const val AJUSTES = "ajustes"
     const val TECNICA = "tecnica/{$ARG_SLUG}"
     const val CRONO = "crono/{$ARG_SLUG}?$ARG_RACIONES={$ARG_RACIONES}&$ARG_SERVIR={$ARG_SERVIR}"
 

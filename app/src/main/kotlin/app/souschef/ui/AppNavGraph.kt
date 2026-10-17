@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import app.souschef.R
+import app.souschef.ui.ajustes.AjustesScreen
 import app.souschef.ui.crono.CronoScreen
 import app.souschef.ui.despensa.DespensaPantalla
 import app.souschef.ui.ficha.FichaScreen
@@ -45,6 +46,7 @@ fun SousChefNavGraph(
                 onAbrir = { navController.navigate(Rutas.tecnica(it)) },
             )
         }
+        composable(Rutas.AJUSTES) { AjustesScreen(onAtras = { navController.popBackStack() }) }
         composable(Rutas.TECNICA, arguments = listOf(ARG_SLUG)) {
             TecnicaScreen(onAtras = { navController.popBackStack() }, onReceta = abrirFicha)
         }

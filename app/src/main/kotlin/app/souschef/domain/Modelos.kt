@@ -46,6 +46,15 @@ data class ItemCompra(
     val orden: Int = 0,
 )
 
+/** Cómo se muestran los carriles del cronómetro: uno en foco y el resto compacto, o todos apilados. */
+enum class DisposicionCrono { FOCO, APILADA }
+
+/** Preferencias globales de la app. */
+data class Ajustes(
+    val disposicion: DisposicionCrono = DisposicionCrono.FOCO,
+    val vozActiva: Boolean = true,
+)
+
 /** Estado serializado del cronómetro de una receta (el JSON lo interpreta el motor, no el repositorio). */
 data class CronoEstado(
     val slug: String,

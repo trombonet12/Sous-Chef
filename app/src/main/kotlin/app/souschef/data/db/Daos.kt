@@ -173,6 +173,9 @@ interface MetaDao {
     @Query("SELECT valor FROM meta WHERE clave = :clave")
     suspend fun valor(clave: String): String?
 
+    @Query("SELECT valor FROM meta WHERE clave = :clave")
+    fun observar(clave: String): Flow<String?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun fijar(meta: MetaEntity)
 }

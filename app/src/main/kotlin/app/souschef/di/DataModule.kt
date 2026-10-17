@@ -3,6 +3,7 @@ package app.souschef.di
 import android.content.Context
 import androidx.room.Room
 import app.souschef.data.db.SousChefDatabase
+import app.souschef.data.repo.AjustesRepoRoom
 import app.souschef.data.repo.CompraRepoRoom
 import app.souschef.data.repo.CronoEstadoRepoRoom
 import app.souschef.data.repo.DespensaRepoRoom
@@ -12,6 +13,7 @@ import app.souschef.data.repo.RecetasRepoRoom
 import app.souschef.data.repo.TecnicasRepoRoom
 import app.souschef.data.seed.FuenteAssets
 import app.souschef.data.seed.FuenteSemilla
+import app.souschef.domain.AjustesRepo
 import app.souschef.domain.CompraRepo
 import app.souschef.domain.CronoEstadoRepo
 import app.souschef.domain.DespensaRepo
@@ -51,6 +53,8 @@ object DatabaseModule {
 
     @Provides fun cronoEstadoDao(db: SousChefDatabase) = db.cronoEstadoDao()
 
+    @Provides fun metaDao(db: SousChefDatabase) = db.metaDao()
+
     @Provides fun reloj(): Reloj = Reloj.Sistema
 }
 
@@ -70,6 +74,8 @@ abstract class RepoModule {
     @Binds abstract fun compra(impl: CompraRepoRoom): CompraRepo
 
     @Binds abstract fun cronoEstado(impl: CronoEstadoRepoRoom): CronoEstadoRepo
+
+    @Binds abstract fun ajustes(impl: AjustesRepoRoom): AjustesRepo
 
     @Binds abstract fun fuenteSemilla(impl: FuenteAssets): FuenteSemilla
 }

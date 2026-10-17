@@ -50,6 +50,13 @@ fun SousChefShell(navController: NavHostController) {
                                 navController.navigate(Rutas.TECNICAS) { launchSingleTop = true }
                             },
                         )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_ajustes)) },
+                            onClick = {
+                                menuAbierto = false
+                                navController.navigate(Rutas.AJUSTES) { launchSingleTop = true }
+                            },
+                        )
                     }
                 },
             )
