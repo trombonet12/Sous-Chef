@@ -31,6 +31,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
@@ -66,6 +67,10 @@ fun TarjetaCarril(
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
             .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
     ) {
+        if (tarjetaCompacta(maxHeight.value, LocalDensity.current.fontScale)) {
+            ContenidoCompacto(v, color, acciones)
+            return@BoxWithConstraints
+        }
         val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()
         val plan = planTarjeta(maxHeight.value, carriles, hayMetoSaco, !v.nota.isNullOrBlank())
         Column(
@@ -124,22 +129,23 @@ private fun FilaTitulo(
 
 /** Pausa y +30 s (o "Empezar igual" si el carril espera a otro): secundarios, el principal está abajo. */
 @Composable
-private fun MandosSecundarios(
+internal fun MandosSecundarios(
     v: VistaCarril,
     acciones: AccionesCarril,
+    compacto: Boolean = false,
 ) {
     when (v.accion) {
         AccionCarril.PAUSAR, AccionCarril.HECHO -> {
-            BotonSecundario(stringResource(R.string.crono_pausa)) { acciones.alternar(v.id) }
-            BotonSecundario(stringResource(R.string.crono_mas_30)) { acciones.masTreinta(v.id) }
+            BotonSecundario(stringResource(R.string.crono_pausa), compacto) { acciones.alternar(v.id) }
+            BotonSecundario(stringResource(R.string.crono_mas_30), compacto) { acciones.masTreinta(v.id) }
         }
 
         AccionCarril.SEGUIR -> {
-            BotonSecundario(stringResource(R.string.crono_mas_30)) { acciones.masTreinta(v.id) }
+            BotonSecundario(stringResource(R.string.crono_mas_30), compacto) { acciones.masTreinta(v.id) }
         }
 
         AccionCarril.BLOQUEADO -> {
-            BotonSecundario(stringResource(R.string.crono_empezar_igual)) { acciones.empezarIgual(v.id) }
+            BotonSecundario(stringResource(R.string.crono_empezar_igual), compacto) { acciones.empezarIgual(v.id) }
         }
 
         AccionCarril.EMPEZAR, AccionCarril.TERMINADO -> {
@@ -151,15 +157,21 @@ private fun MandosSecundarios(
 @Composable
 private fun BotonSecundario(
     texto: String,
+    compacto: Boolean,
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = Modifier.heightIn(min = 48.dp).padding(start = 6.dp),
-        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+        modifier = Modifier.heightIn(min = 48.dp).padding(start = if (compacto) 4.dp else 6.dp),
+        contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 10.dp, vertical = 2.dp),
         border = BorderStroke(1.dp, CronoPalette.linea),
     ) {
-        Text(texto, color = CronoPalette.texto, style = MaterialTheme.typography.labelLarge, maxLines = 1)
+        Text(
+            texto,
+            color = CronoPalette.texto,
+            style = if (compacto) MaterialTheme.typography.labelMedium else MaterialTheme.typography.labelLarge,
+            maxLines = 1,
+        )
     }
 }
 
@@ -199,7 +211,7 @@ private fun TituloPaso(
 
 /** Círculo con una "i": avisa de que el título abre el porqué del paso. */
 @Composable
-private fun IconoPorque() {
+internal fun IconoPorque() {
     Text(
         "i",
         Modifier

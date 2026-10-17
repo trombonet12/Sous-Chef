@@ -20,6 +20,15 @@ private const val ALTO_POR_SP = 1.2f
 private const val CARRILES_SIN_METO = 4
 
 /**
+ * Si la tarjeta no da ni para su parte fija, una línea de título y el reloj mínimo (todo crece con la letra del
+ * sistema), se pinta compacta: dos filas, sin «Después», METO/SACO ni nota.
+ */
+internal fun tarjetaCompacta(
+    alturaDp: Float,
+    escalaLetra: Float,
+): Boolean = alturaDp < (FIJO_DP + LINEA_TITULO_DP + RELOJ_MIN_SP * ALTO_POR_SP) * maxOf(1f, escalaLetra)
+
+/**
  * Reparte la altura: primero se quita la nota, luego METO/SACO (siempre con 4 o más carriles) y por último el título
  * pasa a una línea. El reloj ocupa lo que sobra, entre [RELOJ_MIN_SP] y [RELOJ_MAX_SP].
  */

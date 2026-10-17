@@ -302,6 +302,19 @@ class CocinaUiTest {
     }
 
     @Test
+    fun `con cuatro carriles en un movil la tarjeta pasa a compacta`() {
+        // ~150 dp por tarjeta: con la parte fija no queda sitio para el reloj.
+        assertTrue(tarjetaCompacta(alturaDp = 150f, escalaLetra = 1f))
+        assertFalse(tarjetaCompacta(alturaDp = 260f, escalaLetra = 1f))
+    }
+
+    @Test
+    fun `con la letra del sistema grande se compacta antes`() {
+        assertTrue(tarjetaCompacta(alturaDp = 260f, escalaLetra = 1.3f))
+        assertFalse(tarjetaCompacta(alturaDp = 400f, escalaLetra = 1.3f))
+    }
+
+    @Test
     fun `con cuatro o mas carriles meto y saco nunca se muestran`() {
         val plan = planTarjeta(alturaDp = 560f, carriles = 4, hayMetoSaco = true, hayNota = true)
         assertFalse(plan.metoSaco)

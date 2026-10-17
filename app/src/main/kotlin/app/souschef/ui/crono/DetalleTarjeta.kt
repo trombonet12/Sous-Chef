@@ -67,7 +67,7 @@ internal fun BloqueReloj(
 }
 
 @Composable
-private fun BarraProgreso(
+internal fun BarraProgreso(
     v: VistaCarril,
     color: Color,
 ) {
