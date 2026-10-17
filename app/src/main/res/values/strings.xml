@@ -247,6 +247,4 @@
     <string name="crono_canal_carriles">Carriles del cronómetro</string>
     <string name="crono_aviso_notificaciones">Las notificaciones de Sous Chef están desactivadas: el cronómetro no avisará.</string>
     <string name="crono_aviso_exactas">Sin permiso de alarmas exactas los avisos pueden llegar tarde.</string>
-    <string name="trombito_descripcion">Trombito chef, tu ayudante de cocina. Tócalo para ver u ocultar su consejo.</string>
-    <string name="trombito_cerrar_consejo">Cerrar consejo</string>
 </resources>
