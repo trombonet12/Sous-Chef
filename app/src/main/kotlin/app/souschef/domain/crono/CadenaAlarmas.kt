@@ -2,12 +2,16 @@ package app.souschef.domain.crono
 
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
+import app.souschef.receta.Receta
+import app.souschef.receta.crono.AgrupadorAlarmas
+import app.souschef.receta.crono.AlarmaActiva
 import app.souschef.receta.crono.Aviso
 import app.souschef.receta.crono.AvisosCrono
 import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.Evento
 import app.souschef.receta.crono.SesionCrono
+import java.util.concurrent.ConcurrentHashMap
 
 /** Programa una única alarma del sistema (ADR-0005): la del próximo evento. Implementación Android en `data.alarma`. */
 interface AlarmaSistema {
@@ -16,47 +20,55 @@ interface AlarmaSistema {
     fun cancelar()
 }
 
-/** Un aviso listo para publicar como notificación. */
-data class AvisoNotificacion(
+/**
+ * Lo que enseña la notificación fija de la cocina (fuera de la app): una línea por carril.
+ * [urgente] es el carril de la acción «Hecho» (el que lleva el paso vencido) o null; [finProximoMs] alimenta la cuenta
+ * atrás nativa y el chip de Live Update; [llegadaMs] es la hora estimada en que se acaba todo ("llegas HH:MM").
+ */
+data class ResumenCocina(
     val slug: String,
     val tituloReceta: String,
-    val carril: String,
-    val aviso: Aviso,
+    val carriles: List<CarrilNotificacion>,
+    val urgente: String?,
+    val finProximoMs: Long?,
+    val llegadaMs: Long? = null,
 )
 
+/** Notificaciones de la cocina: una fija con todos los carriles y una única alarma que agrupa lo que coincide. */
 interface Notificador {
-    /**
-     * Avisos que suenan: cada uno vuelve a publicar la notificación de su carril en el canal de alarma (sonido
-     * insistente hasta Parar, Hecho/Siguiente o 60 s). Los silenciosos no llegan aquí, solo repintan el carril.
-     */
-    fun publicar(avisos: List<AvisoNotificacion>)
+    /** Pinta o actualiza la notificación fija de la cocina (sin sonido). */
+    fun cocina(resumen: ResumenCocina)
 
     /**
-     * Pinta una notificación por carril de la cocinada y quita las de los carriles que ya no están. Un carril que
-     * está sonando no se pisa hasta que se pare.
+     * Pinta la alarma única. Con [sonar] suena (insistente hasta Parar, Hecho o 60 s); sin [sonar] se actualiza en
+     * silencio. [urgente] != null ofrece «Hecho y siguiente».
      */
-    fun carriles(
+    fun alarma(
         slug: String,
-        carriles: List<CarrilNotificacion>,
+        titulo: String,
+        alarma: AlarmaActiva,
+        sonar: Boolean,
+        urgente: String?,
     )
 
-    /** Quita la notificación (y su sonido) de unos carriles: su paso se ha dado por hecho. */
-    fun cancelarAvisos(
-        slug: String,
-        carriles: Collection<String>,
-    )
+    /** Quita la alarma (y su sonido). */
+    fun quitarAlarma(slug: String)
 
-    /** Cierre de la cocinada: fuera las notificaciones de sus carriles. */
+    /** Quita la notificación fija de la cocina. */
+    fun quitarCocina(slug: String)
+
+    /** Cierre de la cocinada: fuera las dos. */
     fun limpiar(slug: String)
-
-    /** Para el sonido: las notificaciones de carril que están sonando se quitan. */
-    fun silenciar(slug: String)
 }
 
 /**
  * La cadena de alarmas (ADR-0005): [reprogramar] deja armada solo la alarma del próximo evento de todas las
  * cocinadas abiertas; [procesar] (al sonar la alarma, tras un reinicio o un cambio de hora) emite lo vencido,
  * lo persiste y arma la siguiente.
+ *
+ * Con la cocina en pantalla ([PresenciaCrono]) no hay notificaciones: avisa la propia app y el tic del ViewModel
+ * consume los avisos. Fuera de la pantalla hay una fija con todos los carriles y una sola alarma que agrupa lo que
+ * coincide (< 60 s).
  */
 @Suppress("TooManyFunctions")
 class CadenaAlarmas(
@@ -65,13 +77,26 @@ class CadenaAlarmas(
     private val reloj: Reloj,
     private val sistema: AlarmaSistema,
     private val notificador: Notificador,
+    val presencia: PresenciaCrono = PresenciaCrono(),
 ) {
-    /** El evento más cercano entre todas las cocinadas en marcha, o null si no hay ninguno. */
+    /** Alarma que hay ahora en la bandeja por cocinada, para agrupar lo que coincide. Solo en memoria. */
+    private val activas = ConcurrentHashMap<String, AlarmaPublicada>()
+
+    private class AlarmaPublicada(
+        val titulo: String,
+        val alarma: AlarmaActiva,
+    )
+
+    /**
+     * El evento más cercano entre todas las cocinadas en marcha, o null si no hay ninguno. La cocina que se está
+     * viendo no cuenta: la avisa la app y, al salir, se vuelve a armar.
+     */
     suspend fun proximoEvento(): Evento? {
         val ahora = reloj.ahoraMs()
+        val visible = presencia.visible
         return almacen
             .todos()
-            .filter { vivo(it, ahora) }
+            .filter { it.slug != visible && vivo(it, ahora) }
             .mapNotNull { e -> recetas.obtener(e.slug)?.let { AvisosCrono.siguienteEvento(e, it) } }
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
@@ -83,16 +108,38 @@ class CadenaAlarmas(
     }
 
     /**
-     * Repinta las notificaciones de carril solo de las cocinadas vivas; las demás (sin
-     * arrancar, caducadas) las pierden.
+     * Repinta la notificación fija de las cocinadas vivas que no se están viendo; las demás (en pantalla, sin
+     * arrancar, caducadas) la pierden.
      */
     suspend fun repintar() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
             val receta = recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }
-            notificador.carriles(e.slug, receta?.let { ConstructorCarriles.construir(it, e, ahora) }.orEmpty())
+            val resumen = if (receta == null || presencia.visible == e.slug) null else resumen(receta, e, ahora)
+            if (resumen == null) notificador.quitarCocina(e.slug) else notificador.cocina(resumen)
+            if (receta == null && activas.containsKey(e.slug)) quitarAlarmaDe(e.slug)
         }
     }
+
+    private fun resumen(
+        receta: Receta,
+        e: EstadoCrono,
+        ahora: Long,
+    ): ResumenCocina? {
+        val carriles = ConstructorCarriles.construir(receta, e, ahora)
+        if (carriles.isEmpty()) return null
+        return ResumenCocina(
+            slug = e.slug,
+            tituloReceta = receta.titulo,
+            carriles = carriles,
+            urgente = urgenteDe(carriles),
+            finProximoMs = carriles.mapNotNull { it.finAtMs }.minOrNull(),
+            llegadaMs = ConsultasCrono.plan(e, receta, ahora).llegadaMs,
+        )
+    }
+
+    private fun urgenteDe(carriles: List<CarrilNotificacion>): String? =
+        carriles.firstOrNull { it.situacion == SituacionCarril.VENCIDO }?.carril
 
     /** Otra cocinada viva distinta de [slug] (solo se cocina una a la vez), o null. */
     suspend fun otraViva(slug: String): EstadoCrono? {
@@ -103,29 +150,45 @@ class CadenaAlarmas(
     /** Abandona una cocinada: borra su estado, quita avisos y notificaciones y rearma la cadena. */
     suspend fun abandonar(slug: String) {
         almacen.borrar(slug)
-        notificador.limpiar(slug)
+        cerrado(slug)
         reprogramar()
     }
 
-    /** Para el sonido y quita los avisos de la cocinada. */
+    /** Para el sonido y quita la alarma de la cocinada; repinta la fija si procede. */
     suspend fun silenciar(slug: String) {
-        notificador.silenciar(slug)
+        quitarAlarmaDe(slug)
         repintar()
     }
 
-    /** Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. */
-    fun descartarObsoletos(
+    /**
+     * Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. Su línea sale de la alarma
+     * y, si no queda ninguna, la alarma se quita; si quedan, se actualiza en silencio.
+     */
+    suspend fun descartarObsoletos(
         antes: EstadoCrono?,
         despues: EstadoCrono,
     ) {
         val avanzados = IdsNotificacion.carrilesAvanzados(antes, despues)
-        if (avanzados.isNotEmpty()) notificador.cancelarAvisos(despues.slug, avanzados)
+        val actual = activas[despues.slug]
+        if (avanzados.isEmpty() || actual == null) return
+        val resto = AgrupadorAlarmas.quitar(actual.alarma, avanzados)
+        if (resto == null) {
+            quitarAlarmaDe(despues.slug)
+        } else {
+            activas[despues.slug] = AlarmaPublicada(actual.titulo, resto)
+            val receta = recetas.obtener(despues.slug)
+            val urgente = receta?.let { urgenteDe(ConstructorCarriles.construir(it, despues, reloj.ahoraMs())) }
+            notificador.alarma(despues.slug, actual.titulo, resto, sonar = false, urgente = urgente)
+        }
     }
 
     /** Cierre de una cocinada: sin avisos ni notificaciones. */
-    fun cerrado(slug: String) = notificador.limpiar(slug)
+    fun cerrado(slug: String) {
+        activas.remove(slug)
+        notificador.limpiar(slug)
+    }
 
-    /** Acción "Siguiente" de la notificación. Devuelve el carril afectado o null si no había nada que hacer. */
+    /** Acción "Hecho y siguiente" de la notificación. Devuelve el carril afectado, o null si no había nada. */
     suspend fun siguiente(slug: String): String? {
         val receta = recetas.obtener(slug) ?: return null
         val ahora = reloj.ahoraMs()
@@ -145,21 +208,40 @@ class CadenaAlarmas(
 
     suspend fun procesar() {
         val ahora = reloj.ahoraMs()
-        val publicar = mutableListOf<AvisoNotificacion>()
-        for (e in almacen.todos().filter { vivo(it, ahora) }) {
+        val visible = presencia.visible
+        // La cocina en pantalla no se toca: sus avisos los consume el tic del ViewModel y suenan dentro de la app.
+        for (e in almacen.todos().filter { it.slug != visible && vivo(it, ahora) }) {
             val receta = recetas.obtener(e.slug) ?: continue
-            val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
-            var avisos = emptyList<Aviso>()
-            almacen.modificar(e.slug) { actual ->
-                val v = AvisosCrono.vencidos(actual, receta, ahora)
-                avisos = v.avisos
-                v.estado
-            }
-            publicar += avisos.map { AvisoNotificacion(e.slug, receta.titulo, nombres[it.carril] ?: it.carril, it) }
+            avisarFuera(e, receta, ahora)
         }
-        val suenan = publicar.filter { IdsNotificacion.despiertaPantalla(it.aviso.tipo, it.aviso.silencioso) }
-        if (suenan.isNotEmpty()) notificador.publicar(suenan)
         reprogramar()
+    }
+
+    /** Consume lo vencido de una cocinada que no se ve y lo publica en la alarma única, agrupándolo. */
+    private suspend fun avisarFuera(
+        e: EstadoCrono,
+        receta: Receta,
+        ahora: Long,
+    ) {
+        val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
+        var avisos = emptyList<Aviso>()
+        almacen.modificar(e.slug) { actual ->
+            val v = AvisosCrono.vencidos(actual, receta, ahora)
+            avisos = v.avisos
+            v.estado
+        }
+        val lineas = AgrupadorAlarmas.lineasDe(avisos, nombres)
+        if (lineas.isNotEmpty()) {
+            val agrupado = AgrupadorAlarmas.combinar(activas[e.slug]?.alarma, lineas, ahora)
+            activas[e.slug] = AlarmaPublicada(receta.titulo, agrupado.alarma)
+            val urgente = urgenteDe(ConstructorCarriles.construir(receta, e, ahora))
+            notificador.alarma(e.slug, receta.titulo, agrupado.alarma, agrupado.sonar, urgente)
+        }
+    }
+
+    private fun quitarAlarmaDe(slug: String) {
+        activas.remove(slug)
+        notificador.quitarAlarma(slug)
     }
 
     private fun vivo(

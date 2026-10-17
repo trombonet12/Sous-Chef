@@ -206,8 +206,7 @@ class CronoViewModel
             when (tipo) {
                 TipoAviso.FIN -> 0
                 TipoAviso.HITO -> 1
-                TipoAviso.TOCA_EMPEZAR -> 2
-                TipoAviso.DIEZ_S -> 3
+                else -> 2
             }
 
         private fun aplicar(
@@ -265,8 +264,12 @@ class CronoViewModel
             }
         }
 
-        /** La pantalla se ve (o vuelve a verse): se calla la alarma y se quitan los avisos de esta cocinada. */
+        /**
+         * La pantalla se ve (o vuelve a verse): con la cocina en pantalla no hay notificaciones, así que se marca la
+         * presencia, se calla la alarma y se quita la fija (silenciar repinta).
+         */
         fun alVer() {
+            cadena.presencia.visible = slug
             viewModelScope.launch { cadena.silenciar(slug) }
         }
 
@@ -340,8 +343,9 @@ class CronoViewModel
             }
         }
 
-        /** La pantalla deja de verse: la cadena de alarmas queda armada con el estado persistido. */
+        /** La pantalla deja de verse: reaparece la fija y la cadena queda armada con el estado persistido. */
         fun enSegundoPlano() {
+            cadena.presencia.visible = null
             confirmarCierre()
             viewModelScope.launch { cadena.reprogramar() }
         }

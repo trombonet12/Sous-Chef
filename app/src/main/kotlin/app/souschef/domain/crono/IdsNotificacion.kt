@@ -1,32 +1,30 @@
 package app.souschef.domain.crono
 
 import app.souschef.receta.crono.EstadoCrono
-import app.souschef.receta.crono.TipoAviso
 
-/** Ids de las notificaciones: una por carril (tag `carril:<slug>`, id estable) . */
+/** Ids y tags de las notificaciones: una fija de cocina y una de alarma por cocinada (el tag lleva el slug). */
 object IdsNotificacion {
-    const val ID_RESUMEN = 2
+    /** La notificación fija con todos los carriles (fuera de la app). */
+    const val ID_COCINA = 3
 
-    /** Tope del sonido insistente de un aviso (el sistema lo corta al caducar la notificación). */
+    /** La única notificación de alarma: agrupa lo que coincide. */
+    const val ID_ALARMA = 4
+
+    /** Tope del sonido insistente de la alarma (el sistema la quita al caducar). */
     const val CADUCIDAD_ALARMA_MS = 60_000L
 
-    fun carril(carril: String): Int = carril.hashCode()
+    fun tagCocina(slug: String): String = "cocina:$slug"
 
-    fun tagCarril(slug: String): String = "carril:$slug"
+    fun tagAlarma(slug: String): String = "alarma:$slug"
 
-    fun grupoCarriles(slug: String): String = "carriles:$slug"
+    /** Tag de las antiguas notificaciones por carril (ya no se publican; se cancelan al limpiar). */
+    fun tagCarrilAntiguo(slug: String): String = "carril:$slug"
 
     /** Tag de la antigua notificación "En marcha" (ya no se publica; se cancela para limpiar versiones previas). */
     fun tagEnMarcha(slug: String): String = "enmarcha:$slug"
 
     /** Id que tenía la antigua notificación "En marcha". */
     const val ID_EN_MARCHA = 1
-
-    /** Avisos que despiertan la pantalla y suenan: los que piden una acción o marcan un hito, si no llegan tarde. */
-    fun despiertaPantalla(
-        tipo: TipoAviso,
-        silencioso: Boolean,
-    ): Boolean = !silencioso && tipo != TipoAviso.DIEZ_S
 
     /** Carriles cuyo paso ha cambiado (Hecho) o terminado entre dos estados: sus avisos ya no valen. */
     fun carrilesAvanzados(

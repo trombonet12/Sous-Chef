@@ -34,6 +34,7 @@ class AvisadorAndroid
         private val manejador = Handler(Looper.getMainLooper())
         private val vibrador = context.getSystemService(Vibrator::class.java)
 
+        @Suppress("DEPRECATION")
         override fun sonar(tipo: TipoAviso) {
             when (tipo) {
                 TipoAviso.HITO -> {
@@ -41,17 +42,13 @@ class AvisadorAndroid
                     vibrar(longArrayOf(0, 90, 70, 90))
                 }
 
-                TipoAviso.DIEZ_S -> {
-                    pitidos(listOf(0L to ToneGenerator.TONE_PROP_BEEP))
-                    vibrar(longArrayOf(0, 120))
-                }
-
                 TipoAviso.FIN -> {
                     triple()
                     vibrar(longArrayOf(0, 150, 100, 150, 100, 300))
                 }
 
-                TipoAviso.TOCA_EMPEZAR -> {
+                // DIEZ_S ya no se genera (sin aviso de 10 s); se trata como cualquier aviso de acción.
+                TipoAviso.TOCA_EMPEZAR, TipoAviso.DIEZ_S -> {
                     pitidos(listOf(0L to ToneGenerator.TONE_PROP_BEEP))
                     vibrar(longArrayOf(0, 100, 80, 100))
                 }

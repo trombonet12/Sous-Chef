@@ -1,6 +1,5 @@
 package app.souschef.ui.crono
 
-import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -33,7 +32,6 @@ import androidx.core.net.toUri
 import app.souschef.MainActivity
 import app.souschef.R
 import app.souschef.domain.crono.CadenaAlarmas
-import app.souschef.domain.crono.IdsNotificacion
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.DarkColors
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,8 +44,9 @@ import java.util.Date
 import javax.inject.Inject
 
 /**
- * Pantalla de alarma al estilo reloj: se muestra sobre el bloqueo, enciende la pantalla y permite parar el sonido
- * o dar el paso por hecho. La abre el full-screen intent del aviso; el sonido es de la notificación, no de aquí.
+ * Pantalla de alarma al estilo reloj: se muestra sobre el bloqueo, enciende la pantalla, lista lo que pide atención
+ * (las líneas de la alarma única) y permite parar el sonido o dar el paso por hecho. La abre el full-screen intent,
+ * que solo se pide con el móvil bloqueado; el sonido es de la notificación, no de aquí.
  */
 @AndroidEntryPoint
 class AlarmaActivity : ComponentActivity() {
@@ -83,45 +82,36 @@ class AlarmaActivity : ComponentActivity() {
         return DatosAlarma(
             slug = slug,
             titulo = intent.getStringExtra(EXTRA_TITULO).orEmpty(),
-            carril = intent.getStringExtra(EXTRA_CARRIL).orEmpty(),
-            texto = intent.getStringExtra(EXTRA_TEXTO).orEmpty(),
+            lineas = intent.getStringArrayExtra(EXTRA_LINEAS)?.toList().orEmpty(),
             instanteMs = intent.getLongExtra(EXTRA_INSTANTE, System.currentTimeMillis()),
-            id = intent.getIntExtra(EXTRA_ID, 0),
+            conHecho = intent.getBooleanExtra(EXTRA_HECHO, false),
         )
     }
 
-    // El sonido es el de la notificación: quitarla lo corta. Después se repinta el carril en su estado normal.
-    private fun silenciar(d: DatosAlarma) {
-        if (d.id != 0) {
-            getSystemService(NotificationManager::class.java).cancel(IdsNotificacion.tagCarril(d.slug), d.id)
-        }
-    }
-
-    // Ámbito propio: la actividad se cierra enseguida y no debe cancelar el repintado.
+    // Ámbito propio: la actividad se cierra enseguida y no debe cancelar el trabajo. El sonido es el de la
+    // notificación: quitarla (silenciar) lo corta.
     private fun enSegundoPlano(trabajo: suspend () -> Unit) {
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch { trabajo() }
     }
 
     private fun parar() {
         val d = datos
-        if (d != null) {
-            silenciar(d)
-            enSegundoPlano { cadena.repintar() }
-        }
+        if (d != null) enSegundoPlano { cadena.silenciar(d.slug) }
         finish()
     }
 
     private fun hechoYSiguiente() {
         val d = datos ?: return
-        silenciar(d)
-        enSegundoPlano { cadena.siguiente(d.slug) }
+        enSegundoPlano {
+            cadena.silenciar(d.slug)
+            cadena.siguiente(d.slug)
+        }
         finish()
     }
 
     private fun abrirCocina() {
         val d = datos ?: return
-        silenciar(d)
-        enSegundoPlano { cadena.repintar() }
+        enSegundoPlano { cadena.silenciar(d.slug) }
         startActivity(
             Intent(Intent.ACTION_VIEW, "souschef://crono/${d.slug}".toUri(), this, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP),
@@ -132,20 +122,20 @@ class AlarmaActivity : ComponentActivity() {
     companion object {
         const val EXTRA_SLUG = "slug"
         const val EXTRA_TITULO = "titulo"
-        const val EXTRA_CARRIL = "carril"
-        const val EXTRA_TEXTO = "texto"
+        const val EXTRA_LINEAS = "lineas"
         const val EXTRA_INSTANTE = "instante"
-        const val EXTRA_ID = "id"
+        const val EXTRA_HECHO = "hecho"
     }
 }
 
 private data class DatosAlarma(
     val slug: String,
     val titulo: String,
-    val carril: String,
-    val texto: String,
+    /** Una línea por carril que pide algo: «SARTÉN GRANDE: Primera fritura: hecho». */
+    val lineas: List<String>,
     val instanteMs: Long,
-    val id: Int,
+    /** Hay un paso vencido al que dar por hecho. */
+    val conHecho: Boolean,
 )
 
 @Composable
@@ -171,15 +161,26 @@ private fun PantallaAlarma(
             style = MaterialTheme.typography.displayMedium,
             fontWeight = FontWeight.Bold,
         )
-        Text(d.carril, style = MaterialTheme.typography.headlineSmall, color = CronoPalette.acento)
-        Text(d.texto, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
+        d.lineas.forEach { linea ->
+            Text(
+                linea,
+                style = MaterialTheme.typography.headlineSmall,
+                color = CronoPalette.acento,
+                textAlign = TextAlign.Center,
+            )
+        }
         Button(
             onClick = onParar,
             Modifier.fillMaxWidth().heightIn(min = 72.dp),
             colors = ButtonDefaults.buttonColors(containerColor = CronoPalette.alerta),
         ) { Text(stringResource(R.string.crono_alarma_parar), style = MaterialTheme.typography.titleLarge) }
-        OutlinedButton(onClick = onSiguiente, Modifier.fillMaxWidth().heightIn(min = 64.dp)) {
-            Text(stringResource(R.string.crono_alarma_hecho_siguiente), style = MaterialTheme.typography.titleMedium)
+        if (d.conHecho) {
+            OutlinedButton(onClick = onSiguiente, Modifier.fillMaxWidth().heightIn(min = 64.dp)) {
+                Text(
+                    stringResource(R.string.crono_alarma_hecho_siguiente),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+            }
         }
         TextButton(onClick = onAbrir, Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.crono_alarma_abrir))

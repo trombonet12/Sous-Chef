@@ -27,6 +27,8 @@ data class CarrilNotificacion(
     val finAtMs: Long?,
     /** Segundos que quedan del paso (0 si no corre con tiempo por delante). */
     val quedanS: Int = 0,
+    /** Fuego (vitrocerámica) del paso, si lo lleva. */
+    val fuego: Int? = null,
 ) {
     val titulo: String get() = "$nombre · paso $indice/$total"
 
@@ -48,8 +50,6 @@ data class CarrilNotificacion(
                 SituacionCarril.PAUSA -> "$texto · en pausa"
                 SituacionCarril.SIN_ARRANCAR -> "$texto · sin arrancar"
             }
-
-    val id: Int get() = IdsNotificacion.carril(carril)
 
     companion object {
         /** Longitud de cada tramo de la barra de progreso. */
@@ -112,6 +112,7 @@ object ConstructorCarriles {
                 situacion = situacion,
                 finAtMs = ec.finAtMs.takeIf { situacion == SituacionCarril.CORRIENDO },
                 quedanS = if (situacion == SituacionCarril.CORRIENDO) quedan else 0,
+                fuego = paso.f,
             )
         }
     }

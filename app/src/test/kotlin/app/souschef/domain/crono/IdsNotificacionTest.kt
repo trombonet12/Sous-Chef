@@ -3,7 +3,6 @@ package app.souschef.domain.crono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.MotorCrono
 import app.souschef.receta.crono.SesionCrono
-import app.souschef.receta.crono.TipoAviso
 import app.souschef.ui.crono.T0
 import app.souschef.ui.crono.recetaCrono
 import org.junit.Assert.assertEquals
@@ -20,19 +19,10 @@ class IdsNotificacionTest {
     private fun abierto(): EstadoCrono = SesionCrono.abrir(portada(), receta, T0)
 
     @Test
-    fun cadaCarrilTieneSuIdEstableYNoChocaConLasOtras() {
-        assertEquals(IdsNotificacion.carril("f0"), IdsNotificacion.carril("f0"))
-        assertFalse(IdsNotificacion.carril("f0") == IdsNotificacion.carril("m"))
-        assertEquals("carril:r", IdsNotificacion.tagCarril("r"))
-    }
-
-    @Test
-    fun despiertaLaPantallaSoloConAvisosDeAccionNoAtrasados() {
-        assertTrue(IdsNotificacion.despiertaPantalla(TipoAviso.FIN, false))
-        assertTrue(IdsNotificacion.despiertaPantalla(TipoAviso.HITO, false))
-        assertTrue(IdsNotificacion.despiertaPantalla(TipoAviso.TOCA_EMPEZAR, false))
-        assertFalse(IdsNotificacion.despiertaPantalla(TipoAviso.DIEZ_S, false))
-        assertFalse(IdsNotificacion.despiertaPantalla(TipoAviso.FIN, true))
+    fun unaCocinaYUnaAlarmaPorCocinadaConIdsDistintosYTagDelSlug() {
+        assertFalse(IdsNotificacion.ID_COCINA == IdsNotificacion.ID_ALARMA)
+        assertEquals("cocina:r", IdsNotificacion.tagCocina("r"))
+        assertEquals("alarma:r", IdsNotificacion.tagAlarma("r"))
     }
 
     @Test

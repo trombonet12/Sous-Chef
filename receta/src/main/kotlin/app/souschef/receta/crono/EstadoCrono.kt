@@ -32,6 +32,7 @@ data class EstadoCarril(
     /** Parado o en pausa: segundos que quedan; null = el paso entero. */
     val restanteS: Int? = null,
     val pausado: Boolean = false,
+    /** Obsoleto: el aviso de 10 s ya no existe; se conserva para leer estados guardados antes. */
     val a10: Boolean = false,
     val aFin: Boolean = false,
     val avisado: Boolean = false,
@@ -44,7 +45,14 @@ data class EstadoCarril(
     val corriendo: Boolean get() = finAtMs != null
 }
 
-enum class TipoAviso { HITO, DIEZ_S, FIN, TOCA_EMPEZAR }
+enum class TipoAviso {
+    HITO,
+
+    @Deprecated("Ya no hay aviso de 10 s: el motor no lo genera. Se conserva para no romper código previo.")
+    DIEZ_S,
+    FIN,
+    TOCA_EMPEZAR,
+}
 
 /** Un aviso que toca dar. `silencioso`: lleva más de 90 s vencido, solo informa (banda "mientras no mirabas"). */
 data class Aviso(

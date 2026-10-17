@@ -7,7 +7,6 @@ import app.souschef.receta.Receta
 object AvisosCrono {
     /** Pasado este tiempo vencido un aviso ya no suena: solo se anota. */
     const val SILENCIO_MS = 90_000L
-    private const val DIEZ_S_MS = 10_000L
 
     private class Pendiente(
         val evento: Evento,
@@ -43,7 +42,7 @@ object AvisosCrono {
 
     /**
      * Avisos cuya hora ya llegó, más el estado con sus flags marcados. Los que llevan > 90 s vencidos salen
-     * `silencioso`. El `DIEZ_S` que se salta (el cero ya pasó) se marca sin avisar.
+     * `silencioso`. Ya no hay aviso de 10 s: los estados viejos con `a10` se leen sin usarlo.
      */
     fun vencidos(
         e: EstadoCrono,
@@ -82,8 +81,7 @@ object AvisosCrono {
             }
         for (pe in vencidos) {
             ec = marcar(ec, pe)
-            val superado = pe.evento.tipo == TipoAviso.DIEZ_S && ahoraMs >= (ec.finAtMs ?: Long.MAX_VALUE)
-            if (!superado) avisos += aviso(pe, ahoraMs)
+            avisos += aviso(pe, ahoraMs)
         }
         return ec to avisos
     }
@@ -116,13 +114,14 @@ object AvisosCrono {
             silencioso = ahoraMs - pe.evento.ms > SILENCIO_MS,
         )
 
+    @Suppress("DEPRECATION")
     private fun marcar(
         ec: EstadoCarril,
         pe: Pendiente,
     ): EstadoCarril =
         when (pe.evento.tipo) {
             TipoAviso.HITO -> ec.copy(hitosAvisados = ec.hitosAvisados + checkNotNull(pe.hito))
-            TipoAviso.DIEZ_S -> ec.copy(a10 = true)
+            TipoAviso.DIEZ_S -> ec
             TipoAviso.FIN -> ec.copy(aFin = true)
             TipoAviso.TOCA_EMPEZAR -> ec.copy(avisado = true)
         }
@@ -173,17 +172,7 @@ object AvisosCrono {
                     Pendiente(Evento(ms, TipoAviso.HITO, carril, p.t), h.t, i)
                 }
             }
-        val diez =
-            if (ec.a10) {
-                null
-            } else {
-                Pendiente(
-                    Evento(fin - DIEZ_S_MS, TipoAviso.DIEZ_S, carril, p.t),
-                    "${p.t}: quedan 10 s",
-                    null,
-                )
-            }
         val cero = if (ec.aFin) null else Pendiente(Evento(fin, TipoAviso.FIN, carril, p.t), "${p.t}: hecho", null)
-        return hitos + listOfNotNull(diez, cero)
+        return hitos + listOfNotNull(cero)
     }
 }

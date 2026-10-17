@@ -140,17 +140,16 @@ class MotorCronoTest {
         val mas = MotorCrono.masTreinta(e, ensalada, "sarten", t0 + seg(10))
         assertEquals(t0 + seg(210), mas.carriles.getValue("sarten").finAtMs)
 
-        // Vencido: sigue valiendo y rearma aFin/a10 si vuelve a quedar tiempo.
+        // Vencido: sigue valiendo y rearma aFin si vuelve a quedar tiempo.
         val vencido = AvisosCrono.vencidos(e, ensalada, t0 + seg(185)).estado
         assertTrue(vencido.carriles.getValue("sarten").aFin)
         val rearmado = MotorCrono.masTreinta(vencido, ensalada, "sarten", t0 + seg(185))
         val ec = rearmado.carriles.getValue("sarten")
         assertFalse(ec.aFin)
-        assertFalse(ec.a10, "quedan 25 s > 10: a10 se rearma")
-        // Muy vencido (-20 s tras +30): ni aFin ni a10 se rearman.
+        // Muy vencido (-20 s tras +30): aFin no se rearma.
         val muy = AvisosCrono.vencidos(e, ensalada, t0 + seg(250)).estado
         val sigueVencido = MotorCrono.masTreinta(muy, ensalada, "sarten", t0 + seg(250)).carriles.getValue("sarten")
-        assertTrue(sigueVencido.aFin && sigueVencido.a10)
+        assertTrue(sigueVencido.aFin)
     }
 
     @Test
@@ -412,9 +411,8 @@ class MotorCronoTest {
         assertEquals(setOf(0), e.carriles.getValue("sarten").hitosAvisados)
         assertTrue(AvisosCrono.vencidos(e, ensalada, t0 + seg(121)).avisos.isEmpty(), "sin duplicar")
 
-        val diez = AvisosCrono.vencidos(e, ensalada, t0 + seg(170))
-        assertEquals(listOf(TipoAviso.DIEZ_S), diez.avisos.map { it.tipo })
-        val fin = AvisosCrono.vencidos(diez.estado, ensalada, t0 + seg(180))
+        assertTrue(AvisosCrono.vencidos(e, ensalada, t0 + seg(170)).avisos.isEmpty(), "ya no hay aviso de 10 s")
+        val fin = AvisosCrono.vencidos(e, ensalada, t0 + seg(180))
         assertEquals(listOf(TipoAviso.FIN), fin.avisos.map { it.tipo })
         assertEquals(ensalada.paso("sesamo")!!.t, fin.avisos.single().paso)
         assertTrue(AvisosCrono.vencidos(fin.estado, ensalada, t0 + seg(190)).avisos.isEmpty())
@@ -431,10 +429,10 @@ class MotorCronoTest {
         val e = MotorCrono.empezar(abierto(), ensalada, "sarten", t0)
         // Vuelta de segundo plano 220 s después: el hito (hace 100 s) y el cero (hace 40 s).
         val v = AvisosCrono.vencidos(e, ensalada, t0 + seg(220))
-        assertEquals(listOf(TipoAviso.HITO, TipoAviso.FIN), v.avisos.map { it.tipo }, "DIEZ_S superado no se avisa")
+        assertEquals(listOf(TipoAviso.HITO, TipoAviso.FIN), v.avisos.map { it.tipo }, "no hay aviso de 10 s")
         assertEquals(listOf(true, false), v.avisos.map { it.silencioso })
         val c = v.estado.carriles.getValue("sarten")
-        assertTrue(c.a10 && c.aFin)
+        assertTrue(c.aFin)
         // Más de 90 s después del cero: todo silencioso.
         val tarde = AvisosCrono.vencidos(e, ensalada, t0 + seg(400))
         assertTrue(tarde.avisos.all { it.silencioso })
@@ -509,8 +507,8 @@ class MotorCronoTest {
         assertEquals("sarten", sig.carril)
         assertEquals(t0 + seg(120), sig.ms)
         val sig2 = AvisosCrono.siguienteEvento(AvisosCrono.vencidos(e, ensalada, t0 + seg(120)).estado, ensalada)!!
-        assertEquals(TipoAviso.DIEZ_S, sig2.tipo)
-        assertEquals(t0 + seg(170), sig2.ms)
+        assertEquals(TipoAviso.FIN, sig2.tipo)
+        assertEquals(t0 + seg(180), sig2.ms)
         // Todo terminado: nada que programar.
         var fin = e
         repeat(4) { fin = MotorCrono.hecho(fin, ensalada, "mesa", t0) }

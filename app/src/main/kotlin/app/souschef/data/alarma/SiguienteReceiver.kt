@@ -12,7 +12,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/** Acción "Siguiente" de la notificación "En marcha": Hecho del paso más urgente y arranque del siguiente. */
+/** Acción "Hecho" / "Hecho y siguiente" de las notificaciones: Hecho del paso más urgente y arranque del siguiente. */
 @AndroidEntryPoint
 class SiguienteReceiver : BroadcastReceiver() {
     @Inject

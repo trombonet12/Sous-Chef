@@ -114,13 +114,13 @@ class CronoViewModelTest {
             runCurrent()
             val f0 = guardado().carriles.getValue("f0")
             assertEquals(T0 + 300_000L, f0.finAtMs)
-            // Próximo evento: el aviso de "quedan 10 s".
-            assertEquals(T0 + 290_000L, sistema.programada)
+            // Próximo evento: el fin del paso (ya no hay aviso de 10 s).
+            assertEquals(T0 + 300_000L, sistema.programada)
 
             vm.masTreinta("f0")
             runCurrent()
             assertEquals(T0 + 330_000L, guardado().carriles.getValue("f0").finAtMs)
-            assertEquals(T0 + 320_000L, sistema.programada)
+            assertEquals(T0 + 330_000L, sistema.programada)
         }
 
     @Test
@@ -250,6 +250,46 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun conLaCocinaEnPantallaNoHayNotificacionesYAlSalirReapareceLaFija() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            assertTrue(notificador.cocinas.containsKey("r"))
+            vm.alVer()
+            runCurrent()
+            assertEquals("r", cadena.presencia.visible)
+            assertFalse(notificador.cocinas.containsKey("r"))
+            // Con la cocina visible un repintado (p. ej. tras un mando) tampoco la vuelve a pintar.
+            vm.alternar("f0")
+            runCurrent()
+            assertFalse(notificador.cocinas.containsKey("r"))
+            assertTrue(notificador.alarmas.isEmpty())
+            vm.enSegundoPlano()
+            runCurrent()
+            assertNull(cadena.presencia.visible)
+            assertTrue(notificador.cocinas.containsKey("r"))
+        }
+
+    @Test
+    fun alVerSeCallaLaAlarmaQueSonaba() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("f0")
+            runCurrent()
+            vm.enSegundoPlano()
+            runCurrent()
+            reloj.ms = T0 + 301_000L
+            cadena.procesar()
+            assertTrue(notificador.alarmaActual.containsKey("r"))
+            vm.alVer()
+            runCurrent()
+            assertFalse(notificador.alarmaActual.containsKey("r"))
+        }
+
+    @Test
     fun hechoCancelaLosAvisosDelCarrilYSeRepintan() =
         prueba {
             val vm = crear()
@@ -264,7 +304,15 @@ class CronoViewModelTest {
             )
             vm.hecho("f0")
             runCurrent()
-            assertEquals(listOf("r" to setOf("f0")), notificador.canceladas)
+            // Sin alarma publicada no hay nada que quitar; la fija sigue pintada.
+            assertTrue(notificador.alarmasQuitadas.isEmpty())
+            assertEquals(
+                setOf("f0", "m"),
+                notificador.carrilesPorSlug
+                    .getValue("r")
+                    .map { it.carril }
+                    .toSet(),
+            )
         }
 
     @Test

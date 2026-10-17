@@ -50,11 +50,11 @@ class CarrilesNotificacionTest {
     }
 
     @Test
-    fun carrilTerminadoSeQuitaYIdEsEstable() {
+    fun carrilTerminadoSeQuitaYLlevaElFuegoDelPaso() {
         val e = abierto()
         val fin = e.copy(carriles = e.carriles + ("m" to EstadoCarril(fin = true)))
         val lista = ConstructorCarriles.construir(receta, fin, T0)
         assertEquals(listOf("f0"), lista.map { it.carril })
-        assertEquals("f0".hashCode(), lista.single().id)
+        assertEquals(5, lista.single().fuego)
     }
 }

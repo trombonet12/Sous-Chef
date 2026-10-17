@@ -7,12 +7,13 @@ import app.souschef.domain.CronoEstadoRepo
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.Reloj
 import app.souschef.domain.crono.AlarmaSistema
-import app.souschef.domain.crono.AvisoNotificacion
 import app.souschef.domain.crono.CarrilNotificacion
 import app.souschef.domain.crono.Notificador
+import app.souschef.domain.crono.ResumenCocina
 import app.souschef.receta.Carril
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
+import app.souschef.receta.crono.AlarmaActiva
 import app.souschef.receta.crono.TipoAviso
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -84,39 +85,59 @@ class FakeAlarmaSistema : AlarmaSistema {
     }
 }
 
+/** Una llamada a [Notificador.alarma]. */
+data class AlarmaPublicada(
+    val slug: String,
+    val titulo: String,
+    val alarma: AlarmaActiva,
+    val sonar: Boolean,
+    val urgente: String?,
+)
+
 class FakeNotificador : Notificador {
-    val publicados = mutableListOf<AvisoNotificacion>()
-    val carrilesPorSlug = mutableMapOf<String, List<CarrilNotificacion>>()
-    val canceladas = mutableListOf<Pair<String, Set<String>>>()
+    /** Lo que hay ahora en la bandeja fija, por cocinada. */
+    val cocinas = mutableMapOf<String, ResumenCocina>()
+    val carrilesPorSlug: Map<String, List<CarrilNotificacion>> get() = cocinas.mapValues { it.value.carriles }
+
+    /** Historial de alarmas publicadas o actualizadas, en orden. */
+    val alarmas = mutableListOf<AlarmaPublicada>()
+
+    /** La alarma que hay ahora en la bandeja, por cocinada. */
+    val alarmaActual = mutableMapOf<String, AlarmaPublicada>()
+    val alarmasQuitadas = mutableListOf<String>()
+    val cocinasQuitadas = mutableListOf<String>()
     val limpiados = mutableListOf<String>()
 
-    override fun carriles(
-        slug: String,
-        carriles: List<CarrilNotificacion>,
-    ) {
-        if (carriles.isEmpty()) carrilesPorSlug.remove(slug) else carrilesPorSlug[slug] = carriles
+    override fun cocina(resumen: ResumenCocina) {
+        cocinas[resumen.slug] = resumen
     }
 
-    override fun cancelarAvisos(
+    override fun alarma(
         slug: String,
-        carriles: Collection<String>,
+        titulo: String,
+        alarma: AlarmaActiva,
+        sonar: Boolean,
+        urgente: String?,
     ) {
-        canceladas += slug to carriles.toSet()
+        val publicada = AlarmaPublicada(slug, titulo, alarma, sonar, urgente)
+        alarmas += publicada
+        alarmaActual[slug] = publicada
     }
 
-    val silenciados = mutableListOf<String>()
+    override fun quitarAlarma(slug: String) {
+        alarmasQuitadas += slug
+        alarmaActual.remove(slug)
+    }
 
-    override fun silenciar(slug: String) {
-        silenciados += slug
+    override fun quitarCocina(slug: String) {
+        cocinasQuitadas += slug
+        cocinas.remove(slug)
     }
 
     override fun limpiar(slug: String) {
         limpiados += slug
-        carrilesPorSlug.remove(slug)
-    }
-
-    override fun publicar(avisos: List<AvisoNotificacion>) {
-        publicados += avisos
+        cocinas.remove(slug)
+        alarmaActual.remove(slug)
     }
 }
 
