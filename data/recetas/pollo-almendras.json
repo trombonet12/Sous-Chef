@@ -1,0 +1,779 @@
+{
+  "actualizada": "2026-10-17T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Las líneas finas son la fibra. Primero filetes de 2 cm de grosor; después tiras de 2 cm con el cuchillo perpendicular a la fibra, y por último se cruzan en dados. Ninguna hebra queda más larga que el dado y el bocado es tierno; a favor de la fibra, cada dado sería un manojo de hebras que se aprietan al sellar.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Pechuga con la fibra en horizontal y una cuadricula de cortes que la deja en dados\"><path d=\"M10 32c10-16 50-22 82-14 14 4 20 14 18 26-2 16-20 30-52 32-26 2-44-8-48-22-2-8-2-15 0-22z\" fill=\"#E9B8A6\" fill-opacity=\".15\" stroke=\"#B9826E\"/><g stroke=\"#B9826E\" stroke-width=\".6\" opacity=\".6\"><path d=\"M16 34h92M14 44h96M16 54h90M24 64h74\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"30\" y1=\"14\" x2=\"30\" y2=\"78\"/><line x1=\"48\" y1=\"12\" x2=\"48\" y2=\"80\"/><line x1=\"66\" y1=\"12\" x2=\"66\" y2=\"80\"/><line x1=\"84\" y1=\"14\" x2=\"84\" y2=\"78\"/><line x1=\"8\" y1=\"39\" x2=\"112\" y2=\"39\"/><line x1=\"8\" y1=\"57\" x2=\"112\" y2=\"57\"/></g></svg>",
+      "t": "Pollo · dados de 2 cm, tiras contra la fibra"
+    },
+    {
+      "p": "Pelada, en trozos de 5 cm; cada trozo en láminas de 4 mm a lo largo y cada lámina en bastones de 4 mm. El corte sigue la fibra, que en la zanahoria va de punta a cuello: el bastón aguanta entero el salteado y conserva el centro firme. A 4 mm se hace en los mismos minutos que el calabacín le da de ventaja; más grueso llega crudo a la mesa.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Trozo de zanahoria con la fibra a lo largo y cortes paralelos a ella\"><path d=\"M12 24h94c4 0 6 9 6 20s-2 20-6 20H12c-3 0-4-9-4-20s1-20 4-20z\" fill=\"#E07B2A\" fill-opacity=\".15\" stroke=\"#C0601A\"/><g stroke=\"#C0601A\" stroke-width=\".6\" opacity=\".6\"><path d=\"M14 30h92M12 44h96M14 58h92\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"6\" y1=\"34\" x2=\"114\" y2=\"34\"/><line x1=\"6\" y1=\"44\" x2=\"114\" y2=\"44\"/><line x1=\"6\" y1=\"54\" x2=\"114\" y2=\"54\"/></g></svg>",
+      "t": "Zanahoria · bastones de 4 mm y 5 cm"
+    },
+    {
+      "p": "Con piel: es lo que sujeta el dado y le da color. Rodajas de 1,5 cm, cada rodaja en tiras de 1,5 cm y las tiras en dados. Más grande que la zanahoria porque su carne es casi toda agua y se ablanda en la mitad de tiempo; a 1,5 cm se dora por fuera y sigue firme por dentro en dos minutos.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Calabacin tumbado con una cuadricula de cortes que lo deja en dados\"><rect x=\"8\" y=\"22\" width=\"104\" height=\"44\" rx=\"20\" fill=\"#5E8C3A\" fill-opacity=\".15\" stroke=\"#4A7A2C\"/><g stroke=\"#4A7A2C\" stroke-width=\".6\" opacity=\".6\"><path d=\"M16 30h88M16 58h88\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"26\" y1=\"18\" x2=\"26\" y2=\"70\"/><line x1=\"42\" y1=\"18\" x2=\"42\" y2=\"70\"/><line x1=\"58\" y1=\"18\" x2=\"58\" y2=\"70\"/><line x1=\"74\" y1=\"18\" x2=\"74\" y2=\"70\"/><line x1=\"90\" y1=\"18\" x2=\"90\" y2=\"70\"/><line x1=\"6\" y1=\"37\" x2=\"114\" y2=\"37\"/><line x1=\"6\" y1=\"51\" x2=\"114\" y2=\"51\"/></g></svg>",
+      "t": "Calabacín · dados de 1,5 cm con piel"
+    },
+    {
+      "p": "El mismo corte en los dos momentos, cada uno a su hora. En la marinada, cuanto más pequeño más superficie y más sabor pasa a la soja; en la salsa, a 1 mm suelta su aroma en la grasa en segundos y se reparte sin dejar trozos. Es también la razón de que solo esté 45 segundos al fuego: a este tamaño, pasado el minuto, amarga.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadricula muy fina de cortes en los dos sentidos\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".12\" stroke=\"#8A6C4A\"/><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"6\" x2=\"48\" y2=\"82\"/><line x1=\"56\" y1=\"5\" x2=\"56\" y2=\"83\"/><line x1=\"64\" y1=\"5\" x2=\"64\" y2=\"83\"/><line x1=\"72\" y1=\"6\" x2=\"72\" y2=\"82\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"32\" y1=\"26\" x2=\"88\" y2=\"26\"/><line x1=\"30\" y1=\"38\" x2=\"90\" y2=\"38\"/><line x1=\"30\" y1=\"50\" x2=\"90\" y2=\"50\"/><line x1=\"34\" y1=\"62\" x2=\"86\" y2=\"62\"/></g></svg>",
+      "t": "Ajo · picado de 1 mm (marinada y salsa)"
+    },
+    {
+      "p": "Pelado con el canto de una cucharilla, que solo se lleva la piel. La raíz tiene hebras largas a lo largo: frótala con la fibra cruzada sobre la cara fina del rallador, la de 1 mm, y la pulpa pasa mientras las hebras se quedan en el rallador. Rallado así se deshace en la soja y en la grasa; en trozos, se muerde fibroso.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Raiz de jengibre con la fibra a lo largo junto a la cara fina de un rallador\"><path d=\"M10 44c0-10 10-15 20-13 6-8 18-8 22 0 10-4 22 2 20 12 8 2 10 14 0 18-10 4-24 2-34 2-14 0-28-5-28-19z\" fill=\"#D9B26A\" fill-opacity=\".15\" stroke=\"#A8843E\"/><g stroke=\"#A8843E\" stroke-width=\".6\" opacity=\".6\"><path d=\"M18 44h56M22 52h50\"/></g><rect x=\"88\" y=\"10\" width=\"24\" height=\"68\" rx=\"3\" fill=\"none\" stroke=\"#17150F\"/><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"2 2\"><line x1=\"92\" y1=\"18\" x2=\"108\" y2=\"18\"/><line x1=\"92\" y1=\"26\" x2=\"108\" y2=\"26\"/><line x1=\"92\" y1=\"34\" x2=\"108\" y2=\"34\"/><line x1=\"92\" y1=\"42\" x2=\"108\" y2=\"42\"/><line x1=\"92\" y1=\"50\" x2=\"108\" y2=\"50\"/><line x1=\"92\" y1=\"58\" x2=\"108\" y2=\"58\"/><line x1=\"92\" y1=\"66\" x2=\"108\" y2=\"66\"/></g></svg>",
+      "t": "Jengibre · rallado fino de 1 mm, cruzando la fibra"
+    }
+  ],
+  "creada": "2026-10-17T00:00:00Z",
+  "datos": [
+    [
+      "136 min",
+      "de principio a fin"
+    ],
+    [
+      "109 + 27",
+      "preparación + sartén"
+    ],
+    [
+      "60",
+      "de nevera, sin vigilar"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "24",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Pechuga en dados con una hora de marinada de soja, ajo y jengibre, pasada por maicena y sellada en dos tandas, con zanahoria, calabacín y una salsa de caldo que napa y brilla sin una gota de dulce. Las almendras se tuestan en seco durante la nevera y entran al final, fuera del fuego, para que lleguen crujientes. El arroz blanco va en paralelo y acaba su reposo en el mismo minuto que el salteado.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "salsa de soja, para la marinada (2 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 8,
+          "n": "ajo picado de 1 mm, para la marinada (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "n": "jengibre rallado fino, para la marinada (2 cm de raíz)",
+          "u": "g"
+        }
+      ],
+      "n": "BOLSA · LA MARINADA"
+    },
+    {
+      "items": [
+        {
+          "a": 400,
+          "n": "pechuga de pollo, en dados de 2 cm (2 pechugas)",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "maicena, para rebozar (1½ cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "aceite de girasol, para sellar (2 cucharadas soperas)",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN · EL POLLO"
+    },
+    {
+      "items": [
+        {
+          "a": 150,
+          "n": "zanahoria, en bastones de 4 mm (1 grande)",
+          "u": "g"
+        },
+        {
+          "a": 200,
+          "n": "calabacín, en dados de 1,5 cm (½ mediano)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "aceite de girasol, para la verdura (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 8,
+          "n": "ajo picado de 1 mm, para la salsa (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "jengibre rallado fino, para la salsa (2 cm de raíz)",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "caldo de pollo (⅔ de vaso)",
+          "u": "ml"
+        },
+        {
+          "a": 20,
+          "esc": "sub",
+          "n": "salsa de soja, para la salsa (1 cucharada sopera y 1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 6,
+          "n": "maicena, para la salsa (2 cucharaditas rasas)",
+          "u": "g"
+        },
+        {
+          "a": 50,
+          "n": "almendras crudas peladas, enteras (un puñado generoso, unas 35)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · VERDURA, SALSA Y ALMENDRAS"
+    },
+    {
+      "items": [
+        {
+          "a": 150,
+          "n": "arroz blanco largo, enjuagado (¾ de vaso)",
+          "u": "g"
+        },
+        {
+          "a": 270,
+          "n": "agua (1 vaso y un dedo)",
+          "u": "ml"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (½ cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "OLLA · EL ARROZ"
+    }
+  ],
+  "lectura": "Dos mitades, como en el salteado de tres pimientos: 109 minutos de preparación en los que lo único largo es la hora de nevera, y 27 de sartén seguidos al final. La mesa: 15 de congelador + 10 de cortar el pollo + 5 de marinada + 60 de nevera + 11 de cortar la verdura + 3 de arroz y salsa + 5 de escurrir = 109; la sartén va del 109 al 136, 27 más: 136. La maicena (109-111) cabe mientras se calienta la sartén. Las almendras se tuestan del 30 al 39, dentro de la hora de nevera, y esperan en su plato hasta el 135. Del 111 al 136 hay dos fuegos a la vez: la olla se enciende en el 111, el arroz entra en el 118, mientras la sartén recupera temperatura entre tandas, y el reposo arranca en el 130, el mismo minuto que la salsa, para acabar los dos en el 136. La sartén cambia de contenido en el 112 y el 119 (tandas), el 124 (zanahoria), el 127 (calabacín), el 129 (ajo y jengibre), el 130 (salsa), el 132 (pollo de vuelta) y el 135 (almendras).",
+  "mep": [
+    {
+      "l": [
+        "<b>Pollo · 400 g de pechuga (2 pechugas)</b> · recién salido del congelador, en dados de 2 cm con las tiras cortadas contra la fibra. A la bolsa en el minuto 25. Después, tabla, cuchillo y manos a lavar.",
+        "<b>Ajo de la marinada · 8 g (2 dientes)</b> · picado de 1 mm, directo a la bolsa en el minuto 25.",
+        "<b>Jengibre de la marinada · 5 g (2 cm de raíz)</b> · pelado con una cucharilla y rallado fino, de 1 mm, sobre la bolsa en el minuto 25.",
+        "<b>Zanahoria · 150 g (1 grande)</b> · pelada, en bastones de 4 mm y 5 cm de largo. Se corta en el 90 y entra en el minuto 124.",
+        "<b>Calabacín · 200 g (½ mediano)</b> · con piel, en dados de 1,5 cm. Entra en el minuto 127.",
+        "<b>Ajo de la salsa · 8 g (2 dientes)</b> · picado de 1 mm, al platito. Entra en el minuto 129.",
+        "<b>Jengibre de la salsa · 5 g (2 cm de raíz)</b> · rallado fino, de 1 mm, encima del ajo en el mismo platito. Entra en el minuto 129."
+      ],
+      "orden": true,
+      "porq": "Dos tandas de corte separadas por la hora de nevera. En la primera, el pollo crudo va con la tabla seca y después se lavan tabla, cuchillo y manos una sola vez; el ajo y el jengibre de la marinada van detrás, directos a la bolsa. En la segunda manda la humedad: la zanahoria, dura y seca, primero; el calabacín, que moja la tabla, después; y el ajo al final para que su olor no pase a nada.",
+      "t": "TABLA Y RALLADOR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Agua del arroz · 270 ml (1 vaso y un dedo)</b> · a la olla en frío con 3 g de sal (½ cucharadita) en el minuto 101. Se enciende en el 111.",
+        "<b>La salsa</b> · 150 ml de caldo de pollo (⅔ de vaso) + 20 ml de salsa de soja (1 cucharada sopera y 1 cucharadita) + 6 g de maicena (2 cucharaditas rasas), removido hasta que no quede polvo. Se mezcla en el 101 y entra en el minuto 130."
+      ],
+      "orden": true,
+      "porq": "El agua primero porque no deja residuo; la salsa después, en el mismo vaso, y ahí se queda hasta que entra. Grasa no se mide en el vaso: el aceite va a cucharadas, en el momento.",
+      "t": "UN VASO MEDIDOR, EN ESTE ORDEN Y SIN LAVARLO"
+    },
+    {
+      "l": [
+        "<b>Bolsa de congelación</b> · 400 g de pollo en dados + 30 ml de salsa de soja (2 cucharadas soperas) + 8 g de ajo (2 dientes) + 5 g de jengibre (2 cm de raíz). Se cierra en el minuto 25 y se abre en el 104.",
+        "<b>Colador</b> · 150 g de arroz blanco largo (¾ de vaso), enjuagado en el 101. Escurre ahí hasta que entra en la olla en el minuto 118.",
+        "<b>Bol mediano</b> · el pollo seco con 15 g de maicena (1½ cucharadas soperas), en el minuto 109. A la sartén en el 112 y en el 119."
+      ],
+      "orden": false,
+      "porq": "La marinada se monta dentro de la bolsa y no en un bol: con una sola bolsa no hay nada que repartir. El colador es el de enjuagar el arroz, que espera ahí escurriendo. El bol solo aparece para la maicena, que necesita sitio para remover sin apelmazarse.",
+      "t": "UNA BOLSA, UN COLADOR Y UN BOL"
+    },
+    {
+      "l": [
+        "<b>Plato llano</b> · las 50 g de almendras tostadas (un puñado generoso), extendidas y sin tapar desde el minuto 39. Vuelven a la sartén en el 135.",
+        "<b>Plato de la verdura, en dos montones</b> · 150 g de zanahoria en bastones (entra en el minuto 124) y 200 g de calabacín en dados (entra en el 127).",
+        "<b>Platito</b> · 8 g de ajo picado (2 dientes) y 5 g de jengibre rallado (2 cm de raíz) de la salsa. Entra en el minuto 129.",
+        "<b>Plato del pollo</b> · vacío y a mano: recibe las tandas en el 117 y en el 124 y vuelve a la sartén en el 132."
+      ],
+      "orden": false,
+      "porq": "Zanahoria y calabacín comparten plato porque la zanahoria se va primero y deja libre el sitio; el ajo y el jengibre van aparte porque son menudos y se mezclarían al empujar la verdura. Las almendras no comparten con nada: cualquier humedad les quita el crujiente.",
+      "t": "CUATRO PLATOS JUNTO A LA PLACA"
+    },
+    {
+      "l": [
+        "<b>Almendras crudas peladas · 50 g (un puñado generoso, unas 35)</b> · de su bolsa a la sartén en frío, en el minuto 30.",
+        "<b>Aceite de girasol para sellar · 30 ml (2 cucharadas soperas)</b> · 15 ml al precalentar en el minuto 109 y otros 15 ml en el 117, antes de la segunda tanda.",
+        "<b>Aceite de girasol para la verdura · 10 ml (2 cucharaditas)</b> · con la zanahoria, en el minuto 124."
+      ],
+      "orden": false,
+      "porq": "Lo que va de su envase a la sartén no se trasvasa. El aceite se mide con la cuchara en el momento, porque son cucharadas sueltas en tres minutos distintos.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Doblar raciones no dobla la mesa, pero rehace la sartén: con 800 g de pollo son cuatro tandas de 200 g y unos diez minutos más, porque amontonado se cuece en su vapor y la maicena se hace pasta. La verdura con el doble de masa pide un minuto más en cada fase. Las almendras se tuestan hasta 100 g en una capa en la misma sartén. El arroz casi no cambia de tiempo: 300 g con 540 ml en una olla mayor. La soja y el jengibre de la salsa no escalan en línea recta: empieza por 1,5× y prueba. Se queda en 2 raciones porque dos tandas es lo que cabe en el bloque de 27 minutos de sartén.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "congelador",
+      "junto": null,
+      "meto": "2 pechugas enteras (400 g)",
+      "min": 15,
+      "nota": "Quince minutos, no más. Solo para que el corte salga limpio.",
+      "off": 0,
+      "p": "Quince minutos de congelador antes de cortar. La carne firme se deja cortar limpia y los dados salen cúbicos de verdad; una pechuga blanda se aplasta bajo el cuchillo, los dados salen desiguales y en la sartén unos se secan mientras otros siguen crudos.",
+      "s": 900,
+      "saco": "",
+      "t": "Pechugas al congelador",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar-pollo",
+      "junto": null,
+      "meto": "",
+      "min": 10,
+      "nota": "Filetes de 2 cm, tiras de 2 cm contra la fibra y luego dados. Después, tabla, cuchillo y manos a lavar.",
+      "off": 15,
+      "p": "Si la pechuga pasa de 2 cm de grosor, ábrela a lo ancho hasta dejar filetes de 2 cm. Corta tiras de 2 cm con el cuchillo perpendicular a la fibra y cruza las tiras en dados: así ninguna hebra mide más de 2 cm y el bocado queda tierno. Dados iguales se hacen al mismo ritmo; uno de 3 cm sale crudo cuando los de 2 ya están secos. Después, tabla, cuchillo y manos con jabón.",
+      "s": 600,
+      "saco": "400 g en dados de 2 cm",
+      "t": "Cortar el pollo en dados de 2 cm",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "marinada",
+      "junto": null,
+      "meto": "a la bolsa: 30 ml de salsa de soja (2 cucharadas soperas), 8 g de ajo (2 dientes) picado de 1 mm, 5 g de jengibre (2 cm de raíz) rallado fino y los 400 g de pollo",
+      "min": 5,
+      "nota": "Todo dentro de la bolsa, expulsa el aire y masajea 30 segundos. Sin sal: la soja ya sala.",
+      "off": 25,
+      "p": "Pica los dos dientes a 1 mm y ralla el jengibre en la cara fina, directamente sobre la bolsa abierta: cuanto más fino, más superficie y más sabor pasa a la soja en una hora. Echa la soja y los dados, cierra dejando un dedo de abertura, aprieta desde el fondo hacia arriba para sacar el aire y sella. Sin aire, dos cucharadas mojan 400 g de pollo; con aire, se quedan en una esquina. Masajea treinta segundos por fuera.",
+      "s": 300,
+      "saco": "una bolsa cerrada",
+      "t": "Picar el ajo, rallar el jengibre y montar la bolsa",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "hitos": [
+        {
+          "en": 1800,
+          "t": "Dale la vuelta a la bolsa"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "nevera",
+      "junto": null,
+      "meto": "la bolsa",
+      "min": 60,
+      "nota": "Media hora ya sirve; más de cuatro, la soja sala de más.",
+      "off": 30,
+      "p": "Una hora es el punto. Es el único tramo elástico del plan: con media hora ya sirve y la bolsa puede entrar hasta cuatro horas antes, pero pasado ese punto la sal de la soja sigue entrando y la pechuga sale salada y con textura de fiambre. Dale la vuelta a media hora para que la cara de arriba no se quede seca.",
+      "s": 3600,
+      "saco": "",
+      "t": "A la nevera",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "marinada"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve y vuelve a extenderlas en una capa"
+        },
+        {
+          "en": 300,
+          "t": "Remueve: tienen que empezar a oler a tostado"
+        },
+        {
+          "en": 420,
+          "t": "Abre una: por dentro, crema claro. Remueve sin parar desde aquí"
+        },
+        {
+          "en": 480,
+          "t": "Si alguna se ve marrón oscuro, apaga y sácalas ya"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "almendras",
+      "junto": null,
+      "meto": "50 g de almendras crudas peladas (un puñado generoso), en la sartén en frío y sin aceite",
+      "min": 9,
+      "nota": "En una capa y sin aceite, removiendo cada 20 segundos. Listas cuando huelan y sean color avellana: apaga y al plato en el acto.",
+      "off": 30,
+      "p": "En la sartén grande en frío, en una sola capa y sin una gota de aceite, con el mando al 5: con aceite se fríen, y una almendra frita se ablanda al enfriar en vez de quedar quebradiza. Arrancar en frío hace que se calienten con el metal y se tuesten por dentro antes de que la superficie se oscurezca. Están cuando huelen a tostado y por fuera son color avellana. Sácalas al plato en el acto: la sartén caliente las sigue tostando un minuto aunque apagues.",
+      "s": 540,
+      "saco": "las almendras, al plato llano, extendidas y sin tapar",
+      "t": "Tostar las almendras en seco al 5",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar-verduras",
+      "junto": null,
+      "meto": "",
+      "min": 11,
+      "nota": "Saca la bolsa de la nevera antes de empezar. Zanahoria, calabacín y ajo, en este orden.",
+      "off": 90,
+      "p": "Saca la bolsa de la nevera nada más empezar: el pollo se atempera estos veinte minutos y entra en la sartén menos frío, sin robarle tanto calor. Zanahoria primero, que es dura y seca, en bastones de 4 mm; luego el calabacín en dados de 1,5 cm, que moja la tabla; el ajo de la salsa picado de 1 mm, al final. Ralla el jengibre directamente sobre el platito del ajo. Zanahoria y calabacín van al mismo plato en dos montones.",
+      "s": 660,
+      "saco": "la verdura en su plato y el ajo con el jengibre en el platito",
+      "t": "Sacar la bolsa y cortar zanahoria, calabacín, ajo y jengibre",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "arroz-y-salsa",
+      "junto": null,
+      "meto": "olla: 270 ml de agua (1 vaso y un dedo) + 3 g de sal (½ cucharadita); vaso: 150 ml de caldo de pollo (⅔ de vaso) + 20 ml de salsa de soja (1 cucharada sopera y 1 cucharadita) + 6 g de maicena (2 cucharaditas rasas)",
+      "min": 3,
+      "nota": "El agua primero en el vaso, después la salsa. La maicena, siempre en frío: en caliente hace grumos.",
+      "off": 101,
+      "p": "Enjuaga los 150 g de arroz en el colador bajo el grifo hasta que el agua salga casi clara y déjalo escurrir ahí: se va el almidón suelto de la superficie, que es lo que pega un grano con otro. Mide primero los 270 ml de agua y échalos a la olla con la sal, en frío. Después, en el mismo vaso, el caldo, la soja y la maicena, y remueve hasta que no quede polvo en el fondo: en líquido caliente el exterior de cada grumo gelatiniza al instante y encierra polvo seco dentro.",
+      "s": 180,
+      "saco": "la olla en el fuego mediano, sin encender; el vaso de salsa junto a la placa",
+      "t": "Enjuagar el arroz, llenar la olla y mezclar la salsa",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "escurrir",
+      "junto": null,
+      "meto": "",
+      "min": 5,
+      "nota": "Seca con papel hasta que la hoja salga casi seca. Un dado mojado no hace costra.",
+      "off": 104,
+      "p": "Escurre la bolsa, tira la marinada y extiende los dados sobre papel de cocina; seca por encima con otra hoja, apretando. El ajo y el jengibre que se quedan pegados son sabor; lo que sobra es el líquido. Un dado mojado gasta los primeros minutos de sartén evaporando su agua, y además convertiría la maicena en pasta en vez de en película.",
+      "s": 300,
+      "saco": "la marinada, a la basura; el pollo seco, al bol mediano",
+      "t": "Escurrir y secar el pollo",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "escurrir"
+      ],
+      "f": 9,
+      "holgura": "ajustado",
+      "id": "precalentar",
+      "junto": null,
+      "meto": "1 cucharada sopera de aceite de girasol (15 ml)",
+      "min": 3,
+      "nota": "Sube al 9. Listo cuando el aceite ondule y esté a punto de humear.",
+      "off": 109,
+      "p": "La misma sartén de las almendras, sin lavar, con 15 ml de aceite de girasol y el mando al 9. Girasol y no oliva: su punto de humo está unos cuarenta grados más arriba y aguanta las tandas sin quemarse. Tres minutos, hasta que el aceite ondule y casi humee: la costra se forma por contacto con metal muy caliente, y si el pollo entra en una sartén templada suelta agua y la maicena se cuece en vez de tostarse.",
+      "s": 180,
+      "saco": "",
+      "t": "Precalentar la sartén al 9",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "critico",
+      "id": "maicena",
+      "junto": null,
+      "meto": "15 g de maicena (1½ cucharadas soperas), sobre el pollo seco en el bol mediano",
+      "min": 2,
+      "nota": "Remueve hasta que no quede polvo blanco suelto. Ahora y no antes: si espera, se hace pasta.",
+      "off": 109,
+      "p": "Espolvorea la maicena sobre los dados y remueve con la mano hasta que cada uno tenga una película fina y mate, sin polvo suelto en el fondo del bol. Va justo antes de sellar porque la maicena absorbe la humedad de la superficie y a los pocos minutos es una pasta que se pega al metal. Esa película gelatiniza en el aceite caliente, se seca en una costra fina, protege la pechuga de secarse y después es la que agarra la salsa.",
+      "s": 120,
+      "saco": "el pollo con su película de maicena, junto a la placa",
+      "t": "Pasar el pollo por maicena",
+      "tapa": null
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "arroz-y-salsa"
+      ],
+      "f": 9,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Vapor por el borde de la tapa: el hervor viene. No la levantes"
+        },
+        {
+          "en": 360,
+          "t": "Tapa vibrando: ya hierve. Ten el arroz escurrido a mano"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "agua",
+      "junto": null,
+      "meto": "la olla con 270 ml de agua y 3 g de sal (ya están dentro)",
+      "min": 7,
+      "nota": "Tapada rompe en 6 o 7 minutos. No la levantes: se ve desde fuera.",
+      "off": 111,
+      "p": "El agua y la sal ya están en la olla desde el 101. Tapada y al 9 rompe en unos seis minutos, dos menos que destapada, y no pierde agua por el camino. Se enciende ahora y no antes porque el arroz va por absorción: el agua está medida al mililitro y cada minuto de hervor de más se la lleva el vapor, sin escurridor que lo corrija.",
+      "s": 420,
+      "saco": "",
+      "t": "Agua del arroz al 9",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "maicena"
+      ],
+      "f": 8,
+      "holgura": "critico",
+      "id": "t1-quieto",
+      "junto": null,
+      "meto": "la mitad del pollo (200 g), en una capa",
+      "min": 3,
+      "nota": "Baja al 8 al echarlo. Tres minutos sin tocarlo: está haciendo la costra.",
+      "off": 112,
+      "p": "Baja al 8 en cuanto entre la carne: el 9 es para calentar la sartén vacía, y con la maicena y el ajo pegado a los dados quemaría la superficie antes de dorarla. La mitad del pollo, sacudiendo cada puñado para que la maicena suelta se quede en el bol, en una sola capa y con hueco entre dados. Tres minutos sin moverlo: cada vez que remueves rompes el contacto que hace la costra.",
+      "s": 180,
+      "saco": "",
+      "t": "Pollo, 1.ª tanda · quieto",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "holgura": "critico",
+      "id": "t1-removiendo",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Ahora sí, remueve para dorar las otras caras. Sale aunque el centro esté algo rosado.",
+      "off": 115,
+      "p": "Ahora sí, remueve dos minutos para dorar las otras caras. Sale al plato aunque el centro de algún dado siga rosado: vuelve a la salsa al final y termina de hacerse ahí; si lo dejas ahora hasta el punto, en el remate se seca, y la pechuga, sin grasa que la proteja, lo nota enseguida.",
+      "s": 120,
+      "saco": "el pollo, al plato",
+      "t": "Pollo, 1.ª tanda · removiendo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 9,
+      "holgura": "ajustado",
+      "id": "recuperar",
+      "junto": null,
+      "meto": "1 cucharada sopera de aceite de girasol (15 ml)",
+      "min": 2,
+      "nota": "Sube al 9 con el aceite y espera. Si echas la segunda tanda en frío, se cuece.",
+      "off": 117,
+      "p": "Otra cucharada de aceite de girasol, sube al 9 y espera dos minutos a que el metal recupere el calor que le ha robado la primera tanda. Si la segunda entra en una sartén tibia, se cuece en su propio vapor y la maicena queda blanca y gomosa, que es justo lo que evitan las dos tandas.",
+      "s": 120,
+      "saco": "",
+      "t": "Recuperar temperatura",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "dep": [],
+      "f": 2,
+      "holgura": "critico",
+      "id": "arroz",
+      "junto": null,
+      "meto": "150 g de arroz blanco largo, enjuagado y escurrido",
+      "min": 12,
+      "nota": "Una sola vuelta de cuchara. Tapa y baja al 2: no la levantes en los 12 minutos.",
+      "off": 118,
+      "p": "Los 150 g al agua hirviendo y una vuelta de cuchara, solo una: cada vuelta de más rompe la superficie del grano y suelta almidón, y el largo deja de quedar suelto. Tapa y baja al 2, lo justo para un hervor perezoso que no se salga por el borde. Doce minutos sin abrir: al levantar la tapa se va el vapor que cuece los granos de arriba.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "Doce minutos tapados y ni un aviso, a propósito: cualquier hito te haría levantar la tapa, y con ella se va el vapor que cuece los granos de arriba, los que no tocan el agua.",
+      "t": "El arroz",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "holgura": "critico",
+      "id": "t2-quieto",
+      "junto": null,
+      "meto": "el resto del pollo (200 g)",
+      "min": 3,
+      "nota": "Baja al 8 al echarlo, en una sola capa. Tres minutos sin tocarlo.",
+      "off": 119,
+      "p": "El resto del pollo, otra vez al 8 y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en la espera, así que la costra tarda lo mismo. Todo de golpe habría enfriado el metal; dos tandas cortas doran mejor que una larga.",
+      "s": 180,
+      "saco": "",
+      "t": "Pollo, 2.ª tanda · quieto",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "holgura": "critico",
+      "id": "t2-removiendo",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Remueve hasta que esté dorado por fuera y al plato con la primera tanda.",
+      "off": 122,
+      "p": "Remueve hasta que esté dorado por todas las caras y sácalo al mismo plato que la primera tanda. Sale antes del punto, igual que la otra: los minutos que le faltan se los da la salsa, y el jugo que suelte en el plato vuelve a la sartén con él.",
+      "s": 120,
+      "saco": "el pollo, al mismo plato con sus jugos",
+      "t": "Pollo, 2.ª tanda · removiendo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "ajustado",
+      "id": "zanahoria",
+      "junto": null,
+      "meto": "10 ml de aceite de girasol (2 cucharaditas) + 150 g de zanahoria en bastones de 4 mm",
+      "min": 3,
+      "nota": "Baja al 7. Si el fondo está negro y no marrón, pásale papel doblado con las pinzas antes. Remueve a menudo.",
+      "off": 124,
+      "p": "Baja al 7 y echa los 10 ml de aceite con la zanahoria. No laves la sartén: el fondo marrón que dejan el pollo y la maicena se disuelve luego en la salsa y es su sabor; si en vez de marrón está negro, eso ya es almidón quemado y amarga, y se quita con papel. La zanahoria entra sola porque es la más dura: tres minutos de ventaja para que llegue tierna por fuera y firme en el centro.",
+      "s": 180,
+      "saco": "",
+      "t": "Zanahoria",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "critico",
+      "id": "calabacin",
+      "junto": null,
+      "meto": "200 g de calabacín en dados de 1,5 cm",
+      "min": 2,
+      "nota": "Extiéndelo y déjalo quieto un minuto antes de remover: que se marque, no que se ablande.",
+      "off": 127,
+      "p": "El calabacín entra después porque es casi todo agua y su carne es blanda: con los minutos de la zanahoria se haría papilla. Un minuto quieto para que la cara de abajo se marque y luego remueve; sale firme y termina en la salsa. Sin sal, que le sacaría el agua y herviría todo lo demás en vez de saltearlo.",
+      "s": 120,
+      "saco": "",
+      "t": "Calabacín",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "critico",
+      "id": "ajo-jengibre",
+      "junto": null,
+      "meto": "el platito: 8 g de ajo picado (2 dientes) + 5 g de jengibre rallado (2 cm de raíz)",
+      "min": 1,
+      "nota": "Aparta la verdura, échalo en el hueco del centro y remueve 45 segundos. Si se tuesta, la salsa entra ya.",
+      "off": 129,
+      "p": "Aparta la verdura a los bordes y echa el ajo y el jengibre en el hueco del centro, donde queda la grasa. Cuarenta y cinco segundos removiendo: sus aromas son liposolubles y el aceite caliente los suelta en segundos, pero picado a 1 mm el ajo pasa de dorado a amargo antes del minuto. Por eso va aparte del de la marinada: aquel ya ha dado sabor dentro del pollo y este es el olor fresco.",
+      "s": 45,
+      "saco": "",
+      "t": "Ajo y jengibre",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "holgura": "critico",
+      "id": "salsa",
+      "junto": null,
+      "meto": "el vaso, removido otra vez: 150 ml de caldo de pollo, 20 ml de salsa de soja y 6 g de maicena",
+      "min": 2,
+      "nota": "Remueve el vaso antes de verterlo. Sube al 8 y remueve sin parar hasta que hierva y pase de lechosa a brillante.",
+      "off": 130,
+      "p": "Remueve el vaso antes de verterlo, porque la maicena se ha ido al fondo, y échalo de golpe. Sube al 8 y rasca el fondo mientras arranca: el caldo disuelve lo que dejó pegado el pollo. Al hervir, el almidón gelatiniza y la salsa pasa de lechosa a translúcida y brillante, y espesa. Medio minuto de hervor la asienta; más rato batiendo a fuego fuerte rompe el gel y la vuelve a aclarar.",
+      "s": 120,
+      "saco": "",
+      "t": "La salsa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "dep": [],
+      "f": 0,
+      "holgura": "flexible",
+      "id": "reposo-arroz",
+      "junto": null,
+      "meto": "",
+      "min": 6,
+      "nota": "Apaga la olla y deja la tapa puesta. Al servir, suéltalo con tenedor, nunca con cuchara.",
+      "off": 130,
+      "p": "Apaga el fuego de la olla y deja la tapa puesta seis minutos. El grano del fondo tiene más agua que el de arriba y el reposo iguala esa diferencia con el vapor que queda dentro; sin él, fondo pastoso y superficie seca. Al servir, suéltalo con un tenedor: la cuchara aplasta el grano y lo que sale es una pasta.",
+      "s": 360,
+      "saco": "el arroz, suelto con tenedor, a los platos",
+      "sinHitos": "Seis minutos tapado y sin tocar: cada vez que se abre se escapa el vapor que iguala la humedad del grano, y dentro no hay nada que hacer hasta servir.",
+      "t": "Reposo del arroz",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Abre el dado más grande: blanco entero, sin veta rosa"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "pollo-vuelta",
+      "junto": null,
+      "meto": "todo el pollo y los jugos del plato",
+      "min": 3,
+      "nota": "Baja al 5. Remueve para que la salsa cubra cada dado: que nape, no que sobre.",
+      "off": 132,
+      "p": "Baja al 5 y devuelve el pollo con el jugo que haya soltado en el plato. Remueve para que cada dado quede cubierto: la película de maicena agarra la salsa y la espesa un punto más, que es cuando napa. Tres minutos bastan para que el centro de un dado de 2 cm llegue a temperatura segura; más, y la pechuga se seca. Si la salsa queda espesa como pasta, una cucharada de agua la suelta.",
+      "s": 180,
+      "saco": "",
+      "t": "Pollo de vuelta",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "almendras-final",
+      "junto": null,
+      "meto": "las 50 g de almendras tostadas del plato",
+      "min": 1,
+      "nota": "Apaga, echa las almendras, dos vueltas y sirve al momento, al lado del arroz.",
+      "off": 135,
+      "p": "Apaga la vitro, echa las almendras y dales solo dos vueltas. Entran al final y fuera del fuego porque dentro de una salsa caliente la almendra absorbe agua y en cinco minutos pasa de crujiente a blanda. Sirve en el acto al lado del arroz y no encima, para que el vapor del arroz tampoco las ablande.",
+      "s": 60,
+      "saco": "el salteado, a los platos junto al arroz",
+      "t": "Almendras y a los platos",
+      "tapa": "sin tapa"
+    }
+  ],
+  "perecederos": [
+    "pechuga de pollo",
+    "zanahoria",
+    "calabacín",
+    "jengibre"
+  ],
+  "pie": "Minutos contados desde que las pechugas entran al congelador. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Maicena justo antes de sellar",
+      "Una película fina de almidón que en el aceite caliente se seca en costra, protege la pechuga de secarse y después agarra la salsa. Puesta antes de tiempo chupa la humedad del pollo y se hace pasta."
+    ],
+    [
+      "Almendras tostadas en seco y al final",
+      "Se tuestan durante la hora de nevera, cuando la sartén no hace nada. En seco, porque fritas se ablandan al enfriar; al final y fuera del fuego, porque dentro de una salsa caliente absorben agua y pierden el crujiente en minutos."
+    ],
+    [
+      "Ajo y jengibre dos veces",
+      "Los de la marinada se disuelven en la soja y dan sabor dentro del pollo; los de la salsa entran 45 segundos en grasa caliente y son el olor fresco. Una sola tanda no puede hacer las dos cosas."
+    ],
+    [
+      "Zanahoria antes que calabacín",
+      "La zanahoria es dura y seca; el calabacín, casi todo agua. Con tres minutos de ventaja llegan los dos al mismo punto: firmes, ni crudos ni blandos."
+    ],
+    [
+      "Girasol, no oliva",
+      "La sartén se precalienta al 9 y las tandas van al 8: el girasol tiene el punto de humo unos cuarenta grados por encima del de oliva y no amarga."
+    ],
+    [
+      "Sin miel ni azúcar",
+      "El brillo lo da la maicena gelatinizada, no un glaseado dulce. El punto dulce ya lo ponen la zanahoria y la almendra tostada."
+    ],
+    [
+      "Sin cebolla ni pimiento",
+      "Los dos sueltan agua y dulzor y taparían a la almendra, que es el plato. El pimiento, además, ya es el protagonista del otro salteado de pollo."
+    ],
+    [
+      "Sin sésamo",
+      "Sería un segundo crujiente tostado compitiendo con la almendra, con un sabor parecido y menos presencia."
+    ],
+    [
+      "Sin vino, sin sal ni pimienta",
+      "El caldo ya desglasa el fondo del pollo; el vino sumaría acidez a una salsa que tiene que ser redonda. La sal la ponen la soja de la marinada, la de la salsa y el caldo. El picor lo pone el jengibre, y la pimienta se perdería entre él y la soja."
+    ],
+    [
+      "El arroz contado hacia atrás",
+      "Acaba su reposo en el 136, el mismo minuto que el salteado: 7 de agua tapada, 12 de cocción y 6 de reposo. 270 ml para 150 g y no 300, porque el arroz enjuagado entra mojado y con la tapa puesta apenas se evapora nada."
+    ],
+    [
+      "Tres minutos quieto y dos removiendo, por tanda",
+      "Con maicena la costra se hace antes que en un pollo desnudo: tres minutos al 8 la dejan dorada y dos removiendo doran las otras caras sin llegar al centro. El dado termina en la salsa, tres minutos al 5."
+    ],
+    [
+      "El mando, de principio a fin",
+      "Sartén: al 5 para las almendras desde frío; al 9 para calentarla vacía, al 8 en cuanto entra cada tanda y al 9 otra vez entre tandas; al 7 para la verdura y el ajo, al 8 para que la salsa hierva y la maicena gelatinice, al 5 con el pollo dentro y apagada para las almendras. Olla: al 9 hasta que rompe, al 2 con el arroz y apagada en el reposo."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "pollo-almendras",
+  "tags": {
+    "base": "salteado",
+    "proteina": "pollo",
+    "tecnica": [
+      "marinada",
+      "sellado",
+      "salteado",
+      "tostado",
+      "arroz-blanco-suelto"
+    ]
+  },
+  "titulo": "Pollo con almendras y arroz blanco",
+  "totalMin": 136
+}

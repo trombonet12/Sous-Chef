@@ -31,6 +31,9 @@ Ajos · jengibre · zanahorias · tomates · tomates cherry · pepino · patatas
 ## Fruta
 Manzanas · limones
 
+## Frutos secos
+Almendras crudas peladas
+
 ## Panadería y masas
 Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · maicena · levadura · masa de pizza refrigerada · minitortillas de trigo
 
