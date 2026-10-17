@@ -2,7 +2,7 @@
 
 - Estado: aceptado
 - Fecha: 2026-10-13
-- Relacionado: `docs/decisiones.md` § Cronómetro, [ADR-0001](0001-stack-android-y-modulos.md), [ADR-0004](0004-sync-outbox-lww.md), [spec del legado](../spec/app-legado.md)
+- Relacionado: `docs/decisiones.md` § Cronómetro, [ADR-0001](0001-stack-android-y-modulos.md), [ADR-0008](0008-voz-en-el-cronometro.md) (voz solo en primer plano), [spec del legado](../spec/app-legado.md)
 
 ## Contexto
 - La app vieja avisaba con la pestaña abierta. En Android hay que avisar de fin de paso, hitos y "toca empezar" con la pantalla apagada y bajo Doze, con varios recipientes a la vez.
