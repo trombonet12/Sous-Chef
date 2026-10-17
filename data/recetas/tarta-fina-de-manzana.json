@@ -20,22 +20,21 @@
       "tipo": "fuego"
     }
   ],
-  "compra": [],
   "cortes": [
     {
-      "p": "Un cuarto apoyado en su cara plana se lamina perpendicular al corazón: cada lámina sale entera, sin el trozo duro del centro, y con el grosor fino que necesita para asarse en los treinta minutos de horno sin quedar cruda por dentro.",
+      "p": "Láminas de 2 mm perpendiculares al corazón, con el cuarto apoyado en su cara plana: cada lámina sale entera, sin el trozo duro del centro, y con el grosor fino que necesita para asarse en los treinta minutos de horno sin quedar cruda por dentro.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Manzana en cuartos cortada en láminas finas perpendiculares al corazón\"><circle cx=\"60\" cy=\"44\" r=\"36\" fill=\"#C1432B\" fill-opacity=\".14\" stroke=\"#C1432B\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"60\" y1=\"8\" x2=\"60\" y2=\"80\"/><line x1=\"24\" y1=\"44\" x2=\"96\" y2=\"44\"/></g><g stroke=\"#8A5A2B\" stroke-width=\"1\" opacity=\".7\"><line x1=\"30\" y1=\"20\" x2=\"42\" y2=\"32\"/><line x1=\"36\" y1=\"16\" x2=\"48\" y2=\"28\"/><line x1=\"42\" y1=\"12\" x2=\"54\" y2=\"24\"/></g></svg>",
-      "t": "Manzana · cuartos y láminas de 2-3 mm"
+      "t": "Manzana · cuartos y láminas de 2 mm"
     }
   ],
   "creada": "2026-09-14T00:00:00Z",
   "datos": [
     [
-      "61 min",
+      "64 min",
       "de principio a fin"
     ],
     [
-      "19 + 42",
+      "22 + 42",
       "montaje + horneado y reposo"
     ],
     [
@@ -56,13 +55,13 @@
     {
       "items": [
         {
-          "a": 1,
-          "n": "lámina de hojaldre",
-          "u": ""
+          "a": 230,
+          "n": "lámina de hojaldre, peso estimado (1 lámina rectangular)",
+          "u": "g"
         },
         {
           "a": 15,
-          "n": "pan rallado",
+          "n": "pan rallado (2 cucharadas soperas)",
           "u": "g"
         },
         {
@@ -72,28 +71,28 @@
         },
         {
           "a": 10,
-          "n": "azúcar blanco, mezclado con el pan rallado",
+          "n": "azúcar blanco, mezclado con el pan rallado (2 cucharaditas)",
           "u": "g"
         },
         {
           "a": 30,
-          "n": "azúcar blanco, para espolvorear",
+          "n": "azúcar blanco, para espolvorear (2 cucharadas soperas)",
           "u": "g"
         },
         {
           "a": 3,
           "esc": "sub",
-          "n": "canela molida",
+          "n": "canela molida (1 cucharadita rasa)",
           "u": "g"
         },
         {
           "a": 20,
-          "n": "mantequilla, derretida",
+          "n": "mantequilla, derretida (2 cucharadas soperas)",
           "u": "g"
         },
         {
           "a": 10,
-          "n": "zumo de limón",
+          "n": "zumo de limón (⅓ de limón)",
           "u": "ml"
         }
       ],
@@ -103,24 +102,24 @@
       "items": [
         {
           "a": 30,
-          "n": "mermelada de melocotón",
+          "n": "mermelada de melocotón (1½ cucharadas soperas)",
           "u": "g"
         },
         {
           "a": 10,
-          "n": "agua",
+          "n": "agua (2 cucharaditas)",
           "u": "ml"
         }
       ],
       "n": "CAZO · EL GLASEADO"
     }
   ],
-  "lectura": "La suma por el camino largo: 10 de laminar la manzana + 3 de extender el hojaldre + 6 de pan rallado, manzana y espolvoreado + 30 de horno + 2 de pincelar + 10 de reposo = 61 minutos. Los dos solapes del plan son los dos únicos huecos muertos que hay, y por eso no suman nada: el horno precalienta durante los diez minutos que tardas en laminar la manzana, y los tres minutos del cazo del glaseado caben enteros dentro de los treinta del horneado, del minuto 44 al 47. El cazo va al final del horneado y no al principio para que el glaseado llegue templado al pincel del minuto 49. Por eso el último vistazo al horno se adelanta al minuto 43: encender el cazo y abrir la puerta del horno caían los dos en el 44 y no se hacen a la vez. Y el horneado no es un tramo muerto: antes del minuto 15 no se abre la puerta, a los 20 de horno se gira la bandeja y a los 24 se baja a 180 °C.",
+  "lectura": "La suma por el camino largo: 10 de laminar la manzana + 3 de extender el hojaldre + 9 de pan rallado, manzana y espolvoreado + 30 de horno + 2 de pincelar + 10 de reposo = 64 minutos. Los dos solapes del plan son los dos únicos huecos muertos que hay, y por eso no suman nada: el horno precalienta durante los diez minutos que tardas en acabar de montar la tarta, del 12 al 22, y los tres minutos del cazo del glaseado caben enteros dentro de los treinta del horneado, del minuto 47 al 50. El cazo va al final del horneado y no al principio para que el glaseado llegue templado al pincel del minuto 52. Por eso el último vistazo al horno se adelanta al minuto 46: encender el cazo y abrir la puerta del horno caían los dos en el 47 y no se hacen a la vez. Y el horneado no es un tramo muerto: antes del minuto 15 de horno no se abre la puerta, a los 20 de horno se gira la bandeja y a los 24 se baja a 180 °C.",
   "mep": [
     {
       "l": [
-        "<b>Manzana · 450 g (3 medianas)</b> · pelada, descorazonada, en cuartos, y cada cuarto en láminas de 2-3 mm apoyado en su cara plana.",
-        "<b>Zumo de limón · 10 ml</b> · repartido a cucharadas sobre cada manzana nada más laminarla, unos 3 ml por manzana."
+        "<b>Manzana · 450 g (3 medianas)</b> · pelada, descorazonada, en cuartos, y cada cuarto en láminas de 2 mm perpendiculares al corazón, con el cuarto apoyado en su cara plana.",
+        "<b>Zumo de limón · 10 ml (⅓ de limón)</b> · exprimido antes de empezar y repartido sobre cada manzana nada más laminarla: una cucharadita escasa (3 ml) por manzana."
       ],
       "orden": true,
       "porq": "La superficie cortada de la manzana se pone parda en minutos, y esa oxidación no se va en el horno: queda gris debajo del glaseado. Por eso el limón entra manzana a manzana y no cuando ya están las tres cortadas y la primera lleva ocho minutos al aire.",
@@ -128,20 +127,20 @@
     },
     {
       "l": [
-        "<b>Platito pequeño</b> · los 15 g de pan rallado con 10 g del azúcar, mezclados. Es lo primero que entra, en el minuto 13, antes que la manzana: el azúcar es lo que evita que el pan se note como pan.",
+        "<b>Platito pequeño</b> · los 15 g de pan rallado (2 cucharadas soperas) con 10 g del azúcar (2 cucharaditas), mezclados. Es lo primero que entra, en el minuto 13, antes que la manzana: el azúcar es lo que evita que el pan se note como pan.",
         "<b>Fuente grande</b> · los 450 g de manzana laminada con su limón por encima. Se vacía en el minuto 13, sobre el pan rallado azucarado ya extendido.",
-        "<b>Platito</b> · los 30 g de azúcar blanco que quedan y los 3 g de canela molida, ya mezclados entre ellos. Caen juntos dentro del minuto 13 al 19, al final del montaje, sobre la mantequilla ya pincelada.",
-        "<b>Taza</b> · los 20 g de mantequilla, derretida en el microondas en el minuto 10 mientras extiendes el hojaldre. Se pincela sobre la manzana, antes de espolvorear el azúcar y la canela.",
-        "<b>Cazo, en frío</b> · los 30 g de mermelada de melocotón con 10 ml de agua dentro. No se enciende hasta el minuto 44, con la tarta ya en el último tramo de horno."
+        "<b>Platito</b> · los 30 g de azúcar blanco que quedan (2 cucharadas soperas) y los 3 g de canela molida (1 cucharadita rasa), ya mezclados entre ellos. Caen juntos dentro del minuto 13 al 22, al final del montaje, sobre la mantequilla ya pincelada.",
+        "<b>Taza</b> · los 20 g de mantequilla (2 cucharadas soperas), derretida en el microondas en el minuto 10 mientras extiendes el hojaldre. Se pincela sobre la manzana, antes de espolvorear el azúcar y la canela.",
+        "<b>Cazo, en frío</b> · los 30 g de mermelada de melocotón (1½ cucharadas soperas) con 10 ml de agua (2 cucharaditas) dentro. No se enciende hasta el minuto 47, con la tarta ya en el último tramo de horno."
       ],
       "orden": false,
-      "porq": "Un recipiente se justifica cuando lo que guarda entra en un minuto distinto al del resto. El pan rallado va en su propio platito porque es lo primero que toca el hojaldre, antes que la manzana, y con las manos llenas no se pesa. El azúcar y la canela comparten platito porque caen juntos y mezclados; la mantequilla va aparte porque se pincela sola, sobre la manzana y antes del azúcar, y mezclada con él se enfriaría en pasta y dejaría de pincelarse. El cazo se monta en frío desde el principio pero no se enciende al meter la tarta: espera al minuto 44, que es lo que hace falta para que el glaseado llegue templado al pincel.",
+      "porq": "Un recipiente se justifica cuando lo que guarda entra en un minuto distinto al del resto. El pan rallado va en su propio platito porque es lo primero que toca el hojaldre, antes que la manzana, y con las manos llenas no se pesa. El azúcar y la canela comparten platito porque caen juntos y mezclados; la mantequilla va aparte porque se pincela sola, sobre la manzana y antes del azúcar, y mezclada con él se enfriaría en pasta y dejaría de pincelarse. El cazo se monta en frío desde el principio pero no se enciende al meter la tarta: espera al minuto 47, que es lo que hace falta para que el glaseado llegue templado al pincel.",
       "t": "CINCO RECIPIENTES, CINCO MOMENTOS"
     },
     {
       "l": [
-        "<b>Bandeja con papel de horno</b> · lista desde el minuto 10. La lámina de hojaldre (1 ud) va directa del paquete a la bandeja, sin estirar ni enharinar: viene ya con el grosor que necesita.",
-        "<b>Horno vacío</b> · la rejilla a altura media puesta antes de encender, que después quema. Se enciende a 200 °C en el minuto 0 y no se vuelve a abrir hasta el 19."
+        "<b>Bandeja con papel de horno</b> · lista desde el minuto 10. La lámina de hojaldre (230 g, peso estimado: 1 lámina rectangular) va directa del paquete a la bandeja, sin estirar ni enharinar: viene ya con el grosor que necesita.",
+        "<b>Horno vacío</b> · la rejilla a altura media puesta antes de encender, que después quema. Se enciende a 200 °C en el minuto 12 y no se vuelve a abrir hasta el 22."
       ],
       "orden": false,
       "porq": "Lo que viene en su envase o va directo a su sitio no se trasvasa. La bandeja se monta fría y en la encimera, nunca dentro del horno precalentando: el papel se tuesta y el fondo del hojaldre empieza a cocerse antes de llevar la manzana encima.",
@@ -159,12 +158,12 @@
       "junto": null,
       "meto": "450 g de manzana + 10 ml de zumo de limón",
       "min": 10,
-      "nota": "Láminas de 2-3 mm siguiendo el eje vertical, perpendiculares al corazón. El limón evita que oxiden mientras montas la tarta.",
+      "nota": "Láminas de 2 mm perpendiculares al corazón, con el cuarto apoyado en su cara plana. El limón evita que oxiden mientras montas la tarta.",
       "off": 0,
-      "p": "Cada manzana en cuartos y cada cuarto laminado perpendicular al corazón, en láminas de 2 a 3 mm: así cada una sale entera y del grosor justo para asarse en los treinta minutos de horno sin quedar cruda. El limón va nada más laminar cada manzana, no al final: la superficie cortada oxida en minutos.",
+      "p": "Cada manzana en cuartos y cada cuarto laminado perpendicular al corazón, en láminas de 2 mm: así cada una sale entera y del grosor justo para asarse en los treinta minutos de horno sin quedar cruda. Exprime el limón antes de empezar; va nada más laminar cada manzana, no al final: la superficie cortada oxida en minutos.",
       "s": 600,
       "saco": "",
-      "t": "Laminar la manzana y rociar con limón",
+      "t": "Exprimir el limón, laminar la manzana y rociarla",
       "tapa": null
     },
     {
@@ -173,12 +172,12 @@
       "f": null,
       "holgura": "flexible",
       "id": "precalentar-horno",
-      "junto": "mise-en-place",
+      "junto": "colocar-manzana",
       "meto": "",
       "min": 10,
-      "nota": "200 °C, calor arriba y abajo, rejilla a altura media. Coincide con laminar la manzana, así que no cuesta tiempo aparte.",
-      "off": 0,
-      "p": "Enciende el horno a 200 °C con calor arriba y abajo al mismo tiempo que empiezas a laminar la manzana. Los diez minutos que tarda en llegar a temperatura real se solapan enteros con el corte, así que no alargan el plan. Sube vacío y con la rejilla ya puesta a altura media: la bandeja no entra a precalentar con él, porque el papel de horno se tuesta y el fondo del hojaldre empezaría a cocerse sin la manzana encima que lo pese.",
+      "nota": "200 °C, calor arriba y abajo, rejilla a altura media. Coincide con el montaje de la tarta, así que no cuesta tiempo aparte.",
+      "off": 12,
+      "p": "Enciende el horno a 200 °C con calor arriba y abajo en el minuto 12, cuando acabas de extender el hojaldre y empiezas a colocar la manzana. Los diez minutos que tarda en llegar a temperatura real se solapan enteros con el montaje, así que no alargan el plan y la tarta entra en el 22 en un horno recién llegado a punto. Sube vacío y con la rejilla ya puesta a altura media: la bandeja no entra a precalentar con él, porque el papel de horno se tuesta y el fondo del hojaldre empezaría a cocerse sin la manzana encima que lo pese.",
       "s": 600,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro y cada apertura le devuelve buena parte del precalentado. El único aviso útil es el del final, que ya lo da el propio paso.",
@@ -210,11 +209,11 @@
       "id": "colocar-manzana",
       "junto": null,
       "meto": "el platito: 15 g de pan rallado + 10 g de azúcar mezclados + la manzana laminada + 20 g de mantequilla derretida + el platito del azúcar y la canela (30 g + 3 g)",
-      "min": 6,
+      "min": 9,
       "nota": "Primero el pan rallado con su azúcar en capa fina dentro del borde, después la manzana en escamas, encima la mantequilla derretida pincelada, y los 30 g de azúcar con la canela espolvoreados al final.",
       "off": 13,
-      "p": "Los 15 g de pan rallado van los primeros, en capa fina y pareja dentro del borde marcado: la manzana suelta jugo mientras se asa y ese jugo cae al fondo, donde no tiene por dónde escapar. Sin nada que lo retenga empapa la masa por debajo y el centro sale blando aunque el borde esté dorado. El pan rallado lo absorbe en el sitio y en el bocado no se nota. Encima, las láminas de manzana superpuestas como escamas. La mantequilla derretida se pincela sobre la manzana desnuda, y el azúcar con la canela van después, espolvoreados por arriba: el azúcar se agarra a la grasa en vez de resbalar, y arriba del todo es donde el calor lo carameliza y deja la costra fina que se busca. Al revés no sale: un pincel sobre azúcar suelto lo arrastra y lo amontona, y el azúcar tapado por la mantequilla se disuelve en jarabe en lugar de hacer costra. El pan rallado va mezclado con 10 g del azúcar y no solo: crudo y a secas se lee como pan debajo del dulce, y con el azúcar se funde con el jugo que suelta la manzana y queda como una capa fina de caramelo arenoso. Absorbe igual, que es para lo que está, pero deja de notarse como un ingrediente aparte.",
-      "s": 360,
+      "p": "Los 15 g de pan rallado van los primeros, en capa fina y pareja dentro del borde marcado: la manzana suelta jugo mientras se asa y ese jugo cae al fondo, donde no tiene por dónde escapar. Sin nada que lo retenga empapa la masa por debajo y el centro sale blando aunque el borde esté dorado. El pan rallado lo absorbe en el sitio y en el bocado no se nota. Encima, las láminas de manzana superpuestas como escamas. La mantequilla derretida se pincela sobre la manzana desnuda, y el azúcar con la canela van después, espolvoreados por arriba: el azúcar se agarra a la grasa en vez de resbalar, y arriba del todo es donde el calor lo carameliza y deja la costra fina que se busca. Al revés no sale: un pincel sobre azúcar suelto lo arrastra y lo amontona, y el azúcar tapado por la mantequilla se disuelve en jarabe en lugar de hacer costra. El pan rallado va mezclado con 10 g del azúcar y no solo: crudo y a secas se lee como pan debajo del dulce, y con el azúcar se funde con el jugo que suelta la manzana y queda como una capa fina de caramelo arenoso. Absorbe igual, que es para lo que está, pero deja de notarse como un ingrediente aparte. Son nueve minutos porque colocar las láminas una a una, superpuestas, es lo que más lleva de todo el montaje.",
+      "s": 540,
       "saco": "",
       "t": "Pan rallado, manzana y espolvoreado",
       "tapa": null
@@ -245,8 +244,8 @@
       "meto": "la tarta montada",
       "min": 30,
       "nota": "Treinta minutos. No abras la puerta antes del minuto 15: hasta ahí el hojaldre está subiendo. A los 20 giras la bandeja y a los 24 bajas el horno a 180 °C sin abrir la puerta, que es lo último que tocas: a partir de ahí estás con el cazo del glaseado y la tarta se termina sola.",
-      "off": 19,
-      "p": "Directa al horno ya a 200 °C, altura media, treinta minutos. El hojaldre necesita ese golpe de calor sostenido para que el borde suba y dore sin que el fondo, con el peso de la manzana encima, se quede crudo. Los primeros quince minutos la puerta no se abre: es cuando el agua de la mantequilla entre capas se hace vapor y las separa, y una bajada de temperatura ahí las deja pegadas y el borde plano, sin arreglo posible. A partir del minuto 20 la masa ya está subida y fijada, y entonces sí conviene girar la bandeja: ningún horno doméstico calienta igual el fondo que la puerta, y sin ese giro un lado sale pálido y el otro pasado. El último toque es a los 24, y es bajar el horno a 180 °C; cae ahí y no a los 25 para dejar el minuto 44 libre, que es cuando se enciende el cazo del glaseado. No es un «por si acaso»: a partir de ahí estás removiendo el glaseado y no vas a estar mirando, y las puntas de la manzana laminada, con su azúcar y su mantequilla encima, pasan de tostadas a negras en dos o tres minutos. Veinte grados menos frenan esa carrera en los últimos seis minutos sin cortar la cocción, y se hacen desde el mando, sin abrir la puerta: el hojaldre ya está subido y fijado, pero cada apertura sigue costando calor que el borde necesita para acabar de dorar.",
+      "off": 22,
+      "p": "Directa al horno ya a 200 °C, altura media, treinta minutos. El hojaldre necesita ese golpe de calor sostenido para que el borde suba y dore sin que el fondo, con el peso de la manzana encima, se quede crudo. Los primeros quince minutos la puerta no se abre: es cuando el agua de la mantequilla entre capas se hace vapor y las separa, y una bajada de temperatura ahí las deja pegadas y el borde plano, sin arreglo posible. A partir del minuto 20 la masa ya está subida y fijada, y entonces sí conviene girar la bandeja: ningún horno doméstico calienta igual el fondo que la puerta, y sin ese giro un lado sale pálido y el otro pasado. El último toque es a los 24, y es bajar el horno a 180 °C; cae ahí y no a los 25 para dejar el minuto 47 libre, que es cuando se enciende el cazo del glaseado. No es un «por si acaso»: a partir de ahí estás removiendo el glaseado y no vas a estar mirando, y las puntas de la manzana laminada, con su azúcar y su mantequilla encima, pasan de tostadas a negras en dos o tres minutos. Veinte grados menos frenan esa carrera en los últimos seis minutos sin cortar la cocción, y se hacen desde el mando, sin abrir la puerta: el hojaldre ya está subido y fijado, pero cada apertura sigue costando calor que el borde necesita para acabar de dorar.",
       "s": 1800,
       "saco": "",
       "t": "Hornear a 200°C, altura media",
@@ -255,17 +254,17 @@
     {
       "carril": "cazo",
       "dep": [],
-      "f": 2,
+      "f": 4,
       "holgura": "flexible",
       "id": "hacer-glaseado",
       "junto": null,
       "meto": "30 g de mermelada de melocotón + 10 ml de agua",
       "min": 3,
-      "nota": "Al 2, sin tapa, tres minutos, hasta que quede líquida. Arranca en el minuto 44, con la tarta en su último tramo de horno.",
-      "off": 44,
-      "p": "Mermelada y agua al cazo, al 2, hasta que la mermelada se disuelva y quede líquida y brillante. No hace falta más fuego: a temperatura baja se disuelve igual y no corre riesgo de caramelizar y espesar de más. Y no se enciende hasta el minuto 44 a propósito, aunque el hueco del horno dé para hacerlo mucho antes: hecho al principio del horneado llega al pincel veinticinco minutos después, frío y cuajado, y un glaseado cuajado no se pincela, se unta y arrastra las láminas de manzana. Hecho aquí, sale del fuego en el 47 y se pincela en el 49, templado.",
+      "nota": "Al 4, sin tapa, tres minutos removiendo, hasta que quede líquida; arranca en el minuto 47. Apaga al acabar.",
+      "off": 47,
+      "p": "Mermelada y agua al cazo, al 4 y removiendo, hasta que la mermelada se disuelva y quede líquida y brillante. Al 2 la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver; removiendo, el calor se reparte y no se pega ni carameliza ni espesa de más. Y no se enciende hasta el minuto 47 a propósito, aunque el hueco del horno dé para hacerlo mucho antes: hecho al principio del horneado llega al pincel veinticinco minutos después, frío y cuajado, y un glaseado cuajado no se pincela, se unta y arrastra las láminas de manzana. Hecho aquí, sale del fuego en el 50 y se pincela en el 52, templado.",
       "s": 180,
-      "saco": "",
+      "saco": "el glaseado, en el cazo apagado",
       "t": "Mermelada y agua, hasta líquida",
       "tapa": "sin tapa"
     },
@@ -281,8 +280,8 @@
       "junto": null,
       "meto": "el glaseado templado",
       "min": 2,
-      "nota": "Templado, no caliente: si quema, se cuela entre las manzanas en vez de brillar por encima.",
-      "off": 49,
+      "nota": "Apaga el horno y saca la tarta. Templado, no caliente: si quema, se cuela entre las manzanas en vez de brillar por encima.",
+      "off": 52,
       "p": "Recién fuera del horno, pincela el glaseado templado sobre toda la superficie. Templado y no hirviendo: demasiado caliente se cuela por las juntas de la manzana en vez de quedarse en la superficie dando el brillo.",
       "s": 120,
       "saco": "la tarta, fuera del horno",
@@ -299,8 +298,8 @@
       "meto": "la tarta glaseada, de la bandeja caliente a una rejilla",
       "min": 10,
       "nota": "Diez minutos sobre rejilla, fuera de la bandeja caliente. Después se corta, no antes.",
-      "off": 51,
-      "p": "Diez minutos fuera de la bandeja, sobre una rejilla para que el vapor salga también por abajo. El hojaldre recién salido está blando por el peso del relleno y el fondo sigue soltando humedad; sobre la bandeja caliente esa humedad se queda debajo y reblandece la base. Ese reposo es lo que separa un corte limpio de uno que se desmorona, y también lo que baja el azúcar del glaseado de hirviendo a pegajoso, que es como se come.",
+      "off": 54,
+      "p": "Diez minutos fuera de la bandeja, sobre una rejilla para que el vapor salga también por abajo. El hojaldre recién salido está blando por el peso del relleno y el fondo sigue soltando humedad; sobre la bandeja caliente esa humedad se queda debajo y reblandece la base. Ese reposo es lo que separa un corte limpio de uno que se desmorona, y también lo que baja el azúcar caramelizado de la superficie de hirviendo a pegajoso, que es como se come.",
       "s": 600,
       "saco": "la tarta, a la tabla, para cortarla en 6 porciones",
       "t": "Reposar antes de cortar",
@@ -330,11 +329,11 @@
     ],
     [
       "El horno precalienta en paralelo",
-      "Diez minutos que ya se gastan laminando la manzana: no hay ningún hueco muerto ahí. Y precalienta vacío, sin la bandeja dentro."
+      "Diez minutos que ya se gastan acabando de montar la tarta, del 12 al 22: no hay ningún hueco muerto ahí. Y precalienta vacío, sin la bandeja dentro."
     ],
     [
-      "El glaseado, al minuto 44 y no en cuanto entra la tarta",
-      "Los tres minutos de cazo siguen cabiendo enteros dentro de los treinta del horneado, así que no alargan el plan: lo que cambia es dónde caen. Hechos al principio, el glaseado espera veinticinco minutos en el cazo y llega al pincel frío y espesado, y así no se pincela, se unta y arrastra las láminas. Arrancando en el 44 sale del fuego en el 47 y se usa en el 49, templado y todavía fluido. Va al 2 y no más porque solo hay que disolver la mermelada, no cocerla: al hervir se concentra y espesa igual. El único choque era el vistazo del horno, que caía también en el 44; se adelanta un minuto."
+      "El glaseado, al minuto 47 y no en cuanto entra la tarta",
+      "Los tres minutos de cazo siguen cabiendo enteros dentro de los treinta del horneado, así que no alargan el plan: lo que cambia es dónde caen. Hechos al principio, el glaseado espera veinticinco minutos en el cazo y llega al pincel frío y espesado, y así no se pincela, se unta y arrastra las láminas. Arrancando en el 47 sale del fuego en el 50 y se usa en el 52, templado y todavía fluido. Va al 4 y removiendo, y no más fuerte, porque solo hay que disolver la mermelada, no cocerla: al hervir se concentra y espesa igual. Al 2 la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver. El único choque era el vistazo del horno, que caía también en el 47; se adelanta un minuto."
     ],
     [
       "El reposo final, innegociable",
@@ -346,7 +345,7 @@
     ],
     [
       "El horno, a 180 °C a los 24 minutos de horneado",
-      "El cazo del glaseado ocupa del minuto 44 al 47, que en el horno son los minutos 25 a 28 de horneado: justo cuando las puntas de la manzana laminada se van de tostadas a quemadas, y justo cuando no estás mirando. Bajar veinte grados un minuto antes frena esa carrera sin cortar la cocción, y se hace desde el mando, sin abrir la puerta y sin nada que retirar después. El precio es que el borde del hojaldre también dora más despacio en esos seis minutos, y por eso el giro de la bandeja del minuto 20 importa aquí más que nunca: reparte el dorado mientras el horno todavía está a 200."
+      "El cazo del glaseado ocupa del minuto 47 al 50, que en el horno son los minutos 25 a 28 de horneado: justo cuando las puntas de la manzana laminada se van de tostadas a quemadas, y justo cuando no estás mirando. Bajar veinte grados un minuto antes frena esa carrera sin cortar la cocción, y se hace desde el mando, sin abrir la puerta y sin nada que retirar después. El precio es que el borde del hojaldre también dora más despacio en esos seis minutos, y por eso el giro de la bandeja del minuto 20 importa aquí más que nunca: reparte el dorado mientras el horno todavía está a 200."
     ]
   ],
   "raciones": 6,
@@ -359,5 +358,5 @@
     ]
   },
   "titulo": "Tarta fina de manzana",
-  "totalMin": 61
+  "totalMin": 64
 }

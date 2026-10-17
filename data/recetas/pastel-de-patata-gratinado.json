@@ -26,7 +26,6 @@
       "tipo": "horno"
     }
   ],
-  "compra": [],
   "cortes": [
     {
       "p": "Tres milímetros es el grosor que se cuece entero en los dieciocho minutos de cazuela y que apila sin dejar aire entre rodaja y rodaja. A cinco el centro se queda duro; a uno se deshace en puré. Y no las enjuagues después de cortar: el almidón que queda en la superficie es lo que espesa la leche y lo que sostiene la porción al cortarla.",
@@ -68,7 +67,7 @@
       "horno"
     ],
     [
-      "15",
+      "16",
       "pasos"
     ]
   ],
@@ -82,8 +81,8 @@
           "u": "g"
         },
         {
-          "a": 500,
-          "n": "leche entera (2 tazas)",
+          "a": 600,
+          "n": "leche entera (2½ tazas)",
           "u": "ml"
         },
         {
@@ -120,7 +119,7 @@
       "items": [
         {
           "a": 500,
-          "n": "carne picada mixta (una palangana de 500 g)",
+          "n": "carne picada mixta (1 bandeja de 500 g)",
           "u": "g"
         },
         {
@@ -180,14 +179,13 @@
       "n": "FUENTE"
     }
   ],
-  "importada": true,
-  "lectura": "La cazuela y la sartén suman 52 minutos de trabajo que caben en 29 de reloj (del minuto 22 al 51), y ahí está todo el ahorro del plan. El horno se enciende en el minuto 44, en pleno chup-chup, y llega a temperatura justo cuando terminas de montar, así que precalentar no cuesta ni un minuto; en ese mismo hueco se unta la fuente. El único margen antes del horno son los cuatro minutos que las patatas acaban por delante de la carne: si algo se retrasa, que sea la cazuela. Suma por el camino largo: 22 de cortar + 7 de leche + 18 de patatas + 4 de espera a la carne + 8 de montaje + 32 de horno + 5 de grill + 12 de reposo = 108.",
+  "lectura": "La cazuela y la sartén suman 52 minutos de trabajo que caben en 29 de reloj (del minuto 22 al 51), y ahí está todo el ahorro del plan. El horno se enciende en el minuto 44, en pleno chup-chup, y llega a temperatura justo cuando terminas de montar, así que precalentar no cuesta ni un minuto; en ese mismo hueco se unta la fuente. El único margen antes del horno son los cuatro minutos que las patatas acaban por delante de la carne: si algo se retrasa, que sea la cazuela. Suma por el camino largo: 22 de cortar + 7 de leche + 4 de recuperar el temblor + 14 de patatas + 4 de espera a la carne + 8 de montaje + 32 de horno + 5 de grill + 12 de reposo = 108.",
   "mep": [
     {
       "l": [
         "<b>Patata · 1300 g (unas 7 medianas)</b> · pelada, en rodajas de 3 mm, al bol grande sin agua.",
         "<b>Cebolla · 200 g (1 grande)</b> · en dados de 3 mm, directa a la sartén en frío.",
-        "<b>Ajo · 16 g (4 dientes)</b> en láminas de 2 mm, a la cazuela en frío. Y aparte <b>4 g (1 diente)</b> partido por la mitad, junto a la fuente."
+        "<b>Ajo · 16 g (4 dientes)</b> en láminas de 2 mm, a la cazuela en frío. Y aparte <b>el diente partido por la mitad (4 g)</b>, junto a la fuente."
       ],
       "orden": true,
       "porq": "La patata va primero porque es la que más tiempo lleva y no suelta jugo; la cebolla después, y el ajo al final, que es el que deja olor en la tabla.",
@@ -197,7 +195,7 @@
       "l": [
         "<b>1 · Nata · 100 ml</b> (el ¼ del brik de 400 ml) → al vaso pequeño, a la nevera.",
         "<b>2 · Nata · 300 ml</b> (el resto del brik) → a la cazuela.",
-        "<b>3 · Leche · 500 ml</b> (2 tazas) → a la cazuela.",
+        "<b>3 · Leche · 600 ml</b> (2½ tazas) → a la cazuela.",
         "<b>4 · Soja · 15 ml</b> (1 cucharada sopera) → a la taza de los aliños.",
         "<b>5 · Aceite de oliva · 25 ml</b> (1 cucharada sopera y 2 cucharaditas) → a la sartén."
       ],
@@ -218,10 +216,10 @@
     },
     {
       "l": [
-        "<b>Cazuela en frío</b> · 500 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal (1 cucharadita colmada) + 1 g de nuez moscada (½ cucharadita). Se enciende en el minuto 22.",
-        "<b>Sartén en frío</b> · 25 ml de aceite de oliva + 200 g de cebolla. Se enciende en el minuto 24.",
-        "<b>Carne picada · 500 g</b> (una palangana) · en su bandeja, en la nevera hasta el minuto 34.",
-        "<b>Junto a la fuente de 28×20 cm</b> · 15 g de mantequilla (1 cucharada sopera) y el medio diente de ajo. Se usan en el minuto 44."
+        "<b>Cazuela en frío</b> · 600 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal (1 cucharadita colmada) + 1 g de nuez moscada (½ cucharadita). Se enciende en el minuto 22.",
+        "<b>Sartén de 28 cm o más, en frío</b> · 25 ml de aceite de oliva + 200 g de cebolla. Se enciende en el minuto 24.",
+        "<b>Carne picada · 500 g</b> (1 bandeja de 500 g) · en su bandeja, en la nevera hasta el minuto 34.",
+        "<b>Junto a la fuente de 28×20 cm</b> · 15 g de mantequilla (1 cucharada sopera) y el diente de ajo partido por la mitad (4 g). Se usan en el minuto 44."
       ],
       "orden": false,
       "porq": "Lo que entra desde el principio se deja ya en su destino, y lo que viene en su envase se queda en él.",
@@ -256,21 +254,21 @@
       "hitos": [
         {
           "en": 300,
-          "t": "Mira: si ya humea por los bordes, prepárate para echar la patata"
+          "t": "Si ya tiembla, baja al 3 ya"
         }
       ],
       "holgura": "flexible",
       "id": "infusion",
       "junto": null,
-      "meto": "la cazuela cargada en frío: 500 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal + 1 g de nuez moscada",
+      "meto": "la cazuela cargada en frío: 600 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal + 1 g de nuez moscada",
       "min": 7,
-      "nota": "Enciende al 7 con la tapa puesta. Tiene que humear por los bordes con burbujas pequeñas en el fondo, sin llegar a hervir fuerte.",
+      "nota": "Enciende al 7 sin tapa. Tiene que humear por los bordes con burbujas pequeñas en el fondo, sin llegar a hervir fuerte.",
       "off": 22,
-      "p": "Tapada y al 7 hasta que humee por los bordes y aparezcan burbujas pequeñas en el fondo, sin llegar al borbotón. Ochocientos mililitros tardan unos siete minutos. Si rompe a hervir fuerte, la leche sube de golpe, se sale y se pega al fondo, y esa capa quemada amarga toda la crema; por eso en cuanto llega al temblor baja al 3, que es justo lo que pide el paso siguiente. El ajo y la nuez moscada empiezan a infusionar desde el primer minuto: su aroma pasa a la grasa de la nata y de ahí a cada rodaja.",
+      "p": "Sin tapa y al 7 hasta que humee por los bordes y aparezcan burbujas pequeñas en el fondo, sin llegar al borbotón. Novecientos mililitros tardan unos siete minutos. Si rompe a hervir fuerte, la leche sube de golpe, se sale y se pega al fondo, y esa capa quemada amarga toda la crema; por eso se deja sin tapa, para verlo, y en cuanto llega al temblor se baja al 3 hasta que entren las patatas. El ajo y la nuez moscada empiezan a infusionar desde el primer minuto: su aroma pasa a la grasa de la nata y de ahí a cada rodaja.",
       "s": 420,
       "saco": "",
       "t": "Leche, nata y ajo",
-      "tapa": "TAPA PUESTA"
+      "tapa": "sin tapa"
     },
     {
       "carril": "sarten",
@@ -312,30 +310,47 @@
     {
       "carril": "cazuela",
       "dep": [],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "recuperar",
+      "junto": null,
+      "meto": "1300 g de patata en rodajas, del bol grande",
+      "min": 4,
+      "nota": "Sube al 6, echa las rodajas y sepáralas con una cuchara de madera; tapa a medias, un dedo de hueco. En cuanto la leche vuelva a temblar, baja al 3.",
+      "off": 29,
+      "p": "Echa las rodajas y sepáralas enseguida con una cuchara de madera, o se pegarán en bloque contra el fondo. Las patatas frías enfrían la leche de golpe, así que sube al 6 para que recupere cuanto antes el temblor de unos 90 °C. Tapa a medias, dejando un dedo de hueco: sale algo de vapor sin que se evapore media cazuela. En cuanto la leche vuelva a temblar por los bordes, pasa al paso siguiente y baja al 3.",
+      "s": 240,
+      "saco": "",
+      "t": "Recuperar el temblor",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "cazuela",
+      "dep": [],
       "f": 3,
       "hitos": [
         {
-          "en": 300,
+          "en": 180,
           "t": "Remueve con cuidado desde el fondo para que no se peguen"
         },
         {
-          "en": 600,
+          "en": 420,
           "t": "Remueve con cuidado desde el fondo"
         },
         {
-          "en": 960,
+          "en": 720,
           "t": "Prueba una rodaja: el cuchillo entra sin resistencia y no se rompe"
         }
       ],
       "holgura": "flexible",
       "id": "patatas",
       "junto": null,
-      "meto": "1300 g de patata en rodajas, del bol grande",
-      "min": 18,
-      "nota": "Baja al 3, echa las rodajas y sepáralas enseguida con una cuchara de madera. Tapa a medias, con un dedo de hueco. Cuando estén, apaga el fuego y déjalas en su líquido hasta el minuto 51. Si vas tarde, ponla al 1 y que esperen aquí.",
-      "off": 29,
-      "p": "Echa las rodajas y sepáralas enseguida con una cuchara de madera, o se pegarán en bloque contra el fondo. Tapa a medias, dejando un dedo de hueco: así sale algo de vapor sin que se evapore media cazuela. Al 3 el conjunto se queda temblando alrededor de los 90 °C. Están listas cuando un cuchillo entra sin resistencia pero la rodaja no se rompe al levantarla, unos dieciocho minutos con este peso. Es el paso más flexible de todo el plan: si vas tarde, baja al 1 y déjalas ahí sin miedo.",
-      "s": 1080,
+      "meto": "",
+      "min": 14,
+      "nota": "Baja al 3 y deja la tapa a medias, con un dedo de hueco. Al acabar, apaga y que esperen en su líquido hasta el minuto 51 (si vas tarde, al 1).",
+      "off": 33,
+      "p": "Con el temblor recuperado, baja al 3 y mantén la tapa a medias, dejando un dedo de hueco: así sale algo de vapor sin que se evapore media cazuela. Al 3 el conjunto se queda temblando alrededor de los 90 °C. Están listas cuando un cuchillo entra sin resistencia pero la rodaja no se rompe al levantarla: catorce minutos aquí, dieciocho con los cuatro anteriores y con este peso. Es el paso más flexible de todo el plan: si vas tarde, baja al 1 y déjalas ahí sin miedo.",
+      "s": 840,
       "saco": "",
       "t": "Cocer las patatas",
       "tapa": "TAPA A MEDIAS"
@@ -363,9 +378,9 @@
       "junto": null,
       "meto": "500 g de carne picada, de su bandeja, sobre la cebolla",
       "min": 13,
-      "nota": "Quita la tapa, sube al 8 y espera 30 segundos. Echa la carne, extiéndela en una capa y no la toques en 3 minutos. Si la sartén es de 24 cm o menos, hazlo en dos tandas de 250 g.",
+      "nota": "Quita la tapa, sube al 8 y espera 30 segundos. Echa la carne en una capa y no la toques en 3 minutos.",
       "off": 34,
-      "p": "Sube al 8, quita la tapa y espera treinta segundos a que la sartén recupere temperatura. Echa los 500 g de carne, extiéndela en una capa y no la toques durante los tres primeros minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris en su propio jugo. Después ve deshaciendo los grumos. Hace falta una sartén de 28 cm o más; si la tuya es de 24 cm o menos, hazlo en dos tandas de 250 g de seis minutos: amontonada no dora, se guisa.",
+      "p": "Sube al 8, quita la tapa y espera treinta segundos a que la sartén recupere temperatura. Echa los 500 g de carne, extiéndela en una capa y no la toques durante los tres primeros minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris en su propio jugo. Después ve deshaciendo los grumos. Hace falta una sartén de 28 cm o más: amontonada no dora, se guisa.",
       "s": 780,
       "saco": "",
       "t": "Dorar la carne",
@@ -378,9 +393,9 @@
       "holgura": "flexible",
       "id": "untar-fuente",
       "junto": null,
-      "meto": "la fuente de 28×20 cm + 15 g de mantequilla + el medio diente de ajo (4 g)",
+      "meto": "la fuente de 28×20 cm + 15 g de mantequilla + el diente de ajo partido por la mitad (4 g)",
       "min": 2,
-      "nota": "Unta toda la fuente con la mantequilla, fondo y paredes, y después frótala con la cara cortada del medio ajo.",
+      "nota": "Unta toda la fuente con la mantequilla, fondo y paredes, y después frótala con las dos caras cortadas del diente de ajo.",
       "off": 44,
       "p": "La fuente se prepara ahora, con la carne dorándose sola y la cazuela en su chup-chup, porque es el único hueco libre de la mesa antes del montaje. La mantequilla hace de antiadherente y dora el fondo de la primera capa; el ajo crudo frotado encima deja un perfume que sí se nota al primer bocado, al contrario que el ajo cocido en la leche.",
       "s": 120,

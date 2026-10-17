@@ -3,7 +3,7 @@
 > Propósito: reglas fijas de cocina del proyecto (vetos, raciones, potencias, tapa, completitud, compra, estilo) · Audiencia: Claude Code y Joan · Actualizado: 2026-10-13
 
 ## Resumen
-Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más. El repo (`data/recetas/`) manda; las recetas viajan en el APK (publicar = commit + versión + gate + release; `sc publicar` a Supabase llegará en F3) y la app nunca edita recetas. Esquema y comprobaciones: `esquema-receta.md`. Quién es Joan y cómo trabaja: `perfil.md`.
+Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más. El repo (`data/recetas/`) manda; las recetas viajan en el APK (publicar = `sc validar --estricto` + release del APK) y la app nunca edita recetas. Esquema y comprobaciones: `esquema-receta.md`. Quién es Joan y cómo trabaja: `perfil.md`.
 
 ## Datos fijos
 - **Raciones: 2 por defecto.** Si no se dice nada, son 2. Hay recetas que van a 4 o a 6 a propósito (tarta, macarrones, arroz a la cubana): está decidido y justificado en su `notaEscala`, no es un descuido.
@@ -45,13 +45,13 @@ Salió de una revisión en la que el ajo de los tacos estaba en los ingredientes
 `scripts/sc validar --estricto` lo comprueba solo; se pasa siempre antes de publicar.
 
 ## Dónde vive la receta
-Una sola copia: `data/recetas/<slug>.json` en el repo; se empaqueta en el APK en el siguiente release (en F3, `sc publicar` la subirá a Supabase y `sc comparar` detectará deriva). Ya no hay «espejo» app/carpeta ni escritura doble.
+Una sola copia: `data/recetas/<slug>.json` en el repo; se empaqueta en el APK en el siguiente release. Ya no hay «espejo» app/carpeta ni escritura doble.
 
 ## Compra
 - Lista separada en «ya hay» y «hay que comprar», con cantidades.
 - Agrupa por zona del súper.
 - Marca lo que se puede sustituir por algo de la despensa si no lo encuentro.
-- Lo que no está en la despensa va en el campo `compra` de la receta. Sugerencias fuera de receta: `sugerencias-compra.md`.
+- Las recetas no tienen campo `compra`: todo ingrediente de `grupos` debe estar en `data/despensa-semilla.md` (agua implícita). Si una receta necesita algo nuevo, se añade antes a la despensa. Sugerencias fuera de receta: `sugerencias-compra.md`.
 
 ## Estilo
 Español directo, tuteo, sin relleno ni preámbulos. Respuestas cortas. Si Joan se equivoca en algo de cocina, se le dice sin rodeos.

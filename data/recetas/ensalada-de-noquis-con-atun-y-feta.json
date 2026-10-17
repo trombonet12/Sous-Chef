@@ -14,7 +14,6 @@
       "tipo": "fuego"
     }
   ],
-  "compra": [],
   "cortes": [
     {
       "p": "El corte pasa por el centro, donde está el corazón blanco, así cada gajo conserva su piel y su pared exterior y no se desmorona en el bol. Salarlo justo después de cortarlo, nunca antes: la sal necesita la carne expuesta para sacar el agua.",
@@ -27,6 +26,7 @@
       "t": "Queso feta · dados de 1,5 cm"
     }
   ],
+  "creada": "2026-10-13T00:00:00Z",
   "datos": [
     [
       "19 min",
@@ -119,7 +119,6 @@
       "n": "BOL"
     }
   ],
-  "importada": true,
   "lectura": "El sésamo y el aceite entran en el hueco que deja el tomate reposando, en el minuto 5, y los ñoquis se quedan dorando en la sartén hasta el 16 mientras se monta la ensalada en el 10. El minuto 16 es solo la albahaca con la vitro ya apagada. El aliño y el emplatado son lo único que no espera: entran juntos en el minuto 17, en cuanto salen los ñoquis del fuego.",
   "mep": [
     {

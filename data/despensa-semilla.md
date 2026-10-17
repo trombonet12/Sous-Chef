@@ -13,6 +13,9 @@ Y dos reglas de formato al escribir una receta:
 ## Carnes
 Bacon · carne picada · pechuga familiar · pechugas finas · jamón serrano en lonchas
 
+## Pescado
+Emperador · salmón
+
 ## Lácteos y huevos
 Huevos · leche · mantequilla · yogures · nata para cocinar · nata para montar · cuajada · queso semicurado · queso fuerte · camembert · queso azul · queso feta · queso rallado · Grana Padano
 
@@ -20,16 +23,16 @@ Huevos · leche · mantequilla · yogures · nata para cocinar · nata para mont
 Arroz blanco largo · arroz redondo · espaguetis · macarrones · hélices o pajaritas · pasta rellena · láminas de lasaña · ñoquis · muesli crunchy con frutos secos · cereales de leche
 
 ## Conservas y legumbres
-Atún en lata · maíz · leche de coco · alubias · tomate triturado · olivas verdes · cebollita crujiente
+Atún en lata · maíz · leche de coco · alubias · tomate triturado · olivas verdes · cebollita crujiente · piña en lata
 
 ## Verduras y hortalizas
-Ajos · jengibre · zanahorias · tomates · tomates cherry · pepino · patatas · berenjenas · cebolla · cebolla morada · pimiento rojo · pimiento verde · calabacín · ensalada · canónigos · jalapeños
+Ajos · jengibre · zanahorias · tomates · tomates cherry · pepino · patatas · berenjenas · cebolla · cebolla morada · pimiento rojo · pimiento verde · calabacín · ensalada · canónigos · jalapeños · pimiento amarillo · pimientos de padrón
 
 ## Fruta
 Manzanas · limones
 
 ## Panadería y masas
-Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · maicena · levadura
+Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · maicena · levadura · masa de pizza refrigerada · minitortillas de trigo
 
 ## Salsas y condimentos
 Pesto · ketchup · mostaza · salsa César · salsa de soja · guacamole · miel · mermelada de melocotón · vinagre de vino · aceite de oliva · aceite de girasol
@@ -66,7 +69,7 @@ Lo que hay y lo que falta condiciona técnicas concretas. Ténlo en cuenta al di
 
 - **Sin hierbas frescas**: las secas van en cocción (orégano, tomillo y laurel al principio, albahaca en los últimos minutos con vapor), nunca en crudo al final.
 - **El congelador solo tiene helados**: ningún plan puede depender de guisantes, espinacas o pescado congelado.
-- **Sin pescado** más allá del atún en lata.
+- **Pescado**: emperador y salmón (sin espinas) cuando se compran para su receta; el resto, atún en lata.
 - **Sin chocolate ni cacao**: el lado dulce se queda en las galletas, la miel, la mermelada y la cuajada.
 - **Sin legumbres de grano** (garbanzos, guisantes): quedan alubias como única legumbre de grano en la despensa.
 - **Umami disponible**: Grana Padano, queso fuerte, salsa de soja, bacon, atún. De sobra para dar profundidad sin anchoas ni caldos concentrados.

@@ -26,68 +26,6 @@
       "tipo": "horno"
     }
   ],
-  "compra": [
-    {
-      "a": 1000,
-      "n": "carne picada mixta (2 palanganas de 500 g; sobran 250 g)",
-      "u": "g"
-    },
-    {
-      "a": 500,
-      "n": "pechuga de pollo",
-      "u": "g"
-    },
-    {
-      "a": 100,
-      "n": "bacon en taquitos",
-      "u": "g"
-    },
-    {
-      "a": 180,
-      "n": "queso feta",
-      "u": "g"
-    },
-    {
-      "a": 350,
-      "n": "guacamole ya hecho",
-      "u": "g"
-    },
-    {
-      "a": 125,
-      "n": "yogur natural",
-      "u": "g"
-    },
-    {
-      "a": 48,
-      "n": "minitortillas de trigo",
-      "u": "uds"
-    },
-    {
-      "a": 350,
-      "n": "pepino",
-      "u": "g"
-    },
-    {
-      "a": 350,
-      "n": "tomates",
-      "u": "g"
-    },
-    {
-      "a": 250,
-      "n": "cebolla blanca",
-      "u": "g"
-    },
-    {
-      "a": 220,
-      "n": "cebolla morada",
-      "u": "g"
-    },
-    {
-      "a": 4,
-      "n": "limones",
-      "u": "uds"
-    }
-  ],
   "cortes": [
     {
       "p": "Cruzando la fibra, no a lo largo. Las fibras de la pechuga corren de punta a punta; cortándolas se quedan cortas y el bocado se deshace, y siguiéndolas tendrías hebras largas y correosas. Centímetro y medio es el grosor que llega a 72 °C por dentro en los mismos 14 minutos que la costra de yogur tarda en tostarse.",
@@ -214,7 +152,7 @@
         },
         {
           "a": 150,
-          "n": "caldo de pollo (tres cuartos de vaso de agua)",
+          "n": "caldo de pollo (tres cuartos de vaso)",
           "u": "ml"
         },
         {
@@ -341,7 +279,7 @@
         },
         {
           "a": 100,
-          "n": "vinagre de vino, para el encurtido (medio vaso de agua)",
+          "n": "vinagre de vino, para el encurtido (medio vaso)",
           "u": "ml"
         },
         {
@@ -426,12 +364,12 @@
     {
       "l": [
         "<b>85 ml de zumo de limón</b>, en el minuto 0: 15 ml a la marinada y 70 ml a la tacita.",
-        "<b>100 ml de agua</b> y <b>100 ml de vinagre de vino</b>, al bote del encurtido del minuto 25.",
         "<b>150 ml de caldo de pollo</b>, al bol de las alubias, en los cortes del minuto 11 al 25.",
+        "<b>100 ml de agua</b> y <b>100 ml de vinagre de vino</b>, al bote del encurtido del minuto 25.",
         "<b>El aceite de oliva, con cuchara sopera y no con el vaso</b>: 15 ml (1 cucharada) a la marinada, 40 ml (3 cucharadas) a la sartén grande en el minuto 38 y 15 ml (1 cucharada) al bol del pollo en el 70."
       ],
       "orden": true,
-      "porq": "El orden lo decide el residuo. El zumo va primero porque se necesita en el minuto 0 y se enjuaga con un chorro de agua. Después el agua y el vinagre del bote, y el caldo al final. El aceite no pasa por el vaso: va a cucharadas soperas, así que no deja un film que obligue a lavarlo a mitad.",
+      "porq": "El orden lo decide el residuo. El zumo va primero porque se necesita en el minuto 0 y se enjuaga con un chorro de agua. Después el caldo, y el agua y el vinagre al final. El aceite no pasa por el vaso: va a cucharadas soperas, así que no deja un film que obligue a lavarlo a mitad.",
       "t": "UN SOLO VASO MEDIDOR, EN ESTE ORDEN"
     },
     {
@@ -535,7 +473,7 @@
       "min": 3,
       "nota": "Enciende al 5 con el aceite dentro y déjala tres minutos vacía mientras acabas los dados. El aceite tiene que brillar y correr suelto al inclinar la sartén.",
       "off": 38,
-      "p": "Este paso no estaba y hacía falta. La vitrocerámica no calienta la sartén: calienta el cristal, y el cristal calienta la sartén, así que una sartén grande de fondo grueso tarda cerca de tres minutos en llegar a temperatura de sudado desde fría. Si echas los 250 g de cebolla sobre aceite templado, durante esos tres minutos la cebolla no suda — absorbe aceite, y acabas con un sofrito graso en vez de translúcido. La señal es visual y no hay que fiarse del reloj: el aceite pasa de espeso y quieto a líquido y corriendo, y si inclinas la sartén cubre el fondo en una película fina.",
+      "p": "La vitrocerámica no calienta la sartén: calienta el cristal, y el cristal calienta la sartén, así que una sartén grande de fondo grueso tarda cerca de tres minutos en llegar a temperatura de sudado desde fría. Si echas los 250 g de cebolla sobre aceite templado, durante esos tres minutos la cebolla no suda — absorbe aceite, y acabas con un sofrito graso en vez de translúcido. La señal es visual y no hay que fiarse del reloj: el aceite pasa de espeso y quieto a líquido y corriendo, y si inclinas la sartén cubre el fondo en una película fina.",
       "s": 180,
       "saco": "",
       "t": "Calentar la sartén grande",
@@ -562,7 +500,7 @@
       "min": 10,
       "nota": "Sigue al 5, sin tapa. Cinco minutos la cebolla sola y luego el ajo. Al acabar sale todo: un tercio al bol pequeño y dos tercios al plato.",
       "off": 41,
-      "p": "Un solo sofrito para dos rellenos: es la decisión que quita un fuego y un cuarto de hora al plan. Al 5 y sin tapa la cebolla suda y suelta su agua durante cinco minutos antes de que entre el ajo, porque el ajo solo aguanta unos cinco minutos a esta potencia antes de pasar de rubio a marrón y amargar: diez minutos, como estaba antes, era jugárselo. Las láminas de 2 mm y el vapor de la cebolla ya sudada mantienen el fondo por debajo del punto en que se quema. No buscas color: a la cebolla le quedan todavía dieciséis minutos de guiso por delante. El tercio que sale al bol se va a las alubias y no se vuelve a calentar solo, así que sácalo cuando la cebolla ya esté translúcida del todo. Y la sartén se queda vacía: la carne necesita el metal desnudo.",
+      "p": "Un solo sofrito para dos rellenos: es la decisión que quita un fuego y un cuarto de hora al plan. Al 5 y sin tapa la cebolla suda y suelta su agua durante cinco minutos antes de que entre el ajo, porque el ajo solo aguanta unos cinco minutos a esta potencia antes de pasar de rubio a marrón y amargar: diez minutos sería jugárselo. Las láminas de 2 mm y el vapor de la cebolla ya sudada mantienen el fondo por debajo del punto en que se quema. No buscas color: a la cebolla le quedan todavía dieciséis minutos de guiso por delante. El tercio que sale al bol se va a las alubias y no se vuelve a calentar solo, así que sácalo cuando la cebolla ya esté translúcida del todo. Y la sartén se queda vacía: la carne necesita el metal desnudo.",
       "s": 600,
       "saco": "todo el sofrito: un tercio al bol pequeño de las alubias y los otros dos tercios al plato llano",
       "t": "Sofrito único",
@@ -577,7 +515,7 @@
       "hitos": [
         {
           "en": 240,
-          "t": "Ya debería chisporrotear: si no, sube al 7 un minuto"
+          "t": "Ya debería chisporrotear: si no, sube al 7 un minuto y vuelve al 6"
         },
         {
           "en": 420,
@@ -703,7 +641,7 @@
       "min": 8,
       "nota": "Sigue al 8, misma sartén sin lavar. Dale un minuto a la sartén antes de echarla: mismo gesto, grumos rotos y nada rosa.",
       "off": 62,
-      "p": "La sartén no se lava entre tandas: lo que ha quedado pegado en el fondo de la primera es fondo tostado, azúcares y proteínas caramelizadas, y es sabor que la segunda tanda arrastra y el tomate acabará desglasando. Mantener el 8 sin bajar es importante porque la sartén ha perdido calor al sacar la primera tanda y necesita recuperarlo antes de que la carne empiece a soltar agua. Si ves que la segunda tanda chapotea en vez de chisporrotear, es que has echado la carne demasiado pronto: sube y espera treinta segundos antes de tocar nada.",
+      "p": "La sartén no se lava entre tandas: lo que ha quedado pegado en el fondo de la primera es fondo tostado, azúcares y proteínas caramelizadas, y es sabor que la segunda tanda arrastra y el tomate acabará desglasando. Mantener el 8 sin bajar es importante porque la sartén ha perdido calor al sacar la primera tanda y necesita recuperarlo antes de que la carne empiece a soltar agua. Si ves que la segunda tanda chapotea en vez de chisporrotear, es que has echado la carne demasiado pronto: deja de remover y espera treinta segundos al 8 antes de tocar nada.",
       "s": 480,
       "saco": "",
       "t": "Carne, segunda tanda",
@@ -726,7 +664,7 @@
       "min": 21,
       "nota": "Baja al 1 y tapa del todo. Ya no cocinan: solo se mantienen calientes hasta el montaje.",
       "off": 66,
-      "p": "Las alubias terminan en el 66 y no se comen hasta el 87, y antes nadie decía qué hacer con ellas en esos veintiún minutos. Al 1 el cristal da el calor justo para mantenerlas por encima de sesenta grados sin que sigan reduciendo, y con la tapa puesta del todo el vapor se queda dentro y no se forma costra por arriba. Apagar del todo no vale: cuatrocientos gramos en veinte minutos llegan tibios a la mesa. La sartén de saltear es mejor que la mediana para esto porque tiene más metal y menos superficie al aire, así que guarda el calor y pierde menos agua.",
+      "p": "Las alubias terminan en el 66 y no se comen hasta el 87, así que son veintiún minutos de espera. Al 1 el cristal da el calor justo para mantenerlas por encima de sesenta grados sin que sigan reduciendo, y con la tapa puesta del todo el vapor se queda dentro y no se forma costra por arriba. Apagar del todo no vale: cuatrocientos gramos en veinte minutos llegan tibios a la mesa. La sartén de saltear es mejor que la mediana para esto porque tiene más metal y menos superficie al aire, así que guarda el calor y pierde menos agua.",
       "s": 1260,
       "saco": "",
       "t": "Alubias al 1, tapadas",
@@ -735,7 +673,7 @@
     {
       "carril": "sarteng",
       "dep": [],
-      "f": 3,
+      "f": 4,
       "hitos": [
         {
           "en": 240,
@@ -747,9 +685,9 @@
       "junto": null,
       "meto": "el plato: la primera tanda de carne y los dos tercios de sofrito, sobre la segunda tanda que sigue en la sartén; 400 g de tomate triturado; el platito: 7 g de comino molido, 3 g de pimentón picante, 11 g de sal y 2 g de pimienta negra",
       "min": 8,
-      "nota": "Baja al 3 y pon la tapa a medias: el tomate recién echado salta. Ocho minutos.",
+      "nota": "Baja al 4 y pon la tapa a medias: el tomate recién echado salta. Ocho minutos.",
       "off": 70,
-      "p": "Vuelve todo a la sartén y baja al 3: el tomate desglasa el fondo tostado de las dos tandas y ese es el sabor que separa esta carne de una carne picada con tomate. La tapa a medias en esta primera mitad es por las salpicaduras y porque el tomate crudo necesita unos minutos de chup-chup para perder la acidez; no se cierra del todo porque este guiso tiene que perder agua, no guardarla. La versión anterior lo dejaba dieciséis minutos con la tapa puesta y a la vez pedía surco al final, y las dos cosas no pueden pasar a la vez: tapado, el vapor condensa y vuelve a caer. Las especias entran ahora y no con la carne cruda porque el comino en grasa muy caliente amarga.",
+      "p": "Vuelve todo a la sartén y baja al 4: el tomate desglasa el fondo tostado de las dos tandas y ese es el sabor que separa esta carne de una carne picada con tomate. La tapa a medias en esta primera mitad es por las salpicaduras y porque el tomate crudo necesita unos minutos de chup-chup para perder la acidez; no se cierra del todo porque este guiso tiene que perder agua, no guardarla. Dejarlo dieciséis minutos con la tapa puesta y a la vez pedir surco al final no puede ser: tapado, el vapor condensa y vuelve a caer. Las especias entran ahora y no con la carne cruda porque el comino en grasa muy caliente amarga.",
       "s": 480,
       "saco": "",
       "t": "Tomate y especias, tapa a medias",
@@ -781,7 +719,7 @@
       "f": null,
       "hitos": [
         {
-          "en": 300,
+          "en": 360,
           "t": "Deja junto al horno las pinzas y los cuatro paquetes de tortillas"
         }
       ],
@@ -792,7 +730,7 @@
       "min": 7,
       "nota": "Altura media, sin tapar, a 210 °C. A los 7 minutos abres para voltear y meter las tortillas.",
       "off": 72,
-      "p": "Una sola capa y sin amontonar, que es la diferencia entre asar y cocer: apiladas, las tiras sueltan agua que no evapora y acaban hervidas y blancas. El pollo va ahora al final del plan y no a mitad, porque antes salía en el 69 y volvía a entrar a 150 °C con las tortillas: 150 °C está muy por encima de los 72 °C del punto, así que seguía cocinándose y se secaba. Catorce minutos a 210 °C en total, siete por cada cara, es lo que tarda el centro de una tira de 1,5 cm en llegar a 72 °C mientras la costra de yogur se tuesta. La costra la forman las proteínas del yogur y los azúcares de la lactosa: es la que da el color, no la grasa.",
+      "p": "Una sola capa y sin amontonar, que es la diferencia entre asar y cocer: apiladas, las tiras sueltan agua que no evapora y acaban hervidas y blancas. El pollo va al final del plan y no a mitad, porque sacarlo y volver a meterlo a 150 °C con las tortillas lo seguiría cocinando: 150 °C está muy por encima de los 72 °C del punto, y se secaría. Catorce minutos a 210 °C en total, siete por cada cara, es lo que tarda el centro de una tira de 1,5 cm en llegar a 72 °C mientras la costra de yogur se tuesta. La costra la forman las proteínas del yogur y los azúcares de la lactosa: es la que da el color, no la grasa.",
       "s": 420,
       "saco": "",
       "t": "Asar el pollo",
@@ -810,7 +748,7 @@
       "min": 3,
       "nota": "Sácalas del plástico, que en el horno se funde. Montones de 12, cada uno bien cerrado en aluminio.",
       "off": 75,
-      "p": "La versión anterior metía los packs en el horno tal cual, con su bolsa de plástico dentro del aluminio, y ese plástico no está hecho para 210 °C: se ablanda, se pega a la masa y huele. Fuera de la bolsa, el aluminio hace de tapa: cerrado por los cuatro lados, retiene el vapor de la propia tortilla. Cuatro montones de doce y no uno de cuarenta y ocho porque un taco de cuarenta y ocho no se calienta por el centro en siete minutos. Aprovecha el guiso, que no pide manos.",
+      "p": "El plástico de los packs no aguanta 210 °C: se ablanda, se pega a la masa y huele. Fuera de la bolsa, el aluminio hace de tapa: cerrado por los cuatro lados, retiene el vapor de la propia tortilla. Cuatro montones de doce y no uno de cuarenta y ocho porque un taco de cuarenta y ocho no se calienta por el centro en siete minutos. Aprovecha el guiso, que no pide manos.",
       "s": 180,
       "saco": "cuatro paquetes cerrados en papel de aluminio, junto al horno",
       "t": "Envolver las tortillas en aluminio",
@@ -819,11 +757,11 @@
     {
       "carril": "sarteng",
       "dep": [],
-      "f": 4,
+      "f": 5,
       "hitos": [
         {
           "en": 240,
-          "t": "Remueve. Si salpica fuerte, baja al 3"
+          "t": "Remueve. Si salpica fuerte, baja al 4"
         },
         {
           "en": 420,
@@ -835,9 +773,9 @@
       "junto": null,
       "meto": "",
       "min": 8,
-      "nota": "Tapa fuera y sube al 4. Al final la cuchara tiene que dejar surco en el fondo.",
+      "nota": "Tapa fuera y sube al 5. Al final la cuchara tiene que dejar surco en el fondo.",
       "off": 78,
-      "p": "Ahora sí, tapa fuera: todo el vapor que sale se va, y en ocho minutos al 4 se evaporan el agua que ha soltado la carne y buena parte de la del tomate. Sube un punto porque sin tapa la superficie pierde calor al evaporar, y al 3 se quedaría en un hervor tímido. El punto final no es el reloj, es el surco: si arrastras la cuchara por el fondo y el hueco tarda en cerrarse, está. Más jugoso que eso y en una minitortilla de 15 cm el líquido traspasa la masa y el taco se rompe en la mano. Si llega antes al surco, baja al 1 y espera.",
+      "p": "Ahora sí, tapa fuera: todo el vapor que sale se va, y en ocho minutos al 5 se evaporan el agua que ha soltado la carne y buena parte de la del tomate. Sube un punto porque sin tapa la superficie pierde calor al evaporar, y al 4 se quedaría en un hervor tímido. El punto final no es el reloj, es el surco: si arrastras la cuchara por el fondo y el hueco tarda en cerrarse, está. Más jugoso que eso y en una minitortilla de 15 cm el líquido traspasa la masa y el taco se rompe en la mano. Si llega antes al surco, baja al 1 y espera.",
       "s": 480,
       "saco": "",
       "t": "Reducir sin tapa, hasta el surco",
@@ -925,11 +863,11 @@
     ],
     [
       "Los precalentados son pasos, no suposiciones",
-      "En la primera versión el sofrito arrancaba en una sartén fría y la carne entraba justo al subir la vitro del 5 al 8. Las dos cosas escondían minutos: la vitrocerámica calienta el cristal y el cristal calienta la sartén, así que una sartén grande tarda tres minutos en llegar a temperatura desde fría y otros tres en subir de sudar a dorar. Metidos dentro de los pasos, esos seis minutos se los comían el sofrito y el dorado; ahora son dos pasos con su propia señal visual —el aceite corriendo suelto y la gota de agua que desaparece de golpe— y lo que dura cada paso es lo que de verdad se cocina. Lo mismo con el bacon, que arranca en frío y necesita nueve minutos y no seis, y con el horno, que estabiliza en quince y no en los ocho del pitido."
+      "Si el sofrito arrancara en una sartén fría y la carne entrara justo al subir la vitro del 5 al 8, las dos cosas esconderían minutos: la vitrocerámica calienta el cristal y el cristal calienta la sartén, así que una sartén grande tarda tres minutos en llegar a temperatura desde fría y otros tres en subir de sudar a dorar. Metidos dentro de los pasos, esos seis minutos se los comerían el sofrito y el dorado; por eso son dos pasos con su propia señal visual —el aceite corriendo suelto y la gota de agua que desaparece de golpe— y lo que dura cada paso es lo que de verdad se cocina. Lo mismo con el bacon, que arranca en frío y necesita nueve minutos y no seis, y con el horno, que estabiliza en quince y no en los ocho del pitido."
     ],
     [
       "El pollo acaba con las tortillas, no las espera",
-      "La versión anterior asaba el pollo del 55 al 69 y lo volvía a meter a 150 °C con las tortillas otros catorce minutos, dando por hecho que a esa temperatura ya no se cocinaba. No es así: 150 °C está muy por encima de los 72 °C del punto, y unas tiras de 1,5 cm siguen subiendo hasta secarse. Ahora el pollo se asa al final, siete minutos por cara, y las tortillas entran en el volteo: salen juntas en el minuto 86 y desaparece el paso de bajar el horno."
+      "Si el pollo se asara del 55 al 69 y volviera a entrar a 150 °C con las tortillas otros catorce minutos, se daría por hecho que a esa temperatura ya no se cocina. No es así: 150 °C está muy por encima de los 72 °C del punto, y unas tiras de 1,5 cm siguen subiendo hasta secarse. Por eso el pollo se asa al final, siete minutos por cara, y las tortillas entran en el volteo: salen juntas en el minuto 86 y no hace falta ningún paso de bajar el horno."
     ],
     [
       "Las tortillas, fuera de su plástico",
@@ -972,8 +910,8 @@
       "Solo 3 g de pimentón picante para 750 g de carne, y 1 g para 500 g de pollo: en una mesa de ocho el pique no se puede imponer. Los jalapeños van en su bol y cada uno regula el suyo."
     ],
     [
-      "Cebolla morada de verdad, y antes del fuego",
-      "La versión de dos raciones encurtía cebolla blanca porque no había morada en la despensa. Ahora la hay: es menos agresiva en crudo, y su pigmento vira a rosa fuerte en contacto con el vinagre y el limón, que en una mesa de rellenos marrones y beis es lo único con color. Va en el minuto 25, después de los cortes secos, para no mojar la tabla antes del ajo, y aun así llega al montaje con cincuenta y siete minutos de ácido."
+      "Cebolla morada, y antes del fuego",
+      "Es menos agresiva en crudo, y su pigmento vira a rosa fuerte en contacto con el vinagre y el limón, que en una mesa de rellenos marrones y beis es lo único con color. Va en el minuto 25, después de los cortes secos, para no mojar la tabla antes del ajo, y aun así llega al montaje con cincuenta y siete minutos de ácido."
     ],
     [
       "Descartes: pimientos, calabacín, maíz y berenjena",
@@ -981,7 +919,7 @@
     ],
     [
       "El guiso, más seco que en la receta de dos, y por eso sin tapa al final",
-      "El punto final del chup-chup no es el reloj, es el surco de la cuchara en el fondo. En una tortilla grande una carne jugosa se sostiene; en una minitortilla de 15 cm el líquido traspasa la masa antes de que el taco llegue al plato. Para llegar ahí el agua tiene que irse, y con la tapa puesta no se va: por eso ocho minutos al 3 con la tapa a medias, por las salpicaduras, y ocho al 4 con la tapa fuera."
+      "El punto final del chup-chup no es el reloj, es el surco de la cuchara en el fondo. En una tortilla grande una carne jugosa se sostiene; en una minitortilla de 15 cm el líquido traspasa la masa antes de que el taco llegue al plato. Para llegar ahí el agua tiene que irse, y con la tapa puesta no se va: por eso ocho minutos al 4 con la tapa a medias, por las salpicaduras, y ocho al 5 con la tapa fuera."
     ],
     [
       "Las sartenes a la mesa, sin trasvasar",

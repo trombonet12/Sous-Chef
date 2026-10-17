@@ -26,7 +26,6 @@
       "tipo": "fuego"
     }
   ],
-  "compra": [],
   "cortes": [
     {
       "p": "Las vetas de grasa y de magro corren a lo largo de la loncha. Corta a lo ancho, cruzándolas, y cada taco sale con su parte de grasa y su parte de carne: la grasa es la que se funde y hace de aceite del plato, y el magro la que se tuesta. Los 8 mm son el compromiso entre las dos mitades del bacon: más finos se secan enteros antes de soltar la grasa, y más gruesos llegan al minuto 11 con el centro crudo y gomoso.",
@@ -44,6 +43,7 @@
       "t": "Ajo · láminas de 1,5 mm"
     }
   ],
+  "creada": "2026-10-13T00:00:00Z",
   "datos": [
     [
       "66 min",
@@ -115,7 +115,7 @@
       "items": [
         {
           "a": 320,
-          "n": "arroz de grano largo, enjuagado",
+          "n": "arroz blanco largo, enjuagado",
           "u": "g"
         },
         {
@@ -149,7 +149,6 @@
       "n": "CAZUELA Y SARTÉN DE HUEVOS · EL ARROZ"
     }
   ],
-  "importada": true,
   "lectura": "La suma, toda ella en la sartén grande: 4 de cortar el bacon + 7 del bacon + 1 de sacar la mitad + 10 de cebolla + 1 de espera + 1 de ajo + 4 de arranque del tomate + 30 de chup-chup (12 + 16 + 2) + 6 destapado + 2 de aliñar y montar = 66 minutos. Los otros dos fuegos caben dentro y no suman: la cazuela son 8 + 12 + 4 = 24 minutos que van del 40 al 64, y la sartén de los huevos 5 + 5 = 10 que van del 56 al 66. Tres encajes que respetar. El primero: la cebolla y el ajo se cortan entre el minuto 4 y el 10 con el bacon ya al fuego, así que los tres avisos de remover del bacon son tu reloj mientras cortas. El segundo: el agua se enciende en el minuto 40, justo al empezar el segundo tramo del chup-chup, y esa hora no es negociable — desde que rompe son 12 de cocción y 4 de reposo, y el arroz tiene que estar reposado justo en el 64, cuando la salsa llega a su punto. Que el arroz sean 12 minutos y no 16 no acorta el plato: lo largo es la sartén, así que lo único que cambia es que la cazuela se enciende cinco minutos más tarde y pasa menos rato ocupando un fuego. El tercero: del minuto 56 al 60 hay tres fuegos encendidos a la vez (chup-chup, arroz y aceite) y es el único tramo en el que no puedes salir de la cocina; en el 60 la cazuela sale de la placa y vuelven a ser dos.",
   "mep": [
     {
@@ -179,7 +178,7 @@
         "<b>Platito</b> · los 4 dientes de ajo (unos 16 g) en láminas de 1,5 mm. Caen en el minuto 23 y su ventana son sesenta segundos.",
         "<b>Bol grande</b> · los 800 g de tomate triturado con 2 g de sal, 5 g de azúcar y 0,5 g de pimienta negra recién molida (unas diez vueltas de molinillo) ya mezclados dentro. Los cuatro entran juntos en el minuto 24.",
         "<b>Cuenco pequeño</b> · vacío y al lado de la sartén. En el minuto 24 recibe un cuarto del ajo en láminas de 1,5 mm con una cucharada de la grasa de la sartén, y eso es el aliño del arroz del minuto 64.",
-        "<b>Bol del arroz</b> · los 320 g de arroz de grano largo, pesados y enjuagados bajo el grifo hasta que el agua salga clara. Entran en la cazuela en el minuto 48, cuando el agua ya rompe a hervir.",
+        "<b>Bol del arroz</b> · los 320 g de arroz blanco largo, pesados y enjuagados bajo el grifo hasta que el agua salga clara. Entran en la cazuela en el minuto 48, cuando el agua ya rompe a hervir.",
         "<b>Plato con papel</b> · para los 100 g de bacon crujiente que salen del fuego en el minuto 11 y no vuelven a aparecer hasta el montaje. Extendidos en una sola capa, no amontonados."
       ],
       "orden": false,
@@ -445,7 +444,7 @@
       "holgura": "ajustado",
       "id": "el-arroz-tapado-y-quieto",
       "junto": null,
-      "meto": "el bol del arroz: 320 g de arroz de grano largo enjuagado, al agua que ya hierve",
+      "meto": "el bol del arroz: 320 g de arroz blanco largo enjuagado, al agua que ya hierve",
       "min": 12,
       "nota": "Una sola vuelta de cuchara. Tapa puesta y al 4 desde el primer segundo: ya no se destapa, porque cada vez que la levantas pierdes vapor y el cálculo del agua deja de valer. Cuando este arroz lleve 8 minutos, enciende el aceite de los huevos.",
       "off": 48,

@@ -14,18 +14,6 @@
       "tipo": "horno"
     }
   ],
-  "compra": [
-    {
-      "a": 500,
-      "n": "salmón, 1 filete con piel",
-      "u": "g"
-    },
-    {
-      "a": 400,
-      "n": "patata baby",
-      "u": "g"
-    }
-  ],
   "cortes": [
     {
       "p": "Por la mitad a lo largo, siguiendo el eje largo de la patata: es el corte que da la cara plana más grande, la que se apoya en el papel y se dora. Mitades de 2-3 cm de grueso se hacen por dentro en los 36 minutos de horno.",
@@ -41,11 +29,11 @@
   "creada": "2026-09-28T10:00:00Z",
   "datos": [
     [
-      "49 min",
+      "54 min",
       "de principio a fin"
     ],
     [
-      "10 + 36 + 3",
+      "15 + 36 + 3",
       "preparar + horno + reposo"
     ],
     [
@@ -109,7 +97,7 @@
       "items": [
         {
           "a": 500,
-          "n": "salmón (1 filete con piel)",
+          "n": "salmón (1 lomo sin espinas, con piel)",
           "u": "g"
         },
         {
@@ -147,7 +135,7 @@
       "n": "BOL PEQUEÑO · LA COSTRA"
     }
   ],
-  "lectura": "Un solo horno y una sola bandeja, así que el plan es un relevo: 10 de precalentar + 20 de patatas solas + 16 de patatas con salmón y cherry + 3 de reposo = 49 minutos. La costra y los cherry se preparan mientras sube el horno. El salmón se monta en el minuto 25, cuando a las patatas les quedan cinco minutos de su primer tramo, para que la costra llegue seca al horno. No hay ningún fuego encendido en todo el plan.",
+  "lectura": "Un solo horno y una sola bandeja, así que el plan es un relevo: 15 de precalentar + 20 de patatas solas + 16 de patatas con salmón y cherry + 3 de reposo = 54 minutos. La costra y los cherry se preparan mientras sube el horno. El salmón se monta en el minuto 30, cuando a las patatas les quedan cinco minutos de su primer tramo, para que la costra llegue seca al horno. No hay ningún fuego encendido en todo el plan.",
   "mep": [
     {
       "l": [
@@ -159,13 +147,13 @@
     },
     {
       "l": [
-        "<b>Bandeja con papel</b> · 400 g de patata baby en mitades de 2-3 cm + 15 ml de aceite de oliva (1 cucharada sopera) + 3 g de sal (½ cucharadita). Al horno en el minuto 10.",
-        "<b>Bol pequeño</b> · la costra: 20 g de pan rallado (3 cucharadas soperas) + 15 g de Grana Padano rallado (3 cucharadas soperas; rállalo antes si está en pieza) + 10 ml de aceite de oliva (2 cucharaditas). Se mezcla en el minuto 5 y va sobre el salmón en el 25.",
-        "<b>Bol mediano</b> · 200 g de tomates cherry enteros (unos 14) + 5 ml de aceite de oliva (1 cucharadita) + 1 g de sal (una pizca). Se aliñan en el minuto 5 y van a la bandeja en el 30.",
-        "<b>Plato con papel</b> · el salmón, 500 g (1 filete con piel), fuera de la nevera desde el minuto 5. En el 25 se le echa 1 g de sal (una pizca) y 40 g de pesto (2 cucharadas soperas colmadas), directo del bote con la cuchara, y la costra del bol pequeño encima."
+        "<b>Bandeja con papel</b> · 400 g de patata baby en mitades de 2-3 cm + 15 ml de aceite de oliva (1 cucharada sopera) + 3 g de sal (½ cucharadita). Al horno en el minuto 15.",
+        "<b>Bol pequeño</b> · la costra: 20 g de pan rallado (3 cucharadas soperas) + 15 g de Grana Padano rallado (3 cucharadas soperas; rállalo antes si está en pieza) + 10 ml de aceite de oliva (2 cucharaditas). Se mezcla en el minuto 10 y va sobre el salmón en el 30.",
+        "<b>Bol mediano</b> · 200 g de tomates cherry enteros (unos 14) + 5 ml de aceite de oliva (1 cucharadita) + 1 g de sal (una pizca). Se aliñan en el minuto 10 y van a la bandeja en el 35.",
+        "<b>Plato con papel</b> · el salmón, 500 g (1 lomo sin espinas, con piel), fuera de la nevera desde el minuto 10. En el 30 se le echa 1 g de sal (una pizca) y 40 g de pesto (2 cucharadas soperas colmadas), directo del bote con la cuchara, y la costra del bol pequeño encima."
       ],
       "orden": false,
-      "porq": "Cada cosa entra en un minuto distinto. Las patatas en el 10, la costra sobre el salmón en el 25, y el salmón y los cherry en el 30. Por eso cada una tiene su sitio y nada más. La bandeja es a la vez el recipiente de preparación y el de horno.",
+      "porq": "Cada cosa entra en un minuto distinto. Las patatas en el 15, la costra sobre el salmón en el 30, y el salmón y los cherry en el 35. Por eso cada una tiene su sitio y nada más. La bandeja es a la vez el recipiente de preparación y el de horno.",
       "t": "CUATRO SITIOS, CUATRO MOMENTOS"
     }
   ],
@@ -179,11 +167,11 @@
       "id": "precalentar",
       "junto": "patatas",
       "meto": "",
-      "min": 10,
+      "min": 15,
       "nota": "Pon la rejilla a media altura y enciende el horno a 200 °C, calor arriba y abajo. No se toca en todo el plan.",
       "off": 0,
-      "p": "Se enciende en el minuto 0 porque tarda diez minutos en estar de verdad a 200 °C, y esos minutos ya se gastan preparando las patatas y la costra. Va a 200 °C para todo el plan: es la temperatura a la que la patata dora y el salmón se hace sin secarse por fuera. Así no hay que cambiar nada con la puerta abierta cuando entra el pescado. Calor arriba y abajo, con la rejilla puesta antes de encender.",
-      "s": 600,
+      "p": "Se enciende en el minuto 0 porque tarda unos quince minutos en estar de verdad a 200 °C, y esos minutos ya se gastan preparando las patatas y la costra. Va a 200 °C para todo el plan: es la temperatura a la que la patata dora y el salmón se hace sin secarse por fuera. Así no hay que cambiar nada con la puerta abierta cuando entra el pescado. Calor arriba y abajo, con la rejilla puesta antes de encender.",
+      "s": 900,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar y cada apertura le quita parte del precalentado.",
       "t": "Precalentar el horno a 200 °C",
@@ -198,9 +186,9 @@
       "junto": null,
       "meto": "400 g de patata baby en mitades a la bandeja con papel + 15 ml de aceite de oliva + 3 g de sal",
       "min": 5,
-      "nota": "Lava las patatas, sécalas con un trapo y pártelas por la mitad a lo largo. Ponlas en la bandeja con papel, echa el aceite y la sal, mézclalo con las manos y deja cada mitad con la cara cortada hacia abajo, separadas entre sí.",
+      "nota": "Lava y seca las patatas, pártelas por la mitad a lo largo y ponlas en la bandeja con papel con el aceite y la sal. Mézclalo con las manos y deja cada mitad con la cara cortada hacia abajo, separadas entre sí.",
       "off": 0,
-      "p": "La patata baby tiene la piel fina y se come entera, así que basta con lavarla y secarla bien: el agua que quede en la superficie tiene que evaporarse antes de que empiece a dorar. Partida a lo largo tiene la cara cortada más grande posible, y esa cara boca abajo sobre el papel caliente es la que se dora por contacto. Separadas entre sí, porque dos patatas que se tocan se cuecen en el vapor de la otra. El aceite y la sal se reparten en la bandeja, que es donde acaban.",
+      "p": "La patata baby tiene la piel fina y se come entera, así que basta con lavarla y secarla bien: el agua que quede en la superficie tiene que evaporarse antes de que empiece a dorar. Partida a lo largo tiene la cara cortada más grande posible, y esa cara boca abajo sobre el papel es la que se dora por contacto. Separadas entre sí, porque dos patatas que se tocan se cuecen en el vapor de la otra. El aceite y la sal se reparten en la bandeja, que es donde acaban.",
       "s": 300,
       "saco": "",
       "t": "Partir las patatas y aliñarlas en la bandeja",
@@ -215,9 +203,9 @@
       "junto": null,
       "meto": "bol pequeño: 20 g de pan rallado + 15 g de Grana Padano rallado + 10 ml de aceite de oliva · bol mediano: 200 g de cherry enteros + 5 ml de aceite de oliva + 1 g de sal · plato con papel: el salmón",
       "min": 5,
-      "nota": "En el bol pequeño, mezcla el pan rallado, el Grana Padano (rállalo antes si está en pieza) y el aceite frotando con los dedos hasta que parezca arena húmeda. En el bol mediano, mezcla los cherry enteros con su aceite y su sal. Saca el salmón de la nevera a un plato con papel, sin nada encima: se queda en la encimera hasta el minuto 25.",
-      "off": 5,
-      "p": "El aceite se frota con los dedos entre el pan rallado y el queso para que cada miga quede cubierta: una miga con aceite se tuesta en el horno, y una seca solo se seca. El Grana Padano aporta la sal y el tostado a queso de la costra. Los cherry van enteros, porque con la piel cerrada se asan en su jugo y revientan al final. Partidos soltarían el agua en la bandeja y encharcarían las patatas. El salmón sale ahora para pasar veinte minutos fuera de la nevera: un centro menos frío se hace en el mismo tiempo que el exterior.",
+      "nota": "Mezcla en el bol pequeño el pan rallado, el Grana Padano y el aceite, frotando con los dedos hasta que parezca arena húmeda. Aliña los cherry enteros en el bol mediano con su aceite y su sal, y saca el salmón a un plato con papel.",
+      "off": 10,
+      "p": "El aceite se frota con los dedos entre el pan rallado y el queso para que cada miga quede cubierta: una miga con aceite se tuesta en el horno, y una seca solo se seca. El Grana Padano aporta la sal y el tostado a queso de la costra. Los cherry van enteros, porque con la piel cerrada se asan en su jugo y revientan al final. Partidos soltarían el agua en la bandeja y encharcarían las patatas. El salmón sale ahora para pasar veinte minutos fuera de la nevera: un centro menos frío se hace en el mismo tiempo que el exterior. Si el Grana Padano está en pieza, rállalo antes; el salmón se queda en la encimera, sin nada encima, hasta el minuto 30.",
       "s": 300,
       "saco": "",
       "t": "Mezclar la costra, aliñar los cherry y sacar el salmón",
@@ -235,7 +223,7 @@
       "meto": "la bandeja con las patatas",
       "min": 20,
       "nota": "Mete la bandeja a media altura y cierra. No abras ni muevas las patatas: la cara cortada se está dorando contra el papel.",
-      "off": 10,
+      "off": 15,
       "p": "Las patatas llevan veinte minutos de ventaja porque en total necesitan unos 36 a 200 °C y el salmón solo 16. Entrando antes, acaban a la vez sin que nada espere. En este primer tramo el almidón de la cara cortada se gelatiniza y se dora contra el papel caliente, y el interior empieza a cocerse en su propio vapor. No se tocan porque la costra de la cara cortada se forma pegada al papel, y si la despegas antes de tiempo se queda en él.",
       "s": 1200,
       "saco": "",
@@ -253,8 +241,8 @@
       "meto": "en el plato: 1 g de sal + 40 g de pesto + la costra del bol pequeño, sobre el salmón (500 g)",
       "min": 4,
       "nota": "Sécalo con papel y pasa el dedo por el centro, a contrapelo: si notas alguna espina, sácala con pinzas o con los dedos. Echa la sal sobre la carne, extiende el pesto con el dorso de la cuchara y reparte la costra encima, apretándola con la palma.",
-      "off": 25,
-      "p": "El salmón se monta ahora y no en el minuto 5 porque el pan rallado absorbe la humedad del pesto: montado veinte minutos antes, la costra llegaría al horno ya blanda y no tostaría. Se seca para que el pesto se agarre. Las espinas finas del salmón van en línea por el centro del lomo, y se notan al pasar el dedo en sentido contrario. La sal es poca, porque el pesto y el queso ya aportan la mayor parte. La costra se aprieta con la palma para que forme una capa continua y no se caiga en la bandeja: esa capa aísla la carne de arriba y evita que se seque.",
+      "off": 30,
+      "p": "El salmón se monta ahora y no en el minuto 10 porque el pan rallado absorbe la humedad del pesto: montado veinte minutos antes, la costra llegaría al horno ya blanda y no tostaría. Se seca para que el pesto se agarre. Las espinas finas del salmón van en línea por el centro del lomo, y se notan al pasar el dedo en sentido contrario. La sal es poca, porque el pesto y el queso ya aportan la mayor parte. La costra se aprieta con la palma para que forme una capa continua y no se caiga en la bandeja: esa capa aísla la carne de arriba y evita que se seque.",
       "s": 240,
       "saco": "",
       "t": "Montar el salmón: sal, pesto y costra",
@@ -283,7 +271,7 @@
       "meto": "el salmón montado, del plato a la bandeja con una espátula ancha + los 200 g de cherry del bol mediano",
       "min": 16,
       "nota": "Saca la bandeja a la encimera, aparta las patatas a los bordes sin darles la vuelta, pon el salmón en el centro con la piel abajo y los cherry alrededor, y vuelve a meterla a media altura, rápido y sin tocar la temperatura. Si al final el centro sigue translúcido, dale 2 minutos más.",
-      "off": 30,
+      "off": 35,
       "p": "Dieciséis minutos a 200 °C para un filete de 500 g dejan el centro a unos 50-52 °C: jugoso y en capas, sin llegar a seco. La costra de encima frena el calor por arriba, y la piel hace lo mismo por abajo. En el aviso de los 13 minutos se comprueba de verdad, porque el grosor manda más que el peso: si al apretar el centro la carne ya se separa en capas y está opaca, la bandeja sale antes. Los cherry entran ahora porque en dieciséis minutos se asan y revientan justo al final. Las patatas siguen dorándose en los bordes de la bandeja.",
       "s": 960,
       "saco": "la bandeja, fuera del horno, a la encimera. Apaga el horno",
@@ -302,7 +290,7 @@
       "meto": "la bandeja recién salida",
       "min": 3,
       "nota": "Déjalo reposar 2 minutos en la bandeja. Después córtalo por la mitad, de través, levanta cada mitad con la espátula entre la carne y la piel, y reparte las patatas y los cherry con su jugo.",
-      "off": 46,
+      "off": 51,
       "p": "En los dos minutos de reposo el centro del salmón sube todavía uno o dos grados con su propio calor y los jugos se asientan. Si lo cortas nada más salir, pierde ese jugo en la bandeja. Se corta por la mitad, de través, en paralelo a las líneas blancas: el cuchillo entra entre dos capas y cada ración sale entera. Al horno y con la piel abajo sobre el papel, la piel no se pone crujiente, pero se despega sola de la carne: la espátula pasa entre las dos y la piel se queda pegada al papel. Los cherry reventados y su jugo van por encima de las patatas: son el ácido del plato.",
       "s": 180,
       "saco": "2 platos: media pieza de salmón con su costra, las patatas baby y los cherry con su jugo",
@@ -318,8 +306,8 @@
   "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
   "porque": [
     [
-      "La costra, montada en el minuto 25",
-      "El pan rallado es una esponja: sobre el pesto húmedo lo absorbe en minutos. Si se monta justo antes de entrar al horno, la costra llega seca y tuesta; si se monta en el minuto 5, sale una pasta blanda."
+      "La costra, montada en el minuto 30",
+      "El pan rallado es una esponja: sobre el pesto húmedo lo absorbe en minutos. Si se monta justo antes de entrar al horno, la costra llega seca y tuesta; si se monta en el minuto 10, sale una pasta blanda."
     ],
     [
       "200 °C todo el rato",
@@ -364,5 +352,5 @@
     ]
   },
   "titulo": "Salmón con costra de pesto",
-  "totalMin": 49
+  "totalMin": 54
 }

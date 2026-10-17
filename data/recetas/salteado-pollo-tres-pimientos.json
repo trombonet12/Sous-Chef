@@ -14,13 +14,6 @@
       "tipo": "fuego"
     }
   ],
-  "compra": [
-    {
-      "a": 1,
-      "n": "pimiento amarillo",
-      "u": ""
-    }
-  ],
   "cortes": [
     {
       "p": "Las líneas finas del dibujo son las fibras y el cuchillo va perpendicular a ellas, nunca a favor. Cortar contra la fibra acorta las hebras y el bocado queda tierno; a favor, cada tira es un manojo de fibras largas que hay que masticar.",
@@ -51,11 +44,11 @@
   "creada": "2026-09-10T00:00:00Z",
   "datos": [
     [
-      "137 min",
+      "145 min",
       "de principio a fin"
     ],
     [
-      "110 + 27",
+      "110 + 35",
       "preparación + sartén"
     ],
     [
@@ -71,26 +64,30 @@
       "pasos"
     ]
   ],
-  "descripcion": "Dos pechugas para dos personas. Una hora de marinada en bolsa y veintisiete minutos de sartén sin pausas. Los tres pimientos entran escalonados, porque si van juntos el rojo se deshace antes de que el verde esté hecho.",
+  "descripcion": "Dos pechugas para dos personas. Una hora de marinada en bolsa y treinta y cinco minutos de sartén sin pausas. Los tres pimientos entran escalonados, porque si van juntos el rojo se deshace antes de que el verde esté hecho.",
   "grupos": [
     {
       "items": [
         {
-          "n": "salsa de soja",
-          "txt": "1½ cda"
+          "a": 22,
+          "n": "salsa de soja (1½ cucharadas soperas)",
+          "u": "ml"
         },
         {
-          "n": "aceite de oliva",
-          "txt": "¾ cda"
+          "a": 11,
+          "n": "aceite de oliva (¾ de cucharada sopera)",
+          "u": "ml"
         },
         {
-          "n": "ajo picado muy fino",
-          "txt": "1 diente"
+          "a": 4,
+          "n": "ajo picado muy fino (1 diente)",
+          "u": "g"
         },
         {
+          "a": 0.5,
           "esc": "sub",
-          "n": "pimienta negra",
-          "txt": "¼ cdta"
+          "n": "pimienta negra (¼ de cucharadita)",
+          "u": "g"
         }
       ],
       "n": "CADA BOLSA (una pechuga)"
@@ -98,70 +95,77 @@
     {
       "items": [
         {
-          "a": 2,
-          "n": "pechugas de pollo",
-          "u": ""
+          "a": 400,
+          "n": "pechugas de pollo (2 pechugas)",
+          "u": "g"
         },
         {
-          "a": 1,
-          "n": "pimiento verde",
-          "u": ""
+          "a": 150,
+          "n": "pimiento verde (1 mediano)",
+          "u": "g"
         },
         {
-          "a": 1,
-          "n": "pimiento amarillo",
-          "u": ""
+          "a": 150,
+          "n": "pimiento amarillo (1 mediano)",
+          "u": "g"
         },
         {
-          "a": 1,
-          "n": "pimiento rojo",
-          "u": ""
+          "a": 150,
+          "n": "pimiento rojo (1 mediano)",
+          "u": "g"
         },
         {
-          "a": 1,
-          "n": "cebolla",
-          "u": ""
+          "a": 150,
+          "n": "cebolla (1 mediana)",
+          "u": "g"
         },
         {
-          "n": "aceite de oliva",
-          "txt": "2 cda"
-        },
-        {
-          "n": "ajo laminado fino",
-          "txt": "3 dientes"
-        },
-        {
-          "a": 80,
-          "n": "vino blanco",
+          "a": 30,
+          "n": "aceite de oliva, para la sartén (2 cucharadas soperas)",
           "u": "ml"
         },
         {
+          "a": 10,
+          "n": "aceite de oliva, para la cebolla (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 12,
+          "n": "ajo laminado fino (3 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "vino blanco (5 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
           "esc": "sub",
-          "n": "sal, solo al final",
-          "txt": "2 g"
+          "n": "sal, solo al final (1 pizca de tres dedos)",
+          "u": "g"
         }
       ],
       "n": "SARTÉN"
     }
   ],
-  "importada": true,
-  "lectura": "El plan tiene dos mitades muy distintas: 110 minutos de preparación en los que el único tramo largo es la hora de nevera, y 27 minutos de sartén seguidos en los que no hay una sola pausa. La suma: 15 de congelador + 10 de cortar el pollo + 5 de montar la marinada + 60 de nevera + 12 de cortar las verduras + 8 de escurrir y secar + 27 de sartén = 137 minutos. Los veinte minutos que van de sacar las bolsas a encender el fuego hacen doble trabajo, porque el pollo se atempera mientras cortas las verduras. Dentro del bloque de sartén no todos los minutos son redondos: cada tanda de pollo quieto son dos minutos y medio de reloj, así que la segunda tanda arranca en el 117:30 y de ahí al final el bloque va medio minuto corrido. Los cambios de plato de la sartén caen en el 122 la cebolla, el 125 el verde, el 127 el amarillo y el rojo, y el 130 el ajo.",
+  "lectura": "El plan tiene dos mitades muy distintas: 110 minutos de preparación en los que el único tramo largo es la hora de nevera, y 35 minutos de sartén seguidos en los que no hay una sola pausa. La suma: 15 de congelador + 10 de cortar el pollo + 5 de montar la marinada + 60 de nevera + 12 de cortar las verduras + 8 de escurrir y secar + 35 de sartén = 145 minutos. Los veinte minutos que van de sacar las bolsas a encender el fuego hacen doble trabajo, porque el pollo se atempera mientras cortas las verduras. Dentro del bloque de sartén cada tanda de pollo son seis minutos redondos (tres quieto y tres removiendo), así que la segunda tanda arranca en el 121. Los cambios de plato de la sartén caen en el 127 la cebolla, el 131 el verde, el 134 el amarillo y el rojo, y el 138 el ajo.",
   "mep": [
     {
       "l": [
-        "<b>Pollo · 2 pechugas, unos 400 g (peso aproximado, no hay que pesarlas)</b> · recién salido del congelador, en tiras de 1,5 cm contra la fibra. Después, tabla y cuchillo a lavar.",
-        "<b>Pimientos · 1 verde, 1 amarillo y 1 rojo, unos 150 g cada uno (aproximado: aquí se cuenta por piezas, no por báscula)</b> · desenrollados y en tiras de 1 cm.",
-        "<b>Cebolla · 1 mediana, unos 150 g aproximados</b> · en pluma, tiras de 1 cm de la raíz a la punta.",
-        "<b>Ajo de la marinada · 1 diente por bolsa, 2 en total (unos 8 g)</b> · picado de 1 mm, que es el que se disuelve en la soja.",
-        "<b>Ajo de la sartén · 3 dientes, unos 12 g</b> · en láminas de 2 mm, al final del todo y en su propio montón."
+        "<b>Pollo · 400 g (2 pechugas)</b> · recién salido del congelador, en tiras de 1,5 cm contra la fibra. A las bolsas en el 25. Después, tabla y cuchillo a lavar.",
+        "<b>Ajo de la marinada · 8 g (2 dientes, 1 por bolsa)</b> · picado de 1 mm, que es el que se disuelve en la soja. Entra en el minuto 25.",
+        "<b>Pimientos · 450 g (1 verde, 1 amarillo y 1 rojo, de 150 g cada uno)</b> · desenrollados y en tiras de 1 cm. El verde en el 131, el amarillo y el rojo en el 134.",
+        "<b>Cebolla · 150 g (1 mediana)</b> · en pluma, tiras de 1 cm de la raíz a la punta. Entra en el minuto 127.",
+        "<b>Ajo de la sartén · 12 g (3 dientes)</b> · en láminas de 2 mm, al final del todo y en su propio montón. Entra en el minuto 138."
       ],
       "orden": true,
-      "porq": "El pollo crudo obliga a lavar tabla y cuchillo antes de seguir, así que va primero y solo se lava una vez. Los dos ajos se cortan seguidos pero no se mezclan: uno se disuelve en la marinada y el otro tiene que llegar entero a los últimos cuarenta y cinco segundos de sartén. Los gramos entre paréntesis son equivalencias, para saber si lo que tienes en la mano se parece a lo que pide la receta: nada de esto se pesa.",
+      "porq": "El pollo crudo obliga a lavar tabla y cuchillo antes de seguir, así que va primero y solo se lava una vez. El ajo de la marinada se pica justo después, antes de montar las bolsas, y el de la sartén se lamina con las verduras: no se mezclan, porque uno se disuelve en la marinada y el otro tiene que llegar entero a los últimos cuarenta y cinco segundos de sartén.",
       "t": "TABLA DE CORTAR, EN ESTE ORDEN"
     },
     {
       "l": [
-        "<b>Bol pequeño</b> · la marinada de las dos bolsas, mezclada antes de repartirla a partes iguales. Por bolsa: 1½ cda de salsa de soja (unos 22 ml), ¾ cda de aceite de oliva (unos 11 ml), 1 diente de ajo picado de 1 mm y ¼ cdta de pimienta negra; en el bol va el doble de cada cosa.",
+        "<b>Bol pequeño</b> · la marinada de las dos bolsas, mezclada antes de repartirla a partes iguales. Por bolsa: 22 ml de salsa de soja (1½ cucharadas soperas), 11 ml de aceite de oliva (¾ de cucharada sopera), 4 g de ajo picado de 1 mm (1 diente) y 0,5 g de pimienta negra (¼ de cucharadita); en el bol va el doble de cada cosa. Entra en el minuto 25.",
         "<b>Dos bolsas de congelación</b> · una pechuga en cada una con su mitad de marinada. Se cierran en el minuto 25 y no se vuelven a abrir hasta el 102."
       ],
       "orden": true,
@@ -170,10 +174,10 @@
     },
     {
       "l": [
-        "<b>Plato 1</b> · los 150 g de cebolla en pluma, que entra primero, en el minuto 122.",
-        "<b>Plato 2</b> · los 150 g de pimiento verde en tiras de 1 cm, tres minutos después, en el 125.",
-        "<b>Plato 3</b> · el amarillo y el rojo juntos, unos 300 g en tiras de 1 cm, que entran a la vez en el minuto 127.",
-        "<b>Plato 4</b> · los 3 dientes de ajo en láminas de 2 mm, unos 12 g, para los últimos 45 segundos."
+        "<b>Plato 1</b> · los 150 g de cebolla en pluma (1 mediana), que entra primero, en el minuto 127.",
+        "<b>Plato 2</b> · los 150 g de pimiento verde (1 mediano) en tiras de 1 cm, cuatro minutos después, en el 131.",
+        "<b>Plato 3</b> · el amarillo y el rojo juntos, 300 g (2 medianos) en tiras de 1 cm, que entran a la vez en el minuto 134.",
+        "<b>Plato 4</b> · los 12 g de ajo (3 dientes) en láminas de 2 mm, para los últimos 45 segundos, en el minuto 138."
       ],
       "orden": false,
       "porq": "Cada verdura entra en un momento distinto y con la sartén al 7 no hay tiempo de ir a buscarla: lo que no esté al lado de la placa llega tarde.",
@@ -182,13 +186,14 @@
     {
       "l": [
         "<b>El pollo</b> se queda en sus dos bolsas de marinada hasta el escurrido del minuto 102.",
-        "<b>Los 80 ml de vino blanco</b>, medidos de antemano: el desglasado son dos minutos en los que no hay tiempo de medir.",
-        "<b>Las 2 cda de aceite de oliva de la sartén</b>, unos 30 ml en total: 1 cda al precalentar en el minuto 110 y la otra en el 116:30, justo antes de la segunda tanda.",
+        "<b>Los 80 ml de vino blanco (5 cucharadas soperas)</b>, medidos de antemano: el desglasado son dos minutos en los que no hay tiempo de medir. Entra en el minuto 139.",
+        "<b>Las 2 cucharadas soperas de aceite de oliva de la sartén</b>, 30 ml en total: 15 ml al precalentar en el minuto 110 y los otros 15 ml en el 119, justo antes de la segunda tanda.",
+        "<b>10 ml de aceite de oliva (2 cucharaditas)</b>, medidos aparte, para la cebolla. Entran en el minuto 127.",
         "<b>El plato del pollo</b>, vacío y a mano, para las dos tandas y sus jugos.",
-        "<b>La sal · hasta 2 g</b>, al final y solo si la prueba lo pide: la soja de la marinada ya ha salado la carne."
+        "<b>La sal · hasta 2 g (1 pizca de tres dedos)</b>, al final, en el minuto 143, y solo si la prueba lo pide: la soja de la marinada ya ha salado la carne."
       ],
       "orden": false,
-      "porq": "Lo que ya viene en su envase o va directo a la sartén no se trasvasa. El aceite se reparte en dos cucharadas porque la segunda tanda entra en una sartén que ya ha soltado la grasa en el pollo de la primera.",
+      "porq": "Lo que ya viene en su envase o va directo a la sartén no se trasvasa. El aceite de la sartén se reparte en dos cucharadas porque la segunda tanda entra en una sartén que ya ha soltado la grasa en el pollo de la primera; el de la cebolla va aparte porque ese fondo ya no da para cuatro minutos de verdura.",
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
@@ -222,7 +227,7 @@
       "min": 10,
       "nota": "Contra la fibra, tiras de 1,5 cm de grosor y unos 5 de largo.",
       "off": 15,
-      "p": "Cuchillo perpendicular a las fibras, nunca a favor: cortar contra la fibra acorta las hebras y el bocado queda tierno. Tiras de kilo y medio de centímetro de grosor y unos cinco de largo. Si la pechuga es muy gruesa, ábrela antes por la mitad a lo ancho. El solomillo interior se saltea entero, sin cortar.",
+      "p": "Cuchillo perpendicular a las fibras, nunca a favor: cortar contra la fibra acorta las hebras y el bocado queda tierno. Tiras de centímetro y medio de grosor y unos cinco de largo. Si la pechuga es muy gruesa, ábrela antes por la mitad a lo ancho. El solomillo interior se saltea entero, sin cortar.",
       "s": 600,
       "saco": "tiras de 1,5 cm",
       "t": "Cortar el pollo en tiras",
@@ -235,14 +240,14 @@
       "holgura": "flexible",
       "id": "marinada",
       "junto": null,
-      "meto": "el bol: 1½ cda de salsa de soja, ¾ cda de aceite de oliva, 1 diente de ajo picado de 1 mm y ¼ cdta de pimienta negra por bolsa",
+      "meto": "el bol, por bolsa: 22 ml de salsa de soja (1½ cucharadas soperas), 11 ml de aceite de oliva (¾ de cucharada sopera), 4 g de ajo (1 diente) picado de 1 mm y 0,5 g de pimienta negra (¼ de cucharadita)",
       "min": 5,
-      "nota": "Nada de sal: la soja ya la lleva. Expulsa el aire y masajea 30 segundos.",
+      "nota": "Pica 2 dientes a 1 mm. Expulsa el aire y masajea 30 segundos.",
       "off": 25,
-      "p": "Una pechuga por bolsa. Mezcla la marinada aparte y repártela. Cierra la bolsa dejando un dedo de abertura, presiónala desde el fondo hacia arriba para expulsar el aire y termina de sellar: sin aire dentro, esas dos cucharadas escasas envuelven cada tira en vez de quedarse en el fondo. Masajea treinta segundos por fuera. Sal ninguna, la soja ya sala.",
+      "p": "Pica primero los dos dientes de ajo a 1 mm, para que se disuelvan en la soja. Una pechuga por bolsa. Mezcla la marinada aparte y repártela. Cierra la bolsa dejando un dedo de abertura, presiónala desde el fondo hacia arriba para expulsar el aire y termina de sellar: sin aire dentro, esas dos cucharadas escasas envuelven cada tira en vez de quedarse en el fondo. Masajea treinta segundos por fuera. Sal ninguna, la soja ya sala.",
       "s": 300,
       "saco": "dos bolsas cerradas",
-      "t": "Mezclar la marinada y montar las bolsas",
+      "t": "Picar el ajo, mezclar la marinada y montar las bolsas",
       "tapa": null
     },
     {
@@ -309,14 +314,14 @@
       ],
       "f": 9,
       "holgura": "ajustado",
-      "id": "s1-precalentar-la-sart-n",
+      "id": "s1-precalentar-sarten",
       "junto": null,
       "meto": "1 cda de aceite de oliva (unos 15 ml)",
-      "min": 2,
+      "min": 3,
       "nota": "Listo cuando el aceite ondule y esté a punto de humear.",
       "off": 110,
-      "p": "Una cucharada de aceite de oliva y la placa al 9. Precalienta hasta que el aceite ondule y esté a punto de humear: la costra del pollo se forma por contacto con metal muy caliente, y si entra en una sartén templada suelta agua y se cuece gris.",
-      "s": 120,
+      "p": "Una cucharada de aceite de oliva y la placa al 9. Precalienta tres minutos, hasta que el aceite ondule y esté a punto de humear: la costra del pollo se forma por contacto con metal muy caliente, y si entra en una sartén templada suelta agua y se cuece gris.",
+      "s": 180,
       "saco": "",
       "t": "Precalentar la sartén",
       "tapa": "sin tapa"
@@ -329,11 +334,11 @@
       "id": "s2-pollo-1-a-tanda-quieto",
       "junto": null,
       "meto": "la mitad del pollo, en una capa",
-      "min": 2.5,
-      "nota": "Baja al 8 al echar el pollo. Dos minutos y medio de reloj sin tocarlo ni moverlo: está formando la costra.",
-      "off": 112,
-      "p": "Baja al 8 en cuanto entre la carne: el 9 es para calentar la sartén vacía, pero con el pollo dentro quemaría la soja de la marinada antes de que se haga la costra. La mitad del pollo, extendido en una sola capa. Dos minutos y medio sin tocarlo ni moverlo: está formando la costra, y cada vez que remueves interrumpes el contacto que la crea.",
-      "s": 150,
+      "min": 3,
+      "nota": "Baja al 8 al echar el pollo. Tres minutos sin tocarlo ni moverlo: está formando la costra.",
+      "off": 113,
+      "p": "Baja al 8 en cuanto entre la carne: el 9 es para calentar la sartén vacía, pero con el pollo dentro quemaría la soja de la marinada antes de que se haga la costra. La mitad del pollo, extendido en una sola capa. Tres minutos sin tocarlo ni moverlo: está formando la costra, y cada vez que remueves interrumpes el contacto que la crea.",
+      "s": 180,
       "saco": "",
       "t": "Pollo, 1.ª tanda · quieto",
       "tapa": "sin tapa"
@@ -343,14 +348,14 @@
       "dep": [],
       "f": 8,
       "holgura": "critico",
-      "id": "s3-pollo-1-a-tanda-removien",
+      "id": "s3-pollo-1-removiendo",
       "junto": null,
       "meto": "",
-      "min": 2,
+      "min": 3,
       "nota": "Ahora sí, remueve. Sale del fuego aunque el centro esté algo rosado.",
-      "off": 114.5,
+      "off": 116,
       "p": "Ahora sí, remueve. Sale al plato aunque el centro esté algo rosado, porque vuelve a la sartén al final y termina de hacerse ahí; si lo dejas hasta el punto exacto ahora, en el remate quedará seco.",
-      "s": 120,
+      "s": 180,
       "saco": "el pollo, al plato",
       "t": "Pollo, 1.ª tanda · removiendo",
       "tapa": "sin tapa"
@@ -363,11 +368,11 @@
       "id": "s4-recuperar-temperatura",
       "junto": null,
       "meto": "1 cda de aceite de oliva (unos 15 ml)",
-      "min": 1,
+      "min": 2,
       "nota": "Sube a 9 y espera. Si echas la segunda tanda en frío, se cuece en vez de dorarse.",
-      "off": 116.5,
-      "p": "Otra cucharada de aceite de oliva, sube al 9 y espera un minuto a que la sartén recupere temperatura. Si echas la segunda tanda en frío se cuece en su propio líquido en vez de dorarse, que es justo el error que evitan las dos tandas.",
-      "s": 60,
+      "off": 119,
+      "p": "Otra cucharada de aceite de oliva, sube al 9 y espera dos minutos a que la sartén recupere temperatura. Si echas la segunda tanda en frío se cuece en su propio líquido en vez de dorarse, que es justo el error que evitan las dos tandas.",
+      "s": 120,
       "saco": "",
       "t": "Recuperar temperatura",
       "tapa": "sin tapa"
@@ -380,11 +385,11 @@
       "id": "s5-pollo-2-a-tanda-quieto",
       "junto": null,
       "meto": "el resto del pollo",
-      "min": 2.5,
-      "nota": "Otra vez al 8 al echarlo, en una sola capa. Dos minutos y medio sin tocarlo, igual que la primera tanda.",
-      "off": 117.5,
-      "p": "El resto del pollo, otra vez al 8 y en una sola capa, sin tocarlo. Dos minutos y medio de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en el minuto de espera, así que la costra tarda lo mismo en hacerse. Todo de golpe habría enfriado la sartén: dos tandas cortas doran mejor que una larga, porque la placa recupera temperatura entre una y otra.",
-      "s": 150,
+      "min": 3,
+      "nota": "Baja al 8 al echarlo, en una sola capa. Tres minutos sin tocarlo, igual que la primera tanda.",
+      "off": 121,
+      "p": "El resto del pollo, otra vez al 8 y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en los dos minutos de espera, así que la costra tarda lo mismo en hacerse. Todo de golpe habría enfriado la sartén: dos tandas cortas doran mejor que una larga, porque la placa recupera temperatura entre una y otra.",
+      "s": 180,
       "saco": "",
       "t": "Pollo, 2.ª tanda · quieto",
       "tapa": "sin tapa"
@@ -394,14 +399,14 @@
       "dep": [],
       "f": 8,
       "holgura": "critico",
-      "id": "s6-pollo-2-a-tanda-removien",
+      "id": "s6-pollo-2-removiendo",
       "junto": null,
       "meto": "",
-      "min": 2,
+      "min": 3,
       "nota": "Remueve hasta que esté dorado por fuera.",
-      "off": 120,
+      "off": 124,
       "p": "Remueve hasta que esté dorado por fuera y sácalo con todos sus jugos al mismo plato que la primera tanda. Sale antes del punto exacto, igual que la primera: los dos minutos que le faltan se los da la salsa al final, y lo que caiga al plato en estos minutos vuelve a la sartén con él.",
-      "s": 120,
+      "s": 180,
       "saco": "el pollo, al plato",
       "t": "Pollo, 2.ª tanda · removiendo",
       "tapa": "sin tapa"
@@ -413,12 +418,12 @@
       "holgura": "ajustado",
       "id": "s7-cebolla",
       "junto": null,
-      "meto": "la cebolla en pluma",
-      "min": 3,
-      "nota": "Baja a 7 antes de echarla. No laves la sartén: el fondo tostado es la salsa.",
-      "off": 122,
-      "p": "Baja al 7 antes de echar la cebolla. No laves ni raspes la sartén: en el fondo hay manchas oscuras pegadas, azúcares y proteínas caramelizados del pollo, y de ahí sale la salsa dentro de diez minutos. Lista cuando los bordes empiecen a dorarse.",
-      "s": 180,
+      "meto": "la cebolla en pluma y 10 ml de aceite de oliva (2 cucharaditas)",
+      "min": 4,
+      "nota": "Baja a 7 y echa la cebolla con 10 ml de aceite. No laves la sartén: el fondo tostado es la salsa.",
+      "off": 127,
+      "p": "Baja al 7 antes de echar la cebolla. No laves ni raspes la sartén: en el fondo hay manchas oscuras pegadas, azúcares y proteínas caramelizados del pollo, y de ahí sale la salsa dentro de doce minutos. Lista cuando los bordes empiecen a dorarse. Los 10 ml de aceite van con la cebolla porque cuatro minutos al 7 sin grasa la pegarían al fondo tostado en vez de dorarla.",
+      "s": 240,
       "saco": "",
       "t": "Cebolla",
       "tapa": "sin tapa"
@@ -431,11 +436,11 @@
       "id": "s8-pimiento-verde",
       "junto": null,
       "meto": "el pimiento verde",
-      "min": 2,
+      "min": 3,
       "nota": "Debe brillar y marcarse alguna ampolla, no ablandarse.",
-      "off": 125,
+      "off": 131,
       "p": "El verde entra primero porque tiene la pared más gruesa y aguanta más fuego. Debe brillar y marcarse alguna ampolla, no ablandarse.",
-      "s": 120,
+      "s": 180,
       "saco": "",
       "t": "Pimiento verde",
       "tapa": "sin tapa"
@@ -448,11 +453,11 @@
       "id": "s9-pimiento-amarillo-y-rojo",
       "junto": null,
       "meto": "el amarillo y el rojo, juntos",
-      "min": 3,
+      "min": 4,
       "nota": "Moviendo la sartén. Terminan al dente.",
-      "off": 127,
+      "off": 134,
       "p": "El amarillo y el rojo juntos, moviendo la sartén. Terminan al dente. Si los tres pimientos entraran a la vez, el rojo se desharía antes de que el verde estuviera hecho: ese escalonado es todo el secreto del plato.",
-      "s": 180,
+      "s": 240,
       "saco": "",
       "t": "Pimiento amarillo y rojo",
       "tapa": "sin tapa"
@@ -467,7 +472,7 @@
       "meto": "los 3 dientes laminados",
       "min": 1,
       "nota": "Aparta las verduras, échalo en el hueco del centro y mézclalo cuando huela.",
-      "off": 130,
+      "off": 138,
       "p": "Aparta las verduras a los bordes, echa el ajo laminado en el hueco del centro y mézclalo en cuanto huela. Cuarenta y cinco segundos: a fuego fuerte se quema en menos de un minuto y amarga todo lo demás.",
       "s": 45,
       "saco": "",
@@ -484,7 +489,7 @@
       "meto": "80 ml de vino blanco",
       "min": 2,
       "nota": "Sube a 9 y viértelo de golpe. Raspa el fondo sin parar hasta reducirlo a la mitad.",
-      "off": 131,
+      "off": 139,
       "p": "Sube al 9 y vierte los 80 ml de vino de golpe por el centro. En cuanto burbujee, raspa el fondo con cuchara de madera insistiendo en las manchas oscuras: el alcohol al evaporarse las disuelve y las devuelve al guiso. Termina cuando el fondo esté limpio y el vino reducido a la mitad, ligeramente almibarado.",
       "s": 120,
       "saco": "",
@@ -501,7 +506,7 @@
       "meto": "todo el pollo y sus jugos",
       "min": 2,
       "nota": "Baja a 5. Que nape las verduras. Prueba de sal antes de añadir nada.",
-      "off": 133,
+      "off": 141,
       "p": "Baja al 5 y devuelve el pollo con todo el jugo que haya soltado en el plato. Que nape las verduras. Prueba de sal antes de añadir nada: la soja de la marinada ya ha salado la carne.",
       "s": 120,
       "saco": "",
@@ -518,12 +523,12 @@
       "meto": "",
       "min": 2,
       "nota": "Apaga la vitro. Dos minutos quieto en la sartén y a la mesa. Prueba la sal antes de servir: hasta 2 g, y solo si hace falta.",
-      "off": 135,
+      "off": 143,
       "p": "Apaga la vitro y deja el salteado quieto dos minutos fuera del fuego, para que los jugos se redistribuyan y no se queden en el plato al servir.",
       "s": 120,
       "saco": "el salteado entero, a los platos",
       "t": "Reposo",
-      "tapa": null
+      "tapa": "sin tapa"
     }
   ],
   "perecederos": [
@@ -568,12 +573,8 @@
       "De 9 para precalentar a 8 en cuanto entra cada tanda de pollo, a 9 otra vez entre tandas para recuperar temperatura, a 7 antes de la cebolla y ahí se queda hasta el ajo, a 9 para el vino y a 5 al devolver el pollo, hasta apagar en el reposo. El 9 es solo para metal vacío o para evaporar vino; la carne se dora al 8, que es donde la costra se hace antes de que la soja de la marinada se queme."
     ],
     [
-      "Dos minutos y medio por tanda, no dos",
-      "El cronómetro cuenta 150 segundos por tanda porque es lo que tarda de verdad una capa de pollo marinado en hacer costra al 8. A los dos minutos justos la cara de abajo está todavía pálida en las tiras más gruesas, y sacarlas ahí obliga a compensar en el remate, que es donde ya no se gana costra sino que se seca la carne. El medio minuto de cada tanda corre el bloque de sartén entero: la segunda tanda entra en el 117:30, la cebolla en el 122 en vez del 121, y el plan acaba en el 137 y no en el 136."
-    ],
-    [
-      "Los pesos de la checklist son equivalencias, no pesadas",
-      "Dos pechugas rondan los 400 g y un pimiento los 150 g. Esos números están para reconocer de un vistazo si lo que hay en la nevera se parece a lo que pide la receta, no para sacar la báscula: veinte gramos arriba o abajo no cambian nada del plan. Lo que sí lo cambia es meter demasiado pollo de golpe en la sartén, y para eso manda la regla de la capa única, no el peso."
+      "Tres minutos quieto y tres removiendo, por tanda",
+      "El cronómetro cuenta 180 segundos quieto y 180 removiendo por tanda porque es lo que tarda de verdad una capa de pollo marinado en hacer costra al 8. Con menos, la cara de abajo está todavía pálida en las tiras más gruesas, y sacarlas ahí obliga a compensar en el remate, que es donde ya no se gana costra sino que se seca la carne. Tandas de seis minutos redondos evitan los medios minutos: la segunda tanda entra en el 121, la cebolla en el 127 y el plan acaba en el 145."
     ]
   ],
   "raciones": 2,
@@ -588,5 +589,5 @@
     ]
   },
   "titulo": "Salteado de pollo con tres pimientos",
-  "totalMin": 137
+  "totalMin": 145
 }

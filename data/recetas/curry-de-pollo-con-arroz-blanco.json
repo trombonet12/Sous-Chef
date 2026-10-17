@@ -20,7 +20,6 @@
       "tipo": "fuego"
     }
   ],
-  "compra": [],
   "cortes": [
     {
       "p": "La fibra de la pechuga corre a lo largo de la pieza. Corta primero tiras de 2,5 cm en perpendicular a esa fibra y luego cada tira en dados: así las fibras quedan de 2,5 cm y el bocado se rompe en la boca. A favor de la fibra saldrían hebras largas que se deshilachan. Y no bajes de 2 cm: la pechuga no tiene grasa que la proteja y un dado pequeño pierde el centro jugoso en los seis minutos que le esperan dentro de la salsa.",
@@ -38,6 +37,7 @@
       "t": "Pimiento rojo · tiras de 1 cm, siguiendo la fibra"
     }
   ],
+  "creada": "2026-10-13T00:00:00Z",
   "datos": [
     [
       "50 min",
@@ -161,7 +161,6 @@
       "n": "OLLA · EL ARROZ"
     }
   ],
-  "importada": true,
   "lectura": "Los tres momentos que sostienen el plan. El agua del arroz se enciende en el minuto 28, cuando el sofrito lleva siete de sus ocho minutos y la tapa te deja las manos libres. Tapada rompe a hervir en el 34, un minuto después de que el coco caiga en la sartén, y ese desfase de un minuto es deliberado: las dos manos no pueden estar en los dos fuegos a la vez. Y el reposo del arroz y el minuto del limón terminan los dos en el 50. La suma: 14 de cortar + 2 + 5 + 8 + 1 + 1 + 2 + 10 + 6 + 1 = 36 de sartén = 50 minutos. Los 22 minutos de la olla caben enteros dentro de los de la sartén, así que no suman nada al total.",
   "mep": [
     {
