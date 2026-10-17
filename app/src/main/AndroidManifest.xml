@@ -10,6 +10,18 @@
         android:name="android.permission.SCHEDULE_EXACT_ALARM"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Voz del cronómetro (ADR-0008): permiso en tiempo de ejecución, solo con la cocina en pantalla. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Visibilidad de paquetes (API 30+): SpeechRecognizer y TextToSpeech buscan estos servicios. -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 
     <application
         android:name=".SousChefApplication"
