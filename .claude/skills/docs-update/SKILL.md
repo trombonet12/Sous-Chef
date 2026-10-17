@@ -28,7 +28,7 @@ Actualiza el documento que corresponde a `$ARGUMENTS` para que refleje el estado
 | Valor | Doc destino |
 |---|---|
 | architecture | `docs/arquitectura.md` (diagramas Mermaid) |
-| data-model | doc del modelo de datos en `docs/` (tablas, RLS, índices; localizar con Glob) y `docs/cocina/esquema-receta.md` si cambia el JSON |
+| data-model | doc del modelo de datos en `docs/` (tablas Room, índices; localizar con Glob) y `docs/cocina/esquema-receta.md` si cambia el JSON |
 | testing | `docs/testing.md` |
 | ci | `docs/ci-cd.md` |
 | herramientas | `docs/herramientas.md` (contrato de `scripts/sc`) |

@@ -11,12 +11,12 @@ Revisa el ámbito indicado en `$ARGUMENTS` (por defecto `boundaries`). Solo lect
 
 ## Cuándo usarla
 - Tras implementar un lote o antes de cerrar una fase, para detectar deriva respecto a `docs/arquitectura.md`, ADRs y `docs/decisiones.md`.
-- Cambio de alto impacto (esquema, sync, capas, cronómetro): delegar la revisión en un revisor [opus].
+- Cambio de alto impacto (esquema Room, capas, cronómetro): delegar la revisión en un revisor [opus].
 
 ## Cuándo NO usarla
 - Diseñar lo que aún no existe → usa `design-feature`.
 - Registrar una decisión → usa `create-adr`.
-- Seguridad/RLS/permisos en profundidad → usa `security-review`.
+- Seguridad/permisos en profundidad → usa `security-review`.
 
 ## Precondiciones
 - `$ARGUMENTS` es uno de los cuatro valores; si es otro o falta, usar `boundaries` y avisarlo.
@@ -28,10 +28,10 @@ Revisa el ámbito indicado en `$ARGUMENTS` (por defecto `boundaries`). Solo lect
 
 | Valor | Qué comprobar |
 |---|---|
-| `boundaries` | Dependencias entre `app/`, `receta/` y `tools/`; `receta/` sin dependencias Android; capas UI → dominio → datos; ciclos; lógica de negocio en UI; acceso a Supabase solo por repositorios. |
-| `data-flow` | Room → WorkManager/sync → Supabase (fuente de verdad); `recetas`/`tecnicas` solo lectura en la app; despensa y lista de la compra editables y offline; `user_id` + RLS; migraciones solo por `sc migrar`. |
+| `boundaries` | Dependencias entre `app/`, `receta/` y `tools/`; `receta/` sin dependencias Android; capas UI → dominio → datos; ciclos; lógica de negocio en UI. |
+| `data-flow` | Room como única persistencia de usuario; `recetas`/`tecnicas` empaquetadas desde `data/` (solo lectura); despensa y lista de la compra editables y offline (ADR-0007). |
 | `domain` | Modelos (receta, plan, recipiente, técnica, despensa, historial); invariantes del validador y del escalado en `receta/` y no en la UI; nombres coherentes entre Kotlin, JSON de `data/` y SQL. |
-| `concurrency` | Corrutinas y scopes, motor del cronómetro y alarmas exactas, receivers, WorkManager, transacciones Room, carreras en sync, cancelación y reintentos, muerte del proceso. |
+| `concurrency` | Corrutinas y scopes, motor del cronómetro y alarmas exactas, receivers, transacciones Room, cancelación y reintentos, muerte del proceso. |
 
 3. Contrastar cada hallazgo con ADRs y `docs/decisiones.md` (por sección). Una desviación sin ADR es finding; si procede, sugerir `create-adr`.
 4. Verificar con evidencia (`archivo:línea`); descartar lo que no se pueda demostrar. Lo no verificable → `VERIFICAR`.

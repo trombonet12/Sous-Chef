@@ -1,6 +1,6 @@
 # ADR-0004: Sincronizar con Room + outbox y last-write-wins
 
-- Estado: aceptado
+- Estado: sustituido por ADR-0007
 - Fecha: 2026-10-13
 - Relacionado: `docs/decisiones.md` § Sync, [ADR-0002](0002-supabase-compartido-esquema-sous-chef.md), [ADR-0005](0005-cronometro-alarmas-sin-fgs.md), [arquitectura](../arquitectura.md)
 

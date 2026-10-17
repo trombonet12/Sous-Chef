@@ -13,7 +13,7 @@ Detecta secretos expuestos y los informa como archivo, línea, tipo y acción. *
 - Sospecha de filtración (clave en logs, en un commit, `local.properties` o un keystore rastreado).
 
 ## Cuándo NO usarla
-- Revisión de RLS, permisos, componentes o alarmas → usa `security-review`.
+- Revisión de permisos, componentes o alarmas → usa `security-review`.
 - Licencias o actualizaciones de dependencias → usa `dependency-maintenance`.
 
 ## Precondiciones
@@ -24,10 +24,10 @@ Detecta secretos expuestos y los informa como archivo, línea, tipo y acción. *
 1. Working tree: `gitleaks detect --redact --no-git`. Opcional: `--report-format json --report-path <ruta fuera del repo>`; con `--redact` el informe no contiene valores.
 2. Historial: `gitleaks git --redact` (en versiones antiguas, `gitleaks detect --redact`). Cubre commits ya borrados del árbol.
 3. Higiene de archivos sensibles sin leer su contenido:
-   - `git ls-files` filtrado por `.env`, `*.pem`, `*.key`, `*.jks`, `*.keystore`, `google-services.json`, `local.properties`, `release-signing.properties`, `supabase.env` → no debe haber ninguno rastreado (salvo ejemplos con valores vacíos).
+   - `git ls-files` filtrado por `.env`, `*.pem`, `*.key`, `*.jks`, `*.keystore`, `google-services.json`, `local.properties`, `release-signing.properties` → no debe haber ninguno rastreado (salvo ejemplos con valores vacíos).
    - `git check-ignore -v <ruta>` confirma que están en `.gitignore`.
-4. Patrones propios con `Grep` en modo **`files_with_matches`** (jamás `content` ni `-o`, mostrarían el valor): `service_role`, `eyJ` (JWT), `BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY`, `SOUS_CHEF_PASSWORD\s*=`, `SUPABASE_DB_URL\s*=`, `storePassword`, `keyPassword`, `password\s*=`. Indicar solo el archivo ("línea no determinada") salvo que gitleaks dé la línea.
-5. Regla del proyecto: los secretos viven solo en `~/.souschef/` o en secrets de GitHub; la app solo lleva la clave anon/publicable. `service_role` o `SUPABASE_DB_URL` en `app/`, `receta/`, `tools/` (código), docs o logs es hallazgo.
+4. Patrones propios con `Grep` en modo **`files_with_matches`** (jamás `content` ni `-o`, mostrarían el valor): `eyJ` (JWT), `BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY`, `SOUS_CHEF_PASSWORD\s*=`, `storePassword`, `keyPassword`, `password\s*=`. Indicar solo el archivo ("línea no determinada") salvo que gitleaks dé la línea.
+5. Regla del proyecto: los secretos viven solo en `~/.souschef/` o en secrets de GitHub; la app no lleva claves de backend (ADR-0007). Claves o contraseñas en `app/`, `receta/`, `tools/` (código), docs o logs son hallazgo.
 6. Descartar falsos positivos (placeholders, hashes, fixtures) justificándolos; no añadir `.gitleaksignore` sin confirmación del agente principal.
 7. Emitir findings `SEVERIDAD | archivo:línea | tipo de secreto | acción`, con acción en {rotar, purgar historial, mover a ~/.souschef, añadir a .gitignore}. Para un secreto real: **rotar primero**, luego purgar; la purga reescribe historial y exige decisión explícita del usuario. Nunca incluir el valor ni su prefijo en informe, chat ni commits.
 8. Hallazgo confirmado: recomendar análisis de impacto por un revisor de seguridad [opus].

@@ -32,7 +32,7 @@ Revisa la documentación según `$ARGUMENTS` (por defecto `links`). No modifica 
 
 ### consistency
 1. Extraer de `docs/decisiones.md` las versiones fijadas y decisiones cerradas; no copiarlas al informe, citar la sección.
-2. Grep en `docs/**` y `CLAUDE.md` de esas entidades (librerías, Kotlin, AGP, JDK, SDK mínimo/objetivo, puertos de Supabase local, tablas y comandos de `sc`) y comparar valores.
+2. Grep en `docs/**` y `CLAUDE.md` de esas entidades (librerías, Kotlin, AGP, JDK, SDK mínimo/objetivo, comandos de `sc`) y comparar valores.
 3. Contrastar los subcomandos de `scripts/sc` citados con `docs/herramientas.md`.
 4. Informar discrepancias: contradice decisiones.md = ALTA; dato sin fuente = MEDIA.
 5. Grep de `VERIFICAR` y `TODO` en `docs/**`: listar cada marca con archivo:línea y si tiene fase o registro en `docs/ESTADO.md`; sin dueño = MEDIA.

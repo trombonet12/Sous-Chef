@@ -10,7 +10,7 @@ allowed-tools: Read, Grep, Glob, Bash(adb *), Bash(./gradlew *)
 Mide `$ARGUMENTS` (`cpu`, `memory` o `battery`; por defecto `cpu`) con un escenario repetible. Sin medición no hay optimización.
 
 ## Cuándo usarla
-- Sospecha de tirones, fugas de memoria o consumo (cronómetro con tics, cadena de alarmas, sync, pantallas largas de receta).
+- Sospecha de tirones, fugas de memoria o consumo (cronómetro con tics, cadena de alarmas, pantallas largas de receta).
 - Verificar con números que un cambio mejora o no empeora.
 
 ## Cuándo NO usarla

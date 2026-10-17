@@ -1,6 +1,6 @@
 # ADR-0003: El repo manda en las recetas; publicación unidireccional
 
-- Estado: aceptado
+- Estado: aceptado (publicación revisada por [ADR-0007](0007-app-solo-local-sin-supabase.md): sin `sc publicar`, el APK empaqueta `data/`)
 - Fecha: 2026-10-13
 - Relacionado: `docs/decisiones.md` § Recetas, [ADR-0001](0001-stack-android-y-modulos.md), [ADR-0002](0002-supabase-compartido-esquema-sous-chef.md), [herramientas](../herramientas.md)
 

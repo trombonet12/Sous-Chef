@@ -17,7 +17,7 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 
 ## Precondiciones
 - Esquema completo en `docs/cocina/esquema-receta.md` (no se copia aquí). El validador comprueba las reglas 1-8, 10-21, 23 y 24; la 9 y la 22 las revisas tú.
-- Hoy solo existen `scripts/sc validar` y `scripts/sc formatear`; no hay `sc despensa`, `publicar`, `comparar` ni `historial` (Supabase llega en F3).
+- Hoy solo existen `scripts/sc validar` y `scripts/sc formatear`; no hay `sc despensa`, `publicar`, `comparar` ni `historial` (ADR-0007: solo local).
 
 ## Pasos
 1. **Pregunta lo que cambia el plan**, con opciones, máx. tres preguntas y ninguna ya respondida: raciones (si no lo dice, 2 y avísalo), hora de servir solo si cambia el plato (defecto 15:30), equipo solo si el plan depende de él, restricciones. Nunca preguntes qué ingredientes hay ni preferencias que puedas decidir y justificar.

@@ -1,7 +1,7 @@
 ---
 name: qa-scenario
-description: Guion manual en Android por escenario (process-death, apk-update, reboot, doze, permissions, offline-despensa, timezone, rotation, dark-theme); no tests automáticos.
-argument-hint: "[process-death|apk-update|reboot|doze|permissions|offline-despensa|timezone|rotation|dark-theme]"
+description: Guion manual en Android por escenario (process-death, apk-update, reboot, doze, permissions, timezone, rotation, dark-theme); no tests automáticos.
+argument-hint: "[process-death|apk-update|reboot|doze|permissions|timezone|rotation|dark-theme]"
 allowed-tools: Read, Grep, Glob, Bash(adb *), Bash(./gradlew *)
 ---
 

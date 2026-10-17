@@ -2,7 +2,7 @@
 name: qa
 description: Ejecutar la puerta de calidad en modo fast o full e interpretar el resultado; no para escribir tests (test-write) ni probar en dispositivo (qa-scenario).
 argument-hint: "[fast|full]"
-allowed-tools: Read, Grep, Glob, Bash(./gradlew *), Bash(scripts/sc *), Bash(node scripts/*), Bash(bash scripts/*), Bash(npx supabase *)
+allowed-tools: Read, Grep, Glob, Bash(./gradlew *), Bash(scripts/sc *), Bash(node scripts/*), Bash(bash scripts/*)
 ---
 
 # qa
@@ -19,8 +19,7 @@ Ejecuta el gate del modo `$ARGUMENTS` (por defecto `fast`) y explica cada paso. 
 
 ## Precondiciones
 - JDK 21 configurado para Gradle (`~/.gradle/gradle.properties`) y SDK Android (`local.properties` o `ANDROID_HOME`).
-- `scripts/sc validar` usa hoy `data/despensa-semilla.md`; con la despensa de Supabase (F3, aún no existe) lo dirá. No imprimir valores de entorno.
-- Si hay migraciones nuevas: Docker en marcha para `npx supabase test db`.
+- `scripts/sc validar` usa hoy `data/despensa-semilla.md`. No imprimir valores de entorno.
 
 ## Pasos
 1. Resolver el modo; si no es `fast|full`, usar `fast` y decirlo.
@@ -29,7 +28,7 @@ Ejecuta el gate del modo `$ARGUMENTS` (por defecto `fast`) y explica cada paso. 
 | Modo | Comandos |
 |---|---|
 | fast | `./gradlew ktlintCheck testDebugUnitTest :receta:test` · `scripts/sc validar --estricto` · `node scripts/check-claude-assets.mjs` · `bash scripts/test-hooks.sh` |
-| full | fast + `./gradlew detekt lintDebug assembleDebug` · `node scripts/check-docs.mjs` · si hay migraciones: `npx supabase start > /dev/null 2>&1 ; npx supabase test db` |
+| full | fast + `./gradlew detekt lintDebug assembleDebug` · `node scripts/check-docs.mjs` |
 
 3. Registrar `paso | OK/FAIL/SKIP | motivo`. SKIP solo si falta una herramienta o entorno (sin Docker, sin SDK); debe declararse.
 4. Ante FAIL: re-ejecutar solo ese paso, corregir la causa y repetir el modo completo.

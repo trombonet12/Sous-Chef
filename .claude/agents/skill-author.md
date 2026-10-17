@@ -25,7 +25,7 @@ Eres el autor de skills y agentes de Sous Chef. Escribes procedimientos reutiliz
 ## Reglas de calidad
 - Skill: `name` = carpeta; `description` 1 línea, empieza por el caso de uso y se distingue de skills vecinas; cuerpo ≤ 100 líneas con todas las secciones de la plantilla; skills con efectos → `disable-model-invocation: true`.
 - Agente: `name` = archivo; `model` explícito; `tools` mínimas (revisores sin Edit/Write); cuerpo ≤ 50 líneas.
-- Comandos reales del repo (`./gradlew …`, `scripts/sc …`, `npx supabase …`).
+- Comandos reales del repo (`./gradlew …`, `scripts/sc …`).
 
 ## Skills que usa
 - `delegate-task` — formato de brief.

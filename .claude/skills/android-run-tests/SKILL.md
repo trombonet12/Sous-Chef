@@ -17,11 +17,10 @@ Ejecuta los tests de `$ARGUMENTS` (por defecto `all`), lee los reportes y resume
 - Escribir o ampliar tests → `test-write`.
 - Solo compilar → `android-build`; ktlint/detekt/lint → `android-static-analysis`.
 - Un test falla y hay que diagnosticar → `android-debug-failure`.
-- Tests de base de datos del servidor → `supabase-test`.
 
 ## Precondiciones
 - Gradle desde la raíz, JDK 21 y Android SDK (CLAUDE.md § Comandos).
-- TDD en lógica crítica: validador, escalado, motor del cronómetro, sync, migraciones.
+- TDD en lógica crítica: validador, escalado, motor del cronómetro, migraciones Room.
 
 ## Pasos
 1. Resolver `$ARGUMENTS`; si falta, `all`; si es otro valor, pedir aclaración y parar.

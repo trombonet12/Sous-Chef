@@ -1,7 +1,7 @@
 ---
 name: security-review
-description: Revisar seguridad de un área (rls|secrets|android-permissions|components|alarms|privacy|logging|ci) con findings por severidad, sin editar; para dependencias usa dependency-maintenance.
-argument-hint: "[rls|secrets|android-permissions|components|alarms|privacy|logging|ci]"
+description: Revisar seguridad de un área (secrets|android-permissions|components|alarms|privacy|logging|ci) con findings por severidad, sin editar; para dependencias usa dependency-maintenance.
+argument-hint: "[secrets|android-permissions|components|alarms|privacy|logging|ci]"
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -10,7 +10,7 @@ allowed-tools: Read, Grep, Glob
 Revisión de solo lectura del área `$ARGUMENTS`. Checklist por área: [checklist.md](checklist.md).
 
 ## Cuándo usarla
-- Antes de cerrar un cambio que toca RLS o migraciones, secretos/firma, permisos del manifest, componentes exportados, alarmas/receivers, logs o CI.
+- Antes de cerrar un cambio que toca migraciones Room, secretos/firma, permisos del manifest, componentes exportados, alarmas/receivers, logs o CI.
 - Revisión periódica de un área concreta.
 
 ## Cuándo NO usarla
@@ -19,7 +19,7 @@ Revisión de solo lectura del área `$ARGUMENTS`. Checklist por área: [checklis
 - Arreglar los findings → agente de dominio correspondiente (esta skill no modifica nada).
 
 ## Precondiciones
-- Leídos `CLAUDE.md` y `docs/decisiones.md` (esquema `sous_chef`, ADR-0002 de migraciones).
+- Leídos `CLAUDE.md` y `docs/decisiones.md` (ADR-0007: app solo local).
 - Valor de `$ARGUMENTS` válido. Si falta: inferir las áreas de los archivos cambiados (que aporta el llamador, p. ej. `git diff --name-only`); si no hay cambios, pedir el área y parar.
 - Sin Bash: no lee `.env*`, `*.pem`, `*.key`, `*.jks`, `*.keystore`, `local.properties` ni `~/.souschef/*` (solo cita su nombre).
 
@@ -28,12 +28,11 @@ Revisión de solo lectura del área `$ARGUMENTS`. Checklist por área: [checklis
 2. Recorrer las filas del área en [checklist.md](checklist.md); cada incumplimiento es un finding con la severidad de la fila (subir o bajar solo con motivo escrito).
 3. Verificar con `Grep` antes de afirmar (p. ej. `using \(true\)`, `exported="true"`, `Log\.`, `allowBackup`). Citar `archivo:línea` reales.
 4. Si el hallazgo implica un secreto: reportar archivo, línea y tipo; **nunca** el valor ni fragmentos.
-5. BLOCKER/HIGH en rls, secrets o release, o cambio sensible → recomendar revisión por un revisor de seguridad [opus] con las rutas.
+5. BLOCKER/HIGH en secrets o release, o cambio sensible → recomendar revisión por un revisor de seguridad [opus] con las rutas.
 6. Cerrar con totales por severidad y dudas (lo no verificable se marca `VERIFICAR`).
 
 | Área | Rutas |
 |------|-------|
-| rls | `db/migraciones/**`, `supabase/tests/**` |
 | secrets | `.gitignore`, `app/build.gradle.kts`, `tools/**`, `scripts/**`, `.claude/settings.json` |
 | android-permissions, components | `app/src/main/AndroidManifest.xml` |
 | alarms | receivers y servicios de alarmas/cronómetro en `app/src/main/**` |

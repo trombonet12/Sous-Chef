@@ -1,6 +1,6 @@
 ---
 name: android-create-hilt-module
-description: Crear un módulo Hilt en data/di/*Module.kt con scopes y bindings de interfaces de dominio, y su reemplazo con fakes en tests; no para workers (android-create-worker) ni capa de datos completa.
+description: Crear un módulo Hilt en data/di/*Module.kt con scopes y bindings de interfaces de dominio, y su reemplazo con fakes en tests; no para la capa de datos completa.
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(./gradlew *)
 ---
 
@@ -10,11 +10,10 @@ Crea un módulo Hilt que enlaza interfaces de dominio con implementaciones de da
 
 ## Cuándo usarla
 - Una interfaz de dominio (repositorio, `Clock`, scheduler de alarmas…) necesita implementación inyectable.
-- Hay que proveer objetos de terceros (Room, cliente supabase-kt, DataStore) o sustituir dependencias en tests.
+- Hay que proveer objetos de terceros (Room, DataStore) o sustituir dependencias en tests.
 
 ## Cuándo NO usarla
 - Entity, DAO y repositorio completos → `android-create-data-layer` (que puede invocar esta skill).
-- Solo inyectar un worker → `android-create-worker`.
 - Clase propia con constructor simple → `@Inject constructor` basta, sin módulo.
 
 ## Precondiciones

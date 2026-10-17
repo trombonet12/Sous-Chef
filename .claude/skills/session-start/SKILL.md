@@ -28,7 +28,6 @@ Carga el contexto mínimo para trabajar sin repetir investigación y entrega un 
 5. Entorno mínimo, según lo que toque la próxima acción:
    - Siempre: `node --version` (los `scripts/*.mjs` lo usan).
    - Android o `tools/`: JDK 21 visible para Gradle (`~/.gradle/gradle.properties`) y SDK (`ANDROID_HOME` o `sdk.dir` en `local.properties`); comprobar solo su existencia, nunca imprimir valores.
-   - Supabase local: `docker info` responde. Supabase remoto: `scripts/sc comprobar-entorno` (F3, aún no existe); hasta entonces, anotar «remoto no verificado» en el resumen, sin abrir secretos ni imprimir valores.
 6. Si falta algo, no instalar ni arreglar: listar el bloqueo y quién lo resuelve.
 7. Responder con un resumen **≤ 10 líneas**: fase/subfase y estado · último commit y git · próxima acción exacta · bloqueos y discrepancias · entorno (OK o qué falta). Después, empezar por la próxima acción o pedir confirmación si hay discrepancias.
 

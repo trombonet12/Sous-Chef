@@ -2,7 +2,7 @@
 name: test-write
 description: Escribir tests por tipo (unit, domain, integration, android-ui, db, cli) con TDD en lógica crítica; no ejecuta QA (qa) ni escenarios en dispositivo (qa-scenario).
 argument-hint: "[unit|domain|integration|android-ui|db|cli]"
-allowed-tools: Read, Grep, Glob, Write, Edit, Bash(./gradlew *), Bash(scripts/sc *), Bash(npx supabase *)
+allowed-tools: Read, Grep, Glob, Write, Edit, Bash(./gradlew *), Bash(scripts/sc *)
 ---
 
 # test-write
@@ -11,7 +11,7 @@ Escribe tests del tipo `$ARGUMENTS` para el código indicado. Sin argumento, ded
 
 ## Cuándo usarla
 - Añadir cobertura a código nuevo o existente, o fijar un bug con un test de regresión antes de arreglarlo.
-- TDD obligatorio (CLAUDE.md) en lógica crítica: validador, escalado, motor del cronómetro, sync, migraciones/RLS. Orden: test rojo, código mínimo, verde, refactor.
+- TDD obligatorio (CLAUDE.md) en lógica crítica: validador, escalado, motor del cronómetro, migraciones Room. Orden: test rojo, código mínimo, verde, refactor.
 
 ## Cuándo NO usarla
 - Solo ejecutar la validación global → usa `qa`.
@@ -21,7 +21,6 @@ Escribe tests del tipo `$ARGUMENTS` para el código indicado. Sin argumento, ded
 ## Precondiciones
 - Conocer el comportamiento esperado (criterio de aceptación, ADR o fase activa); si es ambiguo, preguntar antes de fijarlo en un test.
 - Librería de test nueva → skill `dependency-add`, no instalar a mano.
-- Para `db`: Docker en marcha y `npx supabase start`.
 
 ## Pasos
 1. Resolver el tipo desde `$ARGUMENTS`; localizar el test vecino más parecido y copiar su estilo.
@@ -35,9 +34,8 @@ Escribe tests del tipo `$ARGUMENTS` para el código indicado. Sin argumento, ded
 |---|---|---|
 | domain | `receta/src/test`: validador, escalado, gantt, motor del cronómetro; casos válidos, inválidos y bordes (2 raciones, 3 fuegos, fuego 0-9) | `./gradlew :receta:test` |
 | unit | `app/src/test`: JUnit; Flow con Turbine; corrutinas con dispatcher de test; ViewModels con fakes | `./gradlew testDebugUnitTest` |
-| integration | Room en memoria + DAO real; repositorios con fake del backend; WorkManager con `TestListenableWorkerBuilder` | `./gradlew testDebugUnitTest` |
+| integration | Room en memoria + DAO real; repositorios con fakes a mano | `./gradlew testDebugUnitTest` |
 | android-ui | Compose UI test (`createComposeRule`), semántica antes que `testTag`; estados loading/vacío/error, tema oscuro y rotación | `./gradlew connectedDebugAndroidTest` (emulador) |
-| db | pgTAP en `supabase/tests/` (`begin; plan(n); … finish(); rollback;`); RLS con dos usuarios y `anon`; `recetas`/`tecnicas` solo SELECT | `npx supabase test db` |
 | cli | `tools/src/test`: subcomandos de `sc` con directorio temporal y datos de `data/` mínimos | `./gradlew :tools:test` |
 
 ## Validaciones / tests

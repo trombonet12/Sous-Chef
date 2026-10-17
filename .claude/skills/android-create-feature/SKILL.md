@@ -14,14 +14,14 @@ Crea la feature `$ARGUMENTS` en `:app` (paquete `app.souschef.<feature>`) con la
 
 ## Cuándo NO usarla
 - Entity, DAO o repository → `android-create-data-layer`.
-- Worker, módulo Hilt, permiso o componente de sistema → `android-create-worker`, `android-create-hilt-module`, `android-add-permission`, `android-create-system-component`.
+- Módulo Hilt, permiso o componente de sistema → `android-create-hilt-module`, `android-add-permission`, `android-create-system-component`.
 - Cambios menores en una pantalla existente: editar directamente.
 - Lógica pura de recetas (escalado, gantt, motor del cronómetro) → va en `:receta` (Kotlin JVM, sin Android), no aquí.
 
 ## Precondiciones
 - `$ARGUMENTS` presente; derivar `<Feature>` (PascalCase) y `<feature>` (minúsculas). Si falta, pedirlo y parar.
 - Leer `docs/ESTADO.md` y la fase activa (`docs/fases/`). Glob de una feature existente para copiar su estructura; no inventar otra.
-- Si lee o escribe datos, el repository (interfaz en `domain/`) debe existir; si no, `android-create-data-layer` antes. La UI observa Room, nunca la red (ADR-0004).
+- Si lee o escribe datos, el repository (interfaz en `domain/`) debe existir; si no, `android-create-data-layer` antes. La UI observa Room (ADR-0007).
 - Sin dependencias nuevas sin la skill `dependency-add`.
 
 ## Pasos

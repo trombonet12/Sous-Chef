@@ -29,7 +29,7 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
 
 ## Validaciones / tests
 - `scripts/sc validar --estricto <slug>` sin errores.
-- Sin `sc comparar` hasta F3 (sync con Supabase pospuesta): el repo es la única copia.
+- Sin `sc comparar` (ADR-0007): el repo es la única copia.
 
 ## Definition of Done
 - [ ] Correcciones objetivas aplicadas y `validar --estricto` en verde.

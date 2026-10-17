@@ -32,12 +32,6 @@
 - Esperado: la app explica qué falta y ofrece ir a Ajustes, sin crash; sin permiso de alarmas exactas hay un aviso claro o un respaldo documentado (no fallo silencioso); al concederlo, las alarmas se programan sin reiniciar.
 - Evidencia: capturas de cada estado y logcat.
 
-## offline-despensa
-- Preparación: sesión iniciada y despensa sincronizada. Modo avión: `adb shell cmd connectivity airplane-mode enable` (restaurar con `disable`).
-- Pasos: editar la despensa (cambiar estados hay/poco/falta), añadir a la lista de la compra, cerrar y reabrir la app; desactivar el modo avión.
-- Esperado: todo funciona sin red; los cambios persisten en local; al volver la red se sincronizan una sola vez, sin duplicados ni pérdidas. Las recetas y técnicas siguen disponibles (solo lectura).
-- Evidencia: capturas del estado antes/después; filas resultantes en `sous_chef`; logcat del worker.
-
 ## timezone
 - Preparación: cronómetro en marcha con alarma programada; zona horaria inicial conocida.
 - Pasos: cambiar la zona desde Ajustes (Fecha y hora); comprobar la hora de vencimiento y la hora de servir de la ficha; cruzar un cambio de hora (DST) si es posible.

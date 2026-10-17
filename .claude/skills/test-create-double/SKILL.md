@@ -10,7 +10,7 @@ allowed-tools: Read, Grep, Glob, Write, Edit, Bash(./gradlew *)
 Crea el doble `$ARGUMENTS` (por defecto `fake` si falta) en el código de test compartido del módulo: `receta/src/testFixtures` o `src/test` (dominio) o el directorio de test compartido de `app/`.
 
 ## Cuándo usarla
-- Varios tests necesitan el mismo dato, repositorio, reloj, generador de ids, programador de alarmas o cliente Supabase.
+- Varios tests necesitan el mismo dato, repositorio, reloj, generador de ids o programador de alarmas.
 - Un test usa `Instant.now()`, `System.currentTimeMillis()`, `Random` o red real y hay que sustituirlo.
 
 ## Cuándo NO usarla

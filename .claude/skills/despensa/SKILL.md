@@ -1,11 +1,11 @@
 ---
 name: despensa
-description: Lee la despensa de Joan (pegada desde la app o semilla) y mantiene data/despensa-semilla.md alineada para el validador; apunta la compra. Úsala para saber qué hay o qué falta.
+description: Lee la despensa de Joan (pegada desde la app o semilla) y mantiene data/despensa-semilla.md alineada para el validador. Úsala para saber qué hay o qué falta.
 ---
 
 # despensa
 
-La despensa real vive en la app (pantalla Despensa). La sincronización con Supabase se pospone a F3: hoy no hay `sc despensa` ni `sc compra`.
+La despensa real vive en la app (pantalla Despensa). Solo local (ADR-0007): no hay `sc despensa` ni `sc compra`.
 
 ## Cuándo usarla
 - Saber qué hay en casa o qué falta antes de diseñar o hablar de una receta.
@@ -33,4 +33,4 @@ La despensa real vive en la app (pantalla Despensa). La sincronización con Supa
 - [ ] Semilla alineada solo si Joan lo aprobó.
 
 ## Docs a actualizar
-- docs/ESTADO.md si queda algo pendiente · el sync con Supabase (`sc despensa`, `sc compra`) es de F3.
+- docs/ESTADO.md si queda algo pendiente.

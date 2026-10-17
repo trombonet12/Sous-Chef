@@ -1,6 +1,6 @@
 # ADR-0002: Compartir el proyecto Supabase de Trombito con el esquema `sous_chef` y un runner de migraciones propio
 
-- Estado: aceptado
+- Estado: sustituido por ADR-0007
 - Fecha: 2026-10-13
 - Relacionado: `docs/decisiones.md` § Supabase, [ADR-0003](0003-el-repo-manda-en-las-recetas.md), [ADR-0004](0004-sync-outbox-lww.md), [arquitectura](../arquitectura.md)
 

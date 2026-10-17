@@ -86,3 +86,19 @@
 - Trombito chef: mascota Compose dentro del cronómetro (no overlay del sistema). Consejos de `Consejero` (receta/crono),
   solo con datos existentes: "en nada toca" (<60 s), siguiente evento de otro carril (<5 min), "ve adelantando" (mep sin
   marcar). No repite la nota del paso, que ya está en pantalla. Bocadillo de 3 líneas como máximo.
+
+## 2026-10-17 · Ronda 6 (revisión de backlog con Joan)
+- Supabase, sync, login y `sc publicar/comparar/despensa/migrar` (F3/F4): **descartados**. App solo local
+  ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md), que sustituye a ADR-0002 y ADR-0004). Fuera dependencias,
+  BuildConfig, `localDebug`, skills `supabase-*` y el agente `database-engineer`. Los hooks siguen bloqueando comandos de
+  Supabase porque protegen los secretos de Trombito en la misma máquina.
+- Roadmap legado (`docs/legado/auditoria-y-roadmap.md`, puntos 1-7: PWA, pestañas, espejo): cerrado por obsoleto.
+- F9b lotes 2 y 3: se hacen en esta ronda junto con la corrección de huevos rotos.
+- Release: solo en push a main, con la versión en `version.properties`. Si la release `v<versionName>` ya existe no se
+  publica nada.
+- Despensa: desaparece `compra` por receta y todo ingrediente tiene que estar en la despensa. La ficha muestra «Te falta»
+  según el estado de la despensa en la app.
+- Cronómetro: sin Trombito y sin scroll, con dos disposiciones elegibles en Ajustes (carriles apilados / foco + compactos).
+- Notificaciones: ninguna con la cocina en pantalla. Fuera, una sola fija con todos los carriles y una de alarma que
+  agrupa lo que coincide. Sin aviso de 10 s. Pantalla completa solo con el móvil bloqueado.
+- Voz: palabra clave «Chef», escucha solo con el cronómetro en primer plano y responde con TTS (ADR-0008).

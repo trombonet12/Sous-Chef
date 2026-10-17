@@ -13,7 +13,6 @@ Crea el componente `$ARGUMENTS` en `:app`. Por defecto `notification`; si el val
 - Hace falta una pieza que el sistema invoca fuera de la UI: aviso del cronómetro, alarma que dispara un paso, reprogramación tras reinicio.
 
 ## Cuándo NO usarla
-- Trabajo diferible o sync → `android-create-worker`.
 - Solo declarar o pedir un permiso → `android-add-permission`.
 - Pantallas Compose → `android-create-feature`.
 - Foreground service, micrófono o widget: fuera de alcance (ADR-0005); requiere un ADR nuevo (`create-adr`).
@@ -35,7 +34,7 @@ Crea el componente `$ARGUMENTS` en `:app`. Por defecto `notification`; si el val
 ### alarm-receiver
 1. Programar con `AlarmManager.setAlarmClock(...)` (exacta, exenta de Doze) mediante un `AlarmScheduler` en `data/` tras una interfaz de dominio; `PendingIntent` inmutable y `requestCode` estable por paso.
 2. Permisos: `USE_EXACT_ALARM` y `SCHEDULE_EXACT_ALARM` con `android:maxSdkVersion="32"`; comprobar `canScheduleExactAlarms()` donde aplique y degradar con aviso claro.
-3. `onReceive` mínimo: leer extras, publicar la notificación y programar la siguiente de la cadena. Nada pesado ni `goAsync` largo; el resto, a un Worker.
+3. `onReceive` mínimo: leer extras, publicar la notificación y programar la siguiente de la cadena. Nada pesado ni `goAsync` largo.
 
 ### boot-receiver
 1. Receiver para `BOOT_COMPLETED` y `MY_PACKAGE_REPLACED` (permiso `RECEIVE_BOOT_COMPLETED`) que reprograma la cadena de alarmas desde el estado guardado en Room; idempotente y sin disparar avisos ya vencidos.

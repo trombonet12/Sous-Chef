@@ -10,17 +10,16 @@ allowed-tools: Read, Grep, Glob, Bash(git diff *), Bash(git log *), Bash(git sho
 Revisión de solo lectura de `:app` según `$ARGUMENTS`. Devuelve findings; no modifica código. Sin argumento, recorrer los cuatro ámbitos en orden: lifecycle, background, permissions, alarms.
 
 ## Cuándo usarla
-- El diff toca ViewModels, pantallas Compose, Workers, receivers, `AndroidManifest.xml` o el motor del cronómetro en `:app`.
+- El diff toca ViewModels, pantallas Compose, receivers, `AndroidManifest.xml` o el motor del cronómetro en `:app`.
 - Antes de cerrar una tarea Android.
 
 ## Cuándo NO usarla
 - Fronteras de módulos, capas o flujo de datos → `architecture-review`.
-- Backend → `supabase-review`.
 - Implementar o corregir lo hallado → agente de ingeniería correspondiente o `bugfix-flow`.
 
 ## Precondiciones
 - Rama con cambios respecto a `main`; sin diff, revisar el estado actual de `:app`.
-- Decisiones aplicables: `docs/decisiones.md` y ADR-0004 (sync) y ADR-0005 (avisos por alarmas, sin foreground service ni micrófono).
+- Decisiones aplicables: `docs/decisiones.md` y ADR-0005 (avisos por alarmas, sin foreground service ni micrófono).
 - Concurrencia o lifecycle complejos (Flow compartidos, scopes manuales) → escalar a revisión de arquitectura.
 
 ## Pasos
@@ -30,7 +29,7 @@ Revisión de solo lectura de `:app` según `$ARGUMENTS`. Devuelve findings; no m
 | Valor | Comprobar |
 |---|---|
 | `lifecycle` | Estado en ViewModel (`StateFlow` con `stateIn(WhileSubscribed(5000))`), sin `Context`/`Activity` retenidos; `collectAsStateWithLifecycle`; eventos por `Channel` sin pérdida; `LaunchedEffect`/`DisposableEffect` con claves y `onDispose`; sin `GlobalScope`; dispatchers inyectados; el cronómetro sobrevive a rotación y muerte de proceso (estado en Room/`SavedStateHandle`, no solo en memoria) |
-| `background` | Sync en WorkManager (constraints, backoff, `uniqueWork`, idempotente, `retry` solo en transitorios); nada de foreground service ni micrófono (ADR-0005); sin hilos/`Timer` ad hoc; `onReceive` solo lee extras, notifica y reprograma; escritura y outbox en la misma transacción |
+| `background` | Nada de foreground service ni micrófono (ADR-0005); sin hilos/`Timer` ad hoc; `onReceive` solo lee extras, notifica y reprograma |
 | `permissions` | Mínimo en el manifest, sin huérfanos; `POST_NOTIFICATIONS` pedido en contexto con rationale y denegación permanente; `USE_EXACT_ALARM`/`SCHEDULE_EXACT_ALARM` con `maxSdkVersion="32"`; componentes `exported` justificados; sin datos sensibles en logs; sin secretos en el cliente (solo anon key, nunca service_role) |
 | `alarms` | `setAlarmClock` para avisos exactos del cronómetro; `PendingIntent` inmutable con `requestCode` estable; cadena reprogramada en `BOOT_COMPLETED`/`MY_PACKAGE_REPLACED`; canal `IMPORTANCE_HIGH` con `USAGE_ALARM`; alarmas canceladas al parar o terminar; `canScheduleExactAlarms()` donde aplique; sin avisos duplicados ni vencidos tras reinicio |
 

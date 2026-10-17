@@ -26,7 +26,7 @@ Genera el texto de un PR. No publica nada. El flujo habitual del proyecto es com
 2. Resumen: 1-3 frases con qué cambia y por qué.
 3. Estructura mínima: Resumen · Tipo (feat, fix, refactor, perf, test, docs, build, ci, chore) · Fase/subfase · Checklist DoD · Cómo se probó.
 4. Fase / subfase: indicar la activa y confirmar que el cambio no sale de ella.
-5. Checklist DoD: marcar `[x]` solo lo comprobado en esta sesión (gate Android, `:receta:test`, `scripts/sc validar --estricto`, sin secretos, ESTADO.md, ADR, `user_id` + RLS en tablas nuevas, sin tests desactivados). Lo no verificado queda `[ ]` con nota.
+5. Checklist DoD: marcar `[x]` solo lo comprobado en esta sesión (gate Android, `:receta:test`, `scripts/sc validar --estricto`, sin secretos, ESTADO.md, ADR, sin tests desactivados). Lo no verificado queda `[ ]` con nota.
 6. Cómo se probó: comandos reales ejecutados y su resultado; pruebas manuales en dispositivo; capturas si hay UI. Nada inventado.
 7. Entregar el texto en el chat. Preguntar si el usuario quiere push o `gh pr create`; sin respuesta afirmativa explícita, no ejecutarlos.
 

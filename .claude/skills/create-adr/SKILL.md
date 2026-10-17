@@ -9,7 +9,7 @@ allowed-tools: Read, Write, Edit, Grep, Glob
 Crea `docs/adr/NNNN-<titulo-kebab>.md` desde `docs/_templates/ADR.template.md`. `$ARGUMENTS` (opcional): título o tema de la decisión.
 
 ## Cuándo usarla
-- Se cambia o añade algo de arquitectura (capas, módulos, esquema `sous_chef`, migraciones, dependencias estructurales, contratos entre `app/`, `receta/` y `tools/`): CLAUDE.md exige ADR antes.
+- Se cambia o añade algo de arquitectura (capas, módulos, esquema Room, migraciones Room, dependencias estructurales, contratos entre `app/`, `receta/` y `tools/`): CLAUDE.md exige ADR antes.
 - `design-feature` o `architecture-review` detectan una decisión no registrada o que contradice un ADR.
 
 ## Cuándo NO usarla

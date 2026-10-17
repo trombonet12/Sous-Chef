@@ -1,5 +1,8 @@
 # Auditoría y roadmap — Sous Chef
 
+> **Histórico, cerrado el 2026-10-17.** Describe la app legada (PWA/artifact). Los puntos abiertos 1-7 quedan descartados
+> por obsoletos y el 10 se resuelve en la ronda 6 (`docs/decisiones.md` § 2026-10-17). No se mantiene.
+
 Última revisión: **2026-09-18**. El 17 se hizo un análisis de salud con siete agentes
 (arquitectura, datos, tests, frontend, fiabilidad, documentación, y uno adversarial que
 intentó tumbar los hallazgos de los demás). El 18 se arreglaron los 2 bloqueantes y los
