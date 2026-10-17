@@ -137,6 +137,22 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun tresMasTreintaSeguidosSinTicSumanNoventaSegundos() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("f0")
+            runCurrent()
+            val fin0 = guardado().carriles.getValue("f0").finAtMs
+            vm.masTreinta("f0")
+            vm.masTreinta("f0")
+            vm.masTreinta("f0")
+            runCurrent()
+            assertEquals(fin0?.plus(90_000L), guardado().carriles.getValue("f0").finAtMs)
+        }
+
+    @Test
     fun enPrimerPlanoElTicSuenaElFinYLoMarca() =
         prueba {
             val vm = crear()

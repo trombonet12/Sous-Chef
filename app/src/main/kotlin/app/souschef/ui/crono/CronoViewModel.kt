@@ -279,7 +279,8 @@ class CronoViewModel
 
         fun hecho(carril: String) = mando("hecho:$carril") { e, r, t -> MotorCrono.hecho(e, r, carril, t) }
 
-        fun masTreinta(carril: String) = mando("mas30:$carril") { e, r, t -> MotorCrono.masTreinta(e, r, carril, t) }
+        // Acumulable: sin cerrojo (cada toque suma 30 s); `mutar` ya serializa vía `almacen.modificar`.
+        fun masTreinta(carril: String) = mutar { e, r, t -> MotorCrono.masTreinta(e, r, carril, t) }
 
         fun empezarIgual(carril: String) =
             mando("igual:$carril") { e, r, t -> MotorCrono.empezarIgual(e, r, carril, t) }
