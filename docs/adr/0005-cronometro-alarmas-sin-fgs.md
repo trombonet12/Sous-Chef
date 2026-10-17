@@ -10,11 +10,20 @@
 - `setExactAndAllowWhileIdle` tiene límite de frecuencia en Doze; `setAlarmClock` es la alarma más fiable y está exenta de ese límite.
 
 ## Decisión
-- El estado del crono vive en Room: `finAt` en reloj de pared y los flags de deduplicación (`hechos`, `a10`, `aFin`, `avisado`) también persistidos.
+- El estado del crono vive en Room: `finAt` en reloj de pared y los flags de deduplicación (`hechos`, `aFin`, `avisado`; `a10` solo para leer estados viejos) también persistidos.
 - Una **única cadena de alarmas**: `AlarmManager.setAlarmClock` programa solo el próximo evento. El receiver recarga el estado de Room, emite todo lo vencido (los hitos con más de 90 s de retraso se marcan sin sonar) y programa el siguiente.
 - Permisos: `USE_EXACT_ALARM` (API 33+) y `SCHEDULE_EXACT_ALARM` con `maxSdk=32`.
 - Se reprograma en `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `TIME_SET`, `TIMEZONE_CHANGED` y al cambiar el permiso de alarmas exactas.
-- Notificaciones (actualizado en la ronda 5, ver decisiones.md): una por carril en `crono_carriles` y, al vencer un paso, la misma en `crono_alarma_v3` (`USAGE_ALARM`, `FLAG_INSISTENT`): el sonido lo pone el sistema, no el proceso. `POST_NOTIFICATIONS` se pide al abrir la cocina.
+- Notificaciones (actualizado en la ronda 6, 2026-10-17, ver decisiones.md):
+  - Con la cocina en pantalla (`PresenciaCrono.visible`), **ninguna**. Avisan la app y la voz.
+  - Fuera de la pantalla hay **una fija** (`ID_COCINA`, canal `crono_cocina`, LOW) con todos los carriles, la cuenta
+    atrás al fin más próximo y el chip de Live Update.
+  - Hay **una alarma** (`ID_ALARMA`, `crono_alarma_v3`, `USAGE_ALARM`). Suena con `FLAG_INSISTENT` solo en fin, hito y
+    toca empezar, y agrupa lo que coincide en 60 s (`AgrupadorAlarmas`) sin volver a sonar. El sonido lo pone el
+    sistema, no el proceso.
+  - Sin aviso de 10 s (`DIEZ_S` queda obsoleto).
+  - Pantalla completa solo con el móvil bloqueado.
+  - `POST_NOTIFICATIONS` se pide al abrir la cocina.
 - Con el crono abierto, `FLAG_KEEP_SCREEN_ON`.
 
 ## Alternativas consideradas
