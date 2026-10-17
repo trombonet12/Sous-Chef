@@ -36,18 +36,6 @@ class EscaladoTest {
     }
 
     @Test
-    fun textoDeCompra() {
-        val r =
-            Receta(
-                slug = "x",
-                titulo = "Tarta",
-                raciones = 6,
-                compra = listOf(Ingrediente(n = "manzanas", a = 3.0, u = "uds")),
-            )
-        assertEquals("Compra · Tarta · 1 ración\n\n0,5 uds manzanas", Escalado.textoCompra(r, 1))
-    }
-
-    @Test
     fun ejeDelGantt() {
         // 34 min: granu 5, salto 10; 30 se quita por estar a menos de medio salto de 34.
         assertEquals(listOf(0.0, 10.0, 20.0, 34.0), Gantt.marcas(34.0))

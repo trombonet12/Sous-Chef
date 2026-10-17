@@ -37,8 +37,6 @@ import app.souschef.receta.Escalado
 import app.souschef.ui.comun.CampoBusqueda
 import app.souschef.ui.comun.ChipsFiltro
 import app.souschef.ui.comun.EstadoVacio
-import app.souschef.ui.comun.Etiqueta
-import app.souschef.ui.comun.Tono
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.Espacio
 
@@ -168,7 +166,7 @@ private fun BotonFavorita(
     }
 }
 
-/** Una sola línea de metadatos (tiempo, fuegos, base, última vez) y el estado de compra a la derecha. */
+/** Una sola línea de metadatos (tiempo, fuegos, base, última vez). */
 @Composable
 private fun PieTarjeta(tarjeta: TarjetaReceta) {
     val receta = tarjeta.receta
@@ -202,11 +200,6 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-        if (receta.compra.isNotEmpty()) {
-            Etiqueta(stringResource(R.string.tarjeta_compra), tono = Tono.Teja)
-        } else {
-            Etiqueta(stringResource(R.string.tarjeta_despensa), tono = Tono.Oliva)
-        }
     }
 }
 

@@ -163,7 +163,7 @@ private fun HojaPapel(
         MepFicha(receta)
         PasosFicha(receta)
         TecnicaFicha(receta)
-        CompraFicha(receta, estado, viewModel)
+        CompraFicha(estado, viewModel)
         receta.pie?.takeIf { it.isNotBlank() }?.let {
             Text(
                 it,

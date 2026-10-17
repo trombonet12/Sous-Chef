@@ -55,17 +55,6 @@ object Escalado {
         val r = Math.round(m * 2) / 2.0
         return if (r == Math.floor(r)) r.toLong().toString() else r.toString().replace('.', ',')
     }
-
-    /** Texto plano de "Copiar la lista" (docs/spec/app-legado.md §2). */
-    fun textoCompra(
-        receta: Receta,
-        raciones: Int,
-    ): String {
-        val f = factor(raciones, receta.raciones)
-        val cabecera = "Compra · ${receta.titulo} · " + if (raciones == 1) "1 ración" else "$raciones raciones"
-        val lineas = receta.compra.map { "${cantidad(it, f).removeSuffix(" *")} ${it.n}".trim() }
-        return (listOf(cabecera, "") + lineas).joinToString("\n")
-    }
 }
 
 /** Eje y barras del gráfico de tiempos (docs/spec/app-legado.md §2.1). */

@@ -1,5 +1,6 @@
 package app.souschef.tools
 
+import app.souschef.receta.Despensa
 import app.souschef.receta.Hallazgo
 import app.souschef.receta.JsonCanonico
 import app.souschef.receta.Nivel

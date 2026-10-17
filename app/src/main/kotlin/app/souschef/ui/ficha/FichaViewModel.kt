@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.souschef.di.ApplicationScope
 import app.souschef.domain.CompraRepo
+import app.souschef.domain.DespensaRepo
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.TecnicasRepo
@@ -36,6 +37,7 @@ private data class Local(
 
 @HiltViewModel
 class FichaViewModel
+    @Suppress("LongParameterList")
     @Inject
     constructor(
         savedStateHandle: SavedStateHandle,
@@ -43,6 +45,7 @@ class FichaViewModel
         tecnicas: TecnicasRepo,
         private val preferencias: PreferenciasRepo,
         private val compra: CompraRepo,
+        despensa: DespensaRepo,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private var pendiente: Int? = null
@@ -56,12 +59,15 @@ class FichaViewModel
                 recetas.observar(slug),
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
+                despensa.observar(),
                 local,
-            ) { receta, pref, existentes, l ->
+            ) { receta, pref, existentes, items, l ->
+                val raciones = l.raciones ?: pref?.raciones ?: receta?.raciones ?: 2
                 FichaUiState(
                     cargando = false,
                     receta = receta,
-                    raciones = l.raciones ?: pref?.raciones ?: receta?.raciones ?: 2,
+                    raciones = raciones,
+                    faltas = receta?.let { faltas(it, raciones, items) }.orEmpty(),
                     servirMin = l.servirMin,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     mensaje = l.mensaje,
@@ -101,14 +107,18 @@ class FichaViewModel
         fun anadirALaCompra() {
             val actual = estado.value
             val receta = actual.receta ?: return
+            if (actual.faltas.isEmpty()) return
             viewModelScope.launch {
-                compra.agregarVarios(lineasCompra(receta, actual.raciones), receta.slug)
+                compra.agregarVarios(actual.faltas.map { it.linea }, receta.slug)
                 avisar(MensajeFicha.ANADIDA)
             }
         }
 
-        /** Texto plano de "Copiar la lista", o null si la receta aún no ha cargado. */
-        fun textoCompra(): String? = estado.value.let { s -> s.receta?.let { Escalado.textoCompra(it, s.raciones) } }
+        /** Texto plano de "Copiar": una línea por ingrediente que falta, o null si no falta nada. */
+        fun textoCompra(): String? =
+            estado.value.faltas
+                .takeIf { it.isNotEmpty() }
+                ?.joinToString("\n") { it.linea }
 
         fun avisar(mensaje: MensajeFicha) {
             local.update { it.copy(mensaje = mensaje) }

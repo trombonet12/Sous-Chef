@@ -19,7 +19,7 @@ private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
 /**
- * Validador (reglas 1-8, 10, 11, 13-21, 23 y 24 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Validador (reglas 1-8, 10, 11, 13-21 y 23-25 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
  * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
  */
 object Validador {
@@ -46,6 +46,7 @@ object Validador {
         ctx.regla20()
         ctx.regla21()
         ctx.regla24()
+        ctx.regla25()
         return h
     }
 
@@ -287,8 +288,57 @@ private class Ctx(
         }
     }
 
+    /**
+     * Regla 25. El verbo de potencia de `t`/`nota` («baja al N», «sube al N») casa con la transición real de `f`
+     * del carril (prev → f). Los textos de `hitos` son condicionales: se comparan solo con `f`.
+     */
+    fun regla25() {
+        for (pasos in r.pasos.groupBy { it.carril }.values) {
+            var prev: Int? = null
+            for (p in pasos.sortedBy { it.off }) {
+                val f = p.f ?: continue
+                listOfNotNull(p.t, p.nota).forEach { verbosDePotencia(p.id, it, prev ?: f, f) }
+                p.hitos.forEach { verbosDePotencia(p.id, it.t, f, f) }
+                prev = f
+            }
+        }
+    }
+
+    private fun verbosDePotencia(
+        id: String,
+        texto: String,
+        previa: Int,
+        f: Int,
+    ) {
+        for (frase in Texto.normalizar(texto).split(FIN_FRASE)) {
+            for (m in BAJA_AL.findAll(frase)) {
+                val n = m.groupValues[1].toInt()
+                if (n >= maxOf(previa, f)) errPotencia(id, "baja", n, previa, f)
+            }
+            for (m in SUBE_AL.findAll(frase)) {
+                val n = m.groupValues[1].toInt()
+                if (n <= minOf(previa, f)) errPotencia(id, "sube", n, previa, f)
+            }
+            if (!VERBO_POTENCIA.containsMatchIn(frase)) continue
+            for (m in DEL_AL.findAll(frase)) {
+                val x = m.groupValues[1].toInt()
+                if (x != previa && x != f) {
+                    aviso(25, "paso '$id': dice «del $x al ${m.groupValues[2]}» pero la potencia pasa de $previa a $f")
+                }
+            }
+        }
+    }
+
+    private fun errPotencia(
+        id: String,
+        verbo: String,
+        n: Int,
+        previa: Int,
+        f: Int,
+    ) = err(25, "paso '$id': dice «$verbo al $n» pero la potencia pasa de $previa a $f")
+
     fun regla24() {
-        for (i in r.grupos.flatMap { it.items } + r.compra) {
+        for (i in r.grupos.flatMap { it.items }) {
             val n = Texto.normalizar(i.n)
             VETOS
                 .firstOrNull { Regex("(?<![a-z])$it").containsMatchIn(n) }
@@ -302,6 +352,14 @@ private val CORTA =
         "\\b(cort(a|ar|ado|ados|ada|adas|amos|e|es)|pic(a|ar|ado|ados|ada|adas|amos)|lamin(a|ar|ado|ados|ada|adas)|" +
             "troce(a|ar|ado|ados|ada|adas)|ralla(r|do|dos|da|das)?|dados?)\\b",
     )
+private const val V_BAJA = "(?:baja|bajas|bajar|bajalo)"
+private const val V_SUBE = "(?:sube|subes|subir|subelo)"
+private const val OTRO_VERBO = "(?!\\b(?:$V_BAJA|$V_SUBE)\\b)"
+private val FIN_FRASE = Regex("[.;!?\\n]+")
+private val VERBO_POTENCIA = Regex("\\b(?:$V_BAJA|$V_SUBE)\\b")
+private val BAJA_AL = Regex("\\b$V_BAJA\\b(?:$OTRO_VERBO.)*?\\bal (\\d)\\b")
+private val SUBE_AL = Regex("\\b$V_SUBE\\b(?:$OTRO_VERBO.)*?\\bal (\\d)\\b")
+private val DEL_AL = Regex("\\bdel (\\d) al (\\d)\\b")
 private val APAGAR = Regex("apag|retira|fuera del fuego|fuera de la placa|reposo")
 private val MEDIDA = Regex("\\d+([.,]\\d+)?\\s*(mm|cm)\\b|por la mitad")
 

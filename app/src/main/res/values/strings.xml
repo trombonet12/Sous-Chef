@@ -33,8 +33,6 @@
         <item quantity="one">%d fuego</item>
         <item quantity="other">%d fuegos</item>
     </plurals>
-    <string name="tarjeta_compra">compra</string>
-    <string name="tarjeta_despensa">despensa</string>
 
     <!-- Hace X -->
     <string name="hace_sin_estrenar">sin estrenar</string>
@@ -78,7 +76,7 @@
     <string name="ficha_sec_mep">Antes de empezar</string>
     <string name="ficha_sec_pasos">Los pasos</string>
     <string name="ficha_sec_tecnica">Técnica y decisiones</string>
-    <string name="ficha_sec_compra">Hay que comprar</string>
+    <string name="ficha_sec_falta">Te falta</string>
     <string name="ficha_eje">Eje en minutos desde el arranque</string>
     <string name="ficha_min_rango">min %1$s-%2$s</string>
     <string name="ficha_duracion">%1$s′</string>
@@ -87,7 +85,10 @@
     <string name="ficha_sin_fuego">SIN FUEGO</string>
     <string name="ficha_sin_fuego_bajo">sin fuego</string>
     <string name="ficha_fuego_bajo">fuego %1$d</string>
-    <string name="ficha_compra_vacia">Sale entera de la despensa.</string>
+    <string name="ficha_falta_vacia">Tienes todo en la despensa</string>
+    <string name="ficha_falta_falta">falta</string>
+    <string name="ficha_falta_poco">queda poco</string>
+    <string name="ficha_falta_sin_entrada">no está en tu despensa</string>
     <string name="ficha_copiar">Copiar la lista</string>
     <string name="ficha_anadir_compra">Añadir a la lista de la compra</string>
     <string name="ficha_copiada">Lista copiada.</string>

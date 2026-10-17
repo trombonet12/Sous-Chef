@@ -21,8 +21,8 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.souschef.R
+import app.souschef.domain.EstadoDespensa
 import app.souschef.receta.Corte
-import app.souschef.receta.Receta
 import app.souschef.ui.comun.CorteSvg
 import app.souschef.ui.comun.SeccionPapel
 import app.souschef.ui.comun.textoRico
@@ -52,15 +52,17 @@ fun CorteVista(corte: Corte) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CompraFicha(
-    receta: Receta,
     estado: FichaUiState,
     viewModel: FichaViewModel,
 ) {
-    SeccionPapel(stringResource(R.string.ficha_sec_compra)) {
-        if (receta.compra.isEmpty()) {
-            Text(stringResource(R.string.ficha_compra_vacia), style = MaterialTheme.typography.bodyMedium)
+    SeccionPapel(stringResource(R.string.ficha_sec_falta)) {
+        if (estado.faltas.isEmpty()) {
+            Text(stringResource(R.string.ficha_falta_vacia), style = MaterialTheme.typography.bodyMedium)
         } else {
-            lineasCompra(receta, estado.raciones).forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
+            estado.faltas.forEach { falta ->
+                val motivo = stringResource(falta.estado.etiqueta())
+                Text("• ${falta.linea} ($motivo)", style = MaterialTheme.typography.bodyMedium)
+            }
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 BotonCopiar(viewModel)
                 OutlinedButton(onClick = viewModel::anadirALaCompra, modifier = Modifier.heightIn(min = 48.dp)) {
@@ -75,6 +77,13 @@ fun CompraFicha(
         }
     }
 }
+
+private fun EstadoDespensa?.etiqueta(): Int =
+    when (this) {
+        EstadoDespensa.FALTA -> R.string.ficha_falta_falta
+        EstadoDespensa.POCO -> R.string.ficha_falta_poco
+        else -> R.string.ficha_falta_sin_entrada
+    }
 
 @Composable
 private fun BotonCopiar(viewModel: FichaViewModel) {

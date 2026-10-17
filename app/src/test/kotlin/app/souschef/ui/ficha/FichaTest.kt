@@ -1,7 +1,10 @@
 package app.souschef.ui.ficha
 
 import androidx.lifecycle.SavedStateHandle
+import app.souschef.domain.EstadoDespensa
+import app.souschef.domain.ItemDespensa
 import app.souschef.domain.Preferencia
+import app.souschef.receta.Grupo
 import app.souschef.receta.Ingrediente
 import app.souschef.receta.Tecnica
 import app.souschef.ui.FakeCompraRepo
@@ -9,6 +12,7 @@ import app.souschef.ui.FakePreferenciasRepo
 import app.souschef.ui.FakeRecetasRepo
 import app.souschef.ui.FakeTecnicasRepo
 import app.souschef.ui.Rutas
+import app.souschef.ui.despensa.FakeDespensaRepo
 import app.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -47,17 +51,50 @@ class FichaLogicaTest {
         assertEquals(listOf(TecnicaEnlace("plancha", "A la plancha")), enlaces)
     }
 
+    private fun conGrupo(vararg items: Ingrediente) = receta("a").copy(grupos = listOf(Grupo("Base", items.toList())))
+
+    private fun d(
+        nombre: String,
+        estado: EstadoDespensa,
+    ) = ItemDespensa(nombre = nombre, categoria = "", estado = estado)
+
     @Test
-    fun lineasDeCompraEscaladasSinAsterisco() {
+    fun loQueHayEnLaDespensaNoSale() {
+        val r = conGrupo(Ingrediente("arroz", a = 100.0, u = "g"))
+        assertEquals(emptyList<Falta>(), faltas(r, 2, listOf(d("Arroz", EstadoDespensa.HAY))))
+    }
+
+    @Test
+    fun pocoYFaltaSalenConSuEstado() {
+        val r = conGrupo(Ingrediente("arroz", a = 100.0, u = "g"), Ingrediente("sal", a = 2.0, u = "g"))
+        val despensa = listOf(d("Arroz", EstadoDespensa.POCO), d("Sal", EstadoDespensa.FALTA))
+        assertEquals(
+            listOf(Falta("100 g arroz", EstadoDespensa.POCO), Falta("2 g sal", EstadoDespensa.FALTA)),
+            faltas(r, 2, despensa),
+        )
+    }
+
+    @Test
+    fun ingredienteSinEntradaSaleConEstadoNulo() {
+        val r = conGrupo(Ingrediente("azafrán", a = 1.0, u = "g"))
+        assertEquals(listOf(Falta("1 g azafrán", null)), faltas(r, 2, listOf(d("Arroz", EstadoDespensa.HAY))))
+    }
+
+    @Test
+    fun vetadoNoSaleYElAguaTampoco() {
+        val r = conGrupo(Ingrediente("agua", a = 200.0, u = "ml"), Ingrediente("coliflor", a = 100.0, u = "g"))
+        assertEquals(emptyList<Falta>(), faltas(r, 2, listOf(d("Coliflor", EstadoDespensa.VETADO))))
+    }
+
+    @Test
+    fun lasCantidadesSeEscalanSinAsterisco() {
         val r =
-            receta("a").copy(
-                compra =
-                    listOf(
-                        Ingrediente("sal", a = 2.0, u = "g", esc = "sub"),
-                        Ingrediente("arroz", a = 100.0, u = "g"),
-                    ),
+            conGrupo(
+                Ingrediente("sal", a = 2.0, u = "g", esc = "sub"),
+                Ingrediente("arroz", a = 100.0, u = "g"),
             )
-        assertEquals(listOf("3,4 g sal", "200 g arroz"), lineasCompra(r, 4))
+        val despensa = listOf(d("Sal", EstadoDespensa.FALTA), d("Arroz", EstadoDespensa.FALTA))
+        assertEquals(listOf("3,4 g sal", "200 g arroz"), faltas(r, 4, despensa).map { it.linea })
     }
 }
 
@@ -71,9 +108,11 @@ class FichaViewModelTest {
                 receta(
                     "sopa",
                     tecnicas = listOf("plancha"),
-                ).copy(compra = listOf(Ingrediente("pan", a = 100.0, u = "g"))),
+                ).copy(grupos = listOf(Grupo("Base", listOf(Ingrediente("pan", a = 100.0, u = "g"))))),
             ),
         )
+    private val despensa =
+        FakeDespensaRepo(listOf(ItemDespensa(1, "Pan", "", EstadoDespensa.FALTA)))
 
     @Before
     fun antes() = Dispatchers.setMain(UnconfinedTestDispatcher())
@@ -89,6 +128,7 @@ class FichaViewModelTest {
                 FakeTecnicasRepo(listOf(Tecnica("plancha", "A la plancha"))),
                 prefs,
                 compra,
+                despensa,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -162,10 +202,21 @@ class FichaViewModelTest {
         }
 
     @Test
+    fun noAnadeNadaSiLaDespensaLoCubre() =
+        runTest(UnconfinedTestDispatcher()) {
+            despensa.datos.value = listOf(ItemDespensa(1, "Pan", "", EstadoDespensa.HAY))
+            val vm = crear()
+            vm.anadirALaCompra()
+            assertEquals(emptyList<Pair<List<String>, String?>>(), compra.anadidos)
+        }
+
+    @Test
     fun textoDeCompraParaElPortapapeles() =
         runTest(UnconfinedTestDispatcher()) {
             val vm = crear()
             vm.cambiarRaciones(1)
-            assertEquals("Compra · sopa · 1 ración\n\n50 g pan", vm.textoCompra())
+            assertEquals("50 g pan", vm.textoCompra())
+            despensa.datos.value = listOf(ItemDespensa(1, "Pan", "", EstadoDespensa.HAY))
+            assertNull(vm.textoCompra())
         }
 }

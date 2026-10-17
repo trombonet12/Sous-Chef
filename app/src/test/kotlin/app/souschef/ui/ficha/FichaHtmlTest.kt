@@ -20,8 +20,6 @@ class FichaHtmlTest {
             mep = "SEC_MEP",
             pasos = "SEC_PASOS",
             tecnica = "SEC_TECNICA",
-            compra = "SEC_COMPRA",
-            compraVacia = "vacia",
             eje = "EJE",
             meto = "Meto",
             saco = "Saco",
@@ -42,7 +40,6 @@ class FichaHtmlTest {
             raciones = 2,
             totalMin = 30.0,
             datos = listOf(listOf("30", "min")),
-            compra = listOf(Ingrediente("limón", a = 2.0, u = "ud")),
             carriles = listOf(Carril("f1", "Fuego 1", "#A8421C", "fuego"), Carril("m", "Mesa", "red;x", "mesa")),
             grupos = listOf(Grupo("Base", listOf(Ingrediente("arroz", a = 100.0, u = "g")))),
             notaEscala = "Nota <i>",
@@ -89,7 +86,7 @@ class FichaHtmlTest {
     @Test
     fun aparecenTodasLasSeccionesEnOrden() {
         val orden =
-            listOf("SEC_ING", "SEC_TIEMPO", "SEC_MEP", "SEC_PASOS", "SEC_TECNICA", "SEC_COMPRA", "Pie &amp; fin")
+            listOf("SEC_ING", "SEC_TIEMPO", "SEC_MEP", "SEC_PASOS", "SEC_TECNICA", "Pie &amp; fin")
         val pos = orden.map { html.indexOf(it) }
         assertTrue(pos.all { it >= 0 })
         assertTrue(pos == pos.sorted())

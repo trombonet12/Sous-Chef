@@ -104,6 +104,97 @@ class SeederTest {
             )
         }
 
+    private fun conSemilla(
+        base: FuenteSemilla,
+        transformar: (String) -> String,
+    ): FuenteSemilla =
+        object : FuenteSemilla by base {
+            override fun leer(ruta: String): String =
+                base.leer(ruta).let { if (ruta == "despensa-semilla.md") transformar(it) else it }
+        }
+
+    private fun semillaConExtra(
+        extra: String,
+        original: String,
+    ): String = original.replaceFirst("## Carnes\n", "## Carnes\n$extra · ")
+
+    @Test
+    fun mismaSemillaNoTocaLaDespensa() =
+        runBlocking {
+            val base = FuenteAssets(context)
+            Seeder(db, base).sembrar()
+            val dao = db.despensaDao()
+            val primero = dao.observar().first()
+            dao.borrar(primero.first().id)
+            val tras = dao.observar().first().size
+
+            Seeder(db, base).sembrar()
+
+            assertEquals(tras, dao.observar().first().size)
+        }
+
+    @Test
+    fun semillaConArticuloNuevoLoAnadeComoHaySinPisarLoExistente() =
+        runBlocking {
+            val base = FuenteAssets(context)
+            Seeder(db, base).sembrar()
+            val dao = db.despensaDao()
+            val bacon = dao.observar().first().first { it.nombre == "Bacon" }
+            dao.cambiarEstado(bacon.id, EstadoDespensa.FALTA.name)
+            val antes = dao.observar().first().size
+
+            Seeder(db, conSemilla(base) { semillaConExtra("Trufa negra", it) }).sembrar()
+
+            val despues = dao.observar().first()
+            assertEquals(antes + 1, despues.size)
+            val trufa = despues.single { it.nombre == "Trufa negra" }
+            assertEquals(EstadoDespensa.HAY.name, trufa.estado)
+            assertEquals("Carnes", trufa.categoria)
+            assertEquals(EstadoDespensa.FALTA.name, despues.first { it.id == bacon.id }.estado)
+        }
+
+    @Test
+    fun nombresConOtraTildeOMayusculaNoSeDuplican() =
+        runBlocking {
+            val base = FuenteAssets(context)
+            Seeder(db, base).sembrar()
+            val antes =
+                db
+                    .despensaDao()
+                    .observar()
+                    .first()
+                    .size
+
+            Seeder(
+                db,
+                conSemilla(base) { semillaConExtra("BACON · jamón serrano en lonchas · HÉLICES o pajaritas", it) },
+            ).sembrar()
+
+            assertEquals(
+                antes,
+                db
+                    .despensaDao()
+                    .observar()
+                    .first()
+                    .size,
+            )
+        }
+
+    @Test
+    fun instalacionPrevisaSinHashRecibeLosNuevos() =
+        runBlocking {
+            val base = FuenteAssets(context)
+            Seeder(db, base).sembrar()
+            val dao = db.despensaDao()
+            val emperador = dao.observar().first().first { it.nombre == "Emperador" }
+            dao.borrar(emperador.id)
+            db.openHelper.writableDatabase.execSQL("DELETE FROM meta WHERE clave = '${Seeder.CLAVE_HASH_DESPENSA}'")
+
+            Seeder(db, base).sembrar()
+
+            assertTrue(dao.observar().first().any { it.nombre == "Emperador" })
+        }
+
     @Test
     fun recargaRecetasSiCambiaElHash() =
         runBlocking {

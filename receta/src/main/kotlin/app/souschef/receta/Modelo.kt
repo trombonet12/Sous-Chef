@@ -16,7 +16,6 @@ data class Receta(
     val datos: List<List<String>> = emptyList(),
     val tags: Tags = Tags(),
     val perecederos: List<String> = emptyList(),
-    val compra: List<Ingrediente> = emptyList(),
     val carriles: List<Carril> = emptyList(),
     val grupos: List<Grupo> = emptyList(),
     val notaEscala: String? = null,
@@ -45,7 +44,7 @@ data class Tags(
     val proteina: String? = null,
 )
 
-/** Ingrediente de `grupos` o de `compra`: cantidad numérica (`a` + `u`) o textual (`txt`). */
+/** Ingrediente de `grupos`:cantidad numérica (`a` + `u`) o textual (`txt`). */
 @Serializable
 data class Ingrediente(
     val n: String,

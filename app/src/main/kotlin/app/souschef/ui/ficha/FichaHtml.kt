@@ -88,7 +88,6 @@ private val CSS =
     .porque div{margin-top:8pt}
     .porque dt{font-family:system-ui,Arial,sans-serif;font-weight:600}
     .porque dd{margin:2pt 0 0;color:#46473D}
-    .compra{margin:0;padding-left:16pt}
     .pie{margin-top:16pt;font-size:8.5pt;color:#6B6C5F}
     @media print{
       .fila,.pasos li,.mep>div,.corte,.porque div{break-inside:avoid}
@@ -117,7 +116,6 @@ fun fichaHtml(
     mep(b, receta, textos)
     pasos(b, receta, textos)
     tecnica(b, receta, textos)
-    compra(b, receta, raciones, textos)
     receta.pie?.takeIf { it.isNotBlank() }?.let { b.append("<p class=\"pie\">").append(rico(it)).append("</p>") }
     b.append("</body></html>")
     return b.toString()
@@ -323,23 +321,6 @@ private fun tecnica(
             b.append("</div>")
         }
         b.append("</dl>")
-    }
-    b.append("</section>")
-}
-
-private fun compra(
-    b: StringBuilder,
-    receta: Receta,
-    raciones: Int,
-    textos: TextosFicha,
-) {
-    b.append("<section><h2>").append(esc(textos.compra)).append("</h2>")
-    if (receta.compra.isEmpty()) {
-        b.append("<p>").append(esc(textos.compraVacia)).append("</p>")
-    } else {
-        b.append("<ul class=\"compra\">")
-        lineasCompra(receta, raciones).forEach { b.append("<li>").append(esc(it)).append("</li>") }
-        b.append("</ul>")
     }
     b.append("</section>")
 }

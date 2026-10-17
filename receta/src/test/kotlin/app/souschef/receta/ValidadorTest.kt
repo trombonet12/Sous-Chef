@@ -245,6 +245,108 @@ class ValidadorTest {
         assertTrue(20 !in reglas(r, Nivel.AVISO))
     }
 
+    private fun transicion(
+        prev: Int?,
+        f: Int,
+        texto: String,
+        nota: String? = null,
+        hito: String? = null,
+    ) = base().copy(
+        totalMin = 20.0,
+        pasos =
+            listOf(
+                paso("p1") { it.copy(f = prev, t = "Sofreír") },
+                paso("p2", off = 10.0) {
+                    it.copy(
+                        f = f,
+                        t = texto,
+                        nota = nota,
+                        hitos = hito?.let { h -> listOf(Hito(60.0, h)) } ?: it.hitos,
+                    )
+                },
+            ),
+    )
+
+    private fun r25(r: Receta) = Validador.receta(r).filter { it.regla == 25 }
+
+    @Test
+    fun r25BajadaCorrectaNoDaHallazgo() {
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja al 4 y tapa")))
+        assertEquals(emptyList(), r25(transicion(7, 4, "Sofreír", nota = "Después baja al 4.")))
+    }
+
+    @Test
+    fun r25SubidaCorrectaNoDaHallazgo() {
+        assertEquals(emptyList(), r25(transicion(3, 7, "Sube al 7 para dorar")))
+        assertEquals(emptyList(), r25(transicion(3, 7, "Súbelo al 7")))
+    }
+
+    @Test
+    fun r25BajaAlNCuandoLaPotenciaSubeOIgualEsError() {
+        val h = r25(transicion(4, 5, "Baja al 5 y deja hacer"))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertEquals("paso 'p2': dice «baja al 5» pero la potencia pasa de 4 a 5", h.single().texto)
+        assertEquals(listOf(Nivel.ERROR), r25(transicion(4, 7, "Baja al 7")).map { it.nivel })
+        assertEquals(listOf(Nivel.ERROR), r25(transicion(5, 5, "Baja al 5")).map { it.nivel })
+    }
+
+    @Test
+    fun r25SubeAlNCuandoLaPotenciaBajaEsError() {
+        val h = r25(transicion(8, 7, "Sube al 7"))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertEquals("paso 'p2': dice «sube al 7» pero la potencia pasa de 8 a 7", h.single().texto)
+        assertEquals(listOf(Nivel.ERROR), r25(transicion(8, 5, "Sube al 5")).map { it.nivel })
+    }
+
+    @Test
+    fun r25SeAnalizaTambienLaNota() {
+        assertEquals(1, r25(transicion(4, 5, "Seguir", nota = "Baja al 5 si salta.")).size)
+    }
+
+    @Test
+    fun r25HitoCondicionalSeCompruebaSoloContraF() {
+        assertEquals(emptyList(), r25(transicion(7, 4, "Hacer al 4", hito = "Si cogen color, baja del 4 al 3")))
+        assertEquals(emptyList(), r25(transicion(2, 4, "Hacer al 4", hito = "Si se seca, sube al 6")))
+        val mal = r25(transicion(7, 4, "Hacer al 4", hito = "Si cogen color, baja al 5"))
+        assertEquals(listOf(Nivel.ERROR), mal.map { it.nivel })
+        assertEquals("paso 'p2': dice «baja al 5» pero la potencia pasa de 4 a 4", mal.single().texto)
+    }
+
+    @Test
+    fun r25DelXAlNQueNoCuadraEsAviso() {
+        val h = r25(transicion(5, 8, "Sube del 6 al 8"))
+        assertEquals(listOf(Nivel.AVISO), h.map { it.nivel })
+        assertEquals(emptyList(), r25(transicion(5, 8, "Sube del 5 al 8")))
+        assertEquals(emptyList(), r25(transicion(5, 8, "Sube del 8 al 8")))
+    }
+
+    @Test
+    fun r25PrimerPasoDelCarrilNoTienePrev() {
+        val r = base().copy(pasos = listOf(paso("p1") { it.copy(f = 5, t = "Baja al 5") }, paso("p2", "b")))
+        assertEquals(listOf(Nivel.ERROR), r25(r).map { it.nivel })
+        val sube = base().copy(pasos = listOf(paso("p1") { it.copy(f = 5, t = "Sube al 5") }, paso("p2", "b")))
+        assertEquals(listOf(Nivel.ERROR), r25(sube).map { it.nivel })
+        val bien = base().copy(pasos = listOf(paso("p1") { it.copy(f = 5, t = "Sube al 6") }, paso("p2", "b")))
+        assertEquals(emptyList(), r25(bien))
+    }
+
+    @Test
+    fun r25IgnoraVerbosSinPotenciaYNoMezclaFrases() {
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja el fuego al 4")))
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja al 4. Sube al 7 si hace falta")))
+        // cada verbo se empareja con su propio «al N»
+        assertEquals(emptyList(), r25(transicion(7, 4, "Sube la tapa, baja al 4")))
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja el fuego y luego sube al 5")))
+        assertEquals(emptyList(), r25(transicion(7, 4, "Reduce y sube la tapa; sin cambios")))
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja al 4 los 15 min")))
+    }
+
+    @Test
+    fun r25PasoSinFNoSeAnaliza() {
+        val r = base().copy(pasos = listOf(paso("p1"), paso("p2", "b") { it.copy(t = "Baja al 5") }))
+        assertEquals(emptyList(), r25(r))
+    }
+
     @Test
     fun r24VetoEnIngrediente() {
         assertTrue(24 in reglas(conGrupo(ing("champiñones laminados")), Nivel.AVISO))
