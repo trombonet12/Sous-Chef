@@ -2,6 +2,7 @@ package app.souschef.receta
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class EscaladoTest {
     @Test
@@ -42,5 +43,21 @@ class EscaladoTest {
         // 82 min: granu 10, salto 20.
         assertEquals(listOf(0.0, 20.0, 40.0, 60.0, 82.0), Gantt.marcas(82.0))
         assertEquals(listOf(0.0, 10.0, 20.0, 30.0, 40.0, 50.0), Gantt.marcas(50.0))
+    }
+
+    @Test
+    fun barraMinimaAlFinalNoSePasa() {
+        // pollo-almendras: el último paso (1 min) acaba justo en el 136; con ancho mínimo 1 % no cabía y reventaba.
+        val paso = Paso(id = "fin", t = "Fin", carril = "c", off = 135.0, min = 1.0)
+        val (izq, ancho) = Gantt.barra(paso, 136.0, anchoMinimo = 0.01)
+        assertEquals(0.01f, ancho, 1e-6f)
+        assertTrue(izq >= 0f && izq + ancho <= 1f + 1e-6f, "izq=$izq ancho=$ancho")
+    }
+
+    @Test
+    fun barraNormalNoCambia() {
+        val (izq, ancho) = Gantt.barra(Paso(id = "a", t = "A", carril = "c", off = 10.0, min = 20.0), 100.0, 0.01)
+        assertEquals(0.1f, izq, 1e-6f)
+        assertEquals(0.2f, ancho, 1e-6f)
     }
 }

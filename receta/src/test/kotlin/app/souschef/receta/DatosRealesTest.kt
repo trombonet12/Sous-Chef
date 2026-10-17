@@ -23,6 +23,16 @@ class DatosRealesTest {
     }
 
     @Test
+    fun todasLasBarrasDelGanttCaben() {
+        archivos("recetas").map { leerReceta(it.readText()) }.forEach { r ->
+            r.pasos.forEach { p ->
+                val (izq, ancho) = Gantt.barra(p, r.totalEfectivo, anchoMinimo = 0.01)
+                assertTrue(izq >= 0f && ancho > 0f && izq + ancho <= 1f + 1e-6f, "${r.slug}/${p.id}: $izq + $ancho")
+            }
+        }
+    }
+
+    @Test
     fun todasLasTecnicasSeLeen() {
         val tecnicas = archivos("tecnicas").map { leerTecnica(it.readText()) }
         assertTrue(tecnicas.size >= 17)

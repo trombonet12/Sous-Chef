@@ -72,15 +72,18 @@ object Gantt {
         return marcas
     }
 
-    /** Posición relativa [0,1] de inicio y ancho de un paso sobre `total`. */
+    /**
+     * Posición relativa [0,1] de inicio y ancho de un paso sobre `total`. Una barra ensanchada a [anchoMinimo] que no
+     * cabe al final se corre a la izquierda en vez de salirse.
+     */
     fun barra(
         paso: Paso,
         total: Double,
         anchoMinimo: Double = 0.0,
     ): Pair<Float, Float> {
         if (total <= 0) return 0f to 0f
-        val izq = (paso.off / total).coerceIn(0.0, 1.0)
-        val ancho = (paso.min / total).coerceIn(anchoMinimo, 1.0 - izq)
+        val ancho = maxOf(paso.min / total, anchoMinimo).coerceIn(0.0, 1.0)
+        val izq = (paso.off / total).coerceIn(0.0, 1.0 - ancho)
         return izq.toFloat() to ancho.toFloat()
     }
 
