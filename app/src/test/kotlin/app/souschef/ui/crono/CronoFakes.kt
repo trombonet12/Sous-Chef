@@ -163,10 +163,18 @@ class FakeEscucha(
 ) : Escucha {
     var empezadas = 0
     var paradas = 0
+    private var alDetenerse: (Boolean) -> Unit = {}
 
-    override fun empezar(alOir: (List<String>) -> Unit) {
+    override fun empezar(
+        alOir: (List<String>) -> Unit,
+        alDetenerse: (Boolean) -> Unit,
+    ) {
         empezadas++
+        this.alDetenerse = alDetenerse
     }
+
+    /** Simula que el bucle se detiene solo (permiso o idioma). */
+    fun detenerseSolo(porPermiso: Boolean) = alDetenerse(porPermiso)
 
     override fun pausar() = Unit
 

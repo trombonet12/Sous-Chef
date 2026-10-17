@@ -12,7 +12,12 @@ import app.souschef.ui.crono.FakeNotificador
 import app.souschef.ui.crono.RelojFalso
 import app.souschef.ui.crono.T0
 import app.souschef.ui.crono.recetaCrono
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -201,6 +206,60 @@ class CadenaAlarmasTest {
             cadena.descartarObsoletos(tras, ultimo)
             assertNull(notificador.alarmaActual["a"])
             assertEquals(listOf("a"), notificador.alarmasQuitadas)
+        }
+
+    @Test
+    fun trasMorirElProcesoUnMandoQuitaLaAlarmaQueSigueSonando() =
+        runTest {
+            cocinandoConDosCarriles()
+            reloj.ms = T0 + 301_000L
+            cadena.procesar()
+            // Proceso nuevo: la memoria de alarmas publicadas está vacía, pero la de la bandeja sigue ahí.
+            val nueva = CadenaAlarmas(almacen, recetas, reloj, sistema, notificador, presencia)
+            val antes = almacen.leer("a")!!
+            val tras = MotorCrono.hecho(antes, recetaCrono("a"), "f0", reloj.ms)
+            nueva.descartarObsoletos(antes, tras)
+            assertNull(notificador.alarmaActual["a"])
+            assertEquals(listOf("a"), notificador.alarmasQuitadas)
+        }
+
+    @Test
+    fun sinCarrilesAvanzadosNoQuitaNingunaAlarma() =
+        runTest {
+            cocinandoConDosCarriles()
+            val estado = almacen.leer("a")!!
+            cadena.descartarObsoletos(estado, estado)
+            assertTrue(notificador.alarmasQuitadas.isEmpty())
+        }
+
+    @Test
+    fun siguienteDaHechoAlVencidoQuitaSuLineaYRearmaSinBloquearse() =
+        runTest {
+            cocinandoConDosCarriles()
+            reloj.ms = T0 + 301_000L
+            cadena.procesar()
+            assertEquals("f0", cadena.siguiente("a"))
+            assertNull(notificador.alarmaActual["a"])
+            assertEquals(T0 + 320_000L, sistema.programada)
+        }
+
+    @Test
+    fun losMetodosPublicosConcurrentesNoSeBloquean() =
+        runBlocking {
+            cocinandoConDosCarriles()
+            reloj.ms = T0 + 301_000L
+            val trabajos =
+                List(20) { i ->
+                    launch(Dispatchers.Default) {
+                        when (i % 4) {
+                            0 -> cadena.procesar()
+                            1 -> cadena.silenciar("a")
+                            2 -> cadena.repintar()
+                            else -> cadena.reprogramar()
+                        }
+                    }
+                }
+            withTimeout(10_000) { trabajos.joinAll() }
         }
 
     @Test

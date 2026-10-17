@@ -12,6 +12,7 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import androidx.core.net.toUri
 import app.souschef.MainActivity
 import app.souschef.R
@@ -114,8 +115,10 @@ class NotificadorAndroid
             gestor.activeNotifications.filter { it.tag == tag }.forEach { gestor.cancel(tag, it.id) }
         }
 
+        /** Bloqueado o con la pantalla apagada: la pantalla completa la enciende y deja la alarma a la vista. */
         private fun bloqueado(): Boolean =
-            context.getSystemService(KeyguardManager::class.java)?.isKeyguardLocked == true
+            context.getSystemService(KeyguardManager::class.java)?.isKeyguardLocked == true ||
+                context.getSystemService(PowerManager::class.java)?.isInteractive == false
 
         private fun notificacionCocina(r: ResumenCocina): Notification {
             val lineas = r.carriles.map { linea(it) }

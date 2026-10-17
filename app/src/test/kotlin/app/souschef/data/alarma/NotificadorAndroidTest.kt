@@ -4,6 +4,7 @@ import android.app.KeyguardManager
 import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
+import android.os.PowerManager
 import androidx.test.core.app.ApplicationProvider
 import app.souschef.domain.crono.ConstructorCarriles
 import app.souschef.domain.crono.IdsNotificacion
@@ -168,6 +169,19 @@ class NotificadorAndroidTest {
         assertNotNull(alarmaActiva().fullScreenIntent)
         // Una actualización en silencio nunca pide pantalla completa.
         notificador.alarma("r", "Receta r", alarma(), sonar = false, urgente = null)
+        assertNull(alarmaActiva().fullScreenIntent)
+    }
+
+    @Test
+    fun conLaPantallaApagadaTambienPidePantallaCompletaAunqueNoHayaBloqueo() {
+        val teclado = contexto.getSystemService(KeyguardManager::class.java)
+        val energia = contexto.getSystemService(PowerManager::class.java)
+        shadowOf(teclado).setKeyguardLocked(false)
+        shadowOf(energia).turnScreenOn(false)
+        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+        assertNotNull(alarmaActiva().fullScreenIntent)
+        shadowOf(energia).turnScreenOn(true)
+        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
         assertNull(alarmaActiva().fullScreenIntent)
     }
 

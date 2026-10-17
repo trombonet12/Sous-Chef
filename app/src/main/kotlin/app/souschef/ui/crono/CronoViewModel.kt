@@ -125,6 +125,7 @@ class CronoViewModel
         private var enPantalla = false
         private var permisoMicrofono = false
         private var escuchando = false
+        private var vozCaida = false
         private val hayReconocedor: Boolean by lazy { escucha.disponible }
 
         private val control =
@@ -211,9 +212,15 @@ class CronoViewModel
             val nuevo =
                 if (abierta) {
                     cadena.almacen.modificar(slug) { e ->
-                        val v = AvisosCrono.vencidos(e, receta, ahora)
-                        avisos = v.avisos
-                        v.estado
+                        // Solo se consumen los avisos con la cocina a la vista: fuera de ella los emite la cadena de
+                        // alarmas (alarma del sistema) y, si el tic se los llevara, solo sonaría un pitido.
+                        if (cadena.presencia.visible == slug) {
+                            val v = AvisosCrono.vencidos(e, receta, ahora)
+                            avisos = v.avisos
+                            v.estado
+                        } else {
+                            e
+                        }
                     }
                 } else {
                     null
@@ -464,6 +471,7 @@ class CronoViewModel
         fun vozIniciar(permiso: Boolean) {
             enPantalla = true
             permisoMicrofono = permiso
+            vozCaida = false
             reevaluarVoz()
         }
 
@@ -474,6 +482,7 @@ class CronoViewModel
 
         /** Silencia o reactiva la voz de esta cocinada; no se guarda. */
         fun silenciarVoz() {
+            vozCaida = false
             _ui.update { it.copy(vozSilenciada = !it.vozSilenciada) }
             reevaluarVoz()
         }
@@ -482,16 +491,28 @@ class CronoViewModel
         private fun reevaluarVoz() {
             val u = _ui.value
             val cocinando = u.estado?.inicioMs != null && u.resumen == null && !u.cierrePendiente
-            val plan = planVoz(enPantalla && cocinando, vozActiva, u.vozSilenciada, permisoMicrofono, hayReconocedor)
+            val oirPosible = hayReconocedor && !vozCaida
+            val plan = planVoz(enPantalla && cocinando, vozActiva, u.vozSilenciada, permisoMicrofono, oirPosible)
             val hablabaAntes = control.puedeHablar
             control.puedeHablar = plan.habla
             when {
-                plan.oye && !escuchando -> control.escuchar()
+                plan.oye && !escuchando -> control.escuchar(::alDetenerseLaEscucha)
                 !plan.oye && escuchando -> control.parar()
                 hablabaAntes && !plan.habla -> habla.callar()
             }
             escuchando = plan.oye
             if (u.voz != plan.estado) _ui.update { it.copy(voz = plan.estado) }
+        }
+
+        /**
+         * El bucle de escucha se paró solo (sin permiso o idioma no disponible): la cabecera deja de decir escuchando.
+         * Sin permiso se muestra SIN_PERMISO; si no, la voz queda apagada hasta que la pantalla vuelva a verse o se
+         * reactive, para no reintentar en bucle.
+         */
+        private fun alDetenerseLaEscucha(porPermiso: Boolean) {
+            escuchando = false
+            if (porPermiso) permisoMicrofono = false else vozCaida = true
+            reevaluarVoz()
         }
 
         private fun vistasAhora(): List<VistaCarril> {

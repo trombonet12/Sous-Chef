@@ -26,6 +26,7 @@ class EscuchaAndroid(
 ) : Escucha {
     private var reconocedor: SpeechRecognizer? = null
     private var alOir: ((List<String>) -> Unit)? = null
+    private var alDetenerse: (Boolean) -> Unit = {}
     private var pausada = false
     private val reescuchar = Runnable { escuchar() }
 
@@ -36,13 +37,17 @@ class EscuchaAndroid(
     override val disponible: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(contexto) || enDispositivo()
 
-    override fun empezar(alOir: (List<String>) -> Unit) {
+    override fun empezar(
+        alOir: (List<String>) -> Unit,
+        alDetenerse: (Boolean) -> Unit,
+    ) {
         if (!disponible) {
             Log.i(ETIQUETA, "escucha: sin reconocedor")
             return
         }
         parar()
         this.alOir = alOir
+        this.alDetenerse = alDetenerse
         pausada = false
         politica.reiniciar()
         reconocedor = crearReconocedor().also { it.setRecognitionListener(oyente) }
@@ -64,6 +69,7 @@ class EscuchaAndroid(
     override fun parar() {
         handler.removeCallbacks(reescuchar)
         alOir = null
+        alDetenerse = {}
         pausada = false
         reconocedor?.destroy()
         reconocedor = null
@@ -107,7 +113,14 @@ class EscuchaAndroid(
                 Log.d(ETIQUETA, "escucha: error $codigo")
                 if (codigo == SpeechRecognizer.ERROR_RECOGNIZER_BUSY) reconocedor?.cancel()
                 val decision = politica.alError(codigo)
-                if (decision.reintentar) programar(decision.retardoMs)
+                if (decision.reintentar) {
+                    programar(decision.retardoMs)
+                } else {
+                    // Reintentar no sirve: el bucle se para solo y se avisa para que la pantalla lo refleje.
+                    val aviso = alDetenerse
+                    parar()
+                    aviso(codigo == PoliticaReintento.ERROR_INSUFFICIENT_PERMISSIONS)
+                }
             }
 
             override fun onReadyForSpeech(params: Bundle?) = Unit

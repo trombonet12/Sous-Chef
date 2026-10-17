@@ -40,7 +40,7 @@ class ControlVoz(
 
     private var ultimaFrase: String? = null
 
-    fun escuchar() = escucha.empezar(::alOir)
+    fun escuchar(alDetenerse: (porPermiso: Boolean) -> Unit = {}) = escucha.empezar(::alOir, alDetenerse)
 
     /** Deja de oír y calla lo que suene. */
     fun parar() {

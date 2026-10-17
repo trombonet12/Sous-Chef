@@ -4,8 +4,8 @@ package app.souschef.data.voz
  * Cuándo volver a escuchar tras un resultado o un error del reconocedor.
  * Pura (sin SpeechRecognizer) para poder testearla.
  *
- * - Resultado, `ERROR_NO_MATCH` y `ERROR_SPEECH_TIMEOUT`: no son fallos; se reescucha al momento y se reinicia
- *   el backoff.
+ * - Resultado, `ERROR_NO_MATCH` y `ERROR_SPEECH_TIMEOUT`: no son fallos; se reescucha tras [PAUSA_MINIMA_MS] (nunca
+ *   al instante, para no encadenar reinicios en bucle cerrado) y se reinicia el backoff.
  * - Resto de errores: backoff [inicialMs] -> [maximoMs] (se duplica) mientras se repitan seguidos.
  * - `ERROR_INSUFFICIENT_PERMISSIONS`, `ERROR_LANGUAGE_NOT_SUPPORTED` y `ERROR_LANGUAGE_UNAVAILABLE`: reintentar no
  *   sirve (ni el permiso ni el idioma aparecen solos); se para el bucle.
@@ -24,7 +24,7 @@ class PoliticaReintento(
 
     fun alResultado(): Decision {
         erroresSeguidos = 0
-        return Decision(0)
+        return Decision(PAUSA_MINIMA_MS)
     }
 
     fun alError(codigo: Int): Decision =
@@ -55,6 +55,7 @@ class PoliticaReintento(
     companion object {
         const val INICIAL_MS = 500L
         const val MAXIMO_MS = 4_000L
+        const val PAUSA_MINIMA_MS = 300L
         private const val MAX_EXPONENTE = 16
 
         // Valores de android.speech.SpeechRecognizer, copiados para que esta clase no dependa del SDK.

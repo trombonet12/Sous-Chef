@@ -18,7 +18,7 @@ class PoliticaReintentoTest {
     @Test
     fun unResultadoReiniciaElBackoff() {
         repeat(3) { politica.alError(otroError) }
-        assertEquals(0L, politica.alResultado().retardoMs)
+        assertEquals(300L, politica.alResultado().retardoMs)
         assertEquals(500L, politica.alError(otroError).retardoMs)
     }
 
@@ -27,7 +27,7 @@ class PoliticaReintentoTest {
         repeat(2) { politica.alError(otroError) }
         for (codigo in listOf(PoliticaReintento.ERROR_NO_MATCH, PoliticaReintento.ERROR_SPEECH_TIMEOUT)) {
             val decision = politica.alError(codigo)
-            assertEquals(0L, decision.retardoMs)
+            assertEquals("nunca un bucle sin pausa", 300L, decision.retardoMs)
             assertTrue(decision.reintentar)
         }
         assertEquals("el backoff vuelve a empezar", 500L, politica.alError(otroError).retardoMs)

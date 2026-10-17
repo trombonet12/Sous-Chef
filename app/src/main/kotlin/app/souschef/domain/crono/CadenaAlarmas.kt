@@ -11,6 +11,8 @@ import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.Evento
 import app.souschef.receta.crono.SesionCrono
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
 
 /** Programa una única alarma del sistema (ADR-0005): la del próximo evento. Implementación Android en `data.alarma`. */
@@ -69,6 +71,9 @@ interface Notificador {
  * Con la cocina en pantalla ([PresenciaCrono]) no hay notificaciones: avisa la propia app y el tic del ViewModel
  * consume los avisos. Fuera de la pantalla hay una fija con todos los carriles y una sola alarma que agrupa lo que
  * coincide (< 60 s).
+ *
+ * Los receptores (hilo IO) y el ViewModel (Main) la usan a la vez: los métodos públicos que leen y escriben [activas]
+ * o la presencia toman un [Mutex] (no reentrante), así que por dentro se llaman las variantes `...Sl` sin cerrojo.
  */
 @Suppress("TooManyFunctions")
 class CadenaAlarmas(
@@ -81,6 +86,8 @@ class CadenaAlarmas(
 ) {
     /** Alarma que hay ahora en la bandeja por cocinada, para agrupar lo que coincide. Solo en memoria. */
     private val activas = ConcurrentHashMap<String, AlarmaPublicada>()
+
+    private val cerrojo = Mutex()
 
     private class AlarmaPublicada(
         val titulo: String,
@@ -101,17 +108,21 @@ class CadenaAlarmas(
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
 
-    suspend fun reprogramar() {
+    suspend fun reprogramar() = cerrojo.withLock { reprogramarSl() }
+
+    private suspend fun reprogramarSl() {
         val evento = proximoEvento()
         if (evento == null) sistema.cancelar() else sistema.programar(evento.ms)
-        repintar()
+        repintarSl()
     }
 
     /**
      * Repinta la notificación fija de las cocinadas vivas que no se están viendo; las demás (en pantalla, sin
      * arrancar, caducadas) la pierden.
      */
-    suspend fun repintar() {
+    suspend fun repintar() = cerrojo.withLock { repintarSl() }
+
+    private suspend fun repintarSl() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
             val receta = recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }
@@ -148,17 +159,19 @@ class CadenaAlarmas(
     }
 
     /** Abandona una cocinada: borra su estado, quita avisos y notificaciones y rearma la cadena. */
-    suspend fun abandonar(slug: String) {
-        almacen.borrar(slug)
-        cerrado(slug)
-        reprogramar()
-    }
+    suspend fun abandonar(slug: String) =
+        cerrojo.withLock {
+            almacen.borrar(slug)
+            cerrado(slug)
+            reprogramarSl()
+        }
 
     /** Para el sonido y quita la alarma de la cocinada; repinta la fija si procede. */
-    suspend fun silenciar(slug: String) {
-        quitarAlarmaDe(slug)
-        repintar()
-    }
+    suspend fun silenciar(slug: String) =
+        cerrojo.withLock {
+            quitarAlarmaDe(slug)
+            repintarSl()
+        }
 
     /**
      * Tras un mando: los avisos de los carriles que han avanzado dejan de tener sentido. Su línea sale de la alarma
@@ -167,10 +180,20 @@ class CadenaAlarmas(
     suspend fun descartarObsoletos(
         antes: EstadoCrono?,
         despues: EstadoCrono,
+    ) = cerrojo.withLock { descartarObsoletosSl(antes, despues) }
+
+    private suspend fun descartarObsoletosSl(
+        antes: EstadoCrono?,
+        despues: EstadoCrono,
     ) {
         val avanzados = IdsNotificacion.carrilesAvanzados(antes, despues)
+        if (avanzados.isEmpty()) return
         val actual = activas[despues.slug]
-        if (avanzados.isEmpty() || actual == null) return
+        if (actual == null) {
+            // Tras una muerte del proceso `activas` está vacío pero la alarma puede seguir sonando en la bandeja.
+            notificador.quitarAlarma(despues.slug)
+            return
+        }
         val resto = AgrupadorAlarmas.quitar(actual.alarma, avanzados)
         if (resto == null) {
             quitarAlarmaDe(despues.slug)
@@ -189,33 +212,35 @@ class CadenaAlarmas(
     }
 
     /** Acción "Hecho y siguiente" de la notificación. Devuelve el carril afectado, o null si no había nada. */
-    suspend fun siguiente(slug: String): String? {
-        val receta = recetas.obtener(slug) ?: return null
-        val ahora = reloj.ahoraMs()
-        var antes: EstadoCrono? = null
-        var carril: String? = null
-        val nuevo =
-            almacen.modificar(slug) { actual ->
-                antes = actual
-                val r = AccionSiguiente.aplicar(actual, receta, ahora)
-                carril = r.carril
-                r.estado
-            }
-        if (nuevo != null) descartarObsoletos(antes, nuevo)
-        reprogramar()
-        return carril
-    }
-
-    suspend fun procesar() {
-        val ahora = reloj.ahoraMs()
-        val visible = presencia.visible
-        // La cocina en pantalla no se toca: sus avisos los consume el tic del ViewModel y suenan dentro de la app.
-        for (e in almacen.todos().filter { it.slug != visible && vivo(it, ahora) }) {
-            val receta = recetas.obtener(e.slug) ?: continue
-            avisarFuera(e, receta, ahora)
+    suspend fun siguiente(slug: String): String? =
+        cerrojo.withLock {
+            val receta = recetas.obtener(slug) ?: return@withLock null
+            val ahora = reloj.ahoraMs()
+            var antes: EstadoCrono? = null
+            var carril: String? = null
+            val nuevo =
+                almacen.modificar(slug) { actual ->
+                    antes = actual
+                    val r = AccionSiguiente.aplicar(actual, receta, ahora)
+                    carril = r.carril
+                    r.estado
+                }
+            if (nuevo != null) descartarObsoletosSl(antes, nuevo)
+            reprogramarSl()
+            carril
         }
-        reprogramar()
-    }
+
+    suspend fun procesar() =
+        cerrojo.withLock {
+            val ahora = reloj.ahoraMs()
+            val visible = presencia.visible
+            // La cocina en pantalla no se toca: sus avisos los consume el tic del ViewModel y suenan dentro de la app.
+            for (e in almacen.todos().filter { it.slug != visible && vivo(it, ahora) }) {
+                val receta = recetas.obtener(e.slug) ?: continue
+                avisarFuera(e, receta, ahora)
+            }
+            reprogramarSl()
+        }
 
     /** Consume lo vencido de una cocinada que no se ve y lo publica en la alarma única, agrupándolo. */
     private suspend fun avisarFuera(

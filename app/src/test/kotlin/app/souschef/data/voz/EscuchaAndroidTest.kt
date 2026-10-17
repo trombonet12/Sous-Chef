@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.content.pm.ServiceInfo
 import android.os.Bundle
 import android.os.Looper
+import android.os.SystemClock
 import android.speech.RecognitionService
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -53,7 +54,7 @@ class EscuchaAndroidTest {
     /** Registra el servicio, empieza a escuchar y deja que el reconocedor simulado conecte su oyente. */
     private fun iniciar() {
         registrarServicioDeReconocimiento()
-        escucha.empezar { oidos += it }
+        escucha.empezar(alOir = { oidos += it })
         shadowOf(Looper.getMainLooper()).idle()
     }
 
@@ -67,7 +68,7 @@ class EscuchaAndroidTest {
     @Test
     fun noEmpiezaSinReconocedor() {
         assertFalse(escucha.disponible)
-        escucha.empezar { oidos += it }
+        escucha.empezar(alOir = { oidos += it })
         assertNull(ShadowSpeechRecognizer.getLatestSpeechRecognizer())
     }
 
@@ -117,6 +118,37 @@ class EscuchaAndroidTest {
             assertFalse("error $codigo no debe reintentar", hayReintentoProgramado())
             escucha.parar()
         }
+    }
+
+    @Test
+    fun cuandoElBucleSePareSoloAvisaDeLaCausa() {
+        val avisos = mutableListOf<Boolean>()
+        registrarServicioDeReconocimiento()
+        for (codigo in listOf(CODIGO_IDIOMA_NO_SOPORTADO, SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS)) {
+            escucha.empezar({ oidos += it }, { avisos += it })
+            shadowOf(Looper.getMainLooper()).idle()
+            sombra().triggerOnError(codigo)
+        }
+        assertEquals(listOf(false, true), avisos)
+    }
+
+    @Test
+    fun unErrorQueSeReintentaOUnPararNoAvisanDeQueSeHaDetenido() {
+        val avisos = mutableListOf<Boolean>()
+        registrarServicioDeReconocimiento()
+        escucha.empezar({ oidos += it }, { avisos += it })
+        shadowOf(Looper.getMainLooper()).idle()
+        sombra().triggerOnError(SpeechRecognizer.ERROR_AUDIO)
+        escucha.parar()
+        assertTrue(avisos.isEmpty())
+    }
+
+    @Test
+    fun sinCoincidenciaNoReescuchaAlInstante() {
+        iniciar()
+        sombra().triggerOnError(SpeechRecognizer.ERROR_NO_MATCH)
+        val faltan = shadowOf(Looper.getMainLooper()).nextScheduledTaskTime.toMillis() - SystemClock.uptimeMillis()
+        assertEquals(300L, faltan)
     }
 
     @Test

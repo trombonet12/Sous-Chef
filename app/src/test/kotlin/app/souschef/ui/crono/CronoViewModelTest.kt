@@ -161,10 +161,38 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun sinLaCocinaALaVistaElTicNoConsumeLosAvisosQueDebeEmitirLaCadena() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            vm.alternar("f0")
+            runCurrent()
+            vm.alVer()
+            runCurrent()
+            vm.enSegundoPlano()
+            runCurrent()
+            assertNull(cadena.presencia.visible)
+
+            reloj.ms = T0 + 301_000L
+            siguienteTic()
+
+            assertTrue(avisador.sonados.isEmpty())
+            assertFalse(guardado().carriles.getValue("f0").aFin)
+            assertEquals(T0 + 301_000L, vm.ui.value.ahoraMs)
+            // Lo consume la cadena de alarmas: la alarma del sistema, no un pitido.
+            cadena.procesar()
+            assertTrue(guardado().carriles.getValue("f0").aFin)
+            assertTrue(notificador.alarmaActual.containsKey("r"))
+        }
+
+    @Test
     fun enPrimerPlanoElTicSuenaElFinYLoMarca() =
         prueba {
             val vm = crear()
             vm.abrirCocina()
+            runCurrent()
+            vm.alVer()
             runCurrent()
             vm.alternar("f0")
             runCurrent()
@@ -309,8 +337,8 @@ class CronoViewModelTest {
             )
             vm.hecho("f0")
             runCurrent()
-            // Sin alarma publicada no hay nada que quitar; la fija sigue pintada.
-            assertTrue(notificador.alarmasQuitadas.isEmpty())
+            // Sin alarma en memoria (tras morir el proceso) se quita por si seguía sonando; la fija sigue pintada.
+            assertEquals(listOf("r"), notificador.alarmasQuitadas)
             assertEquals(
                 setOf("f0", "m"),
                 notificador.carrilesPorSlug
@@ -442,6 +470,45 @@ class CronoViewModelTest {
             vm.vozParar()
             assertEquals(1, escucha.paradas)
             assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+        }
+
+    @Test
+    fun siElBucleSePareSinPermisoLaCabeceraPasaASinPermisoYNoSeReintenta() =
+        prueba {
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
+
+            escucha.detenerseSolo(porPermiso = true)
+
+            assertEquals(EstadoVoz.SIN_PERMISO, vm.ui.value.voz)
+            siguienteTic()
+            assertEquals(1, escucha.empezadas)
+
+            vm.vozIniciar(permiso = true)
+            assertEquals(2, escucha.empezadas)
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
+        }
+
+    @Test
+    fun siElBucleSePareSoloPorElIdiomaLaVozQuedaApagadaYNoSeReintentaEnCadaTic() =
+        prueba {
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+
+            escucha.detenerseSolo(porPermiso = false)
+
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+            repeat(3) { siguienteTic() }
+            assertEquals(1, escucha.empezadas)
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+
+            // Al volver a verse la pantalla se prueba de nuevo.
+            vm.vozIniciar(permiso = true)
+            assertEquals(2, escucha.empezadas)
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
         }
 
     @Test

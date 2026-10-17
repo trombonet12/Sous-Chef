@@ -14,7 +14,10 @@ private class EscuchaFalsa : Escucha {
     val llamadas = mutableListOf<String>()
     var alOir: ((List<String>) -> Unit)? = null
 
-    override fun empezar(alOir: (List<String>) -> Unit) {
+    override fun empezar(
+        alOir: (List<String>) -> Unit,
+        alDetenerse: (Boolean) -> Unit,
+    ) {
         this.alOir = alOir
         llamadas += "empezar"
     }
