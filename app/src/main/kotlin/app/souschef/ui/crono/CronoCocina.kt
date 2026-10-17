@@ -1,5 +1,6 @@
 package app.souschef.ui.crono
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,9 @@ fun CronoCocina(
     val datos = DatosCrono(receta, estado, ui.ahoraMs)
     val vistas = vistasCarriles(datos)
     var porque by remember { mutableStateOf<Pair<String, Int>?>(null) }
+    // Salir de una cocina en marcha es abandonarla (con confirmación): no se queda viva por detrás.
+    var abandonar by remember { mutableStateOf(false) }
+    BackHandler { abandonar = true }
     val acciones =
         AccionesCarril(
             hecho = viewModel::hecho,
@@ -70,7 +74,7 @@ fun CronoCocina(
         )
     Column(Modifier.fillMaxSize()) {
         if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
-        Cabecera(datos, ui.reiniciarArmado, viewModel, salidas.salir, slotMicrofono)
+        Cabecera(datos, ui.reiniciarArmado, viewModel, { abandonar = true }, slotMicrofono)
         val cuerpo = Modifier.weight(1f).fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 8.dp)
         when (ui.disposicion) {
             DisposicionCrono.FOCO -> CronoFoco(vistas, elegirFoco(vistas, estado.foco), acciones, cuerpo)
@@ -78,6 +82,15 @@ fun CronoCocina(
         }
     }
     HojaPorque(datos, porque, ui, salidas) { porque = null }
+    if (abandonar) {
+        DialogoAbandonar(
+            onSi = {
+                abandonar = false
+                viewModel.abandonar()
+            },
+            onNo = { abandonar = false },
+        )
+    }
 }
 
 /** La hoja del porqué se cierra sola cuando el carril cambia de paso. */
@@ -145,11 +158,11 @@ private fun Cabecera(
     datos: DatosCrono,
     reiniciarArmado: Boolean,
     viewModel: CronoViewModel,
-    onSalir: () -> Unit,
+    onAbandonar: () -> Unit,
     slotMicrofono: @Composable () -> Unit,
 ) {
     Row(Modifier.fillMaxWidth().padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = onSalir, Modifier.size(BOTON_CABECERA)) {
+        IconButton(onClick = onAbandonar, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Atras.vector, stringResource(R.string.atras))
         }
         Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -175,7 +188,7 @@ private fun Cabecera(
             rotuloColor = if (plan.tarde) CronoPalette.alerta else CronoPalette.tenue,
         )
         slotMicrofono()
-        MenuCocina(reiniciarArmado, viewModel)
+        MenuCocina(reiniciarArmado, viewModel, onAbandonar)
     }
 }
 
@@ -202,9 +215,9 @@ private fun DatoCabecera(
 private fun MenuCocina(
     reiniciarArmado: Boolean,
     viewModel: CronoViewModel,
+    onAbandonar: () -> Unit,
 ) {
     var abierto by remember { mutableStateOf(false) }
-    var confirmar by remember { mutableStateOf(false) }
     Box {
         IconButton({ abierto = true }, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
@@ -229,32 +242,35 @@ private fun MenuCocina(
                 text = { Text(stringResource(R.string.crono_abandonar), color = CronoPalette.texto) },
                 onClick = {
                     abierto = false
-                    confirmar = true
+                    onAbandonar()
                 },
             )
         }
     }
-    if (confirmar) {
-        AlertDialog(
-            onDismissRequest = { confirmar = false },
-            containerColor = CronoPalette.carta2,
-            titleContentColor = CronoPalette.texto,
-            textContentColor = CronoPalette.apagado,
-            title = { Text(stringResource(R.string.crono_abandonar_titulo)) },
-            text = { Text(stringResource(R.string.crono_abandonar_detalle)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    confirmar = false
-                    viewModel.abandonar()
-                }) {
-                    Text(stringResource(R.string.crono_abandonar_si), color = CronoPalette.alerta)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { confirmar = false }) {
-                    Text(stringResource(R.string.crono_abandonar_no), color = CronoPalette.texto)
-                }
-            },
-        )
-    }
+}
+
+/** «¿Abandonar esta cocinada?»: desde el menú, la flecha de la cabecera o el gesto atrás. */
+@Composable
+private fun DialogoAbandonar(
+    onSi: () -> Unit,
+    onNo: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onNo,
+        containerColor = CronoPalette.carta2,
+        titleContentColor = CronoPalette.texto,
+        textContentColor = CronoPalette.apagado,
+        title = { Text(stringResource(R.string.crono_abandonar_titulo)) },
+        text = { Text(stringResource(R.string.crono_abandonar_detalle)) },
+        confirmButton = {
+            TextButton(onClick = onSi) {
+                Text(stringResource(R.string.crono_abandonar_si), color = CronoPalette.alerta)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onNo) {
+                Text(stringResource(R.string.crono_abandonar_no), color = CronoPalette.texto)
+            }
+        },
+    )
 }
