@@ -187,6 +187,12 @@ class VistaCarrilTest {
     fun `despues es null en el ultimo paso del carril`() {
         assertNull(vistas(f0 = EstadoCarril(i = 1))[0].despues)
         assertNull(vistas(m = EstadoCarril(i = 1))[1].despues)
+        assertNull(vistas(f0 = EstadoCarril(i = 1))[0].despuesS)
+    }
+
+    @Test
+    fun `despues trae la duracion del siguiente paso`() {
+        assertEquals(600, vistas()[0].despuesS)
     }
 
     @Test

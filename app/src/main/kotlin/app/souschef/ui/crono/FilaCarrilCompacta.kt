@@ -74,9 +74,9 @@ fun FilaCarrilCompacta(
             }
             Text(
                 v.titulo ?: stringResource(R.string.crono_terminado),
+                Modifier.desplazarSiNoCabe(),
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
             )
         }
         ChipFuego(v)

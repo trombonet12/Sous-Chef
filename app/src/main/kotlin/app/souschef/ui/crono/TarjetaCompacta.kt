@@ -1,5 +1,6 @@
 package app.souschef.ui.crono
 
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -107,11 +108,10 @@ private fun CabeceraCompacta(
         )
         Text(
             v.titulo.orEmpty(),
-            Modifier.weight(1f),
+            Modifier.weight(1f).desplazarSiNoCabe(),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
         )
         ChipFuego(v)
         // «destapada» es lo normal: en compacto solo se avisa de la tapa puesta o a medias.
@@ -132,8 +132,7 @@ private fun LineasExtra(
             val segundos = (h.fraccion * v.duracionS).roundToInt()
             stringResource(R.string.crono_proximo_hito, formatoReloj(segundos), h.texto)
         }
-    val despues =
-        v.despues?.let { stringResource(R.string.crono_despues_corto, it) } ?: stringResource(R.string.crono_ultimo)
+    val despues = textoDespues(v)
     val nota = v.nota?.takeIf { it.isNotBlank() }
     val lineas =
         listOfNotNull<@Composable () -> Unit>(
@@ -152,10 +151,22 @@ private fun LineaExtra(
 ) {
     Text(
         texto,
+        Modifier.fillMaxWidth().desplazarSiNoCabe(),
         color = color,
         style = MaterialTheme.typography.bodySmall,
         fontStyle = estilo,
         maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
     )
 }
+
+/** El texto que no cabe en una línea se desplaza despacio, sin fin, para poder leerlo entero. */
+internal fun Modifier.desplazarSiNoCabe(): Modifier =
+    basicMarquee(
+        iterations = Int.MAX_VALUE,
+        initialDelayMillis = MARQUESINA_ESPERA_MS,
+        repeatDelayMillis = MARQUESINA_ESPERA_MS,
+        velocity = MARQUESINA_VELOCIDAD,
+    )
+
+private const val MARQUESINA_ESPERA_MS = 2_000
+private val MARQUESINA_VELOCIDAD = 24.dp

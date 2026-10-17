@@ -165,3 +165,7 @@
 - Permisos nuevos: `INTERNET` y `ACCESS_NETWORK_STATE`. La build debug no comprueba.
 - Probado en el emulador con una build temporal de 0.7.0 sin el filtro de debug: aparece «Sous Chef 0.7.2
   disponible», el trabajo queda programado y la versión avisada se guarda.
+- v0.8.1, a petición de Joan:
+  - El texto que no cabe en una línea (título, hito, después, nota) se desplaza despacio, en bucle
+    (`desplazarSiNoCabe`, `basicMarquee` a 24 dp/s y 2 s de pausa).
+  - «Después» muestra la duración del siguiente paso (`VistaCarril.despuesS`), solo en pantalla: la voz no la dice.

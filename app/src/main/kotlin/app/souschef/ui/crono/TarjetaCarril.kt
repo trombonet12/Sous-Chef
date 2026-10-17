@@ -239,8 +239,7 @@ private fun FilaFinal(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
-            v.despues?.let { stringResource(R.string.crono_despues_corto, it) }
-                ?: stringResource(R.string.crono_ultimo),
+            textoDespues(v),
             Modifier.weight(1f),
             color = CronoPalette.apagado,
             style = MaterialTheme.typography.bodySmall,
@@ -249,4 +248,12 @@ private fun FilaFinal(
         )
         BotonAccion(v, acciones, Modifier.widthIn(min = 120.dp, max = 220.dp))
     }
+}
+
+/** «Después: Reposo · fuego 8 · 10:00», o «Último paso». */
+@Composable
+internal fun textoDespues(v: VistaCarril): String {
+    val despues = v.despues ?: return stringResource(R.string.crono_ultimo)
+    return v.despuesS?.let { stringResource(R.string.crono_despues_tiempo, despues, formatoReloj(it)) }
+        ?: stringResource(R.string.crono_despues_corto, despues)
 }

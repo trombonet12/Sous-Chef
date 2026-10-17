@@ -187,6 +187,7 @@
     <string name="crono_btn_seguir">SEGUIR</string>
     <string name="crono_antes_bloqueado">Antes: %1$s</string>
     <string name="crono_despues_corto">Después: %1$s</string>
+    <string name="crono_despues_tiempo">Después: %1$s · %2$s</string>
     <string name="crono_ultimo">Último paso</string>
     <string name="crono_proximo_hito">a %1$s · %2$s</string>
     <string name="crono_fuego_chip">🔥 %1$d</string>

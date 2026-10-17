@@ -270,7 +270,7 @@ class CocinaUiTest {
         assertTrue(textos.any { it.startsWith("SACO") })
         assertTrue(textos.any { it.contains("Remueve") })
         assertEquals(1, textos.count { it.contains("Dales la vuelta") })
-        assertEquals(1, textos.count { it == "Después: Reposo · fuego 8" })
+        assertEquals(1, textos.count { it == "Después: Reposo · fuego 8 · 10:00" })
         assertEquals(1, textos.count { it == "tapada" })
     }
 

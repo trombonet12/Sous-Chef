@@ -56,6 +56,7 @@
   - La tarjeta compacta muestra además el próximo hito, «Después» y la nota, si caben.
   - Repo hecho público.
 - 2026-10-17 · v0.8.0: aviso de versión nueva (ADR-0009), al abrir y una vez al día; al tocar abre Obtainium.
+- 2026-10-17 · v0.8.1: el texto largo se desplaza; «Después» lleva la duración del siguiente paso.
 
 ## Entorno
 | Herramienta | Estado |
@@ -66,7 +67,7 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Instalar la v0.8.0 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
+- Instalar la v0.8.1 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
 - La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.
@@ -91,5 +92,5 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Joan instala la v0.8.0 y prueba los 4 carriles (reloj, hito, después y nota). El aviso de versión se verá con la
+Joan instala la v0.8.1 y prueba los 4 carriles (reloj, hito, después con tiempo, nota y desplazamiento). El aviso de versión se verá con la
 siguiente release: comprobar que llega y que al tocarlo abre Obtainium.

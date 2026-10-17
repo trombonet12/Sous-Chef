@@ -43,6 +43,8 @@ data class VistaCarril(
     val nota: String?,
     /** Título del siguiente paso del carril (+ " · fuego N" si FUEGO), o null si es el último. */
     val despues: String?,
+    /** Duración en segundos del siguiente paso (solo pantalla; la voz no la dice), o null si es el último. */
+    val despuesS: Int? = null,
     val accion: AccionCarril,
     /** "Escurrir (MESA)" si [accion] es BLOQUEADO. */
     val bloqueadoPor: String?,
@@ -138,6 +140,7 @@ private fun vistaActiva(
         saco = paso.saco,
         nota = paso.nota,
         despues = datos.cola(carril.id).getOrNull(ec.i + 1)?.let { despuesDe(it, esFuego) },
+        despuesS = datos.cola(carril.id).getOrNull(ec.i + 1)?.segundos,
         accion = accion,
         bloqueadoPor =
             pendientes.firstOrNull()?.takeIf { accion == AccionCarril.BLOQUEADO }?.let {
