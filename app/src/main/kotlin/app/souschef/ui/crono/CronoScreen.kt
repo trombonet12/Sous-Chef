@@ -61,11 +61,12 @@ fun CronoScreen(
         }
     }
     AvisarAlSalirDeLaVista(viewModel)
+    val pedirMicrofono = permisoDeMicrofono(ui.voz, viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
     MaterialTheme(colorScheme = DarkColors, typography = MaterialTheme.typography, shapes = MaterialTheme.shapes) {
         Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
             Box(Modifier.fillMaxSize()) {
-                Contenido(ui, viewModel, onSalir, onTecnica)
+                Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
                 SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
                 ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
             }
@@ -79,6 +80,7 @@ private fun Contenido(
     viewModel: CronoViewModel,
     onSalir: () -> Unit,
     onTecnica: (String) -> Unit,
+    pedirMicrofono: () -> Unit,
 ) {
     val receta = ui.receta
     val estado = ui.estado
@@ -113,7 +115,9 @@ private fun Contenido(
         }
 
         else -> {
-            CronoCocina(ui, viewModel, SalidasCrono(onSalir, onTecnica))
+            CronoCocina(ui, viewModel, SalidasCrono(onSalir, onTecnica)) {
+                BotonMicrofono(ui, viewModel::silenciarVoz, pedirMicrofono)
+            }
         }
     }
 }
@@ -139,28 +143,41 @@ private fun MantenerPantallaEncendida() {
     }
 }
 
-/** Al dejar de verse la pantalla la cadena de alarmas queda armada con lo persistido. */
+/**
+ * Al dejar de verse la pantalla la cadena de alarmas queda armada con lo persistido. La voz escucha solo mientras la
+ * pantalla está en RESUMED (ADR-0008): se arranca en ON_RESUME y se para en ON_STOP.
+ */
 @Composable
 private fun AvisarAlSalirDeLaVista(viewModel: CronoViewModel) {
     val propietario = LocalLifecycleOwner.current
+    val contexto = LocalContext.current
     DisposableEffect(propietario) {
         val observador =
             LifecycleEventObserver { _, evento ->
                 when (evento) {
-                    Lifecycle.Event.ON_RESUME -> viewModel.alVer()
-                    Lifecycle.Event.ON_STOP -> viewModel.enSegundoPlano()
-                    else -> Unit
+                    Lifecycle.Event.ON_RESUME -> {
+                        viewModel.alVer()
+                        viewModel.vozIniciar(tieneMicrofono(contexto))
+                    }
+
+                    Lifecycle.Event.ON_STOP -> {
+                        viewModel.enSegundoPlano()
+                        viewModel.vozParar()
+                    }
+
+                    else -> {}
                 }
             }
         propietario.lifecycle.addObserver(observador)
         onDispose {
             propietario.lifecycle.removeObserver(observador)
             viewModel.enSegundoPlano()
+            viewModel.vozParar()
         }
     }
 }
 
-private tailrec fun Context.actividad(): Activity? =
+internal tailrec fun Context.actividad(): Activity? =
     when (this) {
         is Activity -> this
         is ContextWrapper -> baseContext.actividad()

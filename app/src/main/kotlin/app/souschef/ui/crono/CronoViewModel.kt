@@ -1,5 +1,6 @@
 package app.souschef.ui.crono
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,8 @@ import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
 import app.souschef.domain.TecnicasRepo
 import app.souschef.domain.crono.CadenaAlarmas
+import app.souschef.domain.voz.Escucha
+import app.souschef.domain.voz.Habla
 import app.souschef.receta.Receta
 import app.souschef.receta.crono.Aviso
 import app.souschef.receta.crono.AvisosCrono
@@ -21,6 +24,9 @@ import app.souschef.receta.crono.ResumenCrono
 import app.souschef.receta.crono.SesionCrono
 import app.souschef.receta.crono.TipoAviso
 import app.souschef.ui.Rutas
+import app.souschef.ui.crono.voz.ControlVoz
+import app.souschef.ui.crono.voz.MandosVoz
+import app.souschef.ui.crono.voz.planVoz
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
@@ -37,6 +43,9 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
 import app.souschef.domain.PasoReal as PasoRealHistorial
+
+/** Estado del control por voz para la cabecera (ADR-0008). */
+enum class EstadoVoz { APAGADA, ESCUCHANDO, SIN_PERMISO }
 
 /** Una línea de la banda "mientras no mirabas". */
 data class LineaBanda(
@@ -64,6 +73,10 @@ data class CronoUi(
     val conflicto: String? = null,
     /** Cómo se reparte la cocina (Ajustes): un carril en foco con el resto compacto, o todos apilados. */
     val disposicion: DisposicionCrono = DisposicionCrono.FOCO,
+    /** Escuchando, sin permiso de micrófono, o apagada (ajuste, silenciada, sin reconocedor o fuera de pantalla). */
+    val voz: EstadoVoz = EstadoVoz.APAGADA,
+    /** El usuario ha silenciado la voz en esta cocinada (no se guarda). */
+    val vozSilenciada: Boolean = false,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -72,6 +85,7 @@ const val VENTANA_DESHACER_MS = 8_000L
 const val MAX_NOTA = 160
 private const val MAX_LINEAS_BANDA = 4
 private const val MS_MINUTO = 60_000L
+private const val ETIQUETA_VOZ = "Voz"
 
 // Una función por mando de la pantalla: la API de intenciones de la UI es ancha a propósito.
 @Suppress("TooManyFunctions")
@@ -88,6 +102,8 @@ class CronoViewModel
         private val reloj: Reloj,
         private val avisador: Avisador,
         private val ajustes: AjustesRepo,
+        private val escucha: Escucha,
+        private val habla: Habla,
     ) : ViewModel() {
         private val slug: String = checkNotNull(savedStateHandle.get<String>(Rutas.ARG_SLUG))
         private val racionesRuta: Int = savedStateHandle.get<Int>(Rutas.ARG_RACIONES) ?: 0
@@ -104,9 +120,37 @@ class CronoViewModel
         private var cierre: (suspend () -> Unit)? = null
         private var otraSlug: String? = null
 
+        // Voz (ADR-0008): la pantalla avisa de si se ve y de si hay permiso; el resto lo decide reevaluarVoz().
+        private var vozActiva = false
+        private var enPantalla = false
+        private var permisoMicrofono = false
+        private var escuchando = false
+        private val hayReconocedor: Boolean by lazy { escucha.disponible }
+
+        private val control =
+            ControlVoz(
+                escucha = escucha,
+                habla = habla,
+                vistas = ::vistasAhora,
+                foco = { _ui.value.estado?.foco },
+                mandos =
+                    MandosVoz(
+                        hecho = ::hecho,
+                        alternar = ::alternar,
+                        masTreinta = ::masTreinta,
+                        empezarIgual = ::empezarIgual,
+                        silenciarAlarma = { viewModelScope.launch { cadena.silenciar(slug) } },
+                    ),
+                registro = { Log.d(ETIQUETA_VOZ, "orden: $it") },
+            )
+
         init {
             viewModelScope.launch {
-                ajustes.observar().collect { a -> _ui.update { it.copy(disposicion = a.disposicion) } }
+                ajustes.observar().collect { a ->
+                    vozActiva = a.vozActiva
+                    _ui.update { it.copy(disposicion = a.disposicion) }
+                    reevaluarVoz()
+                }
             }
             viewModelScope.launch {
                 cargar()
@@ -191,10 +235,13 @@ class CronoViewModel
             val suenan = avisos.filterNot { it.silencioso }
             val sonido = suenan.minByOrNull { prioridad(it.tipo) }
             if (sonido != null) avisador.sonar(sonido.tipo)
+            val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
+            if (suenan.isNotEmpty()) {
+                control.anunciar(suenan.map { "${nombres[it.carril] ?: it.carril}: ${it.texto}" })
+            }
             val perdidos = avisos.filter { it.silencioso }
             if (perdidos.isEmpty()) return
             avisador.resumen()
-            val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
             val lineas =
                 perdidos.map {
                     LineaBanda(nombres[it.carril] ?: it.carril, it.texto, ((ahora - it.instanteMs) / MS_MINUTO).toInt())
@@ -221,6 +268,7 @@ class CronoViewModel
                 val resumen = SesionCrono.resumen(estado, receta, ahora)
                 _ui.update { it.copy(resumen = resumen) }
             }
+            reevaluarVoz()
         }
 
         // --- mandos ---------------------------------------------------------------------------------------------
@@ -383,6 +431,7 @@ class CronoViewModel
                 _ui.update { it.copy(salida = true) }
             }
             _ui.update { it.copy(cierrePendiente = true) }
+            reevaluarVoz()
             cadena.cerrado(slug)
             jobCierre =
                 viewModelScope.launch {
@@ -397,6 +446,7 @@ class CronoViewModel
             jobCierre = null
             cierre = null
             _ui.update { it.copy(cierrePendiente = false) }
+            reevaluarVoz()
         }
 
         /** Confirma ya un cierre pendiente (vence la ventana o se sale de la pantalla). */
@@ -406,6 +456,58 @@ class CronoViewModel
             jobCierre?.cancel()
             jobCierre = null
             viewModelScope.launch { withContext(NonCancellable) { pendiente() } }
+        }
+
+        // --- voz ------------------------------------------------------------------------------------------------
+
+        /** La cocina se ve: escucha si el ajuste está activo, hay reconocedor y [permiso] de micrófono. */
+        fun vozIniciar(permiso: Boolean) {
+            enPantalla = true
+            permisoMicrofono = permiso
+            reevaluarVoz()
+        }
+
+        fun vozParar() {
+            enPantalla = false
+            reevaluarVoz()
+        }
+
+        /** Silencia o reactiva la voz de esta cocinada; no se guarda. */
+        fun silenciarVoz() {
+            _ui.update { it.copy(vozSilenciada = !it.vozSilenciada) }
+            reevaluarVoz()
+        }
+
+        /** Solo se escucha con la cocina abierta y a la vista; la voz del cierre o de la portada no hace falta. */
+        private fun reevaluarVoz() {
+            val u = _ui.value
+            val cocinando = u.estado?.inicioMs != null && u.resumen == null && !u.cierrePendiente
+            val plan = planVoz(enPantalla && cocinando, vozActiva, u.vozSilenciada, permisoMicrofono, hayReconocedor)
+            val hablabaAntes = control.puedeHablar
+            control.puedeHablar = plan.habla
+            when {
+                plan.oye && !escuchando -> control.escuchar()
+                !plan.oye && escuchando -> control.parar()
+                hablabaAntes && !plan.habla -> habla.callar()
+            }
+            escuchando = plan.oye
+            if (u.voz != plan.estado) _ui.update { it.copy(voz = plan.estado) }
+        }
+
+        private fun vistasAhora(): List<VistaCarril> {
+            val u = _ui.value
+            val receta = u.receta
+            val estado = u.estado
+            return if (receta == null || estado == null) {
+                emptyList()
+            } else {
+                vistasCarriles(DatosCrono(receta, estado, reloj.ahoraMs()))
+            }
+        }
+
+        override fun onCleared() {
+            control.liberar()
+            super.onCleared()
         }
 
         // --- infraestructura ------------------------------------------------------------------------------------

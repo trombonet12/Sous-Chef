@@ -99,6 +99,26 @@ class EscuchaAndroidTest {
         assertEquals(listOf(listOf("chef sigue")), oidos)
     }
 
+    private fun hayReintentoProgramado(): Boolean =
+        shadowOf(Looper.getMainLooper()).nextScheduledTaskTime != Duration.ZERO
+
+    @Test
+    fun unErrorCualquieraProgramaOtroIntento() {
+        iniciar()
+        sombra().triggerOnError(SpeechRecognizer.ERROR_AUDIO)
+        assertTrue(hayReintentoProgramado())
+    }
+
+    @Test
+    fun siElIdiomaNoEstaSoportadoONoEstaDisponibleElBucleSePara() {
+        for (codigo in listOf(CODIGO_IDIOMA_NO_SOPORTADO, CODIGO_IDIOMA_NO_DISPONIBLE)) {
+            iniciar()
+            sombra().triggerOnError(codigo)
+            assertFalse("error $codigo no debe reintentar", hayReintentoProgramado())
+            escucha.parar()
+        }
+    }
+
     @Test
     fun pararSueltaElReconocedorYYaNoEntregaNada() {
         iniciar()
@@ -107,5 +127,11 @@ class EscuchaAndroidTest {
         assertTrue(reconocedor.isDestroyed)
         avanzar(5_000)
         assertTrue(oidos.isEmpty())
+    }
+
+    private companion object {
+        // SpeechRecognizer.ERROR_LANGUAGE_* existen desde la API 31; este test corre en la 30.
+        const val CODIGO_IDIOMA_NO_SOPORTADO = 12
+        const val CODIGO_IDIOMA_NO_DISPONIBLE = 13
     }
 }

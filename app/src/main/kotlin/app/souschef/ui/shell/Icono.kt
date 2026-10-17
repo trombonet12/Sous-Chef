@@ -48,6 +48,14 @@ enum class Icono(
     Menos("M5 12h14"),
     Borrar("M4 7h16", "M9 7V4h6v3", "M6 7l1 13h10l1-13"),
     Cerrar("M6 6l12 12", "M18 6L6 18"),
+    Microfono("M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z", "M6 11a6 6 0 0 0 12 0", "M12 17v4", "M9 21h6"),
+    MicrofonoMudo(
+        "M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z",
+        "M6 11a6 6 0 0 0 12 0",
+        "M12 17v4",
+        "M9 21h6",
+        "M4 4l16 16",
+    ),
     ;
 
     val vector: ImageVector by lazy {

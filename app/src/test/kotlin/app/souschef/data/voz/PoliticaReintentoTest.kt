@@ -39,6 +39,12 @@ class PoliticaReintentoTest {
     }
 
     @Test
+    fun siElIdiomaNoEstaSoportadoONoEstaDisponibleSePara() {
+        assertFalse(politica.alError(PoliticaReintento.ERROR_LANGUAGE_NOT_SUPPORTED).reintentar)
+        assertFalse(politica.alError(PoliticaReintento.ERROR_LANGUAGE_UNAVAILABLE).reintentar)
+    }
+
+    @Test
     fun reiniciarVaciaElContador() {
         repeat(4) { politica.alError(otroError) }
         politica.reiniciar()
@@ -58,6 +64,14 @@ class PoliticaReintentoTest {
         assertEquals(
             android.speech.SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS,
             PoliticaReintento.ERROR_INSUFFICIENT_PERMISSIONS,
+        )
+        assertEquals(
+            android.speech.SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED,
+            PoliticaReintento.ERROR_LANGUAGE_NOT_SUPPORTED,
+        )
+        assertEquals(
+            android.speech.SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE,
+            PoliticaReintento.ERROR_LANGUAGE_UNAVAILABLE,
         )
     }
 }

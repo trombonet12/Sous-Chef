@@ -2,6 +2,7 @@ package app.souschef.ui.crono
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import app.souschef.domain.Ajustes
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.crono.AlmacenCrono
 import app.souschef.domain.crono.CadenaAlarmas
@@ -41,6 +42,8 @@ class CronoViewModelTest {
     private val sistema = FakeAlarmaSistema()
     private val avisador = FakeAvisador()
     private val ajustes = FakeAjustesRepo()
+    private val escucha = FakeEscucha()
+    private val habla = FakeHabla()
     private val almacen = AlmacenCrono(repo)
     private val recetas = FakeRecetasRepo(listOf(recetaCrono()))
     private val notificador = FakeNotificador()
@@ -66,6 +69,8 @@ class CronoViewModelTest {
             reloj,
             avisador,
             ajustes,
+            escucha,
+            habla,
         ).also {
             creados += it
             runCurrent()
@@ -404,4 +409,106 @@ class CronoViewModelTest {
         val ms = servirDeHoy("15:30", T0, ZoneId.systemDefault())
         assertEquals(3 * 60 * 60_000L + 30 * 60_000L, ms - T0)
     }
+
+    // ---- voz (ADR-0008)
+
+    private fun TestScope.cocinaAbierta(): CronoViewModel {
+        val vm = crear()
+        vm.abrirCocina()
+        runCurrent()
+        return vm
+    }
+
+    @Test
+    fun conLaVozDesactivadaEnAjustesNoSeEmpiezaAEscuchar() =
+        prueba {
+            ajustes.actual.value = Ajustes(vozActiva = false)
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+            assertEquals(0, escucha.empezadas)
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+        }
+
+    @Test
+    fun conVozActivaPermisoYCocinaAbiertaEscuchaYAlParaDeVerseSePara() =
+        prueba {
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+            assertEquals(1, escucha.empezadas)
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
+
+            vm.vozParar()
+            assertEquals(1, escucha.paradas)
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+        }
+
+    @Test
+    fun enLaPortadaTodaviaNoSeEscucha() =
+        prueba {
+            val vm = crear()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+            assertEquals(0, escucha.empezadas)
+        }
+
+    @Test
+    fun sinPermisoNoEscuchaYLoDice() =
+        prueba {
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = false)
+            runCurrent()
+            assertEquals(0, escucha.empezadas)
+            assertEquals(EstadoVoz.SIN_PERMISO, vm.ui.value.voz)
+
+            vm.vozIniciar(permiso = true)
+            assertEquals(1, escucha.empezadas)
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
+        }
+
+    @Test
+    fun sinReconocedorLaVozQuedaApagada() =
+        prueba {
+            val sinReconocedor = FakeEscucha(disponible = false)
+            val args = mapOf(Rutas.ARG_SLUG to "r", Rutas.ARG_RACIONES to 0, Rutas.ARG_SERVIR to "12:15")
+            val vm =
+                CronoViewModel(
+                    SavedStateHandle(args),
+                    recetas,
+                    FakeTecnicasRepo(),
+                    historial,
+                    cadena,
+                    reloj,
+                    avisador,
+                    ajustes,
+                    sinReconocedor,
+                    habla,
+                ).also { creados += it }
+            runCurrent()
+            vm.abrirCocina()
+            runCurrent()
+            vm.vozIniciar(permiso = true)
+            assertEquals(0, sinReconocedor.empezadas)
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+        }
+
+    @Test
+    fun silenciarVozParaLaEscuchaYReactivarLaVuelveAPonerSinPersistirNada() =
+        prueba {
+            val vm = cocinaAbierta()
+            vm.vozIniciar(permiso = true)
+            runCurrent()
+
+            vm.silenciarVoz()
+            assertTrue(vm.ui.value.vozSilenciada)
+            assertEquals(1, escucha.paradas)
+            assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+
+            vm.silenciarVoz()
+            assertFalse(vm.ui.value.vozSilenciada)
+            assertEquals(2, escucha.empezadas)
+            assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
+            assertTrue(ajustes.actual.value.vozActiva)
+        }
 }

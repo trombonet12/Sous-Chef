@@ -7,7 +7,8 @@ package app.souschef.data.voz
  * - Resultado, `ERROR_NO_MATCH` y `ERROR_SPEECH_TIMEOUT`: no son fallos; se reescucha al momento y se reinicia
  *   el backoff.
  * - Resto de errores: backoff [inicialMs] -> [maximoMs] (se duplica) mientras se repitan seguidos.
- * - `ERROR_INSUFFICIENT_PERMISSIONS`: reintentar no sirve; se para el bucle.
+ * - `ERROR_INSUFFICIENT_PERMISSIONS`, `ERROR_LANGUAGE_NOT_SUPPORTED` y `ERROR_LANGUAGE_UNAVAILABLE`: reintentar no
+ *   sirve (ni el permiso ni el idioma aparecen solos); se para el bucle.
  */
 class PoliticaReintento(
     private val inicialMs: Long = INICIAL_MS,
@@ -28,9 +29,17 @@ class PoliticaReintento(
 
     fun alError(codigo: Int): Decision =
         when (codigo) {
-            ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> alResultado()
-            ERROR_INSUFFICIENT_PERMISSIONS -> Decision(0, reintentar = false)
-            else -> Decision(retardoBackoff())
+            ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> {
+                alResultado()
+            }
+
+            ERROR_INSUFFICIENT_PERMISSIONS, ERROR_LANGUAGE_NOT_SUPPORTED, ERROR_LANGUAGE_UNAVAILABLE -> {
+                Decision(0, reintentar = false)
+            }
+
+            else -> {
+                Decision(retardoBackoff())
+            }
         }
 
     fun reiniciar() {
@@ -52,5 +61,7 @@ class PoliticaReintento(
         const val ERROR_SPEECH_TIMEOUT = 6
         const val ERROR_NO_MATCH = 7
         const val ERROR_INSUFFICIENT_PERMISSIONS = 9
+        const val ERROR_LANGUAGE_NOT_SUPPORTED = 12
+        const val ERROR_LANGUAGE_UNAVAILABLE = 13
     }
 }

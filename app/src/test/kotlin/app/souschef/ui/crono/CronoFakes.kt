@@ -10,6 +10,8 @@ import app.souschef.domain.crono.AlarmaSistema
 import app.souschef.domain.crono.CarrilNotificacion
 import app.souschef.domain.crono.Notificador
 import app.souschef.domain.crono.ResumenCocina
+import app.souschef.domain.voz.Escucha
+import app.souschef.domain.voz.Habla
 import app.souschef.receta.Carril
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
@@ -153,6 +155,44 @@ class FakeAvisador : Avisador {
 
     override fun cierre() {
         cierres++
+    }
+}
+
+class FakeEscucha(
+    override val disponible: Boolean = true,
+) : Escucha {
+    var empezadas = 0
+    var paradas = 0
+
+    override fun empezar(alOir: (List<String>) -> Unit) {
+        empezadas++
+    }
+
+    override fun pausar() = Unit
+
+    override fun reanudar() = Unit
+
+    override fun parar() {
+        paradas++
+    }
+}
+
+class FakeHabla : Habla {
+    val dichas = mutableListOf<String>()
+    var liberada = 0
+
+    override fun decir(
+        texto: String,
+        alAcabar: () -> Unit,
+    ) {
+        dichas += texto
+        alAcabar()
+    }
+
+    override fun callar() = Unit
+
+    override fun liberar() {
+        liberada++
     }
 }
 
