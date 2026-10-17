@@ -43,19 +43,28 @@ object MotorCrono {
         ahoraMs: Long,
     ): EstadoCrono = if (e.carriles[carril]?.pausado == true) arrancar(e, receta, carril, ahoraMs, forzar = true) else e
 
-    /** +30 s: vale corriendo, parado y vencido; rearma `aFin` si queda > 0 y `a10` si queda > 10. */
+    /** +30 s: atajo de [prorrogar]. */
     fun masTreinta(
         e: EstadoCrono,
         receta: Receta,
         carril: String,
         ahoraMs: Long,
+    ): EstadoCrono = prorrogar(e, receta, carril, EXTRA_S, ahoraMs)
+
+    /** +[segundos]: vale corriendo, parado y vencido; rearma `aFin` si queda > 0 y `a10` si queda > 10. */
+    fun prorrogar(
+        e: EstadoCrono,
+        receta: Receta,
+        carril: String,
+        segundos: Int,
+        ahoraMs: Long,
     ): EstadoCrono =
         modificar(e, receta, carril, ahoraMs) { ec, p ->
             val nuevo =
                 if (ec.corriendo) {
-                    ec.copy(finAtMs = ec.finAtMs?.plus(EXTRA_S * 1000L))
+                    ec.copy(finAtMs = ec.finAtMs?.plus(segundos * 1000L))
                 } else {
-                    ec.copy(restanteS = (ec.restanteS ?: p.segundos) + EXTRA_S)
+                    ec.copy(restanteS = (ec.restanteS ?: p.segundos) + segundos)
                 }
             val q = quedanS(nuevo, p, ahoraMs)
             nuevo.copy(aFin = nuevo.aFin && q <= 0, a10 = nuevo.a10 && q <= 10)

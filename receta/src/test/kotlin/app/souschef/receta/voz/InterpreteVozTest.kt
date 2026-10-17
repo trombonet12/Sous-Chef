@@ -7,12 +7,12 @@ import kotlin.test.assertNull
 class InterpreteVozTest {
     private val carriles =
         listOf(
-            CarrilVoz("sg", "SARTÉN GRANDE"),
-            CarrilVoz("sp", "SARTÉN PEQUEÑA"),
-            CarrilVoz("olla", "OLLA"),
-            CarrilVoz("mesa", "MESA"),
-            CarrilVoz("horno", "HORNO"),
-            CarrilVoz("cazo", "CAZO"),
+            CarrilVoz("sg", "SARTÉN GRANDE", 1),
+            CarrilVoz("sp", "SARTÉN PEQUEÑA", 2),
+            CarrilVoz("olla", "OLLA", 3),
+            CarrilVoz("mesa", "MESA", 4),
+            CarrilVoz("horno", "HORNO", 5),
+            CarrilVoz("cazo", "CAZO", 6),
         )
 
     private fun i(texto: String) = InterpreteVoz.interpretar(texto, carriles)
@@ -51,11 +51,11 @@ class InterpreteVozTest {
     }
 
     @Test
-    fun `mas treinta con palabra, cifra y poco mas`() {
-        assertEquals(OrdenVoz.MasTreinta(null), i("chef treinta segundos más"))
-        assertEquals(OrdenVoz.MasTreinta(null), i("chef 30 más"))
-        assertEquals(OrdenVoz.MasTreinta(null), i("chef 30 segundos más"))
-        assertEquals(OrdenVoz.MasTreinta(null), i("chef un poco más"))
+    fun `prorrogar 30 con palabra, cifra y poco mas`() {
+        assertEquals(OrdenVoz.Prorrogar(30, null), i("chef treinta segundos más"))
+        assertEquals(OrdenVoz.Prorrogar(30, null), i("chef 30 más"))
+        assertEquals(OrdenVoz.Prorrogar(30, null), i("chef 30 segundos más"))
+        assertEquals(OrdenVoz.Prorrogar(30, null), i("chef un poco más"))
     }
 
     @Test
@@ -66,8 +66,8 @@ class InterpreteVozTest {
 
     @Test
     fun `que toca y que hago`() {
-        assertEquals(OrdenVoz.QueToca, i("chef qué toca"))
-        assertEquals(OrdenVoz.QueToca, i("chef, ¿qué hago?"))
+        assertEquals(OrdenVoz.QueToca(null), i("chef qué toca"))
+        assertEquals(OrdenVoz.QueToca(null), i("chef, ¿qué hago?"))
     }
 
     @Test
@@ -109,7 +109,7 @@ class InterpreteVozTest {
 
     @Test
     fun `carril por nombre completo con dos palabras`() {
-        assertEquals(OrdenVoz.MasTreinta("sg"), i("chef 30 más la sartén grande"))
+        assertEquals(OrdenVoz.Prorrogar(30, "sg"), i("chef 30 más la sartén grande"))
         assertEquals(OrdenVoz.CuantoQueda("sp"), i("chef cuánto queda de la sartén pequeña"))
     }
 
@@ -136,6 +136,155 @@ class InterpreteVozTest {
     @Test
     fun `sin carriles disponibles el carril es null`() {
         assertEquals(OrdenVoz.Hecho(null), InterpreteVoz.interpretar("chef hecho la olla", emptyList()))
+    }
+
+    // --- Gramática ampliada (carriles numerados: 1 MESA, 2 SARTÉN, 3 OLLA) ---
+
+    private val numerados =
+        listOf(
+            CarrilVoz("mesa", "MESA", 1),
+            CarrilVoz("sarten", "SARTÉN", 2),
+            CarrilVoz("olla", "OLLA", 3),
+        )
+
+    private fun n(texto: String) = InterpreteVoz.interpretar(texto, numerados)
+
+    @Test
+    fun `cantidad sola es prorrogar`() {
+        assertEquals(OrdenVoz.Prorrogar(30, null), n("chef 30 segundos"))
+        assertEquals(OrdenVoz.Prorrogar(30, null), n("chef treinta segundos más"))
+        assertEquals(OrdenVoz.Prorrogar(45, null), n("chef cuarenta y cinco segundos"))
+        assertEquals(OrdenVoz.Prorrogar(60, null), n("chef un minuto"))
+        assertEquals(OrdenVoz.Prorrogar(10, null), n("chef 10 seg"))
+    }
+
+    @Test
+    fun `prorrogar con verbos y cantidad`() {
+        assertEquals(OrdenVoz.Prorrogar(60, null), n("chef añade un minuto"))
+        assertEquals(OrdenVoz.Prorrogar(60, null), n("chef anade un minuto"))
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef suma dos minutos"))
+        assertEquals(OrdenVoz.Prorrogar(300, null), n("chef pon cinco min"))
+        assertEquals(OrdenVoz.Prorrogar(45, null), n("chef más 45 segundos"))
+    }
+
+    @Test
+    fun `dale con cantidad prorroga y sin cantidad sigue`() {
+        assertEquals(OrdenVoz.Prorrogar(30, null), n("chef dale 30 segundos"))
+        assertEquals(OrdenVoz.Seguir(null), n("chef dale"))
+        assertEquals(OrdenVoz.Seguir(null), n("chef quita la pausa"))
+        assertEquals(OrdenVoz.Seguir("mesa"), n("chef quita la pausa del 1"))
+    }
+
+    @Test
+    fun `minutos medios y tope`() {
+        assertEquals(OrdenVoz.Prorrogar(30, null), n("chef medio minuto más"))
+        assertEquals(OrdenVoz.Prorrogar(90, "olla"), n("chef un minuto y medio más a la olla"))
+        assertEquals(OrdenVoz.Prorrogar(90, null), n("chef minuto y medio más"))
+        assertEquals(OrdenVoz.Prorrogar(150, null), n("chef 2 minutos y medio más"))
+        assertEquals(OrdenVoz.Prorrogar(1800, null), n("chef 90 minutos más"))
+        assertEquals(OrdenVoz.Prorrogar(1800, null), n("chef noventa y nueve minutos más"))
+    }
+
+    @Test
+    fun `numeros en palabras de cero a noventa y nueve`() {
+        assertEquals(OrdenVoz.Prorrogar(15, null), n("chef quince segundos"))
+        assertEquals(OrdenVoz.Prorrogar(16, null), n("chef dieciséis segundos"))
+        assertEquals(OrdenVoz.Prorrogar(25, null), n("chef veinticinco segundos"))
+        assertEquals(OrdenVoz.Prorrogar(21, null), n("chef veintiún segundos"))
+        assertEquals(OrdenVoz.Prorrogar(35, null), n("chef treinta y cinco segundos"))
+        assertEquals(OrdenVoz.Prorrogar(180, null), n("chef tres minutos más"))
+    }
+
+    @Test
+    fun `prorrogar con carril por numero`() {
+        assertEquals(OrdenVoz.Prorrogar(120, "sarten"), n("chef 2 minutos más al 2"))
+        assertEquals(OrdenVoz.Prorrogar(30, "mesa"), n("chef 30 segundos más en el 1"))
+        assertEquals(OrdenVoz.Prorrogar(120, "olla"), n("chef dos minutos más al tres"))
+    }
+
+    @Test
+    fun `por que`() {
+        assertEquals(OrdenVoz.PorQue(null), n("chef por qué"))
+        assertEquals(OrdenVoz.PorQue("mesa"), n("chef por qué del 1"))
+        assertEquals(OrdenVoz.PorQue(null), n("chef porque"))
+        assertEquals(OrdenVoz.PorQue(null), n("chef para qué"))
+        assertEquals(OrdenVoz.PorQue("olla"), n("chef explícame la olla"))
+        assertEquals(OrdenVoz.PorQue(null), n("chef explica"))
+    }
+
+    @Test
+    fun `que toca en sus variantes`() {
+        assertEquals(OrdenVoz.QueToca(null), n("chef qué tengo que hacer ahora"))
+        assertEquals(OrdenVoz.QueToca("mesa"), n("chef qué tengo que hacer del 1"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef qué hay que hacer"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef qué me toca"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef y ahora qué"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef qué debo hacer"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef ahora qué"))
+        assertEquals(OrdenVoz.QueToca("olla"), n("chef qué hago con la olla"))
+    }
+
+    @Test
+    fun `info`() {
+        assertEquals(OrdenVoz.Info("sarten"), n("chef dame info del 2"))
+        assertEquals(OrdenVoz.Info(null), n("chef info"))
+        assertEquals(OrdenVoz.Info(null), n("chef información"))
+        assertEquals(OrdenVoz.Info(null), n("chef detalles"))
+        assertEquals(OrdenVoz.Info("olla"), n("chef cómo va la olla"))
+    }
+
+    @Test
+    fun `referencia a carril por numero`() {
+        assertEquals(OrdenVoz.Hecho("sarten"), n("chef siguiente del 2"))
+        assertEquals(OrdenVoz.Pausa("mesa"), n("chef pausa el 1"))
+        assertEquals(OrdenVoz.Seguir("olla"), n("chef sigue el 3"))
+        assertEquals(OrdenVoz.Seguir("olla"), n("chef sigue el tres"))
+        assertEquals(OrdenVoz.Empezar("sarten"), n("chef empieza el carril 2"))
+        assertEquals(OrdenVoz.Hecho("mesa"), n("chef hecho fuego 1"))
+        assertEquals(OrdenVoz.CuantoQueda("olla"), n("chef cuánto queda en la 3"))
+    }
+
+    @Test
+    fun `numero de carril inexistente da null`() {
+        assertEquals(OrdenVoz.Pausa(null), n("chef pausa el 9"))
+        assertEquals(OrdenVoz.Hecho(null), n("chef hecho del 0"))
+    }
+
+    @Test
+    fun `para con referencia es pausa y para solo es silenciar`() {
+        assertEquals(OrdenVoz.Pausa("mesa"), n("chef para el 1"))
+        assertEquals(OrdenVoz.Pausa("olla"), n("chef para la olla"))
+        assertEquals(OrdenVoz.Pausa(null), n("chef para el 9"))
+        assertEquals(OrdenVoz.Para, n("chef para"))
+    }
+
+    @Test
+    fun `hecho amplio`() {
+        for (frase in listOf("acabado", "terminé", "hecha", "pasa", "avanza", "terminado")) {
+            assertEquals(OrdenVoz.Hecho(null), n("chef $frase"), frase)
+        }
+        assertEquals(OrdenVoz.Hecho("sarten"), n("chef avanza el 2"))
+    }
+
+    @Test
+    fun `activadores ampliados`() {
+        assertEquals(OrdenVoz.Hecho(null), n("jefe hecho"))
+        assertEquals(OrdenVoz.Hecho(null), n("chefs hecho"))
+        assertEquals(OrdenVoz.Hecho(null), n("sheff hecho"))
+        assertEquals(setOf("chef", "jef", "shef", "jefe", "chefs", "sheff"), InterpreteVoz.ACTIVADORES)
+    }
+
+    @Test
+    fun `prioridades entre reglas`() {
+        assertEquals(OrdenVoz.Prorrogar(30, null), n("chef dale 30 segundos"))
+        assertEquals(OrdenVoz.PorQue(null), n("chef para qué"))
+        assertEquals(OrdenVoz.QueToca(null), n("chef qué hago ahora, listo"))
+    }
+
+    @Test
+    fun `numero de carril seguido de unidad de tiempo no es carril`() {
+        // «al 2» es carril, pero «el 2 minutos» no: es la cantidad.
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef pon el 2 minutos"))
     }
 
     // --- Palabra clave y errores del reconocedor ---

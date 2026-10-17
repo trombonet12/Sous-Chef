@@ -524,6 +524,26 @@ class MotorCronoTest {
     }
 
     @Test
+    fun prorrogarSumaSegundosArbitrariosYDesplazaElHito() {
+        val t0 = inicioSarten
+        val parado = MotorCrono.prorrogar(abierto(), ensalada, "sarten", 120, t0)
+        assertEquals(300, parado.carriles.getValue("sarten").restanteS)
+
+        val e = MotorCrono.prorrogar(MotorCrono.empezar(abierto(), ensalada, "sarten", t0), ensalada, "sarten", 120, t0)
+        assertEquals(t0 + seg(300), e.carriles.getValue("sarten").finAtMs)
+        assertEquals(t0 + seg(240), AvisosCrono.siguienteEvento(e, ensalada)!!.ms)
+    }
+
+    @Test
+    fun masTreintaEsProrrogarTreinta() {
+        val t0 = inicioSarten
+        assertEquals(
+            MotorCrono.prorrogar(abierto(), ensalada, "sarten", 30, t0),
+            MotorCrono.masTreinta(abierto(), ensalada, "sarten", t0),
+        )
+    }
+
+    @Test
     fun hitosFueraDeRangoNoAvisan() {
         val r = sintetica(5.0, paso("x", 60, 0.0, hitos = listOf(Hito(0.0, "cero"), Hito(60.0, "fin"), Hito(30.4, ""))))
         var e = SesionCrono.abrir(SesionCrono.inicial(r, servir, 0), r, servir)

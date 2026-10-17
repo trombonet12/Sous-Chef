@@ -2,25 +2,26 @@ package app.souschef.receta.voz
 
 import app.souschef.receta.Texto
 
-/** Un carril tal como se nombra en voz: [id] estable y [nombre] visible («SARTÉN GRANDE»). */
+/** Un carril tal como se nombra en voz: [id] estable, [nombre] visible («SARTÉN GRANDE») y [numero] 1-based. */
 data class CarrilVoz(
     val id: String,
     val nombre: String,
+    val numero: Int,
 )
 
 /** Orden de voz ya interpretada (ADR-0008). `carril == null`: la orden afecta al carril activo o más cercano. */
 sealed interface OrdenVoz {
-    /** «hecho», «listo», «siguiente», «ya está». */
+    /** «hecho», «listo», «siguiente», «ya está», «pasa», «avanza». */
     data class Hecho(
         val carril: String?,
     ) : OrdenVoz
 
-    /** «pausa», «para el tiempo», «espera». */
+    /** «pausa», «para el tiempo», «espera», «para el 1». */
     data class Pausa(
         val carril: String?,
     ) : OrdenVoz
 
-    /** «sigue», «continúa», «reanuda». */
+    /** «sigue», «continúa», «reanuda», «dale», «quita la pausa». */
     data class Seguir(
         val carril: String?,
     ) : OrdenVoz
@@ -30,8 +31,9 @@ sealed interface OrdenVoz {
         val carril: String?,
     ) : OrdenVoz
 
-    /** «treinta segundos más», «30 más», «un poco más». */
-    data class MasTreinta(
+    /** «30 segundos más», «dos minutos más», «medio minuto», «un poco más» (tope 1800 s). */
+    data class Prorrogar(
+        val segundos: Int,
         val carril: String?,
     ) : OrdenVoz
 
@@ -40,8 +42,20 @@ sealed interface OrdenVoz {
         val carril: String?,
     ) : OrdenVoz
 
-    /** «qué toca», «qué hago». */
-    data object QueToca : OrdenVoz
+    /** «por qué», «explica». */
+    data class PorQue(
+        val carril: String?,
+    ) : OrdenVoz
+
+    /** «info», «detalle», «cómo va». */
+    data class Info(
+        val carril: String?,
+    ) : OrdenVoz
+
+    /** «qué toca», «qué hago», «qué tengo que hacer». */
+    data class QueToca(
+        val carril: String?,
+    ) : OrdenVoz
 
     /** «qué viene», «y luego», «qué sigue». */
     data object QueViene : OrdenVoz
@@ -58,16 +72,48 @@ sealed interface OrdenVoz {
  * dichas tras la palabra de activación «chef» (y sus errores típicos de reconocimiento).
  */
 object InterpreteVoz {
-    private val activadores = setOf("chef", "jef", "shef")
+    /** Palabras de activación (con los errores típicos del reconocedor). */
+    val ACTIVADORES: Set<String> = setOf("chef", "jef", "shef", "jefe", "chefs", "sheff")
+
     private const val MIN_PALABRA_CARRIL = 4
+    private const val SEG_MINUTO = 60
+    private const val SEG_MEDIO_MINUTO = 30
+    private const val SEG_MINUTO_Y_MEDIO = 90
+    private const val TOPE_S = 1800
+    private const val MIN_N_MAS = 10
+    private const val DECENA = 10
+    private const val PRIMERA_DECENA = 3
+    private const val UNO = 1
+    private const val NUEVE = 9
     private val noPalabra = Regex("[^a-z0-9]+")
+    private val digitos = Regex("[0-9]+")
 
     /** Palabras de 4+ letras que no identifican un carril. */
     private val vacias = setOf("para", "sobre", "entre", "desde", "hasta", "como", "esta", "este")
 
+    // El índice es el valor.
+    private val unidades =
+        (
+            "cero uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece catorce quince dieciseis " +
+                "diecisiete dieciocho diecinueve veinte veintiuno veintidos veintitres veinticuatro veinticinco " +
+                "veintiseis veintisiete veintiocho veintinueve"
+        ).split(' ')
+    private val decenas = listOf("treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa")
+    private val alias = mapOf("un" to 1, "una" to 1, "veintiun" to 21, "veintiuna" to 21)
+
+    private val palabrasReferencia = setOf("del", "al", "el", "la", "carril", "numero", "fuego")
+    private val palabrasTiempo = setOf("segundo", "segundos", "seg", "segs", "minuto", "minutos", "min", "mins")
+
+    private class Ctx(
+        val frase: String,
+        val carril: String?,
+        val cantidad: Int?,
+        val conNumero: Boolean,
+    )
+
     private class Regla(
         patron: String,
-        val crear: (String?) -> OrdenVoz,
+        val crear: (Ctx) -> OrdenVoz?,
     ) {
         val regex = Regex(patron)
     }
@@ -75,17 +121,36 @@ object InterpreteVoz {
     // El texto se compara como « palabra palabra » (con espacio a cada lado); el orden de las reglas es la prioridad.
     private val reglas =
         listOf(
+            Regla(" (por que|porque|para que|explica|explicame) ") { OrdenVoz.PorQue(it.carril) },
             Regla(" (que viene|y luego|que sigue) ") { OrdenVoz.QueViene },
-            Regla(" (que toca|que hago) ") { OrdenVoz.QueToca },
-            Regla(" cuanto (tiempo )?(queda|falta) ") { OrdenVoz.CuantoQueda(it) },
+            Regla(
+                " (que toca|que hago|que tengo que hacer|que hay que hacer|que me toca|y ahora que|que debo hacer" +
+                    "|ahora que) ",
+            ) { OrdenVoz.QueToca(it.carril) },
+            Regla(" cuanto (tiempo )?(queda|falta) ") { OrdenVoz.CuantoQueda(it.carril) },
+            Regla(" (info|informacion|detalle|detalles|como va) ") { OrdenVoz.Info(it.carril) },
             Regla(" (repite|repetir|otra vez|que has dicho|que dijiste) ") { OrdenVoz.Repite },
-            Regla(" (30 (segundos )?mas|mas 30 segundos|un poco mas|medio minuto mas) ") { OrdenVoz.MasTreinta(it) },
-            Regla("^ para el tiempo | (pausa|pausar|espera|detente) ") { OrdenVoz.Pausa(it) },
-            Regla("^ para | (calla|callate|silencio|apaga la alarma) ") { OrdenVoz.Para },
-            Regla(" (sigue|continua|continuar|reanuda|reanudar|seguir) ") { OrdenVoz.Seguir(it) },
-            Regla(" (empieza|empezar|arranca|arrancar|comienza|vamos) ") { OrdenVoz.Empezar(it) },
-            Regla(" (hecho|listo|lista|siguiente|ya esta|terminado) ") { OrdenVoz.Hecho(it) },
+            Regla(" ") { c -> c.cantidad?.let { OrdenVoz.Prorrogar(it, c.carril) } },
+            Regla(" quita (la )?pausa ") { OrdenVoz.Seguir(it.carril) },
+            Regla("^ para el tiempo | (pausa|pausar|espera|detente) ") { OrdenVoz.Pausa(it.carril) },
+            Regla("^ para ") { c -> if (c.conNumero) OrdenVoz.Pausa(c.carril) else null },
+            Regla("^ para | (calla|callate|silencio|apaga la alarma) ") { c ->
+                if (c.frase.startsWith(" para ") && c.carril != null) OrdenVoz.Pausa(c.carril) else OrdenVoz.Para
+            },
+            Regla(" (sigue|continua|continuar|reanuda|reanudar|seguir|dale) ") { OrdenVoz.Seguir(it.carril) },
+            Regla(" (empieza|empezar|arranca|arrancar|comienza|vamos) ") { OrdenVoz.Empezar(it.carril) },
+            Regla(
+                " (hecho|hecha|listo|lista|siguiente|ya esta|terminado|acabado|termine|pasa|avanza) ",
+            ) { OrdenVoz.Hecho(it.carril) },
         )
+
+    private val medioMinuto = Regex(" medio minuto ")
+    private val minutosYMedio = Regex(" ([0-9]+) minutos? y medio ")
+    private val minutoYMedio = Regex(" minuto y medio ")
+    private val enSegundos = Regex(" ([0-9]+) (?:segundos?|segs?) ")
+    private val enMinutos = Regex(" ([0-9]+) (?:minutos?|mins?) ")
+    private val nMas = Regex(" ([0-9]+) mas ")
+    private val unPoco = Regex(" 1 poco ")
 
     /** null si no hay «chef» o lo que sigue no es una orden. Analiza solo el texto tras la ÚLTIMA «chef». */
     fun interpretar(
@@ -97,15 +162,13 @@ object InterpreteVoz {
                 .normalizar(texto)
                 .split(noPalabra)
                 .filter { it.isNotEmpty() }
-                .map(::numero)
-        val inicio = tokens.indexOfLast { it in activadores }
-        val cola = tokens.drop(inicio + 1)
+        val inicio = tokens.indexOfLast { it in ACTIVADORES }
+        if (inicio < 0) return null
+        val cola = numeros(tokens.drop(inicio + 1))
         val frase = cola.joinToString(" ", prefix = " ", postfix = " ")
-        return if (inicio < 0) {
-            null
-        } else {
-            reglas.firstOrNull { it.regex.containsMatchIn(frase) }?.crear(carrilMencionado(cola, carriles))
-        }
+        val numero = numeroMencionado(cola)
+        val ctx = Ctx(frase, carrilMencionado(cola, numero, carriles), cantidad(frase), numero != null)
+        return reglas.firstNotNullOfOrNull { if (it.regex.containsMatchIn(frase)) it.crear(ctx) else null }
     }
 
     /** Primera alternativa del reconocedor que da orden. */
@@ -114,7 +177,61 @@ object InterpreteVoz {
         carriles: List<CarrilVoz>,
     ): OrdenVoz? = alternativas.firstNotNullOfOrNull { interpretar(it, carriles) }
 
-    private fun numero(token: String): String = if (token == "treinta") "30" else token
+    /** Segundos pedidos en la frase (1..[TOPE_S]) o null. */
+    private fun cantidad(frase: String): Int? {
+        val s: Int? =
+            if (medioMinuto.containsMatchIn(frase)) {
+                SEG_MEDIO_MINUTO
+            } else if (minutoYMedio.containsMatchIn(frase)) {
+                SEG_MINUTO_Y_MEDIO
+            } else {
+                minutosYMedio.find(frase)?.let { it.valor() * SEG_MINUTO + SEG_MEDIO_MINUTO }
+                    ?: enSegundos.find(frase)?.valor()
+                    ?: enMinutos.find(frase)?.let { it.valor() * SEG_MINUTO }
+                    ?: nMas.find(frase)?.valor()?.takeIf { it >= MIN_N_MAS }
+                    ?: SEG_MEDIO_MINUTO.takeIf { unPoco.containsMatchIn(frase) }
+            }
+        return s?.takeIf { it > 0 }?.coerceAtMost(TOPE_S)
+    }
+
+    private fun MatchResult.valor(): Int = groupValues[1].toIntOrNull()?.coerceAtMost(TOPE_S) ?: TOPE_S
+
+    /** Pasa las palabras numéricas (0-99) a cifras: «treinta y cinco» -> «35», «un» -> «1». */
+    private fun numeros(tokens: List<String>): List<String> {
+        val salida = mutableListOf<String>()
+        var i = 0
+        while (i < tokens.size) {
+            val t = tokens[i]
+            val decena = decenas.indexOf(t).takeIf { it >= 0 }?.let { (it + PRIMERA_DECENA) * DECENA }
+            val suelta = unidad(tokens.getOrNull(i + 2))?.takeIf { it in UNO..NUEVE }
+            if (decena != null && tokens.getOrNull(i + 1) == "y" && suelta != null) {
+                salida += (decena + suelta).toString()
+                i += 3
+            } else {
+                salida += (decena ?: unidad(t))?.toString() ?: t
+                i++
+            }
+        }
+        return salida
+    }
+
+    private fun unidad(token: String?): Int? =
+        when {
+            token == null -> null
+            token in alias -> alias[token]
+            else -> unidades.indexOf(token).takeIf { it >= 0 }
+        }
+
+    /** Número de carril dicho como referencia («del 2», «carril 3»), si no va seguido de una unidad de tiempo. */
+    private fun numeroMencionado(cola: List<String>): Int? {
+        for (i in 0 until cola.size - 1) {
+            val n = cola[i + 1]
+            if (cola[i] in palabrasReferencia && digitos.matches(n) && cola.getOrNull(i + 2) !in palabrasTiempo) {
+                return n.toIntOrNull() ?: 0
+            }
+        }
+        return null
+    }
 
     private fun palabrasDe(nombre: String): Set<String> =
         Texto
@@ -124,11 +241,13 @@ object InterpreteVoz {
             .map(Texto::singular)
             .toSet()
 
-    /** El carril con más palabras de su nombre mencionadas; null si ninguno o si hay empate. */
+    /** Por número si se dijo uno (inexistente: null); si no, por palabras del nombre; null si hay empate. */
     private fun carrilMencionado(
         cola: List<String>,
+        numero: Int?,
         carriles: List<CarrilVoz>,
     ): String? {
+        if (numero != null) return carriles.firstOrNull { it.numero == numero }?.id
         val dichas = cola.map(Texto::singular).toSet()
         val puntuados = carriles.map { it to palabrasDe(it.nombre).count { p -> p in dichas } }
         val mejor = puntuados.maxOfOrNull { it.second } ?: 0
