@@ -83,7 +83,7 @@
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
 - Ronda 7 sin probar en el móvil, porque se ejecutó desatendida: insignias, diálogo al salir y voz nueva.
-- Quedan en disco dos carpetas de worktree viejas (`.claude/worktrees/agent-ab0f…`, `agent-a193…`). Se borran con
+- Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
