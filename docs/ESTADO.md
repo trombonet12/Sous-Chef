@@ -5,8 +5,8 @@
 | F0 Repo y gobierno | completada |
 | F1 Esqueleto Android, CI, release, spike de alarmas | completada |
 | MVP local-first (modo ahorro, ver plan) | **completado**: app funcional sin backend |
-| F3/F4 Supabase + sync + login | aplazada |
-| F9b Revisión culinaria | en curso: lote 1 de 3 aplicado |
+| F3/F4 Supabase + sync + login | **descartada** (ADR-0007) |
+| F9b Revisión culinaria | completada (lotes 1-3) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -33,6 +33,15 @@
   vencer, la misma en canal de alarma insistente (sonido del sistema; probado en el móvil con pantalla apagada); sin
   "En marcha" (el chip lo lleva el carril más próximo); Trombito chef con consejos en el cronómetro; etiqueta pescado;
   skills sin comandos sc inexistentes; F9b lote 1 (arroz cubana, curry, emperador, ensalada de ñoquis, huevos rotos).
+- 2026-10-17 · Ronda 6 (v0.6.0):
+  - Backlog cerrado. Supabase descartado (ADR-0007); legado y roadmap viejo, históricos.
+  - Release automática al cambiar `version.properties` y hacer push a main.
+  - Despensa sin `compra`: todo ingrediente está en la semilla (R12); la ficha dice «Te falta».
+  - Regla R25 «baja/sube al N».
+  - Huevos rotos rehecha (47 min) y F9b lotes 2 y 3.
+  - Fuera el Trombito. Cronómetro sin scroll con disposiciones FOCO y APILADA en Ajustes.
+  - Notificaciones: ninguna en pantalla, una fija y una alarma agrupada (ADR-0005 actualizado).
+  - Voz «Chef» con TTS (ADR-0008).
 
 ## Entorno
 | Herramienta | Estado |
@@ -41,18 +50,23 @@
 | Android SDK 36 / build-tools 36.0.0 | OK |
 | Emulador | AVD `trombito-36` |
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
-| `~/.souschef/supabase.env` | falta (no hace falta para el MVP) |
 
 ## Pendiente del usuario
-- Actualizar a la v0.5.0 por Obtainium. En el móvil ya hay una compilación equivalente.
-- Cocinar con la v0.5.0: alarma insistente + pantalla completa (permiso concedido por adb), notificaciones por carril y Trombito.
+- Instalar la v0.6.0 (Obtainium) y cocinar con ella:
+  - con la cocina en pantalla, sin notificaciones;
+  - fuera de ella, una fija más la alarma agrupada;
+  - pantalla completa con el móvil bloqueado;
+  - cambiar de disposición en Ajustes.
+- Spike de voz (ADR-0008, `VERIFICAR`):
+  - reconocimiento en español sin red;
+  - latencia;
+  - si el bucle de escucha pita;
+  - convivencia con el TTS.
 
 ## Problemas conocidos / TODO
-- Sin probar en el móvil: AlarmaActivity a pantalla completa (el permiso estaba denegado; ya concedido), Parar → el carril
-  vuelve a su estado; si el aviso caduca a los 60 s sin tocar nada, el carril desaparece hasta el siguiente repintado.
-- `shortCriticalText` del chip es estático entre repintados (la cuenta atrás nativa sí corre).
-- Aplazado: Supabase/sync/login, `sc publicar/despensa/migrar`, F9b lotes 2 (macarrones, pastel de patata, pizza,
-  salmón) y 3 (salteado, tacos de carne, tacos de fiesta, tarta de manzana): chef-reviewer opus propone, sonnet aplica.
+- Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
+- La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
+- Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
 
 ## Próxima acción exacta
-F9b lote 2 (cuando Joan lo pida); después F3 Supabase cuando haya presupuesto.
+Resultado del spike de voz y de la cocinada con la v0.6.0 → ajustes de la ronda 7.

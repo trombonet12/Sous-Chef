@@ -102,3 +102,13 @@
 - Notificaciones: ninguna con la cocina en pantalla. Fuera, una sola fija con todos los carriles y una de alarma que
   agrupa lo que coincide. Sin aviso de 10 s. Pantalla completa solo con el móvil bloqueado.
 - Voz: palabra clave «Chef», escucha solo con el cronómetro en primer plano y responde con TTS (ADR-0008).
+- Implementación (2026-10-17):
+  - `PresenciaCrono` es una clase simple dentro de `CadenaAlarmas` (@Singleton), no inyectable, porque `domain/` no
+    admite `javax.inject`.
+  - La fija usa BigTextStyle, no InboxStyle, para que Android 16 la promocione a Live Update.
+  - El tic del ViewModel solo consume avisos con la cocina a la vista. Fuera de la pantalla los consume la cadena.
+  - «Bloqueado» para la pantalla completa también incluye la pantalla apagada (`!isInteractive`).
+  - Tras la muerte del proceso, la alarma agrupada no se reconstruye: la siguiente sustituye a la de la bandeja.
+    Se acepta.
+  - Causa raíz del «+30 s lento»: `masTreinta` pasaba por el cerrojo de acciones, que descartaba pulsaciones seguidas.
+    Ahora va por `mutar`.
