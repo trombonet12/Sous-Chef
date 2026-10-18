@@ -34,3 +34,11 @@ dependencies {
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit)
 }
+
+// DatosRealesTest lee ../data: sin declararlo, Gradle da el test por al día aunque cambien recetas o técnicas.
+tasks.test {
+    inputs
+        .dir(rootProject.layout.projectDirectory.dir("data"))
+        .withPathSensitivity(PathSensitivity.RELATIVE)
+        .withPropertyName("datos")
+}

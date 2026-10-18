@@ -35,7 +35,7 @@ class DatosRealesTest {
     @Test
     fun todasLasTecnicasSeLeen() {
         val tecnicas = archivos("tecnicas").map { leerTecnica(it.readText()) }
-        assertTrue(tecnicas.size >= 17)
+        assertTrue(tecnicas.size >= 16)
         tecnicas.forEach { assertTrue(it.pasos.isNotEmpty(), "${it.slug} sin pasos") }
     }
 

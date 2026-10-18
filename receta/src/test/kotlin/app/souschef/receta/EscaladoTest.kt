@@ -64,6 +64,36 @@ class EscaladoTest {
     }
 
     @Test
+    fun listaGeneralJuntaPorNombreBaseSinEquivalenciasNiColetillas() {
+        val r =
+            Receta(
+                slug = "x",
+                titulo = "x",
+                grupos =
+                    listOf(
+                        Grupo(
+                            "A",
+                            listOf(
+                                Ingrediente("harina (5 cucharadas soperas)", 50.0, "g"),
+                                Ingrediente("sal (⅓ de cucharadita)", 2.0, "g", esc = "sub"),
+                            ),
+                        ),
+                        Grupo(
+                            "B",
+                            listOf(
+                                Ingrediente("harina (2 cucharadas soperas)", 20.0, "g"),
+                                Ingrediente("sal, al salir de la sartén (una pizca)", 1.0, "g", esc = "sub"),
+                            ),
+                        ),
+                        Grupo("C", listOf(Ingrediente("cebolla, en aros de 1 cm (1 cebolla grande)", 250.0, "g"))),
+                    ),
+            )
+        val lista = Escalado.listaGeneral(r)
+        assertEquals(listOf("harina", "sal", "cebolla, en aros de 1 cm (1 cebolla grande)"), lista.map { it.n })
+        assertEquals(listOf(70.0, 3.0, 250.0), lista.map { it.a })
+    }
+
+    @Test
     fun minutosAMedios() {
         assertEquals("2,5", Escalado.minutos(2.5))
         assertEquals("3", Escalado.minutos(3.0))

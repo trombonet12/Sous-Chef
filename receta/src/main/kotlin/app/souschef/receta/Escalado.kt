@@ -45,23 +45,27 @@ object Escalado {
     }
 
     /**
-     * Ingredientes de todas las zonas juntos, en orden de primera aparición. Se suman los que coinciden en nombre
-     * (sin mayúsculas ni espacios de más), unidad y modo de escalado; los de texto salen una vez.
+     * Ingredientes de todas las zonas juntos, en orden de primera aparición. Se suman los que coinciden en nombre base
+     * (sin la equivalencia entre paréntesis ni lo que va tras la coma, sin mayúsculas ni espacios de más), unidad y
+     * modo de escalado; los de texto salen una vez. Si se juntan varios, la línea lleva el nombre base: la equivalencia
+     * casera de cada uno ya no cuadraría con la suma.
      */
     fun listaGeneral(receta: Receta): List<Ingrediente> {
         val juntos = LinkedHashMap<List<String?>, Ingrediente>()
         receta.grupos.flatMap { it.items }.forEach { i ->
-            val clave = listOf(normal(i.n), i.u?.trim(), i.txt?.trim(), i.esc, (i.a == null).toString())
+            val clave = listOf(normal(base(i.n)), i.u?.trim(), i.txt?.trim(), i.esc, (i.a == null).toString())
             val previo = juntos[clave]
             juntos[clave] =
                 if (previo == null) {
                     i.copy(n = i.n.trim())
                 } else {
-                    previo.copy(a = previo.a?.let { a -> a + (i.a ?: 0.0) })
+                    previo.copy(n = base(previo.n), a = previo.a?.let { a -> a + (i.a ?: 0.0) })
                 }
         }
         return juntos.values.toList()
     }
+
+    private fun base(nombre: String) = nombre.substringBefore('(').substringBefore(',').trim()
 
     private fun normal(nombre: String) = nombre.trim().lowercase().replace(ESPACIOS, " ")
 

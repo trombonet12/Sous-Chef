@@ -6,9 +6,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
@@ -68,14 +71,27 @@ fun SelectorDisposicion(
     BoxWithConstraints(modifier.fillMaxWidth()) {
         val enFila = maxWidth >= ANCHO_MIN_TARJETA * OPCIONES.size + 16.dp
         if (enFila) {
-            Row(Modifier.fillMaxWidth().selectableGroup(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OPCIONES.forEach {
-                    TarjetaDisposicion(
-                        it,
-                        it.disposicion == elegida,
-                        enFila = true,
-                        Modifier.weight(1f),
-                        onElegir,
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().height(IntrinsicSize.Min).selectableGroup(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    OPCIONES.forEach {
+                        TarjetaDisposicion(
+                            it,
+                            it.disposicion == elegida,
+                            enFila = true,
+                            Modifier.weight(1f).fillMaxHeight(),
+                            onElegir,
+                        )
+                    }
+                }
+                // En fila no cabe el detalle de cada una: se explica la elegida debajo.
+                OPCIONES.firstOrNull { it.disposicion == elegida }?.let {
+                    Text(
+                        stringResource(it.detalle),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
