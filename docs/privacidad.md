@@ -8,10 +8,7 @@ Sous Chef no recoge, no envía y no comparte datos personales. Todo lo que guard
 ## Qué guarda la app y dónde
 - **Recetas y técnicas:** vienen dentro de la app.
 - **Historial de lo cocinado, raciones preferidas, ajustes y estado del cronómetro:** se guardan en una base de datos
-  local del móvil y no salen de él.
-  - La excepción es la copia de seguridad de Android, si la tienes activada. La gestiona Google con tu cuenta, no
-    Sous Chef.
-
+  local del móvil y no salen de él. La app no usa la copia de seguridad de Android.
 - **Copia del historial:** solo si la pides en Ajustes. Se guarda en el archivo que tú eliges con el selector del
   sistema (por ejemplo en Documentos), y la app solo lo vuelve a leer cuando le pides «Cargar copia».
 
