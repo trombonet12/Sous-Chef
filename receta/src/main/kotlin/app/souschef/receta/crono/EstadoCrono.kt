@@ -20,6 +20,10 @@ data class EstadoCrono(
     /** "Abrir la cocina"; null mientras se está en la portada. */
     val inicioMs: Long? = null,
     val actualizadoMs: Long,
+    /** Estado de cada carril justo antes de su último Hecho, para deshacerlo (un nivel por carril). */
+    val deshacer: Map<String, EstadoCarril> = emptyMap(),
+    /** Carril del último Hecho: el que deshace «deshaz» sin nombrar carril. */
+    val ultimoHecho: String? = null,
 )
 
 /** Estado del paso actual de un carril; al pasar al siguiente paso se reinicia. */

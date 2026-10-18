@@ -101,12 +101,38 @@ object MotorCrono {
                 carriles = e.carriles + (carril to nuevo),
                 pasosReales = e.pasosReales + (p.id to real),
                 actualizadoMs = ahoraMs,
+                deshacer = e.deshacer + (carril to ec),
+                ultimoHecho = carril,
             )
         return if (siguiente == null) {
             base.copy(foco = ConsultasCrono.siguienteAccionable(base, receta, ahoraMs) ?: base.foco)
         } else {
             base
         }
+    }
+
+    /**
+     * Deshace el último Hecho de [carril] (o, sin carril, el último Hecho de la cocina): el carril vuelve tal cual
+     * estaba, con su reloj, pausa e hitos avisados, y se olvida el tiempo real que se guardó. Un solo nivel por carril;
+     * sin nada que deshacer devuelve el estado tal cual.
+     */
+    fun deshacer(
+        e: EstadoCrono,
+        receta: Receta,
+        carril: String?,
+        ahoraMs: Long,
+    ): EstadoCrono {
+        val id = carril ?: e.ultimoHecho
+        val previo = id?.let { e.deshacer[it] }
+        if (id == null || previo == null) return e
+        val paso = Plano(receta).colas[id]?.getOrNull(previo.i)
+        return e.copy(
+            carriles = e.carriles + (id to previo),
+            pasosReales = paso?.let { e.pasosReales - it.id } ?: e.pasosReales,
+            deshacer = e.deshacer - id,
+            ultimoHecho = e.ultimoHecho.takeIf { it != id },
+            actualizadoMs = ahoraMs,
+        )
     }
 
     private fun arrancar(

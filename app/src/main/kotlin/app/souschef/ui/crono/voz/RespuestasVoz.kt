@@ -12,6 +12,7 @@ import app.souschef.ui.crono.elegirFoco
 object RespuestasVoz {
     const val NO_ENTENDIDO = "No te he entendido."
     const val SIN_PORQUE = "Este paso no tiene explicación."
+    const val NADA_QUE_DESHACER = "No hay nada que deshacer."
 
     /** Tiempo que queda de un carril, o el estado en que está si no corre. */
     fun cuantoQueda(v: VistaCarril): String {
@@ -105,7 +106,7 @@ object RespuestasVoz {
             is OrdenVoz.Para -> "Silencio."
             is OrdenVoz.CuantoQueda -> v?.let(::cuantoQueda) ?: NO_ENTENDIDO
             is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info -> "Vale."
-            is OrdenVoz.QueViene, is OrdenVoz.Repite, is OrdenVoz.ProximosPasos -> "Vale."
+            is OrdenVoz.QueViene, is OrdenVoz.Repite, is OrdenVoz.ProximosPasos, is OrdenVoz.Deshacer -> "Vale."
         }
 
     /** Lo que falta del paso según la acción del carril, ya como frase con inicial mayúscula. */

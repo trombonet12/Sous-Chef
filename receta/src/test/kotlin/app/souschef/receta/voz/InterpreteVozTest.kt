@@ -401,4 +401,26 @@ class InterpreteVozTest {
 
     @Test
     fun `que viene sigue siendo el siguiente fin`() = assertEquals(OrdenVoz.QueViene, i("chef qué viene"))
+
+    // --- Deshacer ---
+
+    @Test
+    fun `deshacer en sus variantes`() {
+        listOf(
+            "chef deshaz",
+            "chef deshacer",
+            "chef atrás",
+            "chef vuelve atrás",
+            "chef vuelve al paso anterior",
+            "chef me he equivocado",
+            "chef paso anterior",
+        ).forEach { assertEquals(OrdenVoz.Deshacer(null), i(it), it) }
+    }
+
+    @Test
+    fun `deshacer con carril`() {
+        assertEquals(OrdenVoz.Deshacer("sp"), i("chef deshaz el dos"))
+        assertEquals(OrdenVoz.Deshacer("olla"), i("chef vuelve atrás en la olla"))
+        assertEquals(OrdenVoz.Deshacer("sg"), i("chef para atrás del 1"))
+    }
 }

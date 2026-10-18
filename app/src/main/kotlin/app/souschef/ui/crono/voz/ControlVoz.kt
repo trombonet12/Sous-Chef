@@ -21,6 +21,8 @@ class MandosVoz(
     val empezarIgual: (String) -> Unit,
     /** Lo mismo que pulsar Parar en la alarma. */
     val silenciarAlarma: () -> Unit,
+    /** Deshace el último Hecho del carril (null: el último de la cocina). */
+    val deshacer: (String?) -> Unit = {},
 )
 
 /**
@@ -118,8 +120,26 @@ class ControlVoz(
                 is OrdenVoz.Repite -> {
                     ultimaFrase
                 }
+
+                is OrdenVoz.Deshacer -> {
+                    deshacer(orden.carril, actuales)
+                }
             }
         if (frase != null) decir(frase)
+    }
+
+    /** Deshace el último Hecho del carril nombrado o, sin carril, el último de la cocina; si no hay, lo dice. */
+    private fun deshacer(
+        carril: String?,
+        actuales: List<VistaCarril>,
+    ): String {
+        val v =
+            (carril?.let { c -> actuales.firstOrNull { it.id == c } } ?: actuales.firstOrNull { it.ultimoHecho })
+                ?.takeIf { it.puedeDeshacer }
+                ?: return RespuestasVoz.NADA_QUE_DESHACER
+        mandos.deshacer(v.id)
+        // [v] es la vista antes de deshacer: su `deshacerA` es el paso al que se vuelve.
+        return limitar("Vuelvo a ${hablar(v.deshacerA.orEmpty())} en ${nombreHablado(v.nombre)}.")
     }
 
     /** Preguntas: no tocan nada, solo responden. */

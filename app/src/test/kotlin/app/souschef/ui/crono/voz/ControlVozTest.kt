@@ -85,6 +85,7 @@ class ControlVozTest {
                     prorrogar = { id, s -> mandos += "prorrogar:$id:$s" },
                     empezarIgual = { mandos += "igual:$it" },
                     silenciarAlarma = { mandos += "silenciar" },
+                    deshacer = { mandos += "deshacer:$it" },
                 ),
             registro = { ordenes += it },
         ).also {
@@ -279,6 +280,21 @@ class ControlVozTest {
         vistas = listOf(sarten(), mesa().copy(proximos = listOf(PasoProximo("Emplatar", 60))))
         escucha.oir("chef próximos pasos del 2")
         assertEquals(listOf("Mesa, después de sofrito: emplatar, 1 minuto."), habla.dichas)
+    }
+
+    @Test
+    fun deshazSinCarrilVuelveAtrasElUltimoHecho() {
+        vistas = listOf(sarten(), mesa().copy(deshacerA = "Cortar", ultimoHecho = true))
+        escucha.oir("chef deshaz")
+        assertEquals(listOf("deshacer:m"), mandos)
+        assertEquals(listOf("Vuelvo a Cortar en Mesa."), habla.dichas)
+    }
+
+    @Test
+    fun deshazSinNadaQueDeshacerNoTocaNada() {
+        escucha.oir("chef deshaz el 1")
+        assertTrue(mandos.isEmpty())
+        assertEquals(listOf("No hay nada que deshacer."), habla.dichas)
     }
 
     @Test

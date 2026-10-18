@@ -74,6 +74,7 @@ fun CronoCocina(
             masTreinta = viewModel::masTreinta,
             empezarIgual = viewModel::empezarIgual,
             enfocar = viewModel::enfocar,
+            deshacer = viewModel::deshacer,
             porque = { id -> porque = id to (datos.ec(id)?.i ?: 0) },
         )
     Column(Modifier.fillMaxSize()) {

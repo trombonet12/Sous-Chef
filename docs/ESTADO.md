@@ -65,6 +65,7 @@
   - Google Play preparado (ADR-0010): el CI genera el AAB y lo sube a la pista interna si hay credenciales; sin aviso de GitHub si se instala desde Play.
   - Interfaz CLÁSICA del cronómetro (la de antes de la v0.6) como tercera disposición; selector con miniaturas en Ajustes y en el ⋮ de la cocina («Interfaz»).
   - Voz: el carril por número se entiende también como «info dos», «de 2», «en el dos» o «de los», y entre alternativas gana la que nombra carril; orden nueva «próximos pasos» (general o de un carril).
+  - Deshacer el último Hecho de un carril: minibotón ↶ en las tarjetas, filas y clásica, y por voz («deshaz», «atrás», «paso anterior» [+ carril]).
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 

@@ -16,10 +16,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -46,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import app.souschef.R
 import app.souschef.ui.comun.Tabular
 import app.souschef.ui.comun.textoRico
+import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.LocalFonts
 import kotlin.math.roundToInt
@@ -153,6 +157,24 @@ internal fun MandosSecundarios(
         AccionCarril.EMPEZAR, AccionCarril.TERMINADO -> {
             Unit
         }
+    }
+    BotonDeshacer(v, acciones)
+}
+
+/** Minibotón ↶: vuelve al paso anterior del carril si el último Hecho fue sin querer. Solo si hay algo que deshacer. */
+@Composable
+internal fun BotonDeshacer(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+) {
+    if (!v.puedeDeshacer) return
+    IconButton(onClick = { acciones.deshacer(v.id) }, Modifier.size(40.dp).testTag("deshacer-${v.id}")) {
+        Icon(
+            Icono.Deshacer.vector,
+            stringResource(R.string.crono_deshacer_paso, v.deshacerA.orEmpty()),
+            Modifier.size(20.dp),
+            tint = CronoPalette.apagado,
+        )
     }
 }
 

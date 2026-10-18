@@ -80,19 +80,29 @@ fun FilaCarrilCompacta(
                 maxLines = 1,
             )
         }
-        ChipFuego(v)
-        if (!v.terminado) {
-            Text(
-                formatoReloj(v.quedanS),
-                Modifier.padding(horizontal = 2.dp),
-                color = v.colorReloj(),
-                style = MaterialTheme.typography.titleLarge.merge(Tabular),
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-            )
-        }
-        if (v.accion == AccionCarril.HECHO || v.accion == AccionCarril.EMPEZAR) {
-            BotonAccion(v, acciones, compacto = true)
-        }
+        FinalFila(v, acciones)
+    }
+}
+
+/** Fuego, reloj (si no terminó), deshacer y, solo si toca (Hecho o Empezar), el botón pequeño. */
+@Composable
+private fun FinalFila(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+) {
+    ChipFuego(v)
+    if (!v.terminado) {
+        Text(
+            formatoReloj(v.quedanS),
+            Modifier.padding(horizontal = 2.dp),
+            color = v.colorReloj(),
+            style = MaterialTheme.typography.titleLarge.merge(Tabular),
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+        )
+    }
+    BotonDeshacer(v, acciones)
+    if (v.accion == AccionCarril.HECHO || v.accion == AccionCarril.EMPEZAR) {
+        BotonAccion(v, acciones, compacto = true)
     }
 }

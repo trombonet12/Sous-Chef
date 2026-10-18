@@ -205,3 +205,8 @@
   del reconocedor gana la primera que nombra carril. Orden nueva `ProximosPasos(carril?)`: sin carril, qué toca y qué
   sigue en cada carril vivo por hora prevista; con carril, sus hasta 3 pasos siguientes con duración
   (`VistaCarril.proximos`).
+- Deshacer un Hecho (toque sin querer): `MotorCrono.deshacer` restaura el `EstadoCarril` de antes del último Hecho de
+  ese carril (reloj, pausa e hitos avisados incluidos) y borra su tiempo real. `EstadoCrono.deshacer` (un nivel por
+  carril) y `ultimoHecho` son campos opcionales, así que los estados guardados siguen leyéndose. Las alarmas se
+  rearman solas porque pasa por `mutar`. Minibotón ↶ de 40 dp solo cuando hay algo que deshacer; por voz, «deshaz»
+  sin carril deshace el último Hecho de la cocina.

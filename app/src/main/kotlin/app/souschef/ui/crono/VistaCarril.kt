@@ -70,7 +70,13 @@ data class VistaCarril(
     val porque: String? = null,
     /** Hasta [MAX_PROXIMOS] pasos siguientes del carril, para «próximos pasos». */
     val proximos: List<PasoProximo> = emptyList(),
+    /** Título del paso al que vuelve «deshacer» (el del último Hecho del carril); null si no hay nada que deshacer. */
+    val deshacerA: String? = null,
+    /** Este carril tiene el último Hecho de la cocina (el que deshace «deshaz» sin nombrar carril). */
+    val ultimoHecho: Boolean = false,
 ) {
+    val puedeDeshacer: Boolean get() = deshacerA != null
+
     val terminado: Boolean get() = accion == AccionCarril.TERMINADO
 
     /** Corriendo y con el cero ya pasado, esperando Hecho. */
@@ -82,11 +88,16 @@ fun vistasCarriles(datos: DatosCrono): List<VistaCarril> =
     datos.carriles.mapIndexed { indice, carril ->
         val ec = datos.ec(carril.id)
         val paso = datos.paso(carril.id)
-        if (ec == null || paso == null) {
-            vistaTerminada(datos, carril, indice)
-        } else {
-            vistaActiva(datos, carril, indice, ec, paso)
-        }
+        val vista =
+            if (ec == null || paso == null) {
+                vistaTerminada(datos, carril, indice)
+            } else {
+                vistaActiva(datos, carril, indice, ec, paso)
+            }
+        vista.copy(
+            deshacerA = datos.estado.deshacer[carril.id]?.let { datos.cola(carril.id).getOrNull(it.i)?.t },
+            ultimoHecho = datos.estado.ultimoHecho == carril.id,
+        )
     }
 
 private fun vistaTerminada(

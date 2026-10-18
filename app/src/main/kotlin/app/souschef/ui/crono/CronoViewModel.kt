@@ -140,6 +140,7 @@ class CronoViewModel
                         alternar = ::alternar,
                         prorrogar = ::prorrogar,
                         empezarIgual = ::empezarIgual,
+                        deshacer = ::deshacer,
                         silenciarAlarma = { viewModelScope.launch { cadena.silenciar(slug) } },
                     ),
                 registro = { Log.d(ETIQUETA_VOZ, "orden: $it") },
@@ -367,6 +368,9 @@ class CronoViewModel
             carril: String,
             segundos: Int,
         ) = mutar { e, r, t -> MotorCrono.prorrogar(e, r, carril, segundos, t) }
+
+        /** Deshace el último Hecho de [carril] o, sin carril, el último de la cocina. Un nivel por carril. */
+        fun deshacer(carril: String?) = mando("deshacer:$carril") { e, r, t -> MotorCrono.deshacer(e, r, carril, t) }
 
         fun empezarIgual(carril: String) =
             mando("igual:$carril") { e, r, t -> MotorCrono.empezarIgual(e, r, carril, t) }

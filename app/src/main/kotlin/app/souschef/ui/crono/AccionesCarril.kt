@@ -28,7 +28,11 @@ import app.souschef.R
 import app.souschef.ui.comun.textoRico
 import app.souschef.ui.theme.CronoPalette
 
-/** Lo que la UI puede pedir sobre un carril; todos los mandos reciben el id del carril. */
+/**
+ * Lo que la UI puede pedir sobre un carril; todos los mandos reciben el id del carril. Es un saco de callbacks con
+ * nombre (uno por mando), no una función con demasiados argumentos.
+ */
+@Suppress("LongParameterList")
 class AccionesCarril(
     val hecho: (String) -> Unit,
     val alternar: (String) -> Unit,
@@ -36,6 +40,8 @@ class AccionesCarril(
     val empezarIgual: (String) -> Unit,
     val enfocar: (String) -> Unit,
     val porque: (String) -> Unit,
+    /** Deshace el último Hecho del carril (toque sin querer). */
+    val deshacer: (String) -> Unit = {},
 )
 
 /** Ejecuta la acción principal del carril: empezar/seguir alternan; en marcha o vencido, "Hecho y siguiente". */

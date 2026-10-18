@@ -92,6 +92,7 @@ class CocinaUiTest {
                 empezarIgual = { llamadas += "igual:$it" },
                 enfocar = { llamadas += "enfocar:$it" },
                 porque = { llamadas += "porque:$it" },
+                deshacer = { llamadas += "deshacer:$it" },
             )
     }
 
@@ -358,5 +359,21 @@ class CocinaUiTest {
         assertTrue("SARTÉN" in textos && "OLLA" in textos && "MESA" in textos)
         banco.pulsar(banco.pulsableConTexto("+30 s"))
         assertEquals(listOf("mas30:f0"), p.llamadas)
+    }
+
+    @Test
+    fun `el boton de deshacer solo sale con algo que deshacer y deshace su carril`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val v = vistas()
+        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        assertEquals(emptyList<String>(), banco.etiquetas("deshacer-"))
+
+        val conDeshacer = v.map { if (it.id == "f1") it.copy(deshacerA = "Lavar") else it }
+        val banco2 = BancoCompose()
+        banco2.cocina { CronoApilado(conDeshacer, p.acciones, Modifier.fillMaxSize()) }
+        assertEquals(listOf("deshacer-f1"), banco2.etiquetas("deshacer-"))
+        banco2.pulsar(banco2.conEtiqueta("deshacer-f1"))
+        assertEquals(listOf("deshacer:f1"), p.llamadas)
     }
 }

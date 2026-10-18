@@ -45,6 +45,7 @@ enum class Icono(
     ),
     Crono("M12 21a8 8 0 1 0 0-16a8 8 0 0 0 0 16z", "M12 9v4", "M10 2h4", "M18.5 6.5l1.5-1.5"),
     Anadir("M12 5v14", "M5 12h14"),
+    Deshacer("M9 14L4 9l5-5", "M4 9h10.5a5.5 5.5 0 0 1 0 11H11"),
     Menos("M5 12h14"),
     Borrar("M4 7h16", "M9 7V4h6v3", "M6 7l1 13h10l1-13"),
     Cerrar("M6 6l12 12", "M18 6L6 18"),

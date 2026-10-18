@@ -70,6 +70,11 @@ sealed interface OrdenVoz {
 
     /** «repite», «otra vez», «qué has dicho». */
     data object Repite : OrdenVoz
+
+    /** «deshaz», «atrás», «vuelve al paso anterior», «me he equivocado»: deshace el último Hecho. */
+    data class Deshacer(
+        val carril: String?,
+    ) : OrdenVoz
 }
 
 /** Carril nombrado en la orden, si la orden lo lleva. */
@@ -86,6 +91,7 @@ val OrdenVoz.carril: String?
             is OrdenVoz.Info -> carril
             is OrdenVoz.QueToca -> carril
             is OrdenVoz.ProximosPasos -> carril
+            is OrdenVoz.Deshacer -> carril
             OrdenVoz.QueViene, OrdenVoz.Para, OrdenVoz.Repite -> null
         }
 
@@ -147,6 +153,9 @@ object InterpreteVoz {
     // El texto se compara como « palabra palabra » (con espacio a cada lado); el orden de las reglas es la prioridad.
     private val reglas =
         listOf(
+            Regla(
+                " (deshaz|deshazlo|deshacer|atras|paso anterior|me he equivocado|me equivoque|no era eso) ",
+            ) { OrdenVoz.Deshacer(it.carril) },
             Regla(" (por que|porque|para que|explica|explicame) ") { OrdenVoz.PorQue(it.carril) },
             Regla(
                 " (proximos pasos|siguientes pasos|proximo paso|que viene despues|que hay despues|que pasos quedan) ",

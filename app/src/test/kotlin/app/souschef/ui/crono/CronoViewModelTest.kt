@@ -414,6 +414,24 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun deshacerVuelveAlPasoAnteriorYLoGuarda() =
+        prueba {
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            val carril = guardado().carriles.keys.first()
+            vm.hecho(carril)
+            runCurrent()
+            assertEquals(1, guardado().carriles.getValue(carril).i)
+
+            vm.deshacer(carril)
+            runCurrent()
+
+            assertEquals(0, guardado().carriles.getValue(carril).i)
+            assertTrue(guardado().deshacer.isEmpty())
+        }
+
+    @Test
     fun elegirLaInterfazDesdeLaCocinaLaGuardaEnAjustesYLaAplica() =
         prueba {
             val vm = crear()

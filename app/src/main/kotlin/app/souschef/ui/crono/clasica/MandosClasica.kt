@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.receta.Carril
 import app.souschef.ui.crono.AccionesCarril
+import app.souschef.ui.crono.BotonDeshacer
 import app.souschef.ui.crono.DatosCrono
 import app.souschef.ui.crono.PorqueSheet
 import app.souschef.ui.crono.formatoHora
@@ -27,6 +28,7 @@ import app.souschef.ui.crono.minutosPaso
 import app.souschef.ui.crono.progreso
 import app.souschef.ui.crono.recursoTapa
 import app.souschef.ui.crono.requisitos
+import app.souschef.ui.crono.vistasCarriles
 import app.souschef.ui.theme.CronoPalette
 
 private const val MAX_CARACTERES_DEP = 16
@@ -40,7 +42,11 @@ internal fun MandosCarril(
 ) {
     val ec = datos.ec(carril.id)
     val paso = datos.paso(carril.id)
-    if (ec == null || paso == null) return
+    if (ec == null || paso == null) {
+        // Carril terminado: solo queda deshacer su último Hecho, si fue sin querer.
+        Row(Modifier.fillMaxWidth().padding(12.dp)) { BotonDeshacerClasico(datos, carril, acciones) }
+        return
+    }
     val req = requisitos(datos.receta, datos.estado, paso)
     val bloqueado = req.pendientes.isNotEmpty() && !ec.corriendo && !ec.pausado && !ec.salto
     val vencido = ec.corriendo && datos.quedan(carril.id) <= 0
@@ -78,8 +84,19 @@ internal fun MandosCarril(
             BotonSecundario(stringResource(R.string.crono_mas_30), Modifier.weight(1f)) {
                 acciones.masTreinta(carril.id)
             }
+            BotonDeshacerClasico(datos, carril, acciones)
         }
     }
+}
+
+/** El mismo minibotón ↶ que en las otras disposiciones. */
+@Composable
+private fun BotonDeshacerClasico(
+    datos: DatosCrono,
+    carril: Carril,
+    acciones: AccionesCarril,
+) {
+    vistasCarriles(datos).firstOrNull { it.id == carril.id }?.let { BotonDeshacer(it, acciones) }
 }
 
 private fun String.abreviado(): String = if (length <= MAX_CARACTERES_DEP) this else take(MAX_CARACTERES_DEP) + "…"
