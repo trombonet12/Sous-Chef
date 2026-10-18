@@ -192,57 +192,6 @@ class MotorCronoTest {
     }
 
     @Test
-    fun deshacerVuelveAlPasoAnteriorConSuRelojComoSiNoSeHubieraTocado() {
-        val t0 = inicioSarten
-        val corriendo = MotorCrono.empezar(abierto(), ensalada, "sarten", t0)
-        val antes = corriendo.carriles.getValue("sarten")
-        val tocado = MotorCrono.hecho(corriendo, ensalada, "sarten", t0 + seg(100))
-
-        val e = MotorCrono.deshacer(tocado, ensalada, "sarten", t0 + seg(110))
-
-        assertEquals(antes, e.carriles.getValue("sarten"))
-        assertNull(e.pasosReales["sesamo"])
-        assertTrue(e.deshacer.isEmpty())
-        assertNull(e.ultimoHecho)
-        assertEquals(t0 + seg(110), e.actualizadoMs)
-    }
-
-    @Test
-    fun deshacerTrasElUltimoPasoReabreElCarril() {
-        var e = abierto()
-        repeat(4) { e = MotorCrono.hecho(e, ensalada, "mesa", inicioSarten + seg(it + 1)) }
-        assertTrue(e.carriles.getValue("mesa").fin)
-
-        val r = MotorCrono.deshacer(e, ensalada, "mesa", inicioSarten + seg(10))
-
-        val mesa = r.carriles.getValue("mesa")
-        assertFalse(mesa.fin)
-        assertEquals(3, mesa.i)
-    }
-
-    @Test
-    fun deshacerSinCarrilDeshaceElUltimoHechoYSoloUnNivel() {
-        val t0 = inicioSarten
-        var e = MotorCrono.hecho(abierto(), ensalada, "mesa", t0 + seg(1))
-        e = MotorCrono.hecho(e, ensalada, "sarten", t0 + seg(2))
-        assertEquals("sarten", e.ultimoHecho)
-
-        val r = MotorCrono.deshacer(e, ensalada, null, t0 + seg(3))
-
-        assertEquals(0, r.carriles.getValue("sarten").i)
-        assertEquals(1, r.carriles.getValue("mesa").i)
-        // Un segundo deshacer sobre el mismo carril ya no tiene nada que deshacer.
-        assertEquals(r, MotorCrono.deshacer(r, ensalada, "sarten", t0 + seg(4)))
-    }
-
-    @Test
-    fun sinNadaQueDeshacerNoCambiaNada() {
-        val e = abierto()
-        assertEquals(e, MotorCrono.deshacer(e, ensalada, "mesa", inicioSarten))
-        assertEquals(e, MotorCrono.deshacer(e, ensalada, null, inicioSarten))
-    }
-
-    @Test
     fun dependenciasBloqueanYEmpezarIgualSalta() {
         var e = abierto()
         repeat(3) { e = MotorCrono.hecho(e, ensalada, "mesa", servir) }

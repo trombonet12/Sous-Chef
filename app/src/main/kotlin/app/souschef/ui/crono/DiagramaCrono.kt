@@ -84,7 +84,10 @@ internal fun DialogoDiagrama(
                         Text(
                             stringResource(
                                 R.string.crono_diagrama_horas,
-                                formatoHora(datos.estado.servirMs - (receta.totalEfectivo * MS_MINUTO).toLong()),
+                                formatoHora(
+                                    datos.estado.servirMs -
+                                        (Math.round(receta.totalEfectivo * 2) / 2.0 * MS_MINUTO).toLong(),
+                                ),
                                 formatoHora(datos.estado.servirMs),
                             ),
                             style = MaterialTheme.typography.labelMedium,

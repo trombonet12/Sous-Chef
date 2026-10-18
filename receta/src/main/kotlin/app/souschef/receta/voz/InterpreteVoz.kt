@@ -153,9 +153,6 @@ object InterpreteVoz {
     // El texto se compara como « palabra palabra » (con espacio a cada lado); el orden de las reglas es la prioridad.
     private val reglas =
         listOf(
-            Regla(
-                " (deshaz|deshazlo|deshacer|atras|paso anterior|me he equivocado|me equivoque|no era eso) ",
-            ) { OrdenVoz.Deshacer(it.carril) },
             Regla(" (por que|porque|para que|explica|explicame) ") { OrdenVoz.PorQue(it.carril) },
             Regla(
                 " (proximos pasos|siguientes pasos|proximo paso|que viene despues|que hay despues|que pasos quedan) ",
@@ -167,6 +164,10 @@ object InterpreteVoz {
             ) { OrdenVoz.QueToca(it.carril) },
             Regla(" cuanto (tiempo )?(queda|falta) ") { OrdenVoz.CuantoQueda(it.carril) },
             Regla(" (info|informacion|detalle|detalles|como va) ") { OrdenVoz.Info(it.carril) },
+            // Detrás de las preguntas: «por qué el paso anterior…» pregunta, no deshace.
+            Regla(
+                " (deshaz|deshazlo|deshacer|atras|paso anterior|me he equivocado|me equivoque|no era eso) ",
+            ) { OrdenVoz.Deshacer(it.carril) },
             Regla(" (repite|repetir|otra vez|que has dicho|que dijiste) ") { OrdenVoz.Repite },
             Regla(" ") { c -> c.cantidad?.let { OrdenVoz.Prorrogar(it, c.carril) } },
             Regla(" quita (la )?pausa ") { OrdenVoz.Seguir(it.carril) },
@@ -204,18 +205,22 @@ object InterpreteVoz {
         if (inicio < 0) return null
         val cola = numeros(tokens.drop(inicio + 1))
         val frase = cola.joinToString(" ", prefix = " ", postfix = " ")
-        val numero = numeroMencionado(cola)
+        val numero = numeroMencionado(cola, carriles.size)
         val ctx = Ctx(frase, carrilMencionado(cola, numero, carriles), cantidad(frase), numero != null)
         return reglas.firstNotNullOfOrNull { if (it.regex.containsMatchIn(frase)) it.crear(ctx) else null }
     }
 
-    /** Primera alternativa del reconocedor que da orden; si alguna además nombra carril, gana esa. */
+    /**
+     * Primera alternativa del reconocedor que da orden; si otra da la MISMA orden y además nombra carril, gana esa
+     * (el reconocedor a veces pierde el número en la primera). Nunca se cambia de orden por nombrar carril.
+     */
     fun interpretar(
         alternativas: List<String>,
         carriles: List<CarrilVoz>,
     ): OrdenVoz? {
         val ordenes = alternativas.mapNotNull { interpretar(it, carriles) }
-        return ordenes.firstOrNull { it.carril != null } ?: ordenes.firstOrNull()
+        val primera = ordenes.firstOrNull() ?: return null
+        return ordenes.firstOrNull { it::class == primera::class && it.carril != null } ?: primera
     }
 
     /** Segundos pedidos en la frase (1..[TOPE_S]) o null. */
@@ -268,7 +273,10 @@ object InterpreteVoz {
      * tiempo; si no, un número suelto al final de la frase («info 2»), que nunca es una prórroga (esa lleva unidad o
      * «más» detrás). «de los» al final cuenta como «de dos».
      */
-    private fun numeroMencionado(cola: List<String>): Int? {
+    private fun numeroMencionado(
+        cola: List<String>,
+        totalCarriles: Int,
+    ): Int? {
         for (i in 0 until cola.size - 1) {
             val n = cola[i + 1]
             if (cola[i] in palabrasReferencia && digitos.matches(n) && cola.getOrNull(i + 2) !in palabrasTiempo) {
@@ -277,9 +285,18 @@ object InterpreteVoz {
         }
         val ultimo = cola.lastOrNull()
         return when {
-            cola.size >= 2 && ultimo == "los" && cola[cola.size - 2] in antesDeLos -> DOS
-            cola.size >= 2 && ultimo != null && digitos.matches(ultimo) -> ultimo.toIntOrNull() ?: 0
-            else -> null
+            cola.size >= 2 && ultimo == "los" && cola[cola.size - 2] in antesDeLos -> {
+                DOS
+            }
+
+            // Suelto al final solo si es un carril que existe: «para 30» no es «para el carril 30».
+            cola.size >= 2 && ultimo != null && digitos.matches(ultimo) -> {
+                ultimo.toIntOrNull()?.takeIf { it in 1..totalCarriles }
+            }
+
+            else -> {
+                null
+            }
         }
     }
 

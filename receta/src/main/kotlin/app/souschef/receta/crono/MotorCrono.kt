@@ -101,7 +101,8 @@ object MotorCrono {
                 carriles = e.carriles + (carril to nuevo),
                 pasosReales = e.pasosReales + (p.id to real),
                 actualizadoMs = ahoraMs,
-                deshacer = e.deshacer + (carril to ec),
+                // Se reinserta al final: el orden del mapa es el orden de los Hecho (para «deshaz» sin carril).
+                deshacer = e.deshacer - carril + (carril to ec),
                 ultimoHecho = carril,
             )
         return if (siguiente == null) {
@@ -126,11 +127,9 @@ object MotorCrono {
         val previo = id?.let { e.deshacer[it] }
         if (id == null || previo == null) return e
         val paso = Plano(receta).colas[id]?.getOrNull(previo.i)
-        return e.copy(
+        return e.sinDeshacer(id).copy(
             carriles = e.carriles + (id to previo),
             pasosReales = paso?.let { e.pasosReales - it.id } ?: e.pasosReales,
-            deshacer = e.deshacer - id,
-            ultimoHecho = e.ultimoHecho.takeIf { it != id },
             actualizadoMs = ahoraMs,
         )
     }
@@ -169,6 +168,11 @@ object MotorCrono {
         val p = Plano(receta).pasoActual(e, carril)
         if (ec == null || p == null) return e
         val nuevo = cambio(ec, p)
-        return if (nuevo == ec) e else e.copy(carriles = e.carriles + (carril to nuevo), actualizadoMs = ahoraMs)
+        // Tocar el carril (empezar, pausa, prórroga) confirma el Hecho anterior: deshacerlo ya perdería ese trabajo.
+        return if (nuevo == ec) {
+            e
+        } else {
+            e.sinDeshacer(carril).copy(carriles = e.carriles + (carril to nuevo), actualizadoMs = ahoraMs)
+        }
     }
 }

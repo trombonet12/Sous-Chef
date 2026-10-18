@@ -67,6 +67,7 @@
   - Voz: el carril por número se entiende también como «info dos», «de 2», «en el dos» o «de los», y entre alternativas gana la que nombra carril; orden nueva «próximos pasos» (general o de un carril).
   - Deshacer el último Hecho de un carril: minibotón ↶ en las tarjetas, filas y clásica, y por voz («deshaz», «atrás», «paso anterior» [+ carril]).
   - Atrás en el cronómetro vuelve a la ficha con la cocinada viva («Cocinando · N recipientes», botón «Volver a la cocina»); salir de la ficha pide abandonarla. Abandonar desde la cocina, solo en el ⋮.
+  - Revisión de código de la ronda aplicada (voz: alternativas y número suelto más prudentes, «deshaz» detrás de las preguntas; deshacer caduca al tocar el carril y encadena por orden; horas de inicio coherentes).
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 
@@ -97,6 +98,8 @@
   - convivencia con el TTS.
 
 ## Problemas conocidos / TODO
+- La ficha calcula «cocinando» al abrirse y cuando cambia el estado guardado: si la cocinada caduca con la ficha
+  abierta horas sin tocar nada, la banda sigue hasta salir y volver (riesgo bajo, revisión de la ronda 9).
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.

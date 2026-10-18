@@ -423,4 +423,22 @@ class InterpreteVozTest {
         assertEquals(OrdenVoz.Deshacer("olla"), i("chef vuelve atrás en la olla"))
         assertEquals(OrdenVoz.Deshacer("sg"), i("chef para atrás del 1"))
     }
+
+    // --- Revisión de la ronda 9 ---
+
+    @Test
+    fun `una alternativa con carril no cambia la orden de la primera`() {
+        assertEquals(OrdenVoz.Pausa(null), InterpreteVoz.interpretar(listOf("chef pausa", "chef pasa 2"), carriles))
+    }
+
+    @Test
+    fun `una pregunta sobre el paso anterior no deshace`() {
+        assertEquals(OrdenVoz.PorQue(null), i("chef por qué el paso anterior lleva tapa"))
+    }
+
+    @Test
+    fun `un numero suelto que no es carril no cambia el sentido`() {
+        assertEquals(OrdenVoz.Para, i("chef para 30"))
+        assertEquals(OrdenVoz.Seguir("sp"), i("chef dale 2"))
+    }
 }

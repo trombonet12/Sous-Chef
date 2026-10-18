@@ -7,7 +7,7 @@ object ProximosPasosVoz {
     /** Los pasos que le quedan a un carril, con su duración; si es el último, se dice. */
     fun deCarril(v: VistaCarril): String {
         val nombre = nombreHablado(v.nombre)
-        val actual = minuscula(v.titulo.orEmpty())
+        val actual = minuscula(hablar(v.titulo.orEmpty()))
         return when {
             v.terminado -> {
                 RespuestasVoz.cuantoQueda(v)
@@ -36,7 +36,7 @@ object ProximosPasosVoz {
                         .firstOrNull()
                         ?.let { ", luego ${minuscula(hablar(it.titulo))}" }
                         .orEmpty()
-                "${nombreHablado(v.nombre)}: ${minuscula(v.titulo.orEmpty())}$luego."
+                "${nombreHablado(v.nombre)}: ${minuscula(hablar(v.titulo.orEmpty()))}$luego."
             }
         return limitar(frase, MAX_INFO)
     }

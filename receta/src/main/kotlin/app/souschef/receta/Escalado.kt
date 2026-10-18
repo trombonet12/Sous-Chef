@@ -53,7 +53,8 @@ object Escalado {
     fun listaGeneral(receta: Receta): List<Ingrediente> {
         val juntos = LinkedHashMap<List<String?>, Ingrediente>()
         receta.grupos.flatMap { it.items }.forEach { i ->
-            val clave = listOf(normal(base(i.n)), i.u?.trim(), i.txt?.trim(), i.esc, (i.a == null).toString())
+            val clave =
+                listOf(normal(base(i.n)), i.u?.trim()?.lowercase(), i.txt?.trim(), i.esc, (i.a == null).toString())
             val previo = juntos[clave]
             juntos[clave] =
                 if (previo == null) {
