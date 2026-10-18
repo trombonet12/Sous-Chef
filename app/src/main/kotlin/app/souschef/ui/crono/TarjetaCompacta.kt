@@ -113,6 +113,7 @@ private fun CabeceraCompacta(
             fontWeight = FontWeight.Bold,
             maxLines = 1,
         )
+        HoraPrevista(v, estilo = MaterialTheme.typography.labelMedium)
         ChipFuego(v)
         // «destapada» es lo normal: en compacto solo se avisa de la tapa puesta o a medias.
         if (recursoTapa(v.tapa) != R.string.crono_destapada) ChipTapa(v)

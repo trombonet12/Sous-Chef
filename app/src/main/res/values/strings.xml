@@ -194,6 +194,9 @@
     <string name="crono_ultimo">Último paso</string>
     <string name="crono_proximo_hito">a %1$s · %2$s</string>
     <string name="crono_fuego_chip">🔥 %1$d</string>
+    <string name="crono_prevista">Prevista a las %1$s</string>
+    <string name="crono_prevista_tarde">Prevista a las %1$s, va %2$d min tarde</string>
+    <string name="crono_prevista_pronto">Prevista a las %1$s, va %2$d min adelantado</string>
     <string name="crono_paso_de">%1$d/%2$d</string>
     <string name="crono_enfocar">Poner %1$s en primer plano</string>
     <string name="crono_carril_n">Carril %1$d</string>

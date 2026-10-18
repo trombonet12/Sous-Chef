@@ -49,7 +49,10 @@ data class VistaCarril(
     /** "Escurrir (MESA)" si [accion] es BLOQUEADO. */
     val bloqueadoPor: String?,
     val clase: ClaseEstado,
+    /** Hora prevista de empezar el paso actual (`servir − total + off`); null si terminado. */
     val sugeridoMs: Long?,
+    /** Minutos que el paso acabará tarde (+) o pronto (−) respecto al plan; 0 si va en hora. */
+    val desvioMin: Int = 0,
     /** Instante de fin si corre; null si no. */
     val finAtMs: Long?,
     /** El paso tiene `p` o la receta enlaza técnicas. */
@@ -148,11 +151,42 @@ private fun vistaActiva(
             },
         clase = vista.clase,
         sugeridoMs = vista.sugeridoMs,
+        desvioMin =
+            vista.sugeridoMs?.let {
+                desvioMin(it, paso.segundos, finPrevistoMs(it, quedan, ec.pausado, ec.finAtMs, datos.ahoraMs))
+            } ?: 0,
         finAtMs = ec.finAtMs,
         tienePorque = !paso.p.isNullOrBlank() || tecnicas.isNotEmpty(),
         porque = paso.p?.takeIf { it.isNotBlank() },
     )
 }
+
+/**
+ * Fin previsto del paso actual. Sin empezar, cuenta desde ahora o desde el sugerido si aún no ha llegado (esperar no
+ * es ir pronto); en pausa, desde ahora con lo que queda; corriendo, el fin real (o ahora, si ya pasó del cero).
+ */
+internal fun finPrevistoMs(
+    sugeridoMs: Long,
+    quedanS: Int,
+    pausado: Boolean,
+    finAtMs: Long?,
+    ahoraMs: Long,
+): Long =
+    when {
+        finAtMs != null -> maxOf(finAtMs, ahoraMs)
+        pausado -> ahoraMs + quedanS * MS_POR_S
+        else -> maxOf(ahoraMs, sugeridoMs) + quedanS * MS_POR_S
+    }
+
+/** Desvío frente al plan, en minutos redondeados: fin previsto − (sugerido + duración). Prórrogas y pausas suman. */
+internal fun desvioMin(
+    sugeridoMs: Long,
+    duracionS: Int,
+    finPrevistoMs: Long,
+): Int = Math.round((finPrevistoMs - (sugeridoMs + duracionS * MS_POR_S)) / MS_POR_MIN.toDouble()).toInt()
+
+private const val MS_POR_S = 1000L
+private const val MS_POR_MIN = 60_000L
 
 private fun accionDe(
     ec: EstadoCarril,

@@ -71,6 +71,7 @@ fun FilaCarrilCompacta(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
+                HoraPrevista(v, estilo = MaterialTheme.typography.labelMedium)
             }
             Text(
                 v.titulo ?: stringResource(R.string.crono_terminado),

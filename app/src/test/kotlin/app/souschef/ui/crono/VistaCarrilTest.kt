@@ -424,4 +424,43 @@ class VistaCarrilTest {
         val lista = vistas(f0 = corriendoCon(-20), m = EstadoCarril(salto = true))
         assertEquals("f0", elegirFoco(lista, "m"))
     }
+
+    @Test
+    fun `desvio cero si se empieza a la hora prevista`() {
+        assertEquals(0, desvioMin(0, 300, finPrevistoMs(0, 300, false, null, 0)))
+    }
+
+    @Test
+    fun `esperar antes de la hora prevista no es ir pronto`() {
+        assertEquals(0, desvioMin(600_000, 300, finPrevistoMs(600_000, 300, false, null, 0)))
+    }
+
+    @Test
+    fun `sin empezar y pasada la hora prevista va tarde`() {
+        assertEquals(3, desvioMin(0, 300, finPrevistoMs(0, 300, false, null, 180_000)))
+    }
+
+    @Test
+    fun `corriendo con el fin antes de lo previsto va pronto`() {
+        // previsto: empezar en 0 y acabar en 300 s; corre desde -120 s, así que acaba en 180 s.
+        assertEquals(-2, desvioMin(0, 300, finPrevistoMs(0, 180, false, 180_000, 0)))
+    }
+
+    @Test
+    fun `una prorroga o un cero pasado cuentan como retraso`() {
+        assertEquals(1, desvioMin(0, 300, finPrevistoMs(0, 360, false, 360_000, 0)))
+        assertEquals(4, desvioMin(0, 300, finPrevistoMs(0, -240, false, 300_000, 540_000)))
+    }
+
+    @Test
+    fun `en pausa cuenta lo que queda desde ahora`() {
+        assertEquals(2, desvioMin(0, 300, finPrevistoMs(0, 120, true, null, 300_000)))
+    }
+
+    @Test
+    fun `texto del desvio con signo`() {
+        assertEquals("+3", textoDesvio(3))
+        assertEquals("−2", textoDesvio(-2))
+        assertEquals(null, textoDesvio(0))
+    }
 }

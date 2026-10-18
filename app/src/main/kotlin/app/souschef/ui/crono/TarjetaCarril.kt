@@ -123,6 +123,7 @@ private fun FilaTitulo(
                 style = MaterialTheme.typography.labelLarge.merge(Tabular),
                 maxLines = 1,
             )
+            HoraPrevista(v)
         }
         MandosSecundarios(v, acciones)
     }
