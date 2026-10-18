@@ -105,7 +105,7 @@ object RespuestasVoz {
             is OrdenVoz.Para -> "Silencio."
             is OrdenVoz.CuantoQueda -> v?.let(::cuantoQueda) ?: NO_ENTENDIDO
             is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info -> "Vale."
-            is OrdenVoz.QueViene, is OrdenVoz.Repite -> "Vale."
+            is OrdenVoz.QueViene, is OrdenVoz.Repite, is OrdenVoz.ProximosPasos -> "Vale."
         }
 
     /** Lo que falta del paso según la acción del carril, ya como frase con inicial mayúscula. */
@@ -128,7 +128,7 @@ object RespuestasVoz {
 
 private const val MAX_FRASE = 120
 private const val MAX_PORQUE = 300
-private const val MAX_INFO = 200
+internal const val MAX_INFO = 200
 private const val SEG_MINUTO = 60
 private const val SEG_DIEZ_MINUTOS = 600
 private const val MEDIO_MINUTO = 30
@@ -157,7 +157,7 @@ private fun textoTapa(tapa: String?): String? {
 private fun verboQuedar(segundos: Int): String = if (segundos == 1 || segundos == SEG_MINUTO) "queda" else "quedan"
 
 /** Por debajo de 60 s solo segundos; hasta 10 min minutos y segundos; por encima, minutos redondeados. */
-private fun tiempo(segundos: Int): String =
+internal fun tiempo(segundos: Int): String =
     when {
         segundos < SEG_MINUTO -> unidad(segundos, "segundo")
         segundos > SEG_DIEZ_MINUTOS -> unidad((segundos + MEDIO_MINUTO) / SEG_MINUTO, "minuto")
@@ -171,10 +171,10 @@ private fun unidad(
 ): String = if (n == 1) "1 $nombre" else "$n ${nombre}s"
 
 /** «SARTÉN GRANDE» -> «Sartén grande». */
-private fun nombreHablado(nombre: String): String = nombre.trim().lowercase().replaceFirstChar { it.titlecase() }
+internal fun nombreHablado(nombre: String): String = nombre.trim().lowercase().replaceFirstChar { it.titlecase() }
 
 /** El texto de pantalla con « · » se dice con comas. */
-private fun hablar(texto: String): String = texto.replace(SEPARADOR_PANTALLA, ", ")
+internal fun hablar(texto: String): String = texto.replace(SEPARADOR_PANTALLA, ", ")
 
 /** Si la línea empieza por un nombre de carril en mayúsculas («MESA: ...») lo pasa a «Mesa: ...». */
 private fun normalizarNombre(linea: String): String {
@@ -188,7 +188,7 @@ private fun normalizarNombre(linea: String): String {
 private fun cerrar(frase: String): String = if (frase.last() in cierres) frase else "$frase."
 
 /** Recorta por palabras hasta [max] caracteres y cierra con punto. */
-private fun limitar(
+internal fun limitar(
     frase: String,
     max: Int = MAX_FRASE,
 ): String {

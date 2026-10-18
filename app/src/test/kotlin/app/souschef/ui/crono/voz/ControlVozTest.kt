@@ -4,6 +4,7 @@ import app.souschef.domain.voz.Escucha
 import app.souschef.domain.voz.Habla
 import app.souschef.receta.crono.ClaseEstado
 import app.souschef.ui.crono.AccionCarril
+import app.souschef.ui.crono.PasoProximo
 import app.souschef.ui.crono.VistaCarril
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -264,6 +265,20 @@ class ControlVozTest {
         escucha.oir("chef dame info del 2")
         assertEquals(listOf("Mesa: Sofrito. Con calma. Sin empezar."), habla.dichas)
         assertTrue(mandos.isEmpty())
+    }
+
+    @Test
+    fun infoDelDosRespondeDelDosAunqueElFocoSeaElUno() {
+        foco = "f0"
+        escucha.oir("chef info de los", "chef info del dos")
+        assertEquals(listOf("Mesa: Sofrito. Con calma. Sin empezar."), habla.dichas)
+    }
+
+    @Test
+    fun proximosPasosDeUnCarrilNumerado() {
+        vistas = listOf(sarten(), mesa().copy(proximos = listOf(PasoProximo("Emplatar", 60))))
+        escucha.oir("chef próximos pasos del 2")
+        assertEquals(listOf("Mesa, después de sofrito: emplatar, 1 minuto."), habla.dichas)
     }
 
     @Test

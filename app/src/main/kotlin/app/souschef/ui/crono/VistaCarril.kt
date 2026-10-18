@@ -16,7 +16,16 @@ data class MarcaHito(
     val avisado: Boolean,
 )
 
-/** Modelo de vista puro de un carril (sin Compose): lo consumen las dos disposiciones de la cocina. */
+/** Un paso que viene después en el carril: título y duración en segundos. */
+data class PasoProximo(
+    val titulo: String,
+    val segundos: Int,
+)
+
+/** Pasos siguientes que se guardan en la vista (la voz dice como mucho estos). */
+private const val MAX_PROXIMOS = 3
+
+/** Modelo de vista puro de un carril (sin Compose): lo consumen las disposiciones de la cocina y la voz. */
 data class VistaCarril(
     val id: String,
     val nombre: String,
@@ -59,6 +68,8 @@ data class VistaCarril(
     val tienePorque: Boolean,
     /** Texto `p` del paso actual (el porqué que la voz puede leer); null si no tiene. */
     val porque: String? = null,
+    /** Hasta [MAX_PROXIMOS] pasos siguientes del carril, para «próximos pasos». */
+    val proximos: List<PasoProximo> = emptyList(),
 ) {
     val terminado: Boolean get() = accion == AccionCarril.TERMINADO
 
@@ -158,6 +169,12 @@ private fun vistaActiva(
         finAtMs = ec.finAtMs,
         tienePorque = !paso.p.isNullOrBlank() || tecnicas.isNotEmpty(),
         porque = paso.p?.takeIf { it.isNotBlank() },
+        proximos =
+            datos
+                .cola(carril.id)
+                .drop(ec.i + 1)
+                .take(MAX_PROXIMOS)
+                .map { PasoProximo(it.t, it.segundos) },
     )
 }
 

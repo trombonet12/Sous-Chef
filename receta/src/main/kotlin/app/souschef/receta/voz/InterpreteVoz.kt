@@ -60,12 +60,34 @@ sealed interface OrdenVoz {
     /** «qué viene», «y luego», «qué sigue». */
     data object QueViene : OrdenVoz
 
+    /** «próximos pasos», «siguientes pasos», «qué viene después» (+ carril: los pasos que le quedan a ese carril). */
+    data class ProximosPasos(
+        val carril: String?,
+    ) : OrdenVoz
+
     /** «para», «calla», «silencio», «apaga la alarma». */
     data object Para : OrdenVoz
 
     /** «repite», «otra vez», «qué has dicho». */
     data object Repite : OrdenVoz
 }
+
+/** Carril nombrado en la orden, si la orden lo lleva. */
+val OrdenVoz.carril: String?
+    get() =
+        when (this) {
+            is OrdenVoz.Hecho -> carril
+            is OrdenVoz.Pausa -> carril
+            is OrdenVoz.Seguir -> carril
+            is OrdenVoz.Empezar -> carril
+            is OrdenVoz.Prorrogar -> carril
+            is OrdenVoz.CuantoQueda -> carril
+            is OrdenVoz.PorQue -> carril
+            is OrdenVoz.Info -> carril
+            is OrdenVoz.QueToca -> carril
+            is OrdenVoz.ProximosPasos -> carril
+            OrdenVoz.QueViene, OrdenVoz.Para, OrdenVoz.Repite -> null
+        }
 
 /**
  * Intérprete puro de órdenes de voz del cronómetro: sin Android, sin reloj, sin estado. Solo reconoce frases
@@ -101,7 +123,11 @@ object InterpreteVoz {
     private val decenas = listOf("treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa")
     private val alias = mapOf("un" to 1, "una" to 1, "veintiun" to 21, "veintiuna" to 21)
 
-    private val palabrasReferencia = setOf("del", "al", "el", "la", "carril", "numero", "fuego")
+    private val palabrasReferencia = setOf("del", "de", "en", "al", "el", "la", "carril", "numero", "fuego")
+
+    // «dos» tras «de/del» al final de la frase suele llegar del reconocedor como «los».
+    private val antesDeLos = setOf("del", "de")
+    private const val DOS = 2
     private val palabrasTiempo = setOf("segundo", "segundos", "seg", "segs", "minuto", "minutos", "min", "mins")
 
     private class Ctx(
@@ -122,6 +148,9 @@ object InterpreteVoz {
     private val reglas =
         listOf(
             Regla(" (por que|porque|para que|explica|explicame) ") { OrdenVoz.PorQue(it.carril) },
+            Regla(
+                " (proximos pasos|siguientes pasos|proximo paso|que viene despues|que hay despues|que pasos quedan) ",
+            ) { OrdenVoz.ProximosPasos(it.carril) },
             Regla(" (que viene|y luego|que sigue) ") { OrdenVoz.QueViene },
             Regla(
                 " (que toca|que hago|que tengo que hacer|que hay que hacer|que me toca|y ahora que|que debo hacer" +
@@ -171,11 +200,14 @@ object InterpreteVoz {
         return reglas.firstNotNullOfOrNull { if (it.regex.containsMatchIn(frase)) it.crear(ctx) else null }
     }
 
-    /** Primera alternativa del reconocedor que da orden. */
+    /** Primera alternativa del reconocedor que da orden; si alguna además nombra carril, gana esa. */
     fun interpretar(
         alternativas: List<String>,
         carriles: List<CarrilVoz>,
-    ): OrdenVoz? = alternativas.firstNotNullOfOrNull { interpretar(it, carriles) }
+    ): OrdenVoz? {
+        val ordenes = alternativas.mapNotNull { interpretar(it, carriles) }
+        return ordenes.firstOrNull { it.carril != null } ?: ordenes.firstOrNull()
+    }
 
     /** Segundos pedidos en la frase (1..[TOPE_S]) o null. */
     private fun cantidad(frase: String): Int? {
@@ -222,7 +254,11 @@ object InterpreteVoz {
             else -> unidades.indexOf(token).takeIf { it >= 0 }
         }
 
-    /** Número de carril dicho como referencia («del 2», «carril 3»), si no va seguido de una unidad de tiempo. */
+    /**
+     * Número de carril dicho como referencia («del 2», «de 2», «en el 2», «carril 3») si no va seguido de una unidad de
+     * tiempo; si no, un número suelto al final de la frase («info 2»), que nunca es una prórroga (esa lleva unidad o
+     * «más» detrás). «de los» al final cuenta como «de dos».
+     */
     private fun numeroMencionado(cola: List<String>): Int? {
         for (i in 0 until cola.size - 1) {
             val n = cola[i + 1]
@@ -230,7 +266,12 @@ object InterpreteVoz {
                 return n.toIntOrNull() ?: 0
             }
         }
-        return null
+        val ultimo = cola.lastOrNull()
+        return when {
+            cola.size >= 2 && ultimo == "los" && cola[cola.size - 2] in antesDeLos -> DOS
+            cola.size >= 2 && ultimo != null && digitos.matches(ultimo) -> ultimo.toIntOrNull() ?: 0
+            else -> null
+        }
     }
 
     private fun palabrasDe(nombre: String): Set<String> =

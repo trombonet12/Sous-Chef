@@ -104,24 +104,10 @@ class ControlVoz(
                     sobreCarril(orden, orden.carril, actuales) { it.accion in PRORROGABLES }
                 }
 
-                is OrdenVoz.CuantoQueda -> {
-                    deCarril(orden.carril, actuales, RespuestasVoz::cuantoQueda)
-                }
-
-                is OrdenVoz.QueToca -> {
-                    queTocaDe(orden.carril, actuales)
-                }
-
-                is OrdenVoz.PorQue -> {
-                    deCarril(orden.carril, actuales, RespuestasVoz::porQue)
-                }
-
-                is OrdenVoz.Info -> {
-                    deCarril(orden.carril, actuales, RespuestasVoz::info)
-                }
-
-                is OrdenVoz.QueViene -> {
-                    RespuestasVoz.queViene(actuales)
+                is OrdenVoz.CuantoQueda, is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info,
+                is OrdenVoz.QueViene, is OrdenVoz.ProximosPasos,
+                -> {
+                    consulta(orden, actuales)
                 }
 
                 is OrdenVoz.Para -> {
@@ -135,6 +121,42 @@ class ControlVoz(
             }
         if (frase != null) decir(frase)
     }
+
+    /** Preguntas: no tocan nada, solo responden. */
+    private fun consulta(
+        orden: OrdenVoz,
+        actuales: List<VistaCarril>,
+    ): String? =
+        when (orden) {
+            is OrdenVoz.CuantoQueda -> {
+                deCarril(orden.carril, actuales, RespuestasVoz::cuantoQueda)
+            }
+
+            is OrdenVoz.QueToca -> {
+                queTocaDe(orden.carril, actuales)
+            }
+
+            is OrdenVoz.PorQue -> {
+                deCarril(orden.carril, actuales, RespuestasVoz::porQue)
+            }
+
+            is OrdenVoz.Info -> {
+                deCarril(orden.carril, actuales, RespuestasVoz::info)
+            }
+
+            is OrdenVoz.QueViene -> {
+                RespuestasVoz.queViene(actuales)
+            }
+
+            is OrdenVoz.ProximosPasos -> {
+                actuales.firstOrNull { it.id == orden.carril }?.let(ProximosPasosVoz::deCarril)
+                    ?: ProximosPasosVoz.general(actuales)
+            }
+
+            else -> {
+                null
+            }
+        }
 
     /**
      * Ejecuta [orden] sobre el carril nombrado o, si no hay, el que está en foco. Si el carril no admite la orden en su

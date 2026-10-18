@@ -199,3 +199,9 @@
   - Se elige en Ajustes o desde el ⋮ de la cocina («Interfaz»), con el mismo `SelectorDisposicion`: tres tarjetas
     con una miniatura dibujada (esquema en la paleta del crono, no captura), en fila si caben y en lista si no.
     Cambiarla en plena cocina no la reinicia.
+- Voz, «info del dos» respondía de la MESA (foco). La numeración de pantalla y de voz es la misma
+  (`indiceCarril + 1`): fallaba que el número no se reconocía como referencia y la orden caía al foco. Ahora valen
+  «de», «en» y un número suelto al final («info 2»); «de los» al final se lee como «de dos»; y entre las alternativas
+  del reconocedor gana la primera que nombra carril. Orden nueva `ProximosPasos(carril?)`: sin carril, qué toca y qué
+  sigue en cada carril vivo por hora prevista; con carril, sus hasta 3 pasos siguientes con duración
+  (`VistaCarril.proximos`).

@@ -28,6 +28,8 @@
   - ¿cuánto queda [carril]?;
   - ¿qué toca?;
   - ¿qué viene?;
+  - próximos pasos [carril] (v1.0);
+  - deshaz [carril] (v1.0);
   - para (silencia la alarma);
   - repite.
   Fuera de esa gramática no se hace nada.

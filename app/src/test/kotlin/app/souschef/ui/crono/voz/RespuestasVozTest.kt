@@ -3,6 +3,7 @@ package app.souschef.ui.crono.voz
 import app.souschef.receta.crono.ClaseEstado
 import app.souschef.receta.voz.OrdenVoz
 import app.souschef.ui.crono.AccionCarril
+import app.souschef.ui.crono.PasoProximo
 import app.souschef.ui.crono.VistaCarril
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -394,5 +395,37 @@ class RespuestasVozTest {
             assertFalse(frase, frase.any { it.code > 0x024F })
             assertFalse(frase, "·" in frase)
         }
+    }
+
+    // ---- proximosPasos
+
+    @Test
+    fun `proximos pasos de un carril con sus duraciones`() {
+        val v =
+            corriendo(200, titulo = "Sofrito").copy(
+                proximos = listOf(PasoProximo("Añadir el tomate", 300), PasoProximo("Reducir", 600)),
+            )
+        assertEquals(
+            "Sartén grande, después de sofrito: añadir el tomate, 5 minutos; luego reducir, 10 minutos.",
+            ProximosPasosVoz.deCarril(v),
+        )
+    }
+
+    @Test
+    fun `proximos pasos de un carril en su ultimo paso`() {
+        assertEquals("Sartén grande: sofrito es el último paso.", ProximosPasosVoz.deCarril(corriendo(200)))
+    }
+
+    @Test
+    fun `proximos pasos en general por hora prevista`() {
+        val sarten =
+            corriendo(200).copy(sugeridoMs = 2_000L, proximos = listOf(PasoProximo("Reducir", 600)))
+        val olla =
+            corriendo(400, id = "o", nombre = "OLLA", titulo = "Hervir").copy(sugeridoMs = 1_000L)
+        val mesa = vista(id = "m", nombre = "MESA", accion = AccionCarril.TERMINADO)
+        assertEquals(
+            "Olla: hervir. Sartén grande: sofrito, luego reducir.",
+            ProximosPasosVoz.general(listOf(sarten, olla, mesa)),
+        )
     }
 }

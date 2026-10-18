@@ -348,4 +348,57 @@ class InterpreteVozTest {
         assertNull(InterpreteVoz.interpretar(listOf("hola", "chef"), carriles))
         assertNull(InterpreteVoz.interpretar(emptyList(), carriles))
     }
+
+    // --- Número de carril dicho de otras formas (ronda 9: «info del dos» respondía del foco) ---
+
+    @Test
+    fun `info del dos en todas las formas que da el reconocedor`() {
+        listOf(
+            "chef info del dos",
+            "chef info del 2",
+            "chef info dos",
+            "chef info 2",
+            "chef info de 2",
+            "chef info de dos",
+            "chef info en el dos",
+            "chef info del numero dos",
+            "chef info del número 2",
+            "chef info de los",
+        ).forEach { assertEquals(OrdenVoz.Info("sp"), i(it), it) }
+    }
+
+    @Test
+    fun `un numero suelto al final no se confunde con una prorroga`() {
+        assertEquals(OrdenVoz.Hecho("olla"), i("chef hecho 3"))
+        assertEquals(OrdenVoz.Prorrogar(120, null), i("chef dos minutos más"))
+        assertEquals(OrdenVoz.Prorrogar(30, "sp"), i("chef 30 segundos más en el 2"))
+    }
+
+    @Test
+    fun `entre alternativas gana la que nombra carril`() {
+        assertEquals(
+            OrdenVoz.Info("sp"),
+            InterpreteVoz.interpretar(listOf("chef info del", "chef info del dos"), carriles),
+        )
+        assertEquals(OrdenVoz.Info(null), InterpreteVoz.interpretar(listOf("chef info", "chef nada"), carriles))
+    }
+
+    // --- Próximos pasos ---
+
+    @Test
+    fun `proximos pasos en general`() {
+        assertEquals(OrdenVoz.ProximosPasos(null), i("chef próximos pasos"))
+        assertEquals(OrdenVoz.ProximosPasos(null), i("chef cuáles son los siguientes pasos"))
+        assertEquals(OrdenVoz.ProximosPasos(null), i("chef qué viene después"))
+    }
+
+    @Test
+    fun `proximos pasos de un carril`() {
+        assertEquals(OrdenVoz.ProximosPasos("olla"), i("chef próximos pasos del tres"))
+        assertEquals(OrdenVoz.ProximosPasos("sp"), i("chef qué viene después en el dos"))
+        assertEquals(OrdenVoz.ProximosPasos("horno"), i("chef siguientes pasos del horno"))
+    }
+
+    @Test
+    fun `que viene sigue siendo el siguiente fin`() = assertEquals(OrdenVoz.QueViene, i("chef qué viene"))
 }
