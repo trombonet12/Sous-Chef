@@ -109,5 +109,7 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Joan instala la v0.8.1 y prueba los 4 carriles (reloj, hito, después con tiempo, nota y desplazamiento). El aviso de versión se verá con la
-siguiente release: comprobar que llega y que al tocarlo abre Obtainium.
+Ronda 9 terminada en main, sin publicar (`version.properties` sigue en 0.8.1). Joan conecta el móvil:
+1. instalar el APK release firmado encima de la v0.8.1 (`node scripts/android-release.mjs` y `adb install -r`);
+2. probar el guion de la ronda 9;
+3. con su OK, subir a 1.0.0 (versionCode 13) y hacer push, que publica la release con APK y AAB.
