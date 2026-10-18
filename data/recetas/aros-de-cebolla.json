@@ -1,0 +1,342 @@
+{
+  "actualizada": "2026-10-18T10:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN HONDA",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Con la cebolla entera, sin partirla por la mitad, se cortan rodajas de 1 cm cruzando la fibra, perpendiculares a la línea raíz-brote: cada rodaja se abre en anillos completos. Partida, saldrían medias lunas. A 1 cm la cebolla se ablanda por dentro en los 4 minutos que tarda en dorarse el pan rallado; más fina se rompe al rebozar y más gruesa queda cruda.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla entera sin partir, con la fibra de raíz a tallo; se recortan los dos extremos y se corta cruzando la fibra a intervalos iguales para sacar aros\"><ellipse cx=\"60\" cy=\"44\" rx=\"52\" ry=\"31\" fill=\"#8A6C4A\" fill-opacity=\".16\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".75\"><line x1=\"16\" y1=\"31\" x2=\"104\" y2=\"31\"/><line x1=\"11\" y1=\"39\" x2=\"109\" y2=\"39\"/><line x1=\"11\" y1=\"49\" x2=\"109\" y2=\"49\"/><line x1=\"16\" y1=\"57\" x2=\"104\" y2=\"57\"/></g><g stroke=\"#B5372A\" stroke-width=\"2\"><line x1=\"15\" y1=\"20\" x2=\"15\" y2=\"68\"/><line x1=\"105\" y1=\"20\" x2=\"105\" y2=\"68\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"30\" y1=\"8\" x2=\"30\" y2=\"80\"/><line x1=\"46\" y1=\"5\" x2=\"46\" y2=\"83\"/><line x1=\"60\" y1=\"4\" x2=\"60\" y2=\"84\"/><line x1=\"74\" y1=\"5\" x2=\"74\" y2=\"83\"/><line x1=\"90\" y1=\"8\" x2=\"90\" y2=\"80\"/></g></svg>",
+      "t": "Cebolla entera · aros de 1 cm, cruzando la fibra"
+    }
+  ],
+  "creada": "2026-10-18T10:00:00Z",
+  "datos": [
+    [
+      "47 min",
+      "de principio a fin"
+    ],
+    [
+      "28 + 18 + 1",
+      "cortar, rebozar y reposar + freír + servir"
+    ],
+    [
+      "1",
+      "fuegos"
+    ],
+    [
+      "7",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Aros de cebolla rebozados para dos, en tres platos: harina con un poco de maicena, huevo espesado con harina y pan rallado. El huevo con harina es lo que facilita el rebozado: se queda pegado a la cebolla en vez de escurrirse, y el pan rallado agarra a la primera. Se fríen en cuatro tandas en una sartén honda de 22-24 cm con 300 ml de aceite de girasol (1¼ vasos de agua), que dan algo más de 1 cm de profundidad, y se salan al salir.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 250,
+          "n": "cebolla, en aros de 1 cm (1 cebolla grande; solo los aros de fuera)",
+          "u": "g"
+        }
+      ],
+      "n": "TABLA · LA CEBOLLA"
+    },
+    {
+      "items": [
+        {
+          "a": 50,
+          "n": "harina (5 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "maicena (1 cucharada sopera)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 1 · HARINA"
+    },
+    {
+      "items": [
+        {
+          "a": 2,
+          "n": "huevos",
+          "u": "uds"
+        },
+        {
+          "a": 20,
+          "n": "harina (2 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "leche (2 cucharadas soperas)",
+          "u": "ml"
+        }
+      ],
+      "n": "PLATO 2 · HUEVO CON HARINA"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "pan rallado (unas 12 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 3 · PAN RALLADO"
+    },
+    {
+      "items": [
+        {
+          "a": 300,
+          "n": "aceite de girasol (1¼ vasos de agua)",
+          "u": "ml"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal, al salir de la sartén (una pizca)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN HONDA · LA FRITURA"
+    }
+  ],
+  "lectura": "Una sartén y la mesa. 6 de cortar + 4 de montar los platos + 8 de rebozar + 10 de nevera + 18 de freír + 1 de servir = 47 minutos. El aceite se enciende en el minuto 22, con las manos ya limpias, y llega al 7 justo cuando la bandeja sale de la nevera. Solo hay un fuego encendido en todo el plan.",
+  "mep": [
+    {
+      "l": [
+        "<b>Cebolla · 250 g (1 cebolla grande)</b> · recortada, pelada y en rodajas de 1 cm cruzando la fibra, sin partirla por la mitad; de cada rodaja, los 3 o 4 aros de fuera. Los centros, a un táper para un sofrito. Se corta en el minuto 0."
+      ],
+      "orden": true,
+      "porq": "Solo la cebolla pasa por la tabla, y en un único corte.",
+      "t": "UNA TABLA, UN CORTE"
+    },
+    {
+      "l": [
+        "<b>Plato hondo 1</b> · 50 g de harina (5 cucharadas soperas) + 10 g de maicena (1 cucharada sopera) + 2 g de sal (⅓ de cucharadita), mezclados. Se monta en el minuto 6.",
+        "<b>Plato hondo 2</b> · 2 huevos + 20 g de harina (2 cucharadas soperas) + 30 ml de leche (2 cucharadas soperas), batidos con tenedor hasta que no queden grumos. Se monta en el minuto 6.",
+        "<b>Plato hondo 3</b> · 100 g de pan rallado (unas 12 cucharadas soperas). Se monta en el minuto 6.",
+        "<b>Bandeja o fuente grande</b> · vacía, para dejar los aros rebozados sin que se toquen. A la nevera en el minuto 18.",
+        "<b>Sartén honda de 22-24 cm</b> · 300 ml de aceite de girasol (1¼ vasos de agua), algo más de 1 cm de fondo. Al fuego en el minuto 22.",
+        "<b>Plato con papel de cocina</b> · para escurrir cada tanda, con 1 g de sal (una pizca) a mano para echarla en cuanto sale. Desde el minuto 28."
+      ],
+      "orden": true,
+      "porq": "Los tres platos van en fila, de izquierda a derecha, en el orden en que se usan: harina, huevo y pan rallado, con la bandeja al final. Así los aros avanzan en una sola dirección y nunca vuelven atrás con la mano llena de huevo.",
+      "t": "TRES PLATOS EN FILA"
+    }
+  ],
+  "notaEscala": "A 4 raciones son 2 cebollas y el doble de aros, pero la sartén no admite más de 6 a la vez sin que baje la temperatura del aceite: serían ocho tandas y unos 36 minutos de freír, así que el plan se alarga 18 minutos. El aceite no se dobla, porque es la profundidad de la sartén, no la cantidad de cebolla. La sal no escala en línea recta.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar-aros",
+      "meto": "250 g de cebolla (1 grande)",
+      "min": 6,
+      "nota": "Recorta 5 mm de cada extremo y pela. De pie sobre un extremo, corta rodajas de 1 cm sin partirla por la mitad. De cada rodaja, separa con los dedos los 3 o 4 aros de fuera; los centros, a un táper.",
+      "off": 0,
+      "p": "Sin partir la cebolla por la mitad, cada rodaja de 1 cm que cruza la fibra se abre sola en anillos completos. La fina telilla transparente que hay entre capa y capa se quita al separarlos: si se queda, el rebozado se despega por ahí al freír. Solo se rebozan los aros de fuera, de 5 a 9 cm: los del centro son tan pequeños que el rebozado es casi todo pan y se queman antes de que se haga la cebolla. Salen unos 24 aros, cuatro tandas de seis.",
+      "s": 360,
+      "saco": "",
+      "t": "Cortar la cebolla en aros de 1 cm y separar los de fuera",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "montar-platos",
+      "meto": "plato 1: 50 g de harina + 10 g de maicena + 2 g de sal · plato 2: 2 huevos + 20 g de harina + 30 ml de leche · plato 3: 100 g de pan rallado",
+      "min": 4,
+      "nota": "Pon los tres platos en fila con la bandeja vacía al final. Bate el huevo con la harina y la leche con un tenedor hasta que no queden grumos: tiene que quedar como una natilla ligera.",
+      "off": 6,
+      "p": "La harina del primer plato seca la superficie húmeda de la cebolla y le da algo rugoso a lo que agarrarse; la maicena, sin gluten, hace que esa capa fría más crujiente. Los 20 g de harina batidos con el huevo lo espesan: un huevo solo resbala por la cebolla y gotea, y uno espeso se queda como una capa continua que pega el pan rallado por todas partes.",
+      "s": 240,
+      "saco": "",
+      "t": "Montar los tres platos: harina, huevo con harina y pan rallado",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "rebozar",
+      "meto": "los aros de cebolla, uno a uno, por los tres platos",
+      "min": 8,
+      "nota": "Mano seca, mano húmeda: con la izquierda, el aro por la harina, sacúdelo y déjalo caer en el huevo. Con la derecha, sácalo escurriendo y déjalo en el pan rallado. Con la izquierda, cúbrelo de pan, apriétalo y a la bandeja, sin que se toquen.",
+      "off": 10,
+      "p": "Con una mano solo para lo seco y la otra solo para lo mojado, los dedos no se cubren de una pasta de harina y huevo que arranca el rebozado del aro siguiente. Se sacude la harina porque el sobrante forma una capa suelta que se despega al freír. El pan rallado se aprieta con la palma para que se clave en el huevo y no se caiga en la sartén.",
+      "s": 480,
+      "saco": "",
+      "t": "Rebozar: harina, huevo y pan rallado",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-aceite",
+      "meto": "300 ml de aceite de girasol en la sartén honda de 22-24 cm",
+      "min": 6,
+      "nota": "Al 7, sin tapa. Está listo cuando una miga de pan rallado burbujea en cuanto toca el aceite.",
+      "off": 22,
+      "p": "El girasol aguanta los 175-180 °C de la fritura sin humear y no da sabor. Seis minutos al 7 bastan para que 300 ml lleguen a esa temperatura en una sartén de 22-24 cm. Se enciende en el minuto 22, con el rebozado ya acabado y las manos limpias, para no tener aceite caliente sin vigilar. Si el aceite está frío, el rebozado chupa grasa antes de formar costra y sale blando y aceitoso.",
+      "s": 360,
+      "saco": "",
+      "sinHitos": "El aceite se calienta solo y no hay nada que mover: la única comprobación, la miga que burbujea, está al final del paso.",
+      "t": "Calentar el aceite de girasol al 7",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "reposar-nevera",
+      "meto": "la bandeja con los aros rebozados, a la nevera",
+      "min": 10,
+      "nota": "Diez minutos en la nevera, sin tapar. Lávate las manos y deja listo el plato con papel junto a la sartén.",
+      "off": 18,
+      "p": "En la nevera el huevo con harina se asienta y pega el pan rallado a la cebolla: un rebozado reposado aguanta la vuelta en la sartén sin abrirse. El frío además hace que la costra entre en el aceite firme y no se despegue al primer borboteo. Diez minutos bastan; a partir de media hora la humedad de la cebolla empieza a ablandar el pan rallado desde dentro.",
+      "s": 600,
+      "saco": "",
+      "t": "Reposar los aros 10 minutos en la nevera",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "reposar-nevera"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Dale la vuelta a la primera tanda con una espumadera"
+        },
+        {
+          "en": 240,
+          "t": "Saca la primera tanda al plato con papel y sálala. Cuando una miga vuelva a burbujear, unos 30 s, mete la segunda"
+        },
+        {
+          "en": 390,
+          "t": "Dale la vuelta a la segunda tanda"
+        },
+        {
+          "en": 510,
+          "t": "Saca la segunda tanda y sálala. Espera a que la miga burbujee y mete la tercera"
+        },
+        {
+          "en": 660,
+          "t": "Dale la vuelta a la tercera tanda"
+        },
+        {
+          "en": 780,
+          "t": "Saca la tercera tanda y sálala. Espera a que la miga burbujee y mete la cuarta"
+        },
+        {
+          "en": 930,
+          "t": "Dale la vuelta a la cuarta tanda"
+        }
+      ],
+      "holgura": "critico",
+      "id": "freir",
+      "meto": "la bandeja de la nevera: los aros, de 6 en 6",
+      "min": 18,
+      "nota": "Cuatro tandas de 4 minutos, 2 por lado, sin amontonar, con medio minuto entre tanda y tanda para que el aceite se recupere. Si el aceite humea, baja del 7 al 6.",
+      "off": 28,
+      "p": "Dos minutos por lado doran el pan rallado y dejan la cebolla tierna por dentro, que se hace con el vapor de su propia agua encerrado en la costra. Cada tanda fría enfría el aceite unos grados: el medio minuto de espera, hasta que la miga vuelve a burbujear, evita que la siguiente entre en aceite tibio y se empape. Más de seis aros a la vez bajan demasiado la temperatura. La sal va al salir, con la superficie aún brillante de aceite, que es lo que la pega.",
+      "s": 1080,
+      "saco": "la última tanda, al plato con papel. Apaga el fuego",
+      "t": "Freír en cuatro tandas, 2 minutos por lado",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "freir"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "meto": "el plato con papel con las cuatro tandas",
+      "min": 1,
+      "nota": "Echa la pizca de sal que queda sobre la última tanda y reparte en dos platos, sin apilar.",
+      "off": 46,
+      "p": "Se sirven sin apilar y nada más freír porque el vapor que sigue saliendo de la cebolla ablanda la costra de los aros de encima. Sobre el papel, la grasa de la superficie se va en un minuto, y más rato solo enfría la costra sin secarla más.",
+      "s": 60,
+      "saco": "2 platos: los aros de cebolla, recién fritos y sin apilar",
+      "t": "Salar la última tanda y a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "cebolla"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Harina dentro del huevo",
+      "Espesa el huevo para que no gotee: se queda como una capa continua sobre la cebolla y el pan rallado pega a la primera, sin calvas."
+    ],
+    [
+      "Maicena en la harina",
+      "Sin gluten, no forma una red elástica: la primera capa queda más fina y crujiente que con harina sola."
+    ],
+    [
+      "Diez minutos de nevera",
+      "El rebozado se asienta y aguanta la vuelta en la sartén. Hasta media hora no se empapa, así que no hay prisa por los primeros aros."
+    ],
+    [
+      "Aceite de girasol, no de oliva",
+      "Neutro y con punto de humo alto: los aros saben a cebolla y no a aceite."
+    ],
+    [
+      "Sin salsa propia",
+      "Una salsa casera añadiría platos y tiempo a un rebozado que ya lleva tres. Si quieres mojar, ketchup o mostaza del bote."
+    ],
+    [
+      "Sin rebozado doble",
+      "Repetir huevo y pan rallado da más costra, pero tapa la cebolla y alarga ocho minutos de mesa."
+    ],
+    [
+      "Solo los aros de fuera",
+      "Los del centro son casi todo rebozado y se queman antes de que se haga la cebolla. Guardados en un táper, sirven para el próximo sofrito."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "aros-de-cebolla",
+  "tags": {
+    "base": "verdura",
+    "proteina": "huevo",
+    "tecnica": [
+      "punto-del-aceite"
+    ]
+  },
+  "titulo": "Aros de cebolla rebozados",
+  "totalMin": 47
+}
