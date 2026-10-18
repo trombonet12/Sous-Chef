@@ -39,6 +39,13 @@ class FichaLogicaTest {
     }
 
     @Test
+    fun inicioEsServirMenosElTotalRedondeadoArriba() {
+        assertEquals("14:43", Servir.formato(Servir.inicio(Servir.DEFECTO, receta("a").copy(totalMin = 47.0))))
+        assertEquals("14:42", Servir.formato(Servir.inicio(Servir.DEFECTO, receta("a").copy(totalMin = 47.5))))
+        assertEquals("23:50", Servir.formato(Servir.inicio(20, receta("a").copy(totalMin = 30.0))))
+    }
+
+    @Test
     fun hitosComoMasMinutosSegundos() {
         assertEquals("+1:05", formatoHito(65.0))
         assertEquals("+0:30", formatoHito(30.0))

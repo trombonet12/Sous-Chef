@@ -70,6 +70,7 @@
     <!-- Ficha -->
     <string name="ficha_no_encontrada">No encuentro esta receta</string>
     <string name="ficha_servir_a">Servir a</string>
+    <string name="ficha_empezar_a">Empieza a las %1$s</string>
     <string name="ficha_servir_mas">Servir 15 minutos más tarde</string>
     <string name="ficha_servir_menos">Servir 15 minutos antes</string>
     <string name="ficha_cocinar">Cronómetro</string>

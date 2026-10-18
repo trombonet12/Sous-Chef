@@ -8,6 +8,7 @@ import app.souschef.receta.Ingrediente
 import app.souschef.receta.Receta
 import app.souschef.receta.Tecnica
 import java.util.Locale
+import kotlin.math.ceil
 
 /** Hora de servir en minutos desde medianoche (no se recuerda entre fichas). */
 object Servir {
@@ -19,6 +20,12 @@ object Servir {
         minutos: Int,
         delta: Int,
     ): Int = (minutos + delta).mod(DIA)
+
+    /** Hora de empezar: servir − total de la receta, redondeado hacia arriba para no ir justo. */
+    fun inicio(
+        servirMin: Int,
+        receta: Receta,
+    ): Int = ajustar(servirMin, -ceil(receta.totalEfectivo).toInt())
 
     fun formato(minutos: Int): String = String.format(Locale.ROOT, "%02d:%02d", minutos / 60, minutos % 60)
 }

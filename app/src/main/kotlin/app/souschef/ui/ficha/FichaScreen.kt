@@ -116,6 +116,13 @@ private fun BarraFicha(
                     onMenos = { viewModel.ajustarServir(-Servir.PASO) },
                     onMas = { viewModel.ajustarServir(Servir.PASO) },
                 )
+                estado.receta?.let { r ->
+                    Text(
+                        stringResource(R.string.ficha_empezar_a, Servir.formato(Servir.inicio(estado.servirMin, r))),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
             Button(
                 onClick = { onCocinar(estado.raciones, Servir.formato(estado.servirMin)) },

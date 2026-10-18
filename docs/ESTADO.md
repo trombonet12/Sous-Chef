@@ -57,6 +57,8 @@
   - Repo hecho público.
 - 2026-10-17 · v0.8.0: aviso de versión nueva (ADR-0009), al abrir y una vez al día; al tocar abre Obtainium.
 - 2026-10-17 · v0.8.1: el texto largo se desplaza; «Después» lleva la duración del siguiente paso.
+- 2026-10-18 · Ronda 9 → v1.0.0 (en curso):
+  - Ficha: «Empieza a las HH:mm» según la hora de servir.
 
 ## Entorno
 | Herramienta | Estado |
