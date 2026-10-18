@@ -12,6 +12,9 @@ Sous Chef no recoge, no envía y no comparte datos personales. Todo lo que guard
   - La excepción es la copia de seguridad de Android, si la tienes activada. La gestiona Google con tu cuenta, no
     Sous Chef.
 
+- **Copia del historial:** solo si la pides en Ajustes. Se guarda en el archivo que tú eliges con el selector del
+  sistema (por ejemplo en Documentos), y la app solo lo vuelve a leer cuando le pides «Cargar copia».
+
 ## Permisos
 - **Micrófono:** solo se usa si activas el control por voz del cronómetro, y solo mientras la cocina está en
   pantalla. El reconocimiento lo hace el sistema; la app no graba ni guarda audio ni transcripciones.

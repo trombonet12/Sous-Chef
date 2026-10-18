@@ -2,6 +2,7 @@ package app.souschef.di
 
 import android.content.Context
 import androidx.room.Room
+import app.souschef.data.copia.ArchivoCopiaAndroid
 import app.souschef.data.db.MIGRATION_1_2
 import app.souschef.data.db.SousChefDatabase
 import app.souschef.data.repo.AjustesRepoRoom
@@ -19,6 +20,8 @@ import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
 import app.souschef.domain.TecnicasRepo
+import app.souschef.domain.copia.ArchivoCopia
+import app.souschef.domain.copia.GestorCopia
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -53,6 +56,14 @@ object DatabaseModule {
     @Provides fun metaDao(db: SousChefDatabase) = db.metaDao()
 
     @Provides fun reloj(): Reloj = Reloj.Sistema
+
+    @Provides
+    fun gestorCopia(
+        historial: HistorialRepo,
+        preferencias: PreferenciasRepo,
+        archivo: ArchivoCopia,
+        reloj: Reloj,
+    ): GestorCopia = GestorCopia(historial, preferencias, archivo, reloj)
 }
 
 @Module
@@ -71,4 +82,6 @@ abstract class RepoModule {
     @Binds abstract fun ajustes(impl: AjustesRepoRoom): AjustesRepo
 
     @Binds abstract fun fuenteSemilla(impl: FuenteAssets): FuenteSemilla
+
+    @Binds abstract fun archivoCopia(impl: ArchivoCopiaAndroid): ArchivoCopia
 }

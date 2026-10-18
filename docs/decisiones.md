@@ -216,3 +216,9 @@
   «Cocinando», botón «Volver a la cocina» (el crono reanuda sin pisar el estado) y, al salir de la ficha, diálogo
   «¿Abandonar esta cocinada?». Abrir una técnica desde la ficha no abandona. Si se entró por la notificación y no hay
   ficha debajo, atrás abre la ficha en lugar del crono.
+- Historial fuera de la app, por decisión de Joan: exportar/importar a mano (no carpeta automática ni copia de Google,
+  que está desactivada con `allowBackup=false` y en LineageOS sin servicios de Google puede no existir). Ajustes →
+  «Guardar copia» crea `sous-chef-historial-AAAA-MM-DD.json` donde elija con el selector del sistema (SAF, sin
+  permisos nuevos); «Cargar copia» añade las cocinadas que falten por id, suma favoritos y solo pone raciones donde no
+  las hay: nunca pisa ni borra. Formato `sous-chef-historial` versión 1 (`CopiaHistorial`, puro y con tests). Borrar
+  la caché no borra el historial; lo borran «borrar datos» y desinstalar.

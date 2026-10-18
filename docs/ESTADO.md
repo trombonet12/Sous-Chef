@@ -68,6 +68,7 @@
   - Deshacer el último Hecho de un carril: minibotón ↶ en las tarjetas, filas y clásica, y por voz («deshaz», «atrás», «paso anterior» [+ carril]).
   - Atrás en el cronómetro vuelve a la ficha con la cocinada viva («Cocinando · N recipientes», botón «Volver a la cocina»); salir de la ficha pide abandonarla. Abandonar desde la cocina, solo en el ⋮.
   - Revisión de código de la ronda aplicada (voz: alternativas y número suelto más prudentes, «deshaz» detrás de las preguntas; deshacer caduca al tocar el carril y encadena por orden; horas de inicio coherentes).
+  - Copia del historial (y favoritos/raciones) en un archivo del móvil: Ajustes → Historial → «Guardar copia» / «Cargar copia» (añade sin pisar).
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 

@@ -17,6 +17,22 @@
     <string name="ajustes_clasica">Clásica</string>
     <string name="ajustes_clasica_detalle">La de antes: pestañas de recipientes, un panel por recipiente con scroll y los mandos abajo.</string>
     <string name="ajustes_interfaz">Interfaz</string>
+    <string name="ajustes_historial">Historial</string>
+    <string name="ajustes_historial_detalle">El historial vive en la app: si borras sus datos o la reinstalas, se pierde. Guarda una copia en el móvil de vez en cuando y cárgala después; solo añade lo que falte, sin pisar nada.</string>
+    <string name="ajustes_copia_guardar">Guardar copia</string>
+    <string name="ajustes_copia_cargar">Cargar copia</string>
+    <string name="ajustes_copia_no_valida">Ese archivo no es una copia del historial de Sous Chef.</string>
+    <string name="ajustes_copia_fallo">No se ha podido leer o escribir el archivo.</string>
+    <plurals name="ajustes_copia_guardada">
+        <item quantity="one">Copia guardada: %1$d cocinada.</item>
+        <item quantity="many">Copia guardada: %1$d cocinadas.</item>
+        <item quantity="other">Copia guardada: %1$d cocinadas.</item>
+    </plurals>
+    <plurals name="ajustes_copia_cargada">
+        <item quantity="one">Copia cargada: %1$d cocinada nueva.</item>
+        <item quantity="many">Copia cargada: %1$d cocinadas nuevas.</item>
+        <item quantity="other">Copia cargada: %1$d cocinadas nuevas.</item>
+    </plurals>
     <string name="ajustes_voz">Hablar con el chef</string>
     <string name="ajustes_voz_detalle">Con el cronómetro en pantalla, di \"Chef, …\" para preguntar o mandar sin tocar.</string>
 

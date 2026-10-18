@@ -64,6 +64,8 @@ fun AjustesScreen(
                 }
                 Switch(checked = ajustes.vozActiva, onCheckedChange = null)
             }
+            val copia by viewModel.copia.collectAsStateWithLifecycle()
+            SeccionCopia(copia, viewModel::guardarCopia, viewModel::cargarCopia)
         }
     }
 }
