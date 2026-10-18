@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -42,27 +43,66 @@ import app.souschef.ui.theme.FichaPalette
 
 private const val CADA_REJILLA_MIN = 10
 
+/** Colores del diagrama: la ficha lo pinta en papel y el cronómetro en oscuro. */
+data class PaletaDiagrama(
+    val meta: Color,
+    val leyenda: Color,
+    val fondoBarra: Color,
+    val rejilla: Color,
+    val borde: Color,
+    val ahora: Color,
+    val colorDe: (Carril?) -> Color,
+)
+
+val PaletaPapel =
+    PaletaDiagrama(
+        meta = FichaPalette.meta,
+        leyenda = FichaPalette.tinta2,
+        fondoBarra = FichaPalette.papel2,
+        rejilla = FichaPalette.linea,
+        borde = FichaPalette.tinta2,
+        ahora = FichaPalette.tinta,
+        colorDe = { colorCarril(it?.color ?: "") },
+    )
+
 /** "El tiempo": eje, una fila por paso con su barra sobre el carril, leyenda y lectura. */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TiempoFicha(receta: Receta) {
+    if (receta.totalEfectivo <= 0 || receta.pasos.isEmpty()) return
+    SeccionPapel(stringResource(R.string.ficha_sec_tiempo)) {
+        DiagramaTiempos(receta, PaletaPapel)
+        receta.lectura?.takeIf { it.isNotBlank() }?.let {
+            Text(it, style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic)
+        }
+    }
+}
+
+/**
+ * Eje, una fila por paso con su barra sobre el carril y leyenda. Con [ahoraMin] (minuto del plan, 0..total) pinta una
+ * línea vertical en cada barra para ver por dónde va la cocina.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun DiagramaTiempos(
+    receta: Receta,
+    paleta: PaletaDiagrama,
+    modifier: Modifier = Modifier,
+    ahoraMin: Double? = null,
+) {
     val total = receta.totalEfectivo
     if (total <= 0 || receta.pasos.isEmpty()) return
     val marcas = remember(total) { Gantt.marcas(total) }
-    SeccionPapel(stringResource(R.string.ficha_sec_tiempo)) {
-        EjeTiempos(marcas, total)
-        receta.pasos.forEach { FilaGantt(it, receta, total) }
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            receta.carriles.forEach { LeyendaPapel(it) }
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        EjeTiempos(marcas, total, paleta)
+        receta.pasos.forEach { FilaGantt(it, receta, total, paleta, ahoraMin) }
+        FlowRow(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            receta.carriles.forEach { Leyenda(it, paleta) }
         }
         Text(
             stringResource(R.string.ficha_eje),
             style = MaterialTheme.typography.labelSmall,
-            color = FichaPalette.meta,
+            color = paleta.meta,
         )
-        receta.lectura?.takeIf { it.isNotBlank() }?.let {
-            Text(it, style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic)
-        }
     }
 }
 
@@ -70,12 +110,13 @@ fun TiempoFicha(receta: Receta) {
 private fun EjeTiempos(
     marcas: List<Double>,
     total: Double,
+    paleta: PaletaDiagrama,
 ) {
     val medidor = rememberTextMeasurer()
     val estilo =
         MaterialTheme.typography.labelSmall
             .merge(Tabular)
-            .copy(color = FichaPalette.meta)
+            .copy(color = paleta.meta)
     Canvas(Modifier.fillMaxWidth().height(16.dp).clearAndSetSemantics {}) {
         marcas.forEach { m ->
             val texto = medidor.measure(Escalado.minutos(m), estilo)
@@ -90,6 +131,8 @@ private fun FilaGantt(
     paso: Paso,
     receta: Receta,
     total: Double,
+    paleta: PaletaDiagrama,
+    ahoraMin: Double?,
 ) {
     val carril = receta.carril(paso.carril)
     Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -103,9 +146,9 @@ private fun FilaGantt(
         Text(
             subLinea(paso, carril),
             style = MaterialTheme.typography.labelSmall,
-            color = FichaPalette.meta,
+            color = paleta.meta,
         )
-        BarraGantt(paso, carril, total)
+        BarraGantt(paso, carril, total, paleta, ahoraMin)
     }
 }
 
@@ -125,11 +168,13 @@ private fun BarraGantt(
     paso: Paso,
     carril: Carril?,
     total: Double,
+    paleta: PaletaDiagrama,
+    ahoraMin: Double?,
 ) {
-    val color = colorCarril(carril?.color ?: "")
-    val fondo = FichaPalette.papel2
-    val rejilla = FichaPalette.linea
-    val borde = FichaPalette.tinta2
+    val color = paleta.colorDe(carril)
+    val fondo = paleta.fondoBarra
+    val rejilla = paleta.rejilla
+    val borde = paleta.borde
     val (izq, ancho) = Gantt.barra(paso, total, anchoMinimo = 0.01)
     Canvas(Modifier.fillMaxWidth().height(14.dp).clearAndSetSemantics {}) {
         drawRoundRect(fondo, size = size, cornerRadius = CornerRadius(3.dp.toPx()))
@@ -141,13 +186,20 @@ private fun BarraGantt(
         val tamano = Size(ancho * size.width, size.height - 2.dp.toPx())
         drawRoundRect(color, topLeft, tamano, CornerRadius(3.dp.toPx()))
         drawRoundRect(borde, topLeft, tamano, CornerRadius(3.dp.toPx()), style = Stroke(1.dp.toPx()), alpha = 0.6f)
+        ahoraMin?.let {
+            val x = (it / total * size.width).toFloat()
+            drawLine(paleta.ahora, Offset(x, 0f), Offset(x, size.height), strokeWidth = 2.dp.toPx())
+        }
     }
 }
 
 @Composable
-private fun LeyendaPapel(carril: Carril) {
+private fun Leyenda(
+    carril: Carril,
+    paleta: PaletaDiagrama,
+) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-        Box(Modifier.size(10.dp).background(colorCarril(carril.color), CircleShape))
-        Text(carril.nombre, style = MaterialTheme.typography.labelSmall, color = FichaPalette.tinta2)
+        Box(Modifier.size(10.dp).background(paleta.colorDe(carril), CircleShape))
+        Text(carril.nombre, style = MaterialTheme.typography.labelSmall, color = paleta.leyenda)
     }
 }
