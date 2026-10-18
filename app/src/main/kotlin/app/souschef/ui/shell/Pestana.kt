@@ -10,6 +10,6 @@ enum class Pestana(
     val icono: Icono,
 ) {
     Recetas("recetas", R.string.tab_recetas, Icono.Libro),
-    Despensa("despensa", R.string.tab_despensa, Icono.Tarro),
+    Tecnicas("tecnicas", R.string.tab_tecnicas, Icono.Libreta),
     Historial("historial", R.string.tab_historial, Icono.Reloj),
 }

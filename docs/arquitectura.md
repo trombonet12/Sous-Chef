@@ -10,7 +10,7 @@ Sous Chef es una app Android personal de recetas cronometradas que funciona solo
 |---|---|
 | El repo manda en las recetas | `data/*.json` es la fuente de verdad. El APK empaqueta `data/` y se re-siembra por hash al arrancar con datos nuevos ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)); la app nunca edita recetas ([ADR-0003](adr/0003-el-repo-manda-en-las-recetas.md)). |
 | Una sola implementación de las reglas | Validador y motor del crono en `:receta`, compartidos por la app y la CLI ([ADR-0001](adr/0001-stack-android-y-modulos.md)). |
-| Solo local: Room es la única persistencia | Room es la fuente de la UI y guarda todo lo que escribe el usuario (despensa, compra, historial, estado del crono). Sin sync ni outbox. |
+| Solo local: Room es la única persistencia | Room es la fuente de la UI y guarda todo lo que escribe el usuario (historial, preferencias, ajustes, estado del crono). Sin sync ni outbox. |
 | Avisos fiables sin servicio permanente | Cadena de una alarma `setAlarmClock` con estado en Room ([ADR-0005](adr/0005-cronometro-alarmas-sin-fgs.md)). |
 | Secretos fuera del repo | Firma de release en `~/.souschef/` y `local.properties`; nunca en el repo. |
 
@@ -48,9 +48,9 @@ sequenceDiagram
   Note over M: al arrancar con un hash de datos nuevo, resiembra recetas y técnicas
 ```
 
-### Editar la despensa
+### Historial y preferencias
 1. La UI escribe directamente en Room. No hay red, cola ni sincronización.
-2. Si se pierde el móvil sin copia de seguridad, se pierden despensa e historial. Las copias salen por el backup de Android ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
+2. Si se pierde el móvil sin copia de seguridad, se pierde el historial. Las copias salen por el backup de Android ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
 
 ### Cocinar con alarmas
 1. "Abrir la cocina" pide `POST_NOTIFICATIONS` y crea el estado del crono en Room (`finAt` en reloj de pared).
@@ -80,7 +80,7 @@ sequenceDiagram
 ## Estructura del repo
 ```
 app/  receta/  tools/  gradle/  settings.gradle.kts  build.gradle.kts
-data/recetas/*.json  data/tecnicas/*.json  data/legado/{historial,preferencias}.json  data/despensa-semilla.md
+data/recetas/*.json  data/tecnicas/*.json  data/legado/{historial,preferencias}.json
 docs/ ESTADO.md decisiones.md arquitectura.md pasos-manuales.md testing.md ci-cd.md
       adr/ fases/ _templates/ cocina/{reglas.md,perfil.md,esquema-receta.md,entregables.md,sugerencias-compra.md}
       spec/app-legado.md (inventario funcional completo de la app vieja)  legado/sous-chef-publicada.html

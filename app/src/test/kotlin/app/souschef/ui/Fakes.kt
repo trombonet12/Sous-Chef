@@ -1,9 +1,7 @@
 package app.souschef.ui
 
-import app.souschef.domain.CompraRepo
 import app.souschef.domain.EntradaHistorial
 import app.souschef.domain.HistorialRepo
-import app.souschef.domain.ItemCompra
 import app.souschef.domain.Preferencia
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
@@ -100,34 +98,4 @@ class FakePreferenciasRepo : PreferenciasRepo {
         val actual = datos.value[slug] ?: Preferencia(slug)
         datos.value = datos.value + (slug to actual.copy(raciones = raciones))
     }
-}
-
-class FakeCompraRepo : CompraRepo {
-    val anadidos = mutableListOf<Pair<List<String>, String?>>()
-
-    override fun observar(): Flow<List<ItemCompra>> = MutableStateFlow(emptyList())
-
-    override suspend fun agregar(
-        texto: String,
-        zona: String,
-        origen: String?,
-    ): Long = 0
-
-    override suspend fun agregarVarios(
-        textos: List<String>,
-        origen: String?,
-    ) {
-        anadidos += textos to origen
-    }
-
-    override suspend fun marcar(
-        id: Long,
-        marcado: Boolean,
-    ) = Unit
-
-    override suspend fun borrar(id: Long) = Unit
-
-    override suspend fun borrarMarcados() = Unit
-
-    override suspend fun reordenar(idsEnOrden: List<Long>) = Unit
 }

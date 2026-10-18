@@ -6,7 +6,7 @@
 
 Total: 42 skills (2 manuales).
 
-Presupuesto de descripciones: 7369 / 16000 caracteres (suma de name + description de las skills no manuales).
+Presupuesto de descripciones: 7394 / 16000 caracteres (suma de name + description de las skills no manuales).
 
 ## 1. Cocina (dominio)
 
@@ -15,7 +15,7 @@ Presupuesto de descripciones: 7369 / 16000 caracteres (suma de name + descriptio
 | [receta-cronometrada](../.claude/skills/receta-cronometrada/SKILL.md) | —          | no     | Diseña una receta cronometrada (gramos, cortes, potencia 0-9, tapa, hitos, mise en place, cronología hacia atrás) en data/recetas/<slug>.json, la valida y la publica. Úsala en recetas nuevas.  |
 | [receta-revisar](../.claude/skills/receta-revisar/SKILL.md)           | —          | no     | Revisa una receta existente de data/recetas contra las reglas y el esquema; aplica correcciones objetivas, propone cambios de plato en docs/revision-recetas.md y cierra con validar --estricto. |
 | [tecnica-nueva](../.claude/skills/tecnica-nueva/SKILL.md)             | —          | no     | Crea una ficha de técnica culinaria en data/tecnicas/<slug>.json con el esquema de técnica y la enlaza desde tags.tecnica de las recetas que la usan.                                            |
-| [despensa](../.claude/skills/despensa/SKILL.md)                       | —          | no     | Lee la despensa de Joan (pegada desde la app o semilla) y mantiene data/despensa-semilla.md alineada para el validador. Úsala para saber qué hay o qué falta.                                    |
+| [despensa](../.claude/skills/despensa/SKILL.md)                       | —          | no     | Lee la despensa interna de Joan (data/despensa-semilla.md) y la mantiene al día con lo que diga que tiene o se le ha acabado, para el validador. Úsala para saber qué hay o qué falta.           |
 
 ## 2. Arquitectura y diseño
 

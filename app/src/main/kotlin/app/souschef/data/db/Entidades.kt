@@ -39,26 +39,6 @@ data class PreferenciaEntity(
     val raciones: Int?,
 )
 
-@Entity(tableName = "despensa_item")
-data class DespensaItemEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val nombre: String,
-    val categoria: String,
-    /** HAY, POCO, FALTA o VETADO. */
-    val estado: String,
-    val nota: String?,
-)
-
-@Entity(tableName = "compra_item")
-data class CompraItemEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val texto: String,
-    val zona: String,
-    val origen: String?,
-    val marcado: Boolean,
-    val orden: Int,
-)
-
 @Entity(tableName = "crono_estado")
 data class CronoEstadoEntity(
     @PrimaryKey val slug: String,

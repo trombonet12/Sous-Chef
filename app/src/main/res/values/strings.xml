@@ -2,9 +2,8 @@
 <resources>
     <string name="app_name">Sous Chef</string>
     <string name="tab_recetas">Recetas</string>
-    <string name="tab_despensa">Despensa</string>
+    <string name="tab_tecnicas">Técnicas</string>
     <string name="tab_historial">Historial</string>
-    <string name="menu_tecnicas">Técnicas</string>
     <string name="menu_mas">Más opciones</string>
     <string name="menu_ajustes">Ajustes</string>
 
@@ -90,7 +89,6 @@
     <string name="ficha_sec_mep">Antes de empezar</string>
     <string name="ficha_sec_pasos">Los pasos</string>
     <string name="ficha_sec_tecnica">Técnica y decisiones</string>
-    <string name="ficha_sec_falta">Te falta</string>
     <string name="ficha_eje">Eje en minutos desde el arranque</string>
     <string name="ficha_min_rango">min %1$s-%2$s</string>
     <string name="ficha_duracion">%1$s′</string>
@@ -99,15 +97,6 @@
     <string name="ficha_sin_fuego">SIN FUEGO</string>
     <string name="ficha_sin_fuego_bajo">sin fuego</string>
     <string name="ficha_fuego_bajo">fuego %1$d</string>
-    <string name="ficha_falta_vacia">Tienes todo en la despensa</string>
-    <string name="ficha_falta_falta">falta</string>
-    <string name="ficha_falta_poco">queda poco</string>
-    <string name="ficha_falta_sin_entrada">no está en tu despensa</string>
-    <string name="ficha_copiar">Copiar la lista</string>
-    <string name="ficha_anadir_compra">Añadir a la lista de la compra</string>
-    <string name="ficha_copiada">Lista copiada.</string>
-    <string name="ficha_anadida">Añadido a la lista de la compra.</string>
-    <string name="ficha_clip_etiqueta">Compra</string>
     <string name="ficha_cantidad_nombre">%1$s %2$s</string>
     <string name="ficha_imprimir">Imprimir o guardar como PDF</string>
     <string name="ficha_pdf_nombre">Sous Chef – %1$s</string>

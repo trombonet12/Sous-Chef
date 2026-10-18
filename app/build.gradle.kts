@@ -88,12 +88,18 @@ android {
         }
     }
 
+    // Los schemas de Room como assets de test: MigrationTestHelper los lee en los tests JVM (Robolectric).
+    sourceSets
+        .getByName("test")
+        .assets.directories
+        .add("$projectDir/schemas")
+
     buildFeatures {
         compose = true
     }
 }
 
-// Datos del repo (recetas, técnicas, legado, despensa) empaquetados como assets para el seed local.
+// Datos del repo (recetas, técnicas, legado) empaquetados como assets para el seed local.
 abstract class CopiarDatos : DefaultTask() {
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -109,7 +115,7 @@ abstract class CopiarDatos : DefaultTask() {
     fun copiar() {
         fs.sync {
             from(origen) {
-                include("recetas/**", "tecnicas/**", "legado/**", "despensa-semilla.md")
+                include("recetas/**", "tecnicas/**", "legado/**")
             }
             into(destino)
         }

@@ -2,11 +2,8 @@
 
 package app.souschef.data.repo
 
-import app.souschef.data.db.DespensaItemEntity
 import app.souschef.data.db.HistorialEntity
 import app.souschef.domain.EntradaHistorial
-import app.souschef.domain.EstadoDespensa
-import app.souschef.domain.ItemDespensa
 import app.souschef.domain.PasoReal
 import app.souschef.receta.RecetaJson
 import kotlinx.serialization.Serializable
@@ -56,13 +53,4 @@ fun EntradaHistorial.aEntidad(): HistorialEntity =
             pasosReales
                 .takeIf { it.isNotEmpty() }
                 ?.let { l -> RecetaJson.encodeToString(listaPasos, l.map { PasoRealDto(it.id, it.t, it.segundos) }) },
-    )
-
-fun DespensaItemEntity.aDominio(): ItemDespensa =
-    ItemDespensa(
-        id = id,
-        nombre = nombre,
-        categoria = categoria,
-        estado = runCatching { EstadoDespensa.valueOf(estado) }.getOrDefault(EstadoDespensa.HAY),
-        nota = nota,
     )

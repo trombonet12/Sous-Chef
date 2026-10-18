@@ -60,6 +60,7 @@
 - 2026-10-18 · Ronda 9 → v1.0.0 (en curso):
   - Ficha: «Empieza a las HH:mm» según la hora de servir.
   - Receta nueva `aros-de-cebolla` (47 min, huevo espesado con harina) y fuera la técnica del mismo nombre. Pendiente del OK de Joan.
+  - Fuera la despensa de la app (Room 1 → 2); Técnicas es la pestaña del medio.
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 

@@ -27,25 +27,6 @@ data class Preferencia(
     val raciones: Int? = null,
 )
 
-enum class EstadoDespensa { HAY, POCO, FALTA, VETADO }
-
-data class ItemDespensa(
-    val id: Long = 0,
-    val nombre: String,
-    val categoria: String,
-    val estado: EstadoDespensa = EstadoDespensa.HAY,
-    val nota: String? = null,
-)
-
-data class ItemCompra(
-    val id: Long = 0,
-    val texto: String,
-    val zona: String = "",
-    val origen: String? = null,
-    val marcado: Boolean = false,
-    val orden: Int = 0,
-)
-
 /** Cómo se muestran los carriles del cronómetro: uno en foco y el resto compacto, o todos apilados. */
 enum class DisposicionCrono { FOCO, APILADA }
 

@@ -169,3 +169,18 @@
   - El texto que no cabe en una línea (título, hito, después, nota) se desplaza despacio, en bucle
     (`desplazarSiNoCabe`, `basicMarquee` a 24 dp/s y 2 s de pausa).
   - «Después» muestra la duración del siguiente paso (`VistaCarril.despuesS`), solo en pantalla: la voz no la dice.
+
+## 2026-10-18 · Ronda 9 → v1.0.0
+- Fuera la despensa de la app, a petición de Joan: pestaña, lista de la compra, «Te falta» en la ficha y «Compartir
+  despensa». La despensa queda como `data/despensa-semilla.md`, interna, para diseñar recetas y para la regla 12 del
+  validador; ya no se empaqueta en el APK.
+  - Room 1 → 2 (`MIGRATION_1_2`): borra `despensa_item`, `compra_item` y la meta `despensa_hash`; conserva historial,
+    preferencias, ajustes y estado del crono. Test con el SQL del schema 1 en lugar de `MigrationTestHelper`, porque
+    Robolectric solo ve los assets de `debug` y los schemas no deben ir al APK.
+  - Técnicas pasa a ser la pestaña del medio (icono libreta); el menú ⋮ deja solo Ajustes.
+- Ficha: «Empieza a las HH:mm» = servir − total redondeado hacia arriba al minuto. Ingredientes «Todo junto» (por
+  defecto; suma los repetidos por nombre normalizado, unidad y modo de escala) o «Por zona»; la impresa lleva los dos.
+- Cronómetro: cada tarjeta muestra la hora prevista del paso (`sugeridoMs`) y el desvío en minutos frente al plan
+  (fin previsto − (sugerido + duración)): esperar antes de la hora no cuenta como adelanto; pausas y prórrogas suman.
+- Aros de cebolla pasan de técnica a receta (47 min). Revisión culinaria (opus): 250 g en vez de 400 (solo aros de
+  fuera, 4 tandas de 6), 10 min de nevera, sartén de 22-24 cm y 30 s entre tandas.

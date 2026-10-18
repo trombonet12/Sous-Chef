@@ -1,7 +1,6 @@
 package app.souschef.data.seed
 
 import androidx.room.withTransaction
-import app.souschef.data.db.DespensaItemEntity
 import app.souschef.data.db.HistorialEntity
 import app.souschef.data.db.MetaEntity
 import app.souschef.data.db.PreferenciaEntity
@@ -12,13 +11,11 @@ import app.souschef.data.repo.PasoRealDto
 import app.souschef.receta.RecetaJson
 import app.souschef.receta.leerReceta
 import app.souschef.receta.leerTecnica
-import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import java.security.MessageDigest
-import java.text.Normalizer
 import javax.inject.Inject
 
 @Serializable
@@ -43,12 +40,6 @@ private data class PreferenciaLegado(
 /**
  * Siembra la base local desde `data/` (assets). Recetas y técnicas se recargan si cambia el hash del conjunto;
  * historial y preferencias solo la primera vez (a partir de ahí manda el usuario).
- *
- * La despensa se siembra entera la primera vez. Después, si cambia el hash de `despensa-semilla.md`
- * ([CLAVE_HASH_DESPENSA]; en instalaciones previas sin hash cuenta como cambiado), se añaden solo los artículos
- * cuyo nombre normalizado (minúsculas, sin tildes) no exista ya: estado HAY (VETADO los vetos) y categoría de la
- * semilla. Nunca se borra ni se modifica nada existente. Un artículo que el usuario borró a mano reaparecerá
- * cuando la semilla cambie; es un comportamiento aceptado.
  */
 class Seeder
     @Inject
@@ -61,9 +52,7 @@ class Seeder
             val tecnicas = fuente.listar("tecnicas").filter { it.endsWith(".json") }.map { it to fuente.leer(it) }
             val hash = hashConjunto(recetas + tecnicas)
             val legadoYaSembrado = db.metaDao().valor(CLAVE_LEGADO) != null
-            val semilla = fuente.leer("despensa-semilla.md")
-            val hashDespensa = sha256(semilla)
-            val legado = if (legadoYaSembrado) null else leerLegado(semilla)
+            val legado = if (legadoYaSembrado) null else leerLegado()
             db.withTransaction {
                 if (db.metaDao().valor(CLAVE_HASH) != hash) {
                     recargarContenido(recetas, tecnicas)
@@ -72,12 +61,7 @@ class Seeder
                 if (legado != null && db.metaDao().valor(CLAVE_LEGADO) == null) {
                     db.historialDao().insertarTodas(legado.historial)
                     db.preferenciaDao().insertarTodas(legado.preferencias)
-                    db.despensaDao().insertarTodos(legado.despensa)
                     db.metaDao().fijar(MetaEntity(CLAVE_LEGADO, "1"))
-                    db.metaDao().fijar(MetaEntity(CLAVE_HASH_DESPENSA, hashDespensa))
-                } else if (db.metaDao().valor(CLAVE_HASH_DESPENSA) != hashDespensa) {
-                    anadirNuevosDeLaSemilla(semilla)
-                    db.metaDao().fijar(MetaEntity(CLAVE_HASH_DESPENSA, hashDespensa))
                 }
             }
         }
@@ -96,37 +80,12 @@ class Seeder
             )
         }
 
-        private suspend fun anadirNuevosDeLaSemilla(semilla: String) {
-            val existentes =
-                db
-                    .despensaDao()
-                    .observar()
-                    .first()
-                    .map { normalizar(it.nombre) }
-                    .toMutableSet()
-            val nuevos =
-                SemillaDespensa
-                    .parsear(semilla)
-                    .filter { existentes.add(normalizar(it.nombre)) }
-                    .map { it.aEntidad() }
-            if (nuevos.isNotEmpty()) db.despensaDao().insertarTodos(nuevos)
-        }
-
-        private fun ItemSemilla.aEntidad() =
-            DespensaItemEntity(nombre = nombre, categoria = categoria, estado = estado.name, nota = null)
-
-        private fun normalizar(nombre: String): String =
-            Normalizer
-                .normalize(nombre.trim().lowercase(), Normalizer.Form.NFD)
-                .replace(Regex("\\p{Mn}+"), "")
-
         private class Legado(
             val historial: List<HistorialEntity>,
             val preferencias: List<PreferenciaEntity>,
-            val despensa: List<DespensaItemEntity>,
         )
 
-        private fun leerLegado(semilla: String): Legado {
+        private fun leerLegado(): Legado {
             val historial =
                 RecetaJson
                     .decodeFromString(
@@ -156,9 +115,7 @@ class Seeder
                         fuente.leer("legado/preferencias.json"),
                     ).values
                     .map { PreferenciaEntity(it.slug, it.favorito, it.raciones) }
-            val despensa =
-                SemillaDespensa.parsear(semilla).map { it.aEntidad() }
-            return Legado(historial, preferencias, despensa)
+            return Legado(historial, preferencias)
         }
 
         private fun hashConjunto(archivos: List<Pair<String, String>>): String =
@@ -173,6 +130,5 @@ class Seeder
         companion object {
             const val CLAVE_HASH = "datos_hash"
             const val CLAVE_LEGADO = "legado_sembrado"
-            const val CLAVE_HASH_DESPENSA = "despensa_hash"
         }
     }

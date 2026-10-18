@@ -9,7 +9,7 @@ Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más.
 - **Raciones: 2 por defecto.** Si no se dice nada, son 2. Hay recetas que van a 4 o a 6 a propósito (tarta, macarrones, arroz a la cubana): está decidido y justificado en su `notaEscala`, no es un descuido.
 - **Fuegos: vitrocerámica**, potencia 0-9, **3 fuegos utilizables a la vez como máximo**. Horno y microondas disponibles.
 - **Hora de servir por defecto: 15:30.** La receta habla en minutos relativos (minuto 0 = coges el cuchillo); la app calcula el reloj desde la hora que se ponga al abrir el cronómetro.
-- **Despensa:** la que Joan pega desde la app («Compartir despensa»); si no pega nada, la semilla `data/despensa-semilla.md`. Se da por disponible sin preguntar; no se propone nada que dependa de algo que no esté ahí.
+- **Despensa:** la semilla `data/despensa-semilla.md` (interna: la app no la muestra desde la v1.0), más lo que Joan diga que tiene. Se da por disponible sin preguntar; no se propone nada que dependa de algo que no esté ahí.
 
 ## Fuera de la mesa
 Nunca: garbanzos, guisantes, champiñones, coliflor, brócoli, casquería (hígado, callos, mollejas...), anchoas, alcaparras.

@@ -9,12 +9,10 @@ import androidx.room.RoomDatabase
         TecnicaEntity::class,
         HistorialEntity::class,
         PreferenciaEntity::class,
-        DespensaItemEntity::class,
-        CompraItemEntity::class,
         CronoEstadoEntity::class,
         MetaEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class SousChefDatabase : RoomDatabase() {
@@ -25,10 +23,6 @@ abstract class SousChefDatabase : RoomDatabase() {
     abstract fun historialDao(): HistorialDao
 
     abstract fun preferenciaDao(): PreferenciaDao
-
-    abstract fun despensaDao(): DespensaDao
-
-    abstract fun compraDao(): CompraDao
 
     abstract fun cronoEstadoDao(): CronoEstadoDao
 

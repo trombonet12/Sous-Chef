@@ -1,27 +1,18 @@
 package app.souschef.data.repo
 
 import androidx.room.withTransaction
-import app.souschef.data.db.CompraDao
-import app.souschef.data.db.CompraItemEntity
 import app.souschef.data.db.CronoEstadoDao
 import app.souschef.data.db.CronoEstadoEntity
-import app.souschef.data.db.DespensaDao
-import app.souschef.data.db.DespensaItemEntity
 import app.souschef.data.db.HistorialDao
 import app.souschef.data.db.PreferenciaDao
 import app.souschef.data.db.PreferenciaEntity
 import app.souschef.data.db.RecetaDao
 import app.souschef.data.db.SousChefDatabase
 import app.souschef.data.db.TecnicaDao
-import app.souschef.domain.CompraRepo
 import app.souschef.domain.CronoEstado
 import app.souschef.domain.CronoEstadoRepo
-import app.souschef.domain.DespensaRepo
 import app.souschef.domain.EntradaHistorial
-import app.souschef.domain.EstadoDespensa
 import app.souschef.domain.HistorialRepo
-import app.souschef.domain.ItemCompra
-import app.souschef.domain.ItemDespensa
 import app.souschef.domain.Preferencia
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
@@ -109,85 +100,6 @@ class PreferenciasRepoRoom
             val actual = dao.obtener(slug) ?: PreferenciaEntity(slug, false, null)
             dao.insertar(actual.copy(raciones = raciones))
         }
-    }
-
-class DespensaRepoRoom
-    @Inject
-    constructor(
-        private val dao: DespensaDao,
-    ) : DespensaRepo {
-        override fun observar(): Flow<List<ItemDespensa>> = dao.observar().map { l -> l.map { it.aDominio() } }
-
-        override suspend fun agregar(
-            nombre: String,
-            categoria: String,
-            estado: EstadoDespensa,
-        ): Long =
-            dao.insertar(
-                DespensaItemEntity(nombre = nombre.trim(), categoria = categoria, estado = estado.name, nota = null),
-            )
-
-        override suspend fun cambiarEstado(
-            id: Long,
-            estado: EstadoDespensa,
-        ) = dao.cambiarEstado(id, estado.name)
-
-        override suspend fun actualizar(item: ItemDespensa) =
-            dao.actualizar(DespensaItemEntity(item.id, item.nombre, item.categoria, item.estado.name, item.nota))
-
-        override suspend fun borrar(id: Long) = dao.borrar(id)
-    }
-
-class CompraRepoRoom
-    @Inject
-    constructor(
-        private val db: SousChefDatabase,
-        private val dao: CompraDao,
-    ) : CompraRepo {
-        override fun observar(): Flow<List<ItemCompra>> =
-            dao.observar().map { l -> l.map { ItemCompra(it.id, it.texto, it.zona, it.origen, it.marcado, it.orden) } }
-
-        override suspend fun agregar(
-            texto: String,
-            zona: String,
-            origen: String?,
-        ): Long =
-            db.withTransaction {
-                dao.insertar(
-                    CompraItemEntity(
-                        texto = texto.trim(),
-                        zona = zona,
-                        origen = origen,
-                        marcado = false,
-                        orden =
-                            dao.maxOrden() + 1,
-                    ),
-                )
-            }
-
-        override suspend fun agregarVarios(
-            textos: List<String>,
-            origen: String?,
-        ) = db.withTransaction {
-            val base = dao.maxOrden() + 1
-            dao.insertarTodos(
-                textos.filter { it.isNotBlank() }.mapIndexed { i, t ->
-                    CompraItemEntity(texto = t.trim(), zona = "", origen = origen, marcado = false, orden = base + i)
-                },
-            )
-        }
-
-        override suspend fun marcar(
-            id: Long,
-            marcado: Boolean,
-        ) = dao.marcar(id, marcado)
-
-        override suspend fun borrar(id: Long) = dao.borrar(id)
-
-        override suspend fun borrarMarcados() = dao.borrarMarcados()
-
-        override suspend fun reordenar(idsEnOrden: List<Long>) =
-            db.withTransaction { idsEnOrden.forEachIndexed { i, id -> dao.fijarOrden(id, i) } }
     }
 
 class CronoEstadoRepoRoom

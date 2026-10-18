@@ -11,11 +11,11 @@
 ## apk-update
 - Preparación: instalar la versión N-1, programar alarmas del cronómetro (receta en marcha con temporizador largo).
 - Pasos: actualizar sin desinstalar (`adb install -r <apk-N>`) con alarmas pendientes; no abrir la app y esperar el vencimiento.
-- Esperado: el receiver de `MY_PACKAGE_REPLACED` reprograma las alarmas; la alarma suena a su hora; migración de Room aplicada y datos (historial, despensa, lista de la compra) intactos.
+- Esperado: el receiver de `MY_PACKAGE_REPLACED` reprograma las alarmas; la alarma suena a su hora; migración de Room aplicada y datos (historial, preferencias, estado del crono) intactos.
 - Evidencia: `adb shell dumpsys alarm | grep <pkg>` antes y después; recuento de filas; logcat de la migración.
 
 ## reboot
-- Preparación: cronómetro en marcha con alarma programada; despensa con cambios.
+- Preparación: cronómetro en marcha con alarma programada; historial con cambios.
 - Pasos: `adb reboot`; tras arrancar, no abrir la app y esperar el vencimiento. Repetir con el dispositivo bloqueado.
 - Esperado: `BOOT_COMPLETED` reprograma las alarmas todavía vigentes; las vencidas durante el apagado se notifican como vencidas, sin duplicados; la app arranca limpia.
 - Evidencia: `adb shell dumpsys alarm | grep <pkg>`, capturas de la notificación, logcat.
@@ -46,6 +46,6 @@
 
 ## dark-theme
 - Preparación: `adb shell cmd uimode night yes` (restaurar con `night no` o `auto`).
-- Pasos: recorrer cronómetro, ficha, despensa, lista de la compra e historial; alternar el tema con la app abierta.
+- Pasos: recorrer cronómetro, ficha, técnicas e historial; alternar el tema con la app abierta.
 - Esperado: contraste legible, sin texto sobre fondo del mismo tono, la alarma y las notificaciones legibles; cambio de tema sin perder estado.
 - Evidencia: capturas de cada pantalla en oscuro.

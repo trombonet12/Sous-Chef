@@ -2,7 +2,7 @@
 
 ## Producto
 App Android personal de cocina: recetas cronometradas (ficha imprimible + cronómetro de varios recipientes), historial de
-lo cocinado, técnicas, **despensa editable y lista de la compra**. Un usuario (Joan). Las recetas se diseñan y revisan
+lo cocinado y técnicas. La despensa es interna (`data/despensa-semilla.md`, para diseñar recetas) y no sale en la app. Un usuario (Joan). Las recetas se diseñan y revisan
 **desde este repo con Claude Code** (skill `receta-cronometrada`) y van empaquetadas en el APK (`data/`); la app nunca edita recetas. App **solo local**, sin backend (ADR-0007).
 
 ## Stack

@@ -26,7 +26,7 @@ import app.souschef.R
 import app.souschef.ui.Rutas
 import app.souschef.ui.SousChefNavGraph
 
-/** Shell con tres pestañas abajo y menú superior (Técnicas). */
+/** Shell con tres pestañas abajo (Recetas, Técnicas, Historial) y menú superior (Ajustes). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SousChefShell(navController: NavHostController) {
@@ -43,13 +43,6 @@ fun SousChefShell(navController: NavHostController) {
                         Icon(Icono.Mas.vector, contentDescription = stringResource(R.string.menu_mas))
                     }
                     DropdownMenu(expanded = menuAbierto, onDismissRequest = { menuAbierto = false }) {
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.menu_tecnicas)) },
-                            onClick = {
-                                menuAbierto = false
-                                navController.navigate(Rutas.TECNICAS) { launchSingleTop = true }
-                            },
-                        )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.menu_ajustes)) },
                             onClick = {

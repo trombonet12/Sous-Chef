@@ -29,7 +29,7 @@ Revisa el ámbito indicado en `$ARGUMENTS` (por defecto `boundaries`). Solo lect
 | Valor | Qué comprobar |
 |---|---|
 | `boundaries` | Dependencias entre `app/`, `receta/` y `tools/`; `receta/` sin dependencias Android; capas UI → dominio → datos; ciclos; lógica de negocio en UI. |
-| `data-flow` | Room como única persistencia de usuario; `recetas`/`tecnicas` empaquetadas desde `data/` (solo lectura); despensa y lista de la compra editables y offline (ADR-0007). |
+| `data-flow` | Room como única persistencia de usuario; `recetas`/`tecnicas` empaquetadas desde `data/` (solo lectura); historial, preferencias y estado del crono offline (ADR-0007). |
 | `domain` | Modelos (receta, plan, recipiente, técnica, despensa, historial); invariantes del validador y del escalado en `receta/` y no en la UI; nombres coherentes entre Kotlin, JSON de `data/` y SQL. |
 | `concurrency` | Corrutinas y scopes, motor del cronómetro y alarmas exactas, receivers, transacciones Room, cancelación y reintentos, muerte del proceso. |
 

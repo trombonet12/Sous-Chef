@@ -2,11 +2,10 @@ package app.souschef.di
 
 import android.content.Context
 import androidx.room.Room
+import app.souschef.data.db.MIGRATION_1_2
 import app.souschef.data.db.SousChefDatabase
 import app.souschef.data.repo.AjustesRepoRoom
-import app.souschef.data.repo.CompraRepoRoom
 import app.souschef.data.repo.CronoEstadoRepoRoom
-import app.souschef.data.repo.DespensaRepoRoom
 import app.souschef.data.repo.HistorialRepoRoom
 import app.souschef.data.repo.PreferenciasRepoRoom
 import app.souschef.data.repo.RecetasRepoRoom
@@ -14,9 +13,7 @@ import app.souschef.data.repo.TecnicasRepoRoom
 import app.souschef.data.seed.FuenteAssets
 import app.souschef.data.seed.FuenteSemilla
 import app.souschef.domain.AjustesRepo
-import app.souschef.domain.CompraRepo
 import app.souschef.domain.CronoEstadoRepo
-import app.souschef.domain.DespensaRepo
 import app.souschef.domain.HistorialRepo
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
@@ -37,7 +34,11 @@ object DatabaseModule {
     @Singleton
     fun database(
         @ApplicationContext context: Context,
-    ): SousChefDatabase = Room.databaseBuilder(context, SousChefDatabase::class.java, "souschef.db").build()
+    ): SousChefDatabase =
+        Room
+            .databaseBuilder(context, SousChefDatabase::class.java, "souschef.db")
+            .addMigrations(MIGRATION_1_2)
+            .build()
 
     @Provides fun recetaDao(db: SousChefDatabase) = db.recetaDao()
 
@@ -46,10 +47,6 @@ object DatabaseModule {
     @Provides fun historialDao(db: SousChefDatabase) = db.historialDao()
 
     @Provides fun preferenciaDao(db: SousChefDatabase) = db.preferenciaDao()
-
-    @Provides fun despensaDao(db: SousChefDatabase) = db.despensaDao()
-
-    @Provides fun compraDao(db: SousChefDatabase) = db.compraDao()
 
     @Provides fun cronoEstadoDao(db: SousChefDatabase) = db.cronoEstadoDao()
 
@@ -68,10 +65,6 @@ abstract class RepoModule {
     @Binds abstract fun historial(impl: HistorialRepoRoom): HistorialRepo
 
     @Binds abstract fun preferencias(impl: PreferenciasRepoRoom): PreferenciasRepo
-
-    @Binds abstract fun despensa(impl: DespensaRepoRoom): DespensaRepo
-
-    @Binds abstract fun compra(impl: CompraRepoRoom): CompraRepo
 
     @Binds abstract fun cronoEstado(impl: CronoEstadoRepoRoom): CronoEstadoRepo
 

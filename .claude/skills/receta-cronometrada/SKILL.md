@@ -21,14 +21,14 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 
 ## Pasos
 1. **Pregunta lo que cambia el plan**, con opciones, máx. tres preguntas y ninguna ya respondida: raciones (si no lo dice, 2 y avísalo), hora de servir solo si cambia el plato (defecto 15:30), equipo solo si el plan depende de él, restricciones. Nunca preguntes qué ingredientes hay ni preferencias que puedas decidir y justificar.
-2. **Despensa:** la que Joan pegue desde la app (Despensa → «Compartir despensa», texto markdown por estado); si no pega nada, `data/despensa-semilla.md`, y dilo. Si pega una distinta, ofrece actualizar la semilla para que el validador coincida (skill `despensa`). Diseña solo con eso; lo que mencione Joan cuenta como disponible.
+2. **Despensa:** `data/despensa-semilla.md` (interna; la app ya no la muestra) más lo que Joan diga. Si dice algo distinto, ofrece actualizar la semilla para que el validador coincida (skill `despensa`). Diseña solo con eso; lo que mencione Joan cuenta como disponible.
 3. **Repeticiones:** mira `data/recetas/` (si el plato existe, corrige en vez de duplicar) y el historial en `data/legado/historial.json` o pregúntaselo a Joan: no repitas base ni técnica dos platos seguidos.
-4. **Diseña** (ver abajo y `references/`) con los campos que mueven el cronómetro: `carril`, `s`, `off`, `f`, `tapa`, `dep`, `junto`, `meto`/`saco`, `nota`, `hitos`/`sinHitos` y `mep`. Lo que haga falta comprar va en `compra`; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** (`docs/cocina/sugerencias-compra.md`).
+4. **Diseña** (ver abajo y `references/`) con los campos que mueven el cronómetro: `carril`, `s`, `off`, `f`, `tapa`, `dep`, `junto`, `meto`/`saco`, `nota`, `hitos`/`sinHitos` y `mep`. No hay `compra` por receta: lo que falte se añade antes a la semilla; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** (`docs/cocina/sugerencias-compra.md`).
 5. Escribe `data/recetas/<slug>.json` y ejecuta `scripts/sc formatear <slug>`.
 6. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Comprueba tú la aritmética además.
 7. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, reglas 9 y 22).
 8. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
-9. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `app/build.gradle.kts`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug`, push a main y `node scripts/gh.mjs workflow run release-android.yml` (crea el release de GitHub; el móvil se actualiza con Obtainium o `adb install -r`).
+9. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `version.properties`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y push a main: el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
 10. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
 
 ## Errores típicos
@@ -62,7 +62,7 @@ Español, de tú, directo, sin relleno ni «¡delicioso plato!». Si algo puede 
 
 ## Definition of Done
 - [ ] JSON en `data/recetas/<slug>.json` con formato canónico y `validar --estricto` en verde.
-- [ ] Sin vetados; todo ingrediente en despensa o en `compra`; todo ingrediente en `mep` con cantidad y minuto.
+- [ ] Sin vetados; todo ingrediente en la despensa (sin `compra` por receta); todo ingrediente en `mep` con cantidad y minuto.
 - [ ] Joan ha visto la receta completa y dado su OK; publicada vía release (versión subida, gate en verde, workflow lanzado).
 
 ## Docs a actualizar

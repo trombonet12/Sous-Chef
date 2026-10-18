@@ -37,13 +37,14 @@ import app.souschef.ui.comun.Etiqueta
 
 @Composable
 fun TecnicasScreen(
-    onAtras: () -> Unit,
+    /** null cuando es una pestaña: sin barra de título propia. */
+    onAtras: (() -> Unit)?,
     onAbrir: (String) -> Unit,
     viewModel: TecnicasViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
-        BarraTitulo(stringResource(R.string.tecnicas_titulo), onAtras)
+        if (onAtras != null) BarraTitulo(stringResource(R.string.tecnicas_titulo), onAtras)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),

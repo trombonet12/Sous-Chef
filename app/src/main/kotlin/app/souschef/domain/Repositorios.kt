@@ -50,53 +50,6 @@ interface PreferenciasRepo {
     )
 }
 
-interface DespensaRepo {
-    fun observar(): Flow<List<ItemDespensa>>
-
-    suspend fun agregar(
-        nombre: String,
-        categoria: String,
-        estado: EstadoDespensa = EstadoDespensa.HAY,
-    ): Long
-
-    suspend fun cambiarEstado(
-        id: Long,
-        estado: EstadoDespensa,
-    )
-
-    suspend fun actualizar(item: ItemDespensa)
-
-    suspend fun borrar(id: Long)
-}
-
-interface CompraRepo {
-    /** Ordenada por `orden`. */
-    fun observar(): Flow<List<ItemCompra>>
-
-    suspend fun agregar(
-        texto: String,
-        zona: String = "",
-        origen: String? = null,
-    ): Long
-
-    suspend fun agregarVarios(
-        textos: List<String>,
-        origen: String? = null,
-    )
-
-    suspend fun marcar(
-        id: Long,
-        marcado: Boolean,
-    )
-
-    suspend fun borrar(id: Long)
-
-    suspend fun borrarMarcados()
-
-    /** Reasigna `orden` según la posición en [idsEnOrden]. */
-    suspend fun reordenar(idsEnOrden: List<Long>)
-}
-
 interface AjustesRepo {
     fun observar(): Flow<Ajustes>
 

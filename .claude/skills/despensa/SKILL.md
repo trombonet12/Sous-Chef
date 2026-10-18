@@ -1,15 +1,15 @@
 ---
 name: despensa
-description: Lee la despensa de Joan (pegada desde la app o semilla) y mantiene data/despensa-semilla.md alineada para el validador. Úsala para saber qué hay o qué falta.
+description: Lee la despensa interna de Joan (data/despensa-semilla.md) y la mantiene al día con lo que diga que tiene o se le ha acabado, para el validador. Úsala para saber qué hay o qué falta.
 ---
 
 # despensa
 
-La despensa real vive en la app (pantalla Despensa). Solo local (ADR-0007): no hay `sc despensa` ni `sc compra`.
+La despensa vive solo en `data/despensa-semilla.md`: desde la v1.0 la app no tiene pantalla de despensa ni lista de la compra. No hay `sc despensa` ni `sc compra`.
 
 ## Cuándo usarla
 - Saber qué hay en casa o qué falta antes de diseñar o hablar de una receta.
-- Joan pega su despensa, dice que se le ha acabado algo o que hay que apuntar compra.
+- Joan dice que se le ha acabado algo, que ha comprado algo o pregunta qué hay.
 
 ## Cuándo NO usarla
 - Diseñar una receta → `receta-cronometrada` (ella usa la despensa).
@@ -19,10 +19,10 @@ La despensa real vive en la app (pantalla Despensa). Solo local (ADR-0007): no h
 - `data/despensa-semilla.md` existe: es la despensa que comprueba el validador (regla 12; «agua» siempre vale).
 
 ## Pasos
-1. **Fuente:** si Joan pega el texto de «Compartir despensa» (markdown agrupado por estado), esa es la verdad. Si no, lee `data/despensa-semilla.md` y dilo.
-2. **Alinear la semilla:** si pegó una despensa distinta, ofrece actualizar `data/despensa-semilla.md` para que `scripts/sc validar --estricto` coincida con la realidad. Edítala solo con su OK.
+1. **Fuente:** `data/despensa-semilla.md`, más lo que Joan diga en la conversación.
+2. **Alinear la semilla:** si lo que dice Joan no coincide, ofrece actualizar `data/despensa-semilla.md` para que `scripts/sc validar --estricto` coincida con la realidad. Edítala solo con su OK.
 3. Los vetos (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco) son `vetado`: no los pongas como `hay` aunque Joan los mencione de pasada; pregunta.
-4. **Compra:** lo que falte para una receta va en su `compra`. Al listarla separa «ya hay» y «hay que comprar», con cantidades, agrupado por zona del súper y marcando sustitutos (`docs/cocina/reglas.md § Compra`). La lista viva se edita en la app.
+4. **Compra:** si Joan pide la compra de una receta, sepárala en «ya hay» y «hay que comprar», con cantidades, agrupada por zona del súper y marcando sustitutos (`docs/cocina/reglas.md § Compra`). Se la das en el chat; la app no tiene lista.
 5. Confirma a Joan en una línea lo que has leído o cambiado.
 
 ## Validaciones / tests

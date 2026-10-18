@@ -94,63 +94,6 @@ interface PreferenciaDao {
 }
 
 @Dao
-interface DespensaDao {
-    @Query("SELECT * FROM despensa_item ORDER BY categoria, nombre COLLATE NOCASE")
-    fun observar(): Flow<List<DespensaItemEntity>>
-
-    @Insert
-    suspend fun insertar(item: DespensaItemEntity): Long
-
-    @Insert
-    suspend fun insertarTodos(items: List<DespensaItemEntity>)
-
-    @Update
-    suspend fun actualizar(item: DespensaItemEntity)
-
-    @Query("UPDATE despensa_item SET estado = :estado WHERE id = :id")
-    suspend fun cambiarEstado(
-        id: Long,
-        estado: String,
-    )
-
-    @Query("DELETE FROM despensa_item WHERE id = :id")
-    suspend fun borrar(id: Long)
-}
-
-@Dao
-interface CompraDao {
-    @Query("SELECT * FROM compra_item ORDER BY orden, id")
-    fun observar(): Flow<List<CompraItemEntity>>
-
-    @Query("SELECT COALESCE(MAX(orden), -1) FROM compra_item")
-    suspend fun maxOrden(): Int
-
-    @Insert
-    suspend fun insertar(item: CompraItemEntity): Long
-
-    @Insert
-    suspend fun insertarTodos(items: List<CompraItemEntity>)
-
-    @Query("UPDATE compra_item SET marcado = :marcado WHERE id = :id")
-    suspend fun marcar(
-        id: Long,
-        marcado: Boolean,
-    )
-
-    @Query("UPDATE compra_item SET orden = :orden WHERE id = :id")
-    suspend fun fijarOrden(
-        id: Long,
-        orden: Int,
-    )
-
-    @Query("DELETE FROM compra_item WHERE id = :id")
-    suspend fun borrar(id: Long)
-
-    @Query("DELETE FROM compra_item WHERE marcado = 1")
-    suspend fun borrarMarcados()
-}
-
-@Dao
 interface CronoEstadoDao {
     @Query("SELECT * FROM crono_estado WHERE slug = :slug")
     fun observar(slug: String): Flow<CronoEstadoEntity?>
