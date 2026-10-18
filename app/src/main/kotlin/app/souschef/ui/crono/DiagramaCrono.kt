@@ -1,6 +1,7 @@
 package app.souschef.ui.crono
 
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -92,14 +93,17 @@ internal fun DialogoDiagrama(
                     }
                     IconButton(onCerrar) { Icon(Icono.Cerrar.vector, stringResource(R.string.crono_diagrama_cerrar)) }
                 }
-                BoxWithConstraints(
-                    Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .horizontalScroll(rememberScrollState()),
-                ) {
-                    val ancho = maxOf(maxWidth - 32.dp, DP_POR_MINUTO * receta.totalEfectivo.toFloat())
-                    DiagramaTiempos(receta, paleta, Modifier.width(ancho).padding(16.dp), ahora)
+                // El ancho se mide fuera del scroll: dentro de horizontalScroll el máximo es infinito.
+                BoxWithConstraints(Modifier.fillMaxSize()) {
+                    val ancho = maxOf(maxWidth, DP_POR_MINUTO * receta.totalEfectivo.toFloat() + 32.dp)
+                    Box(
+                        Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .horizontalScroll(rememberScrollState()),
+                    ) {
+                        DiagramaTiempos(receta, paleta, Modifier.width(ancho).padding(16.dp), ahora)
+                    }
                 }
             }
         }
