@@ -9,6 +9,7 @@ object Escalado {
     const val RACIONES_MIN = 1
     const val RACIONES_MAX = 20
     private const val EXPONENTE_SUB = 0.75
+    private val ESPACIOS = Regex("\\s+")
 
     fun factor(
         raciones: Int,
@@ -42,6 +43,27 @@ object Escalado {
             }
         }
     }
+
+    /**
+     * Ingredientes de todas las zonas juntos, en orden de primera aparición. Se suman los que coinciden en nombre
+     * (sin mayúsculas ni espacios de más), unidad y modo de escalado; los de texto salen una vez.
+     */
+    fun listaGeneral(receta: Receta): List<Ingrediente> {
+        val juntos = LinkedHashMap<List<String?>, Ingrediente>()
+        receta.grupos.flatMap { it.items }.forEach { i ->
+            val clave = listOf(normal(i.n), i.u?.trim(), i.txt?.trim(), i.esc, (i.a == null).toString())
+            val previo = juntos[clave]
+            juntos[clave] =
+                if (previo == null) {
+                    i.copy(n = i.n.trim())
+                } else {
+                    previo.copy(a = previo.a?.let { a -> a + (i.a ?: 0.0) })
+                }
+        }
+        return juntos.values.toList()
+    }
+
+    private fun normal(nombre: String) = nombre.trim().lowercase().replace(ESPACIOS, " ")
 
     /** ≥ 10 → entero; si no, un decimal con coma y sin ",0". */
     fun numero(v: Double): String {

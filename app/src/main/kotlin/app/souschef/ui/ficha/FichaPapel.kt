@@ -9,8 +9,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -21,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.receta.BloqueMep
 import app.souschef.receta.Escalado
+import app.souschef.receta.Ingrediente
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
 import app.souschef.ui.comun.CeldaDato
@@ -77,20 +85,15 @@ fun IngredientesFicha(
             )
         }
         val f = Escalado.factor(raciones, receta.raciones)
-        receta.grupos.forEach { g ->
-            Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 8.dp))
-            g.items.forEach { item ->
-                Row(Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
-                    Text(
-                        Escalado.cantidad(item, f),
-                        Modifier.width(84.dp).padding(end = 12.dp),
-                        style = MaterialTheme.typography.bodyMedium.merge(Tabular),
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.End,
-                    )
-                    Text(item.n, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
-                }
+        var porZona by rememberSaveable(receta.slug) { mutableStateOf(false) }
+        SelectorIngredientes(porZona) { porZona = it }
+        if (porZona) {
+            receta.grupos.forEach { g ->
+                Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 8.dp))
+                g.items.forEach { FilaIngrediente(it, f) }
             }
+        } else {
+            Escalado.listaGeneral(receta).forEach { FilaIngrediente(it, f) }
         }
         receta.notaEscala?.takeIf { it.isNotBlank() }?.let {
             Text(
@@ -100,6 +103,50 @@ fun IngredientesFicha(
                 color = FichaPalette.meta,
             )
         }
+    }
+}
+
+@Composable
+private fun SelectorIngredientes(
+    porZona: Boolean,
+    onPorZona: (Boolean) -> Unit,
+) {
+    val colores =
+        SegmentedButtonDefaults.colors(
+            activeContainerColor = FichaPalette.papel2,
+            activeContentColor = FichaPalette.tinta,
+            activeBorderColor = FichaPalette.tinta3,
+            inactiveContainerColor = FichaPalette.papel,
+            inactiveContentColor = FichaPalette.tinta2,
+            inactiveBorderColor = FichaPalette.tinta3,
+        )
+    val opciones = listOf(R.string.ficha_ing_todo_junto, R.string.ficha_ing_por_zona)
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(top = 8.dp)) {
+        opciones.forEachIndexed { i, texto ->
+            SegmentedButton(
+                selected = porZona == (i == 1),
+                onClick = { onPorZona(i == 1) },
+                shape = SegmentedButtonDefaults.itemShape(i, opciones.size),
+                colors = colores,
+            ) { Text(stringResource(texto)) }
+        }
+    }
+}
+
+@Composable
+private fun FilaIngrediente(
+    item: Ingrediente,
+    f: Double,
+) {
+    Row(Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
+        Text(
+            Escalado.cantidad(item, f),
+            Modifier.width(84.dp).padding(end = 12.dp),
+            style = MaterialTheme.typography.bodyMedium.merge(Tabular),
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.End,
+        )
+        Text(item.n, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
     }
 }
 

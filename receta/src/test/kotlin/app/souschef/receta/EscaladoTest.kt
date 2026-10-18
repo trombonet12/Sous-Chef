@@ -30,6 +30,40 @@ class EscaladoTest {
     }
 
     @Test
+    fun listaGeneralSumaElMismoIngredienteDeVariasZonas() {
+        val r =
+            Receta(
+                slug = "x",
+                titulo = "x",
+                grupos =
+                    listOf(
+                        Grupo("Sartén", listOf(Ingrediente("Agua", 100.0, "ml"), Ingrediente("Sal", txt = "1 pizca"))),
+                        Grupo("Olla", listOf(Ingrediente("arroz", 150.0, "g"), Ingrediente(" agua ", 270.0, "ml"))),
+                    ),
+            )
+        val lista = Escalado.listaGeneral(r)
+        assertEquals(listOf("Agua", "Sal", "arroz"), lista.map { it.n })
+        assertEquals(370.0, lista[0].a)
+    }
+
+    @Test
+    fun listaGeneralSeparaUnidadesDistintasYNoRepiteTextos() {
+        val r =
+            Receta(
+                slug = "x",
+                titulo = "x",
+                grupos =
+                    listOf(
+                        Grupo("A", listOf(Ingrediente("aceite", 15.0, "ml"), Ingrediente("sal", txt = "al gusto"))),
+                        Grupo("B", listOf(Ingrediente("Aceite", 1.0, "cda"), Ingrediente("sal", txt = "al gusto"))),
+                    ),
+            )
+        val lista = Escalado.listaGeneral(r)
+        assertEquals(3, lista.size)
+        assertEquals(listOf("ml", null, "cda"), lista.map { it.u })
+    }
+
+    @Test
     fun minutosAMedios() {
         assertEquals("2,5", Escalado.minutos(2.5))
         assertEquals("3", Escalado.minutos(3.0))

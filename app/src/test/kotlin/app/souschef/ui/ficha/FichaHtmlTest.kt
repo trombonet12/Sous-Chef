@@ -16,6 +16,7 @@ class FichaHtmlTest {
     private val textos =
         TextosFicha(
             ingredientes = "SEC_ING",
+            todoJunto = "TODO_JUNTO",
             tiempo = "SEC_TIEMPO",
             mep = "SEC_MEP",
             pasos = "SEC_PASOS",

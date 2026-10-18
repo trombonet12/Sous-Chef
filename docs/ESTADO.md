@@ -59,6 +59,7 @@
 - 2026-10-17 · v0.8.1: el texto largo se desplaza; «Después» lleva la duración del siguiente paso.
 - 2026-10-18 · Ronda 9 → v1.0.0 (en curso):
   - Ficha: «Empieza a las HH:mm» según la hora de servir.
+  - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 
 ## Entorno
 | Herramienta | Estado |

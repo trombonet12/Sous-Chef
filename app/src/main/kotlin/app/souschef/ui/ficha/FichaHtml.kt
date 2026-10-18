@@ -5,6 +5,7 @@ package app.souschef.ui.ficha
 import app.souschef.receta.Carril
 import app.souschef.receta.Escalado
 import app.souschef.receta.Gantt
+import app.souschef.receta.Ingrediente
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
 import app.souschef.ui.comun.conNegritas
@@ -148,21 +149,31 @@ private fun ingredientes(
     if (receta.grupos.isEmpty()) return
     val f = Escalado.factor(raciones, receta.raciones)
     b.append("<section><h2>").append(esc(textos.ingredientes)).append("</h2>")
+    b.append("<h3>").append(esc(textos.todoJunto)).append("</h3>")
+    filasIngredientes(b, Escalado.listaGeneral(receta), f)
     receta.grupos.forEach { g ->
-        b.append("<h3>").append(esc(g.n)).append("</h3><div class=\"ing\">")
-        g.items.forEach {
-            b
-                .append(
-                    "<b>",
-                ).append(esc(Escalado.cantidad(it, f)))
-                .append("</b><span>")
-                .append(esc(it.n))
-                .append("</span>")
-        }
-        b.append("</div>")
+        b.append("<h3>").append(esc(g.n)).append("</h3>")
+        filasIngredientes(b, g.items, f)
     }
     receta.notaEscala?.takeIf { it.isNotBlank() }?.let { b.append("<p class=\"nota\">").append(esc(it)).append("</p>") }
     b.append("</section>")
+}
+
+private fun filasIngredientes(
+    b: StringBuilder,
+    items: List<Ingrediente>,
+    f: Double,
+) {
+    b.append("<div class=\"ing\">")
+    items.forEach {
+        b
+            .append("<b>")
+            .append(esc(Escalado.cantidad(it, f)))
+            .append("</b><span>")
+            .append(esc(it.n))
+            .append("</span>")
+    }
+    b.append("</div>")
 }
 
 private fun tiempo(
