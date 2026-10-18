@@ -36,6 +36,8 @@ data class FichaUiState(
     val raciones: Int = 2,
     val servirMin: Int = Servir.DEFECTO,
     val tecnicas: List<TecnicaEnlace> = emptyList(),
+    /** Carriles aún en marcha si esta receta tiene una cocinada viva; null si no la tiene. */
+    val cocinando: Int? = null,
 )
 
 /** Enlaces solo a las técnicas de `tags.tecnica` que existen. */

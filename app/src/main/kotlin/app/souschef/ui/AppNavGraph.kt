@@ -60,9 +60,17 @@ fun SousChefNavGraph(
                     },
                 ),
             deepLinks = listOf(navDeepLink { uriPattern = "souschef://crono/{${Rutas.ARG_SLUG}}" }),
-        ) {
+        ) { entrada ->
+            val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
             CronoScreen(
-                onSalir = { navController.popBackStack() },
+                // Se vuelve a la ficha de la receta; si se llegó por la notificación y no está debajo, se abre.
+                onSalir = {
+                    if (navController.previousBackStackEntry?.destination?.route == Rutas.FICHA) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(Rutas.ficha(slug)) { popUpTo(Rutas.CRONO) { inclusive = true } }
+                    }
+                },
                 onTecnica = { navController.navigate(Rutas.tecnica(it)) },
             )
         }

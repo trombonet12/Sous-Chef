@@ -77,6 +77,13 @@
     <string name="ficha_ing_por_zona">Por zona</string>
     <string name="ficha_servir_mas">Servir 15 minutos más tarde</string>
     <string name="ficha_servir_menos">Servir 15 minutos antes</string>
+    <string name="ficha_volver_cocina">Volver a la cocina</string>
+    <string name="ficha_salir_abandona">Tienes la cocina abierta con esta receta. Si sales de la ficha, se abandona y se quitan sus avisos.</string>
+    <plurals name="ficha_cocinando">
+        <item quantity="one">Cocinando · %1$d recipiente en marcha</item>
+        <item quantity="many">Cocinando · %1$d recipientes en marcha</item>
+        <item quantity="other">Cocinando · %1$d recipientes en marcha</item>
+    </plurals>
     <string name="ficha_cocinar">Cronómetro</string>
     <string name="ficha_tecnica">Técnica: %1$s</string>
     <string name="ficha_raciones_etiqueta">Raciones</string>

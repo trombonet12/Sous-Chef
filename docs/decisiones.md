@@ -210,3 +210,9 @@
   carril) y `ultimoHecho` son campos opcionales, así que los estados guardados siguen leyéndose. Las alarmas se
   rearman solas porque pasa por `mutar`. Minibotón ↶ de 40 dp solo cuando hay algo que deshacer; por voz, «deshaz»
   sin carril deshace el último Hecho de la cocina.
+- Cambia la regla de la ronda 7 («salir de la cocina pide abandonarla»), a petición de Joan: atrás y la flecha del
+  cronómetro vuelven a la ficha sin abandonar (la cocinada sigue en segundo plano, como al bloquear el móvil). La
+  ficha lo sabe por `CadenaAlarmas.viva(slug)` (mismo criterio `vivo` que «una sola cocinada viva»): banda
+  «Cocinando», botón «Volver a la cocina» (el crono reanuda sin pisar el estado) y, al salir de la ficha, diálogo
+  «¿Abandonar esta cocinada?». Abrir una técnica desde la ficha no abandona. Si se entró por la notificación y no hay
+  ficha debajo, atrás abre la ficha en lugar del crono.

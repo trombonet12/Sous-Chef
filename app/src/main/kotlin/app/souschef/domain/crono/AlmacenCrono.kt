@@ -2,6 +2,8 @@ package app.souschef.domain.crono
 
 import app.souschef.domain.CronoEstadoRepo
 import app.souschef.receta.crono.EstadoCrono
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
@@ -39,6 +41,9 @@ class AlmacenCrono(
         }
 
     suspend fun borrar(slug: String) = cerrojo.withLock { repo.borrar(slug) }
+
+    /** El estado guardado de [slug] cada vez que cambia (null si no hay). Solo lectura, sin cerrojo. */
+    fun observar(slug: String): Flow<EstadoCrono?> = repo.observar(slug).map { it?.let { e -> decodificar(e.json) } }
 
     private suspend fun leerSinCerrojo(slug: String): EstadoCrono? = repo.obtener(slug)?.let { decodificar(it.json) }
 

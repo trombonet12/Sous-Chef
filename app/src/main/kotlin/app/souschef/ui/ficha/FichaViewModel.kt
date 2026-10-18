@@ -7,6 +7,7 @@ import app.souschef.di.ApplicationScope
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.TecnicasRepo
+import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.receta.Escalado
 import app.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +40,7 @@ class FichaViewModel
         recetas: RecetasRepo,
         tecnicas: TecnicasRepo,
         private val preferencias: PreferenciasRepo,
+        private val cadena: CadenaAlarmas,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private var pendiente: Int? = null
@@ -51,8 +53,9 @@ class FichaViewModel
                 recetas.observar(slug),
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
+                cadena.viva(slug),
                 local,
-            ) { receta, pref, existentes, l ->
+            ) { receta, pref, existentes, viva, l ->
                 val raciones = l.raciones ?: pref?.raciones ?: receta?.raciones ?: 2
                 FichaUiState(
                     cargando = false,
@@ -60,6 +63,7 @@ class FichaViewModel
                     raciones = raciones,
                     servirMin = l.servirMin,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
+                    cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 
@@ -87,6 +91,11 @@ class FichaViewModel
 
         override fun onCleared() {
             guardarPendiente()
+        }
+
+        /** Salir de la ficha con la cocinada viva la abandona; en un scope que sobrevive a la salida. */
+        fun abandonarCocinada() {
+            ambito.launch { cadena.abandonar(slug) }
         }
 
         fun ajustarServir(delta: Int) {

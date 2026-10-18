@@ -11,6 +11,8 @@ import app.souschef.receta.crono.ConsultasCrono
 import app.souschef.receta.crono.EstadoCrono
 import app.souschef.receta.crono.Evento
 import app.souschef.receta.crono.SesionCrono
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
@@ -157,6 +159,10 @@ class CadenaAlarmas(
         val ahora = reloj.ahoraMs()
         return almacen.todos().firstOrNull { it.slug != slug && vivo(it, ahora) }
     }
+
+    /** La cocinada de [slug] mientras está viva (abierta, sin caducar y sin terminar); null si no lo está. */
+    fun viva(slug: String): Flow<EstadoCrono?> =
+        almacen.observar(slug).map { e -> e?.takeIf { vivo(it, reloj.ahoraMs()) } }
 
     /** Abandona una cocinada: borra su estado, quita avisos y notificaciones y rearma la cadena. */
     suspend fun abandonar(slug: String) =

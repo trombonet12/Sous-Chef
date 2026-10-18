@@ -2,13 +2,20 @@ package app.souschef.ui.ficha
 
 import androidx.lifecycle.SavedStateHandle
 import app.souschef.domain.Preferencia
+import app.souschef.domain.crono.AlmacenCrono
+import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.receta.Grupo
 import app.souschef.receta.Ingrediente
 import app.souschef.receta.Tecnica
+import app.souschef.receta.crono.SesionCrono
 import app.souschef.ui.FakePreferenciasRepo
 import app.souschef.ui.FakeRecetasRepo
 import app.souschef.ui.FakeTecnicasRepo
 import app.souschef.ui.Rutas
+import app.souschef.ui.crono.FakeAlarmaSistema
+import app.souschef.ui.crono.FakeCronoEstadoRepo
+import app.souschef.ui.crono.FakeNotificador
+import app.souschef.ui.crono.RelojFalso
 import app.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -74,6 +81,11 @@ class FichaViewModelTest {
     @After
     fun despues() = Dispatchers.resetMain()
 
+    private val repoCrono = FakeCronoEstadoRepo()
+    private val reloj = RelojFalso()
+    private val almacen = AlmacenCrono(repoCrono)
+    private val cadena = CadenaAlarmas(almacen, recetas, reloj, FakeAlarmaSistema(), FakeNotificador())
+
     private fun TestScope.crear(): FichaViewModel {
         val vm =
             FichaViewModel(
@@ -81,6 +93,7 @@ class FichaViewModelTest {
                 recetas,
                 FakeTecnicasRepo(listOf(Tecnica("plancha", "A la plancha"))),
                 prefs,
+                cadena,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -138,5 +151,23 @@ class FichaViewModelTest {
             assertEquals(1, vm.estado.value.raciones)
             vm.cambiarRaciones(99)
             assertEquals(20, vm.estado.value.raciones)
+        }
+
+    @Test
+    fun conLaCocinaAbiertaLaFichaSabeQueSeEstaCocinandoYAlSalirSeAbandona() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            assertNull(vm.estado.value.cocinando)
+            val receta = recetas.datos.value.first()
+            val servir = reloj.ms + 60 * 60_000L
+            almacen.fijar(SesionCrono.abrir(SesionCrono.inicial(receta, servir, reloj.ms), receta, reloj.ms))
+            runCurrent()
+            assertEquals(1, vm.estado.value.cocinando)
+
+            vm.abandonarCocinada()
+            runCurrent()
+
+            assertNull(almacen.leer("sopa"))
+            assertNull(vm.estado.value.cocinando)
         }
 }

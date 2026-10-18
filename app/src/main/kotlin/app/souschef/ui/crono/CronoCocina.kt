@@ -62,11 +62,12 @@ fun CronoCocina(
     val datos = DatosCrono(receta, estado, ui.ahoraMs)
     val vistas = vistasCarriles(datos)
     var porque by remember { mutableStateOf<Pair<String, Int>?>(null) }
-    // Salir de una cocina en marcha es abandonarla (con confirmación): no se queda viva por detrás.
+    // Atrás vuelve a la ficha con la cocinada viva (sigue en segundo plano); abandonar solo desde el menú ⋮, o al
+    // salir de la ficha.
     var abandonar by remember { mutableStateOf(false) }
     var diagrama by remember { mutableStateOf(false) }
     var interfaz by remember { mutableStateOf(false) }
-    BackHandler { abandonar = true }
+    BackHandler { salidas.salir() }
     val acciones =
         AccionesCarril(
             hecho = viewModel::hecho,
@@ -81,6 +82,7 @@ fun CronoCocina(
         if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
         val menu =
             AccionesMenu(
+                volver = salidas.salir,
                 abandonar = { abandonar = true },
                 diagrama = { diagrama = true },
                 interfaz = { interfaz = true },
@@ -186,7 +188,7 @@ private fun Cabecera(
     slotMicrofono: @Composable () -> Unit,
 ) {
     Row(Modifier.fillMaxWidth().padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = menu.abandonar, Modifier.size(BOTON_CABECERA)) {
+        IconButton(onClick = menu.volver, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Atras.vector, stringResource(R.string.atras))
         }
         Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -236,6 +238,8 @@ private fun DatoCabecera(
 
 /** Lo que abre el menú de tres puntos y la flecha de la cabecera. */
 internal class AccionesMenu(
+    /** Volver a la ficha sin abandonar (flecha y gesto atrás). */
+    val volver: () -> Unit,
     val abandonar: () -> Unit,
     val diagrama: () -> Unit,
     val interfaz: () -> Unit,
