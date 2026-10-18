@@ -7,6 +7,7 @@
 | MVP local-first (modo ahorro, ver plan) | **completado**: app funcional sin backend |
 | F3/F4 Supabase + sync + login | **descartada** (ADR-0007) |
 | F9b Revisión culinaria | completada (lotes 1-3) |
+| Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -57,9 +58,9 @@
   - Repo hecho público.
 - 2026-10-17 · v0.8.0: aviso de versión nueva (ADR-0009), al abrir y una vez al día; al tocar abre Obtainium.
 - 2026-10-17 · v0.8.1: el texto largo se desplaza; «Después» lleva la duración del siguiente paso.
-- 2026-10-18 · Ronda 9 → v1.0.0 (en curso):
+- 2026-10-18 · Ronda 9 → **v1.0.0** (probada en el móvil por Joan, OK):
   - Ficha: «Empieza a las HH:mm» según la hora de servir.
-  - Receta nueva `aros-de-cebolla` (47 min, huevo espesado con harina) y fuera la técnica del mismo nombre. Pendiente del OK de Joan.
+  - Receta nueva `aros-de-cebolla` (47 min, huevo espesado con harina; OK de Joan) y fuera la técnica del mismo nombre.
   - Fuera la despensa de la app (Room 1 → 2); Técnicas es la pestaña del medio.
   - Cronómetro: «Diagrama de tiempos» en el ⋮, el de la ficha a pantalla completa con scroll y la línea de «ahora».
   - Google Play preparado (ADR-0010): el CI genera el AAB y lo sube a la pista interna si hay credenciales; sin aviso de GitHub si se instala desde Play.
@@ -81,17 +82,14 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
-- Google Play: los pasos manuales de `docs/play.md` (cuenta, ficha, primera subida del AAB, declaración de permisos,
-  cuenta de servicio, secreto `PLAY_SERVICE_ACCOUNT_JSON` y variable `PLAY_ESTADO`).
-- Instalar la v0.8.1 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
-- La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
+- Google Play: los pasos manuales de `docs/play.md`:
+  - cuenta y ficha;
+  - primera subida del AAB adjunto a la release v1.0.0;
+  - declaración de permisos y seguridad de datos;
+  - cuenta de servicio, secreto `PLAY_SERVICE_ACCOUNT_JSON` y variable `PLAY_ESTADO`.
+- Guardar una copia del historial de vez en cuando (Ajustes → Historial → «Guardar copia»).
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.
-- (De la v0.6.0) Cocinar con ella:
-  - con la cocina en pantalla, sin notificaciones;
-  - fuera de ella, una fija más la alarma agrupada;
-  - pantalla completa con el móvil bloqueado;
-  - cambiar de disposición en Ajustes.
 - Spike de voz (ADR-0008, `VERIFICAR`):
   - reconocimiento en español sin red;
   - latencia;
@@ -110,7 +108,5 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 9 terminada en main, sin publicar (`version.properties` sigue en 0.8.1). Joan conecta el móvil:
-1. instalar el APK release firmado encima de la v0.8.1 (`node scripts/android-release.mjs` y `adb install -r`);
-2. probar el guion de la ronda 9;
-3. con su OK, subir a 1.0.0 (versionCode 13) y hacer push, que publica la release con APK y AAB.
+v1.0.0 publicada al hacer push. Comprobar que la release lleva APK y AAB y que el aviso de versión llega a la 0.8.1 de
+Obtainium; después, cuando Joan tenga la cuenta, dar de alta la app en Play con `docs/play.md`.
