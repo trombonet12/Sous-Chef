@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -34,7 +35,7 @@ class ComprobadorActualizaciones(
 
     /** Devuelve false si la consulta falló (para que el job lo reintente). */
     fun comprobar(): Boolean {
-        if (esDebug()) return true
+        if (esDebug() || VersionNueva.actualizaLaTienda(instalador())) return true
         val release =
             try {
                 Result.success(consultar())
@@ -108,6 +109,18 @@ class ComprobadorActualizaciones(
     private fun versionInstalada(): String? = context.packageManager.getPackageInfo(context.packageName, 0).versionName
 
     private fun esDebug(): Boolean = context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+
+    /** Paquete que instaló la app (null si fue `adb` o no se sabe). */
+    private fun instalador(): String? =
+        runCatching {
+            val pm = context.packageManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                pm.getInstallSourceInfo(context.packageName).installingPackageName
+            } else {
+                @Suppress("DEPRECATION")
+                pm.getInstallerPackageName(context.packageName)
+            }
+        }.getOrNull()
 
     companion object {
         private const val TAG = "SousChef"

@@ -184,3 +184,11 @@
   (fin previsto − (sugerido + duración)): esperar antes de la hora no cuenta como adelanto; pausas y prórrogas suman.
 - Aros de cebolla pasan de técnica a receta (47 min). Revisión culinaria (opus): 250 g en vez de 400 (solo aros de
   fuera, 4 tandas de 6), 10 min de nevera, sartén de 22-24 cm y 30 s entre tandas.
+- Google Play (ADR-0010):
+  - El job `release` añade `bundleRelease` y adjunta el AAB a la release de GitHub.
+  - Un job `play` aparte, con `permissions: {}`, sin keystore ni checkout, recibe AAB y mapping como artefacto y los
+    sube a la pista interna con `r0adkll/upload-google-play` v1.1.5 (por SHA). `download-artifact` va en v8.0.1
+    porque la v8.0.2 tiene menos de dos semanas.
+  - Solo sube si existe `PLAY_SERVICE_ACCOUNT_JSON`. `PLAY_ESTADO` (draft | completed) se valida antes.
+  - Instalada desde Play (`com.android.vending`), la app no avisa de versiones de GitHub.
+  - Política de privacidad en `docs/privacidad.md` y pasos manuales en `docs/play.md`.

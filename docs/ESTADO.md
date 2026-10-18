@@ -62,6 +62,7 @@
   - Receta nueva `aros-de-cebolla` (47 min, huevo espesado con harina) y fuera la técnica del mismo nombre. Pendiente del OK de Joan.
   - Fuera la despensa de la app (Room 1 → 2); Técnicas es la pestaña del medio.
   - Cronómetro: «Diagrama de tiempos» en el ⋮, el de la ficha a pantalla completa con scroll y la línea de «ahora».
+  - Google Play preparado (ADR-0010): el CI genera el AAB y lo sube a la pista interna si hay credenciales; sin aviso de GitHub si se instala desde Play.
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 
@@ -74,6 +75,8 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
+- Google Play: los pasos manuales de `docs/play.md` (cuenta, ficha, primera subida del AAB, declaración de permisos,
+  cuenta de servicio, secreto `PLAY_SERVICE_ACCOUNT_JSON` y variable `PLAY_ESTADO`).
 - Instalar la v0.8.1 y probar una receta de 4 carriles en el móvil, como tacos de fiesta: reloj, hito, después y nota.
 - La voz va bien (v0.7.0). Las frases que no se entiendan se apuntan para la siguiente ronda.
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las

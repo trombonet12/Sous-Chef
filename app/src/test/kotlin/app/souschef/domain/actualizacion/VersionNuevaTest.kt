@@ -62,6 +62,14 @@ class VersionNuevaTest {
     }
 
     @Test
+    fun `desde Google Play no se avisa porque actualiza la tienda`() {
+        assertTrue(VersionNueva.actualizaLaTienda("com.android.vending"))
+        assertFalse(VersionNueva.actualizaLaTienda(null))
+        assertFalse(VersionNueva.actualizaLaTienda("dev.imranr.obtainium"))
+        assertFalse(VersionNueva.actualizaLaTienda("com.google.android.packageinstaller"))
+    }
+
+    @Test
     fun `al abrir solo comprueba si pasaron 6 horas`() {
         val seisHoras = 6 * 3_600_000L
         assertTrue(VersionNueva.tocaComprobar(ahoraMs = seisHoras, ultimaMs = 0L))

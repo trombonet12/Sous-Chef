@@ -43,6 +43,11 @@ object VersionNueva {
         yaAvisada: String?,
     ): Boolean = remota != yaAvisada && esMasNueva(remota, instalada)
 
+    /** Instalada desde Google Play: las actualizaciones las trae la tienda y el aviso de GitHub sobra (ADR-0010). */
+    fun actualizaLaTienda(instalador: String?): Boolean = instalador == PLAY_STORE
+
+    private const val PLAY_STORE = "com.android.vending"
+
     /** Pasado el intervalo, o si el reloj fue hacia atrás. */
     fun tocaComprobar(
         ahoraMs: Long,
