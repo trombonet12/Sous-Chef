@@ -45,18 +45,7 @@ fun AjustesScreen(
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
-            Column(Modifier.selectableGroup()) {
-                OpcionDisposicion(
-                    stringResource(R.string.ajustes_foco),
-                    stringResource(R.string.ajustes_foco_detalle),
-                    ajustes.disposicion == DisposicionCrono.FOCO,
-                ) { viewModel.elegirDisposicion(DisposicionCrono.FOCO) }
-                OpcionDisposicion(
-                    stringResource(R.string.ajustes_apilada),
-                    stringResource(R.string.ajustes_apilada_detalle),
-                    ajustes.disposicion == DisposicionCrono.APILADA,
-                ) { viewModel.elegirDisposicion(DisposicionCrono.APILADA) }
-            }
+            SelectorDisposicion(ajustes.disposicion, viewModel::elegirDisposicion)
             Row(
                 Modifier
                     .fillMaxWidth()
@@ -75,33 +64,6 @@ fun AjustesScreen(
                 }
                 Switch(checked = ajustes.vozActiva, onCheckedChange = null)
             }
-        }
-    }
-}
-
-@Composable
-private fun OpcionDisposicion(
-    titulo: String,
-    detalle: String,
-    elegida: Boolean,
-    onElegir: () -> Unit,
-) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .selectable(selected = elegida, role = Role.RadioButton, onClick = onElegir)
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        RadioButton(selected = elegida, onClick = null)
-        Column {
-            Text(titulo, style = MaterialTheme.typography.bodyLarge)
-            Text(
-                detalle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
         }
     }
 }

@@ -14,6 +14,9 @@
     <string name="ajustes_foco_detalle">Un recipiente grande a la vista y los demás en una línea.</string>
     <string name="ajustes_apilada">Carriles apilados</string>
     <string name="ajustes_apilada_detalle">Todos los recipientes a la vez, uno debajo de otro.</string>
+    <string name="ajustes_clasica">Clásica</string>
+    <string name="ajustes_clasica_detalle">La de antes: pestañas de recipientes, un panel por recipiente con scroll y los mandos abajo.</string>
+    <string name="ajustes_interfaz">Interfaz</string>
     <string name="ajustes_voz">Hablar con el chef</string>
     <string name="ajustes_voz_detalle">Con el cronómetro en pantalla, di \"Chef, …\" para preguntar o mandar sin tocar.</string>
 
@@ -185,6 +188,7 @@
     <string name="crono_fuego_chip">🔥 %1$d</string>
     <string name="crono_diagrama">Diagrama de tiempos</string>
     <string name="crono_diagrama_horas">Empezar %1$s · servir %2$s</string>
+    <string name="crono_diagrama_cerrar_corto">Cerrar</string>
     <string name="crono_diagrama_cerrar">Cerrar el diagrama</string>
     <string name="crono_prevista">Prevista a las %1$s</string>
     <string name="crono_prevista_tarde">Prevista a las %1$s, va %2$d min tarde</string>

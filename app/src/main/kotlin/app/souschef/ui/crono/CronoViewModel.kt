@@ -335,6 +335,11 @@ class CronoViewModel
 
         fun enfocar(carril: String) = mutar { e, _, t -> SesionCrono.enfocar(e, carril, t) }
 
+        /** La misma preferencia que en Ajustes: la cocina se repinta con la nueva disposición sin reiniciarse. */
+        fun elegirDisposicion(d: DisposicionCrono) {
+            viewModelScope.launch { ajustes.fijarDisposicion(d) }
+        }
+
         fun cambiarServir(deltaMin: Int) =
             mutar { e, _, t -> SesionCrono.servir(e, e.servirMs + deltaMin * MS_MINUTO, t) }
 

@@ -414,6 +414,18 @@ class CronoViewModelTest {
         }
 
     @Test
+    fun elegirLaInterfazDesdeLaCocinaLaGuardaEnAjustesYLaAplica() =
+        prueba {
+            val vm = crear()
+
+            vm.elegirDisposicion(DisposicionCrono.CLASICA)
+            runCurrent()
+
+            assertEquals(DisposicionCrono.CLASICA, ajustes.actual.value.disposicion)
+            assertEquals(DisposicionCrono.CLASICA, vm.ui.value.disposicion)
+        }
+
+    @Test
     fun hechoDelCarrilFijadoSueltaElFocoYSaltaAlSiguienteUrgente() =
         prueba {
             val vm = crear()

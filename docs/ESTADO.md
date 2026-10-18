@@ -63,6 +63,7 @@
   - Fuera la despensa de la app (Room 1 → 2); Técnicas es la pestaña del medio.
   - Cronómetro: «Diagrama de tiempos» en el ⋮, el de la ficha a pantalla completa con scroll y la línea de «ahora».
   - Google Play preparado (ADR-0010): el CI genera el AAB y lo sube a la pista interna si hay credenciales; sin aviso de GitHub si se instala desde Play.
+  - Interfaz CLÁSICA del cronómetro (la de antes de la v0.6) como tercera disposición; selector con miniaturas en Ajustes y en el ⋮ de la cocina («Interfaz»).
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 

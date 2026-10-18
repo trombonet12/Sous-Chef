@@ -31,7 +31,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.domain.DisposicionCrono
+import app.souschef.ui.ajustes.SelectorDisposicion
 import app.souschef.ui.comun.Tabular
+import app.souschef.ui.crono.clasica.CronoClasico
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 
@@ -63,6 +65,7 @@ fun CronoCocina(
     // Salir de una cocina en marcha es abandonarla (con confirmación): no se queda viva por detrás.
     var abandonar by remember { mutableStateOf(false) }
     var diagrama by remember { mutableStateOf(false) }
+    var interfaz by remember { mutableStateOf(false) }
     BackHandler { abandonar = true }
     val acciones =
         AccionesCarril(
@@ -75,16 +78,33 @@ fun CronoCocina(
         )
     Column(Modifier.fillMaxSize()) {
         if (ui.banda.isNotEmpty()) BandaPerdidos(ui, viewModel)
-        val menu = AccionesMenu(abandonar = { abandonar = true }, diagrama = { diagrama = true })
+        val menu =
+            AccionesMenu(
+                abandonar = { abandonar = true },
+                diagrama = { diagrama = true },
+                interfaz = { interfaz = true },
+            )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
         val cuerpo = Modifier.weight(1f).fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 8.dp)
         when (ui.disposicion) {
-            DisposicionCrono.FOCO -> CronoFoco(vistas, elegirFoco(vistas, estado.foco), acciones, cuerpo)
-            DisposicionCrono.APILADA -> CronoApilado(vistas, acciones, cuerpo)
+            DisposicionCrono.FOCO -> {
+                CronoFoco(vistas, elegirFoco(vistas, estado.foco), acciones, cuerpo)
+            }
+
+            DisposicionCrono.APILADA -> {
+                CronoApilado(vistas, acciones, cuerpo)
+            }
+
+            DisposicionCrono.CLASICA -> {
+                CronoClasico(datos, ui.tecnicas, acciones, salidas.tecnica, Modifier.weight(1f).fillMaxWidth())
+            }
         }
     }
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
+    if (interfaz) {
+        DialogoInterfaz(ui.disposicion, onElegir = viewModel::elegirDisposicion) { interfaz = false }
+    }
     if (abandonar) {
         DialogoAbandonar(
             onSi = {
@@ -217,6 +237,7 @@ private fun DatoCabecera(
 internal class AccionesMenu(
     val abandonar: () -> Unit,
     val diagrama: () -> Unit,
+    val interfaz: () -> Unit,
 )
 
 /**
@@ -243,6 +264,13 @@ private fun MenuCocina(
                 },
             )
             DropdownMenuItem(
+                text = { Text(stringResource(R.string.ajustes_interfaz), color = CronoPalette.texto) },
+                onClick = {
+                    abierto = false
+                    menu.interfaz()
+                },
+            )
+            DropdownMenuItem(
                 text = {
                     Text(
                         stringResource(
@@ -266,6 +294,32 @@ private fun MenuCocina(
             )
         }
     }
+}
+
+/** Elegir la disposición sin salir de la cocina; se cierra al elegir. */
+@Composable
+private fun DialogoInterfaz(
+    actual: DisposicionCrono,
+    onElegir: (DisposicionCrono) -> Unit,
+    onCerrar: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onCerrar,
+        containerColor = CronoPalette.carta2,
+        titleContentColor = CronoPalette.texto,
+        title = { Text(stringResource(R.string.ajustes_interfaz)) },
+        text = {
+            SelectorDisposicion(actual, onElegir = {
+                onElegir(it)
+                onCerrar()
+            })
+        },
+        confirmButton = {
+            TextButton(onClick = onCerrar) {
+                Text(stringResource(R.string.crono_diagrama_cerrar_corto), color = CronoPalette.texto)
+            }
+        },
+    )
 }
 
 /** «¿Abandonar esta cocinada?»: desde el menú, la flecha de la cabecera o el gesto atrás. */

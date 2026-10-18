@@ -15,6 +15,7 @@ import app.souschef.receta.Paso
 import app.souschef.receta.Receta
 import app.souschef.receta.crono.EstadoCarril
 import app.souschef.receta.crono.EstadoCrono
+import app.souschef.ui.crono.clasica.CronoClasico
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.DarkColors
 import org.junit.Assert.assertEquals
@@ -326,5 +327,36 @@ class CocinaUiTest {
     fun `con cuatro o mas carriles meto y saco nunca se muestran`() {
         val plan = planTarjeta(alturaDp = 560f, carriles = 4, hayMetoSaco = true, hayNota = true)
         assertFalse(plan.metoSaco)
+    }
+
+    @Test
+    fun `clasica pinta pestanas, el panel del foco con scroll y sus mandos`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val estado =
+            EstadoCrono(
+                "r",
+                2,
+                servir,
+                mapOf("f0" to corriendo(200), "f1" to corriendo(400), "m" to EstadoCarril()),
+                foco = "f0",
+                actualizadoMs = ahora,
+            )
+        banco.cocina {
+            CronoClasico(
+                DatosCrono(receta, estado, ahora),
+                emptyMap(),
+                p.acciones,
+                {},
+                Modifier.fillMaxSize(),
+            )
+        }
+
+        banco.conEtiqueta("crono-clasico")
+        assertTrue(banco.hayDesplazable())
+        val textos = banco.textos(banco.raiz())
+        assertTrue("SARTÉN" in textos && "OLLA" in textos && "MESA" in textos)
+        banco.pulsar(banco.pulsableConTexto("+30 s"))
+        assertEquals(listOf("mas30:f0"), p.llamadas)
     }
 }

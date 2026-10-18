@@ -192,3 +192,10 @@
   - Solo sube si existe `PLAY_SERVICE_ACCOUNT_JSON`. `PLAY_ESTADO` (draft | completed) se valida antes.
   - Instalada desde Play (`com.android.vending`), la app no avisa de versiones de GitHub.
   - Política de privacidad en `docs/privacidad.md` y pasos manuales en `docs/play.md`.
+- Disposición CLÁSICA (`DisposicionCrono.CLASICA`): el cronómetro anterior a la v0.6 (borrado en `903ad72`)
+  recuperado en `ui/crono/clasica/`, con plan plegable, pestañas, un panel por recipiente con scroll y mandos abajo.
+  - Sus mandos usan `AccionesCarril`, como las otras disposiciones, en vez del ViewModel; así se prueba en JVM.
+  - La cabecera del panel añade el desvío del lote de hora prevista. Sus textos van en `strings_clasica.xml`.
+  - Se elige en Ajustes o desde el ⋮ de la cocina («Interfaz»), con el mismo `SelectorDisposicion`: tres tarjetas
+    con una miniatura dibujada (esquema en la paleta del crono, no captura), en fila si caben y en lista si no.
+    Cambiarla en plena cocina no la reinicia.

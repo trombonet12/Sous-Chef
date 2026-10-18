@@ -27,8 +27,11 @@ data class Preferencia(
     val raciones: Int? = null,
 )
 
-/** Cómo se muestran los carriles del cronómetro: uno en foco y el resto compacto, o todos apilados. */
-enum class DisposicionCrono { FOCO, APILADA }
+/**
+ * Cómo se muestran los carriles del cronómetro: uno en foco y el resto compacto, todos apilados, o la clásica de antes
+ * de la v0.6 (pestañas, un panel por recipiente con scroll y mandos abajo).
+ */
+enum class DisposicionCrono { FOCO, APILADA, CLASICA }
 
 /** Preferencias globales de la app. */
 data class Ajustes(

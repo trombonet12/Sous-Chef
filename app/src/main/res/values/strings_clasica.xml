@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cronómetro clásico (anterior a la v0.6), recuperado como tercera disposición en la v1.0. -->
+<resources>
+    <string name="crono_a_la_vez">A LA VEZ QUE %1$s</string>
+    <string name="crono_aguantan">Aguantan la espera: %1$s.</string>
+    <string name="crono_ahora_toca">AHORA TOCA</string>
+    <string name="crono_antes_hay_que">ANTES HAY QUE TERMINAR</string>
+    <string name="crono_antes_ir">Antes: %1$s · ir a %2$s</string>
+    <string name="crono_cabecera_paso">%1$s · paso %2$d de %3$d · sugerido %4$s</string>
+    <string name="crono_carril_fuera">Este recipiente ya está fuera del plan. Sigue por %1$s.</string>
+    <string name="crono_despues">Después aquí: %1$s · %2$s</string>
+    <string name="crono_despues_fuego">Después aquí: %1$s · %2$s al %3$d</string>
+    <string name="crono_duracion_h">%1$d h</string>
+    <string name="crono_duracion_hmin">%1$d h %2$d min</string>
+    <string name="crono_duracion_min">%1$d min</string>
+    <string name="crono_est_atender">¡listo! pulsa Hecho</string>
+    <string name="crono_est_bloq">espera a %1$s</string>
+    <string name="crono_est_espera">a las %1$s</string>
+    <string name="crono_est_fin">terminado</string>
+    <string name="crono_est_marcha">en marcha</string>
+    <string name="crono_est_pausa">en pausa</string>
+    <string name="crono_est_ya">empieza ya</string>
+    <string name="crono_hecho_cerrar">Hecho · cerrar</string>
+    <string name="crono_hecho_siguiente">Hecho · siguiente</string>
+    <string name="crono_hito_ahora">ahora</string>
+    <string name="crono_hito_hecho">hecho</string>
+    <string name="crono_holgura_ajustado">ajustado</string>
+    <string name="crono_holgura_critico">no espera</string>
+    <string name="crono_holgura_flexible">aguanta espera</string>
+    <string name="crono_mientras_corre">MIENTRAS ESTO CORRE</string>
+    <string name="crono_no_esperan">No esperan, encadénalos: %1$s.</string>
+    <string name="crono_par_ahora">ahora</string>
+    <string name="crono_par_en_min">en %1$d min</string>
+    <string name="crono_par_vencido">ya · Hecho</string>
+    <string name="crono_plan_desplegar">Desplegar el plan</string>
+    <string name="crono_plan_en_hora">Vas en hora</string>
+    <string name="crono_plan_plegar">Plegar el plan</string>
+    <string name="crono_plan_sin_empezar">Sin empezar · sobran %1$s</string>
+    <string name="crono_plan_sin_empezar_justo">Sin empezar · si arrancas ya, acabas a las %1$s</string>
+    <string name="crono_plan_tarde">Vas %1$d min tarde</string>
+    <string name="crono_plan_vencido">%1$s ya está · pulsa Hecho para seguir</string>
+    <string name="crono_prevista_realista">Prevista %1$s · realista %2$s</string>
+    <string name="crono_requisito_cumplido">REQUISITO CUMPLIDO</string>
+    <string name="crono_seguir">Seguir</string>
+    <string name="crono_siguiente">Siguiente: %1$s · %2$s</string>
+    <string name="crono_sin_arrancar">sin arrancar</string>
+    <string name="crono_sin_reloj">—</string>
+    <string name="crono_ultimo_paso">Último paso de este recipiente.</string>
+</resources>
