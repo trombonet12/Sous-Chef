@@ -222,3 +222,49 @@
   permisos nuevos); «Cargar copia» añade las cocinadas que falten por id, suma favoritos y solo pone raciones donde no
   las hay: nunca pisa ni borra. Formato `sous-chef-historial` versión 1 (`CopiaHistorial`, puro y con tests). Borrar
   la caché no borra el historial; lo borran «borrar datos» y desinstalar.
+
+## 2026-10-19 · Ronda 10 → v1.1.0 (lista de recetas y lasaña)
+- Lista de recetas rediseñada a petición de Joan, que encontraba la anterior saturada. Ahora tiene tres diseños y se
+  elige en Ajustes → «Lista de recetas» (`DisposicionLista`):
+  - **TINTE** (por defecto): tarjeta teñida con el color de la base y el tiempo grande a la izquierda.
+  - **FRANJA**: tarjeta clara con una franja de color.
+  - **CLÁSICA**: la de antes, con el mini-gantt.
+
+  Los tres llevan una sola línea de descripción, «empieza HH:mm» para servir a las 15:30
+  (`Servir.inicio(Servir.DEFECTO, r)`), base y proteína, fuegos y horno, y «hace…».
+- Color por **familia de base**, no por base: siete familias apagadas más «Otras»:
+  - Pasta;
+  - Arroz;
+  - Patata;
+  - Pescado;
+  - Verdura (verdura y ensalada);
+  - Masas (masa de pizza, hojaldre y taco);
+  - Salteado.
+
+  Están en `ui/recetas/ColoresBase.kt`, con variante clara y oscura. Una base nueva sin familia cae en «Otras» hasta
+  añadirla a `FamiliaBase`. El color nunca va solo: la base siempre aparece escrita.
+- **Filtros** en una hoja inferior (botón junto al buscador). Secciones:
+  - Mostrar: favoritas, sin estrenar, hace +2 meses;
+  - Tiempo: < 45, 45-90 y > 90 min;
+  - Base;
+  - Proteína: pollo, carne, cerdo, pescado, huevo y vegetariana, sacadas de `tags.proteina` por palabras;
+  - Equipo: sin horno, con horno, 1 fuego.
+
+  Cómo se combinan y se cuentan:
+  - dentro de una sección se suman (O) y entre secciones se restringen (Y);
+  - cada chip cuenta las recetas que quedarían con el resto de filtros puestos;
+  - solo salen las opciones que existen entre las recetas del buscador.
+
+  Los filtros activos se ven como chips con ✕ bajo el buscador. Sustituyen a la fila de chips de base.
+- El **orden** se elige en la misma hoja y se guarda en Ajustes (`ajustes.recetas.orden`):
+  - favoritas y recientes (por defecto);
+  - hace más que no la hago (sin estrenar primero);
+  - alfabético;
+  - más rápida.
+
+  Los **filtros no se guardan**: viven en el ViewModel y se limpian al cerrar la app, para que la lista no aparezca
+  filtrada sin que Joan lo recuerde. Diseño y orden van en la tabla clave-valor `meta`, así que no hace falta migración.
+- Receta `lasana-carne-berenjena` (4 raciones, fuente de 28×20, 136 min). Las placas precocidas El Pavo se remojan
+  10 min en agua caliente, sin hervir, como dice el envase. El remojo acaba justo al montar, y entonces se sacan todas
+  a un paño para que no sigan bebiendo agua. La bechamel es fluida (60 g/l), porque la placa termina de hidratarse en
+  el horno, y se hace en la sartén de la berenjena. El reposo es de 15 min. Técnica nueva `bechamel`.
