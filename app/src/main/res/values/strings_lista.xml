@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tarjetas de la lista de recetas -->
+    <string name="lista_min">min</string>
+    <string name="lista_horno">horno</string>
+    <string name="lista_empieza">empieza %1$s</string>
+</resources>

@@ -57,6 +57,19 @@ enum class Icono(
         "M9 21h6",
         "M4 4l16 16",
     ),
+
+    /** Tres deslizadores: abre la hoja de filtros de la lista. */
+    Filtros(
+        "M4 6h9",
+        "M17 6h3",
+        "M15 8a2 2 0 1 0 0-4a2 2 0 0 0 0 4z",
+        "M4 12h3",
+        "M11 12h9",
+        "M9 14a2 2 0 1 0 0-4a2 2 0 0 0 0 4z",
+        "M4 18h11",
+        "M19 18h1",
+        "M17 20a2 2 0 1 0 0-4a2 2 0 0 0 0 4z",
+    ),
     ;
 
     val vector: ImageVector by lazy {

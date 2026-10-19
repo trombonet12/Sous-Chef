@@ -2,7 +2,9 @@ package app.souschef.ui.recetas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.souschef.domain.AjustesRepo
 import app.souschef.domain.HistorialRepo
+import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
@@ -18,6 +20,10 @@ import java.time.Instant
 import java.time.ZoneOffset
 import javax.inject.Inject
 
+/**
+ * Lista de recetas. El texto y los filtros viven aquí y se pierden al cerrar la app; el orden y el diseño de las
+ * tarjetas se guardan en Ajustes.
+ */
 @HiltViewModel
 class RecetasViewModel
     @Inject
@@ -25,6 +31,7 @@ class RecetasViewModel
         recetas: RecetasRepo,
         private val preferencias: PreferenciasRepo,
         historial: HistorialRepo,
+        private val ajustes: AjustesRepo,
         private val reloj: Reloj,
     ) : ViewModel() {
         private val filtro = MutableStateFlow(FiltroRecetas())
@@ -35,16 +42,25 @@ class RecetasViewModel
                 preferencias.observarTodas(),
                 historial.observarUltimaFechaPorSlug(),
                 filtro,
-            ) { r, p, h, f ->
-                construirEstadoRecetas(r, p, h, f, hoy())
+                ajustes.observar(),
+            ) { r, p, h, f, a ->
+                construirEstadoRecetas(r, p, h, f.copy(orden = a.orden), hoy()).copy(disposicion = a.lista)
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
 
         fun buscar(texto: String) {
             filtro.update { it.copy(consulta = texto) }
         }
 
-        fun elegirBase(nueva: String?) {
-            filtro.update { it.copy(base = nueva) }
+        fun alternarFiltro(opcion: OpcionFiltro) {
+            filtro.update { f -> f.copy(activos = if (opcion in f.activos) f.activos - opcion else f.activos + opcion) }
+        }
+
+        fun limpiarFiltros() {
+            filtro.update { it.copy(activos = emptySet()) }
+        }
+
+        fun elegirOrden(orden: OrdenRecetas) {
+            viewModelScope.launch { ajustes.fijarOrden(orden) }
         }
 
         fun alternarFavorita(

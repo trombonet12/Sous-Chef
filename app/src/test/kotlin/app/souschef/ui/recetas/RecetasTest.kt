@@ -1,12 +1,18 @@
 package app.souschef.ui.recetas
 
+import app.souschef.domain.DisposicionLista
+import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.Preferencia
 import app.souschef.domain.Reloj
+import app.souschef.receta.Carril
 import app.souschef.receta.Grupo
 import app.souschef.receta.Ingrediente
+import app.souschef.receta.Receta
+import app.souschef.receta.Tags
 import app.souschef.ui.FakeHistorialRepo
 import app.souschef.ui.FakePreferenciasRepo
 import app.souschef.ui.FakeRecetasRepo
+import app.souschef.ui.crono.FakeAjustesRepo
 import app.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,64 +69,191 @@ class HaceTest {
     }
 }
 
+class FamiliasTest {
+    @Test
+    fun cadaBaseVaASuFamiliaYLoDesconocidoAOtra() {
+        assertEquals(FamiliaBase.PASTA, FamiliaBase.de("pasta"))
+        assertEquals(FamiliaBase.VERDURA, FamiliaBase.de("Ensalada"))
+        assertEquals(FamiliaBase.MASAS, FamiliaBase.de("masa de pizza"))
+        assertEquals(FamiliaBase.MASAS, FamiliaBase.de("taco"))
+        assertEquals(FamiliaBase.MASAS, FamiliaBase.de("hojaldre"))
+        assertEquals(FamiliaBase.SALTEADO, FamiliaBase.de("salteado"))
+        assertEquals(FamiliaBase.OTRA, FamiliaBase.de("legumbre"))
+        assertEquals(FamiliaBase.OTRA, FamiliaBase.de(null))
+    }
+
+    @Test
+    fun proteinaPorPalabrasYVegetarianaSiNoHayCarneNiPescado() {
+        assertEquals(setOf(FamiliaProteina.POLLO), FamiliaProteina.de("pollo"))
+        assertEquals(
+            setOf(FamiliaProteina.CARNE, FamiliaProteina.CERDO, FamiliaProteina.POLLO),
+            FamiliaProteina.de("carne picada mixta, bacon y pollo"),
+        )
+        assertEquals(setOf(FamiliaProteina.CERDO, FamiliaProteina.HUEVO), FamiliaProteina.de("huevo y jamón"))
+        assertEquals(setOf(FamiliaProteina.PESCADO), FamiliaProteina.de("atún y feta"))
+        assertEquals(setOf(FamiliaProteina.PESCADO), FamiliaProteina.de("Salmón"))
+        assertEquals(setOf(FamiliaProteina.HUEVO, FamiliaProteina.VEGETARIANA), FamiliaProteina.de("huevos"))
+        assertEquals(setOf(FamiliaProteina.VEGETARIANA), FamiliaProteina.de("ninguna"))
+        assertEquals(setOf(FamiliaProteina.VEGETARIANA), FamiliaProteina.de(null))
+    }
+
+    @Test
+    fun tramosDeTiempo() {
+        assertEquals(TramoTiempo.CORTA, TramoTiempo.de(44.5))
+        assertEquals(TramoTiempo.MEDIA, TramoTiempo.de(45.0))
+        assertEquals(TramoTiempo.MEDIA, TramoTiempo.de(90.0))
+        assertEquals(TramoTiempo.LARGA, TramoTiempo.de(91.0))
+    }
+}
+
 class RecetasLogicaTest {
     private val hoy = LocalDate.of(2026, 10, 14)
 
     private fun estado(
-        recetas: List<app.souschef.receta.Receta>,
-        consulta: String = "",
-        base: String? = null,
+        recetas: List<Receta>,
+        activos: Set<OpcionFiltro> = emptySet(),
+        orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
         prefs: Map<String, Preferencia> = emptyMap(),
         fechas: Map<String, String> = emptyMap(),
-    ) = construirEstadoRecetas(recetas, prefs, fechas, FiltroRecetas(consulta, base), hoy)
+    ) = construirEstadoRecetas(recetas, prefs, fechas, FiltroRecetas("", activos, orden), hoy)
+
+    private fun buscar(
+        recetas: List<Receta>,
+        consulta: String,
+    ) = construirEstadoRecetas(recetas, emptyMap(), emptyMap(), FiltroRecetas(consulta), hoy)
+
+    private fun RecetasUiState.slugs() = tarjetas.map { it.receta.slug }
+
+    private fun RecetasUiState.chip(o: OpcionFiltro) = secciones.flatMap { it.chips }.firstOrNull { it.opcion == o }
+
+    /** Receta de [min] minutos con [fuegos] carriles de fuego, sin horno. */
+    private fun r(
+        slug: String,
+        base: String? = null,
+        proteina: String? = null,
+        min: Double = 30.0,
+        fuegos: Int = 1,
+    ) = receta(slug, base = base).copy(
+        totalMin = min,
+        tags = Tags(base = base, proteina = proteina),
+        carriles = List(fuegos) { Carril("f$it", tipo = "fuego") } + Carril("m", tipo = "mesa"),
+    )
+
+    private fun Receta.conHorno() = copy(carriles = carriles + Carril("h", tipo = "horno"))
+
+    private val pollo = r("pollo", "salteado", "pollo", min = 40.0, fuegos = 1)
+    private val pasta = r("pasta", "pasta", "carne picada", min = 82.0, fuegos = 2)
+    private val lasana = r("lasana", "pasta", "carne picada", min = 131.0, fuegos = 3).conHorno()
+    private val tarta = r("tarta", "hojaldre", "ninguna", min = 50.0, fuegos = 1).conHorno()
+    private val todas = listOf(pollo, pasta, lasana, tarta)
 
     @Test
     fun buscaIgnorandoAcentosEnIngredientesYPasos() {
         val con = receta("a", "Tortilla").copy(grupos = listOf(Grupo("g", listOf(Ingrediente("Pimiento rojo")))))
         val otra = receta("b", "Otra")
-        assertEquals(listOf("a"), estado(listOf(con, otra), "PIMIENTO").tarjetas.map { it.receta.slug })
-        assertEquals(listOf("a", "b"), estado(listOf(con, otra), "pícar").tarjetas.map { it.receta.slug }.sorted())
-        assertEquals(listOf("b"), estado(listOf(con, otra), "otr").tarjetas.map { it.receta.slug })
+        assertEquals(listOf("a"), buscar(listOf(con, otra), "PIMIENTO").slugs())
+        assertEquals(listOf("a", "b"), buscar(listOf(con, otra), "pícar").slugs().sorted())
+        assertEquals(listOf("b"), buscar(listOf(con, otra), "otr").slugs())
     }
 
     @Test
-    fun chipsSoloSiHayMasDeUnaBaseTrasElFiltroDeTexto() {
-        val rs = listOf(receta("a", "Arroz", base = "arroz"), receta("b", "Pasta", base = "pasta"))
-        assertTrue(estado(rs).mostrarChips)
-        assertFalse(estado(rs, "arroz").mostrarChips)
-        assertEquals(listOf(ChipBase("arroz", 1), ChipBase("pasta", 1)), estado(rs).bases)
+    fun dentroDeUnaSeccionSumaYEntreSeccionesRestringe() {
+        val base = setOf(OpcionFiltro.Base(FamiliaBase.PASTA), OpcionFiltro.Base(FamiliaBase.SALTEADO))
+        assertEquals(setOf("pollo", "pasta", "lasana"), estado(todas, activos = base).slugs().toSet())
+        val conHorno = base + OpcionFiltro.Equipo(EquipoReceta.CON_HORNO)
+        assertEquals(listOf("lasana"), estado(todas, activos = conHorno).slugs())
     }
 
     @Test
-    fun filtraPorBaseYIgnoraLaBaseQueYaNoEstaVisible() {
-        val rs = listOf(receta("a", "Arroz", base = "arroz"), receta("b", "Pasta", base = "pasta"))
-        assertEquals(listOf("b"), estado(rs, base = "pasta").tarjetas.map { it.receta.slug })
-        val e = estado(rs, consulta = "arroz", base = "pasta")
-        assertEquals(null, e.baseActiva)
-        assertEquals(listOf("a"), e.tarjetas.map { it.receta.slug })
+    fun filtrosDeTiempoEquipoYProteina() {
+        assertEquals(listOf("pollo"), estado(todas, activos = setOf(OpcionFiltro.Tiempo(TramoTiempo.CORTA))).slugs())
+        assertEquals(
+            setOf("pollo", "tarta"),
+            estado(todas, activos = setOf(OpcionFiltro.Equipo(EquipoReceta.UN_FUEGO))).slugs().toSet(),
+        )
+        assertEquals(
+            setOf("pollo", "pasta"),
+            estado(todas, activos = setOf(OpcionFiltro.Equipo(EquipoReceta.SIN_HORNO))).slugs().toSet(),
+        )
+        val vegetariana = setOf(OpcionFiltro.Proteina(FamiliaProteina.VEGETARIANA))
+        assertEquals(listOf("tarta"), estado(todas, activos = vegetariana).slugs())
     }
 
     @Test
-    fun favoritasPrimeroYLuegoActualizadaDescendente() {
+    fun mostrarFavoritasSinEstrenarYHaceTiempo() {
+        val prefs = mapOf("pasta" to Preferencia("pasta", favorito = true))
+        val fechas = mapOf("pollo" to "2026-10-10", "pasta" to "2026-05-01")
+
+        fun con(m: MostrarRecetas) =
+            estado(todas, activos = setOf(OpcionFiltro.Mostrar(m)), prefs = prefs, fechas = fechas).slugs().toSet()
+        assertEquals(setOf("pasta"), con(MostrarRecetas.FAVORITAS))
+        assertEquals(setOf("lasana", "tarta"), con(MostrarRecetas.SIN_ESTRENAR))
+        assertEquals(setOf("pasta"), con(MostrarRecetas.HACE_TIEMPO))
+    }
+
+    @Test
+    fun cadaChipCuentaLoQueQuedariaConElRestoDeFiltros() {
+        val e = estado(todas, activos = setOf(OpcionFiltro.Equipo(EquipoReceta.CON_HORNO)))
+        // Con horno: lasaña (pasta) y tarta (masas). La sección Base cuenta sobre esas dos.
+        assertEquals(1, e.chip(OpcionFiltro.Base(FamiliaBase.PASTA))?.n)
+        assertEquals(1, e.chip(OpcionFiltro.Base(FamiliaBase.MASAS))?.n)
+        // Salteado no tiene ninguna con horno, pero sigue visible porque existe en el catálogo.
+        assertEquals(0, e.chip(OpcionFiltro.Base(FamiliaBase.SALTEADO))?.n)
+        // Su propia sección no se restringe a sí misma: «Sin horno» cuenta las dos que no lo usan.
+        assertEquals(2, e.chip(OpcionFiltro.Equipo(EquipoReceta.SIN_HORNO))?.n)
+        assertEquals(true, e.chip(OpcionFiltro.Equipo(EquipoReceta.CON_HORNO))?.activo)
+        // Las familias que no existen en el catálogo no salen; «Mostrar» sale siempre.
+        assertEquals(null, e.chip(OpcionFiltro.Base(FamiliaBase.ARROZ)))
+        assertEquals(0, e.chip(OpcionFiltro.Mostrar(MostrarRecetas.FAVORITAS))?.n)
+    }
+
+    @Test
+    fun activosOrdenadosPorSeccionYUnFiltroQueYaNoExisteSeIgnora() {
+        val activos =
+            setOf(
+                OpcionFiltro.Equipo(EquipoReceta.CON_HORNO),
+                OpcionFiltro.Tiempo(TramoTiempo.LARGA),
+                OpcionFiltro.Base(FamiliaBase.ARROZ),
+            )
+        val e = estado(todas, activos = activos)
+        assertEquals(
+            listOf(OpcionFiltro.Tiempo(TramoTiempo.LARGA), OpcionFiltro.Equipo(EquipoReceta.CON_HORNO)),
+            e.activos,
+        )
+        assertEquals(listOf("lasana"), e.slugs())
+    }
+
+    @Test
+    fun ordenes() {
         val rs =
             listOf(
-                receta("vieja").copy(actualizada = "2026-01-01T00:00:00Z"),
-                receta("nueva").copy(actualizada = "2026-09-01T00:00:00Z"),
-                receta("fav").copy(actualizada = "2025-01-01T00:00:00Z"),
+                r("b", min = 60.0).copy(titulo = "Bravas", actualizada = "2026-09-01T00:00:00Z"),
+                r("a", min = 90.0).copy(titulo = "Ávila", actualizada = "2026-01-01T00:00:00Z"),
+                r("c", min = 20.0).copy(titulo = "Croquetas", actualizada = "2025-01-01T00:00:00Z"),
             )
-        val e = estado(rs, prefs = mapOf("fav" to Preferencia("fav", favorito = true)))
-        assertEquals(listOf("fav", "nueva", "vieja"), e.tarjetas.map { it.receta.slug })
+        val prefs = mapOf("c" to Preferencia("c", favorito = true))
+        val fechas = mapOf("a" to "2026-10-01", "b" to "2026-03-01")
+
+        fun orden(o: OrdenRecetas) = estado(rs, orden = o, prefs = prefs, fechas = fechas).slugs()
+        assertEquals(listOf("c", "b", "a"), orden(OrdenRecetas.FAVORITAS))
+        assertEquals(listOf("c", "b", "a"), orden(OrdenRecetas.OLVIDADAS))
+        assertEquals(listOf("a", "b", "c"), orden(OrdenRecetas.ALFABETICO))
+        assertEquals(listOf("c", "b", "a"), orden(OrdenRecetas.RAPIDA))
     }
 
     @Test
-    fun cuentaFuegosSinElHornoYCalculaHace() {
-        val rs = listOf(receta("a", fuegos = 2), receta("b"))
-        val e = estado(rs, fechas = mapOf("a" to "2026-07-01"))
-        val a = e.tarjetas.first { it.receta.slug == "a" }
-        val b = e.tarjetas.first { it.receta.slug == "b" }
-        assertEquals(2, a.fuegos)
-        assertEquals(Hace(UnidadHace.MESES, 3, true), a.hace)
-        assertEquals(UnidadHace.SIN_ESTRENAR, b.hace.unidad)
+    fun laTarjetaTraeFamiliaHornoFuegosHoraDeEmpezarYHace() {
+        val e = estado(listOf(lasana, pollo), fechas = mapOf("pollo" to "2026-07-01"))
+        val l = e.tarjetas.first { it.receta.slug == "lasana" }
+        val p = e.tarjetas.first { it.receta.slug == "pollo" }
+        assertEquals(FamiliaBase.PASTA, l.familia)
+        assertTrue(l.conHorno)
+        assertFalse(p.conHorno)
+        assertEquals(3, l.fuegos)
+        // Servir a las 15:30 menos 131 min = 13:19.
+        assertEquals(13 * 60 + 19, l.inicio)
+        assertEquals(Hace(UnidadHace.MESES, 3, true), p.hace)
+        assertEquals(UnidadHace.SIN_ESTRENAR, l.hace.unidad)
     }
 }
 
@@ -145,8 +278,9 @@ class RecetasViewModelTest {
                         .toInstant(java.time.ZoneOffset.UTC)
                         .toEpochMilli()
                 }
-            val recetas = FakeRecetasRepo(listOf(receta("a", base = "x"), receta("b", base = "y")))
-            val vm = RecetasViewModel(recetas, prefs, historial, reloj)
+            val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta"), receta("b", base = "arroz")))
+            val ajustes = FakeAjustesRepo()
+            val vm = RecetasViewModel(recetas, prefs, historial, ajustes, reloj)
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             assertEquals(2, vm.estado.value.tarjetas.size)
@@ -170,12 +304,42 @@ class RecetasViewModelTest {
                 vm.estado.value.tarjetas
                     .isEmpty(),
             )
-            vm.buscar("")
-            vm.elegirBase("x")
+        }
+
+    @Test
+    fun filtrosOrdenYDisenoDeLaLista() =
+        runTest(UnconfinedTestDispatcher()) {
+            val ajustes = FakeAjustesRepo()
+            val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta"), receta("b", base = "arroz")))
+            val vm = RecetasViewModel(recetas, FakePreferenciasRepo(), FakeHistorialRepo(), ajustes, { 0L })
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            vm.alternarFiltro(OpcionFiltro.Base(FamiliaBase.PASTA))
             assertEquals(
                 listOf("a"),
                 vm.estado.value.tarjetas
                     .map { it.receta.slug },
             )
+            vm.alternarFiltro(OpcionFiltro.Base(FamiliaBase.PASTA))
+            assertEquals(2, vm.estado.value.tarjetas.size)
+
+            vm.alternarFiltro(OpcionFiltro.Base(FamiliaBase.ARROZ))
+            vm.limpiarFiltros()
+            assertTrue(
+                vm.estado.value.activos
+                    .isEmpty(),
+            )
+
+            vm.elegirOrden(OrdenRecetas.ALFABETICO)
+            assertEquals(OrdenRecetas.ALFABETICO, ajustes.actual.value.orden)
+            assertEquals(OrdenRecetas.ALFABETICO, vm.estado.value.orden)
+            assertEquals(
+                listOf("a", "b"),
+                vm.estado.value.tarjetas
+                    .map { it.receta.slug },
+            )
+
+            ajustes.actual.value = ajustes.actual.value.copy(lista = DisposicionLista.FRANJA)
+            assertEquals(DisposicionLista.FRANJA, vm.estado.value.disposicion)
         }
 }

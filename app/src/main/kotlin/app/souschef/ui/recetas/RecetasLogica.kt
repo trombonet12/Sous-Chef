@@ -1,10 +1,12 @@
 package app.souschef.ui.recetas
 
+import app.souschef.domain.DisposicionLista
+import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.Preferencia
 import app.souschef.receta.Gantt
 import app.souschef.receta.Receta
-import app.souschef.ui.comun.contarPor
 import app.souschef.ui.comun.normalizado
+import app.souschef.ui.ficha.Servir
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -52,25 +54,37 @@ data class TarjetaReceta(
     val fuegos: Int,
     val ultimaFecha: String?,
     val hace: Hace,
+    val familia: FamiliaBase = FamiliaBase.de(receta.tags.base),
+    val conHorno: Boolean = false,
+    /** Hora de empezar para servir a la hora por defecto, en minutos del día. */
+    val inicio: Int = Servir.inicio(Servir.DEFECTO, receta),
 )
 
-data class ChipBase(
-    val base: String,
+/** Un chip de la hoja con cuántas recetas quedarían si se marcara (con el resto de filtros puestos). */
+data class ChipFiltro(
+    val opcion: OpcionFiltro,
     val n: Int,
+    val activo: Boolean,
+)
+
+data class GrupoFiltro(
+    val seccion: SeccionFiltro,
+    val chips: List<ChipFiltro>,
 )
 
 data class RecetasUiState(
     val cargando: Boolean = true,
     val consulta: String = "",
-    val baseActiva: String? = null,
-    val bases: List<ChipBase> = emptyList(),
+    /** Filtros marcados que siguen existiendo, en el orden de la hoja. */
+    val activos: List<OpcionFiltro> = emptyList(),
+    val secciones: List<GrupoFiltro> = emptyList(),
+    val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
+    val disposicion: DisposicionLista = DisposicionLista.TINTE,
+    /** Recetas que pasan el buscador (sin los filtros de la hoja). */
     val coincidentes: Int = 0,
     val totalRecetas: Int = 0,
     val tarjetas: List<TarjetaReceta> = emptyList(),
-) {
-    /** Los chips solo salen si hay más de una base entre las que pasan el texto. */
-    val mostrarChips: Boolean get() = bases.size > 1
-}
+)
 
 /** Texto sobre el que busca: titulo, descripcion, base, ingredientes de los grupos y títulos de los pasos. */
 fun textoBuscable(r: Receta): String =
@@ -90,14 +104,34 @@ fun coincideTexto(
     return q.isEmpty() || textoBuscable(receta).contains(q)
 }
 
-/** Favoritas primero y luego `actualizada` descendente. */
-private val ORDEN_TARJETAS =
-    compareByDescending<TarjetaReceta> { it.favorita }.thenByDescending { it.receta.actualizada.orEmpty() }
+private val POR_TITULO = compareBy<TarjetaReceta> { it.receta.titulo.normalizado() }
 
-/** Lo que el usuario ha escrito o elegido en la lista. */
+private fun comparador(orden: OrdenRecetas): Comparator<TarjetaReceta> =
+    when (orden) {
+        // Favoritas primero y luego `actualizada` descendente.
+        OrdenRecetas.FAVORITAS -> {
+            compareByDescending<TarjetaReceta> { it.favorita }.thenByDescending { it.receta.actualizada.orEmpty() }
+        }
+
+        // Sin estrenar primero y luego la que hace más que no se cocina.
+        OrdenRecetas.OLVIDADAS -> {
+            compareBy<TarjetaReceta> { it.ultimaFecha != null }.thenBy { it.ultimaFecha.orEmpty() }.then(POR_TITULO)
+        }
+
+        OrdenRecetas.ALFABETICO -> {
+            POR_TITULO
+        }
+
+        OrdenRecetas.RAPIDA -> {
+            compareBy<TarjetaReceta> { it.receta.totalEfectivo }.then(POR_TITULO)
+        }
+    }
+
+/** Lo que el usuario ha escrito, marcado y elegido en la lista. */
 data class FiltroRecetas(
     val consulta: String = "",
-    val base: String? = null,
+    val activos: Set<OpcionFiltro> = emptySet(),
+    val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
 )
 
 fun construirEstadoRecetas(
@@ -107,29 +141,57 @@ fun construirEstadoRecetas(
     filtro: FiltroRecetas,
     hoy: LocalDate,
 ): RecetasUiState {
-    val consulta = filtro.consulta
-    val baseElegida = filtro.base
-    val porTexto = recetas.filter { coincideTexto(it, consulta) }
-    val bases = porTexto.contarPor { it.tags.base }.map { ChipBase(it.first, it.second) }
-    val baseActiva = baseElegida?.takeIf { b -> bases.any { it.base == b } }
-    val tarjetas =
-        porTexto
-            .filter { baseActiva == null || it.tags.base == baseActiva }
-            .map { r ->
-                val fecha = ultimasFechas[r.slug]
+    val porTexto =
+        recetas.filter { coincideTexto(it, filtro.consulta) }.map { r ->
+            val fecha = ultimasFechas[r.slug]
+            val favorita = preferencias[r.slug]?.favorito == true
+            val fuegos = Gantt.fuegos(r)
+            val hace = Hace.de(fecha, hoy)
+            val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
+            val tarjeta =
                 TarjetaReceta(
                     receta = r,
-                    favorita = preferencias[r.slug]?.favorito == true,
-                    fuegos = Gantt.fuegos(r),
+                    favorita = favorita,
+                    fuegos = fuegos,
                     ultimaFecha = fecha,
-                    hace = Hace.de(fecha, hoy),
+                    hace = hace,
+                    familia = rasgos.familia,
+                    conHorno = EquipoReceta.CON_HORNO in rasgos.equipo,
                 )
-            }.sortedWith(ORDEN_TARJETAS)
+            tarjeta to rasgos
+        }
+    // Una opción existe si alguna receta del buscador la cumple (las de «Mostrar» siempre, aunque cuenten 0, para que
+    // «Favoritas» no desaparezca); las marcadas que ya no existen se ignoran.
+    val existentes =
+        OpcionFiltro.TODAS.filter { o -> o is OpcionFiltro.Mostrar || porTexto.any { it.second.cumple(o) } }
+    val activos = existentes.filter { it in filtro.activos }.sortedWith(OpcionFiltro.ORDEN)
+    val secciones =
+        existentes
+            .groupBy { it.seccion }
+            .map { (seccion, opciones) ->
+                GrupoFiltro(
+                    seccion,
+                    opciones.map { o ->
+                        val n =
+                            porTexto.count { (_, rasgos) ->
+                                rasgos.cumple(o) &&
+                                    rasgos.pasa(activos, salvo = seccion)
+                            }
+                        ChipFiltro(o, n, o in activos)
+                    },
+                )
+            }.sortedBy { it.seccion.ordinal }
+    val tarjetas =
+        porTexto
+            .filter { (_, rasgos) -> rasgos.pasa(activos) }
+            .map { it.first }
+            .sortedWith(comparador(filtro.orden))
     return RecetasUiState(
         cargando = false,
-        consulta = consulta,
-        baseActiva = baseActiva,
-        bases = bases,
+        consulta = filtro.consulta,
+        activos = activos,
+        secciones = secciones,
+        orden = filtro.orden,
         coincidentes = porTexto.size,
         totalRecetas = recetas.size,
         tarjetas = tarjetas,

@@ -45,7 +45,7 @@
     <string name="filtro_n">%1$s (%2$d)</string>
 
     <!-- Lista de recetas -->
-    <string name="recetas_buscar">Buscar por plato o ingrediente</string>
+    <string name="recetas_buscar">Plato o ingrediente</string>
     <plurals name="recetas_conteo">
         <item quantity="one">%d receta</item>
         <item quantity="other">%d recetas</item>
@@ -54,7 +54,7 @@
     <string name="recetas_vacio_detalle">Se publican desde el repositorio y aparecen aquí al sincronizar.</string>
     <string name="recetas_nada_titulo">Nada con eso</string>
     <string name="recetas_nada_detalle">Prueba con un ingrediente.</string>
-    <string name="recetas_nada_detalle_filtro">Prueba con un ingrediente o quita el filtro de categoría.</string>
+    <string name="recetas_nada_detalle_filtro">Prueba con otro ingrediente o quita algún filtro.</string>
     <string name="favorita_marcar">Marcar %1$s como favorita</string>
     <string name="favorita_quitar">Quitar %1$s de favoritas</string>
     <string name="tarjeta_minutos">%1$s min</string>

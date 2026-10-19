@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filtros y orden de la lista de recetas (hoja inferior y cabecera). -->
+<resources>
+    <string name="filtros_titulo">Filtros</string>
+    <string name="filtros_limpiar">Limpiar</string>
+    <string name="filtros_abrir">Filtros y orden</string>
+    <plurals name="filtros_abrir_activos">
+        <item quantity="one">Filtros y orden, %1$d filtro puesto</item>
+        <item quantity="other">Filtros y orden, %1$d filtros puestos</item>
+    </plurals>
+    <plurals name="filtros_ver">
+        <item quantity="one">Ver %1$d receta</item>
+        <item quantity="other">Ver %1$d recetas</item>
+    </plurals>
+    <string name="filtros_quitar">Quitar el filtro %1$s</string>
+    <string name="filtros_orden_actual">Orden: %1$s</string>
+
+    <string name="filtros_seccion_mostrar">Mostrar</string>
+    <string name="filtros_seccion_tiempo">Tiempo</string>
+    <string name="filtros_seccion_base">Base</string>
+    <string name="filtros_seccion_proteina">Proteína</string>
+    <string name="filtros_seccion_equipo">Equipo</string>
+    <string name="filtros_seccion_orden">Orden</string>
+
+    <string name="filtro_mostrar_favoritas">Favoritas</string>
+    <string name="filtro_mostrar_sin_estrenar">Sin estrenar</string>
+    <string name="filtro_mostrar_hace_tiempo">Hace +2 meses</string>
+
+    <string name="filtro_tiempo_corta">Menos de 45 min</string>
+    <string name="filtro_tiempo_media">45–90 min</string>
+    <string name="filtro_tiempo_larga">Más de 90 min</string>
+
+    <string name="filtro_base_pasta">Pasta</string>
+    <string name="filtro_base_arroz">Arroz</string>
+    <string name="filtro_base_patata">Patata</string>
+    <string name="filtro_base_pescado">Pescado</string>
+    <string name="filtro_base_verdura">Verdura</string>
+    <string name="filtro_base_masas">Masas</string>
+    <string name="filtro_base_salteado">Salteado</string>
+    <string name="filtro_base_otra">Otras</string>
+
+    <string name="filtro_proteina_pollo">Pollo</string>
+    <string name="filtro_proteina_carne">Carne</string>
+    <string name="filtro_proteina_cerdo">Cerdo</string>
+    <string name="filtro_proteina_pescado">Pescado</string>
+    <string name="filtro_proteina_huevo">Huevo</string>
+    <string name="filtro_proteina_vegetariana">Vegetariana</string>
+
+    <string name="filtro_equipo_sin_horno">Sin horno</string>
+    <string name="filtro_equipo_con_horno">Con horno</string>
+    <string name="filtro_equipo_un_fuego">1 fuego</string>
+
+    <string name="orden_favoritas">Favoritas y recientes</string>
+    <string name="orden_olvidadas">Hace más que no la hago</string>
+    <string name="orden_alfabetico">Alfabético</string>
+    <string name="orden_rapida">Más rápida</string>
+</resources>
