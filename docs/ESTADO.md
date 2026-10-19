@@ -8,6 +8,7 @@
 | F3/F4 Supabase + sync + login | **descartada** (ADR-0007) |
 | F9b Revisión culinaria | completada (lotes 1-3) |
 | Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
+| Ronda 10 · lista de recetas y lasaña | **en curso**: commits locales, falta el OK de Joan a la receta y publicar v1.1.0 |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -73,6 +74,16 @@
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 
+- 2026-10-19 · Ronda 10 (commits locales, sin push; objetivo v1.1.0):
+  - Lista de recetas con tres diseños elegibles en Ajustes. Tinte, por defecto, es la tarjeta teñida por familia de
+    base con el tiempo grande; Franja lleva una franja de color; Clásica es la de antes. Las tres con una línea de
+    descripción, «empieza HH:mm», base y proteína, fuegos y horno, y «hace…».
+  - Filtros en una hoja inferior: mostrar, tiempo, base, proteína y equipo, con recuentos y chips activos con ✕.
+    Desde la misma hoja se elige el orden (cuatro opciones), que se guarda; los filtros no.
+  - Receta `lasana-carne-berenjena` (4 raciones, 136 min, placas El Pavo) y técnica `bechamel`. Ya tiene la revisión
+    del `chef-reviewer`.
+  - Capturas `docs/capturas/v1.1-*.png`, tomadas en el emulador en claro y en oscuro, con letra a 1,3×.
+
 ## Entorno
 | Herramienta | Estado |
 |---|---|
@@ -108,5 +119,7 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.0.0 publicada al hacer push. Comprobar que la release lleva APK y AAB y que el aviso de versión llega a la 0.8.1 de
-Obtainium; después, cuando Joan tenga la cuenta, dar de alta la app en Play con `docs/play.md`.
+1. Joan revisa la lasaña completa y responde las dudas de `docs/revision-recetas.md`: placas por capa y bolsa de
+   queso. Con su OK, ajustar si hace falta.
+2. Subir `version.properties` a 1.1.0, pasar el gate y hacer push a main.
+3. Probar la lista nueva en el móvil.
