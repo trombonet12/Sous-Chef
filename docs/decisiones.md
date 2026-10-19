@@ -268,3 +268,29 @@
   10 min en agua caliente, sin hervir, como dice el envase. El remojo acaba justo al montar, y entonces se sacan todas
   a un paño para que no sigan bebiendo agua. La bechamel es fluida (60 g/l), porque la placa termina de hidratarse en
   el horno, y se hace en la sartén de la berenjena. El reposo es de 15 min. Técnica nueva `bechamel`.
+
+## 2026-10-19 · Ronda 11 → v1.2.0 (Ajustes, tema y hora de servir)
+- **Hora de servir por defecto** en Ajustes → Horario (`ajustes.servir`, «HH:mm»; por defecto 15:30). Es el punto de
+  partida:
+  - la ficha arranca con ella, y su ± cambia solo esa vez, sin tocar el ajuste;
+  - el cronómetro la usa cuando la ruta no trae hora (p. ej. al abrirlo desde la notificación). Una cocinada
+    guardada conserva su hora.
+- **Hora de las tarjetas** de la lista, en Ajustes → Horario (`ajustes.recetas.hora`):
+  - «Cuándo empezar»: hora de servir − duración;
+  - «Si empiezas ya»: ahora + duración, en la zona del móvil. Solo en este modo la lista se refresca cada minuto.
+- **Tema** automático, claro u oscuro (`ajustes.tema`). La app mantiene el splash hasta leerlo, para no parpadear, y
+  las barras del sistema siguen al tema elegido.
+- **El cronómetro sigue al tema** (antes era oscuro siempre). `CronoPalette` pasa a ser `ColoresCrono` con versión
+  oscura y clara, servida por `LocalColoresCrono` desde `SousChefTheme`. La alarma a pantalla completa también lo
+  sigue.
+
+  En claro, los textos pintados con el color del carril se oscurecen hasta 4,5:1 (`colorCarrilTexto`); barras,
+  franjas y bordes conservan el color de la receta. Las miniaturas de los selectores se dibujan con los colores del
+  tema en uso.
+- **Ajustes es un menú** con cuatro apartados; cada fila resume su valor y abre su propia pantalla:
+  - Apariencia: tema y diseño de la lista;
+  - Horario: hora de servir y hora de las tarjetas;
+  - Cronómetro: interfaz y voz;
+  - Historial: copia.
+
+  Al pie, la versión.

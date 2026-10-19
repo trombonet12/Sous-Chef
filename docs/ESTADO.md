@@ -9,6 +9,7 @@
 | F9b Revisión culinaria | completada (lotes 1-3) |
 | Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
 | Ronda 10 · lista de recetas y lasaña | **completada**: v1.1.0 (OK de Joan a la receta) |
+| Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -84,6 +85,16 @@
     del `chef-reviewer`.
   - Capturas `docs/capturas/v1.1-*.png`, tomadas en el emulador en claro y en oscuro, con letra a 1,3×.
 
+- 2026-10-19 · Ronda 11 → **v1.2.0**:
+  - Ajustes es un menú: Apariencia, Horario, Cronómetro e Historial, cada uno con su resumen y su pantalla, y la
+    versión al pie.
+  - Tema automático, claro u oscuro. **El cronómetro sigue al tema** (paleta clara `CronoClaro`; en claro, los textos
+    de carril van oscurecidos a 4,5:1), alarma incluida. Las miniaturas de los selectores, con los colores del tema.
+  - Hora de servir por defecto global: es el punto de partida de la ficha (± solo esa vez) y del cronómetro sin hora.
+  - Hora de las tarjetas de la lista: «empieza HH:mm» o «acabas HH:mm» (ahora + duración, se refresca cada minuto).
+  - Probado en el emulador (claro y oscuro, cronómetro Clásica y Apilada en claro); capturas en
+    `docs/capturas/v1.2-*.png`.
+
 ## Entorno
 | Herramienta | Estado |
 |---|---|
@@ -121,7 +132,8 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.1.0 publicada con el push. Pendiente:
-- comprobar que la release lleva el APK y el AAB;
-- probar en el móvil la lista nueva (los tres diseños y los filtros);
-- la primera vez que Joan cocine la lasaña, ajustar el número de placas por capa si no son 14 en total.
+v1.2.0 publicada con el push. Pendiente:
+- comprobar la release (APK y AAB);
+- probar en el móvil el cronómetro en claro con pantalla apagada y la alarma a pantalla completa (sin probar en
+  claro);
+- al cocinar la lasaña, ajustar las placas por capa.
