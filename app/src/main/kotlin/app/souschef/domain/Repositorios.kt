@@ -56,6 +56,10 @@ interface AjustesRepo {
     suspend fun fijarDisposicion(d: DisposicionCrono)
 
     suspend fun fijarVoz(activa: Boolean)
+
+    suspend fun fijarLista(d: DisposicionLista)
+
+    suspend fun fijarOrden(o: OrdenRecetas)
 }
 
 interface CronoEstadoRepo {

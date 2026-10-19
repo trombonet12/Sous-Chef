@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ajustes_lista">Lista de recetas</string>
+    <string name="ajustes_lista_tinte">Tinte</string>
+    <string name="ajustes_lista_tinte_detalle">Tarjeta teñida con el color de la base y el tiempo grande a la izquierda.</string>
+    <string name="ajustes_lista_franja">Franja</string>
+    <string name="ajustes_lista_franja_detalle">Tarjeta clara con una franja del color de la base y los datos en dos líneas.</string>
+    <string name="ajustes_lista_clasica">Clásica</string>
+    <string name="ajustes_lista_clasica_detalle">La de siempre, con el diagrama de recipientes.</string>
+</resources>

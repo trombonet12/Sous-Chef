@@ -6,6 +6,8 @@ import app.souschef.data.db.MetaEntity
 import app.souschef.data.db.SousChefDatabase
 import app.souschef.domain.Ajustes
 import app.souschef.domain.DisposicionCrono
+import app.souschef.domain.DisposicionLista
+import app.souschef.domain.OrdenRecetas
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -37,6 +39,8 @@ class AjustesRepoRoomTest {
     fun sinDatosDevuelveElDefecto() =
         runBlocking {
             assertEquals(Ajustes(DisposicionCrono.APILADA, true), repo.observar().first())
+            assertEquals(DisposicionLista.TINTE, repo.observar().first().lista)
+            assertEquals(OrdenRecetas.FAVORITAS, repo.observar().first().orden)
         }
 
     @Test
@@ -55,6 +59,19 @@ class AjustesRepoRoomTest {
         runBlocking {
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_DISPOSICION, "diagonal"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_VOZ, "quizá"))
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_LISTA, "mosaico"))
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_ORDEN, "aleatorio"))
             assertEquals(Ajustes(), repo.observar().first())
+        }
+
+    @Test
+    fun fijarDisenoYOrdenDeLaLista() =
+        runBlocking {
+            repo.fijarLista(DisposicionLista.FRANJA)
+            repo.fijarOrden(OrdenRecetas.RAPIDA)
+            val a = repo.observar().first()
+            assertEquals(DisposicionLista.FRANJA, a.lista)
+            assertEquals(OrdenRecetas.RAPIDA, a.orden)
+            assertEquals(DisposicionCrono.APILADA, a.disposicion)
         }
 }

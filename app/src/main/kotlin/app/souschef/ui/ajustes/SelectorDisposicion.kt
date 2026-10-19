@@ -41,7 +41,7 @@ import app.souschef.ui.theme.CronoPalette
 /** Ancho mínimo por tarjeta para ponerlas en fila; si no caben, van una debajo de otra con la miniatura al lado. */
 private val ANCHO_MIN_TARJETA = 104.dp
 private val MINIATURA_EN_LISTA = 72.dp
-private const val PROPORCION = 9f / 16f
+internal const val PROPORCION = 9f / 16f
 
 private val COLORES_MUESTRA = listOf(Color(0xFFF0AE4A), Color(0xFFE8836B), Color(0xFF7FB7D6))
 
@@ -68,26 +68,50 @@ fun SelectorDisposicion(
     onElegir: (DisposicionCrono) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val tarjetas =
+        OPCIONES.map {
+            OpcionTarjeta(it.titulo, it.detalle, "disposicion-${it.disposicion.name}", it.disposicion == elegida)
+        }
+    SelectorTarjetas(tarjetas, { onElegir(OPCIONES[it].disposicion) }, modifier) { i, mod ->
+        Miniatura(OPCIONES[i].disposicion, mod)
+    }
+}
+
+/** Datos de una tarjeta-opción de los selectores con miniatura (textos como recursos). */
+internal class OpcionTarjeta(
+    val titulo: Int,
+    val detalle: Int,
+    val testTag: String,
+    val elegida: Boolean,
+)
+
+/**
+ * Contenedor común de los selectores de tarjetas con miniatura: en fila si caben (con el detalle de la elegida
+ * debajo) o una debajo de otra con la miniatura al lado. [onElegir] recibe la posición de la tarjeta pulsada.
+ */
+@Composable
+internal fun SelectorTarjetas(
+    opciones: List<OpcionTarjeta>,
+    onElegir: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    miniatura: @Composable (Int, Modifier) -> Unit,
+) {
     BoxWithConstraints(modifier.fillMaxWidth()) {
-        val enFila = maxWidth >= ANCHO_MIN_TARJETA * OPCIONES.size + 16.dp
+        val enFila = maxWidth >= ANCHO_MIN_TARJETA * opciones.size + 16.dp
         if (enFila) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(
                     Modifier.fillMaxWidth().height(IntrinsicSize.Min).selectableGroup(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    OPCIONES.forEach {
-                        TarjetaDisposicion(
-                            it,
-                            it.disposicion == elegida,
-                            enFila = true,
-                            Modifier.weight(1f).fillMaxHeight(),
-                            onElegir,
-                        )
+                    opciones.forEachIndexed { i, opcion ->
+                        TarjetaOpcion(opcion, enFila = true, Modifier.weight(1f).fillMaxHeight(), { onElegir(i) }) {
+                            miniatura(i, it)
+                        }
                     }
                 }
                 // En fila no cabe el detalle de cada una: se explica la elegida debajo.
-                OPCIONES.firstOrNull { it.disposicion == elegida }?.let {
+                opciones.firstOrNull { it.elegida }?.let {
                     Text(
                         stringResource(it.detalle),
                         style = MaterialTheme.typography.bodySmall,
@@ -97,14 +121,8 @@ fun SelectorDisposicion(
             }
         } else {
             Column(Modifier.fillMaxWidth().selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OPCIONES.forEach {
-                    TarjetaDisposicion(
-                        it,
-                        it.disposicion == elegida,
-                        enFila = false,
-                        Modifier,
-                        onElegir,
-                    )
+                opciones.forEachIndexed { i, opcion ->
+                    TarjetaOpcion(opcion, enFila = false, Modifier, { onElegir(i) }) { miniatura(i, it) }
                 }
             }
         }
@@ -112,19 +130,20 @@ fun SelectorDisposicion(
 }
 
 @Composable
-private fun TarjetaDisposicion(
-    opcion: OpcionDisposicion,
-    elegida: Boolean,
+private fun TarjetaOpcion(
+    opcion: OpcionTarjeta,
     enFila: Boolean,
     modifier: Modifier,
-    onElegir: (DisposicionCrono) -> Unit,
+    onClick: () -> Unit,
+    miniatura: @Composable (Modifier) -> Unit,
 ) {
     val forma = RoundedCornerShape(12.dp)
+    val elegida = opcion.elegida
     Surface(
         modifier
-            .testTag("disposicion-${opcion.disposicion.name}")
+            .testTag(opcion.testTag)
             .clip(forma)
-            .selectable(selected = elegida, role = Role.RadioButton) { onElegir(opcion.disposicion) },
+            .selectable(selected = elegida, role = Role.RadioButton, onClick = onClick),
         shape = forma,
         color = MaterialTheme.colorScheme.surfaceContainer,
         border =
@@ -135,7 +154,7 @@ private fun TarjetaDisposicion(
     ) {
         if (enFila) {
             Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Miniatura(opcion.disposicion, Modifier.fillMaxWidth())
+                miniatura(Modifier.fillMaxWidth())
                 Text(
                     stringResource(opcion.titulo),
                     style = MaterialTheme.typography.labelLarge,
@@ -144,7 +163,7 @@ private fun TarjetaDisposicion(
             }
         } else {
             Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Miniatura(opcion.disposicion, Modifier.width(MINIATURA_EN_LISTA))
+                miniatura(Modifier.width(MINIATURA_EN_LISTA))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(
                         stringResource(opcion.titulo),

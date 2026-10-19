@@ -33,10 +33,21 @@ data class Preferencia(
  */
 enum class DisposicionCrono { FOCO, APILADA, CLASICA }
 
+/** Tarjetas de la lista de recetas: tinte de la base, franja de color o la clásica con mini-gantt. */
+enum class DisposicionLista { TINTE, FRANJA, CLASICA }
+
+/**
+ * Orden de la lista de recetas: favoritas y luego las más recientes, las que hace más que no se cocinan (sin estrenar
+ * primero), alfabético o la más rápida primero.
+ */
+enum class OrdenRecetas { FAVORITAS, OLVIDADAS, ALFABETICO, RAPIDA }
+
 /** Preferencias globales de la app. */
 data class Ajustes(
     val disposicion: DisposicionCrono = DisposicionCrono.APILADA,
     val vozActiva: Boolean = true,
+    val lista: DisposicionLista = DisposicionLista.TINTE,
+    val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
 )
 
 /** Estado serializado del cronómetro de una receta (el JSON lo interpreta el motor, no el repositorio). */

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import app.souschef.domain.Ajustes
 import app.souschef.domain.AjustesRepo
 import app.souschef.domain.DisposicionCrono
+import app.souschef.domain.DisposicionLista
 import app.souschef.domain.copia.GestorCopia
 import app.souschef.domain.copia.ResultadoCopia
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,5 +46,9 @@ class AjustesViewModel
 
         fun activarVoz(activa: Boolean) {
             viewModelScope.launch { ajustes.fijarVoz(activa) }
+        }
+
+        fun elegirLista(d: DisposicionLista) {
+            viewModelScope.launch { ajustes.fijarLista(d) }
         }
     }

@@ -64,6 +64,12 @@ fun AjustesScreen(
                 }
                 Switch(checked = ajustes.vozActiva, onCheckedChange = null)
             }
+            Text(
+                stringResource(R.string.ajustes_lista),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            SelectorLista(ajustes.lista, viewModel::elegirLista)
             val copia by viewModel.copia.collectAsStateWithLifecycle()
             SeccionCopia(copia, viewModel::guardarCopia, viewModel::cargarCopia)
         }
