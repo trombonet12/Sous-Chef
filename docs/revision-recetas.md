@@ -24,6 +24,6 @@ Dudas para Joan: equivalencia del queso, «unas 15 cucharadas soperas» para 150
   - la 3: reposo de 15 min, con un hito a los 10 y `totalMin` de 136;
   - la 4: hito «si el queso ya está dorado, sáltate el grill», sin la alternativa sin grill;
   - la 5: corregida la técnica.
-- **Pendientes de Joan**:
-  - la 2: cuántas placas caben por capa y si caben planas en la bandeja;
-  - la equivalencia del queso: la bolsa que compra.
+- **Queso**: la equivalencia pasa a «unas 15 cucharadas soperas colmadas».
+- **Pendiente de comprobar al cocinarla** (Joan dio el OK sin medir): cuántas placas caben por capa y si caben planas
+  en la bandeja. Ahora pone 14, «las que cubran 4 capas».

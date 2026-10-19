@@ -8,7 +8,7 @@
 | F3/F4 Supabase + sync + login | **descartada** (ADR-0007) |
 | F9b Revisión culinaria | completada (lotes 1-3) |
 | Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
-| Ronda 10 · lista de recetas y lasaña | **en curso**: commits locales, falta el OK de Joan a la receta y publicar v1.1.0 |
+| Ronda 10 · lista de recetas y lasaña | **completada**: v1.1.0 (OK de Joan a la receta) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -74,7 +74,7 @@
   - Cronómetro: hora prevista de cada paso en las tarjetas, con «+N» (tarde) o «−N» (adelantado) en minutos.
   - Ficha: ingredientes «Todo junto» (suma los repetidos entre zonas) o «Por zona»; la impresa lleva las dos.
 
-- 2026-10-19 · Ronda 10 (commits locales, sin push; objetivo v1.1.0):
+- 2026-10-19 · Ronda 10 → **v1.1.0**:
   - Lista de recetas con tres diseños elegibles en Ajustes. Tinte, por defecto, es la tarjeta teñida por familia de
     base con el tiempo grande; Franja lleva una franja de color; Clásica es la de antes. Las tres con una línea de
     descripción, «empieza HH:mm», base y proteína, fuegos y horno, y «hace…».
@@ -93,6 +93,8 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
+- Al cocinar la lasaña: contar cuántas placas El Pavo caben por capa en la fuente de 28×20 y decírmelo para
+  ajustar las 14 de la receta.
 - Google Play: los pasos manuales de `docs/play.md`:
   - cuenta y ficha;
   - primera subida del AAB adjunto a la release v1.0.0;
@@ -119,7 +121,7 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-1. Joan revisa la lasaña completa y responde las dudas de `docs/revision-recetas.md`: placas por capa y bolsa de
-   queso. Con su OK, ajustar si hace falta.
-2. Subir `version.properties` a 1.1.0, pasar el gate y hacer push a main.
-3. Probar la lista nueva en el móvil.
+v1.1.0 publicada con el push. Pendiente:
+- comprobar que la release lleva el APK y el AAB;
+- probar en el móvil la lista nueva (los tres diseños y los filtros);
+- la primera vez que Joan cocine la lasaña, ajustar el número de placas por capa si no son 14 en total.
