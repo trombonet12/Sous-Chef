@@ -1,6 +1,8 @@
 package app.souschef.ui.recetas
 
+import androidx.lifecycle.viewModelScope
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.Preferencia
 import app.souschef.domain.Reloj
@@ -13,11 +15,14 @@ import app.souschef.ui.FakeHistorialRepo
 import app.souschef.ui.FakePreferenciasRepo
 import app.souschef.ui.FakeRecetasRepo
 import app.souschef.ui.crono.FakeAjustesRepo
+import app.souschef.ui.crono.RelojFalso
 import app.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -27,7 +32,9 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 class HaceTest {
     private val hoy = LocalDate.of(2026, 10, 14)
@@ -106,6 +113,24 @@ class FamiliasTest {
     }
 }
 
+class ContextoListaTest {
+    private val hoy = LocalDate.of(2026, 10, 14)
+    private val r = receta("r").copy(totalMin = 47.0)
+
+    @Test
+    fun empezarRestaDeLaHoraDeServirDeAjustes() {
+        assertEquals(14 * 60 + 43, ContextoLista(hoy).hora(r))
+        assertEquals(13 * 60 + 13, ContextoLista(hoy, servirMin = 14 * 60).hora(r))
+    }
+
+    @Test
+    fun acabarSumaALaHoraActualYDaLaVueltaAMedianoche() {
+        val acabar = ContextoLista(hoy, ahoraMin = 12 * 60, modo = HoraTarjeta.ACABAR)
+        assertEquals(12 * 60 + 47, acabar.hora(r))
+        assertEquals(30, acabar.copy(ahoraMin = 23 * 60 + 43).hora(r))
+    }
+}
+
 class RecetasLogicaTest {
     private val hoy = LocalDate.of(2026, 10, 14)
 
@@ -115,12 +140,12 @@ class RecetasLogicaTest {
         orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
         prefs: Map<String, Preferencia> = emptyMap(),
         fechas: Map<String, String> = emptyMap(),
-    ) = construirEstadoRecetas(recetas, prefs, fechas, FiltroRecetas("", activos, orden), hoy)
+    ) = construirEstadoRecetas(recetas, prefs, fechas, FiltroRecetas("", activos, orden), ContextoLista(hoy))
 
     private fun buscar(
         recetas: List<Receta>,
         consulta: String,
-    ) = construirEstadoRecetas(recetas, emptyMap(), emptyMap(), FiltroRecetas(consulta), hoy)
+    ) = construirEstadoRecetas(recetas, emptyMap(), emptyMap(), FiltroRecetas(consulta), ContextoLista(hoy))
 
     private fun RecetasUiState.slugs() = tarjetas.map { it.receta.slug }
 
@@ -251,7 +276,8 @@ class RecetasLogicaTest {
         assertFalse(p.conHorno)
         assertEquals(3, l.fuegos)
         // Servir a las 15:30 menos 131 min = 13:19.
-        assertEquals(13 * 60 + 19, l.inicio)
+        assertEquals(13 * 60 + 19, l.hora)
+        assertEquals(HoraTarjeta.EMPEZAR, l.modoHora)
         assertEquals(Hace(UnidadHace.MESES, 3, true), p.hace)
         assertEquals(UnidadHace.SIN_ESTRENAR, l.hace.unidad)
     }
@@ -341,5 +367,36 @@ class RecetasViewModelTest {
 
             ajustes.actual.value = ajustes.actual.value.copy(lista = DisposicionLista.FRANJA)
             assertEquals(DisposicionLista.FRANJA, vm.estado.value.disposicion)
+        }
+
+    @Test
+    fun enModoAcabasLaHoraAvanzaConElReloj() =
+        runTest(UnconfinedTestDispatcher()) {
+            val ajustes = FakeAjustesRepo()
+            ajustes.actual.value = ajustes.actual.value.copy(horaTarjeta = HoraTarjeta.ACABAR)
+            val reloj = RelojFalso()
+            val recetas = FakeRecetasRepo(listOf(receta("a")))
+            val vm = RecetasViewModel(recetas, FakePreferenciasRepo(), FakeHistorialRepo(), ajustes, reloj)
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+            try {
+                val local = { ms: Long -> Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()) }
+
+                fun esperado(ms: Long) = local(ms).let { (it.hour * 60 + it.minute + 30) % (24 * 60) }
+                val antes =
+                    vm.estado.value.tarjetas
+                        .first()
+                assertEquals(HoraTarjeta.ACABAR, antes.modoHora)
+                assertEquals(esperado(reloj.ms), antes.hora)
+                reloj.ms += 5 * 60_000L
+                advanceTimeBy(5 * 60_000L + 1)
+                assertEquals(
+                    esperado(reloj.ms),
+                    vm.estado.value.tarjetas
+                        .first()
+                        .hora,
+                )
+            } finally {
+                vm.viewModelScope.cancel()
+            }
         }
 }

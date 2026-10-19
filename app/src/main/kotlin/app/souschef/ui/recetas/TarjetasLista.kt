@@ -38,6 +38,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.receta.Escalado
 import app.souschef.receta.Tags
 import app.souschef.ui.ficha.Servir
@@ -110,9 +111,8 @@ private fun BloqueTiempo(
     modifier: Modifier = Modifier,
 ) {
     val minutos = Escalado.minutos(tarjeta.receta.totalEfectivo)
-    val hora = Servir.formato(tarjeta.inicio)
-    val descripcion =
-        stringResource(R.string.tarjeta_minutos, minutos) + ", " + stringResource(R.string.lista_empieza, hora)
+    val hora = Servir.formato(tarjeta.hora)
+    val descripcion = stringResource(R.string.tarjeta_minutos, minutos) + ", " + textoHora(tarjeta)
     Column(
         modifier.padding(vertical = Espacio.m).clearAndSetSemantics { contentDescription = descripcion },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -125,6 +125,20 @@ private fun BloqueTiempo(
         )
         Text(
             stringResource(R.string.lista_min),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        val palabra =
+            if (tarjeta.modoHora ==
+                HoraTarjeta.ACABAR
+            ) {
+                R.string.lista_acabas_corto
+            } else {
+                R.string.lista_empieza_corto
+            }
+        Text(
+            stringResource(palabra),
+            modifier = Modifier.padding(top = Espacio.xs),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -191,7 +205,7 @@ private fun CuerpoFranja(
 ) {
     val tiempo =
         stringResource(R.string.tarjeta_minutos, Escalado.minutos(tarjeta.receta.totalEfectivo)) +
-            SEPARADOR + stringResource(R.string.lista_empieza, Servir.formato(tarjeta.inicio))
+            SEPARADOR + textoHora(tarjeta)
     Column(modifier.padding(start = Espacio.m, bottom = Espacio.m)) {
         TituloConEstrella(tarjeta, onFavorita, MaterialTheme.typography.titleMedium)
         Column(Modifier.padding(end = Espacio.m)) {
@@ -252,6 +266,7 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
     val inicio =
         listOfNotNull(
             stringResource(R.string.tarjeta_minutos, Escalado.minutos(tarjeta.receta.totalEfectivo)),
+            textoHora(tarjeta),
             textoFuegos(tarjeta),
         ).joinToString(SEPARADOR)
     val hace = tarjeta.hace.texto()
@@ -273,6 +288,14 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
 }
 
 // ---- Piezas comunes ----
+
+/** «empieza 14:43» o «acabas 16:02», según el modo elegido en Ajustes. */
+@Composable
+private fun textoHora(tarjeta: TarjetaReceta): String =
+    stringResource(
+        if (tarjeta.modoHora == HoraTarjeta.ACABAR) R.string.lista_acabas else R.string.lista_empieza,
+        Servir.formato(tarjeta.hora),
+    )
 
 @Composable
 private fun TituloConEstrella(

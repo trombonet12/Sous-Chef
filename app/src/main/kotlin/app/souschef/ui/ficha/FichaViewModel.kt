@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.souschef.di.ApplicationScope
+import app.souschef.domain.AjustesRepo
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.TecnicasRepo
@@ -29,11 +30,13 @@ const val DEBOUNCE_RACIONES_MS = 600L
 /** Lo que el usuario ha tocado en esta ficha y aún no vive en la base de datos. */
 private data class Local(
     val raciones: Int? = null,
-    val servirMin: Int = Servir.DEFECTO,
+    /** Hora de servir solo para esta vez; null = la de Ajustes. */
+    val servirMin: Int? = null,
 )
 
 @HiltViewModel
 class FichaViewModel
+    @Suppress("LongParameterList")
     @Inject
     constructor(
         savedStateHandle: SavedStateHandle,
@@ -41,6 +44,7 @@ class FichaViewModel
         tecnicas: TecnicasRepo,
         private val preferencias: PreferenciasRepo,
         private val cadena: CadenaAlarmas,
+        ajustes: AjustesRepo,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private var pendiente: Int? = null
@@ -54,14 +58,14 @@ class FichaViewModel
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
                 cadena.viva(slug),
-                local,
-            ) { receta, pref, existentes, viva, l ->
+                combine(local, ajustes.observar()) { l, a -> l to a.servirMin },
+            ) { receta, pref, existentes, viva, (l, servirDefecto) ->
                 val raciones = l.raciones ?: pref?.raciones ?: receta?.raciones ?: 2
                 FichaUiState(
                     cargando = false,
                     receta = receta,
                     raciones = raciones,
-                    servirMin = l.servirMin,
+                    servirMin = l.servirMin ?: servirDefecto,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                 )
@@ -99,6 +103,6 @@ class FichaViewModel
         }
 
         fun ajustarServir(delta: Int) {
-            local.update { it.copy(servirMin = Servir.ajustar(it.servirMin, delta)) }
+            local.update { it.copy(servirMin = Servir.ajustar(it.servirMin ?: estado.value.servirMin, delta)) }
         }
     }

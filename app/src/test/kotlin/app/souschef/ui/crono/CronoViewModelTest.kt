@@ -96,6 +96,14 @@ class CronoViewModelTest {
     }
 
     @Test
+    fun sinHoraEnLaRutaUsaLaHoraDeServirDeAjustes() =
+        prueba {
+            ajustes.actual.value = ajustes.actual.value.copy(servirMin = 12 * 60 + 45)
+            crear(servir = "")
+            assertEquals(T0 + 45 * 60_000L, guardado().servirMs)
+        }
+
+    @Test
     fun alEntrarCreaYPersisteLaPortadaConLasRacionesYLaHoraDeServir() =
         prueba {
             val vm = crear(raciones = 4)

@@ -27,12 +27,14 @@ import app.souschef.ui.Rutas
 import app.souschef.ui.crono.voz.ControlVoz
 import app.souschef.ui.crono.voz.MandosVoz
 import app.souschef.ui.crono.voz.planVoz
+import app.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -107,7 +109,7 @@ class CronoViewModel
     ) : ViewModel() {
         private val slug: String = checkNotNull(savedStateHandle.get<String>(Rutas.ARG_SLUG))
         private val racionesRuta: Int = savedStateHandle.get<Int>(Rutas.ARG_RACIONES) ?: 0
-        private val servirRuta: String = savedStateHandle.get<String>(Rutas.ARG_SERVIR) ?: Rutas.SERVIR_DEFECTO
+        private val servirRuta: String = savedStateHandle.get<String>(Rutas.ARG_SERVIR).orEmpty()
         private val zona: ZoneId = ZoneId.systemDefault()
 
         private val _ui = MutableStateFlow(CronoUi())
@@ -172,10 +174,12 @@ class CronoViewModel
             val ahora = reloj.ahoraMs()
             val guardado = SesionCrono.vigente(cadena.almacen.leer(slug), receta, ahora)
             val raciones = if (racionesRuta > 0) racionesRuta else receta.raciones
+            // Sin hora en la ruta (p. ej. desde la notificación), la de Ajustes.
+            val servir = servirRuta.ifBlank { Servir.formato(ajustes.observar().first().servirMin) }
             val estado =
                 when {
                     guardado == null -> {
-                        SesionCrono.inicial(receta, servirDeHoy(servirRuta, ahora, zona), ahora, raciones)
+                        SesionCrono.inicial(receta, servirDeHoy(servir, ahora, zona), ahora, raciones)
                     }
 
                     // Cocinada en marcha: se reanuda tal cual, sin pisarla con la hora de la ficha.
@@ -186,7 +190,7 @@ class CronoViewModel
                     else -> {
                         guardado.copy(
                             raciones = raciones,
-                            servirMs = servirDeHoy(servirRuta, ahora, zona),
+                            servirMs = servirDeHoy(servir, ahora, zona),
                             actualizadoMs = ahora,
                         )
                     }

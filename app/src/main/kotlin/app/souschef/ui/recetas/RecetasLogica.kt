@@ -1,6 +1,7 @@
 package app.souschef.ui.recetas
 
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.Preferencia
 import app.souschef.receta.Gantt
@@ -9,6 +10,7 @@ import app.souschef.ui.comun.normalizado
 import app.souschef.ui.ficha.Servir
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import kotlin.math.ceil
 
 enum class UnidadHace { SIN_ESTRENAR, HOY, AYER, DIAS, SEMANAS, MESES, ANOS }
 
@@ -56,9 +58,25 @@ data class TarjetaReceta(
     val hace: Hace,
     val familia: FamiliaBase = FamiliaBase.de(receta.tags.base),
     val conHorno: Boolean = false,
-    /** Hora de empezar para servir a la hora por defecto, en minutos del día. */
-    val inicio: Int = Servir.inicio(Servir.DEFECTO, receta),
+    /** Minutos del día: cuándo empezar (EMPEZAR) o cuándo acabas si empiezas ya (ACABAR). */
+    val hora: Int = Servir.inicio(Servir.DEFECTO, receta),
+    val modoHora: HoraTarjeta = HoraTarjeta.EMPEZAR,
 )
+
+/** Cuándo se mira la lista y qué hora enseña cada tarjeta. */
+data class ContextoLista(
+    val hoy: LocalDate,
+    /** Hora actual en minutos del día, en la zona del móvil. */
+    val ahoraMin: Int = 0,
+    val servirMin: Int = Servir.DEFECTO,
+    val modo: HoraTarjeta = HoraTarjeta.EMPEZAR,
+) {
+    fun hora(r: Receta): Int =
+        when (modo) {
+            HoraTarjeta.EMPEZAR -> Servir.inicio(servirMin, r)
+            HoraTarjeta.ACABAR -> Servir.ajustar(ahoraMin, ceil(r.totalEfectivo).toInt())
+        }
+}
 
 /** Un chip de la hoja con cuántas recetas quedarían si se marcara (con el resto de filtros puestos). */
 data class ChipFiltro(
@@ -139,14 +157,14 @@ fun construirEstadoRecetas(
     preferencias: Map<String, Preferencia>,
     ultimasFechas: Map<String, String>,
     filtro: FiltroRecetas,
-    hoy: LocalDate,
+    contexto: ContextoLista,
 ): RecetasUiState {
     val porTexto =
         recetas.filter { coincideTexto(it, filtro.consulta) }.map { r ->
             val fecha = ultimasFechas[r.slug]
             val favorita = preferencias[r.slug]?.favorito == true
             val fuegos = Gantt.fuegos(r)
-            val hace = Hace.de(fecha, hoy)
+            val hace = Hace.de(fecha, contexto.hoy)
             val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
             val tarjeta =
                 TarjetaReceta(
@@ -157,6 +175,8 @@ fun construirEstadoRecetas(
                     hace = hace,
                     familia = rasgos.familia,
                     conHorno = EquipoReceta.CON_HORNO in rasgos.equipo,
+                    hora = contexto.hora(r),
+                    modoHora = contexto.modo,
                 )
             tarjeta to rasgos
         }

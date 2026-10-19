@@ -1,13 +1,14 @@
 package app.souschef.ui.ficha
 
+import app.souschef.domain.SERVIR_DEFECTO_MIN
 import app.souschef.receta.Receta
 import app.souschef.receta.Tecnica
 import java.util.Locale
 import kotlin.math.ceil
 
-/** Hora de servir en minutos desde medianoche (no se recuerda entre fichas). */
+/** Hora de servir en minutos desde medianoche; la de partida es la de Ajustes (`Ajustes.servirMin`). */
 object Servir {
-    const val DEFECTO = 15 * 60 + 30
+    const val DEFECTO = SERVIR_DEFECTO_MIN
     const val PASO = 15
     private const val DIA = 24 * 60
 

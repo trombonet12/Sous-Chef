@@ -6,8 +6,10 @@ import app.souschef.domain.CronoEstado
 import app.souschef.domain.CronoEstadoRepo
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.Reloj
+import app.souschef.domain.TemaApp
 import app.souschef.domain.crono.AlarmaSistema
 import app.souschef.domain.crono.CarrilNotificacion
 import app.souschef.domain.crono.Notificador
@@ -80,6 +82,18 @@ class FakeAjustesRepo : AjustesRepo {
 
     override suspend fun fijarOrden(o: OrdenRecetas) {
         actual.value = actual.value.copy(orden = o)
+    }
+
+    override suspend fun fijarTema(t: TemaApp) {
+        actual.value = actual.value.copy(tema = t)
+    }
+
+    override suspend fun fijarServir(minutos: Int) {
+        actual.value = actual.value.copy(servirMin = minutos)
+    }
+
+    override suspend fun fijarHoraTarjeta(h: HoraTarjeta) {
+        actual.value = actual.value.copy(horaTarjeta = h)
     }
 }
 

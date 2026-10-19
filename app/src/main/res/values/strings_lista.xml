@@ -4,4 +4,7 @@
     <string name="lista_min">min</string>
     <string name="lista_horno">horno</string>
     <string name="lista_empieza">empieza %1$s</string>
+    <string name="lista_acabas">acabas %1$s</string>
+    <string name="lista_empieza_corto">empieza</string>
+    <string name="lista_acabas_corto">acabas</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.receta.Carril
 import app.souschef.receta.Paso
 import app.souschef.receta.Receta
@@ -39,7 +40,7 @@ class TarjetasListaTest {
             ultimaFecha = "2026-09-01",
             hace = Hace(UnidadHace.MESES, 1),
             conHorno = true,
-            inicio = 13 * 60 + 19,
+            hora = 13 * 60 + 19,
         )
 
     private fun pintar(
@@ -82,12 +83,12 @@ class TarjetasListaTest {
     }
 
     @Test
-    fun `clasica conserva el pie de siempre`() {
+    fun `clasica conserva su pie con la hora de empezar`() {
         val banco = pintar(DisposicionLista.CLASICA)
         val textos = banco.todosLosTextos()
         assertTrue(textos.contains("Lasaña de carne"))
         assertTrue(textos.contains(lasana.descripcion))
-        assertTrue(textos.contains("47 min · 2 fuegos · hace 1 mes"))
+        assertTrue(textos.contains("47 min · empieza 13:19 · 2 fuegos · hace 1 mes"))
         assertTrue(banco.descripciones().contains("Marcar Lasaña de carne como favorita"))
     }
 
@@ -122,5 +123,13 @@ class TarjetasListaTest {
         assertEquals("Arroz · huevo", baseYProteina(Tags(base = "arroz", proteina = "huevo")))
         assertEquals("Pollo", baseYProteina(Tags(base = null, proteina = "pollo")))
         assertEquals("", baseYProteina(Tags()))
+    }
+
+    @Test
+    fun `en modo acabas la franja dice acabas`() {
+        val banco = BancoCompose()
+        val acabas = tarjeta.copy(hora = 16 * 60 + 2, modoHora = HoraTarjeta.ACABAR)
+        banco.poner { MaterialTheme { TarjetaLista(acabas, DisposicionLista.FRANJA, {}, {}) } }
+        assertTrue(banco.todosLosTextos().contains("47 min · acabas 16:02"))
     }
 }

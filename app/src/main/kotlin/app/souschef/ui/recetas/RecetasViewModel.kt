@@ -2,21 +2,30 @@ package app.souschef.ui.recetas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.souschef.domain.Ajustes
 import app.souschef.domain.AjustesRepo
 import app.souschef.domain.HistorialRepo
+import app.souschef.domain.HoraTarjeta
 import app.souschef.domain.OrdenRecetas
 import app.souschef.domain.PreferenciasRepo
 import app.souschef.domain.RecetasRepo
 import app.souschef.domain.Reloj
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
+import java.time.ZoneId
 import java.time.ZoneOffset
 import javax.inject.Inject
 
@@ -42,10 +51,49 @@ class RecetasViewModel
                 preferencias.observarTodas(),
                 historial.observarUltimaFechaPorSlug(),
                 filtro,
-                ajustes.observar(),
-            ) { r, p, h, f, a ->
-                construirEstadoRecetas(r, p, h, f.copy(orden = a.orden), hoy()).copy(disposicion = a.lista)
+                ajustesYHora(),
+            ) { r, p, h, f, (a, ahoraMs) ->
+                construirEstadoRecetas(
+                    r,
+                    p,
+                    h,
+                    f.copy(orden = a.orden),
+                    contexto(a, ahoraMs),
+                ).copy(disposicion = a.lista)
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
+
+        /**
+         * Los ajustes con la hora actual. Solo en el modo «acabas» hace falta que la hora avance: entonces emite al
+         * cambiar cada minuto; en el otro, una vez.
+         */
+        @OptIn(ExperimentalCoroutinesApi::class)
+        private fun ajustesYHora(): Flow<Pair<Ajustes, Long>> =
+            ajustes.observar().flatMapLatest { a ->
+                if (a.horaTarjeta == HoraTarjeta.ACABAR) {
+                    flow {
+                        while (true) {
+                            val ahora = reloj.ahoraMs()
+                            emit(a to ahora)
+                            delay(MS_MINUTO - ahora.mod(MS_MINUTO))
+                        }
+                    }
+                } else {
+                    flowOf(a to reloj.ahoraMs())
+                }
+            }
+
+        private fun contexto(
+            a: Ajustes,
+            ahoraMs: Long,
+        ): ContextoLista {
+            val local = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault())
+            return ContextoLista(
+                hoy = Instant.ofEpochMilli(ahoraMs).atZone(ZoneOffset.UTC).toLocalDate(),
+                ahoraMin = local.hour * MIN_HORA + local.minute,
+                servirMin = a.servirMin,
+                modo = a.horaTarjeta,
+            )
+        }
 
         fun buscar(texto: String) {
             filtro.update { it.copy(consulta = texto) }
@@ -70,5 +118,8 @@ class RecetasViewModel
             viewModelScope.launch { preferencias.fijarFavorito(slug, favorita) }
         }
 
-        private fun hoy() = Instant.ofEpochMilli(reloj.ahoraMs()).atZone(ZoneOffset.UTC).toLocalDate()
+        private companion object {
+            const val MS_MINUTO = 60_000L
+            const val MIN_HORA = 60
+        }
     }

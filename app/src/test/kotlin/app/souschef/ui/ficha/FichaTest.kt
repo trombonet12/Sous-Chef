@@ -12,6 +12,7 @@ import app.souschef.ui.FakePreferenciasRepo
 import app.souschef.ui.FakeRecetasRepo
 import app.souschef.ui.FakeTecnicasRepo
 import app.souschef.ui.Rutas
+import app.souschef.ui.crono.FakeAjustesRepo
 import app.souschef.ui.crono.FakeAlarmaSistema
 import app.souschef.ui.crono.FakeCronoEstadoRepo
 import app.souschef.ui.crono.FakeNotificador
@@ -85,6 +86,7 @@ class FichaViewModelTest {
     private val reloj = RelojFalso()
     private val almacen = AlmacenCrono(repoCrono)
     private val cadena = CadenaAlarmas(almacen, recetas, reloj, FakeAlarmaSistema(), FakeNotificador())
+    private val ajustes = FakeAjustesRepo()
 
     private fun TestScope.crear(): FichaViewModel {
         val vm =
@@ -94,6 +96,7 @@ class FichaViewModelTest {
                 FakeTecnicasRepo(listOf(Tecnica("plancha", "A la plancha"))),
                 prefs,
                 cadena,
+                ajustes,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -112,6 +115,20 @@ class FichaViewModelTest {
                 vm.estado.value.tecnicas
                     .map { it.slug },
             )
+        }
+
+    @Test
+    fun laHoraDeServirParteDeAjustesYElMasMenosNoLosToca() =
+        runTest(UnconfinedTestDispatcher()) {
+            ajustes.actual.value = ajustes.actual.value.copy(servirMin = 14 * 60)
+            val vm = crear()
+            assertEquals("14:00", Servir.formato(vm.estado.value.servirMin))
+            // Sin tocar la ficha, sigue al ajuste.
+            ajustes.actual.value = ajustes.actual.value.copy(servirMin = 13 * 60)
+            assertEquals("13:00", Servir.formato(vm.estado.value.servirMin))
+            vm.ajustarServir(Servir.PASO)
+            assertEquals("13:15", Servir.formato(vm.estado.value.servirMin))
+            assertEquals(13 * 60, ajustes.actual.value.servirMin)
         }
 
     @Test

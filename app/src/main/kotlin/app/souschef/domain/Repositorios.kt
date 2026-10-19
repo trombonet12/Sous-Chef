@@ -60,6 +60,13 @@ interface AjustesRepo {
     suspend fun fijarLista(d: DisposicionLista)
 
     suspend fun fijarOrden(o: OrdenRecetas)
+
+    suspend fun fijarTema(t: TemaApp)
+
+    /** [minutos] del día, 0..1439. */
+    suspend fun fijarServir(minutos: Int)
+
+    suspend fun fijarHoraTarjeta(h: HoraTarjeta)
 }
 
 interface CronoEstadoRepo {

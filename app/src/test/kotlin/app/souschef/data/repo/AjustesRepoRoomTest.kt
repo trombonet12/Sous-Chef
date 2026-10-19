@@ -7,7 +7,9 @@ import app.souschef.data.db.SousChefDatabase
 import app.souschef.domain.Ajustes
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
 import app.souschef.domain.OrdenRecetas
+import app.souschef.domain.TemaApp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -61,6 +63,9 @@ class AjustesRepoRoomTest {
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_VOZ, "quizá"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_LISTA, "mosaico"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_ORDEN, "aleatorio"))
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_TEMA, "sepia"))
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_SERVIR, "25:99"))
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_HORA, "manana"))
             assertEquals(Ajustes(), repo.observar().first())
         }
 
@@ -73,5 +78,20 @@ class AjustesRepoRoomTest {
             assertEquals(DisposicionLista.FRANJA, a.lista)
             assertEquals(OrdenRecetas.RAPIDA, a.orden)
             assertEquals(DisposicionCrono.APILADA, a.disposicion)
+        }
+
+    @Test
+    fun temaHoraDeServirYHoraDeLasTarjetas() =
+        runBlocking {
+            assertEquals(TemaApp.AUTOMATICO, repo.observar().first().tema)
+            assertEquals(15 * 60 + 30, repo.observar().first().servirMin)
+            repo.fijarTema(TemaApp.OSCURO)
+            repo.fijarServir(14 * 60 + 15)
+            repo.fijarHoraTarjeta(HoraTarjeta.ACABAR)
+            val a = repo.observar().first()
+            assertEquals(TemaApp.OSCURO, a.tema)
+            assertEquals(14 * 60 + 15, a.servirMin)
+            assertEquals(HoraTarjeta.ACABAR, a.horaTarjeta)
+            assertEquals("14:15", db.metaDao().valor(AjustesRepoRoom.CLAVE_SERVIR))
         }
 }
