@@ -3,6 +3,8 @@ package app.souschef.ui.ajustes
 import app.souschef.domain.Ajustes
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
+import app.souschef.domain.TemaApp
 import app.souschef.domain.copia.ArchivoCopia
 import app.souschef.domain.copia.GestorCopia
 import app.souschef.ui.FakeHistorialRepo
@@ -43,6 +45,36 @@ class AjustesViewModelTest {
 
             vm.elegirLista(DisposicionLista.CLASICA)
             assertEquals(DisposicionLista.CLASICA, vm.estado.value.lista)
+        }
+
+    @Test
+    fun elegirTemaYHoraTarjetaSeGuardan() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            vm.elegirTema(TemaApp.OSCURO)
+            vm.elegirHoraTarjeta(HoraTarjeta.ACABAR)
+
+            assertEquals(TemaApp.OSCURO, vm.estado.value.tema)
+            assertEquals(HoraTarjeta.ACABAR, vm.estado.value.horaTarjeta)
+        }
+
+    @Test
+    fun ajustarServirMueveDeQuinceEnQuinceYDaLaVueltaAMedianoche() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+            assertEquals(15 * 60 + 30, vm.estado.value.servirMin)
+
+            vm.ajustarServir(15)
+            assertEquals(15 * 60 + 45, vm.estado.value.servirMin)
+
+            // 15:45 - 63 pasos de 15 min (15 h 45 min) = 00:00; un paso más vuelve a 23:45.
+            vm.ajustarServir(-15 * 63)
+            assertEquals(0, vm.estado.value.servirMin)
+            vm.ajustarServir(-15)
+            assertEquals(23 * 60 + 45, vm.estado.value.servirMin)
         }
 
     private fun copiasSinArchivos() =

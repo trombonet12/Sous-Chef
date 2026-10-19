@@ -9,6 +9,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import app.souschef.R
+import app.souschef.ui.ajustes.AjustesAparienciaScreen
+import app.souschef.ui.ajustes.AjustesCronoScreen
+import app.souschef.ui.ajustes.AjustesHistorialScreen
+import app.souschef.ui.ajustes.AjustesHorarioScreen
 import app.souschef.ui.ajustes.AjustesScreen
 import app.souschef.ui.crono.CronoScreen
 import app.souschef.ui.ficha.FichaScreen
@@ -41,7 +45,13 @@ fun SousChefNavGraph(
                 onCocinar = { raciones, servir -> navController.navigate(Rutas.crono(slug, raciones, servir)) },
             )
         }
-        composable(Rutas.AJUSTES) { AjustesScreen(onAtras = { navController.popBackStack() }) }
+        composable(Rutas.AJUSTES) {
+            AjustesScreen(onAtras = { navController.popBackStack() }, onAbrir = { navController.navigate(it) })
+        }
+        composable(Rutas.AJUSTES_APARIENCIA) { AjustesAparienciaScreen(onAtras = { navController.popBackStack() }) }
+        composable(Rutas.AJUSTES_HORARIO) { AjustesHorarioScreen(onAtras = { navController.popBackStack() }) }
+        composable(Rutas.AJUSTES_CRONO) { AjustesCronoScreen(onAtras = { navController.popBackStack() }) }
+        composable(Rutas.AJUSTES_HISTORIAL) { AjustesHistorialScreen(onAtras = { navController.popBackStack() }) }
         composable(Rutas.TECNICA, arguments = listOf(ARG_SLUG)) {
             TecnicaScreen(onAtras = { navController.popBackStack() }, onReceta = abrirFicha)
         }
@@ -56,7 +66,7 @@ fun SousChefNavGraph(
                     },
                     navArgument(Rutas.ARG_SERVIR) {
                         type = NavType.StringType
-                        defaultValue = Rutas.SERVIR_DEFECTO
+                        defaultValue = ""
                     },
                 ),
             deepLinks = listOf(navDeepLink { uriPattern = "souschef://crono/{${Rutas.ARG_SLUG}}" }),

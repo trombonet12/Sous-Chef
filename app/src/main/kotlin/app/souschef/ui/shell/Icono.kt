@@ -70,6 +70,12 @@ enum class Icono(
         "M19 18h1",
         "M17 20a2 2 0 1 0 0-4a2 2 0 0 0 0 4z",
     ),
+
+    /** Chevron a la derecha: fila que abre otra pantalla. */
+    Chevron("M9 5l7 7-7 7"),
+
+    /** Círculo medio relleno: apariencia (claro/oscuro). */
+    Apariencia("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "F:M12 3a9 9 0 0 1 0 18z"),
     ;
 
     val vector: ImageVector by lazy {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menú de Ajustes -->
+    <string name="ajustes_apariencia">Apariencia</string>
+    <string name="ajustes_horario">Horario</string>
+    <string name="ajustes_version">Sous Chef %1$s</string>
+    <string name="ajustes_resumen_apariencia">Tema %1$s · lista %2$s</string>
+    <string name="ajustes_resumen_horario_empezar">Servir a las %1$s · cuándo empezar</string>
+    <string name="ajustes_resumen_horario_acabar">Servir a las %1$s · si empiezas ya</string>
+    <string name="ajustes_resumen_crono">%1$s · voz %2$s</string>
+    <string name="ajustes_resumen_historial">Guardar o cargar una copia</string>
+    <string name="ajustes_resumen_apilada">Apilada</string>
+    <string name="ajustes_resumen_foco">Foco</string>
+    <string name="ajustes_resumen_clasica">Clásica</string>
+    <string name="ajustes_resumen_voz_activada">activada</string>
+    <string name="ajustes_resumen_voz_desactivada">desactivada</string>
+
+    <!-- Apariencia -->
+    <string name="ajustes_tema">Tema</string>
+    <string name="ajustes_tema_automatico">Automático</string>
+    <string name="ajustes_tema_automatico_detalle">Sigue el tema del sistema: claro de día y oscuro si el móvil lo está.</string>
+    <string name="ajustes_tema_claro">Claro</string>
+    <string name="ajustes_tema_claro_detalle">Siempre sobre papel claro.</string>
+    <string name="ajustes_tema_oscuro">Oscuro</string>
+    <string name="ajustes_tema_oscuro_detalle">Siempre oscuro, para cocinar de noche. La ficha sigue siendo de papel y el cronómetro oscuro.</string>
+
+    <!-- Horario -->
+    <string name="ajustes_servir_titulo">Hora de servir por defecto</string>
+    <string name="ajustes_servir_nota">La ficha y el cronómetro empiezan con esta hora; en la ficha la puedes cambiar solo para esa vez.</string>
+    <string name="ajustes_tarjetas_titulo">Hora en las tarjetas de la lista</string>
+    <string name="ajustes_tarjeta_empezar">Cuándo empezar</string>
+    <string name="ajustes_tarjeta_empezar_detalle">Empieza a las %1$s para servir a las %2$s</string>
+    <string name="ajustes_tarjeta_acabar">Si empiezas ya</string>
+    <string name="ajustes_tarjeta_acabar_detalle">Acabas a las %1$s (ahora + lo que dura)</string>
+</resources>

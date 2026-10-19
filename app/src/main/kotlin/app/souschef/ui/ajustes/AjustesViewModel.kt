@@ -6,8 +6,11 @@ import app.souschef.domain.Ajustes
 import app.souschef.domain.AjustesRepo
 import app.souschef.domain.DisposicionCrono
 import app.souschef.domain.DisposicionLista
+import app.souschef.domain.HoraTarjeta
+import app.souschef.domain.TemaApp
 import app.souschef.domain.copia.GestorCopia
 import app.souschef.domain.copia.ResultadoCopia
+import app.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -50,5 +53,18 @@ class AjustesViewModel
 
         fun elegirLista(d: DisposicionLista) {
             viewModelScope.launch { ajustes.fijarLista(d) }
+        }
+
+        fun elegirTema(t: TemaApp) {
+            viewModelScope.launch { ajustes.fijarTema(t) }
+        }
+
+        /** Mueve la hora de servir por defecto [delta] minutos (con vuelta a medianoche). */
+        fun ajustarServir(delta: Int) {
+            viewModelScope.launch { ajustes.fijarServir(Servir.ajustar(estado.value.servirMin, delta)) }
+        }
+
+        fun elegirHoraTarjeta(h: HoraTarjeta) {
+            viewModelScope.launch { ajustes.fijarHoraTarjeta(h) }
         }
     }
