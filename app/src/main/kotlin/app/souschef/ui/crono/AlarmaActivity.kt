@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,11 +30,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.souschef.MainActivity
 import app.souschef.R
+import app.souschef.domain.Ajustes
+import app.souschef.domain.AjustesRepo
 import app.souschef.domain.crono.CadenaAlarmas
 import app.souschef.ui.theme.CronoPalette
-import app.souschef.ui.theme.DarkColors
+import app.souschef.ui.theme.SousChefTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +57,9 @@ class AlarmaActivity : ComponentActivity() {
     @Inject
     lateinit var cadena: CadenaAlarmas
 
+    @Inject
+    lateinit var ajustesRepo: AjustesRepo
+
     private var datos by mutableStateOf<DatosAlarma?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +70,8 @@ class AlarmaActivity : ComponentActivity() {
         }
         datos = leer(intent)
         setContent {
-            MaterialTheme(colorScheme = DarkColors) {
+            val ajustes by ajustesRepo.observar().collectAsStateWithLifecycle(initialValue = Ajustes())
+            SousChefTheme(darkTheme = ajustes.tema.oscuro(isSystemInDarkTheme())) {
                 Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
                     datos?.let { d -> PantallaAlarma(d, ::parar, ::hechoYSiguiente, ::abrirCocina) }
                 }

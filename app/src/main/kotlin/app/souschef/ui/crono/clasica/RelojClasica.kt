@@ -93,15 +93,17 @@ private fun BarraProgreso(
 ) {
     val fraccion = progreso(paso.segundos, quedan)
     val hitos = paso.hitosValidos
+    val pista = CronoPalette.linea
+    val marca = CronoPalette.texto
     Canvas(Modifier.fillMaxWidth().height(14.dp)) {
         val alto = size.height
-        drawRoundRect(CronoPalette.linea, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
+        drawRoundRect(pista, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
         if (fraccion > 0f) {
             drawRoundRect(color, size = Size(size.width * fraccion, alto), cornerRadius = CornerRadius(alto / 2))
         }
         hitos.forEach {
             val x = size.width * (it.en / paso.segundos).toFloat()
-            drawLine(CronoPalette.texto, Offset(x, 0f), Offset(x, alto), strokeWidth = 2.dp.toPx())
+            drawLine(marca, Offset(x, 0f), Offset(x, alto), strokeWidth = 2.dp.toPx())
         }
     }
 }

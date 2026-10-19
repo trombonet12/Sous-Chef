@@ -52,6 +52,7 @@ import app.souschef.ui.comun.textoRico
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
 import app.souschef.ui.theme.LocalFonts
+import app.souschef.ui.theme.colorCarrilTexto
 import kotlin.math.roundToInt
 
 /** Tarjeta completa de un carril: título, reloj con hitos, METO/SACO, nota y acción principal. Sin scroll. */
@@ -115,7 +116,7 @@ private fun FilaTitulo(
             Text(
                 v.nombre,
                 Modifier.weight(1f, fill = false),
-                color = color,
+                color = colorCarrilTexto(color),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,

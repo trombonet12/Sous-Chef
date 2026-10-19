@@ -71,6 +71,9 @@ internal fun BarraProgreso(
     v: VistaCarril,
     color: Color,
 ) {
+    val pista = CronoPalette.linea
+    val marcaAvisada = CronoPalette.tenue
+    val marcaPendiente = CronoPalette.texto
     Canvas(
         Modifier
             .fillMaxWidth()
@@ -78,13 +81,13 @@ internal fun BarraProgreso(
             .semantics { progressBarRangeInfo = ProgressBarRangeInfo(v.progreso, 0f..1f) },
     ) {
         val alto = size.height
-        drawRoundRect(CronoPalette.linea, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
+        drawRoundRect(pista, size = Size(size.width, alto), cornerRadius = CornerRadius(alto / 2))
         if (v.progreso > 0f) {
             drawRoundRect(color, size = Size(size.width * v.progreso, alto), cornerRadius = CornerRadius(alto / 2))
         }
         v.hitos.forEach {
             val x = size.width * it.fraccion
-            val marca = if (it.avisado) CronoPalette.tenue else CronoPalette.texto
+            val marca = if (it.avisado) marcaAvisada else marcaPendiente
             drawLine(marca, Offset(x, 0f), Offset(x, alto), strokeWidth = 2.dp.toPx())
         }
     }

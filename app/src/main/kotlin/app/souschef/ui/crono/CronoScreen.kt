@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -26,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -38,9 +38,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.souschef.R
 import app.souschef.ui.comun.EstadoVacio
 import app.souschef.ui.theme.CronoPalette
-import app.souschef.ui.theme.DarkColors
 
-/** Cronómetro de una receta: portada, cocina y cierre. Siempre oscuro y con la pantalla encendida. */
+/** Cronómetro de una receta: portada, cocina y cierre. Sigue el tema de la app y mantiene la pantalla encendida. */
 @Composable
 fun CronoScreen(
     onSalir: () -> Unit,
@@ -49,7 +48,7 @@ fun CronoScreen(
 ) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     MantenerPantallaEncendida()
-    BarraDeEstadoClara()
+    BarraDeEstadoDelCrono()
     EncenderPantallaConAvisos()
     val snackbar = remember { SnackbarHostState() }
     val mensajeGuardado = stringResource(R.string.crono_guardado)
@@ -63,13 +62,11 @@ fun CronoScreen(
     AvisarAlSalirDeLaVista(viewModel)
     val pedirMicrofono = permisoDeMicrofono(ui.voz, viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
-    MaterialTheme(colorScheme = DarkColors, typography = MaterialTheme.typography, shapes = MaterialTheme.shapes) {
-        Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
-            Box(Modifier.fillMaxSize()) {
-                Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
-                SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
-                ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
-            }
+    Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
+        Box(Modifier.fillMaxSize()) {
+            Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+            ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
         }
     }
 }
@@ -184,15 +181,16 @@ internal tailrec fun Context.actividad(): Activity? =
         else -> null
     }
 
-/** El crono es oscuro: iconos claros en la barra de estado mientras se ve y se restaura el ajuste al salir. */
+/** Iconos de la barra de estado acordes al tema del crono mientras se ve; se restaura el ajuste al salir. */
 @Composable
-private fun BarraDeEstadoClara() {
+private fun BarraDeEstadoDelCrono() {
     val vista = LocalView.current
     val actividad = LocalContext.current.actividad()
-    DisposableEffect(actividad) {
+    val fondoClaro = CronoPalette.fondo.luminance() > 0.5f
+    DisposableEffect(actividad, fondoClaro) {
         val control = actividad?.window?.let { WindowCompat.getInsetsController(it, vista) }
         val previo = control?.isAppearanceLightStatusBars
-        control?.isAppearanceLightStatusBars = false
+        control?.isAppearanceLightStatusBars = fondoClaro
         onDispose { if (previo != null) control.isAppearanceLightStatusBars = previo }
     }
 }

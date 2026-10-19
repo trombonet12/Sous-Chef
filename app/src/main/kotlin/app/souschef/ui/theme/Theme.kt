@@ -29,7 +29,10 @@ fun SousChefTheme(
 ) {
     val fonts = remember { SousChefFonts() }
     val typography = remember(fonts) { sousChefTypography(fonts) }
-    CompositionLocalProvider(LocalFonts provides fonts) {
+    CompositionLocalProvider(
+        LocalFonts provides fonts,
+        LocalColoresCrono provides if (darkTheme) CronoOscuro else CronoClaro,
+    ) {
         MaterialTheme(
             colorScheme = if (darkTheme) DarkColors else LightColors,
             typography = typography,

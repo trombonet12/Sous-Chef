@@ -25,6 +25,7 @@ import app.souschef.receta.TipoCarril
 import app.souschef.ui.comun.colorCarril
 import app.souschef.ui.comun.textoRico
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 
 /** "Ver el porqué": el paso completo y enlaces a las técnicas de la receta. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +54,7 @@ fun PorqueSheet(
             Text(
                 "${carril.nombre} · ${minutosPaso(paso)}",
                 style = MaterialTheme.typography.labelLarge,
-                color = colorCarril(carril.color),
+                color = colorCarrilTexto(colorCarril(carril.color)),
             )
             Text(paso.t, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             paso.p?.takeIf { it.isNotBlank() }?.let { Text(textoRico(it), style = MaterialTheme.typography.bodyLarge) }

@@ -51,6 +51,7 @@ import app.souschef.ui.crono.requisitos
 import app.souschef.ui.crono.textoDesvio
 import app.souschef.ui.crono.vistasCarriles
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 
 private const val SEGMENTOS_POTENCIA = 9
 
@@ -65,6 +66,7 @@ internal fun PanelCarril(
 ) {
     val paso = datos.paso(carril.id)
     val color = datos.color(carril.id)
+    val colorTexto = colorCarrilTexto(color)
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -95,7 +97,7 @@ internal fun PanelCarril(
                     }
                 },
                 style = MaterialTheme.typography.labelLarge,
-                color = color,
+                color = colorTexto,
             )
             Text(paso.t, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             if (carril.tipoCarril == TipoCarril.FUEGO) BloqueFuego(paso, color)
@@ -139,7 +141,7 @@ private fun BloqueFuego(
             "$potencia",
             fontSize = 56.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = if (potencia == 0) CronoPalette.tenue else color,
+            color = if (potencia == 0) CronoPalette.tenue else colorCarrilTexto(color),
         )
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -282,7 +284,7 @@ private fun FilaParalela(
     ) {
         Text(
             datos.nombre(fila.carril),
-            color = datos.color(fila.carril),
+            color = colorCarrilTexto(datos.color(fila.carril)),
             fontWeight = FontWeight.Bold,
             fontSize = 12.sp,
         )

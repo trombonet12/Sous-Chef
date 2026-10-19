@@ -2,6 +2,9 @@ package app.souschef.ui.theme
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 // Tokens de la app vieja (docs/spec/app-legado.md §6). Papel, tinta y cuatro acentos: ámbar, azul, oliva, teja.
@@ -89,26 +92,83 @@ object FichaPalette {
     val linea = Color(0xFFD5CDB9)
 }
 
-/** El cronómetro es oscuro siempre: se mira de reojo en la encimera. */
-object CronoPalette {
-    val fondo = Color(0xFF0D0C0A)
-    val carta = Color(0xFF1C1915)
-    val carta2 = Color(0xFF272219)
-    val linea = Color(0xFF3A342C)
-    val texto = Color(0xFFF4F1E8)
-    val apagado = Color(0xFFB0A899)
-    val tenue = Color(0xFF948B7C)
-    val meto = Color(0xFF9ACB68)
-    val saco = Color(0xFFEE9B79)
-    val tapa = Color(0xFFE8836B)
-    val alerta = Color(0xFFFF6B52)
-    val ok = Color(0xFF8FC97A)
-    val acento = Color(0xFFF0AE4A)
-    val bordeOk = Color(0xFF3E5A34)
-    val bordeMal = Color(0xFF5C2318)
-    val parpadeo = Color(0xFF33140F)
-    val principal = Color(0xFFF4F1E8)
-    val onPrincipal = Color(0xFF0D0C0A)
-    val urgente = Color(0xFFFF6B52)
-    val onUrgente = Color(0xFF2A0A05)
-}
+/** Colores del cronómetro: siguen el tema de la app (claro u oscuro). Se leen con [CronoPalette]. */
+data class ColoresCrono(
+    val fondo: Color,
+    val carta: Color,
+    val carta2: Color,
+    val linea: Color,
+    val texto: Color,
+    val apagado: Color,
+    val tenue: Color,
+    val meto: Color,
+    val saco: Color,
+    val tapa: Color,
+    val alerta: Color,
+    val ok: Color,
+    val acento: Color,
+    val bordeOk: Color,
+    val bordeMal: Color,
+    val parpadeo: Color,
+    val principal: Color,
+    val onPrincipal: Color,
+    val urgente: Color,
+    val onUrgente: Color,
+)
+
+val CronoOscuro =
+    ColoresCrono(
+        fondo = Color(0xFF0D0C0A),
+        carta = Color(0xFF1C1915),
+        carta2 = Color(0xFF272219),
+        linea = Color(0xFF3A342C),
+        texto = Color(0xFFF4F1E8),
+        apagado = Color(0xFFB0A899),
+        tenue = Color(0xFF948B7C),
+        meto = Color(0xFF9ACB68),
+        saco = Color(0xFFEE9B79),
+        tapa = Color(0xFFE8836B),
+        alerta = Color(0xFFFF6B52),
+        ok = Color(0xFF8FC97A),
+        acento = Color(0xFFF0AE4A),
+        bordeOk = Color(0xFF3E5A34),
+        bordeMal = Color(0xFF5C2318),
+        parpadeo = Color(0xFF33140F),
+        principal = Color(0xFFF4F1E8),
+        onPrincipal = Color(0xFF0D0C0A),
+        urgente = Color(0xFFFF6B52),
+        onUrgente = Color(0xFF2A0A05),
+    )
+
+/** Sobre el papel de la app; los acentos van oscurecidos para llegar a 4,5:1 sobre la carta (#FBFAF6). */
+val CronoClaro =
+    ColoresCrono(
+        fondo = Color(0xFFEFEDE3),
+        carta = Color(0xFFFBFAF6),
+        carta2 = Color(0xFFF1EEE4),
+        linea = Color(0xFFD6D5C6),
+        texto = Color(0xFF191A14),
+        apagado = Color(0xFF4A4C40),
+        tenue = Color(0xFF6E6A5C),
+        meto = Color(0xFF3F6B1A),
+        saco = Color(0xFFA0471F),
+        tapa = Color(0xFFA8391F),
+        alerta = Color(0xFFB3301A),
+        ok = Color(0xFF2F6B22),
+        acento = Color(0xFF8C5A04),
+        bordeOk = Color(0xFFC9DCB8),
+        bordeMal = Color(0xFFEBC3B6),
+        parpadeo = Color(0xFFF6D9D0),
+        principal = Color(0xFF191A14),
+        onPrincipal = Color(0xFFFBFAF6),
+        urgente = Color(0xFFB3301A),
+        onUrgente = Color(0xFFFBFAF6),
+    )
+
+val LocalColoresCrono = staticCompositionLocalOf { CronoOscuro }
+
+/** Paleta del cronómetro según el tema en uso; las llamadas `CronoPalette.x` en código composable no cambian. */
+val CronoPalette: ColoresCrono
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColoresCrono.current

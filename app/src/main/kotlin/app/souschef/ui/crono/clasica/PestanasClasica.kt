@@ -39,6 +39,7 @@ import app.souschef.ui.crono.progreso
 import app.souschef.ui.crono.recursoTapa
 import app.souschef.ui.crono.requisitos
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 
 /** Pestañas de recipientes: nombre, reloj, paso y fuego/tapa. La activa lleva borde y fondo de su color. */
 @Composable
@@ -87,7 +88,12 @@ private fun Pestana(
             .clickable(onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 8.dp),
     ) {
-        Text(carril.nombre, color = color, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+        Text(
+            carril.nombre,
+            color = colorCarrilTexto(color, sobre = fondo),
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+        )
         Text(
             relojPestana(datos, carril.id, vista.clase),
             style = MaterialTheme.typography.titleMedium.merge(Tabular),

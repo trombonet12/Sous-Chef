@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.domain.DisposicionCrono
+import app.souschef.ui.theme.ColoresCrono
 import app.souschef.ui.theme.CronoPalette
 
 /** Ancho mínimo por tarjeta para ponerlas en fila; si no caben, van una debajo de otra con la miniatura al lado. */
@@ -181,28 +182,29 @@ private fun TarjetaOpcion(
     }
 }
 
-/** Esquema de la pantalla de cocina con la paleta oscura del cronómetro, en proporción de móvil. */
+/** Esquema de la pantalla de cocina con la paleta del cronómetro en el tema en uso, en proporción de móvil. */
 @Composable
 private fun Miniatura(
     disposicion: DisposicionCrono,
     modifier: Modifier,
 ) {
+    val p = CronoPalette
     Canvas(
         modifier
             .aspectRatio(PROPORCION)
             .clip(RoundedCornerShape(8.dp))
-            .border(1.dp, CronoPalette.linea, RoundedCornerShape(8.dp))
+            .border(1.dp, p.linea, RoundedCornerShape(8.dp))
             .clearAndSetSemantics {},
     ) {
-        drawRect(CronoPalette.fondo)
+        drawRect(p.fondo)
         val m = size.width * 0.06f
         // Cabecera: servir y llegada.
-        caja(Offset(m, m), Size(size.width - 2 * m, size.height * 0.06f), CronoPalette.carta2)
+        caja(Offset(m, m), Size(size.width - 2 * m, size.height * 0.06f), p.carta2)
         val arriba = m * 2 + size.height * 0.06f
         when (disposicion) {
-            DisposicionCrono.APILADA -> apilada(arriba, m)
-            DisposicionCrono.FOCO -> foco(arriba, m)
-            DisposicionCrono.CLASICA -> clasica(arriba, m)
+            DisposicionCrono.APILADA -> apilada(p, arriba, m)
+            DisposicionCrono.FOCO -> foco(p, arriba, m)
+            DisposicionCrono.CLASICA -> clasica(p, arriba, m)
         }
     }
 }
@@ -215,76 +217,80 @@ private fun DrawScope.caja(
 
 /** Tarjeta de carril: franja de color, título, reloj y barra. */
 private fun DrawScope.tarjeta(
+    p: ColoresCrono,
     origen: Offset,
     tamano: Size,
     color: Color,
     reloj: Float,
 ) {
-    caja(origen, tamano, CronoPalette.carta)
-    val p = tamano.width * 0.08f
-    drawRect(color, origen + Offset(p, p), Size(tamano.width * 0.04f, tamano.height * 0.16f))
-    caja(origen + Offset(p * 2, p), Size(tamano.width * 0.5f, tamano.height * 0.1f), CronoPalette.apagado)
+    caja(origen, tamano, p.carta)
+    val pad = tamano.width * 0.08f
+    drawRect(color, origen + Offset(pad, pad), Size(tamano.width * 0.04f, tamano.height * 0.16f))
+    caja(origen + Offset(pad * 2, pad), Size(tamano.width * 0.5f, tamano.height * 0.1f), p.apagado)
     val altoReloj = tamano.height * reloj
     caja(
         origen + Offset(tamano.width * 0.2f, (tamano.height - altoReloj) / 2),
         Size(tamano.width * 0.6f, altoReloj),
-        CronoPalette.texto,
+        p.texto,
     )
     caja(
-        origen + Offset(p, tamano.height - p * 1.6f),
-        Size((tamano.width - 2 * p) * 0.6f, p * 0.6f),
+        origen + Offset(pad, tamano.height - pad * 1.6f),
+        Size((tamano.width - 2 * pad) * 0.6f, pad * 0.6f),
         color,
     )
 }
 
 private fun DrawScope.apilada(
+    p: ColoresCrono,
     arriba: Float,
     m: Float,
 ) {
     val alto = (size.height - arriba - m * 4) / 3
     COLORES_MUESTRA.forEachIndexed { i, c ->
-        tarjeta(Offset(m, arriba + i * (alto + m)), Size(size.width - 2 * m, alto), c, reloj = 0.22f)
+        tarjeta(p, Offset(m, arriba + i * (alto + m)), Size(size.width - 2 * m, alto), c, reloj = 0.22f)
     }
 }
 
 private fun DrawScope.foco(
+    p: ColoresCrono,
     arriba: Float,
     m: Float,
 ) {
     val fila = size.height * 0.09f
     val grande = size.height - arriba - m * 4 - fila * 2
-    tarjeta(Offset(m, arriba), Size(size.width - 2 * m, grande), COLORES_MUESTRA[0], reloj = 0.16f)
+    tarjeta(p, Offset(m, arriba), Size(size.width - 2 * m, grande), COLORES_MUESTRA[0], reloj = 0.16f)
     COLORES_MUESTRA.drop(1).forEachIndexed { i, c ->
         val y = arriba + grande + m + i * (fila + m)
-        caja(Offset(m, y), Size(size.width - 2 * m, fila), CronoPalette.carta)
+        caja(Offset(m, y), Size(size.width - 2 * m, fila), p.carta)
         drawRect(c, Offset(m * 1.6f, y + fila * 0.2f), Size(size.width * 0.03f, fila * 0.6f))
     }
 }
 
 private fun DrawScope.clasica(
+    p: ColoresCrono,
     arriba: Float,
     m: Float,
 ) {
     // Plan plegable.
     val plan = size.height * 0.05f
-    caja(Offset(m, arriba), Size(size.width - 2 * m, plan), CronoPalette.carta)
+    caja(Offset(m, arriba), Size(size.width - 2 * m, plan), p.carta)
     // Pestañas de recipientes.
     val yPest = arriba + plan + m
     val altoPest = size.height * 0.09f
     val anchoPest = (size.width - 2 * m - 2 * m * 0.6f) / 3
     COLORES_MUESTRA.forEachIndexed { i, c ->
         val x = m + i * (anchoPest + m * 0.6f)
-        caja(Offset(x, yPest), Size(anchoPest, altoPest), if (i == 0) c.copy(alpha = 0.35f) else CronoPalette.carta)
+        caja(Offset(x, yPest), Size(anchoPest, altoPest), if (i == 0) c.copy(alpha = 0.35f) else p.carta)
     }
     // Panel del recipiente: título, reloj grande y líneas de texto (con scroll).
     val yPanel = yPest + altoPest + m
     val altoBotones = size.height * 0.08f
     val altoPanel = size.height - yPanel - altoBotones - m * 2
-    caja(Offset(m, yPanel + m), Size(size.width * 0.55f, altoPanel * 0.06f), CronoPalette.apagado)
+    caja(Offset(m, yPanel + m), Size(size.width * 0.55f, altoPanel * 0.06f), p.apagado)
     caja(
         Offset(size.width * 0.2f, yPanel + altoPanel * 0.2f),
         Size(size.width * 0.6f, altoPanel * 0.18f),
-        CronoPalette.texto,
+        p.texto,
     )
     caja(Offset(m, yPanel + altoPanel * 0.46f), Size(size.width - 2 * m, altoPanel * 0.04f), COLORES_MUESTRA[0])
     repeat(4) { i ->
@@ -303,9 +309,9 @@ private fun DrawScope.clasica(
                 ),
                 altoPanel * 0.04f,
             ),
-            CronoPalette.linea,
+            p.linea,
         )
     }
     // Mandos abajo.
-    caja(Offset(m, size.height - altoBotones - m), Size(size.width - 2 * m, altoBotones), CronoPalette.principal)
+    caja(Offset(m, size.height - altoBotones - m), Size(size.width - 2 * m, altoBotones), p.principal)
 }

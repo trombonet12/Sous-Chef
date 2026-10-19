@@ -10,6 +10,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -140,6 +141,8 @@ internal fun ChipTapa(v: VistaCarril) {
     Chip(stringResource(recurso), if (resaltada) CronoPalette.tapa else CronoPalette.apagado)
 }
 
+@Composable
+@ReadOnlyComposable
 internal fun VistaCarril.colorReloj(): Color = if (quedanS < 0) CronoPalette.alerta else CronoPalette.texto
 
 /** Línea "METO  …" o "SACO  …": etiqueta de color en negrita y texto con negritas ligeras. */

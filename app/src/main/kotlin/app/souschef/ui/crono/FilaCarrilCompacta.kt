@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import app.souschef.R
 import app.souschef.ui.comun.Tabular
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 
 private val ALTO_FILA = 64.dp
 
@@ -65,7 +66,7 @@ fun FilaCarrilCompacta(
                 Text(
                     v.nombre,
                     Modifier.weight(1f, fill = false),
-                    color = color,
+                    color = colorCarrilTexto(color),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,

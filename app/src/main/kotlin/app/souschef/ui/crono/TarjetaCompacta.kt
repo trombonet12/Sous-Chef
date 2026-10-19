@@ -27,6 +27,7 @@ import app.souschef.R
 import app.souschef.ui.comun.Tabular
 import app.souschef.ui.comun.textoRico
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 import kotlin.math.roundToInt
 
 private val NOMBRE_MAX = 110.dp
@@ -100,7 +101,7 @@ private fun CabeceraCompacta(
         Text(
             v.nombre,
             Modifier.widthIn(max = NOMBRE_MAX),
-            color = color,
+            color = colorCarrilTexto(color),
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold,
             maxLines = 1,

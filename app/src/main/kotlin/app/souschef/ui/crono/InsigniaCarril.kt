@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.souschef.R
 import app.souschef.ui.comun.Tabular
-import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.CronoOscuro
 
 /** Círculo con el número del carril (1-based, el mismo que dice la voz: «del 2»), con el color del carril. */
 @Composable
@@ -40,7 +40,7 @@ fun InsigniaCarril(
     ) {
         Text(
             (v.indiceCarril + 1).toString(),
-            color = CronoPalette.fondo,
+            color = CronoOscuro.fondo,
             fontSize = 14.sp,
             fontWeight = FontWeight.ExtraBold,
             style = Tabular,

@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -62,6 +63,7 @@ import app.souschef.ui.crono.recursoTapa
 import app.souschef.ui.crono.requisitos
 import app.souschef.ui.shell.Icono
 import app.souschef.ui.theme.CronoPalette
+import app.souschef.ui.theme.colorCarrilTexto
 
 private const val CHIP_ALFA = 0.18f
 
@@ -224,7 +226,7 @@ private fun FilaPlan(
                 .clip(RoundedCornerShape(50))
                 .background(color.copy(alpha = CHIP_ALFA))
                 .padding(horizontal = 8.dp, vertical = 4.dp),
-            color = color,
+            color = colorCarrilTexto(color, sobre = color.copy(alpha = CHIP_ALFA).compositeOver(CronoPalette.carta)),
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
