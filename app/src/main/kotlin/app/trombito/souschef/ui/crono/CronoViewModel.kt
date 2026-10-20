@@ -87,6 +87,10 @@ data class CronoUi(
     val voz: EstadoVoz = EstadoVoz.APAGADA,
     /** El usuario ha silenciado la voz en esta cocinada (no se guarda). */
     val vozSilenciada: Boolean = false,
+    /**
+     * La guía de la primera cocinada ya se vio (Ajustes). Parte de true para que no parpadee antes de leer el ajuste.
+     */
+    val guiaVista: Boolean = true,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -160,7 +164,9 @@ class CronoViewModel
             viewModelScope.launch {
                 ajustes.observar().collect { a ->
                     vozActiva = a.vozActiva
-                    _ui.update { conCocinaDe(it, a.cocina).copy(disposicion = a.disposicion) }
+                    _ui.update {
+                        conCocinaDe(it, a.cocina).copy(disposicion = a.disposicion, guiaVista = a.guiaCronoVista)
+                    }
                     reevaluarVoz()
                 }
             }
@@ -375,6 +381,12 @@ class CronoViewModel
         /** La misma preferencia que en Ajustes: la cocina se repinta con la nueva disposición sin reiniciarse. */
         fun elegirDisposicion(d: DisposicionCrono) {
             viewModelScope.launch { ajustes.fijarDisposicion(d) }
+        }
+
+        /** La guía de la cocina se acabó o se saltó: no vuelve a salir hasta que Ajustes la repita. */
+        fun marcarGuiaVista() {
+            _ui.update { it.copy(guiaVista = true) }
+            viewModelScope.launch { ajustes.marcarGuiaCronoVista(true) }
         }
 
         fun cambiarServir(deltaMin: Int) =

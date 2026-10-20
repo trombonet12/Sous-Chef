@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.LocalFonts
@@ -68,6 +70,7 @@ fun TarjetaCarril(
     BoxWithConstraints(
         modifier
             .testTag("tarjeta-${v.id}")
+            .guia(GuiaIds.CARRIL)
             .clip(forma)
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
             .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
@@ -144,11 +147,15 @@ internal fun MandosSecundarios(
     when (v.accion) {
         AccionCarril.PAUSAR, AccionCarril.HECHO -> {
             BotonSecundario(stringResource(R.string.crono_pausa), compacto) { acciones.alternar(v.id) }
-            BotonSecundario(stringResource(R.string.crono_mas_30), compacto) { acciones.masTreinta(v.id) }
+            BotonSecundario(stringResource(R.string.crono_mas_30), compacto, Modifier.guia(GuiaIds.PRORROGA)) {
+                acciones.masTreinta(v.id)
+            }
         }
 
         AccionCarril.SEGUIR -> {
-            BotonSecundario(stringResource(R.string.crono_mas_30), compacto) { acciones.masTreinta(v.id) }
+            BotonSecundario(stringResource(R.string.crono_mas_30), compacto, Modifier.guia(GuiaIds.PRORROGA)) {
+                acciones.masTreinta(v.id)
+            }
         }
 
         AccionCarril.BLOQUEADO -> {
@@ -169,7 +176,10 @@ internal fun BotonDeshacer(
     acciones: AccionesCarril,
 ) {
     if (!v.puedeDeshacer) return
-    IconButton(onClick = { acciones.deshacer(v.id) }, Modifier.size(40.dp).testTag("deshacer-${v.id}")) {
+    IconButton(
+        onClick = { acciones.deshacer(v.id) },
+        Modifier.size(40.dp).testTag("deshacer-${v.id}").guia(GuiaIds.DESHACER),
+    ) {
         Icon(
             Icono.Deshacer.vector,
             stringResource(R.string.crono_deshacer_paso, v.deshacerA.orEmpty()),
@@ -183,11 +193,12 @@ internal fun BotonDeshacer(
 private fun BotonSecundario(
     texto: String,
     compacto: Boolean,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = Modifier.heightIn(min = 48.dp).padding(start = if (compacto) 4.dp else 6.dp),
+        modifier = modifier.heightIn(min = 48.dp).padding(start = if (compacto) 4.dp else 6.dp),
         contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 10.dp, vertical = 2.dp),
         border = BorderStroke(1.dp, CronoPalette.linea),
     ) {

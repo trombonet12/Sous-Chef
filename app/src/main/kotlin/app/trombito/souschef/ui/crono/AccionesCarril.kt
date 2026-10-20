@@ -29,6 +29,8 @@ import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.theme.CronoPalette
 
 /**
@@ -76,10 +78,17 @@ internal fun BotonAccion(
 ) {
     val bloqueado = v.accion == AccionCarril.BLOQUEADO
     val tipografia = MaterialTheme.typography
+    // Solo el botón que dice «Hecho» es el punto de la guía.
+    val diceHecho = v.accion == AccionCarril.PAUSAR || v.accion == AccionCarril.HECHO
+    val puntoGuia = if (diceHecho) Modifier.guia(GuiaIds.HECHO) else Modifier
     Button(
         onClick = { acciones.principal(v) },
         enabled = !bloqueado,
-        modifier = modifier.heightIn(min = 48.dp).testTag("accion-${v.id}"),
+        modifier =
+            modifier
+                .heightIn(min = 48.dp)
+                .testTag("accion-${v.id}")
+                .then(puntoGuia),
         contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 20.dp, vertical = 4.dp),
         colors =
             ButtonDefaults.buttonColors(

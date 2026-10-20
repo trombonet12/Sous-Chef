@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import app.trombito.souschef.R
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 
@@ -83,7 +85,7 @@ internal fun BotonMicrofono(
             escuchando -> R.string.crono_voz_silenciar
             else -> R.string.crono_voz_activar
         }
-    IconButton(onClick = if (sinPermiso) pedirPermiso else silenciar, Modifier.size(48.dp)) {
+    IconButton(onClick = if (sinPermiso) pedirPermiso else silenciar, Modifier.size(48.dp).guia(GuiaIds.MICRO)) {
         Icon(
             if (escuchando) Icono.Microfono.vector else Icono.MicrofonoMudo.vector,
             stringResource(descripcion),

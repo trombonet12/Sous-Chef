@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Guía de la primera cocinada: superposición que explica los controles reales del cronómetro. -->
+<resources>
+    <string name="guia_aviso_reloj">El reloj ya corre; esto dura 20 segundos.</string>
+    <string name="guia_progreso">%1$d de %2$d</string>
+    <string name="guia_siguiente">Siguiente</string>
+    <string name="guia_a_cocinar">¡A cocinar!</string>
+    <string name="guia_saltar">Saltar guía</string>
+
+    <string name="guia_carril_titulo">Un recipiente por tarjeta</string>
+    <string name="guia_carril_texto">Cada tarjeta es un recipiente: qué hacer ahora, la potencia, la tapa y cuánto falta.</string>
+    <string name="guia_hecho_titulo">Hecho</string>
+    <string name="guia_hecho_texto">Toca Hecho al terminar el paso: el siguiente arranca y se recalcula la hora.</string>
+    <string name="guia_prorroga_titulo">Más tiempo</string>
+    <string name="guia_prorroga_texto">¿Va lento? +30 s alarga el paso sin perder el plan.</string>
+    <string name="guia_deshacer_titulo">Deshacer</string>
+    <string name="guia_deshacer_texto">Si tocaste Hecho por error, deshazlo aquí.</string>
+    <string name="guia_micro_titulo">Con la voz</string>
+    <string name="guia_micro_texto">Con las manos sucias, habla: “qué tengo que hacer”, “siguiente”, “un minuto más”.</string>
+    <string name="guia_menu_titulo">Más opciones</string>
+    <string name="guia_menu_texto">Aquí están el diagrama de tiempos, la interfaz y abandonar la cocinada.</string>
+
+    <string name="ajustes_guia_repetir">Repetir la guía de la cocina</string>
+    <string name="ajustes_guia_repetir_detalle">Vuelve a explicar los controles del cronómetro.</string>
+    <string name="ajustes_guia_repetida">Saldrá la próxima vez que abras la cocina.</string>
+</resources>

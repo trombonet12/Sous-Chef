@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.core.view.WindowCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -39,6 +40,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.LocalCocina
+import app.trombito.souschef.ui.crono.guia.GuiaCocina
+import app.trombito.souschef.ui.crono.guia.GuiaEstado
+import app.trombito.souschef.ui.crono.guia.LocalGuia
+import app.trombito.souschef.ui.crono.guia.mostrarGuia
 import app.trombito.souschef.ui.theme.CronoPalette
 
 /** Cronómetro de una receta: portada, cocina y cierre. Sigue el tema de la app y mantiene la pantalla encendida. */
@@ -64,16 +69,30 @@ fun CronoScreen(
     AvisarAlSalirDeLaVista(viewModel)
     val pedirMicrofono = permisoDeMicrofono(ui.voz, viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
-    CompositionLocalProvider(LocalCocina provides ui.cocina) {
+    val guia = remember { GuiaEstado() }
+    // La guía sale al entrar en la cocina (no en la portada) si aún no se vio; mientras sale, TalkBack solo ve
+    // el globo.
+    val guiaActiva = mostrarGuia(ui) && guia.ids().isNotEmpty()
+    CompositionLocalProvider(LocalCocina provides ui.cocina, LocalGuia provides guia) {
         Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
             Box(Modifier.fillMaxSize()) {
-                Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
+                val contenido = if (guiaActiva) Modifier.clearAndSetSemantics {} else Modifier
+                Box(contenido.fillMaxSize()) { Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono) }
+                if (mostrarGuia(ui)) GuiaCocina(guia, viewModel::marcarGuiaVista)
                 SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
                 ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
             }
         }
     }
 }
+
+/** La cocina en marcha está en pantalla (no la portada, el cierre ni los mensajes). */
+internal fun enCocina(ui: CronoUi): Boolean =
+    !ui.cargando &&
+        ui.receta?.pasos?.isNotEmpty() == true &&
+        ui.estado?.inicioMs != null &&
+        !ui.cierrePendiente &&
+        ui.resumen == null
 
 @Composable
 private fun Contenido(

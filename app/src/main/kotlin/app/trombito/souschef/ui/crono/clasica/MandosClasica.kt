@@ -24,6 +24,8 @@ import app.trombito.souschef.ui.crono.DatosCrono
 import app.trombito.souschef.ui.crono.PorqueSheet
 import app.trombito.souschef.ui.crono.formatoHora
 import app.trombito.souschef.ui.crono.formatoReloj
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.crono.minutosPaso
 import app.trombito.souschef.ui.crono.progreso
 import app.trombito.souschef.ui.crono.recursoTapa
@@ -81,7 +83,7 @@ internal fun MandosCarril(
                     }
                 BotonSecundario(stringResource(etiqueta), Modifier.weight(1f)) { acciones.alternar(carril.id) }
             }
-            BotonSecundario(stringResource(R.string.crono_mas_30), Modifier.weight(1f)) {
+            BotonSecundario(stringResource(R.string.crono_mas_30), Modifier.weight(1f).guia(GuiaIds.PRORROGA)) {
                 acciones.masTreinta(carril.id)
             }
             BotonDeshacerClasico(datos, carril, acciones)
@@ -111,7 +113,7 @@ private fun BotonHecho(
     val ultimo = (datos.ec(carril)?.i ?: 0) >= datos.cola(carril).lastIndex
     Button(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).guia(GuiaIds.HECHO),
         colors =
             ButtonDefaults.buttonColors(
                 containerColor = if (vencido) CronoPalette.urgente else CronoPalette.principal,

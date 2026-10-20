@@ -1,9 +1,11 @@
 package app.trombito.souschef.ui.ajustes
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -28,7 +31,13 @@ fun AjustesCronoScreen(
     viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    AjustesCrono(ajustes, onAtras, viewModel::elegirDisposicion, viewModel::activarVoz)
+    AjustesCrono(
+        ajustes,
+        onAtras,
+        viewModel::elegirDisposicion,
+        viewModel::activarVoz,
+        onRepetirGuia = { viewModel.marcarGuiaCronoVista(false) },
+    )
 }
 
 @Composable
@@ -37,6 +46,7 @@ internal fun AjustesCrono(
     onAtras: () -> Unit,
     onDisposicion: (DisposicionCrono) -> Unit,
     onVoz: (Boolean) -> Unit,
+    onRepetirGuia: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_crono), onAtras) {
         SelectorDisposicion(ajustes.disposicion, onDisposicion)
@@ -58,6 +68,30 @@ internal fun AjustesCrono(
             }
             Switch(checked = ajustes.vozActiva, onCheckedChange = null)
         }
+        FilaRepetirGuia(ajustes.guiaCronoVista, onRepetirGuia)
+    }
+}
+
+/** «Repetir la guía de la cocina»: la deja sin ver; mientras está pendiente, la fila lo confirma. */
+@Composable
+internal fun FilaRepetirGuia(
+    vista: Boolean,
+    onRepetir: () -> Unit,
+) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .testTag("ajustes-repetir-guia")
+            .clickable(role = Role.Button, onClick = onRepetir)
+            .padding(vertical = 8.dp),
+    ) {
+        Text(stringResource(R.string.ajustes_guia_repetir), style = MaterialTheme.typography.titleMedium)
+        Text(
+            stringResource(if (vista) R.string.ajustes_guia_repetir_detalle else R.string.ajustes_guia_repetida),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

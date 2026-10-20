@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import app.trombito.souschef.ui.crono.AccionesCarril
 import app.trombito.souschef.ui.crono.DatosCrono
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 
 /**
  * Disposición CLÁSICA, el cronómetro de antes de la v0.6: plan plegable, pestañas de recipientes, un panel por
@@ -41,7 +43,8 @@ internal fun CronoClasico(
     Column(modifier.testTag("crono-clasico")) {
         PlanPlegable(datos, acciones)
         PestanasCarriles(datos, indiceFoco, acciones.enfocar)
-        HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { datos.carriles[it].id }) { pagina ->
+        val zonaPaneles = Modifier.weight(1f).fillMaxWidth().guia(GuiaIds.CARRIL)
+        HorizontalPager(pager, zonaPaneles, key = { datos.carriles[it].id }) { pagina ->
             PanelCarril(datos, datos.carriles[pagina], tecnicas, onTecnica, acciones.enfocar)
         }
         datos.carriles.getOrNull(indiceFoco)?.let { MandosCarril(datos, it, acciones) }

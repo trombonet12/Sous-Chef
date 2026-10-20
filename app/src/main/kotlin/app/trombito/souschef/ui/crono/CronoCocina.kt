@@ -34,6 +34,8 @@ import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.ui.ajustes.SelectorDisposicion
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.crono.clasica.CronoClasico
+import app.trombito.souschef.ui.crono.guia.GuiaIds
+import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 
@@ -257,7 +259,7 @@ private fun MenuCocina(
 ) {
     var abierto by remember { mutableStateOf(false) }
     Box {
-        IconButton({ abierto = true }, Modifier.size(BOTON_CABECERA)) {
+        IconButton({ abierto = true }, Modifier.size(BOTON_CABECERA).guia(GuiaIds.MENU)) {
             Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
         }
         DropdownMenu(abierto, { abierto = false }, containerColor = CronoPalette.carta2) {
