@@ -1,13 +1,13 @@
 # Perfil de Joan
 
-> Propósito: lo que Claude debe saber de Joan, su cocina y cómo quiere trabajar · Audiencia: Claude Code · Actualizado: 2026-10-13 · Relacionado: docs/cocina/reglas.md
+> Propósito: lo que Claude debe saber de Joan, su cocina y cómo quiere trabajar · Audiencia: Claude Code · Actualizado: 2026-10-20 · Relacionado: docs/cocina/reglas.md
 
 ## Quién es
 - Joan López Ferrer, vive en Sant Joan (Mallorca).
 - Proyecto personal de cocina en español: recetas concretas con ejecución cronometrada, para 2 raciones, con poco desperdicio.
 
 ## Su cocina
-- Vitrocerámica con tres fuegos: grande, mediano y pequeño. Escala de potencia 0-9.
+- Vitrocerámica con tres fuegos: grande, mediano y pequeño. Escala de potencia 0-9, que es la canónica de diseño de las recetas (la app la traduce a la cocina de cada usuario, ADR-0014).
 - Tres sartenes con tapa y una plancha. La plancha y la sartén más grande solo encajan en el fuego grande, así que no pueden trabajar a la vez.
 - Una sartén de saltear más honda, que encaja en el fuego mediano.
 - Una sola bandeja de horno. Horno y microondas.

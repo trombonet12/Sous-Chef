@@ -19,7 +19,7 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
 
 ## Pasos
 1. `scripts/sc validar --estricto <slug>` para ver el estado de partida.
-2. Lee la receta entera y repasa contra las reglas: vetos, equivalencias caseras, un corte por ingrediente con medida, potencia y tapa por paso, ingredientes en `mep` con cantidad y minuto, hitos o `sinHitos` en tramos de 6 min o más, `saco` en el último paso, `p` argumentado, aritmética de `totalMin`, `s` = `min`·60, ingredientes en despensa o `compra`.
+2. Lee la receta entera y repasa contra las reglas: vetos, equivalencias caseras, un corte por ingrediente con medida, potencia y tapa por paso, ingredientes en `mep` con cantidad y minuto, hitos o `sinHitos` en tramos de 6 min o más, `saco` en el último paso, `p` argumentado, aritmética de `totalMin`, `s` = `min`·60, ingredientes en despensa o `compra`. Comprueba además que toda potencia del texto (`t`, `nota`, `p`, `lectura`, hitos) va marcada como `{N}` (`scripts/sc potencias <slug>` sin candidatos; R27) y que `escala` es coherente con `notaEscala` (R26).
 3. **Separa los hallazgos en dos grupos:**
    - **Correcciones objetivas** (incumplen una regla o el esquema, sin cambiar el plato): aplícalas directamente en el JSON.
    - **Cambios de plato** (sustituir ingrediente, cambiar potencia o tiempo con efecto en el resultado, quitar o añadir algo): no los apliques. Anótalos como propuesta en `docs/revision-recetas.md` (crea el archivo si no existe) con receta, qué cambiaría, por qué y qué efecto tiene en el plato.

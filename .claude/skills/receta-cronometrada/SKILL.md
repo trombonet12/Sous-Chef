@@ -25,16 +25,17 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 3. **Repeticiones:** mira `data/recetas/` (si el plato existe, corrige en vez de duplicar) y el historial en `data/legado/historial.json` o pregúntaselo a Joan: no repitas base ni técnica dos platos seguidos.
 4. **Diseña** (ver abajo y `references/`) con los campos que mueven el cronómetro: `carril`, `s`, `off`, `f`, `tapa`, `dep`, `junto`, `meto`/`saco`, `nota`, `hitos`/`sinHitos` y `mep`. No hay `compra` por receta: lo que falte se añade antes a la semilla; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** (`docs/cocina/sugerencias-compra.md`).
 5. Escribe `data/recetas/<slug>.json` y ejecuta `scripts/sc formatear <slug>`.
-6. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Comprueba tú la aritmética además.
-7. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, reglas 9 y 22).
-8. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
-9. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `version.properties`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y push a main: el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
-10. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
+6. `scripts/sc potencias <slug>` debe dar **0 candidatos**: toda potencia del texto va como `{N}`. Los dudosos se revisan a mano (ADR-0014).
+7. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Incluye R27 (potencia sin marcar) y R26 (`escala`: decide el rango de raciones en el que el plan vale sin cambiar pasos, tandas ni recipientes). Comprueba tú la aritmética además.
+8. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, `escala` coherente con `notaEscala`, reglas 9 y 22).
+9. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
+10. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `version.properties`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y push a main: el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
+11. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
 
 ## Errores típicos
 - Todo ingrediente aparece en `mep`, también los opcionales (maicena) y los condimentos (soja).
 - Los títulos de corte llevan tamaño en mm/cm («en dados de 1 cm»).
-- La potencia nueva se escribe como número en el texto del paso (`t`, `nota` o `p`): «baja al 3».
+- La potencia nueva se escribe marcada en el texto del paso (`t`, `nota` o `p`): «baja al {3}», «del {4} al {5}». Nunca un número suelto.
 - `p` de 120 caracteres o más, con el porqué físico.
 - Cantidades en g/ml con equivalencia de andar por casa; nada de «al gusto».
 
@@ -50,7 +51,7 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 - Hitos, `sinHitos` y cuándo partir un paso: `references/potencias.md`.
 - Tiempos, paralelismo, holgura, escalado de raciones, máx. 3 fuegos: `references/planificacion.md`.
 - Recipientes, vaso medidor, tabla, `mep` completo: `references/mise-en-place.md`.
-- Potencias 0-9 y la inercia de la vitro: `references/potencias.md`.
+- Potencias 0-9 (escala canónica), marcado `{N}` y la inercia de la vitro: `references/potencias.md`.
 - **Lo que hace la app y no escribes:** horas de reloj, avisos de solape («Mientras esto corre»), recuperación de retrasos (`holgura`), marcado y pitidos de hitos, historial, favorito y raciones elegidas.
 
 ## Tono

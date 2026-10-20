@@ -1,13 +1,13 @@
 # Reglas de cocina
 
-> Propósito: reglas fijas de cocina del proyecto (vetos, raciones, potencias, tapa, completitud, compra, estilo) · Audiencia: Claude Code y Joan · Actualizado: 2026-10-13
+> Propósito: reglas fijas de cocina del proyecto (vetos, raciones, potencias, tapa, completitud, compra, estilo) · Audiencia: Claude Code y Joan · Actualizado: 2026-10-20
 
 ## Resumen
 Este proyecto cubre recetas concretas con su ejecución cronometrada. Nada más. El repo (`data/recetas/`) manda; las recetas viajan en el APK (publicar = `sc validar --estricto` + release del APK) y la app nunca edita recetas. Esquema y comprobaciones: `esquema-receta.md`. Quién es Joan y cómo trabaja: `perfil.md`.
 
 ## Datos fijos
-- **Raciones: 2 por defecto.** Si no se dice nada, son 2. Hay recetas que van a 4 o a 6 a propósito (tarta, macarrones, arroz a la cubana): está decidido y justificado en su `notaEscala`, no es un descuido.
-- **Fuegos: vitrocerámica**, potencia 0-9, **3 fuegos utilizables a la vez como máximo**. Horno y microondas disponibles.
+- **Raciones: 2 por defecto.** Si no se dice nada, son 2. Hay recetas que van a 4 o a 6 a propósito (tarta, macarrones, arroz a la cubana): está decidido y justificado en su `notaEscala`, no es un descuido. Cada receta declara su rango de raciones en `escala {min, max, paso}` (el plan vale sin cambiar pasos); el defecto global de la app (1-6) se ajusta a ese rango.
+- **Fuegos: vitrocerámica**, potencia 0-9, **3 fuegos utilizables a la vez como máximo**. Horno y microondas disponibles. Es la cocina de Joan y la escala de diseño de las recetas; la app traduce a la cocina de cada usuario (ADR-0014).
 - **Hora de servir por defecto: 15:30.** La receta habla en minutos relativos (minuto 0 = coges el cuchillo); la app calcula el reloj desde la hora que se ponga al abrir el cronómetro.
 - **Despensa:** la semilla `data/despensa-semilla.md` (interna: la app no la muestra desde la v1.0), más lo que Joan diga que tiene. Se da por disponible sin preguntar; no se propone nada que dependa de algo que no esté ahí.
 
@@ -27,7 +27,7 @@ No sustituyas un veto por un primo cercano sin decirlo: si una receta clásica l
 - Tras los gramos o mililitros, la **equivalencia de andar por casa** entre paréntesis: «250 g (2 cebollas medianas)», «40 ml (3 cucharadas soperas)», «3 g (5 vueltas del bote de agujeros)». Los gramos mandan; el paréntesis es para cocinar sin báscula. Va en los ingredientes y en cada línea del mise en place.
 - Cantidades en gramos y mililitros. Nada de «un chorrito» ni «al gusto».
 - **Cortes con medida y dirección de fibra.** Un ingrediente, una forma de corte y una medida: «láminas finas y picado» son dos cortes y cocinando hay que elegir sin información.
-- **Potencia siempre en la escala 0-9** de la vitro, nunca solo «fuego medio». Cada cambio de potencia se dice también en el texto del paso.
+- **Potencia siempre en la escala canónica de vitro 0-9**, escrita como `{N}` en el texto («baja al {3}»); la app la traduce a la cocina de cada usuario (ADR-0014). Nunca solo «fuego medio». Cada cambio de potencia se dice también en el texto del paso. `scripts/sc potencias --marcar` marca lo que falte y la regla 27 lo exige.
 - **Estado de la tapa en cada paso.** Si la tapa cambia a mitad de un paso, son dos pasos.
 - Los tiempos parciales suman el total. Si no cuadran, se dice.
 - Nunca metas un ingrediente solo porque está en la despensa. Si dejas fuera algo esperable, justifícalo en una línea (va en `porque`).

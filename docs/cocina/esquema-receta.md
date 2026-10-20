@@ -1,6 +1,6 @@
 # Esquema de receta y técnica
 
-> Propósito: esquema JSON de `data/recetas/*.json` y `data/tecnicas/*.json` y lista de comprobaciones del validador · Audiencia: Claude Code, `sc validar`, quien edite recetas · Actualizado: 2026-10-13 · Relacionado: docs/cocina/reglas.md, docs/herramientas.md
+> Propósito: esquema JSON de `data/recetas/*.json` y `data/tecnicas/*.json` y lista de comprobaciones del validador · Audiencia: Claude Code, `sc validar`, quien edite recetas · Actualizado: 2026-10-20 · Relacionado: docs/cocina/reglas.md, docs/herramientas.md
 
 ## Resumen
 Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril se derivan de `pasos`, así que no pueden descuadrarse. Formato canónico: `scripts/sc formatear` (indent 2, claves ordenadas, UTF-8, `\n` final). Las horas de reloj no existen en la receta: todo son minutos desde el arranque.
@@ -13,6 +13,7 @@ Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril
   "titulo": "Macarrones con boloñesa",     // el nombre del plato, sin subtítulos
   "descripcion": "Dos o tres frases: qué es el plato y dónde está su dificultad.",
   "raciones": 4,
+  "escala": { "min": 1, "max": 4, "paso": 1 },   // rango de raciones con el que el plan sigue valiendo sin cambiar pasos
   "totalMin": 82,                          // el paso más tardío acaba aquí
   "datos": [["82 min", "de principio a fin"], ["12 + 70", "cortar + fuego"], ["2", "fuegos"], ["12", "pasos"]],
 
@@ -37,12 +38,12 @@ Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril
   "pasos": [
     {
       "id": "sofrito",          // único en la receta; lo usan dep y junto
-      "t": "Sudar la verdura",
+      "t": "Sudar la verdura al {5}",
       "carril": "sarten",
       "off": 13,                // minuto de inicio desde el arranque (puede ser decimal)
       "min": 11,                // duración en minutos (puede ser decimal)
       "s": 660,                 // duración exacta en segundos; el cronómetro usa esto
-      "f": 5,                   // potencia 0-9; null si el carril no es fuego
+      "f": 5,                   // potencia 0-9 (escala vitro canónica); null si el carril no es fuego
       "tapa": "TAPA PUESTA",    // null | "sin tapa" | "TAPA PUESTA" | "tapa fuera" | "TAPA A MEDIAS"
       "holgura": "flexible",    // flexible | ajustado | critico
       "dep": ["cortar"],        // opcional. Pasos de OTROS carriles que deben estar hechos
@@ -68,6 +69,9 @@ Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril
 ```
 
 Solo `creada` e `importada` son opcionales a nivel de receta; `dep`, `junto`, `hitos` y `sinHitos` lo son a nivel de paso. Lo demás es obligatorio.
+
+### Potencia en el texto
+Toda potencia que el texto libre nombra se escribe `{N}` (0-9, escala vitro canónica): «baja al {3}», «del {4} al {5}». La app la traduce a la cocina de cada usuario al mostrar (ADR-0014), y el motor del cronómetro y lo guardado siguen usando la receta canónica. `scripts/sc potencias --marcar` marca lo que falte (idempotente); lo dudoso («del N» suelto, «sube a N», «potencias del 0 al 9») lo lista sin tocarlo y se revisa a mano. No marques minutos, tandas ni cantidades. Ver `docs/herramientas.md`.
 
 ### `nota` y `p`
 Son los dos niveles del mismo paso, y la única duplicación admitida. `p` argumenta (se lee antes, sentado); `nota` dicta (se mira de reojo con las manos ocupadas). Una `nota` de más de dos frases sobra. No pongas en las notas avisos de paralelismo (los calcula la app desde los `off`). En el cronómetro `nota` se ve siempre y `p` queda a un toque.
@@ -124,14 +128,16 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 17. ERROR · `s` coherente con `min`: |s − min·60| ≤ 30 s.
 18. ERROR · `mep` solo usa la etiqueta `<b>`.
 19. AVISO (estricto) · Corte sin medida (mm o cm).
-20. AVISO (estricto) · Cambio de potencia que el texto del paso no nombra.
+20. AVISO (estricto) · Cambio de potencia que el texto del paso no nombra (lee el número dentro de `{N}`).
 21. AVISO (estricto) · `p` de menos de 120 caracteres.
 22. AVISO (estricto) · Tapa que cambia a mitad de un paso (debía ser dos pasos).
 23. AVISO (estricto) · Tag de `tags.tecnica` sin ficha en `data/tecnicas/`.
 24. AVISO · Veto presente en ingredientes (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco).
-25. ERROR · El verbo de potencia del texto casa con el cambio real de `f` del carril: «baja al N» exige que el mando baje (N menor que el máximo entre la potencia anterior y `f`), «sube al N» que suba (N mayor que el mínimo). AVISO si «del X al N» y X no es ni la potencia anterior ni `f`.
+25. ERROR · El verbo de potencia del texto casa con el cambio real de `f` del carril: «baja al N» exige que el mando baje (N menor que el máximo entre la potencia anterior y `f`), «sube al N» que suba (N mayor que el mínimo). AVISO si «del X al N» y X no es ni la potencia anterior ni `f`. Los números se leen dentro de `{N}`.
+26. AVISO (estricto) · `escala {min, max, paso}` ausente. ERROR si es incoherente: `min` o `paso` menores que 1, `max` menor que `min`, o `raciones` fuera del rango o que no cae en la escala (`min` + k·`paso`). AVISO (estricto) si un ingrediente contable (huevos, dientes, unidades) no sale en múltiplos de 0,5 en alguna de las raciones permitidas.
+27. ERROR · Potencia sin marcar en un texto libre (sin `{N}`), o llave `{` que no forma `{0-9}`.
 
-**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21 y 23-25. **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
+**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21 y 23-27. **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 26 y la 27 se describen arriba (la 27 usa el detector `MarcaPotencia` sobre los mismos campos de texto libre que traduce la app); la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
 
 Los puntos 14, 15 y 17-18 no estaban en la skill legada (14 y 15 salen de su §3a y §5); la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
 

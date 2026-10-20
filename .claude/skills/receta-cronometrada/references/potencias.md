@@ -1,15 +1,15 @@
 # Potencias (vitrocerámica 0-9)
 
-Escala 0-9 de vitrocerámica. Referencia:
+Escala 0-9 de vitrocerámica: es la escala **canónica de diseño** (la vitro de Joan). La app la traduce a gas, inducción u otras escalas según la cocina del usuario (ADR-0014). Por eso en el texto la potencia va siempre marcada como `{N}` («baja al {3}», «del {4} al {5}»); `scripts/sc potencias <slug>` debe dar 0 candidatos. Referencia:
 - **1-2** mantener caliente, fundir, reposos
 - **3-4** chup-chup, reducciones largas, guisos
 - **5-6** sofritos, sudar verdura, arrancar
 - **7-8** dorar, sellar, desglasar, hervir mantenido
 - **9** llevar agua a ebullición, golpe de calor
 
-La vitro guarda calor: al bajar de potencia, la inercia dura un par de minutos. Cuando importe, dilo en el paso.
+La vitro guarda calor: al bajar de potencia, la inercia dura un par de minutos. Cuando importe, dilo en el paso (la app no traduce esa explicación: en gas o inducción enseña una nota general).
 
-Cada cambio de potencia se dice también en el texto del paso, en esta escala. Si un paso hereda la potencia del anterior, no hace falta repetirla (pero el validador estricto avisa si cambia y el texto no la nombra).
+Cada cambio de potencia se dice también en el texto del paso, en esta escala y marcada con `{N}`. Si un paso hereda la potencia del anterior, no hace falta repetirla (pero el validador estricto avisa si cambia y el texto no la nombra).
 
 Fuegos de Joan: grande, mediano y pequeño. La plancha y la sartén más grande solo caben en el grande, así que no trabajan a la vez (ver `docs/cocina/perfil.md`).
 

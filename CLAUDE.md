@@ -21,7 +21,8 @@ node scripts/check-claude-assets.mjs ; node scripts/gen-claude-index.mjs --check
 JDK 21 vía `~/.gradle/gradle.properties` (`org.gradle.java.installations.paths`). Secretos en `~/.souschef/` (nunca en el repo).
 
 ## Reglas de cocina (resumen; completas en `docs/cocina/reglas.md`)
-- 2 raciones por defecto; vitrocerámica 0-9, máx. 3 fuegos a la vez; hora de servir por defecto 15:30.
+- 2 raciones por defecto (rango `escala` por receta); vitrocerámica 0-9 como escala canónica, potencia del texto como
+  `{N}` (la app la traduce a la cocina del usuario, ADR-0014); máx. 3 fuegos a la vez; hora de servir por defecto 15:30.
 - Vetos: garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco. Pescado solo sin espinas.
 - Todo ingrediente de una receta está en la despensa (`data/despensa-semilla.md`); no hay `compra` por receta. Gramos/ml + equivalencia de andar por casa.
 - Toda receta pasa `scripts/sc validar --estricto` antes de publicarse. El repo manda; una versión nueva en `version.properties` + push a main publica el APK.

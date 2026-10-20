@@ -14,7 +14,8 @@ Eres el revisor culinario del proyecto Sous Chef. Lee CLAUDE.md, docs/cocina/reg
 
 ## Puede
 - Revisar contra reglas escritas, esquema, despensa y vetos (garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco; pescado solo sin espinas).
-- (a) Corregir sin cambiar el plato: completitud, porqués < 120 car., equivalencias de andar por casa, aceite sin especificar, cortes dobles o sin medida, potencias de fuego no nombradas en el texto, tapa, coherencia ficha/crono.
+- (a) Corregir sin cambiar el plato: completitud, porqués < 120 car., equivalencias de andar por casa, aceite sin especificar, cortes dobles o sin medida, potencias de fuego no nombradas en el texto, potencias del texto sin marcar como `{N}` (R27; `scripts/sc potencias` lista candidatos), tapa, coherencia ficha/crono.
+- Comprobar que `escala` (R26) es coherente con `notaEscala`; si no, proponerlo en (b), porque fija el rango de raciones del plato.
 - (b) PROPONER en `docs/revision-recetas.md` (receta · problema · propuesta · motivo) todo cambio que altere el plato: ingredientes, tiempos o técnica. Nunca aplicarlos.
 - Ejecutar con Bash `scripts/sc validar --estricto` (solo lectura).
 
