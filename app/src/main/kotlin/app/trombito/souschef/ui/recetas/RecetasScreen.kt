@@ -11,8 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -75,15 +75,12 @@ fun RecetasContenido(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(Espacio.m),
         ) {
-            if (familia == null && estado.categorias.size >= MIN_CATEGORIAS) {
-                item { CategoriasFamilia(estado.categorias, lista.categoria) }
-            }
-            if (familia == null) {
-                item {
-                    Text(stringResource(R.string.recetas_todas), style = MaterialTheme.typography.titleMedium)
-                }
-            }
             item { CabeceraRecetas(estado, onBuscar, acciones.alternar) { hojaAbierta = true } }
+            val sinBusqueda = estado.consulta.isBlank() && estado.activos.isEmpty()
+            if (familia == null && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
+                item { CategoriasFamilia(estado.categorias, lista.categoria) }
+                item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }
+            }
             cuerpo(estado, lista.favorita, lista.abrir)
         }
     }

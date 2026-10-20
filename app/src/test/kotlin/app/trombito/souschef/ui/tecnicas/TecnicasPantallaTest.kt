@@ -1,6 +1,7 @@
 package app.trombito.souschef.ui.tecnicas
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.semantics.SemanticsProperties
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.receta.PasoTecnica
 import app.trombito.souschef.receta.Tecnica
@@ -31,29 +32,38 @@ class TecnicasPantallaTest {
     private fun pintar(
         disposicion: DisposicionLista,
         categoriaFija: CategoriaTecnica? = null,
-        onAtras: (() -> Unit)? = null,
         onAbrir: (String) -> Unit = {},
         onCategoria: (String) -> Unit = {},
+        consulta: String = "",
     ): BancoCompose {
         val banco = BancoCompose()
-        val estado = construirEstadoTecnicas(todas, "", categoriaFija, disposicion)
-        banco.poner { MaterialTheme { TecnicasContenido(estado, onAtras, {}, onAbrir, onCategoria) } }
+        val estado = construirEstadoTecnicas(todas, consulta, categoriaFija, disposicion)
+        banco.poner { MaterialTheme { TecnicasContenido(estado, null, {}, onAbrir, onCategoria) } }
         return banco
     }
 
     private fun BancoCompose.todosLosTextos(): List<String> = textos(raiz())
 
     @Test
-    fun `la pestana pinta un cuadradito por categoria y el titulo de todas`() {
+    fun `la pestana pinta el buscador por encima de un cuadradito por categoria, sin titulo de todas`() {
         val banco = pintar(DisposicionLista.TINTE)
         assertEquals(
             listOf("categoria-coccion", "categoria-corte", "categoria-salsa"),
             banco.etiquetas("categoria-"),
         )
+        val buscador = banco.nodos().first { it.config.contains(SemanticsProperties.EditableText) }
+        assertTrue(buscador.boundsInRoot.top < banco.conEtiqueta("categoria-coccion").boundsInRoot.top)
         val textos = banco.todosLosTextos()
-        assertTrue(textos.contains("Todas las técnicas"))
+        assertTrue(!textos.contains("Todas las técnicas"))
         assertTrue(textos.contains("Cocción"))
         assertTrue(textos.contains("1 técnica"))
+    }
+
+    @Test
+    fun `al buscar desaparecen los cuadraditos`() {
+        val banco = pintar(DisposicionLista.TINTE, consulta = "sofrito")
+        assertEquals(emptyList<String>(), banco.etiquetas("categoria-"))
+        assertTrue(banco.todosLosTextos().contains("Sofrito"))
     }
 
     @Test
@@ -86,7 +96,7 @@ class TecnicasPantallaTest {
 
     @Test
     fun `con categoria fija no hay cuadraditos y el titulo es la categoria`() {
-        val banco = pintar(DisposicionLista.TINTE, CategoriaTecnica.SALSA, onAtras = {})
+        val banco = pintar(DisposicionLista.TINTE, CategoriaTecnica.SALSA)
         assertEquals(emptyList<String>(), banco.etiquetas("categoria-"))
         val textos = banco.todosLosTextos()
         assertTrue(textos.contains("Salsa"))

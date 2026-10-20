@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -63,13 +64,20 @@ fun TecnicasContenido(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(Espacio.m),
         ) {
-            if (estado.mostrarRejilla) item { Cuadraditos(estado, onCategoria) }
-            if (fija == null) {
+            item { CampoBusqueda(estado.consulta, stringResource(R.string.tecnicas_buscar), onBuscar) }
+            if (!estado.cargando && estado.tecnicas.isNotEmpty()) {
                 item {
-                    Text(stringResource(R.string.tecnicas_todas), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        pluralStringResource(R.plurals.tecnicas_conteo, estado.tecnicas.size, estado.tecnicas.size),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
-            item { CampoBusqueda(estado.consulta, stringResource(R.string.tecnicas_buscar), onBuscar) }
+            if (estado.mostrarRejilla && estado.consulta.isBlank()) {
+                item { Cuadraditos(estado, onCategoria) }
+                item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }
+            }
             cuerpo(estado, onAbrir)
         }
     }
@@ -114,13 +122,6 @@ private fun LazyListScope.cuerpo(
         }
 
         else -> {
-            item {
-                Text(
-                    pluralStringResource(R.plurals.tecnicas_conteo, estado.tecnicas.size, estado.tecnicas.size),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
             items(estado.tecnicas, key = { it.slug }) { t ->
                 TarjetaTecnica(t, estado.disposicion, { onAbrir(t.slug) })
             }

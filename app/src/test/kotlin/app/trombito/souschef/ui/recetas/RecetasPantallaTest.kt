@@ -1,6 +1,7 @@
 package app.trombito.souschef.ui.recetas
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.semantics.SemanticsProperties
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.ui.crono.BancoCompose
 import app.trombito.souschef.ui.receta
@@ -51,12 +52,18 @@ class RecetasPantallaTest {
         return banco
     }
 
+    private fun BancoCompose.buscadorEstaSobre(etiqueta: String): Boolean {
+        val buscador = nodos().first { it.config.contains(SemanticsProperties.EditableText) }
+        return buscador.boundsInRoot.top < conEtiqueta(etiqueta).boundsInRoot.top
+    }
+
     @Test
-    fun `la pestana pinta los cuadraditos, el titulo de la lista completa y las tarjetas`() {
+    fun `la pestana pinta buscador, cuadraditos y tarjetas, sin titulo de la lista completa`() {
         val banco = pintar(estado())
         assertEquals(listOf("categoria-pasta", "categoria-arroz"), banco.etiquetas("categoria-"))
+        assertTrue(banco.buscadorEstaSobre("categoria-pasta"))
         val textos = banco.textos(banco.raiz())
-        assertTrue(textos.toString(), textos.contains("Todas las recetas"))
+        assertTrue(textos.toString(), !textos.contains("Todas las recetas"))
         assertTrue(textos.toString(), textos.contains("Macarrones"))
     }
 
@@ -71,9 +78,9 @@ class RecetasPantallaTest {
     }
 
     @Test
-    fun `los cuadraditos siguen al buscar`() {
+    fun `al buscar desaparecen los cuadraditos`() {
         val buscando = estado().copy(consulta = "risotto")
-        assertEquals(listOf("categoria-pasta", "categoria-arroz"), pintar(buscando).etiquetas("categoria-"))
+        assertTrue(pintar(buscando).etiquetas("categoria-").isEmpty())
     }
 
     @Test
