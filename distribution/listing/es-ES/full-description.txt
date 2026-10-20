@@ -1,0 +1,37 @@
+Sous Chef son recetas cronometradas para cocinar con el móvil en la encimera. Te dice qué hacer, cuándo, en qué recipiente y a qué potencia, y calcula a qué hora empezar para servir cuando quieres. Pensado para cocinar para dos, con las raciones escalables.
+
+Las recetas vienen incluidas en la app: eliges una, la miras en la ficha y la cocinas paso a paso con el cronómetro.
+
+RECETAS
+• Cada receta indica a qué hora empezar según la hora a la que quieres servir («empieza a las 14:05»).
+• Ingredientes en gramos y con su medida casera, que se recalculan al cambiar las raciones.
+• Cortes, mise en place y un diagrama de tiempos para ver qué corre a la vez.
+• La ficha se imprime o se guarda en PDF.
+• Categorías por base: pasta, arroz, patata, pescado, verdura, masas y salteado.
+• Tres diseños de lista y tema claro u oscuro.
+
+CRONÓMETRO DE COCINA
+• Varios recipientes a la vez: sartén, olla, horno… cada uno con sus propios pasos.
+• Cada aviso suena a su hora, con alarma también con el móvil bloqueado.
+• Deshacer el último paso y prorrogar un tiempo cuando el plato lo pide.
+
+CONTROL POR VOZ (OPCIONAL)
+• Con las manos ocupadas, di «siguiente», «¿qué tengo que hacer?» o pide una prórroga.
+• La app te responde hablando.
+• Solo funciona si lo activas y solo con la cocina en pantalla.
+
+TÉCNICAS
+• Técnicas de cocina explicadas paso a paso, enlazadas desde las recetas que las usan.
+
+HISTORIAL
+• Lo que has cocinado queda guardado en el móvil.
+• Puedes hacer una copia de seguridad en un archivo que eliges tú y cargarla cuando quieras.
+
+PRIVACIDAD
+• Sin cuentas, sin anuncios y sin analítica.
+• No pide internet: funciona entera sin conexión.
+• Todo lo que guardas se queda en tu móvil.
+
+Sous Chef no crea recetas: trae las suyas y te acompaña para que todo esté listo a la vez.
+
+Desarrollador: Trombonet12© and Co. Interactive Systems Solutions.
