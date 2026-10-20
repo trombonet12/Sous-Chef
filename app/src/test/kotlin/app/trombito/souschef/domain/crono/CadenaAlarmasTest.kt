@@ -367,6 +367,16 @@ class CadenaAlarmasTest {
         }
 
     @Test
+    fun hayVivaSoloConUnaCocinadaArrancada() =
+        runTest {
+            assertFalse(cadena.hayViva())
+            almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
+            assertFalse(cadena.hayViva())
+            cocinando("a", T0)
+            assertTrue(cadena.hayViva())
+        }
+
+    @Test
     fun abandonarBorraElEstadoLimpiaYRearma() =
         runTest {
             cocinando("a", T0)

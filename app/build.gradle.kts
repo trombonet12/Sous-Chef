@@ -182,6 +182,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
 
+    implementation(libs.play.app.update.ktx)
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)

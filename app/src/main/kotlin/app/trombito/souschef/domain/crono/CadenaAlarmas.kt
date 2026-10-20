@@ -160,6 +160,12 @@ class CadenaAlarmas(
         return almacen.todos().firstOrNull { it.slug != slug && vivo(it, ahora) }
     }
 
+    /** Hay alguna cocinada viva (abierta, sin caducar y sin terminar): no se debe interrumpir con nada ajeno. */
+    suspend fun hayViva(): Boolean {
+        val ahora = reloj.ahoraMs()
+        return almacen.todos().any { vivo(it, ahora) }
+    }
+
     /** La cocinada de [slug] mientras está viva (abierta, sin caducar y sin terminar); null si no lo está. */
     fun viva(slug: String): Flow<EstadoCrono?> =
         almacen.observar(slug).map { e -> e?.takeIf { vivo(it, reloj.ahoraMs()) } }
