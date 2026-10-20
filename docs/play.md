@@ -58,6 +58,14 @@ a mano, en Play Console.
 4. A partir de ahí, cada push a main con un `version.properties` nuevo publica en GitHub **y** en la pista interna.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
 
+## Actualización obligatoria
+- La app fuerza la actualización con la pantalla de Play (In-App Updates, [ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md))
+  cuando la versión nueva tiene prioridad 4 o 5. Nunca salta con una cocinada en marcha ni en instalaciones de
+  GitHub u Obtainium.
+- El CI sube cada versión con `inAppUpdatePriority: 5` (`.github/workflows/android.yml`). Para publicar una versión
+  que no obligue a actualizar, bajarlo a 3 en ese commit.
+- La prioridad no se puede cambiar en Play Console después de subir la versión.
+
 ## Vídeo promocional
 - Play lo pide como URL de YouTube (pública u oculta, sin anuncios, embebible). Solo se reproducen solos los primeros
   30 s, en silencio, así que la app tiene que verse pronto.

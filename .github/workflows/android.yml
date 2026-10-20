@@ -270,6 +270,8 @@ jobs:
           releaseFiles: play/dist/sous-chef-${{ needs.release.outputs.version }}.aab
           track: internal
           status: ${{ steps.play.outputs.estado }}
+          # Prioridad 5: la app fuerza la actualización inmediata (ADR-0013). Con 3, la versión no es obligatoria.
+          inAppUpdatePriority: 5
           # El mapping de R8 va dentro del AAB: https://developer.android.com/topic/performance/app-optimization/test-and-troubleshoot-the-optimization
           whatsNewDirectory: play/distribution/whatsnew
           # Los .so de AndroidX vienen stripped: se sube la tabla de simbolos exportados para que Play no avise.
