@@ -129,10 +129,10 @@
     <string name="ficha_min_rango">min %1$s-%2$s</string>
     <string name="ficha_duracion">%1$s′</string>
     <string name="ficha_minutos_meta">%1$s MIN</string>
-    <string name="ficha_fuego_meta">FUEGO %1$d</string>
+    <string name="ficha_fuego_meta">FUEGO %1$s</string>
     <string name="ficha_sin_fuego">SIN FUEGO</string>
     <string name="ficha_sin_fuego_bajo">sin fuego</string>
-    <string name="ficha_fuego_bajo">fuego %1$d</string>
+    <string name="ficha_fuego_bajo">fuego %1$s</string>
     <string name="ficha_cantidad_nombre">%1$s %2$s</string>
     <string name="ficha_imprimir">Imprimir o guardar como PDF</string>
     <string name="ficha_pdf_nombre">Sous Chef – %1$s</string>
@@ -218,7 +218,7 @@
     <string name="crono_despues_tiempo">Después: %1$s · %2$s</string>
     <string name="crono_ultimo">Último paso</string>
     <string name="crono_proximo_hito">a %1$s · %2$s</string>
-    <string name="crono_fuego_chip">🔥 %1$d</string>
+    <string name="crono_fuego_chip">🔥 %1$s</string>
     <string name="crono_diagrama">Diagrama de tiempos</string>
     <string name="crono_diagrama_horas">Empezar %1$s · servir %2$s</string>
     <string name="crono_diagrama_cerrar_corto">Cerrar</string>
@@ -240,12 +240,12 @@
     <string name="crono_servido_previsto">SERVIDO %1$s, previsto %2$s</string>
     <string name="crono_proxima_vez">LA PRÓXIMA VEZ… (OPCIONAL)</string>
     <string name="crono_ya_esta">Ya está, a la mesa</string>
-    <string name="crono_potencia">Potencia %1$d</string>
+    <string name="crono_potencia">Potencia %1$s</string>
     <string name="crono_notif_hecho">Hecho</string>
     <string name="crono_notif_hecho_siguiente">Hecho y siguiente</string>
     <string name="crono_notif_parar">Parar</string>
     <string name="crono_cocina_titulo">%1$s · llegas %2$s</string>
-    <string name="crono_cocina_fuego">fuego %1$d</string>
+    <string name="crono_cocina_fuego">fuego %1$s</string>
     <string name="crono_cocina_acaba">acaba %1$s</string>
     <string name="crono_cocina_listo">¡listo! pulsa Hecho</string>
     <string name="crono_cocina_pausa">en pausa</string>

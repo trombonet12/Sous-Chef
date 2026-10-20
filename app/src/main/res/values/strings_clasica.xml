@@ -9,7 +9,7 @@
     <string name="crono_cabecera_paso">%1$s · paso %2$d de %3$d · sugerido %4$s</string>
     <string name="crono_carril_fuera">Este recipiente ya está fuera del plan. Sigue por %1$s.</string>
     <string name="crono_despues">Después aquí: %1$s · %2$s</string>
-    <string name="crono_despues_fuego">Después aquí: %1$s · %2$s al %3$d</string>
+    <string name="crono_despues_fuego">Después aquí: %1$s · %2$s %3$s</string>
     <string name="crono_duracion_h">%1$d h</string>
     <string name="crono_duracion_hmin">%1$d h %2$d min</string>
     <string name="crono_duracion_min">%1$d min</string>
