@@ -254,7 +254,7 @@
       "hitos": [
         {
           "en": 300,
-          "t": "Si ya tiembla, baja al 3 ya"
+          "t": "Si ya tiembla, baja al {3} ya"
         }
       ],
       "holgura": "flexible",
@@ -262,9 +262,9 @@
       "junto": null,
       "meto": "la cazuela cargada en frío: 600 ml de leche + 300 ml de nata + 16 g de ajo laminado + 1 hoja de laurel + 7 g de sal + 1 g de nuez moscada",
       "min": 7,
-      "nota": "Enciende al 7 sin tapa. Tiene que humear por los bordes con burbujas pequeñas en el fondo, sin llegar a hervir fuerte.",
+      "nota": "Enciende al {7} sin tapa. Tiene que humear por los bordes con burbujas pequeñas en el fondo, sin llegar a hervir fuerte.",
       "off": 22,
-      "p": "Sin tapa y al 7 hasta que humee por los bordes y aparezcan burbujas pequeñas en el fondo, sin llegar al borbotón. Novecientos mililitros tardan unos siete minutos. Si rompe a hervir fuerte, la leche sube de golpe, se sale y se pega al fondo, y esa capa quemada amarga toda la crema; por eso se deja sin tapa, para verlo, y en cuanto llega al temblor se baja al 3 hasta que entren las patatas. El ajo y la nuez moscada empiezan a infusionar desde el primer minuto: su aroma pasa a la grasa de la nata y de ahí a cada rodaja.",
+      "p": "Sin tapa y al {7} hasta que humee por los bordes y aparezcan burbujas pequeñas en el fondo, sin llegar al borbotón. Novecientos mililitros tardan unos siete minutos. Si rompe a hervir fuerte, la leche sube de golpe, se sale y se pega al fondo, y esa capa quemada amarga toda la crema; por eso se deja sin tapa, para verlo, y en cuanto llega al temblor se baja al {3} hasta que entren las patatas. El ajo y la nuez moscada empiezan a infusionar desde el primer minuto: su aroma pasa a la grasa de la nata y de ahí a cada rodaja.",
       "s": 420,
       "saco": "",
       "t": "Leche, nata y ajo",
@@ -299,9 +299,9 @@
       "junto": null,
       "meto": "la sartén cargada en frío: 25 ml de aceite de oliva + 200 g de cebolla",
       "min": 10,
-      "nota": "Enciende al 5 con la tapa puesta. Tiene que quedar translúcida, sin bordes dorados.",
+      "nota": "Enciende al {5} con la tapa puesta. Tiene que quedar translúcida, sin bordes dorados.",
       "off": 24,
-      "p": "Dos minutos después de poner la leche al fuego, la sartén de 25 ml de aceite de oliva y 200 g de cebolla se enciende al 5 y tapada: el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla. Se destapa solo para remover, cada dos minutos. Tiene que quedar translúcida, sin bordes dorados. Con 200 g tarda un 40 % más que con 100, porque es más masa sobre la misma superficie.",
+      "p": "Dos minutos después de poner la leche al fuego, la sartén de 25 ml de aceite de oliva y 200 g de cebolla se enciende al {5} y tapada: el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla. Se destapa solo para remover, cada dos minutos. Tiene que quedar translúcida, sin bordes dorados. Con 200 g tarda un 40 % más que con 100, porque es más masa sobre la misma superficie.",
       "s": 600,
       "saco": "",
       "t": "Sudar la cebolla",
@@ -316,9 +316,9 @@
       "junto": null,
       "meto": "1300 g de patata en rodajas, del bol grande",
       "min": 4,
-      "nota": "Pon el fuego al 6, echa las rodajas y sepáralas con una cuchara de madera; tapa a medias, un dedo de hueco. En cuanto la leche vuelva a temblar, baja al 3.",
+      "nota": "Pon el fuego al {6}, echa las rodajas y sepáralas con una cuchara de madera; tapa a medias, un dedo de hueco. En cuanto la leche vuelva a temblar, baja al {3}.",
       "off": 29,
-      "p": "Echa las rodajas y sepáralas enseguida con una cuchara de madera, o se pegarán en bloque contra el fondo. Las patatas frías enfrían la leche de golpe, así que sube al 6 para que recupere cuanto antes el temblor de unos 90 °C. Tapa a medias, dejando un dedo de hueco: sale algo de vapor sin que se evapore media cazuela. En cuanto la leche vuelva a temblar por los bordes, pasa al paso siguiente y baja al 3.",
+      "p": "Echa las rodajas y sepáralas enseguida con una cuchara de madera, o se pegarán en bloque contra el fondo. Las patatas frías enfrían la leche de golpe, así que sube al {6} para que recupere cuanto antes el temblor de unos 90 °C. Tapa a medias, dejando un dedo de hueco: sale algo de vapor sin que se evapore media cazuela. En cuanto la leche vuelva a temblar por los bordes, pasa al paso siguiente y baja al {3}.",
       "s": 240,
       "saco": "",
       "t": "Recuperar el temblor",
@@ -347,9 +347,9 @@
       "junto": null,
       "meto": "",
       "min": 14,
-      "nota": "Baja al 3 y deja la tapa a medias, con un dedo de hueco. Al acabar, apaga y que esperen en su líquido hasta el minuto 51 (si vas tarde, al 1).",
+      "nota": "Baja al {3} y deja la tapa a medias, con un dedo de hueco. Al acabar, apaga y que esperen en su líquido hasta el minuto 51 (si vas tarde, al {1}).",
       "off": 33,
-      "p": "Con el temblor recuperado, baja al 3 y mantén la tapa a medias, dejando un dedo de hueco: así sale algo de vapor sin que se evapore media cazuela. Al 3 el conjunto se queda temblando alrededor de los 90 °C. Están listas cuando un cuchillo entra sin resistencia pero la rodaja no se rompe al levantarla: catorce minutos aquí, dieciocho con los cuatro anteriores y con este peso. Es el paso más flexible de todo el plan: si vas tarde, baja al 1 y déjalas ahí sin miedo.",
+      "p": "Con el temblor recuperado, baja al {3} y mantén la tapa a medias, dejando un dedo de hueco: así sale algo de vapor sin que se evapore media cazuela. Al {3} el conjunto se queda temblando alrededor de los 90 °C. Están listas cuando un cuchillo entra sin resistencia pero la rodaja no se rompe al levantarla: catorce minutos aquí, dieciocho con los cuatro anteriores y con este peso. Es el paso más flexible de todo el plan: si vas tarde, baja al {1} y déjalas ahí sin miedo.",
       "s": 840,
       "saco": "",
       "t": "Cocer las patatas",
@@ -378,9 +378,9 @@
       "junto": null,
       "meto": "500 g de carne picada, de su bandeja, sobre la cebolla",
       "min": 13,
-      "nota": "Quita la tapa, sube al 8 y espera 30 segundos. Echa la carne en una capa y no la toques en 3 minutos.",
+      "nota": "Quita la tapa, sube al {8} y espera 30 segundos. Echa la carne en una capa y no la toques en 3 minutos.",
       "off": 34,
-      "p": "Sube al 8, quita la tapa y espera treinta segundos a que la sartén recupere temperatura. Echa los 500 g de carne, extiéndela en una capa y no la toques durante los tres primeros minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris en su propio jugo. Después ve deshaciendo los grumos. Hace falta una sartén de 28 cm o más: amontonada no dora, se guisa.",
+      "p": "Sube al {8}, quita la tapa y espera treinta segundos a que la sartén recupere temperatura. Echa los 500 g de carne, extiéndela en una capa y no la toques durante los tres primeros minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris en su propio jugo. Después ve deshaciendo los grumos. Hace falta una sartén de 28 cm o más: amontonada no dora, se guisa.",
       "s": 780,
       "saco": "",
       "t": "Dorar la carne",
@@ -430,9 +430,9 @@
       "junto": null,
       "meto": "la taza de los aliños: 15 ml de soja + 5 g de sal + 1 g de pimienta",
       "min": 4,
-      "nota": "Baja al 6, echa la taza y remueve hasta que el fondo quede seco, sin charco.",
+      "nota": "Baja al {6}, echa la taza y remueve hasta que el fondo quede seco, sin charco.",
       "off": 47,
-      "p": "Añade 15 ml de salsa de soja, 5 g de sal y 1 g de pimienta. Baja al 6 y remueve hasta que el fondo quede seco, sin charco. Este paso no es para cocinar, es para evaporar: cada gota de líquido que entre en la fuente volverá a salir por debajo del gratén y lo desmontará en el plato.",
+      "p": "Añade 15 ml de salsa de soja, 5 g de sal y 1 g de pimienta. Baja al {6} y remueve hasta que el fondo quede seco, sin charco. Este paso no es para cocinar, es para evaporar: cada gota de líquido que entre en la fuente volverá a salir por debajo del gratén y lo desmontará en el plato.",
       "s": 240,
       "saco": "nada: apaga el fuego y la carne espera en la sartén hasta el minuto 55",
       "t": "Ligar y secar",
@@ -594,7 +594,7 @@
     ],
     [
       "La leche no debe romper a hervir",
-      "A borbotones la leche sube de golpe y se sale, y lo que se queda pegado al fondo se quema y amarga toda la crema. Al 3 con la tapa a medias se queda en un temblor constante, que cuece la patata igual sin ese riesgo."
+      "A borbotones la leche sube de golpe y se sale, y lo que se queda pegado al fondo se quema y amarga toda la crema. Al {3} con la tapa a medias se queda en un temblor constante, que cuece la patata igual sin ese riesgo."
     ],
     [
       "El ajo va en la leche, no en la sartén",
@@ -602,7 +602,7 @@
     ],
     [
       "La carne sale seca de la sartén",
-      "Cada gota de líquido que entra en la fuente vuelve a salir por debajo del gratén. Los cuatro minutos finales al 6 y destapado no son para cocinar, son para evaporar."
+      "Cada gota de líquido que entra en la fuente vuelve a salir por debajo del gratén. Los cuatro minutos finales al {6} y destapado no son para cocinar, son para evaporar."
     ],
     [
       "500 g de carne piden 1300 g de patata",

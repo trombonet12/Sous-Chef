@@ -13,7 +13,7 @@
     },
     {
       "p": "100 ml de vino blanco o caldo de pollo, de golpe. Si salta mucho vapor, apartar la sartén del fuego un instante al verter.",
-      "t": "Verter el líquido en caliente, con la sartén todavía a potencia 6-7"
+      "t": "Verter el líquido en caliente, con la sartén todavía a potencia {6}-{7}"
     },
     {
       "p": "Los trozos pegados se despegan solos con el líquido caliente y el raspado, sin necesidad de forzar.",

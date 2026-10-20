@@ -9,7 +9,7 @@
   "pasos": [
     {
       "p": "El tostado se hace en seco. Con aceite se está friendo, no tostando.",
-      "t": "Sartén sin nada de grasa, potencia 4-5"
+      "t": "Sartén sin nada de grasa, potencia {4}-{5}"
     },
     {
       "p": "Por ejemplo, 30 g de pan rallado o de semillas de sésamo repartidos en toda la base de la sartén, no en montón.",

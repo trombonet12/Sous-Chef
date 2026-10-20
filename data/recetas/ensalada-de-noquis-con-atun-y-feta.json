@@ -215,7 +215,7 @@
       "min": 3,
       "nota": "En seco, sin dejar de mover. Del segundo minuto en adelante pasa de dorado a quemado muy rápido.",
       "off": 5,
-      "p": "En seco, sin una gota de aceite, moviendo la sartén sin parar. Al 4 dora en tres minutos; a partir del segundo empieza a oscurecer muy rápido porque son semillas pequeñas con poca masa que amortigüe el calor. En cuanto cojan color, fuera al platito.",
+      "p": "En seco, sin una gota de aceite, moviendo la sartén sin parar. Al {4} dora en tres minutos; a partir del segundo empieza a oscurecer muy rápido porque son semillas pequeñas con poca masa que amortigüe el calor. En cuanto cojan color, fuera al platito.",
       "s": 180,
       "saco": "al platito, en cuanto doren",
       "t": "Tostar el sésamo",
@@ -232,7 +232,7 @@
       "min": 1,
       "nota": "Misma sartén sin lavar: el sésamo no deja grasa que estorbe.",
       "off": 8,
-      "p": "Los 15 ml a la misma sartén, sin lavarla: el sésamo tostado no deja grasa que estorbe y su rastro suma sabor al aceite. Un minuto al 7 hasta que brille y se mueva suelto por el fondo.",
+      "p": "Los 15 ml a la misma sartén, sin lavarla: el sésamo tostado no deja grasa que estorbe y su rastro suma sabor al aceite. Un minuto al {7} hasta que brille y se mueva suelto por el fondo.",
       "s": 60,
       "saco": "",
       "t": "Calentar el aceite",
@@ -257,9 +257,9 @@
       "junto": null,
       "meto": "250 g de ñoquis; a los 6 minutos, ¼ cdta de pimentón picante",
       "min": 7,
-      "nota": "Sube al 8 antes de echarlos. Quietos los primeros 3 minutos para que doren. El pimentón picante en el último minuto, nunca al principio, que se quema. Un cuarto de cucharadita y no más: este pimentón pica.",
+      "nota": "Sube al {8} antes de echarlos. Quietos los primeros 3 minutos para que doren. El pimentón picante en el último minuto, nunca al principio, que se quema. Un cuarto de cucharadita y no más: este pimentón pica.",
       "off": 9,
-      "p": "Sube al 8 y échalos al aceite ya caliente, en una sola capa. No los toques los primeros tres minutos: el Maillard necesita superficie seca y contacto quieto, y si remueves antes se quedan pálidos y gomosos por fuera. En el último minuto, con los ñoquis ya dorados, espolvorea el cuarto de cucharadita de pimentón picante y da unas vueltas. Ese último minuto en la grasa caliente es lo que hace el plato: el pimentón se fríe, suelta su color rojo en el aceite y el pique pasa de crudo y punzante a seco y redondo, pegado a la costra del ñoqui. Al principio, con el aceite a máxima temperatura, se quemaría, y en un pimentón que ya pica el amargor del quemado se nota el doble y no hay forma de quitarlo. Sin tapa siempre: tapados se cuecen en su propio vapor y pierden la costra.",
+      "p": "Sube al {8} y échalos al aceite ya caliente, en una sola capa. No los toques los primeros tres minutos: el Maillard necesita superficie seca y contacto quieto, y si remueves antes se quedan pálidos y gomosos por fuera. En el último minuto, con los ñoquis ya dorados, espolvorea el cuarto de cucharadita de pimentón picante y da unas vueltas. Ese último minuto en la grasa caliente es lo que hace el plato: el pimentón se fríe, suelta su color rojo en el aceite y el pique pasa de crudo y punzante a seco y redondo, pegado a la costra del ñoqui. Al principio, con el aceite a máxima temperatura, se quemaría, y en un pimentón que ya pica el amargor del quemado se nota el doble y no hay forma de quitarlo. Sin tapa siempre: tapados se cuecen en su propio vapor y pierden la costra.",
       "s": 420,
       "saco": "",
       "t": "Dorar los ñoquis",
@@ -276,7 +276,7 @@
       "min": 1,
       "nota": "Apaga la vitro. La albahaca por encima y un minuto de vueltas con el calor que queda en el metal.",
       "off": 16,
-      "p": "Apaga la vitro antes de echarla: es un paso aparte y no un remate del anterior, porque lo que cambia es la potencia. Las hierbas secas necesitan calor y vapor para soltar su aroma, pero al 8 la albahaca se quema en segundos y amarga. Con la placa apagada, el calor que queda en el metal y el vapor de los propios ñoquis hacen ese trabajo en un minuto. Sin tapa, que la costra se ablanda.",
+      "p": "Apaga la vitro antes de echarla: es un paso aparte y no un remate del anterior, porque lo que cambia es la potencia. Las hierbas secas necesitan calor y vapor para soltar su aroma, pero al {8} la albahaca se quema en segundos y amarga. Con la placa apagada, el calor que queda en el metal y el vapor de los propios ñoquis hacen ese trabajo en un minuto. Sin tapa, que la costra se ablanda.",
       "s": 60,
       "saco": "los ñoquis, calientes y directos al bol",
       "t": "Albahaca, fuera del fuego",
@@ -347,11 +347,11 @@
     ],
     [
       "Pimentón en el último minuto, no al principio",
-      "A fuego 8 con el aceite recién caliente se quemaría y amargaría en segundos; en el último minuto los ñoquis ya están dorados y al pimentón le bastan unas vueltas en la grasa caliente para freírse sin llegar a quemarse. Con el picante el margen es todavía más estrecho: quemado, el pique se vuelve áspero y se queda así hasta el plato."
+      "A fuego {8} con el aceite recién caliente se quemaría y amargaría en segundos; en el último minuto los ñoquis ya están dorados y al pimentón le bastan unas vueltas en la grasa caliente para freírse sin llegar a quemarse. Con el picante el margen es todavía más estrecho: quemado, el pique se vuelve áspero y se queda así hasta el plato."
     ],
     [
       "Albahaca al final y fuera del fuego",
-      "Las hierbas secas necesitan calor y vapor para abrir su aroma, pero el fuego 8 las quemaría en segundos. Por eso el último minuto es un paso propio con la vitro apagada: el calor que queda en el metal y el vapor de los ñoquis hacen el mismo trabajo sin ese riesgo."
+      "Las hierbas secas necesitan calor y vapor para abrir su aroma, pero el fuego {8} las quemaría en segundos. Por eso el último minuto es un paso propio con la vitro apagada: el calor que queda en el metal y el vapor de los ñoquis hacen el mismo trabajo sin ese riesgo."
     ],
     [
       "Pimentón picante en vez de ahumado, y la mitad de cantidad",

@@ -260,9 +260,9 @@
       "junto": null,
       "meto": "30 g de mermelada de melocotón + 10 ml de agua",
       "min": 3,
-      "nota": "Al 4, sin tapa, tres minutos removiendo, hasta que quede líquida; arranca en el minuto 47. Apaga al acabar.",
+      "nota": "Al {4}, sin tapa, tres minutos removiendo, hasta que quede líquida; arranca en el minuto 47. Apaga al acabar.",
       "off": 47,
-      "p": "Mermelada y agua al cazo, al 4 y removiendo, hasta que la mermelada se disuelva y quede líquida y brillante. Al 2 la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver; removiendo, el calor se reparte y no se pega ni carameliza ni espesa de más. Y no se enciende hasta el minuto 47 a propósito, aunque el hueco del horno dé para hacerlo mucho antes: hecho al principio del horneado llega al pincel veinticinco minutos después, frío y cuajado, y un glaseado cuajado no se pincela, se unta y arrastra las láminas de manzana. Hecho aquí, sale del fuego en el 50 y se pincela en el 52, templado.",
+      "p": "Mermelada y agua al cazo, al {4} y removiendo, hasta que la mermelada se disuelva y quede líquida y brillante. Al {2} la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver; removiendo, el calor se reparte y no se pega ni carameliza ni espesa de más. Y no se enciende hasta el minuto 47 a propósito, aunque el hueco del horno dé para hacerlo mucho antes: hecho al principio del horneado llega al pincel veinticinco minutos después, frío y cuajado, y un glaseado cuajado no se pincela, se unta y arrastra las láminas de manzana. Hecho aquí, sale del fuego en el 50 y se pincela en el 52, templado.",
       "s": 180,
       "saco": "el glaseado, en el cazo apagado",
       "t": "Mermelada y agua, hasta líquida",
@@ -333,7 +333,7 @@
     ],
     [
       "El glaseado, al minuto 47 y no en cuanto entra la tarta",
-      "Los tres minutos de cazo siguen cabiendo enteros dentro de los treinta del horneado, así que no alargan el plan: lo que cambia es dónde caen. Hechos al principio, el glaseado espera veinticinco minutos en el cazo y llega al pincel frío y espesado, y así no se pincela, se unta y arrastra las láminas. Arrancando en el 47 sale del fuego en el 50 y se usa en el 52, templado y todavía fluido. Va al 4 y removiendo, y no más fuerte, porque solo hay que disolver la mermelada, no cocerla: al hervir se concentra y espesa igual. Al 2 la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver. El único choque era el vistazo del horno, que caía también en el 47; se adelanta un minuto."
+      "Los tres minutos de cazo siguen cabiendo enteros dentro de los treinta del horneado, así que no alargan el plan: lo que cambia es dónde caen. Hechos al principio, el glaseado espera veinticinco minutos en el cazo y llega al pincel frío y espesado, y así no se pincela, se unta y arrastra las láminas. Arrancando en el 47 sale del fuego en el 50 y se usa en el 52, templado y todavía fluido. Va al {4} y removiendo, y no más fuerte, porque solo hay que disolver la mermelada, no cocerla: al hervir se concentra y espesa igual. Al {2} la vitro apenas calienta un cazo pequeño en tres minutos y la mermelada se queda a medio disolver. El único choque era el vistazo del horno, que caía también en el 47; se adelanta un minuto."
     ],
     [
       "El reposo final, innegociable",

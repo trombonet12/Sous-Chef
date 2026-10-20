@@ -327,7 +327,7 @@
       "n": "MESA · EL ENCURTIDO Y LOS REMATES"
     }
   ],
-  "lectura": "La suma: 38 minutos de cuchillo antes de encender nada, 49 de fuego y horno solapados (del 38 al 87) y 5 de montaje: 92. Los dos fuegos coinciden del minuto 43 al 87, pero solo del 43 al 66 estás de verdad en dos sitios: la sartén grande hace el sofrito, sube al 8 y dora las dos tandas mientras la de saltear lleva el bacon y las alubias. A partir del 66 las alubias solo se mantienen al 1, tapadas, y toda tu atención va a la carne. La plancha no entra en el plan: ocuparía el fuego grande, que es el de la carne, así que las tortillas se calientan en el horno. El horno hace tres turnos encadenados: precalentar del 57 al 72, primera cara del pollo del 72 al 79, y segunda cara con las tortillas dentro del 79 al 86. Pollo y tortillas salen juntos en el 86, y eso es lo que hace que todo llegue a la vez sin que el pollo se pase. Hay tres cuentas que corren sin que las veas: la marinada desde el 11, el encurtido desde el 30 y el pepino escurriendo desde el 41. La ventana más cargada son los minutos 70 a 72: vuelcas plato, tomate y especias en la sartén grande mientras empiezas a escurrir el pepino, y el horno te pide el pollo en el 72.",
+  "lectura": "La suma: 38 minutos de cuchillo antes de encender nada, 49 de fuego y horno solapados (del 38 al 87) y 5 de montaje: 92. Los dos fuegos coinciden del minuto 43 al 87, pero solo del 43 al 66 estás de verdad en dos sitios: la sartén grande hace el sofrito, sube al {8} y dora las dos tandas mientras la de saltear lleva el bacon y las alubias. A partir del 66 las alubias solo se mantienen al {1}, tapadas, y toda tu atención va a la carne. La plancha no entra en el plan: ocuparía el fuego grande, que es el de la carne, así que las tortillas se calientan en el horno. El horno hace tres turnos encadenados: precalentar del 57 al 72, primera cara del pollo del 72 al 79, y segunda cara con las tortillas dentro del 79 al 86. Pollo y tortillas salen juntos en el 86, y eso es lo que hace que todo llegue a la vez sin que el pollo se pase. Hay tres cuentas que corren sin que las veas: la marinada desde el 11, el encurtido desde el 30 y el pepino escurriendo desde el 41. La ventana más cargada son los minutos 70 a 72: vuelcas plato, tomate y especias en la sartén grande mientras empiezas a escurrir el pepino, y el horno te pide el pollo en el 72.",
   "mep": [
     {
       "l": [
@@ -471,7 +471,7 @@
       "junto": null,
       "meto": "los 40 ml de aceite de oliva (3 cucharadas soperas), en la sartén grande vacía",
       "min": 3,
-      "nota": "Enciende al 5 con el aceite dentro y déjala tres minutos vacía mientras acabas los dados. El aceite tiene que brillar y correr suelto al inclinar la sartén.",
+      "nota": "Enciende al {5} con el aceite dentro y déjala tres minutos vacía mientras acabas los dados. El aceite tiene que brillar y correr suelto al inclinar la sartén.",
       "off": 38,
       "p": "La vitrocerámica no calienta la sartén: calienta el cristal, y el cristal calienta la sartén, así que una sartén grande de fondo grueso tarda cerca de tres minutos en llegar a temperatura de sudado desde fría. Si echas los 250 g de cebolla sobre aceite templado, durante esos tres minutos la cebolla no suda — absorbe aceite, y acabas con un sofrito graso en vez de translúcido. La señal es visual y no hay que fiarse del reloj: el aceite pasa de espeso y quieto a líquido y corriendo, y si inclinas la sartén cubre el fondo en una película fina.",
       "s": 180,
@@ -490,7 +490,7 @@
         },
         {
           "en": 480,
-          "t": "Mira el ajo: rubio sí, marrón no. Si corre, baja al 4"
+          "t": "Mira el ajo: rubio sí, marrón no. Si corre, baja al {4}"
         }
       ],
       "holgura": "flexible",
@@ -498,9 +498,9 @@
       "junto": null,
       "meto": "el plato: 250 g de cebolla blanca en brunoise de 0,5 cm, sobre el aceite ya caliente; a los 5 minutos, el bol pequeño: 20 g de ajo en láminas de 2 mm",
       "min": 10,
-      "nota": "Sigue al 5, sin tapa. Cinco minutos la cebolla sola y luego el ajo. Al acabar sale todo: un tercio al bol pequeño y dos tercios al plato.",
+      "nota": "Sigue al {5}, sin tapa. Cinco minutos la cebolla sola y luego el ajo. Al acabar sale todo: un tercio al bol pequeño y dos tercios al plato.",
       "off": 41,
-      "p": "Un solo sofrito para dos rellenos: es la decisión que quita un fuego y un cuarto de hora al plan. Al 5 y sin tapa la cebolla suda y suelta su agua durante cinco minutos antes de que entre el ajo, porque el ajo solo aguanta unos cinco minutos a esta potencia antes de pasar de rubio a marrón y amargar: diez minutos sería jugárselo. Las láminas de 2 mm y el vapor de la cebolla ya sudada mantienen el fondo por debajo del punto en que se quema. No buscas color: a la cebolla le quedan todavía dieciséis minutos de guiso por delante. El tercio que sale al bol se va a las alubias y no se vuelve a calentar solo, así que sácalo cuando la cebolla ya esté translúcida del todo. Y la sartén se queda vacía: la carne necesita el metal desnudo.",
+      "p": "Un solo sofrito para dos rellenos: es la decisión que quita un fuego y un cuarto de hora al plan. Al {5} y sin tapa la cebolla suda y suelta su agua durante cinco minutos antes de que entre el ajo, porque el ajo solo aguanta unos cinco minutos a esta potencia antes de pasar de rubio a marrón y amargar: diez minutos sería jugárselo. Las láminas de 2 mm y el vapor de la cebolla ya sudada mantienen el fondo por debajo del punto en que se quema. No buscas color: a la cebolla le quedan todavía dieciséis minutos de guiso por delante. El tercio que sale al bol se va a las alubias y no se vuelve a calentar solo, así que sácalo cuando la cebolla ya esté translúcida del todo. Y la sartén se queda vacía: la carne necesita el metal desnudo.",
       "s": 600,
       "saco": "todo el sofrito: un tercio al bol pequeño de las alubias y los otros dos tercios al plato llano",
       "t": "Sofrito único",
@@ -515,7 +515,7 @@
       "hitos": [
         {
           "en": 240,
-          "t": "Ya debería chisporrotear: si no, sube al 7 un minuto y vuelve al 6"
+          "t": "Ya debería chisporrotear: si no, sube al {7} un minuto y vuelve al {6}"
         },
         {
           "en": 420,
@@ -527,9 +527,9 @@
       "junto": null,
       "meto": "100 g de bacon en taquitos, en la sartén de saltear en frío",
       "min": 9,
-      "nota": "Al 6 desde la sartén de saltear fría, sin aceite. Los tres primeros minutos no pasa nada: es la vitro subiendo. Buscas grasa suelta y un dorado suave, no crujiente.",
+      "nota": "Al {6} desde la sartén de saltear fría, sin aceite. Los tres primeros minutos no pasa nada: es la vitro subiendo. Buscas grasa suelta y un dorado suave, no crujiente.",
       "off": 43,
-      "p": "En frío y sin nada de aceite: si echas el bacon sobre una sartén ya caliente, la grasa exterior se sella antes de fundirse y el taquito se queda duro por fuera y crudo por dentro. Subiendo la temperatura con él dentro, la grasa se funde despacio y acaba siendo el medio en el que se fríe. Esa grasa es el punto del relleno: hace en las alubias exactamente lo que la manteca en unos frijoles refritos, aportar grasa, sal y umami de una vez. Al 6 y no más, porque el bacon del súper lleva azúcar en la salmuera y por encima del 7 se te quema antes de haber soltado nada. De los nueve minutos, los tres primeros son solo la vitro llegando a temperatura: la grasa no empieza a fundir antes.",
+      "p": "En frío y sin nada de aceite: si echas el bacon sobre una sartén ya caliente, la grasa exterior se sella antes de fundirse y el taquito se queda duro por fuera y crudo por dentro. Subiendo la temperatura con él dentro, la grasa se funde despacio y acaba siendo el medio en el que se fríe. Esa grasa es el punto del relleno: hace en las alubias exactamente lo que la manteca en unos frijoles refritos, aportar grasa, sal y umami de una vez. Al {6} y no más, porque el bacon del súper lleva azúcar en la salmuera y por encima del {7} se te quema antes de haber soltado nada. De los nueve minutos, los tres primeros son solo la vitro llegando a temperatura: la grasa no empieza a fundir antes.",
       "s": 540,
       "saco": "",
       "t": "Sofreír el bacon",
@@ -545,12 +545,12 @@
       "junto": null,
       "meto": "",
       "min": 3,
-      "nota": "Con el sofrito ya fuera, sube al 8 y espera tres minutos con la sartén casi vacía. Una gota de agua tiene que evaporarse al instante.",
+      "nota": "Con el sofrito ya fuera, sube al {8} y espera tres minutos con la sartén casi vacía. Una gota de agua tiene que evaporarse al instante.",
       "off": 51,
       "p": "Sacar el sofrito enfría la sartén, y justo después le vas a pedir el momento más exigente de la receta. La inercia de la vitro juega en contra al subir: el cristal tiene que ganar sesenta o setenta grados antes de que la sartén los tenga, y eso son tres minutos largos. Si echas los 375 g de carne antes, la temperatura del fondo cae por debajo de los 140 °C que necesita la reacción de Maillard y la carne suelta agua y se cuece. La prueba es una gota de agua: si baila y tarda, aún no; si desaparece de golpe con un chasquido, ya está.",
       "s": 180,
       "saco": "",
-      "t": "Subir la sartén al 8",
+      "t": "Subir la sartén al {8}",
       "tapa": "sin tapa"
     },
     {
@@ -574,7 +574,7 @@
       "junto": null,
       "meto": "el bol pequeño con el tercio de sofrito y el bol de las alubias: 400 g de alubias blancas escurridas, 150 ml de caldo de pollo, 3 g de comino molido, 1 g de pimentón picante, 1 hoja de laurel y 2 g de sal",
       "min": 14,
-      "nota": "Baja al 4 y la tapa a medias. A los 5 minutos machacas un tercio contra la sartén. Al acabar, saca el laurel. Quedan cremosas, no caldosas.",
+      "nota": "Baja al {4} y la tapa a medias. A los 5 minutos machacas un tercio contra la sartén. Al acabar, saca el laurel. Quedan cremosas, no caldosas.",
       "off": 52,
       "p": "La tapa a medias es la posición que hace las dos cosas a la vez: retiene bastante vapor para que las alubias se calienten por dentro sin romperse y deja escapar el suficiente para que los 150 ml de caldo se reduzcan a salsa. Con la tapa puesta del todo acabarías con alubias nadando; sin tapa, secas y con el fondo pegado. Machacar un tercio a mitad de cocción es lo que liga el relleno: el almidón que sueltan esas alubias rotas espesa el líquido y convierte el conjunto en algo que se queda en la minitortilla. La sartén de saltear ayuda aquí por sus paredes altas: machacas contra el fondo sin que salte nada fuera. El laurel entero y no molido porque en 14 minutos da lo justo y se retira al acabar; dejarlo otros veinte minutos amargaría.",
       "s": 840,
@@ -595,11 +595,11 @@
       "holgura": "ajustado",
       "id": "carne-1",
       "junto": null,
-      "meto": "375 g de carne picada mixta, la mitad del total, sobre la sartén ya al 8 y casi vacía",
+      "meto": "375 g de carne picada mixta, la mitad del total, sobre la sartén ya al {8} y casi vacía",
       "min": 8,
-      "nota": "La sartén ya está al 8. Rompe los grumos hasta que no quede nada rosa y sácala al plato del sofrito.",
+      "nota": "La sartén ya está al {8}. Rompe los grumos hasta que no quede nada rosa y sácala al plato del sofrito.",
       "off": 54,
-      "p": "Dos tandas y no una, y el sofrito fuera de la sartén: 750 g de carne de golpe sobre 250 g de cebolla bajan la temperatura de la sartén por debajo de los 140 °C que necesita la reacción de Maillard, y lo que obtienes es carne hervida en su propio jugo, gris y sin fondo. Con 375 g sobre metal casi desnudo al 8, la sartén aguanta el golpe y la carne se dora. El agua que suelta se evapora en lugar de acumularse. Los grumos hay que romperlos desde el principio: si se compactan, el interior sigue crudo cuando el exterior ya ha perdido el color y no hay forma de arreglarlo después.",
+      "p": "Dos tandas y no una, y el sofrito fuera de la sartén: 750 g de carne de golpe sobre 250 g de cebolla bajan la temperatura de la sartén por debajo de los 140 °C que necesita la reacción de Maillard, y lo que obtienes es carne hervida en su propio jugo, gris y sin fondo. Con 375 g sobre metal casi desnudo al {8}, la sartén aguanta el golpe y la carne se dora. El agua que suelta se evapora en lugar de acumularse. Los grumos hay que romperlos desde el principio: si se compactan, el interior sigue crudo cuando el exterior ya ha perdido el color y no hay forma de arreglarlo después.",
       "s": 480,
       "saco": "esta primera tanda, al plato donde está el sofrito",
       "t": "Carne, primera tanda",
@@ -639,9 +639,9 @@
       "junto": null,
       "meto": "los otros 375 g de carne picada mixta",
       "min": 8,
-      "nota": "Sigue al 8, misma sartén sin lavar. Dale un minuto a la sartén antes de echarla: mismo gesto, grumos rotos y nada rosa.",
+      "nota": "Sigue al {8}, misma sartén sin lavar. Dale un minuto a la sartén antes de echarla: mismo gesto, grumos rotos y nada rosa.",
       "off": 62,
-      "p": "La sartén no se lava entre tandas: lo que ha quedado pegado en el fondo de la primera es fondo tostado, azúcares y proteínas caramelizadas, y es sabor que la segunda tanda arrastra y el tomate acabará desglasando. Mantener el 8 sin bajar es importante porque la sartén ha perdido calor al sacar la primera tanda y necesita recuperarlo antes de que la carne empiece a soltar agua. Si ves que la segunda tanda chapotea en vez de chisporrotear, es que has echado la carne demasiado pronto: deja de remover y espera treinta segundos al 8 antes de tocar nada.",
+      "p": "La sartén no se lava entre tandas: lo que ha quedado pegado en el fondo de la primera es fondo tostado, azúcares y proteínas caramelizadas, y es sabor que la segunda tanda arrastra y el tomate acabará desglasando. Mantener el {8} sin bajar es importante porque la sartén ha perdido calor al sacar la primera tanda y necesita recuperarlo antes de que la carne empiece a soltar agua. Si ves que la segunda tanda chapotea en vez de chisporrotear, es que has echado la carne demasiado pronto: deja de remover y espera treinta segundos al {8} antes de tocar nada.",
       "s": 480,
       "saco": "",
       "t": "Carne, segunda tanda",
@@ -654,7 +654,7 @@
       "hitos": [
         {
           "en": 600,
-          "t": "Remueve desde el fondo. Si se pega, baja al 0 y deja la tapa"
+          "t": "Remueve desde el fondo. Si se pega, baja al {0} y deja la tapa"
         }
       ],
       "holgura": "flexible",
@@ -662,12 +662,12 @@
       "junto": null,
       "meto": "",
       "min": 21,
-      "nota": "Baja al 1 y tapa del todo. Ya no cocinan: solo se mantienen calientes hasta el montaje.",
+      "nota": "Baja al {1} y tapa del todo. Ya no cocinan: solo se mantienen calientes hasta el montaje.",
       "off": 66,
-      "p": "Las alubias terminan en el 66 y no se comen hasta el 87, así que son veintiún minutos de espera. Al 1 el cristal da el calor justo para mantenerlas por encima de sesenta grados sin que sigan reduciendo, y con la tapa puesta del todo el vapor se queda dentro y no se forma costra por arriba. Apagar del todo no vale: cuatrocientos gramos en veinte minutos llegan tibios a la mesa. La sartén de saltear es mejor que la mediana para esto porque tiene más metal y menos superficie al aire, así que guarda el calor y pierde menos agua.",
+      "p": "Las alubias terminan en el 66 y no se comen hasta el 87, así que son veintiún minutos de espera. Al {1} el cristal da el calor justo para mantenerlas por encima de sesenta grados sin que sigan reduciendo, y con la tapa puesta del todo el vapor se queda dentro y no se forma costra por arriba. Apagar del todo no vale: cuatrocientos gramos en veinte minutos llegan tibios a la mesa. La sartén de saltear es mejor que la mediana para esto porque tiene más metal y menos superficie al aire, así que guarda el calor y pierde menos agua.",
       "s": 1260,
       "saco": "",
-      "t": "Alubias al 1, tapadas",
+      "t": "Alubias al {1}, tapadas",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -685,9 +685,9 @@
       "junto": null,
       "meto": "el plato: la primera tanda de carne y los dos tercios de sofrito, sobre la segunda tanda que sigue en la sartén; 400 g de tomate triturado; el platito: 7 g de comino molido, 3 g de pimentón picante, 11 g de sal y 2 g de pimienta negra",
       "min": 8,
-      "nota": "Baja al 4 y pon la tapa a medias: el tomate recién echado salta. Ocho minutos.",
+      "nota": "Baja al {4} y pon la tapa a medias: el tomate recién echado salta. Ocho minutos.",
       "off": 70,
-      "p": "Vuelve todo a la sartén y baja al 4: el tomate desglasa el fondo tostado de las dos tandas y ese es el sabor que separa esta carne de una carne picada con tomate. La tapa a medias en esta primera mitad es por las salpicaduras y porque el tomate crudo necesita unos minutos de chup-chup para perder la acidez; no se cierra del todo porque este guiso tiene que perder agua, no guardarla. Dejarlo dieciséis minutos con la tapa puesta y a la vez pedir surco al final no puede ser: tapado, el vapor condensa y vuelve a caer. Las especias entran ahora y no con la carne cruda porque el comino en grasa muy caliente amarga.",
+      "p": "Vuelve todo a la sartén y baja al {4}: el tomate desglasa el fondo tostado de las dos tandas y ese es el sabor que separa esta carne de una carne picada con tomate. La tapa a medias en esta primera mitad es por las salpicaduras y porque el tomate crudo necesita unos minutos de chup-chup para perder la acidez; no se cierra del todo porque este guiso tiene que perder agua, no guardarla. Dejarlo dieciséis minutos con la tapa puesta y a la vez pedir surco al final no puede ser: tapado, el vapor condensa y vuelve a caer. Las especias entran ahora y no con la carne cruda porque el comino en grasa muy caliente amarga.",
       "s": 480,
       "saco": "",
       "t": "Tomate y especias, tapa a medias",
@@ -761,7 +761,7 @@
       "hitos": [
         {
           "en": 240,
-          "t": "Remueve. Si salpica fuerte, baja al 4"
+          "t": "Remueve. Si salpica fuerte, baja al {4}"
         },
         {
           "en": 420,
@@ -773,9 +773,9 @@
       "junto": null,
       "meto": "",
       "min": 8,
-      "nota": "Tapa fuera y sube al 5. Al final la cuchara tiene que dejar surco en el fondo.",
+      "nota": "Tapa fuera y sube al {5}. Al final la cuchara tiene que dejar surco en el fondo.",
       "off": 78,
-      "p": "Ahora sí, tapa fuera: todo el vapor que sale se va, y en ocho minutos al 5 se evaporan el agua que ha soltado la carne y buena parte de la del tomate. Sube un punto porque sin tapa la superficie pierde calor al evaporar, y al 4 se quedaría en un hervor tímido. El punto final no es el reloj, es el surco: si arrastras la cuchara por el fondo y el hueco tarda en cerrarse, está. Más jugoso que eso y en una minitortilla de 15 cm el líquido traspasa la masa y el taco se rompe en la mano. Si llega antes al surco, baja al 1 y espera.",
+      "p": "Ahora sí, tapa fuera: todo el vapor que sale se va, y en ocho minutos al {5} se evaporan el agua que ha soltado la carne y buena parte de la del tomate. Sube un punto porque sin tapa la superficie pierde calor al evaporar, y al {4} se quedaría en un hervor tímido. El punto final no es el reloj, es el surco: si arrastras la cuchara por el fondo y el hueco tarda en cerrarse, está. Más jugoso que eso y en una minitortilla de 15 cm el líquido traspasa la masa y el taco se rompe en la mano. Si llega antes al surco, baja al {1} y espera.",
       "s": 480,
       "saco": "",
       "t": "Reducir sin tapa, hasta el surco",
@@ -812,7 +812,7 @@
       "junto": null,
       "meto": "35 ml de zumo de limón",
       "min": 1,
-      "nota": "Vitrocerámica al 0 y los 35 ml de zumo de limón dentro, destapado. Dos vueltas y prueba la sal.",
+      "nota": "Vitrocerámica al {0} y los 35 ml de zumo de limón dentro, destapado. Dos vueltas y prueba la sal.",
       "off": 86,
       "p": "El ácido entra con el fuego apagado porque hervido pierde el aroma volátil y se queda solo el agrio. Fuera del fuego levanta el comino y el pimentón, que llevan dieciséis minutos apelmazados en la grasa, y corta la sensación grasa de la carne mixta. Es también el momento de probar la sal, y hay que hacerlo ahora y no antes: el feta de la mesa sala bastante, así que la carne tiene que quedarse un punto por debajo de lo que te pediría el cuerpo probándola sola. La vitro guarda calor un par de minutos después de apagar, suficiente para que el zumo se integre sin volver a hervir.",
       "s": 60,
@@ -863,7 +863,7 @@
     ],
     [
       "Los precalentados son pasos, no suposiciones",
-      "Si el sofrito arrancara en una sartén fría y la carne entrara justo al subir la vitro del 5 al 8, las dos cosas esconderían minutos: la vitrocerámica calienta el cristal y el cristal calienta la sartén, así que una sartén grande tarda tres minutos en llegar a temperatura desde fría y otros tres en subir de sudar a dorar. Metidos dentro de los pasos, esos seis minutos se los comerían el sofrito y el dorado; por eso son dos pasos con su propia señal visual —el aceite corriendo suelto y la gota de agua que desaparece de golpe— y lo que dura cada paso es lo que de verdad se cocina. Lo mismo con el bacon, que arranca en frío y necesita nueve minutos y no seis, y con el horno, que estabiliza en quince y no en los ocho del pitido."
+      "Si el sofrito arrancara en una sartén fría y la carne entrara justo al subir la vitro del {5} al {8}, las dos cosas esconderían minutos: la vitrocerámica calienta el cristal y el cristal calienta la sartén, así que una sartén grande tarda tres minutos en llegar a temperatura desde fría y otros tres en subir de sudar a dorar. Metidos dentro de los pasos, esos seis minutos se los comerían el sofrito y el dorado; por eso son dos pasos con su propia señal visual —el aceite corriendo suelto y la gota de agua que desaparece de golpe— y lo que dura cada paso es lo que de verdad se cocina. Lo mismo con el bacon, que arranca en frío y necesita nueve minutos y no seis, y con el horno, que estabiliza en quince y no en los ocho del pitido."
     ],
     [
       "El pollo acaba con las tortillas, no las espera",
@@ -875,7 +875,7 @@
     ],
     [
       "La sartén de saltear para las alubias",
-      "Encaja en el fuego mediano, así que no puede hacer la carne, que necesita el fuego grande para dorar; y el guiso, con poco más de un kilo, cabe en la sartén grande. Donde sí gana es en las alubias: sus paredes altas dejan machacar sin salpicar, y su masa de metal las mantiene calientes los veintiún minutos que esperan al 1 hasta el montaje."
+      "Encaja en el fuego mediano, así que no puede hacer la carne, que necesita el fuego grande para dorar; y el guiso, con poco más de un kilo, cabe en la sartén grande. Donde sí gana es en las alubias: sus paredes altas dejan machacar sin salpicar, y su masa de metal las mantiene calientes los veintiún minutos que esperan al {1} hasta el montaje."
     ],
     [
       "Tres bols y solo tres",
@@ -899,7 +899,7 @@
     ],
     [
       "Un sofrito para dos rellenos",
-      "La carne y las alubias querían el mismo fondo: cebolla, ajo y aceite. Hacerlo dos veces serían dos recipientes, dos cortes y ocho minutos más de plan. Se hace uno de 250 g en la sartén grande y se le quita un tercio para las alubias en el momento en que está listo, antes de que entre la carne. El ajo entra a los cinco minutos y no al principio: diez minutos al 5 es más de lo que aguanta sin amargar."
+      "La carne y las alubias querían el mismo fondo: cebolla, ajo y aceite. Hacerlo dos veces serían dos recipientes, dos cortes y ocho minutos más de plan. Se hace uno de 250 g en la sartén grande y se le quita un tercio para las alubias en el momento en que está listo, antes de que entre la carne. El ajo entra a los cinco minutos y no al principio: diez minutos al {5} es más de lo que aguanta sin amargar."
     ],
     [
       "El bacon dentro y no aparte",
@@ -919,7 +919,7 @@
     ],
     [
       "El guiso, más seco que en la receta de dos, y por eso sin tapa al final",
-      "El punto final del chup-chup no es el reloj, es el surco de la cuchara en el fondo. En una tortilla grande una carne jugosa se sostiene; en una minitortilla de 15 cm el líquido traspasa la masa antes de que el taco llegue al plato. Para llegar ahí el agua tiene que irse, y con la tapa puesta no se va: por eso ocho minutos al 4 con la tapa a medias, por las salpicaduras, y ocho al 5 con la tapa fuera."
+      "El punto final del chup-chup no es el reloj, es el surco de la cuchara en el fondo. En una tortilla grande una carne jugosa se sostiene; en una minitortilla de 15 cm el líquido traspasa la masa antes de que el taco llegue al plato. Para llegar ahí el agua tiene que irse, y con la tapa puesta no se va: por eso ocho minutos al {4} con la tapa a medias, por las salpicaduras, y ocho al {5} con la tapa fuera."
     ],
     [
       "Las sartenes a la mesa, sin trasvasar",

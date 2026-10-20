@@ -8,7 +8,7 @@
   "creada": "2026-09-16T11:07:00Z",
   "pasos": [
     {
-      "p": "Arrancar a potencia 7-8 hasta que hierva, y bajar enseguida a 2-3 para el chup-chup propiamente dicho.",
+      "p": "Arrancar a potencia {7}-{8} hasta que hierva, y bajar enseguida al {2} o al {3} para el chup-chup propiamente dicho.",
       "t": "Bajar la potencia después del primer hervor"
     },
     {

@@ -164,7 +164,7 @@
       "n": "MESA · EL REMATE"
     }
   ],
-  "lectura": "La suma: 8 de mise en place + 2 de calentar el aceite + 4 de sofrito + 7 de carne + 8 de guiso + 1 de limón + 1 de reposo + 3 de montaje = 34 minutos. Los dos fuegos a la vez van del minuto 26 al 29: la plancha se precalienta del 26 al 28 y empieza las tortillas en el 28 mientras el guiso termina tapado y al 3. Después, el limón y el reposo en la sartén apagada y las tortillas acabando en el 31, justo cuando empieza el montaje. Fuera de esa ventana todo es secuencial en una sola sartén. Y hay una cuenta que corre desde el minuto 8 sin que la veas: la cebolla morada del encurtido, que pasa 23 minutos en el vinagre rebajado hasta el montaje.",
+  "lectura": "La suma: 8 de mise en place + 2 de calentar el aceite + 4 de sofrito + 7 de carne + 8 de guiso + 1 de limón + 1 de reposo + 3 de montaje = 34 minutos. Los dos fuegos a la vez van del minuto 26 al 29: la plancha se precalienta del 26 al 28 y empieza las tortillas en el 28 mientras el guiso termina tapado y al {3}. Después, el limón y el reposo en la sartén apagada y las tortillas acabando en el 31, justo cuando empieza el montaje. Fuera de esa ventana todo es secuencial en una sola sartén. Y hay una cuenta que corre desde el minuto 8 sin que la veas: la cebolla morada del encurtido, que pasa 23 minutos en el vinagre rebajado hasta el montaje.",
   "mep": [
     {
       "l": [
@@ -190,7 +190,7 @@
     },
     {
       "l": [
-        "<b>Sartén, en frío</b> · los 15 ml de aceite de oliva (1 cucharada sopera). En el minuto 8 solo enciendes al 5, y la cebolla entra en el 10.",
+        "<b>Sartén, en frío</b> · los 15 ml de aceite de oliva (1 cucharada sopera). En el minuto 8 solo enciendes al {5}, y la cebolla entra en el 10.",
         "<b>Los 15 ml de zumo de limón (½ limón)</b>, en el vaso donde exprimiste. Son los del guiso y entran en el minuto 29, fuera del fuego.",
         "<b>Los 300 g de carne picada</b> se quedan en su bandeja hasta el minuto 14. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla al deshacer los grumos.",
         "<b>Las 6 tortillas</b>, en su paquete, hasta el minuto 28: se calientan de dos en dos en la plancha, encendida desde el 26, y salen a un paño."
@@ -230,9 +230,9 @@
       "junto": null,
       "meto": "los 15 ml de aceite de oliva (1 cucharada sopera), en la sartén",
       "min": 2,
-      "nota": "Enciende al 5 y espera dos minutos: el aceite tiene que estar caliente cuando entre la cebolla.",
+      "nota": "Enciende al {5} y espera dos minutos: el aceite tiene que estar caliente cuando entre la cebolla.",
       "off": 8,
-      "p": "Enciende la sartén al 5 con los 15 ml de aceite de oliva ya dentro. Con el aceite caliente, la cebolla y el ajo empiezan a sudar en cuanto tocan el metal; si entran en frío se calientan con el aceite, sueltan el agua de golpe y se cuecen en lugar de pocharse.",
+      "p": "Enciende la sartén al {5} con los 15 ml de aceite de oliva ya dentro. Con el aceite caliente, la cebolla y el ajo empiezan a sudar en cuanto tocan el metal; si entran en frío se calientan con el aceite, sueltan el agua de golpe y se cuecen en lugar de pocharse.",
       "s": 120,
       "saco": "",
       "t": "Calentar el aceite",
@@ -245,7 +245,7 @@
       "hitos": [
         {
           "en": 120,
-          "t": "Mira el ajo: rubio sí, marrón no. Si va rápido, baja al 4"
+          "t": "Mira el ajo: rubio sí, marrón no. Si va rápido, baja al {4}"
         }
       ],
       "holgura": "flexible",
@@ -253,9 +253,9 @@
       "junto": null,
       "meto": "el plato: 100 g de cebolla (½ mediana) en brunoise de 0,5 cm + 8 g de ajo (2 dientes) en láminas de 2 mm, sobre los 15 ml de aceite de oliva caliente",
       "min": 4,
-      "nota": "Al 5, sin tapa. La cebolla translúcida y el ajo rubio, nunca marrón: si el ajo empieza a dorar antes de tiempo, baja al 4.",
+      "nota": "Al {5}, sin tapa. La cebolla translúcida y el ajo rubio, nunca marrón: si el ajo empieza a dorar antes de tiempo, baja al {4}.",
       "off": 10,
-      "p": "Con el aceite ya caliente al 5, echa el plato entero: los 100 g de cebolla y las láminas de ajo a la vez. Buscas que sude y quede translúcida, no que coja color: aún le quedan quince minutos de fuego antes de llegar al plato. El ajo es lo que hay que vigilar aquí — cuatro minutos es mucho para él, y por eso va en láminas de 2 mm y no picado: menos superficie, menos prisa por dorarse. El agua que suelta la cebolla lo protege los primeros minutos. Si aun así lo ves tomar color antes del tercer minuto, baja al 4: ajo dorado da amargor y no hay vuelta atrás.",
+      "p": "Con el aceite ya caliente al {5}, echa el plato entero: los 100 g de cebolla y las láminas de ajo a la vez. Buscas que sude y quede translúcida, no que coja color: aún le quedan quince minutos de fuego antes de llegar al plato. El ajo es lo que hay que vigilar aquí — cuatro minutos es mucho para él, y por eso va en láminas de 2 mm y no picado: menos superficie, menos prisa por dorarse. El agua que suelta la cebolla lo protege los primeros minutos. Si aun así lo ves tomar color antes del tercer minuto, baja al {4}: ajo dorado da amargor y no hay vuelta atrás.",
       "s": 240,
       "saco": "",
       "t": "Pochar cebolla y ajo",
@@ -280,9 +280,9 @@
       "junto": null,
       "meto": "300 g de carne picada",
       "min": 7,
-      "nota": "Sube a 7 y rompe los grumos hasta que no quede nada rosa.",
+      "nota": "Sube al {7} y rompe los grumos hasta que no quede nada rosa.",
       "off": 14,
-      "p": "Sube al 7 antes de echar la carne. Rompe los grumos con la cuchara sin parar hasta que pierda el rojo por completo: si se queda en trozos grandes, el interior sigue crudo cuando el exterior ya ha perdido color. Siete minutos porque 300 g de carne sueltan mucha agua y, hasta que se evapora, la carne se cuece en lugar de dorarse.",
+      "p": "Sube al {7} antes de echar la carne. Rompe los grumos con la cuchara sin parar hasta que pierda el rojo por completo: si se queda en trozos grandes, el interior sigue crudo cuando el exterior ya ha perdido color. Siete minutos porque 300 g de carne sueltan mucha agua y, hasta que se evapora, la carne se cuece en lugar de dorarse.",
       "s": 420,
       "saco": "",
       "t": "Carne, deshaciendo grumos",
@@ -303,9 +303,9 @@
       "junto": null,
       "meto": "100 g de tomate triturado (6 cucharadas soperas) + 2 g de pimentón picante (2 vueltas cortas del bote) + 3 g de comino (1 cucharadita rasa) + 5 g de sal (1 cucharadita rasa) + 1 g de pimienta negra (¼ de cucharadita)",
       "min": 8,
-      "nota": "Baja al 3 y tapa. Ocho minutos. El pimentón sale de un bote de agujeros: los 2 g son una referencia, no una pesada exacta.",
+      "nota": "Baja al {3} y tapa. Ocho minutos. El pimentón sale de un bote de agujeros: los 2 g son una referencia, no una pesada exacta.",
       "off": 21,
-      "p": "Baja al 3 y echa el tomate con las especias, la sal y la pimienta. Tapado para que se haga sin salpicar ni secarse antes de tiempo. Ocho minutos bastan para que el tomate pierda el sabor crudo y la carne quede jugosa, no reseca.",
+      "p": "Baja al {3} y echa el tomate con las especias, la sal y la pimienta. Tapado para que se haga sin salpicar ni secarse antes de tiempo. Ocho minutos bastan para que el tomate pierda el sabor crudo y la carne quede jugosa, no reseca.",
       "s": 480,
       "saco": "",
       "t": "Tomate y especias, tapado",
@@ -322,9 +322,9 @@
       "junto": "guiso-tomate",
       "meto": "la plancha seca, sin tortillas",
       "min": 2,
-      "nota": "Enciende la plancha al 6, seca y sin grasa, y déjala dos minutos.",
+      "nota": "Enciende la plancha al {6}, seca y sin grasa, y déjala dos minutos.",
       "off": 26,
-      "p": "Plancha seca al 6, sin nada de grasa, dos minutos antes de las tortillas. Una plancha tibia las pone flexibles pero sin mancha tostada y tarda más por cara, así que las tandas se alargarían y las primeras se enfriarían esperando a las últimas.",
+      "p": "Plancha seca al {6}, sin nada de grasa, dos minutos antes de las tortillas. Una plancha tibia las pone flexibles pero sin mancha tostada y tarda más por cara, así que las tandas se alargarían y las primeras se enfriarían esperando a las últimas.",
       "s": 120,
       "saco": "",
       "t": "Precalentar la plancha",
@@ -359,11 +359,11 @@
       "holgura": "ajustado",
       "id": "calentar-tortillas",
       "junto": null,
-      "meto": "6 tortillas, de dos en dos, sobre la plancha seca y ya caliente al 6",
+      "meto": "6 tortillas, de dos en dos, sobre la plancha seca y ya caliente al {6}",
       "min": 3,
       "nota": "Tres tandas de 2, 30 s por cara. Cada tanda sale a un paño y se tapa con él.",
       "off": 28,
-      "p": "Con la plancha ya caliente al 6, sin nada de grasa, las 6 tortillas en tres tandas de dos: de una en una las seis tardarían el doble y se enfriaría la primera esperando. Treinta segundos por cara, hasta que abomben un poco y salgan manchas tostadas. Cada tanda sale a un paño y se tapa con el propio paño: apiladas y cubiertas se hacen vapor entre ellas y llegan flexibles al montaje; sueltas sobre un plato se resecan y se parten al doblarlas.",
+      "p": "Con la plancha ya caliente al {6}, sin nada de grasa, las 6 tortillas en tres tandas de dos: de una en una las seis tardarían el doble y se enfriaría la primera esperando. Treinta segundos por cara, hasta que abomben un poco y salgan manchas tostadas. Cada tanda sale a un paño y se tapa con el propio paño: apiladas y cubiertas se hacen vapor entre ellas y llegan flexibles al montaje; sueltas sobre un plato se resecan y se parten al doblarlas.",
       "s": 180,
       "saco": "cada tortilla, envuelta en un paño",
       "t": "Calentar las tortillas",
@@ -446,7 +446,7 @@
     ],
     [
       "El ajo en láminas y con la cebolla, no picado ni aparte",
-      "Es la decisión más discutible del plato y va explicada por eso. El ajo entra en el minuto 8 junto a la cebolla y se queda cuatro minutos al 5, que es mucho más de los sesenta segundos que aguantaría picado antes de amargar. Se sostiene por dos cosas: las láminas de 2 mm tienen mucha menos superficie que el picado, y el agua que suelta la cebolla mantiene la sartén por debajo del punto en que el ajo se tuesta. A cambio queda un ajo dulce y presente, en lámina, que se nota al morder. Si lo ves tomar color antes del tercer minuto, baja al 4. La alternativa segura es picarlo y echarlo en el último minuto del sofrito, pero entonces desaparece dentro del guiso en vez de notarse."
+      "Es la decisión más discutible del plato y va explicada por eso. El ajo entra en el minuto 8 junto a la cebolla y se queda cuatro minutos al {5}, que es mucho más de los sesenta segundos que aguantaría picado antes de amargar. Se sostiene por dos cosas: las láminas de 2 mm tienen mucha menos superficie que el picado, y el agua que suelta la cebolla mantiene la sartén por debajo del punto en que el ajo se tuesta. A cambio queda un ajo dulce y presente, en lámina, que se nota al morder. Si lo ves tomar color antes del tercer minuto, baja al {4}. La alternativa segura es picarlo y echarlo en el último minuto del sofrito, pero entonces desaparece dentro del guiso en vez de notarse."
     ],
     [
       "Sin cilantro",

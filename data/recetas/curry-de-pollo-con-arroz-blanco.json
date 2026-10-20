@@ -191,7 +191,7 @@
       "l": [
         "<b>Bol mediano</b> · los 150 g de cebolla y los 100 g de pimiento, juntos. Entran los dos en el minuto 21, así que separarlos no aporta nada.",
         "<b>Platito</b> · los 3 dientes de ajo picados de 2 mm (unos 12 g) y los 5 g de jengibre fresco rallado (2 cm de raíz). Caen en el minuto 29 y su ventana son sesenta segundos: con las manos ocupadas no da tiempo a nada más.",
-        "<b>Taza pequeña</b> · los 4 g de curry (2 cdta) y el 1 g de comino (½ cdta), ya medidos juntos. Entran en el minuto 30, un minuto después del ajo, y ese minuto es la única razón por la que no comparten platito: al 4 y removiendo no puedes separar dos montones con la cuchara.",
+        "<b>Taza pequeña</b> · los 4 g de curry (2 cdta) y el 1 g de comino (½ cdta), ya medidos juntos. Entran en el minuto 30, un minuto después del ajo, y ese minuto es la única razón por la que no comparten platito: al {4} y removiendo no puedes separar dos montones con la cuchara.",
         "<b>Vaso medidor</b> · los 100 ml de agua con la leche de coco encima hasta 300 ml. No es una medida guardada, es el recipiente de la salsa: los dos líquidos entran en el mismo minuto 31."
       ],
       "orden": false,
@@ -246,7 +246,7 @@
       "min": 2,
       "nota": "Listo cuando el aceite se mueve solo y brilla sin humear. Sartén de 24 a 28 cm.",
       "off": 14,
-      "p": "La cucharada de aceite ya está en la sartén desde la preparación, así que aquí solo giras el mando al 8. La señal son dos minutos y que el aceite se mueva solo y brille sin humear. Girasol y no oliva: su punto de humo está unos cuarenta grados más arriba y al 8 el de oliva empezaría a quemarse. Sartén de 24 a 28 cm, para que los 400 g de pollo quepan en una capa.",
+      "p": "La cucharada de aceite ya está en la sartén desde la preparación, así que aquí solo giras el mando al {8}. La señal son dos minutos y que el aceite se mueva solo y brille sin humear. Girasol y no oliva: su punto de humo está unos cuarenta grados más arriba y al {8} el de oliva empezaría a quemarse. Sartén de 24 a 28 cm, para que los 400 g de pollo quepan en una capa.",
       "s": 120,
       "saco": "",
       "t": "Calentar el aceite",
@@ -276,7 +276,7 @@
       "hitos": [
         {
           "en": 60,
-          "t": "Remueve, la placa aún viene del 8"
+          "t": "Remueve, la placa aún viene del {8}"
         }
       ],
       "holgura": "flexible",
@@ -284,9 +284,9 @@
       "junto": null,
       "meto": "el bol: 150 g de cebolla + 100 g de pimiento",
       "min": 8,
-      "nota": "Remueve en el primer minuto, que la placa aún viene del 8. Si vas tarde, roba tiempo aquí.",
+      "nota": "Remueve en el primer minuto, que la placa aún viene del {8}. Si vas tarde, roba tiempo aquí.",
       "off": 21,
-      "p": "Baja al 5, echa el bol y tapa. Cuidado con la inercia de la vitro: la placa sigue caliente un par de minutos y la verdura entra sobre una superficie más caliente de lo que marca el mando, así que remueve en el primer minuto. La tapa devuelve el vapor y la verdura suda en su propia agua en vez de tostarse, y ese vapor condensado levanta el fondo pegado del sellado, que es medio caldo gratis. Es el paso más flexible del plan: si vas tarde, róbale minutos aquí.",
+      "p": "Baja al {5}, echa el bol y tapa. Cuidado con la inercia de la vitro: la placa sigue caliente un par de minutos y la verdura entra sobre una superficie más caliente de lo que marca el mando, así que remueve en el primer minuto. La tapa devuelve el vapor y la verdura suda en su propia agua en vez de tostarse, y ese vapor condensado levanta el fondo pegado del sellado, que es medio caldo gratis. Es el paso más flexible del plan: si vas tarde, róbale minutos aquí.",
       "s": 480,
       "saco": "",
       "t": "Sudar la verdura",
@@ -315,7 +315,7 @@
       "min": 6,
       "nota": "Tapada rompe en 6 minutos. Antes no: cada minuto de hervor de más evapora agua medida.",
       "off": 28,
-      "p": "Los 270 ml con la media cucharadita de sal ya están en la olla en frío. Tapada y al 9: seis minutos hasta que rompa, unos dos menos que destapada. Arranca cuando el sofrito lleve siete de sus ocho minutos, ni antes ni después. Antes, cada minuto de hervor de más evapora agua que el arroz necesita medida al mililitro, porque esto va por absorción y no hay escurridor que corrija.",
+      "p": "Los 270 ml con la media cucharadita de sal ya están en la olla en frío. Tapada y al {9}: seis minutos hasta que rompa, unos dos menos que destapada. Arranca cuando el sofrito lleve siete de sus ocho minutos, ni antes ni después. Antes, cada minuto de hervor de más evapora agua que el arroz necesita medida al mililitro, porque esto va por absorción y no hay escurridor que corrija.",
       "s": 360,
       "saco": "",
       "t": "Agua al fuego",
@@ -347,9 +347,9 @@
       "junto": null,
       "meto": "la taza: 4 g de curry (2 cdta) + 1 g de comino (½ cdta)",
       "min": 1,
-      "nota": "Baja al 4 ANTES de echarlas y remueve sin parar. Si huele a quemado, mete el líquido ya.",
+      "nota": "Baja al {4} ANTES de echarlas y remueve sin parar. Si huele a quemado, mete el líquido ya.",
       "off": 30,
-      "p": "Baja al 4 antes de echarlas, no después. El curry y el comino van a la grasa y no al líquido: sus aromáticos son liposolubles, así que un minuto en aceite caliente extrae más que veinte de hervor en agua. La señal es que huela a especia tostada y el fondo se vea como una pasta. Si ves humo o huele a quemado, el líquido entra ya: en polvo y sin líquido, estas especias pasan de tostadas a amargas en segundos.",
+      "p": "Baja al {4} antes de echarlas, no después. El curry y el comino van a la grasa y no al líquido: sus aromáticos son liposolubles, así que un minuto en aceite caliente extrae más que veinte de hervor en agua. La señal es que huela a especia tostada y el fondo se vea como una pasta. Si ves humo o huele a quemado, el líquido entra ya: en polvo y sin líquido, estas especias pasan de tostadas a amargas en segundos.",
       "s": 60,
       "saco": "",
       "t": "Florear las especias",
@@ -364,9 +364,9 @@
       "junto": null,
       "meto": "el vaso: 300 ml de coco y agua + 5 ml de soja (1 cdta) + 4 g de sal (¾ cdta)",
       "min": 2,
-      "nota": "Rasca el fondo mientras arranca. Sube al 7 hasta que burbujee en toda la superficie.",
+      "nota": "Rasca el fondo mientras arranca. Sube al {7} hasta que burbujee en toda la superficie.",
       "off": 31,
-      "p": "El vaso entero de una vez, los 100 ml de agua y los 200 de leche de coco juntos, más 5 ml de soja (1 cucharadita) y 4 g de sal (¾ de cucharadita). Rasca el fondo con la cuchara de madera mientras arranca: ahí está pegado todo lo que doró el pollo, y es lo que sustituye al caldo. Sube al 7 hasta que burbujee en toda la superficie y no solo en el centro, que es la señal de que la masa entera está a temperatura y ya puedes bajar.",
+      "p": "El vaso entero de una vez, los 100 ml de agua y los 200 de leche de coco juntos, más 5 ml de soja (1 cucharadita) y 4 g de sal (¾ de cucharadita). Rasca el fondo con la cuchara de madera mientras arranca: ahí está pegado todo lo que doró el pollo, y es lo que sustituye al caldo. Sube al {7} hasta que burbujee en toda la superficie y no solo en el centro, que es la señal de que la masa entera está a temperatura y ya puedes bajar.",
       "s": 120,
       "saco": "",
       "t": "Coco, agua y soja",
@@ -389,7 +389,7 @@
       "min": 10,
       "nota": "Listo cuando cubre el dorso de la cuchara y el surco tarda un segundo en cerrarse.",
       "off": 33,
-      "p": "Al 3 y sin tapa. De los 300 ml de líquido tienen que irse unos 100, y la tapa aquí sería el error del plato: devolvería a la sartén exactamente el agua que quieres perder. A los diez minutos la salsa cubre el dorso de la cuchara y deja un surco que tarda un segundo en cerrarse. Si no lo hace, disuelve los 3 g de maicena (1 cucharadita) en 15 ml de agua fría y échala removiendo; en seco sobre la salsa caliente gelatiniza en grumos al instante y no hay forma de deshacerlos.",
+      "p": "Al {3} y sin tapa. De los 300 ml de líquido tienen que irse unos 100, y la tapa aquí sería el error del plato: devolvería a la sartén exactamente el agua que quieres perder. A los diez minutos la salsa cubre el dorso de la cuchara y deja un surco que tarda un segundo en cerrarse. Si no lo hace, disuelve los 3 g de maicena (1 cucharadita) en 15 ml de agua fría y échala removiendo; en seco sobre la salsa caliente gelatiniza en grumos al instante y no hay forma de deshacerlos.",
       "s": 600,
       "saco": "unos 100 ml, evaporados",
       "t": "Reducir destapado",
@@ -404,9 +404,9 @@
       "junto": null,
       "meto": "150 g de arroz blanco largo, enjuagado",
       "min": 12,
-      "nota": "Una sola vuelta de cuchara. Tapa puesta y al 2: no la levantes en los 12 minutos.",
+      "nota": "Una sola vuelta de cuchara. Tapa puesta y al {2}: no la levantes en los 12 minutos.",
       "off": 34,
-      "p": "Los 150 g al agua hirviendo, una vuelta de cuchara y solo una: cada remoción de más rompe la superficie del grano y suelta almidón, y entonces el largo deja de estar suelto. Tapa y baja al 2, lo justo para mantener un hervor perezoso sin que se salga por el borde. Doce minutos sin abrir, y esto no es una manía: al levantar la tapa se va el vapor que está cociendo los granos de arriba, que no tocan el agua.",
+      "p": "Los 150 g al agua hirviendo, una vuelta de cuchara y solo una: cada remoción de más rompe la superficie del grano y suelta almidón, y entonces el largo deja de estar suelto. Tapa y baja al {2}, lo justo para mantener un hervor perezoso sin que se salga por el borde. Doce minutos sin abrir, y esto no es una manía: al levantar la tapa se va el vapor que está cociendo los granos de arriba, que no tocan el agua.",
       "s": 720,
       "saco": "",
       "sinHitos": "Doce minutos tapados y ni un aviso, a propósito: cualquier hito aquí te haría levantar la tapa, y con ella se va el vapor que está cociendo los granos de arriba, los que no tocan el agua. El único momento de este paso es el final.",
@@ -434,7 +434,7 @@
       "min": 6,
       "nota": "Seis minutos y ni uno más. Abre un dado grande: blanco entero, sin veta rosa.",
       "off": 43,
-      "p": "El pollo y todo el jugo que haya soltado en el plato, que es sabor concentrado y va dentro. Seis minutos al 3 bastan para que el centro de un dado de 2,5 cm llegue a temperatura segura dentro de una salsa que está a unos noventa grados. Aquí es donde se decide el plato: con el pollo dentro desde el principio serían veinte minutos de cocción y la pechuga, que no tiene grasa que la proteja, saldría como fibra seca. Si un dado grande te preocupa, ábrelo: tiene que estar blanco entero, sin veta rosa.",
+      "p": "El pollo y todo el jugo que haya soltado en el plato, que es sabor concentrado y va dentro. Seis minutos al {3} bastan para que el centro de un dado de 2,5 cm llegue a temperatura segura dentro de una salsa que está a unos noventa grados. Aquí es donde se decide el plato: con el pollo dentro desde el principio serían veinte minutos de cocción y la pechuga, que no tiene grasa que la proteja, saldría como fibra seca. Si un dado grande te preocupa, ábrelo: tiene que estar blanco entero, sin veta rosa.",
       "s": 360,
       "saco": "",
       "t": "Vuelve el pollo",
@@ -488,7 +488,7 @@
     ],
     [
       "Las especias en la grasa y no en el líquido",
-      "La curcumina del curry y los aceites del comino son liposolubles: se disuelven en aceite y casi nada en agua. Sesenta segundos al 4 en la grasa del sofrito sacan más color y más aroma que veinte minutos de hervor. Y al 4 y no al 6 porque en polvo se queman en segundos, y curry quemado es amargo sin remedio."
+      "La curcumina del curry y los aceites del comino son liposolubles: se disuelven en aceite y casi nada en agua. Sesenta segundos al {4} en la grasa del sofrito sacan más color y más aroma que veinte minutos de hervor. Y al {4} y no al {6} porque en polvo se queman en segundos, y curry quemado es amargo sin remedio."
     ],
     [
       "Sin caldo de pollo: agua y una cucharadita de soja",

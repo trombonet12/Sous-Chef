@@ -32,7 +32,7 @@
       "t": "Zanahoria · dados de 3 mm"
     },
     {
-      "p": "Un milímetro es el picado más fino que se sostiene con cuchillo, y aquí hace falta: el ajo entra en el minuto 24 y solo tiene sesenta segundos al 5 antes de que llegue la carne. Picado a 1 mm suelta todo su aroma en ese minuto; en trozo más grande se quedaría crudo por dentro y luego se tostaría bajo la carne. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
+      "p": "Un milímetro es el picado más fino que se sostiene con cuchillo, y aquí hace falta: el ajo entra en el minuto 24 y solo tiene sesenta segundos al {5} antes de que llegue la carne. Picado a 1 mm suelta todo su aroma en ese minuto; en trozo más grande se quedaría crudo por dentro y luego se tostaría bajo la carne. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadrícula muy fina de cortes para picarlo a 1 mm\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".55\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"5\" x2=\"48\" y2=\"83\"/><line x1=\"56\" y1=\"4\" x2=\"56\" y2=\"84\"/><line x1=\"64\" y1=\"4\" x2=\"64\" y2=\"84\"/><line x1=\"72\" y1=\"5\" x2=\"72\" y2=\"83\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"33\" y1=\"26\" x2=\"87\" y2=\"26\"/><line x1=\"30\" y1=\"40\" x2=\"90\" y2=\"40\"/><line x1=\"30\" y1=\"54\" x2=\"90\" y2=\"54\"/><line x1=\"35\" y1=\"68\" x2=\"85\" y2=\"68\"/></g></svg>",
       "t": "Ajo · picado de 1 mm"
     }
@@ -191,7 +191,7 @@
     },
     {
       "l": [
-        "<b>Sartén, en frío</b> · los 40 ml de aceite de oliva (3 cucharadas soperas). En el minuto 12 solo giras el mando al 6.",
+        "<b>Sartén, en frío</b> · los 40 ml de aceite de oliva (3 cucharadas soperas). En el minuto 12 solo giras el mando al {6}.",
         "<b>Olla, en frío</b> · los 3,5 l de agua y los 25 g de sal (1½ cucharadas soperas). No la enciendes hasta el minuto 52.",
         "<b>Los 500 g de carne picada</b> (1 bandeja) se quedan en su bandeja hasta el minuto 25. No la salpimentes ahora: la sal saca agua y tendrías que evaporarla otra vez justo cuando quieres dorar.",
         "<b>Los 360 g de macarrones</b> (¾ de paquete de 500 g), pesados y en su bolsa hasta el minuto 69. Van del paquete al agua hirviendo sin pasar por ningún bol."
@@ -230,7 +230,7 @@
       "min": 1,
       "nota": "Sartén de 28 cm para arriba: son cuatro raciones.",
       "off": 12,
-      "p": "Los 40 ml de aceite de oliva ya están en la sartén desde la preparación, así que aquí solo giras el mando al 6 y esperas un minuto. Sartén de 28 cm o más: son cuatro raciones y la verdura tiene que quedar en una capa, no amontonada. Amontonada no suda, se cuece unas capas contra otras y tarda el doble en soltar el dulzor.",
+      "p": "Los 40 ml de aceite de oliva ya están en la sartén desde la preparación, así que aquí solo giras el mando al {6} y esperas un minuto. Sartén de 28 cm o más: son cuatro raciones y la verdura tiene que quedar en una capa, no amontonada. Amontonada no suda, se cuece unas capas contra otras y tarda el doble en soltar el dulzor.",
       "s": 60,
       "saco": "",
       "t": "Calentar el aceite",
@@ -257,9 +257,9 @@
       "id": "sofrito",
       "meto": "el bol mediano: 160 g de cebolla en dados de 4 mm + 120 g de zanahoria en dados de 3 mm",
       "min": 11,
-      "nota": "Baja al 5 y tapa: suda en su vapor y no se dora. Destapa solo para remover, cada 3 minutos.",
+      "nota": "Baja al {5} y tapa: suda en su vapor y no se dora. Destapa solo para remover, cada 3 minutos.",
       "off": 13,
-      "p": "Cebolla y zanahoria juntas. Baja al 5 y tapa. La tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, que es lo que quieres: el dulzor viene de ahí. Destapa solo para remover, cada tres minutos, y vuelve a tapar enseguida. Si a los seis minutos ves la sartén seca y la cebolla cogiendo color, es que la tapa no cierra bien.",
+      "p": "Cebolla y zanahoria juntas. Baja al {5} y tapa. La tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, que es lo que quieres: el dulzor viene de ahí. Destapa solo para remover, cada tres minutos, y vuelve a tapar enseguida. Si a los seis minutos ves la sartén seca y la cebolla cogiendo color, es que la tapa no cierra bien.",
       "s": 660,
       "saco": "",
       "t": "Sudar la verdura",
@@ -272,9 +272,9 @@
       "id": "ajo",
       "meto": "el platito: 8 g de ajo (2 dientes) picado de 1 mm",
       "min": 1,
-      "nota": "Sesenta segundos al 5 removiendo sin parar, y después entra la carne.",
+      "nota": "Sesenta segundos al {5} removiendo sin parar, y después entra la carne.",
       "off": 24,
-      "p": "Sesenta segundos al 5 removiendo sin parar, que es lo que tarda el picado de 1 mm en soltar su aroma en la grasa. Entra aquí y no con la verdura porque once minutos de sofrito lo habrían deshecho sin dejar rastro. Lo que viene después es un guiso largo, así que este ajo no se queda en el punto rubio: se tuesta en el borde, junto a la carne, y termina fundido en la salsa, que es donde tiene que estar. La verdura húmeda que queda a su lado es lo que impide que pase de tostado a quemado.",
+      "p": "Sesenta segundos al {5} removiendo sin parar, que es lo que tarda el picado de 1 mm en soltar su aroma en la grasa. Entra aquí y no con la verdura porque once minutos de sofrito lo habrían deshecho sin dejar rastro. Lo que viene después es un guiso largo, así que este ajo no se queda en el punto rubio: se tuesta en el borde, junto a la carne, y termina fundido en la salsa, que es donde tiene que estar. La verdura húmeda que queda a su lado es lo que impide que pase de tostado a quemado.",
       "s": 60,
       "saco": "la tapa, hasta el chup-chup",
       "t": "El ajo",
@@ -301,9 +301,9 @@
       "id": "carne",
       "meto": "500 g de carne picada mixta, directa de su bandeja",
       "min": 15,
-      "nota": "Sube al 8 y aparta la verdura y el ajo a un borde. Echa la carne, extiéndela y no la toques 3 minutos.",
+      "nota": "Sube al {8} y aparta la verdura y el ajo a un borde. Echa la carne, extiéndela y no la toques 3 minutos.",
       "off": 25,
-      "p": "Sube al 8 y aparta la verdura y el ajo a un borde antes de echar la carne: así toca el metal y no el sofrito húmedo. Extiéndela y no la toques tres minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris. Los quince minutos del paso dan para dorarla, deshacer los grumos y evaporar su agua hasta que el fondo chisporrotee.",
+      "p": "Sube al {8} y aparta la verdura y el ajo a un borde antes de echar la carne: así toca el metal y no el sofrito húmedo. Extiéndela y no la toques tres minutos: la reacción de Maillard necesita superficie seca y contacto, y si remueves antes la carne suelta agua y se cuece gris. Los quince minutos del paso dan para dorarla, deshacer los grumos y evaporar su agua hasta que el fondo chisporrotee.",
       "s": 900,
       "saco": "su agua, evaporada",
       "t": "Dorar la carne",
@@ -318,7 +318,7 @@
       "min": 4,
       "nota": "Rasca el fondo mientras hierve. Termina casi seco.",
       "off": 40,
-      "p": "Los 120 ml de vino de golpe y rasca el fondo con la cuchara mientras hierve: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran. Termina casi seco, o el ragú sabrá a alcohol. Al 8 el vino hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo.",
+      "p": "Los 120 ml de vino de golpe y rasca el fondo con la cuchara mientras hierve: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran. Termina casi seco, o el ragú sabrá a alcohol. Al {8} el vino hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo.",
       "s": 240,
       "saco": "el alcohol",
       "t": "Desglasar",
@@ -331,9 +331,9 @@
       "id": "tomate",
       "meto": "el bol grande: 800 g de tomate triturado + 8 g de sal + ½ cdta de pimienta negra + 1 cdta de orégano seco + 2 pizcas de nuez moscada",
       "min": 5,
-      "nota": "Mantén el 8 hasta que hierva en toda la superficie.",
+      "nota": "Mantén el {8} hasta que hierva en toda la superficie.",
       "off": 44,
-      "p": "El bol grande entero de una vez, tomate y especias juntos. Mantén el 8 hasta que hierva en toda la superficie, no solo en el centro: eso indica que la masa está a temperatura y ya puedes bajar. El orégano y la nuez moscada entran aquí, al principio, porque son secas y necesitan los veinte minutos de chup-chup en líquido caliente para abrirse; la albahaca no, y por eso se queda fuera hasta el final.",
+      "p": "El bol grande entero de una vez, tomate y especias juntos. Mantén el {8} hasta que hierva en toda la superficie, no solo en el centro: eso indica que la masa está a temperatura y ya puedes bajar. El orégano y la nuez moscada entran aquí, al principio, porque son secas y necesitan los veinte minutos de chup-chup en líquido caliente para abrirse; la albahaca no, y por eso se queda fuera hasta el final.",
       "s": 300,
       "saco": "",
       "t": "Tomate y especias",
@@ -345,7 +345,7 @@
       "hitos": [
         {
           "en": 180,
-          "t": "Enciende la olla del agua al 9, tapada"
+          "t": "Enciende la olla del agua al {9}, tapada"
         },
         {
           "en": 450,
@@ -360,9 +360,9 @@
       "id": "chup1",
       "meto": "",
       "min": 20,
-      "nota": "Baja al 3 y apoya la tapa dejando un dedo de hueco. Aguanta de sobra: si vas tarde, roba tiempo aquí.",
+      "nota": "Baja al {3} y apoya la tapa dejando un dedo de hueco. Aguanta de sobra: si vas tarde, roba tiempo aquí.",
       "off": 49,
-      "p": "Baja al 3 y apoya la tapa dejando un dedo de hueco: sale vapor suficiente para que concentre, pero no tanto como para que se pegue. Es el paso más flexible del plan y donde se recupera cualquier retraso. A los tres minutos toca encender el agua, y el cronómetro te avisa. Lo único que hay que vigilar es el fondo, que es donde se agarra el tomate cuando la salsa empieza a espesar.",
+      "p": "Baja al {3} y apoya la tapa dejando un dedo de hueco: sale vapor suficiente para que concentre, pero no tanto como para que se pegue. Es el paso más flexible del plan y donde se recupera cualquier retraso. A los tres minutos toca encender el agua, y el cronómetro te avisa. Lo único que hay que vigilar es el fondo, que es donde se agarra el tomate cuando la salsa empieza a espesar.",
       "s": 1200,
       "saco": "vapor",
       "t": "Chup-chup tapado",
@@ -378,12 +378,12 @@
       "id": "agua",
       "meto": "3,5 l de agua + 25 g de sal",
       "min": 17,
-      "nota": "Tapada y al 9 hierve en 17 minutos. Antes no: hervería demasiado pronto y evaporaría agua medida.",
+      "nota": "Tapada y al {9} hierve en 17 minutos. Antes no: hervería demasiado pronto y evaporaría agua medida.",
       "off": 52,
-      "p": "Los 3,5 l con los 25 g de sal ya están en la olla en frío. Tapada y al 9. Diecisiete minutos es lo que tarda en romper, y arranca en el minuto 52 para que el hervor llegue justo cuando la pasta tiene que entrar: ni antes, que evaporaría agua ya medida, ni después, que retrasaría el plan entero. Mientras tanto no hay nada que hacer en la olla.",
+      "p": "Los 3,5 l con los 25 g de sal ya están en la olla en frío. Tapada y al {9}. Diecisiete minutos es lo que tarda en romper, y arranca en el minuto 52 para que el hervor llegue justo cuando la pasta tiene que entrar: ni antes, que evaporaría agua ya medida, ni después, que retrasaría el plan entero. Mientras tanto no hay nada que hacer en la olla.",
       "s": 1020,
       "saco": "",
-      "sinHitos": "Diecisiete minutos tapada y al 9 en los que abrir es el error: cada vez que levantas la tapa a mirar se va el vapor y el hervor se retrasa un par de minutos. La señal llega sola, por el ruido y por la tapa.",
+      "sinHitos": "Diecisiete minutos tapada y al {9} en los que abrir es el error: cada vez que levantas la tapa a mirar se va el vapor y el hervor se retrasa un par de minutos. La señal llega sola, por el ruido y por la tapa.",
       "t": "Agua al fuego",
       "tapa": "TAPA PUESTA"
     },
@@ -407,7 +407,7 @@
       "min": 10,
       "nota": "Destapa justo cuando los macarrones entran al agua. Diez minutos destapada, que es cuando la salsa espesa de verdad.",
       "off": 69,
-      "p": "Quita la tapa justo cuando los macarrones entran al agua. Sin tapa la evaporación es libre y la salsa espesa en esos diez minutos exactos que tarda la pasta. Sigue al 3: subir el fuego aquí no espesa más rápido, solo agarra el fondo. La salsa está donde tiene que estar cuando la cuchara deja un surco que tarda un segundo en cerrarse.",
+      "p": "Quita la tapa justo cuando los macarrones entran al agua. Sin tapa la evaporación es libre y la salsa espesa en esos diez minutos exactos que tarda la pasta. Sigue al {3}: subir el fuego aquí no espesa más rápido, solo agarra el fondo. La salsa está donde tiene que estar cuando la cuchara deja un surco que tarda un segundo en cerrarse.",
       "s": 600,
       "saco": "la tapa, para que espese",
       "t": "Reducir destapado",
@@ -437,9 +437,9 @@
       "id": "macarrones",
       "meto": "360 g de macarrones, del paquete al agua hirviendo",
       "min": 10,
-      "nota": "Baja al 7. Un minuto menos que el paquete. No espera: en cuanto salgan van a la sartén.",
+      "nota": "Baja al {7}. Un minuto menos que el paquete. No espera: en cuanto salgan van a la sartén.",
       "off": 69,
-      "p": "Al agua hirviendo. Baja al 7 para mantener el hervor sin que se desborde. Un minuto menos que el paquete: terminan de cocerse en la sartén, absorbiendo salsa en vez de agua. Antes de escurrir, aparta 200 ml de agua de cocción en el vaso que dejaste junto a la olla: sin ella el paso siguiente no funciona, y una vez escurridos ya no hay de dónde sacarla.",
+      "p": "Al agua hirviendo. Baja al {7} para mantener el hervor sin que se desborde. Un minuto menos que el paquete: terminan de cocerse en la sartén, absorbiendo salsa en vez de agua. Antes de escurrir, aparta 200 ml de agua de cocción en el vaso que dejaste junto a la olla: sin ella el paso siguiente no funciona, y una vez escurridos ya no hay de dónde sacarla.",
       "s": 600,
       "saco": "200 ml de agua antes de escurrir",
       "t": "Los macarrones",
@@ -455,9 +455,9 @@
       "id": "mantecatura",
       "meto": "la pasta escurrida + 120 ml del agua de cocción reservada + el platito con 1 cdta de albahaca seca",
       "min": 3,
-      "nota": "Sube al 5 y remueve hasta que la salsa se agarre y no quede líquido suelto.",
+      "nota": "Sube al {5} y remueve hasta que la salsa se agarre y no quede líquido suelto.",
       "off": 79,
-      "p": "Sube al 5 y echa la pasta escurrida a la sartén con 120 ml del agua reservada y la cucharadita de albahaca. Remueve fuerte tres minutos: el almidón del agua emulsiona con la grasa del ragú y forma una salsa que se agarra a la pasta en vez de resbalar. La albahaca entra aquí porque es seca y frágil, y con el vapor de estos tres minutos se abre sin perder el aroma. Este paso no espera: la pasta escurrida se pasa de punto sola.",
+      "p": "Sube al {5} y echa la pasta escurrida a la sartén con 120 ml del agua reservada y la cucharadita de albahaca. Remueve fuerte tres minutos: el almidón del agua emulsiona con la grasa del ragú y forma una salsa que se agarra a la pasta en vez de resbalar. La albahaca entra aquí porque es seca y frágil, y con el vapor de estos tres minutos se abre sin perder el aroma. Este paso no espera: la pasta escurrida se pasa de punto sola.",
       "s": 180,
       "saco": "todo, a los platos",
       "t": "Mantecatura",
@@ -470,12 +470,12 @@
   "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
   "porque": [
     [
-      "Sofrito al 5 y tapado",
-      "La verdura tiene que sudar, no dorarse. La tapa le devuelve su propio vapor y por debajo del 6 la vitro no tuesta los bordes antes de que el interior ceda."
+      "Sofrito al {5} y tapado",
+      "La verdura tiene que sudar, no dorarse. La tapa le devuelve su propio vapor y por debajo del {6} la vitro no tuesta los bordes antes de que el interior ceda."
     ],
     [
       "El ajo se tuesta, y es a propósito",
-      "Un ajo que se echa al final y se saca a los sesenta segundos es otro plato: aroma fresco y punzante. Aquí el ajo entra en el minuto 24, se queda en un borde de la sartén junto a los 500 g de carne al 8 y sigue dentro los 30 minutos de chup-chup. No sale rubio ni tiene que salirlo: se deshace y pasa a ser fondo de la salsa, dulce y sin filo. Por eso va picado de 1 mm y no en lámina, que aguantaría entera y se encontraría al comer."
+      "Un ajo que se echa al final y se saca a los sesenta segundos es otro plato: aroma fresco y punzante. Aquí el ajo entra en el minuto 24, se queda en un borde de la sartén junto a los 500 g de carne al {8} y sigue dentro los 30 minutos de chup-chup. No sale rubio ni tiene que salirlo: se deshace y pasa a ser fondo de la salsa, dulce y sin filo. Por eso va picado de 1 mm y no en lámina, que aguantaría entera y se encontraría al comer."
     ],
     [
       "La carne quieta tres minutos",

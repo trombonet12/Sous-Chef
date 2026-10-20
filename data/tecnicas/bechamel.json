@@ -10,8 +10,8 @@
   "creada": "2026-10-19T00:00:00Z",
   "pasos": [
     {
-      "p": "La harina se cuece en la mantequilla fundida para que el almidón pierda el sabor a crudo. Si se tuesta, la bechamel sale gris y amarga; por eso al 4 y removiendo.",
-      "t": "Roux al 4, tres minutos y sin color"
+      "p": "La harina se cuece en la mantequilla fundida para que el almidón pierda el sabor a crudo. Si se tuesta, la bechamel sale gris y amarga; por eso al {4} y removiendo.",
+      "t": "Roux al {4}, tres minutos y sin color"
     },
     {
       "p": "Con la diferencia de temperatura el almidón se hincha despacio y se dispersa sin grumos. Cada tercio se integra del todo antes de echar el siguiente.",
@@ -19,7 +19,7 @@
     },
     {
       "p": "El almidón solo espesa del todo cerca de los 95 °C. Hasta entonces parece líquida; un minuto después del primer hervor ya está en su punto.",
-      "t": "Subir al 6 y remover hasta que rompa el hervor"
+      "t": "Subir al {6} y remover hasta que rompa el hervor"
     },
     {
       "p": "Unos 60 g de harina y 60 g de mantequilla por litro dan una bechamel fluida, para lasaña con placa precocida; 80-100 g, la de cubrir y gratinar (canelones, gratenes); más de 100 g, la masa espesa de las croquetas.",

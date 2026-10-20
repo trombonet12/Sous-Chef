@@ -132,7 +132,7 @@
       "n": "PLATO HONDO · EL AZÚCAR"
     }
   ],
-  "lectura": "Una sola olla al fuego en cada momento. 6 de cortar + 26 de olla (8 hasta que hierve, 15 de cocer y 3 de secar) + 5 de chafar + 15 de templar + 8 de amasar + 60 de levar + 16 de freír + 1 de servir = 137 minutos. La levadura se despierta del 45 al 50, mientras el puré se templa. El aceite se enciende en el 108, a falta de 12 minutos de levado, y llega al 7 justo cuando la masa ha doblado.",
+  "lectura": "Una sola olla al fuego en cada momento. 6 de cortar + 26 de olla (8 hasta que hierve, 15 de cocer y 3 de secar) + 5 de chafar + 15 de templar + 8 de amasar + 60 de levar + 16 de freír + 1 de servir = 137 minutos. La levadura se despierta del 45 al 50, mientras el puré se templa. El aceite se enciende en el 108, a falta de 12 minutos de levado, y llega al {7} justo cuando la masa ha doblado.",
   "mep": [
     {
       "l": [
@@ -194,13 +194,13 @@
       "id": "hervir",
       "meto": "los dados de patata y boniato + 1 L de agua fría (4 vasos)",
       "min": 8,
-      "nota": "Los dados en la olla, el agua fría por encima y tapa puesta, al 9. Cuando borbotee bajo la tapa, sigue.",
+      "nota": "Los dados en la olla, el agua fría por encima y tapa puesta, al {9}. Cuando borbotee bajo la tapa, sigue.",
       "off": 6,
       "p": "Se arranca en agua fría para que el calor entre a la vez por fuera y por dentro: en agua hirviendo, el exterior del dado se deshace antes de que el centro se ablande. La tapa puesta acorta unos tres minutos la subida, porque el vapor no se escapa y el calor se queda en la olla.",
       "s": 480,
       "saco": "",
       "sinHitos": "Tapada y en frío no hay nada que mover: la señal de que ha acabado es el borboteo bajo la tapa.",
-      "t": "Al 9, con agua fría y tapada, hasta que hierva",
+      "t": "Al {9}, con agua fría y tapada, hasta que hierva",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -217,12 +217,12 @@
       "id": "cocer",
       "meto": "",
       "min": 15,
-      "nota": "Baja al 5 y deja la tapa a medias: tiene que hervir suave, sin saltar.",
+      "nota": "Baja al {5} y deja la tapa a medias: tiene que hervir suave, sin saltar.",
       "off": 14,
-      "p": "Al 5 el agua sigue hirviendo pero sin borbotones: un hervor fuerte golpea los dados y el boniato se rompe y chupa agua, y cada gramo de agua de más en el puré pide más harina después y hace un bunyol más denso. La tapa a medias deja salir el vapor justo para que no rebose.",
+      "p": "Al {5} el agua sigue hirviendo pero sin borbotones: un hervor fuerte golpea los dados y el boniato se rompe y chupa agua, y cada gramo de agua de más en el puré pide más harina después y hace un bunyol más denso. La tapa a medias deja salir el vapor justo para que no rebose.",
       "s": 900,
       "saco": "",
-      "t": "Baja al 5 y cuece 15 minutos con la tapa a medias",
+      "t": "Baja al {5} y cuece 15 minutos con la tapa a medias",
       "tapa": "TAPA A MEDIAS"
     },
     {
@@ -335,13 +335,13 @@
       "id": "calentar-aceite",
       "meto": "1 L de aceite de girasol en la olla honda de 20 cm",
       "min": 12,
-      "nota": "Al 7, sin tapa. Listo cuando una bolita de masa baja al fondo, burbujea fuerte y sube en 2-3 segundos.",
+      "nota": "Al {7}, sin tapa. Listo cuando una bolita de masa baja al fondo, burbujea fuerte y sube en 2-3 segundos.",
       "off": 108,
-      "p": "Un litro en una olla de 20 cm da unos 3 cm de fondo, lo justo para que el bunyol flote y se hinche sin tocar el fondo. Doce minutos al 7 lo llevan a unos 175 °C. Si la bolita se queda en el fondo, el aceite está frío y el bunyol chuparía grasa; si sube al instante y se oscurece, está demasiado caliente.",
+      "p": "Un litro en una olla de 20 cm da unos 3 cm de fondo, lo justo para que el bunyol flote y se hinche sin tocar el fondo. Doce minutos al {7} lo llevan a unos 175 °C. Si la bolita se queda en el fondo, el aceite está frío y el bunyol chuparía grasa; si sube al instante y se oscurece, está demasiado caliente.",
       "s": 720,
       "saco": "",
       "sinHitos": "El aceite se calienta solo y no hay nada que mover: la comprobación, la bolita que sube, está al final del paso.",
-      "t": "Calentar el aceite de girasol al 7",
+      "t": "Calentar el aceite de girasol al {7}",
       "tapa": "sin tapa"
     },
     {
@@ -392,7 +392,7 @@
       "id": "freir",
       "meto": "la masa levada, en bolas de unos 45 g, cuatro a cuatro",
       "min": 16,
-      "nota": "Moja las manos, coge una bola del tamaño de un huevo, hazle un agujero con el pulgar estirándola en anillo y déjala resbalar en el aceite. Si se doran en menos de un minuto, baja al 6.",
+      "nota": "Moja las manos, coge una bola del tamaño de un huevo, hazle un agujero con el pulgar estirándola en anillo y déjala resbalar en el aceite. Si se doran en menos de un minuto, baja al {6}.",
       "off": 120,
       "p": "El agujero no es decoración: deja que el aceite llegue al centro y el bunyol se fría por dentro al mismo tiempo que se dora por fuera; sin él, la corteza se quema con el centro crudo. Las manos mojadas evitan que la masa se pegue, y el agua que arrastra se evapora al entrar. Cuatro a la vez es el máximo antes de que el aceite se enfríe y se empapen.",
       "s": 960,

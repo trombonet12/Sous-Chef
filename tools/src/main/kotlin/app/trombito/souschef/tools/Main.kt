@@ -1,13 +1,20 @@
 package app.trombito.souschef.tools
 
+import app.trombito.souschef.receta.CamposDeTexto
 import app.trombito.souschef.receta.Despensa
 import app.trombito.souschef.receta.Hallazgo
 import app.trombito.souschef.receta.JsonCanonico
+import app.trombito.souschef.receta.MarcaPotencia
 import app.trombito.souschef.receta.Nivel
 import app.trombito.souschef.receta.Validador
 import app.trombito.souschef.receta.leerReceta
 import app.trombito.souschef.receta.leerTecnica
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import java.io.File
+import java.io.FileDescriptor
+import java.io.FileOutputStream
+import java.io.PrintStream
 import kotlin.system.exitProcess
 
 private const val SALIDA_FALLO = 1
@@ -19,6 +26,7 @@ fun main(args: Array<String>) {
         when (args.firstOrNull()) {
             "validar" -> validar(resto)
             "formatear" -> formatear(resto)
+            "potencias" -> potencias(resto)
             else -> uso()
         }
     exitProcess(codigo)
@@ -82,6 +90,44 @@ private fun formatear(args: List<String>): Int {
     println("formatear: $cambiados archivos ${if (comprobar) "por formatear" else "reescritos"}")
     return if (comprobar && cambiados > 0) SALIDA_FALLO else 0
 }
+
+/** `sc potencias [--marcar] [slug…]`: lista (o marca como `{N}`) los números de potencia del texto libre. */
+private fun potencias(args: List<String>): Int {
+    System.setOut(PrintStream(FileOutputStream(FileDescriptor.out), true, "UTF-8")) // el contexto lleva acentos
+    val marcar = "--marcar" in args
+    val slugs = args.filterNot { it.startsWith("--") }.toSet()
+    val raiz = raiz() ?: return errorEntorno()
+    var total = 0
+    var dudosos = 0
+    var archivos = 0
+    for ((dir, esReceta) in listOf("data/recetas" to true, "data/tecnicas" to false)) {
+        for (f in jsons(File(raiz, dir)).filter { slugs.isEmpty() || it.nameWithoutExtension in slugs }) {
+            val slug = f.nameWithoutExtension
+            val doc = Json.parseToJsonElement(f.readText()) as JsonObject
+            var cambiosArchivo = 0
+            val nuevo =
+                CamposDeTexto.transformar(doc, esReceta) { campo, texto ->
+                    val r = MarcaPotencia.marcar(texto)
+                    val lista = if (marcar) r.cambios else MarcaPotencia.candidatos(texto)
+                    lista.forEach { println("%s  %s  «%s»".format(slug, campo, linea(it.contexto))) }
+                    r.dudosos.forEach { println("%s  %s  DUDOSO «%s»".format(slug, campo, linea(it.contexto))) }
+                    cambiosArchivo += lista.size
+                    dudosos += r.dudosos.size
+                    if (marcar) r.texto else texto
+                }
+            total += cambiosArchivo
+            if (marcar && cambiosArchivo > 0) {
+                f.writeText(JsonCanonico.escribir(nuevo) + "\n")
+                archivos++
+            }
+        }
+    }
+    val verbo = if (marcar) "marcados" else "candidatos"
+    println("potencias: $total $verbo, $dudosos dudosos${if (marcar) ", $archivos archivos reescritos" else ""}")
+    return 0
+}
+
+private fun linea(s: String) = s.replace('\n', ' ')
 
 private fun errorEntorno(): Int {
     System.err.println("sc: no encuentro data/recetas desde el directorio actual")

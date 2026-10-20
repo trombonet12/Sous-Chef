@@ -13,14 +13,14 @@
     },
     {
       "p": "El aceite tarda 3-5 minutos en coger temperatura. Subir la potencia de golpe calienta la superficie antes que el fondo.",
-      "t": "Calentar sin prisa, potencia 6-7"
+      "t": "Calentar sin prisa, potencia {6}-{7}"
     },
     {
       "p": "Si burbujea con fuerza nada más tocar el aceite y sube a la superficie en 1-2 segundos, está listo.",
       "t": "Probar con una miga de pan o un trozo pequeño de lo que vas a freír"
     },
     {
-      "p": "Bajar a potencia 5 y esperar medio minuto antes de freír, o el rebozado se quema por fuera antes de hacerse por dentro.",
+      "p": "Bajar a potencia {5} y esperar medio minuto antes de freír, o el rebozado se quema por fuera antes de hacerse por dentro.",
       "t": "Si humea, ya se pasó de temperatura"
     },
     {

@@ -31,12 +31,12 @@
       "t": "Cebolla · pluma de 1 cm"
     },
     {
-      "p": "Picado y no laminado porque este ajo no se cocina: se queda una hora en la bolsa con la soja. Cuanto más pequeño el trozo, más superficie en contacto con el líquido y más sabor pasa a la marinada en ese rato. A 1 mm reparte ese sabor sin dejar trozos reconocibles que después se quemarían en la sartén al 8, que es lo que pasaría si entrara en láminas.",
+      "p": "Picado y no laminado porque este ajo no se cocina: se queda una hora en la bolsa con la soja. Cuanto más pequeño el trozo, más superficie en contacto con el líquido y más sabor pasa a la marinada en ese rato. A 1 mm reparte ese sabor sin dejar trozos reconocibles que después se quemarían en la sartén al {8}, que es lo que pasaría si entrara en láminas.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadricula muy fina de cortes en los dos sentidos\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".12\" stroke=\"#8A6C4A\"/><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"6\" x2=\"48\" y2=\"82\"/><line x1=\"56\" y1=\"5\" x2=\"56\" y2=\"83\"/><line x1=\"64\" y1=\"5\" x2=\"64\" y2=\"83\"/><line x1=\"72\" y1=\"6\" x2=\"72\" y2=\"82\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"32\" y1=\"26\" x2=\"88\" y2=\"26\"/><line x1=\"30\" y1=\"38\" x2=\"90\" y2=\"38\"/><line x1=\"30\" y1=\"50\" x2=\"90\" y2=\"50\"/><line x1=\"34\" y1=\"62\" x2=\"86\" y2=\"62\"/></g></svg>",
       "t": "Ajo de la marinada · picado de 1 mm"
     },
     {
-      "p": "Este entra al final y al 7, cuarenta y cinco segundos escasos. En láminas de 2 mm tiene poca superficie para el calor que va a recibir: se dora, perfuma el aceite y se nota al morder. Picado, con esa misma temperatura, se quema antes del minuto y amarga todo lo demás; más grueso de 2 mm llega crudo a la mesa.",
+      "p": "Este entra al final y al {7}, cuarenta y cinco segundos escasos. En láminas de 2 mm tiene poca superficie para el calor que va a recibir: se dora, perfuma el aceite y se nota al morder. Picado, con esa misma temperatura, se quema antes del minuto y amarga todo lo demás; más grueso de 2 mm llega crudo a la mesa.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo tumbado con cuatro cortes verticales que lo laminan\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".6\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"42\" y1=\"6\" x2=\"42\" y2=\"82\"/><line x1=\"51\" y1=\"4\" x2=\"51\" y2=\"84\"/><line x1=\"69\" y1=\"4\" x2=\"69\" y2=\"84\"/><line x1=\"78\" y1=\"6\" x2=\"78\" y2=\"82\"/></g></svg>",
       "t": "Ajo de la sartén · láminas de 2 mm"
     }
@@ -180,7 +180,7 @@
         "<b>Plato 4</b> · los 12 g de ajo (3 dientes) en láminas de 2 mm, para los últimos 45 segundos, en el minuto 138."
       ],
       "orden": false,
-      "porq": "Cada verdura entra en un momento distinto y con la sartén al 7 no hay tiempo de ir a buscarla: lo que no esté al lado de la placa llega tarde.",
+      "porq": "Cada verdura entra en un momento distinto y con la sartén al {7} no hay tiempo de ir a buscarla: lo que no esté al lado de la placa llega tarde.",
       "t": "CUATRO PLATOS JUNTO A LA PLACA"
     },
     {
@@ -320,7 +320,7 @@
       "min": 3,
       "nota": "Listo cuando el aceite ondule y esté a punto de humear.",
       "off": 110,
-      "p": "Una cucharada de aceite de oliva y la placa al 9. Precalienta tres minutos, hasta que el aceite ondule y esté a punto de humear: la costra del pollo se forma por contacto con metal muy caliente, y si entra en una sartén templada suelta agua y se cuece gris.",
+      "p": "Una cucharada de aceite de oliva y la placa al {9}. Precalienta tres minutos, hasta que el aceite ondule y esté a punto de humear: la costra del pollo se forma por contacto con metal muy caliente, y si entra en una sartén templada suelta agua y se cuece gris.",
       "s": 180,
       "saco": "",
       "t": "Precalentar la sartén",
@@ -335,9 +335,9 @@
       "junto": null,
       "meto": "la mitad del pollo, en una capa",
       "min": 3,
-      "nota": "Baja al 8 al echar el pollo. Tres minutos sin tocarlo ni moverlo: está formando la costra.",
+      "nota": "Baja al {8} al echar el pollo. Tres minutos sin tocarlo ni moverlo: está formando la costra.",
       "off": 113,
-      "p": "Baja al 8 en cuanto entre la carne: el 9 es para calentar la sartén vacía, pero con el pollo dentro quemaría la soja de la marinada antes de que se haga la costra. La mitad del pollo, extendido en una sola capa. Tres minutos sin tocarlo ni moverlo: está formando la costra, y cada vez que remueves interrumpes el contacto que la crea.",
+      "p": "Baja al {8} en cuanto entre la carne: el {9} es para calentar la sartén vacía, pero con el pollo dentro quemaría la soja de la marinada antes de que se haga la costra. La mitad del pollo, extendido en una sola capa. Tres minutos sin tocarlo ni moverlo: está formando la costra, y cada vez que remueves interrumpes el contacto que la crea.",
       "s": 180,
       "saco": "",
       "t": "Pollo, 1.ª tanda · quieto",
@@ -369,9 +369,9 @@
       "junto": null,
       "meto": "1 cda de aceite de oliva (unos 15 ml)",
       "min": 2,
-      "nota": "Sube a 9 y espera. Si echas la segunda tanda en frío, se cuece en vez de dorarse.",
+      "nota": "Sube al {9} y espera. Si echas la segunda tanda en frío, se cuece en vez de dorarse.",
       "off": 119,
-      "p": "Otra cucharada de aceite de oliva, sube al 9 y espera dos minutos a que la sartén recupere temperatura. Si echas la segunda tanda en frío se cuece en su propio líquido en vez de dorarse, que es justo el error que evitan las dos tandas.",
+      "p": "Otra cucharada de aceite de oliva, sube al {9} y espera dos minutos a que la sartén recupere temperatura. Si echas la segunda tanda en frío se cuece en su propio líquido en vez de dorarse, que es justo el error que evitan las dos tandas.",
       "s": 120,
       "saco": "",
       "t": "Recuperar temperatura",
@@ -386,9 +386,9 @@
       "junto": null,
       "meto": "el resto del pollo",
       "min": 3,
-      "nota": "Baja al 8 al echarlo, en una sola capa. Tres minutos sin tocarlo, igual que la primera tanda.",
+      "nota": "Baja al {8} al echarlo, en una sola capa. Tres minutos sin tocarlo, igual que la primera tanda.",
       "off": 121,
-      "p": "El resto del pollo, otra vez al 8 y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en los dos minutos de espera, así que la costra tarda lo mismo en hacerse. Todo de golpe habría enfriado la sartén: dos tandas cortas doran mejor que una larga, porque la placa recupera temperatura entre una y otra.",
+      "p": "El resto del pollo, otra vez al {8} y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en los dos minutos de espera, así que la costra tarda lo mismo en hacerse. Todo de golpe habría enfriado la sartén: dos tandas cortas doran mejor que una larga, porque la placa recupera temperatura entre una y otra.",
       "s": 180,
       "saco": "",
       "t": "Pollo, 2.ª tanda · quieto",
@@ -420,9 +420,9 @@
       "junto": null,
       "meto": "la cebolla en pluma y 10 ml de aceite de oliva (2 cucharaditas)",
       "min": 4,
-      "nota": "Baja a 7 y echa la cebolla con 10 ml de aceite. No laves la sartén: el fondo tostado es la salsa.",
+      "nota": "Baja al {7} y echa la cebolla con 10 ml de aceite. No laves la sartén: el fondo tostado es la salsa.",
       "off": 127,
-      "p": "Baja al 7 antes de echar la cebolla. No laves ni raspes la sartén: en el fondo hay manchas oscuras pegadas, azúcares y proteínas caramelizados del pollo, y de ahí sale la salsa dentro de doce minutos. Lista cuando los bordes empiecen a dorarse. Los 10 ml de aceite van con la cebolla porque cuatro minutos al 7 sin grasa la pegarían al fondo tostado en vez de dorarla.",
+      "p": "Baja al {7} antes de echar la cebolla. No laves ni raspes la sartén: en el fondo hay manchas oscuras pegadas, azúcares y proteínas caramelizados del pollo, y de ahí sale la salsa dentro de doce minutos. Lista cuando los bordes empiecen a dorarse. Los 10 ml de aceite van con la cebolla porque cuatro minutos al {7} sin grasa la pegarían al fondo tostado en vez de dorarla.",
       "s": 240,
       "saco": "",
       "t": "Cebolla",
@@ -488,9 +488,9 @@
       "junto": null,
       "meto": "80 ml de vino blanco",
       "min": 2,
-      "nota": "Sube a 9 y viértelo de golpe. Raspa el fondo sin parar hasta reducirlo a la mitad.",
+      "nota": "Sube al {9} y viértelo de golpe. Raspa el fondo sin parar hasta reducirlo a la mitad.",
       "off": 139,
-      "p": "Sube al 9 y vierte los 80 ml de vino de golpe por el centro. En cuanto burbujee, raspa el fondo con cuchara de madera insistiendo en las manchas oscuras: el alcohol al evaporarse las disuelve y las devuelve al guiso. Termina cuando el fondo esté limpio y el vino reducido a la mitad, ligeramente almibarado.",
+      "p": "Sube al {9} y vierte los 80 ml de vino de golpe por el centro. En cuanto burbujee, raspa el fondo con cuchara de madera insistiendo en las manchas oscuras: el alcohol al evaporarse las disuelve y las devuelve al guiso. Termina cuando el fondo esté limpio y el vino reducido a la mitad, ligeramente almibarado.",
       "s": 120,
       "saco": "",
       "t": "Desglasar con vino",
@@ -505,9 +505,9 @@
       "junto": null,
       "meto": "todo el pollo y sus jugos",
       "min": 2,
-      "nota": "Baja a 5. Que nape las verduras. Prueba de sal antes de añadir nada.",
+      "nota": "Baja al {5}. Que nape las verduras. Prueba de sal antes de añadir nada.",
       "off": 141,
-      "p": "Baja al 5 y devuelve el pollo con todo el jugo que haya soltado en el plato. Que nape las verduras. Prueba de sal antes de añadir nada: la soja de la marinada ya ha salado la carne.",
+      "p": "Baja al {5} y devuelve el pollo con todo el jugo que haya soltado en el plato. Que nape las verduras. Prueba de sal antes de añadir nada: la soja de la marinada ya ha salado la carne.",
       "s": 120,
       "saco": "",
       "t": "Pollo de vuelta",
@@ -570,11 +570,11 @@
     ],
     [
       "El mando, de principio a fin",
-      "De 9 para precalentar a 8 en cuanto entra cada tanda de pollo, a 9 otra vez entre tandas para recuperar temperatura, a 7 antes de la cebolla y ahí se queda hasta el ajo, a 9 para el vino y a 5 al devolver el pollo, hasta apagar en el reposo. El 9 es solo para metal vacío o para evaporar vino; la carne se dora al 8, que es donde la costra se hace antes de que la soja de la marinada se queme."
+      "Del {9} para precalentar al {8} en cuanto entra cada tanda de pollo, al {9} otra vez entre tandas para recuperar temperatura, al {7} antes de la cebolla y ahí se queda hasta el ajo, al {9} para el vino y a 5 al devolver el pollo, hasta apagar en el reposo. El 9 es solo para metal vacío o para evaporar vino; la carne se dora al {8}, que es donde la costra se hace antes de que la soja de la marinada se queme."
     ],
     [
       "Tres minutos quieto y tres removiendo, por tanda",
-      "El cronómetro cuenta 180 segundos quieto y 180 removiendo por tanda porque es lo que tarda de verdad una capa de pollo marinado en hacer costra al 8. Con menos, la cara de abajo está todavía pálida en las tiras más gruesas, y sacarlas ahí obliga a compensar en el remate, que es donde ya no se gana costra sino que se seca la carne. Tandas de seis minutos redondos evitan los medios minutos: la segunda tanda entra en el 121, la cebolla en el 127 y el plan acaba en el 145."
+      "El cronómetro cuenta 180 segundos quieto y 180 removiendo por tanda porque es lo que tarda de verdad una capa de pollo marinado en hacer costra al {8}. Con menos, la cara de abajo está todavía pálida en las tiras más gruesas, y sacarlas ahí obliga a compensar en el remate, que es donde ya no se gana costra sino que se seca la carne. Tandas de seis minutos redondos evitan los medios minutos: la segunda tanda entra en el 121, la cebolla en el 127 y el plan acaba en el 145."
     ]
   ],
   "raciones": 2,

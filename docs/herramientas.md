@@ -16,3 +16,4 @@ dentro del APK desde `data/recetas/*.json` y `data/tecnicas/*.json`. Publicar = 
 |---|---|
 | `sc validar [--estricto] [--json] [slug…]` | Valida `data/recetas/*.json` y `data/tecnicas/*.json` (o los slugs dados): plan que cuadra + completitud (ver `docs/cocina/esquema-receta.md § Validación`). La comprobación de despensa (regla 12) usa `data/despensa-semilla.md`; «agua» siempre vale. |
 | `sc formatear [--comprobar] [slug…]` | Reescribe los JSON con formato canónico (`indent 2`, claves ordenadas, UTF-8, `\n` final). |
+| `sc potencias [--marcar] [slug…]` | Detecta los números de potencia (0-9, vitro) del texto libre de recetas y técnicas. Sin flag solo lista candidatos y dudosos (`slug  campo  «contexto»`); con `--marcar` los escribe como `{N}` (idempotente) y lista cambios y dudosos. Los dudosos («del N» suelto, «sube a N», «mantén el N», «potencias del 0 al 9», «al N de…») nunca se marcan. Detector: `MarcaPotencia` en `receta/`. |

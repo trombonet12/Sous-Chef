@@ -350,10 +350,10 @@
       "min": 9,
       "nota": "En una capa y sin aceite, removiendo cada 20 segundos. Listas cuando huelan y sean color avellana: apaga y al plato en el acto.",
       "off": 30,
-      "p": "En la sartén grande en frío, en una sola capa y sin una gota de aceite, con el mando al 5: con aceite se fríen, y una almendra frita se ablanda al enfriar en vez de quedar quebradiza. Arrancar en frío hace que se calienten con el metal y se tuesten por dentro antes de que la superficie se oscurezca. Están cuando huelen a tostado y por fuera son color avellana. Sácalas al plato en el acto: la sartén caliente las sigue tostando un minuto aunque apagues.",
+      "p": "En la sartén grande en frío, en una sola capa y sin una gota de aceite, con el mando al {5}: con aceite se fríen, y una almendra frita se ablanda al enfriar en vez de quedar quebradiza. Arrancar en frío hace que se calienten con el metal y se tuesten por dentro antes de que la superficie se oscurezca. Están cuando huelen a tostado y por fuera son color avellana. Sácalas al plato en el acto: la sartén caliente las sigue tostando un minuto aunque apagues.",
       "s": 540,
       "saco": "las almendras, al plato llano, extendidas y sin tapar",
-      "t": "Tostar las almendras en seco al 5",
+      "t": "Tostar las almendras en seco al {5}",
       "tapa": "sin tapa"
     },
     {
@@ -418,12 +418,12 @@
       "junto": null,
       "meto": "1 cucharada sopera de aceite de girasol (15 ml)",
       "min": 3,
-      "nota": "Sube al 9. Listo cuando el aceite ondule y esté a punto de humear.",
+      "nota": "Sube al {9}. Listo cuando el aceite ondule y esté a punto de humear.",
       "off": 109,
-      "p": "La misma sartén de las almendras, sin lavar, con 15 ml de aceite de girasol y el mando al 9. Girasol y no oliva: su punto de humo está unos cuarenta grados más arriba y aguanta las tandas sin quemarse. Tres minutos, hasta que el aceite ondule y casi humee: la costra se forma por contacto con metal muy caliente, y si el pollo entra en una sartén templada suelta agua y la maicena se cuece en vez de tostarse.",
+      "p": "La misma sartén de las almendras, sin lavar, con 15 ml de aceite de girasol y el mando al {9}. Girasol y no oliva: su punto de humo está unos cuarenta grados más arriba y aguanta las tandas sin quemarse. Tres minutos, hasta que el aceite ondule y casi humee: la costra se forma por contacto con metal muy caliente, y si el pollo entra en una sartén templada suelta agua y la maicena se cuece en vez de tostarse.",
       "s": 180,
       "saco": "",
-      "t": "Precalentar la sartén al 9",
+      "t": "Precalentar la sartén al {9}",
       "tapa": "sin tapa"
     },
     {
@@ -466,10 +466,10 @@
       "min": 7,
       "nota": "Tapada rompe en 6 o 7 minutos. No la levantes: se ve desde fuera.",
       "off": 111,
-      "p": "El agua y la sal ya están en la olla desde el 101. Tapada y al 9 rompe en unos seis minutos, dos menos que destapada, y no pierde agua por el camino. Se enciende ahora y no antes porque el arroz va por absorción: el agua está medida al mililitro y cada minuto de hervor de más se la lleva el vapor, sin escurridor que lo corrija.",
+      "p": "El agua y la sal ya están en la olla desde el 101. Tapada y al {9} rompe en unos seis minutos, dos menos que destapada, y no pierde agua por el camino. Se enciende ahora y no antes porque el arroz va por absorción: el agua está medida al mililitro y cada minuto de hervor de más se la lleva el vapor, sin escurridor que lo corrija.",
       "s": 420,
       "saco": "",
-      "t": "Agua del arroz al 9",
+      "t": "Agua del arroz al {9}",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -483,9 +483,9 @@
       "junto": null,
       "meto": "la mitad del pollo (200 g), en una capa",
       "min": 3,
-      "nota": "Baja al 8 al echarlo. Tres minutos sin tocarlo: está haciendo la costra.",
+      "nota": "Baja al {8} al echarlo. Tres minutos sin tocarlo: está haciendo la costra.",
       "off": 112,
-      "p": "Baja al 8 en cuanto entre la carne: el 9 es para calentar la sartén vacía, y con la maicena y el ajo pegado a los dados quemaría la superficie antes de dorarla. La mitad del pollo, sacudiendo cada puñado para que la maicena suelta se quede en el bol, en una sola capa y con hueco entre dados. Tres minutos sin moverlo: cada vez que remueves rompes el contacto que hace la costra.",
+      "p": "Baja al {8} en cuanto entre la carne: el {9} es para calentar la sartén vacía, y con la maicena y el ajo pegado a los dados quemaría la superficie antes de dorarla. La mitad del pollo, sacudiendo cada puñado para que la maicena suelta se quede en el bol, en una sola capa y con hueco entre dados. Tres minutos sin moverlo: cada vez que remueves rompes el contacto que hace la costra.",
       "s": 180,
       "saco": "",
       "t": "Pollo, 1.ª tanda · quieto",
@@ -517,9 +517,9 @@
       "junto": null,
       "meto": "1 cucharada sopera de aceite de girasol (15 ml)",
       "min": 2,
-      "nota": "Sube al 9 con el aceite y espera. Si echas la segunda tanda en frío, se cuece.",
+      "nota": "Sube al {9} con el aceite y espera. Si echas la segunda tanda en frío, se cuece.",
       "off": 117,
-      "p": "Otra cucharada de aceite de girasol, sube al 9 y espera dos minutos a que el metal recupere el calor que le ha robado la primera tanda. Si la segunda entra en una sartén tibia, se cuece en su propio vapor y la maicena queda blanca y gomosa, que es justo lo que evitan las dos tandas.",
+      "p": "Otra cucharada de aceite de girasol, sube al {9} y espera dos minutos a que el metal recupere el calor que le ha robado la primera tanda. Si la segunda entra en una sartén tibia, se cuece en su propio vapor y la maicena queda blanca y gomosa, que es justo lo que evitan las dos tandas.",
       "s": 120,
       "saco": "",
       "t": "Recuperar temperatura",
@@ -534,9 +534,9 @@
       "junto": null,
       "meto": "150 g de arroz blanco largo, enjuagado y escurrido",
       "min": 12,
-      "nota": "Una sola vuelta de cuchara. Tapa y baja al 2: no la levantes en los 12 minutos.",
+      "nota": "Una sola vuelta de cuchara. Tapa y baja al {2}: no la levantes en los 12 minutos.",
       "off": 118,
-      "p": "Los 150 g al agua hirviendo y una vuelta de cuchara, solo una: cada vuelta de más rompe la superficie del grano y suelta almidón, y el largo deja de quedar suelto. Tapa y baja al 2, lo justo para un hervor perezoso que no se salga por el borde. Doce minutos sin abrir: al levantar la tapa se va el vapor que cuece los granos de arriba.",
+      "p": "Los 150 g al agua hirviendo y una vuelta de cuchara, solo una: cada vuelta de más rompe la superficie del grano y suelta almidón, y el largo deja de quedar suelto. Tapa y baja al {2}, lo justo para un hervor perezoso que no se salga por el borde. Doce minutos sin abrir: al levantar la tapa se va el vapor que cuece los granos de arriba.",
       "s": 720,
       "saco": "",
       "sinHitos": "Doce minutos tapados y ni un aviso, a propósito: cualquier hito te haría levantar la tapa, y con ella se va el vapor que cuece los granos de arriba, los que no tocan el agua.",
@@ -552,9 +552,9 @@
       "junto": null,
       "meto": "el resto del pollo (200 g)",
       "min": 3,
-      "nota": "Baja al 8 al echarlo, en una sola capa. Tres minutos sin tocarlo.",
+      "nota": "Baja al {8} al echarlo, en una sola capa. Tres minutos sin tocarlo.",
       "off": 119,
-      "p": "El resto del pollo, otra vez al 8 y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en la espera, así que la costra tarda lo mismo. Todo de golpe habría enfriado el metal; dos tandas cortas doran mejor que una larga.",
+      "p": "El resto del pollo, otra vez al {8} y en una sola capa, sin tocarlo. Tres minutos de reloj, los mismos que la primera tanda: la sartén ha recuperado temperatura en la espera, así que la costra tarda lo mismo. Todo de golpe habría enfriado el metal; dos tandas cortas doran mejor que una larga.",
       "s": 180,
       "saco": "",
       "t": "Pollo, 2.ª tanda · quieto",
@@ -586,9 +586,9 @@
       "junto": null,
       "meto": "10 ml de aceite de girasol (2 cucharaditas) + 150 g de zanahoria en bastones de 4 mm",
       "min": 3,
-      "nota": "Baja al 7. Si el fondo está negro y no marrón, pásale papel doblado con las pinzas antes. Remueve a menudo.",
+      "nota": "Baja al {7}. Si el fondo está negro y no marrón, pásale papel doblado con las pinzas antes. Remueve a menudo.",
       "off": 124,
-      "p": "Baja al 7 y echa los 10 ml de aceite con la zanahoria. No laves la sartén: el fondo marrón que dejan el pollo y la maicena se disuelve luego en la salsa y es su sabor; si en vez de marrón está negro, eso ya es almidón quemado y amarga, y se quita con papel. La zanahoria entra sola porque es la más dura: tres minutos de ventaja para que llegue tierna por fuera y firme en el centro.",
+      "p": "Baja al {7} y echa los 10 ml de aceite con la zanahoria. No laves la sartén: el fondo marrón que dejan el pollo y la maicena se disuelve luego en la salsa y es su sabor; si en vez de marrón está negro, eso ya es almidón quemado y amarga, y se quita con papel. La zanahoria entra sola porque es la más dura: tres minutos de ventaja para que llegue tierna por fuera y firme en el centro.",
       "s": 180,
       "saco": "",
       "t": "Zanahoria",
@@ -637,9 +637,9 @@
       "junto": null,
       "meto": "el vaso, removido otra vez: 150 ml de caldo de pollo, 20 ml de salsa de soja y 6 g de maicena",
       "min": 2,
-      "nota": "Remueve el vaso antes de verterlo. Sube al 8 y remueve sin parar hasta que hierva y pase de lechosa a brillante.",
+      "nota": "Remueve el vaso antes de verterlo. Sube al {8} y remueve sin parar hasta que hierva y pase de lechosa a brillante.",
       "off": 130,
-      "p": "Remueve el vaso antes de verterlo, porque la maicena se ha ido al fondo, y échalo de golpe. Sube al 8 y rasca el fondo mientras arranca: el caldo disuelve lo que dejó pegado el pollo. Al hervir, el almidón gelatiniza y la salsa pasa de lechosa a translúcida y brillante, y espesa. Medio minuto de hervor la asienta; más rato batiendo a fuego fuerte rompe el gel y la vuelve a aclarar.",
+      "p": "Remueve el vaso antes de verterlo, porque la maicena se ha ido al fondo, y échalo de golpe. Sube al {8} y rasca el fondo mientras arranca: el caldo disuelve lo que dejó pegado el pollo. Al hervir, el almidón gelatiniza y la salsa pasa de lechosa a translúcida y brillante, y espesa. Medio minuto de hervor la asienta; más rato batiendo a fuego fuerte rompe el gel y la vuelve a aclarar.",
       "s": 120,
       "saco": "",
       "t": "La salsa",
@@ -678,9 +678,9 @@
       "junto": null,
       "meto": "todo el pollo y los jugos del plato",
       "min": 3,
-      "nota": "Baja al 5. Remueve para que la salsa cubra cada dado: que nape, no que sobre.",
+      "nota": "Baja al {5}. Remueve para que la salsa cubra cada dado: que nape, no que sobre.",
       "off": 132,
-      "p": "Baja al 5 y devuelve el pollo con el jugo que haya soltado en el plato. Remueve para que cada dado quede cubierto: la película de maicena agarra la salsa y la espesa un punto más, que es cuando napa. Tres minutos bastan para que el centro de un dado de 2 cm llegue a temperatura segura; más, y la pechuga se seca. Si la salsa queda espesa como pasta, una cucharada de agua la suelta.",
+      "p": "Baja al {5} y devuelve el pollo con el jugo que haya soltado en el plato. Remueve para que cada dado quede cubierto: la película de maicena agarra la salsa y la espesa un punto más, que es cuando napa. Tres minutos bastan para que el centro de un dado de 2 cm llegue a temperatura segura; más, y la pechuga se seca. Si la salsa queda espesa como pasta, una cucharada de agua la suelta.",
       "s": 180,
       "saco": "",
       "t": "Pollo de vuelta",
@@ -730,7 +730,7 @@
     ],
     [
       "Girasol, no oliva",
-      "La sartén se precalienta al 9 y las tandas van al 8: el girasol tiene el punto de humo unos cuarenta grados por encima del de oliva y no amarga."
+      "La sartén se precalienta al {9} y las tandas van al {8}: el girasol tiene el punto de humo unos cuarenta grados por encima del de oliva y no amarga."
     ],
     [
       "Sin miel ni azúcar",
@@ -754,11 +754,11 @@
     ],
     [
       "Tres minutos quieto y dos removiendo, por tanda",
-      "Con maicena la costra se hace antes que en un pollo desnudo: tres minutos al 8 la dejan dorada y dos removiendo doran las otras caras sin llegar al centro. El dado termina en la salsa, tres minutos al 5."
+      "Con maicena la costra se hace antes que en un pollo desnudo: tres minutos al {8} la dejan dorada y dos removiendo doran las otras caras sin llegar al centro. El dado termina en la salsa, tres minutos al {5}."
     ],
     [
       "El mando, de principio a fin",
-      "Sartén: al 5 para las almendras desde frío; al 9 para calentarla vacía, al 8 en cuanto entra cada tanda y al 9 otra vez entre tandas; al 7 para la verdura y el ajo, al 8 para que la salsa hierva y la maicena gelatinice, al 5 con el pollo dentro y apagada para las almendras. Olla: al 9 hasta que rompe, al 2 con el arroz y apagada en el reposo."
+      "Sartén: al {5} para las almendras desde frío; al {9} para calentarla vacía, al {8} en cuanto entra cada tanda y al {9} otra vez entre tandas; al {7} para la verdura y el ajo, al {8} para que la salsa hierva y la maicena gelatinice, al {5} con el pollo dentro y apagada para las almendras. Olla: al {9} hasta que rompe, al {2} con el arroz y apagada en el reposo."
     ]
   ],
   "raciones": 2,

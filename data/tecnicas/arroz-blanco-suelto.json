@@ -13,11 +13,11 @@
     },
     {
       "p": "3 g de sal en el agua antes de echar el arroz. No se sofríe ni se enjuaga antes: va directo al agua hirviendo.",
-      "t": "Arroz directo al agua ya hirviendo con sal, potencia 8"
+      "t": "Arroz directo al agua ya hirviendo con sal, potencia {8}"
     },
     {
       "p": "Desde ahí, 12 minutos sin levantar la tapa ni remover en ningún momento.",
-      "t": "Bajar a potencia 2-3 en cuanto vuelva a hervir, tapado"
+      "t": "Bajar a potencia {2}-{3} en cuanto vuelva a hervir, tapado"
     },
     {
       "p": "El vapor que queda dentro de la olla termina de secarlo por fuera sin necesidad de más fuego.",

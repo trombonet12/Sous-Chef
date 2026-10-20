@@ -312,12 +312,12 @@
       "junto": null,
       "meto": "la plancha, vacía y seca, en el fuego grande",
       "min": 6,
-      "nota": "Pon la plancha en el fuego grande y enciéndelo al 8, sin nada de aceite. Si a los 5 minutos la gota hierve y se queda, espera un minuto y repite.",
+      "nota": "Pon la plancha en el fuego grande y enciéndelo al {8}, sin nada de aceite. Si a los 5 minutos la gota hierve y se queda, espera un minuto y repite.",
       "off": 32,
-      "p": "La plancha pasa seis minutos al 8, vacía, porque una plancha gruesa tarda en acumular calor en toda su superficie, y en la vitro un poco más. Es ese calor acumulado el que sella el filete en cuanto lo toca: si está tibia, el pescado suelta su jugo, se queda cocido en él y se pega. Va sin aceite, porque el aceite solo en una plancha vacía pasa su punto de humo antes de que llegue el pescado. La gota de agua que baila en vez de hervir es la señal: la plancha está tan caliente que forma una capa de vapor debajo.",
+      "p": "La plancha pasa seis minutos al {8}, vacía, porque una plancha gruesa tarda en acumular calor en toda su superficie, y en la vitro un poco más. Es ese calor acumulado el que sella el filete en cuanto lo toca: si está tibia, el pescado suelta su jugo, se queda cocido en él y se pega. Va sin aceite, porque el aceite solo en una plancha vacía pasa su punto de humo antes de que llegue el pescado. La gota de agua que baila en vez de hervir es la señal: la plancha está tan caliente que forma una capa de vapor debajo.",
       "s": 360,
       "saco": "",
-      "t": "Calentar la plancha vacía al 8",
+      "t": "Calentar la plancha vacía al {8}",
       "tapa": "sin tapa"
     },
     {
@@ -331,7 +331,7 @@
       "min": 1,
       "nota": "Echa 1 cucharadita de aceite sobre cada filete y extiéndela por las dos caras con una brocha o con los dedos. Sala cada filete por las dos caras con 1 g, un pellizco por cara, y llévalos a la plancha.",
       "off": 37,
-      "p": "El aceite se extiende sobre el pescado y no en la plancha: así queda una película fina justo en la superficie que va a tocar el metal, que conduce el calor por igual y evita que la proteína se pegue, sin un charco alrededor que humee al 8. Se hace ahora, con la plancha ya casi a punto, y no al sacarlos de la nevera, por la sal: en pocos minutos saca agua a la superficie, y esa agua enfriaría la plancha y haría que el filete se cociera en vez de dorarse.",
+      "p": "El aceite se extiende sobre el pescado y no en la plancha: así queda una película fina justo en la superficie que va a tocar el metal, que conduce el calor por igual y evita que la proteína se pegue, sin un charco alrededor que humee al {8}. Se hace ahora, con la plancha ya casi a punto, y no al sacarlos de la nevera, por la sal: en pocos minutos saca agua a la superficie, y esa agua enfriaría la plancha y haría que el filete se cociera en vez de dorarse.",
       "s": 60,
       "saco": "",
       "t": "Aceitar y salar el emperador",
@@ -354,9 +354,9 @@
       "junto": null,
       "meto": "los 2 filetes ya aceitados y salados, separados en el centro de la plancha",
       "min": 4,
-      "nota": "Sigue al 8. Apóyalos y no los toques en 2 minutos; dales la vuelta con la espátula y 2 minutos más.",
+      "nota": "Sigue al {8}. Apóyalos y no los toques en 2 minutos; dales la vuelta con la espátula y 2 minutos más.",
       "off": 38,
-      "p": "Dos minutos por cara al 8 dejan un filete de 2 cm dorado por fuera y el centro apenas rosado, que es el punto jugoso: el emperador tiene muy poca grasa y a partir de ahí se seca en un minuto. El aceite ya va en el pescado, del paso anterior, y no en la plancha: así hay una película fina justo donde hace falta, sin charco que humee. La sal va en el momento, cuando todavía no le ha dado tiempo a sacar agua. Mientras se marca no se mueve: la proteína se pega a la plancha y se suelta sola cuando la superficie está dorada, y si fuerzas antes se rompe el filete.",
+      "p": "Dos minutos por cara al {8} dejan un filete de 2 cm dorado por fuera y el centro apenas rosado, que es el punto jugoso: el emperador tiene muy poca grasa y a partir de ahí se seca en un minuto. El aceite ya va en el pescado, del paso anterior, y no en la plancha: así hay una película fina justo donde hace falta, sin charco que humee. La sal va en el momento, cuando todavía no le ha dado tiempo a sacar agua. Mientras se marca no se mueve: la proteína se pega a la plancha y se suelta sola cuando la superficie está dorada, y si fuerzas antes se rompe el filete.",
       "s": 240,
       "saco": "los filetes, uno a cada plato. Apaga el fuego grande y aparta la plancha",
       "t": "Emperador a la plancha, 2 min por cara",
@@ -396,7 +396,7 @@
     ],
     [
       "El aceite en el pescado, no en la plancha",
-      "Un charco de aceite sobre la plancha al 8 humea y se quema antes de que el filete lo tape. Extendido sobre el pescado queda una capa fina justo donde hay contacto."
+      "Un charco de aceite sobre la plancha al {8} humea y se quema antes de que el filete lo tape. Extendido sobre el pescado queda una capa fina justo donde hay contacto."
     ],
     [
       "Agua caliente en el salmoriglio",
@@ -412,7 +412,7 @@
     ],
     [
       "Sin pimienta en el pescado",
-      "La pimienta ya va en la salsa, y sobre la plancha al 8 se quema y amarga."
+      "La pimienta ya va en la salsa, y sobre la plancha al {8} se quema y amarga."
     ],
     [
       "Sin hierbas en las patatas",

@@ -2,7 +2,7 @@
   "actualizada": "2026-09-16T11:06:00Z",
   "categoria": "salsa",
   "consejos": [
-    "Un glaseado con miel se quema antes que uno con soja sola: bajar a potencia 4 en los últimos minutos si lleva miel o azúcar.",
+    "Un glaseado con miel se quema antes que uno con soja sola: bajar a potencia {4} en los últimos minutos si lleva miel o azúcar.",
     "Si se pasa y se agarra a la sartén, un chorro de agua caliente y raspar lo recupera en parte, aunque ya no queda tan brillante."
   ],
   "creada": "2026-09-16T11:06:00Z",
@@ -13,7 +13,7 @@
     },
     {
       "p": "Así el glaseado coge también el sabor de lo que se está cocinando, no solo el suyo propio.",
-      "t": "Potencia 5, en la misma sartén o bandeja del ingrediente"
+      "t": "Potencia {5}, en la misma sartén o bandeja del ingrediente"
     },
     {
       "p": "Una sola pasada al final no cubre igual que ir bañándolo cada pocos minutos según espesa.",

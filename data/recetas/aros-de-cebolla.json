@@ -120,7 +120,7 @@
       "n": "SARTÉN HONDA · LA FRITURA"
     }
   ],
-  "lectura": "Una sartén y la mesa. 6 de cortar + 4 de montar los platos + 8 de rebozar + 10 de nevera + 18 de freír + 1 de servir = 47 minutos. El aceite se enciende en el minuto 22, con las manos ya limpias, y llega al 7 justo cuando la bandeja sale de la nevera. Solo hay un fuego encendido en todo el plan.",
+  "lectura": "Una sartén y la mesa. 6 de cortar + 4 de montar los platos + 8 de rebozar + 10 de nevera + 18 de freír + 1 de servir = 47 minutos. El aceite se enciende en el minuto 22, con las manos ya limpias, y llega al {7} justo cuando la bandeja sale de la nevera. Solo hay un fuego encendido en todo el plan.",
   "mep": [
     {
       "l": [
@@ -202,13 +202,13 @@
       "id": "calentar-aceite",
       "meto": "300 ml de aceite de girasol en la sartén honda de 22-24 cm",
       "min": 6,
-      "nota": "Al 7, sin tapa. Está listo cuando una miga de pan rallado burbujea en cuanto toca el aceite.",
+      "nota": "Al {7}, sin tapa. Está listo cuando una miga de pan rallado burbujea en cuanto toca el aceite.",
       "off": 22,
-      "p": "El girasol aguanta los 175-180 °C de la fritura sin humear y no da sabor. Seis minutos al 7 bastan para que 300 ml lleguen a esa temperatura en una sartén de 22-24 cm. Se enciende en el minuto 22, con el rebozado ya acabado y las manos limpias, para no tener aceite caliente sin vigilar. Si el aceite está frío, el rebozado chupa grasa antes de formar costra y sale blando y aceitoso.",
+      "p": "El girasol aguanta los 175-180 °C de la fritura sin humear y no da sabor. Seis minutos al {7} bastan para que 300 ml lleguen a esa temperatura en una sartén de 22-24 cm. Se enciende en el minuto 22, con el rebozado ya acabado y las manos limpias, para no tener aceite caliente sin vigilar. Si el aceite está frío, el rebozado chupa grasa antes de formar costra y sale blando y aceitoso.",
       "s": 360,
       "saco": "",
       "sinHitos": "El aceite se calienta solo y no hay nada que mover: la única comprobación, la miga que burbujea, está al final del paso.",
-      "t": "Calentar el aceite de girasol al 7",
+      "t": "Calentar el aceite de girasol al {7}",
       "tapa": "sin tapa"
     },
     {
@@ -267,7 +267,7 @@
       "id": "freir",
       "meto": "la bandeja de la nevera: los aros, de 6 en 6",
       "min": 18,
-      "nota": "Cuatro tandas de 4 minutos, 2 por lado, sin amontonar, con medio minuto entre tanda y tanda para que el aceite se recupere. Si el aceite humea, baja del 7 al 6.",
+      "nota": "Cuatro tandas de 4 minutos, 2 por lado, sin amontonar, con medio minuto entre tanda y tanda para que el aceite se recupere. Si el aceite humea, baja del {7} al {6}.",
       "off": 28,
       "p": "Dos minutos por lado doran el pan rallado y dejan la cebolla tierna por dentro, que se hace con el vapor de su propia agua encerrado en la costra. Cada tanda fría enfría el aceite unos grados: el medio minuto de espera, hasta que la miga vuelve a burbujear, evita que la siguiente entre en aceite tibio y se empape. Más de seis aros a la vez bajan demasiado la temperatura. La sal va al salir, con la superficie aún brillante de aceite, que es lo que la pega.",
       "s": 1080,
