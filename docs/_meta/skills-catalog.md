@@ -30,6 +30,7 @@ Una línea por skill: `nombre | argumentos | contenido mínimo`. Las marcadas **
 - android-debug-failure | [build|crash] | Diagnosticar un fallo Android de Sous Chef, build (Gradle) o crash (logcat): análisis de log, hipótesis y reproducción mínima
 - android-profile | [cpu|memory|battery] | Medir CPU, memoria o batería de Sous Chef (p. ej. cronómetro con varios recipientes, alarmas) antes de optimizar y registrar métricas antes/después
 - android-review | [lifecycle|background|permissions|alarms] | Revisar Android de Sous Chef sin modificar (lifecycle, background, permissions, alarms) con findings por severidad
+- video-promo | — | Rehacer el vídeo promocional vertical de Play: clips del emulador trombito-36 y montaje ffmpeg/Pillow en build/promo; no sube a YouTube **[manual]**
 
 ## 5. Calidad y tests
 - test-write | [unit|domain|integration|android-ui|db|cli] | Escribir tests por tipo (unit, domain, integration, android-ui, db, cli) con TDD en lógica crítica

@@ -4,7 +4,7 @@
 
 Índice generado desde `.claude/skills/*/SKILL.md`, agrupado según `docs/_meta/skills-catalog.md`.
 
-Total: 42 skills (2 manuales).
+Total: 43 skills (3 manuales).
 
 Presupuesto de descripciones: 7427 / 16000 caracteres (suma de name + description de las skills no manuales).
 
@@ -47,6 +47,7 @@ Presupuesto de descripciones: 7427 / 16000 caracteres (suma de name + descriptio
 | [android-debug-failure](../.claude/skills/android-debug-failure/SKILL.md)           | `[build\|crash]`                               | no     | Diagnosticar un fallo Android de Sous Chef, build (Gradle) o crash (logcat): análisis de log, hipótesis y reproducción mínima; si el bug se confirma pasa a bugfix-flow, sin corregir aquí.      |
 | [android-profile](../.claude/skills/android-profile/SKILL.md)                       | `[cpu\|memory\|battery]`                       | no     | Medir CPU, memoria o batería de Sous Chef (p. ej. cronómetro con varios recipientes, alarmas) antes de optimizar y registrar métricas antes/después; no optimiza ni revisa código.               |
 | [android-review](../.claude/skills/android-review/SKILL.md)                         | `[lifecycle\|background\|permissions\|alarms]` | no     | Revisar Android de Sous Chef sin modificar (lifecycle, background, permissions, alarms) con findings por severidad; no arquitectura (architecture-review) ni implementar.                        |
+| [video-promo](../.claude/skills/video-promo/SKILL.md)                               | —                                              | sí     | Rehacer el vídeo promocional vertical de Sous Chef para la ficha de Google Play (clips del emulador trombito-36 y montaje en build/promo); no sube nada a YouTube ni toca la ficha de Play.      |
 
 ## 5. Calidad y tests
 

@@ -58,6 +58,14 @@ a mano, en Play Console.
 4. A partir de ahí, cada push a main con un `version.properties` nuevo publica en GitHub **y** en la pista interna.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
 
+## Vídeo promocional
+- Play lo pide como URL de YouTube (pública u oculta, sin anuncios, embebible). Solo se reproducen solos los primeros
+  30 s, en silencio, así que la app tiene que verse pronto.
+- Se rehace tras cambios visibles grandes o antes de una versión de producción. Procedimiento completo: skill
+  `video-promo` (`.claude/skills/video-promo/SKILL.md`).
+- El MP4 queda en `build/promo/` y no se versiona. La subida a YouTube («Oculto») y la URL en Play Console → Ficha →
+  Vídeo las hace Joan a mano.
+
 ## Notas de versión
 - Están en `distribution/whatsnew/whatsnew-es-ES`. Son texto para el usuario: máximo 500 caracteres, viñetas «• ».
 - Se actualizan en cada versión (skill `release-notes`, destino `play`).
