@@ -35,8 +35,12 @@ a mano, en Play Console.
      Desarrollador: «Trombonet12© and Co. Interactive Systems Solutions».
    - Público objetivo: adultos. Sin anuncios.
    - Clasificación de contenido: rellenar el cuestionario; no hay contenido sensible.
-6. **Ficha de Play Store:** descripción corta y larga, icono de 512 px, gráfico de 1024×500 y al menos 2 capturas
-   (sirven las de `docs/capturas/`).
+6. **Ficha de Play Store**: todo está en `distribution/listing/`.
+   - Textos: `es-ES/short-description.txt` (≤ 80) y `es-ES/full-description.txt` (≤ 4000).
+   - Icono `graphics/icon-512.png` y gráfico `graphics/feature-1024x500.png`. Se regeneran con
+     `node scripts/ficha-play.mjs`, que usa Chrome headless y Pillow.
+   - Capturas `graphics/phone/*.png` en 1080×1920. Las de `docs/capturas/` no valen: son 9:20, y Play no admite
+     que el lado largo pase del doble del corto.
 
 ## Subida automática
 1. En Google Cloud:
@@ -83,7 +87,9 @@ a mano, en Play Console.
 - Lo provoca `libandroidx.graphics.path.so`, de Compose UI. Google lo distribuye sin símbolos, así que no se puede
   simbolizar.
 - Activar `ndk.debugSymbolLevel` no lo quita, y obligaría a fijar un NDK en el CI.
-- Decisión: ignorarlo.
+- Desde la v1.3.3, el CI saca esas `.so` del AAB y las mete en `native-debug-symbols-<v>.zip`, con carpetas por
+  ABI. Las adjunta a la release y las sube a Play con `debugSymbols`; conservan la tabla de símbolos exportados. Si
+  Play sigue avisando, se ignora: no bloquea nada.
 - Desde la v1.3.2 aparece menos: se quitó la dependencia sin uso datastore-preferences, que añadía
   `libdatastore_shared_counter.so`.
 - Más información: <https://developer.android.com/build/include-native-symbols>

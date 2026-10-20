@@ -331,3 +331,13 @@
 - El CI ya no sube el `mapping.txt`, porque R8 lo incrusta en el AAB.
 - Skills `release`, `release-notes` y `release-preflight` al día con el flujo real (versión + push; Play a mano
   mientras no exista `PLAY_SERVICE_ACCOUNT_JSON`).
+
+## 2026-10-20 · v1.3.3 (ficha de Play y símbolos)
+- **Ficha de Play versionada** en `distribution/listing/`: los textos en `es-ES/`, y en `graphics/` el icono de
+  512, el gráfico de 1024×500 y las capturas `phone/` en 1080×1920 (9:16). El icono y el gráfico se regeneran con
+  `scripts/ficha-play.mjs`, que usa Chrome headless y Pillow, sin dependencias del proyecto. Las capturas de
+  `docs/capturas/` (9:20) no las admite Play.
+- **Símbolos nativos desde el CI:** el job `release` saca `base/lib/<abi>/*.so` del AAB y lo empaqueta en
+  `native-debug-symbols-<v>.zip`, que adjunta a la release y sube con `debugSymbols`. Son `.so` stripped, solo con
+  la tabla de símbolos exportados. Si Play sigue avisando, se ignora (ver la entrada de la v1.3.2).
+- **v1.3.3** es la primera versión que sube el CI a la pista interna como borrador (`PLAY_ESTADO` por defecto).
