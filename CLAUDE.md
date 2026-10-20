@@ -16,7 +16,7 @@ lo cocinado y técnicas. La despensa es interna (`data/despensa-semilla.md`, par
 ./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug   # gate Android
 ./gradlew :receta:test :tools:installDist                                # dominio + CLI
 scripts/sc validar --estricto            # valida data/recetas y data/tecnicas (scripts/sc.cmd en cmd/PowerShell)
-node scripts/check-claude-assets.mjs ; bash scripts/test-hooks.sh ; node scripts/check-docs.mjs
+node scripts/check-claude-assets.mjs ; node scripts/gen-claude-index.mjs --check ; bash scripts/test-hooks.sh ; node scripts/check-docs.mjs
 ```
 JDK 21 vía `~/.gradle/gradle.properties` (`org.gradle.java.installations.paths`). Secretos en `~/.souschef/` (nunca en el repo).
 
