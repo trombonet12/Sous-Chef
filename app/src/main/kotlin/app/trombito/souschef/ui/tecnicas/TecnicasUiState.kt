@@ -1,20 +1,25 @@
 package app.trombito.souschef.ui.tecnicas
 
+import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
-import app.trombito.souschef.ui.comun.contarPor
 import app.trombito.souschef.ui.comun.normalizado
 
 data class TecnicasUiState(
     val cargando: Boolean = true,
     val consulta: String = "",
-    val categoriaActiva: String? = null,
-    val categorias: List<Pair<String, Int>> = emptyList(),
-    val coincidentes: Int = 0,
+    /** Categorías con al menos una técnica (sobre todas, sin buscador), en el orden del enum, con su recuento. */
+    val categorias: List<Pair<CategoriaTecnica, Int>> = emptyList(),
+    /** Nombre visible de cada categoría cuando los datos dan uno solo (p. ej. «Cocción»). */
+    val nombres: Map<CategoriaTecnica, String> = emptyMap(),
+    /** Categoría de la pantalla de una categoría; null en la pestaña. */
+    val categoriaFija: CategoriaTecnica? = null,
+    val disposicion: DisposicionLista = DisposicionLista.TINTE,
+    /** Técnicas que hay antes del buscador (tras el prefiltro de categoría). */
     val total: Int = 0,
     val tecnicas: List<Tecnica> = emptyList(),
 ) {
-    val mostrarChips: Boolean get() = categorias.size > 1
+    val mostrarRejilla: Boolean get() = categoriaFija == null && categorias.size > 1
 }
 
 /** Busca en titulo, resumen, categoria y en `t`/`p` de pasos y consejos. */
@@ -33,25 +38,44 @@ fun textoBuscableTecnica(t: Tecnica): String =
 fun construirEstadoTecnicas(
     todas: List<Tecnica>,
     consulta: String,
-    categoriaElegida: String?,
+    categoriaFija: CategoriaTecnica?,
+    disposicion: DisposicionLista = DisposicionLista.TINTE,
 ): TecnicasUiState {
     val q = consulta.trim().normalizado()
-    val porTexto = todas.filter { q.isEmpty() || textoBuscableTecnica(it).contains(q) }
-    val categorias = porTexto.contarPor { it.categoria.ifBlank { null } }
-    val categoriaActiva = categoriaElegida?.takeIf { c -> categorias.any { it.first == c } }
+    val delPrefiltro = todas.filter { categoriaFija == null || CategoriaTecnica.de(it.categoria) == categoriaFija }
     return TecnicasUiState(
         cargando = false,
         consulta = consulta,
-        categoriaActiva = categoriaActiva,
-        categorias = categorias,
-        coincidentes = porTexto.size,
-        total = todas.size,
+        categorias = categoriasDe(todas),
+        nombres = nombresDe(todas),
+        categoriaFija = categoriaFija,
+        disposicion = disposicion,
+        total = delPrefiltro.size,
         tecnicas =
-            porTexto
-                .filter { categoriaActiva == null || it.categoria == categoriaActiva }
+            delPrefiltro
+                .filter { q.isEmpty() || textoBuscableTecnica(it).contains(q) }
                 .sortedBy { it.titulo.normalizado() },
     )
 }
+
+private fun categoriasDe(todas: List<Tecnica>): List<Pair<CategoriaTecnica, Int>> {
+    val cuentas = todas.groupingBy { CategoriaTecnica.de(it.categoria) }.eachCount()
+    return CategoriaTecnica.entries.mapNotNull { c -> cuentas[c]?.let { c to it } }
+}
+
+/** El nombre de la categoría sale de los datos si todas sus técnicas coinciden en una sola cadena no vacía. */
+private fun nombresDe(todas: List<Tecnica>): Map<CategoriaTecnica, String> =
+    todas
+        .groupBy { CategoriaTecnica.de(it.categoria) }
+        .mapNotNull { (categoria, tecnicas) ->
+            val cadenas =
+                tecnicas
+                    .map {
+                        it.categoria.trim()
+                    }.filter { it.isNotEmpty() }
+                    .distinctBy { it.normalizado() }
+            cadenas.singleOrNull()?.let { categoria to it.conInicialMayuscula() }
+        }.toMap()
 
 /** Recetas que citan la técnica en `tags.tecnica`, por título. */
 fun recetasConTecnica(

@@ -3,6 +3,7 @@ package app.trombito.souschef.ui.tecnicas
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.receta.Receta
@@ -13,6 +14,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -20,22 +23,29 @@ import javax.inject.Inject
 class TecnicasViewModel
     @Inject
     constructor(
+        savedStateHandle: SavedStateHandle,
         tecnicas: TecnicasRepo,
+        ajustes: AjustesRepo,
     ) : ViewModel() {
+        private val categoriaFija: CategoriaTecnica? =
+            CategoriaTecnica.deClave(savedStateHandle.get<String>(Rutas.ARG_CATEGORIA))
         private val consulta = MutableStateFlow("")
-        private val categoria = MutableStateFlow<String?>(null)
 
         val estado: StateFlow<TecnicasUiState> =
-            combine(tecnicas.observarTodas(), consulta, categoria) { t, q, c ->
-                construirEstadoTecnicas(t, q, c)
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TecnicasUiState())
+            combine(
+                tecnicas.observarTodas(),
+                consulta,
+                ajustes.observar().map { it.lista }.distinctUntilChanged(),
+            ) { t, q, lista ->
+                construirEstadoTecnicas(t, q, categoriaFija, lista)
+            }.stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5_000),
+                TecnicasUiState(categoriaFija = categoriaFija),
+            )
 
         fun buscar(texto: String) {
             consulta.value = texto
-        }
-
-        fun elegirCategoria(nueva: String?) {
-            categoria.value = nueva
         }
     }
 

@@ -3,8 +3,6 @@ package app.trombito.souschef.ui.tecnicas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,48 +19,84 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
-import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.CampoBusqueda
-import app.trombito.souschef.ui.comun.ChipsFiltro
+import app.trombito.souschef.ui.comun.CategoriaVista
 import app.trombito.souschef.ui.comun.EstadoVacio
-import app.trombito.souschef.ui.comun.Etiqueta
+import app.trombito.souschef.ui.comun.RejillaCategorias
+import app.trombito.souschef.ui.comun.colorTono
+import app.trombito.souschef.ui.theme.Espacio
 
 @Composable
 fun TecnicasScreen(
     /** null cuando es una pestaña: sin barra de título propia. */
     onAtras: (() -> Unit)?,
     onAbrir: (String) -> Unit,
+    onCategoria: (String) -> Unit = {},
     viewModel: TecnicasViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
+    TecnicasContenido(estado, onAtras, viewModel::buscar, onAbrir, onCategoria)
+}
+
+@Composable
+fun TecnicasContenido(
+    estado: TecnicasUiState,
+    onAtras: (() -> Unit)?,
+    onBuscar: (String) -> Unit,
+    onAbrir: (String) -> Unit,
+    onCategoria: (String) -> Unit,
+) {
     Column(Modifier.fillMaxSize()) {
-        if (onAtras != null) BarraTitulo(stringResource(R.string.tecnicas_titulo), onAtras)
+        val fija = estado.categoriaFija
+        if (fija != null) {
+            BarraTitulo(nombreCategoria(estado, fija), onAtras ?: {})
+        } else if (onAtras != null) {
+            BarraTitulo(stringResource(R.string.tecnicas_titulo), onAtras)
+        }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(Espacio.m),
         ) {
-            item { CampoBusqueda(estado.consulta, stringResource(R.string.tecnicas_buscar), viewModel::buscar) }
-            if (estado.mostrarChips) {
+            if (estado.mostrarRejilla) item { Cuadraditos(estado, onCategoria) }
+            if (fija == null) {
                 item {
-                    ChipsFiltro(
-                        estado.categorias,
-                        estado.categoriaActiva,
-                        estado.coincidentes,
-                        viewModel::elegirCategoria,
-                    )
+                    Text(stringResource(R.string.tecnicas_todas), style = MaterialTheme.typography.titleMedium)
                 }
             }
+            item { CampoBusqueda(estado.consulta, stringResource(R.string.tecnicas_buscar), onBuscar) }
             cuerpo(estado, onAbrir)
         }
     }
+}
+
+@Composable
+private fun nombreCategoria(
+    estado: TecnicasUiState,
+    categoria: CategoriaTecnica,
+): String = estado.nombres[categoria] ?: stringResource(R.string.tecnicas_categoria_otra)
+
+@Composable
+private fun Cuadraditos(
+    estado: TecnicasUiState,
+    onCategoria: (String) -> Unit,
+) {
+    val vistas =
+        estado.categorias.map { (categoria, n) ->
+            CategoriaVista(
+                clave = categoria.clave,
+                nombre = nombreCategoria(estado, categoria),
+                icono = categoria.icono,
+                color = colorTono(categoria.tono),
+                recuento = pluralStringResource(R.plurals.tecnicas_conteo, n, n),
+            )
+        }
+    RejillaCategorias(vistas, onCategoria)
 }
 
 private fun LazyListScope.cuerpo(
@@ -88,33 +121,8 @@ private fun LazyListScope.cuerpo(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            items(estado.tecnicas, key = { it.slug }) { t -> TarjetaTecnica(t) { onAbrir(t.slug) } }
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun TarjetaTecnica(
-    tecnica: Tecnica,
-    onAbrir: () -> Unit,
-) {
-    Card(onClick = onAbrir, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(tecnica.titulo, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Medium)
-            if (tecnica.resumen.isNotBlank()) {
-                Text(
-                    tecnica.resumen,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                if (tecnica.categoria.isNotBlank()) Etiqueta(tecnica.categoria)
-                val n = tecnica.pasos.size
-                Etiqueta(pluralStringResource(R.plurals.tecnica_pasos_n, n, n))
+            items(estado.tecnicas, key = { it.slug }) { t ->
+                TarjetaTecnica(t, estado.disposicion, { onAbrir(t.slug) })
             }
         }
     }
