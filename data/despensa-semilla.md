@@ -26,7 +26,7 @@ Arroz blanco largo · arroz redondo · espaguetis · macarrones · hélices o pa
 Atún en lata · maíz · leche de coco · alubias · tomate triturado · olivas verdes · cebollita crujiente · piña en lata
 
 ## Verduras y hortalizas
-Ajos · jengibre · zanahorias · tomates · tomates cherry · pepino · patatas · berenjenas · cebolla · cebolla morada · pimiento rojo · pimiento verde · calabacín · ensalada · canónigos · jalapeños · pimiento amarillo · pimientos de padrón
+Ajos · jengibre · zanahorias · boniato · tomates · tomates cherry · pepino · patatas · berenjenas · cebolla · cebolla morada · pimiento rojo · pimiento verde · calabacín · ensalada · canónigos · jalapeños · pimiento amarillo · pimientos de padrón
 
 ## Fruta
 Manzanas · limones
@@ -35,7 +35,7 @@ Manzanas · limones
 Almendras crudas peladas
 
 ## Panadería y masas
-Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · maicena · levadura · masa de pizza refrigerada · minitortillas de trigo
+Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · harina de fuerza · maicena · levadura · levadura seca de panadería · masa de pizza refrigerada · minitortillas de trigo
 
 ## Salsas y condimentos
 Pesto · ketchup · mostaza · salsa César · salsa de soja · guacamole · miel · mermelada de melocotón · vinagre de vino · aceite de oliva · aceite de girasol

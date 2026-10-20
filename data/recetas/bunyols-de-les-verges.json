@@ -1,0 +1,468 @@
+{
+  "actualizada": "2026-10-20T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#A8C686",
+      "id": "bol",
+      "nombre": "BOL DE LA MASA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "freir",
+      "nombre": "OLLA HONDA",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Pelados y en dados de 3 cm, los dos del mismo tamaño. No hay fibra que seguir: lo que manda es que se cuezan a la vez. El boniato es más blando y, en un dado más pequeño, se desharía en el agua antes de que la patata estuviera tierna.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Una patata y un trozo de boniato pelados con una cuadricula de cortes que los deja en dados de 3 cm\"><ellipse cx=\"34\" cy=\"46\" rx=\"26\" ry=\"20\" fill=\"#E8C98A\" fill-opacity=\".2\" stroke=\"#B89A5E\"/><path d=\"M66 30c14-8 38-6 46 8 6 12-2 26-18 30-14 4-30-2-32-14-1-8 0-18 4-24z\" fill=\"#E59A5C\" fill-opacity=\".2\" stroke=\"#B9703A\"/><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"25\" y1=\"24\" x2=\"25\" y2=\"68\"/><line x1=\"43\" y1=\"24\" x2=\"43\" y2=\"68\"/><line x1=\"6\" y1=\"40\" x2=\"62\" y2=\"40\"/><line x1=\"6\" y1=\"54\" x2=\"62\" y2=\"54\"/><line x1=\"80\" y1=\"24\" x2=\"80\" y2=\"70\"/><line x1=\"98\" y1=\"24\" x2=\"98\" y2=\"70\"/><line x1=\"62\" y1=\"42\" x2=\"116\" y2=\"42\"/><line x1=\"62\" y1=\"56\" x2=\"116\" y2=\"56\"/></g></svg>",
+      "t": "Patata y boniato · dados de 3 cm"
+    }
+  ],
+  "creada": "2026-10-20T00:00:00Z",
+  "datos": [
+    [
+      "137 min",
+      "de principio a fin"
+    ],
+    [
+      "60",
+      "minutos de levado"
+    ],
+    [
+      "1",
+      "fuego a la vez"
+    ],
+    [
+      "13",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Los buñuelos mallorquines de la noche de les Verges: masa de patata y boniato con harina de fuerza, huevo y levadura, levada una hora y frita en anillos que se forman con las manos mojadas. La dificultad está en dos sitios: el puré tiene que estar tibio antes de la levadura y la masa es tan húmeda que solo se trabaja con las manos mojadas. Salen unos 12, rebozados en azúcar.",
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 150,
+          "n": "patata, en dados de 3 cm (1 patata mediana)",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "boniato, en dados de 3 cm (½ boniato mediano)",
+          "u": "g"
+        },
+        {
+          "a": 1000,
+          "n": "agua fría (4 vasos)",
+          "u": "ml"
+        }
+      ],
+      "n": "OLLA · LA COCCIÓN"
+    },
+    {
+      "items": [
+        {
+          "a": 40,
+          "n": "agua tibia (2½ cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 6,
+          "esc": "sub",
+          "n": "levadura seca de panadería (2 cucharaditas rasas)",
+          "u": "g"
+        }
+      ],
+      "n": "VASO MEDIDOR · LA LEVADURA"
+    },
+    {
+      "items": [
+        {
+          "a": 2,
+          "n": "huevos",
+          "u": "uds"
+        },
+        {
+          "a": 150,
+          "n": "harina de fuerza (1 vaso de agua bien lleno)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA MASA"
+    },
+    {
+      "items": [
+        {
+          "a": 1000,
+          "n": "aceite de girasol (4 vasos de agua)",
+          "u": "ml"
+        }
+      ],
+      "n": "OLLA HONDA · LA FRITURA"
+    },
+    {
+      "items": [
+        {
+          "a": 50,
+          "n": "azúcar blanco (4 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO HONDO · EL AZÚCAR"
+    }
+  ],
+  "lectura": "Una sola olla al fuego en cada momento. 6 de cortar + 26 de olla (8 hasta que hierve, 15 de cocer y 3 de secar) + 5 de chafar + 15 de templar + 8 de amasar + 60 de levar + 16 de freír + 1 de servir = 137 minutos. La levadura se despierta del 45 al 50, mientras el puré se templa. El aceite se enciende en el 108, a falta de 12 minutos de levado, y llega al 7 justo cuando la masa ha doblado.",
+  "mep": [
+    {
+      "l": [
+        "<b>Patata · 150 g (1 patata mediana)</b> · pelada y en dados de 3 cm. A la olla en el minuto 6.",
+        "<b>Boniato · 150 g (½ boniato mediano)</b> · pelado y en dados de 3 cm, del mismo tamaño que la patata. A la olla en el minuto 6.",
+        "<b>Agua fría · 1 L (4 vasos)</b> · por encima de los dados, en la olla. Entra en el minuto 6."
+      ],
+      "orden": true,
+      "porq": "Solo pasan por la tabla la patata y el boniato, con el mismo corte, y van juntos a la olla: la olla en frío es su recipiente.",
+      "t": "UNA TABLA, DOS TUBÉRCULOS"
+    },
+    {
+      "l": [
+        "<b>Vaso medidor</b> · 40 ml de agua tibia (2½ cucharadas soperas) + 6 g de levadura seca de panadería (2 cucharaditas rasas). Se prepara en el minuto 45 y entra al bol en el minuto 52.",
+        "<b>Junto al bol grande</b> · 2 huevos, 150 g de harina de fuerza (1 vaso de agua bien lleno) y 2 g de sal (⅓ de cucharadita). Entran en el minuto 52.",
+        "<b>Un paño limpio</b> · para tapar el bol durante el levado, desde el minuto 60."
+      ],
+      "orden": false,
+      "porq": "El vaso medidor se usa una sola vez, para la levadura. El bol grande recibe el puré y es donde se mezcla y leva la masa: no se cambia de recipiente.",
+      "t": "LA MASA"
+    },
+    {
+      "l": [
+        "<b>Olla honda de 20 cm</b> · 1 L de aceite de girasol (4 vasos de agua), unos 3 cm de fondo. Al fuego en el minuto 108.",
+        "<b>Bol con agua fría</b> · para mojarse las manos antes de cada bunyol. Desde el minuto 110.",
+        "<b>Plato con papel de cocina</b> · para escurrir cada tanda 30 segundos. Desde el minuto 110.",
+        "<b>Plato hondo</b> · 50 g de azúcar blanco (4 cucharadas soperas), para rebozar cada tanda al salir del papel. Desde el minuto 110."
+      ],
+      "orden": true,
+      "porq": "En fila y en el orden del recorrido del bunyol: masa, agua para las manos, aceite, papel y azúcar.",
+      "t": "EL PUESTO DE FREÍR"
+    }
+  ],
+  "notaEscala": "A 4 raciones es el doble de masa en el mismo bol, pero el aceite no se dobla: es la profundidad de la olla, no la cantidad de bunyols. Lo que crece es la fritura, de tres tandas a seis, y el plan se alarga 16 minutos. La levadura y la sal suben menos que el resto: con el doble de masa, 9 g de levadura levan en la misma hora.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "150 g de patata (1 mediana) + 150 g de boniato (½ mediano)",
+      "min": 6,
+      "nota": "Pela los dos con el pelador y córtalos en dados de 3 cm, todos del mismo tamaño. Van juntos a la olla en frío.",
+      "off": 0,
+      "p": "Pelados y en dados de 3 cm se cuecen en 15 minutos en vez de los 35 que pide una patata entera. Que sean del mismo tamaño importa más que el tamaño en sí: el boniato es más blando que la patata y, si los dados de boniato fueran más pequeños, se desharían en el agua antes de que la patata estuviera.",
+      "s": 360,
+      "saco": "",
+      "t": "Pelar la patata y el boniato y cortarlos en dados de 3 cm",
+      "tapa": null
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "cortar"
+      ],
+      "f": 9,
+      "holgura": "flexible",
+      "id": "hervir",
+      "meto": "los dados de patata y boniato + 1 L de agua fría (4 vasos)",
+      "min": 8,
+      "nota": "Los dados en la olla, el agua fría por encima y tapa puesta, al 9. Cuando borbotee bajo la tapa, sigue.",
+      "off": 6,
+      "p": "Se arranca en agua fría para que el calor entre a la vez por fuera y por dentro: en agua hirviendo, el exterior del dado se deshace antes de que el centro se ablande. La tapa puesta acorta unos tres minutos la subida, porque el vapor no se escapa y el calor se queda en la olla.",
+      "s": 480,
+      "saco": "",
+      "sinHitos": "Tapada y en frío no hay nada que mover: la señal de que ha acabado es el borboteo bajo la tapa.",
+      "t": "Al 9, con agua fría y tapada, hasta que hierva",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "olla",
+      "dep": [],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 600,
+          "t": "Pincha un dado de patata: si el cuchillo entra sin resistencia, ya casi está"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "cocer",
+      "meto": "",
+      "min": 15,
+      "nota": "Baja al 5 y deja la tapa a medias: tiene que hervir suave, sin saltar.",
+      "off": 14,
+      "p": "Al 5 el agua sigue hirviendo pero sin borbotones: un hervor fuerte golpea los dados y el boniato se rompe y chupa agua, y cada gramo de agua de más en el puré pide más harina después y hace un bunyol más denso. La tapa a medias deja salir el vapor justo para que no rebose.",
+      "s": 900,
+      "saco": "",
+      "t": "Baja al 5 y cuece 15 minutos con la tapa a medias",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "olla",
+      "dep": [],
+      "f": 0,
+      "holgura": "ajustado",
+      "id": "secar",
+      "meto": "",
+      "min": 3,
+      "nota": "Apaga, escurre en el colador y vuelve los dados a la olla sobre el fuego apagado, sin tapa, moviéndola un par de veces.",
+      "off": 29,
+      "p": "La vitro apagada sigue caliente unos minutos, y es justo lo que se necesita: el agua que ha quedado en la superficie de los dados se va en vapor sin que se tuesten. Un puré seco es la mitad del éxito del bunyol, porque la masa ya va a ser húmeda por el huevo y no admite más agua.",
+      "s": 180,
+      "saco": "los dados secos, al bol grande",
+      "t": "Apagar, escurrir y secar los dados 3 minutos en la olla caliente",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "secar"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "chafar",
+      "meto": "los dados secos de la olla",
+      "min": 5,
+      "nota": "Chafa con el tenedor o el pasapurés hasta que no quede ningún grumo. Extiéndelo por las paredes del bol para que se enfríe antes.",
+      "off": 32,
+      "p": "Se chafa en caliente porque el almidón de la patata todavía está blando y se deshace sin grumos; frío, se vuelve pegajoso y los trozos se quedan enteros. Extendido por las paredes del bol, el puré tiene el triple de superficie para soltar calor y se templa en un cuarto de hora en vez de en media.",
+      "s": 300,
+      "saco": "",
+      "t": "Chafar en puré fino y extenderlo por el bol",
+      "tapa": null
+    },
+    {
+      "carril": "bol",
+      "dep": [
+        "chafar"
+      ],
+      "f": null,
+      "holgura": "flexible",
+      "id": "templar",
+      "meto": "",
+      "min": 15,
+      "nota": "Está listo cuando puedes dejar el dedo dentro sin que queme. Si aún quema, espera: la levadura muere por encima de 45 °C.",
+      "off": 37,
+      "p": "Por encima de 45 °C la levadura muere y por encima de 60 °C el huevo empieza a cuajar en grumos. El dedo es el termómetro: si aguanta dentro sin molestar, el puré está por debajo de 40 °C, que es justo donde la levadura trabaja más rápido.",
+      "s": 900,
+      "saco": "",
+      "t": "Dejar templar el puré",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "levadura",
+      "meto": "40 ml de agua tibia + 6 g de levadura seca de panadería",
+      "min": 5,
+      "nota": "Agua tibia del grifo, no caliente. Remueve la levadura con una cucharilla y espera: en 5 minutos hace espuma por arriba.",
+      "off": 45,
+      "p": "La levadura seca está deshidratada y dormida: en agua tibia se rehidrata y empieza a comer, y la espuma es la prueba de que está viva. Si a los 5 minutos no ha hecho nada, la levadura está pasada y la masa no subiría: es mejor saberlo ahora que después de una hora de espera.",
+      "s": 300,
+      "saco": "",
+      "t": "Despertar la levadura en el vaso medidor",
+      "tapa": null
+    },
+    {
+      "carril": "bol",
+      "dep": [
+        "levadura"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "amasar",
+      "meto": "el vaso de la levadura + 2 huevos + 2 g de sal + 150 g de harina de fuerza",
+      "min": 8,
+      "nota": "Levadura, huevos y sal al puré tibio y mezcla. Luego la harina en tres veces. Bate con la mano o una cuchara 5 minutos: queda pegajosa y se estira en hebras.",
+      "off": 52,
+      "p": "La harina entra en tres veces para que cada tanda se hidrate antes de la siguiente y no queden grumos secos. Batir cinco minutos desarrolla el gluten de la harina de fuerza, que forma la red elástica que atrapa el gas de la levadura: la masa pasa de pasta a algo que se estira en hebras, y esa es la señal.",
+      "s": 480,
+      "saco": "",
+      "t": "Mezclar la masa: levadura, huevos, sal y la harina en tres veces",
+      "tapa": null
+    },
+    {
+      "carril": "bol",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "levar",
+      "meto": "",
+      "min": 60,
+      "nota": "Tapa el bol con un paño y déjalo en el horno apagado con la luz encendida. Está cuando ha doblado el volumen y tiene burbujas por arriba.",
+      "off": 60,
+      "p": "La levadura come los azúcares del boniato y de la harina y suelta gas, que la red de gluten retiene: la masa dobla su volumen y el bunyol sale hueco y ligero. La luz del horno da unos 28-30 °C, que es donde más rápido trabaja; en una cocina fría la hora se queda corta y conviene esperar a que doble.",
+      "s": 3600,
+      "saco": "",
+      "t": "Levar una hora, tapado, en un sitio templado",
+      "tapa": null
+    },
+    {
+      "carril": "freir",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-aceite",
+      "meto": "1 L de aceite de girasol en la olla honda de 20 cm",
+      "min": 12,
+      "nota": "Al 7, sin tapa. Listo cuando una bolita de masa baja al fondo, burbujea fuerte y sube en 2-3 segundos.",
+      "off": 108,
+      "p": "Un litro en una olla de 20 cm da unos 3 cm de fondo, lo justo para que el bunyol flote y se hinche sin tocar el fondo. Doce minutos al 7 lo llevan a unos 175 °C. Si la bolita se queda en el fondo, el aceite está frío y el bunyol chuparía grasa; si sube al instante y se oscurece, está demasiado caliente.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "El aceite se calienta solo y no hay nada que mover: la comprobación, la bolita que sube, está al final del paso.",
+      "t": "Calentar el aceite de girasol al 7",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "puesto",
+      "meto": "un bol con agua fría + un plato con papel de cocina + el plato hondo con 50 g de azúcar + la espumadera",
+      "min": 5,
+      "nota": "De izquierda a derecha: bol de la masa, bol de agua fría, olla, plato con papel y plato con azúcar.",
+      "off": 110,
+      "p": "El orden es el del recorrido de cada bunyol: de la masa a la mano mojada, al aceite, al papel y al azúcar, sin cruzarse nunca. Con el aceite a 175 °C no hay tiempo de ir a buscar nada, y una mano con masa pegada no puede abrir un cajón.",
+      "s": 300,
+      "saco": "",
+      "t": "Montar el puesto de freír junto a la olla",
+      "tapa": null
+    },
+    {
+      "carril": "freir",
+      "dep": [
+        "levar"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 195,
+          "t": "Dales la vuelta con la espumadera"
+        },
+        {
+          "en": 300,
+          "t": "Saca la tanda al papel, 30 segundos, y rebózala en el azúcar. Moja las manos y forma la segunda"
+        },
+        {
+          "en": 525,
+          "t": "Dales la vuelta"
+        },
+        {
+          "en": 630,
+          "t": "Saca la segunda tanda al papel y al azúcar. Forma la tercera"
+        },
+        {
+          "en": 855,
+          "t": "Dales la vuelta"
+        }
+      ],
+      "holgura": "critico",
+      "id": "freir",
+      "meto": "la masa levada, en bolas de unos 45 g, cuatro a cuatro",
+      "min": 16,
+      "nota": "Moja las manos, coge una bola del tamaño de un huevo, hazle un agujero con el pulgar estirándola en anillo y déjala resbalar en el aceite. Si se doran en menos de un minuto, baja al 6.",
+      "off": 120,
+      "p": "El agujero no es decoración: deja que el aceite llegue al centro y el bunyol se fría por dentro al mismo tiempo que se dora por fuera; sin él, la corteza se quema con el centro crudo. Las manos mojadas evitan que la masa se pegue, y el agua que arrastra se evapora al entrar. Cuatro a la vez es el máximo antes de que el aceite se enfríe y se empapen.",
+      "s": 960,
+      "saco": "la tercera tanda, al papel y al azúcar. Apaga el fuego",
+      "t": "Formar y freír en tres tandas de cuatro",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "freir"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "meto": "los 12 bunyols rebozados",
+      "min": 1,
+      "nota": "Pasa otra vez la última tanda por el azúcar y reparte seis por plato. Calientes, sin tapar.",
+      "off": 136,
+      "p": "El azúcar pega mientras la superficie aún brilla de aceite; frío, resbala. Se sirven sin tapar porque el vapor que sigue saliendo del bunyol, encerrado bajo una tapa o un paño, ablanda la corteza en pocos minutos y deshace el azúcar.",
+      "s": 60,
+      "saco": "2 platos: 6 bunyols cada uno, calientes",
+      "t": "Último azúcar y a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "boniato",
+    "patatas"
+  ],
+  "pie": "Minutos contados desde que coges el pelador. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Patata y boniato a partes iguales",
+      "La patata da almidón y cuerpo, el boniato da azúcar, color y una miga más tierna. Solo con boniato la masa se queda blanda y se abre en el aceite; solo con patata, el bunyol es más soso y más pálido."
+    ],
+    [
+      "Harina de fuerza",
+      "Tiene más gluten que la normal y forma una red más elástica que retiene el gas de la levadura: el bunyol sale hueco y ligero y chupa menos aceite."
+    ],
+    [
+      "Pelados, en dados y secados",
+      "Pelados y en dados se cuecen en la mitad de tiempo, pero entra agua. Los tres minutos en la olla apagada la evaporan, y un puré seco pide menos harina y da un bunyol más ligero."
+    ],
+    [
+      "El puré, tibio antes de la levadura",
+      "Por encima de 45 °C la levadura muere y por encima de 60 °C el huevo cuaja. El cuarto de hora de templar no se puede recortar."
+    ],
+    [
+      "Sin azúcar en la masa",
+      "El azúcar va por fuera, que es lo de Mallorca. El boniato ya endulza la masa, y el azúcar de más en la masa dora el exterior antes de que el centro se haga."
+    ],
+    [
+      "Girasol, no oliva",
+      "Neutro y con punto de humo alto: el bunyol sabe a boniato y no a aceite."
+    ],
+    [
+      "Sin miel ni chocolate",
+      "La tradición en Mallorca es el azúcar por encima. La miel es la variante de otras zonas y chocolate no hay en la despensa."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "bunyols-de-les-verges",
+  "tags": {
+    "base": "buñuelo",
+    "proteina": "huevo",
+    "tecnica": [
+      "punto-del-aceite"
+    ]
+  },
+  "titulo": "Bunyols de les Verges",
+  "totalMin": 137
+}
