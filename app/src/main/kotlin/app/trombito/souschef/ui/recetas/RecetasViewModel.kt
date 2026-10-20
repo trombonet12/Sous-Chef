@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.recetas
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.Ajustes
@@ -10,6 +11,7 @@ import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
+import app.trombito.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -37,13 +39,19 @@ import javax.inject.Inject
 class RecetasViewModel
     @Inject
     constructor(
+        savedStateHandle: SavedStateHandle,
         recetas: RecetasRepo,
         private val preferencias: PreferenciasRepo,
         historial: HistorialRepo,
         private val ajustes: AjustesRepo,
         private val reloj: Reloj,
     ) : ViewModel() {
-        private val filtro = MutableStateFlow(FiltroRecetas())
+        /** La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. */
+        private val familiaFija: FamiliaBase? =
+            savedStateHandle.get<String>(Rutas.ARG_FAMILIA)?.let { nombre ->
+                FamiliaBase.entries.firstOrNull { it.name.equals(nombre, ignoreCase = true) }
+            }
+        private val filtro = MutableStateFlow(FiltroRecetas(familiaFija = familiaFija))
 
         val estado: StateFlow<RecetasUiState> =
             combine(

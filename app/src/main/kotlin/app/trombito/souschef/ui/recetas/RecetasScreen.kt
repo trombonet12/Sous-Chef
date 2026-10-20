@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.recetas
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,12 +27,18 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.ui.comun.BarraTitulo
+import app.trombito.souschef.ui.comun.CategoriaVista
 import app.trombito.souschef.ui.comun.EstadoVacio
+import app.trombito.souschef.ui.comun.RejillaCategorias
+import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
 @Composable
 fun RecetasScreen(
     onAbrir: (String) -> Unit,
+    onCategoria: (String) -> Unit = {},
+    onAtras: () -> Unit = {},
     viewModel: RecetasViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
@@ -37,28 +46,81 @@ fun RecetasScreen(
         remember(viewModel) {
             AccionesFiltro(viewModel::alternarFiltro, viewModel::limpiarFiltros, viewModel::elegirOrden)
         }
-    RecetasContenido(estado, viewModel::buscar, acciones, viewModel::alternarFavorita, onAbrir)
+    val lista = AccionesLista(viewModel::alternarFavorita, onAbrir, onCategoria, onAtras)
+    RecetasContenido(estado, viewModel::buscar, acciones, lista)
 }
+
+/** Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, y volver. */
+class AccionesLista(
+    val favorita: (String, Boolean) -> Unit,
+    val abrir: (String) -> Unit,
+    val categoria: (String) -> Unit = {},
+    val atras: () -> Unit = {},
+)
 
 @Composable
 fun RecetasContenido(
     estado: RecetasUiState,
     onBuscar: (String) -> Unit,
     acciones: AccionesFiltro,
-    onFavorita: (String, Boolean) -> Unit,
-    onAbrir: (String) -> Unit,
+    lista: AccionesLista,
 ) {
     var hojaAbierta by rememberSaveable { mutableStateOf(false) }
     if (hojaAbierta) HojaFiltros(estado, acciones) { hojaAbierta = false }
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(Espacio.m),
-    ) {
-        item { CabeceraRecetas(estado, onBuscar, acciones.alternar) { hojaAbierta = true } }
-        cuerpo(estado, onFavorita, onAbrir)
+    val familia = estado.familiaFija
+    Column(Modifier.fillMaxSize()) {
+        if (familia != null) BarraTitulo(textoOpcion(OpcionFiltro.Base(familia)), lista.atras)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(Espacio.m),
+        ) {
+            if (familia == null && estado.categorias.size >= MIN_CATEGORIAS) {
+                item { CategoriasFamilia(estado.categorias, lista.categoria) }
+            }
+            if (familia == null) {
+                item {
+                    Text(stringResource(R.string.recetas_todas), style = MaterialTheme.typography.titleMedium)
+                }
+            }
+            item { CabeceraRecetas(estado, onBuscar, acciones.alternar) { hojaAbierta = true } }
+            cuerpo(estado, lista.favorita, lista.abrir)
+        }
     }
 }
+
+private const val MIN_CATEGORIAS = 2
+
+/** Los cuadraditos de familia de la pestaña: tocar uno abre la lista de esa familia (clave = nombre en minúsculas). */
+@Composable
+private fun CategoriasFamilia(
+    categorias: List<Pair<FamiliaBase, Int>>,
+    onCategoria: (String) -> Unit,
+) {
+    val vistas =
+        categorias.map { (familia, n) ->
+            CategoriaVista(
+                clave = familia.name.lowercase(),
+                nombre = textoOpcion(OpcionFiltro.Base(familia)),
+                icono = familia.icono(),
+                color = colorBase(familia),
+                recuento = pluralStringResource(R.plurals.recetas_conteo, n, n),
+            )
+        }
+    RejillaCategorias(vistas, onCategoria)
+}
+
+private fun FamiliaBase.icono(): Icono =
+    when (this) {
+        FamiliaBase.PASTA -> Icono.Pasta
+        FamiliaBase.ARROZ -> Icono.Arroz
+        FamiliaBase.PATATA -> Icono.Patata
+        FamiliaBase.PESCADO -> Icono.Pescado
+        FamiliaBase.VERDURA -> Icono.Verdura
+        FamiliaBase.MASAS -> Icono.Masas
+        FamiliaBase.SALTEADO -> Icono.Salteado
+        FamiliaBase.OTRA -> Icono.Plato
+    }
 
 private fun LazyListScope.cuerpo(
     estado: RecetasUiState,

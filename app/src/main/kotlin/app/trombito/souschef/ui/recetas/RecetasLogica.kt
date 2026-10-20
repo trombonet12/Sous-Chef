@@ -102,6 +102,10 @@ data class RecetasUiState(
     val coincidentes: Int = 0,
     val totalRecetas: Int = 0,
     val tarjetas: List<TarjetaReceta> = emptyList(),
+    /** Familias con al menos una receta (sobre todas las recetas), con su recuento, en el orden del enum. */
+    val categorias: List<Pair<FamiliaBase, Int>> = emptyList(),
+    /** Si la lista es la de una sola familia (se abre desde un cuadradito de la pestaña). */
+    val familiaFija: FamiliaBase? = null,
 )
 
 /** Texto sobre el que busca: titulo, descripcion, base, ingredientes de los grupos y títulos de los pasos. */
@@ -150,40 +154,71 @@ data class FiltroRecetas(
     val consulta: String = "",
     val activos: Set<OpcionFiltro> = emptySet(),
     val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
+    /** Si no es null, solo cuentan las recetas de esta familia y el filtro de Base no existe. */
+    val familiaFija: FamiliaBase? = null,
 )
 
-fun construirEstadoRecetas(
+/** Las familias con al menos una receta y cuántas tiene cada una, en el orden del enum. */
+private fun categoriasDe(recetas: List<Receta>): List<Pair<FamiliaBase, Int>> =
+    recetas
+        .groupingBy { FamiliaBase.de(it.tags.base) }
+        .eachCount()
+        .toList()
+        .sortedBy { it.first.ordinal }
+
+private fun soloFamilia(
     recetas: List<Receta>,
+    familia: FamiliaBase?,
+): List<Receta> = if (familia == null) recetas else recetas.filter { FamiliaBase.de(it.tags.base) == familia }
+
+private fun tarjetaYRasgos(
+    r: Receta,
+    preferencias: Map<String, Preferencia>,
+    ultimasFechas: Map<String, String>,
+    contexto: ContextoLista,
+): Pair<TarjetaReceta, RasgosReceta> {
+    val fecha = ultimasFechas[r.slug]
+    val favorita = preferencias[r.slug]?.favorito == true
+    val fuegos = Gantt.fuegos(r)
+    val hace = Hace.de(fecha, contexto.hoy)
+    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
+    val tarjeta =
+        TarjetaReceta(
+            receta = r,
+            favorita = favorita,
+            fuegos = fuegos,
+            ultimaFecha = fecha,
+            hace = hace,
+            familia = rasgos.familia,
+            conHorno = EquipoReceta.CON_HORNO in rasgos.equipo,
+            hora = contexto.hora(r),
+            modoHora = contexto.modo,
+        )
+    return tarjeta to rasgos
+}
+
+fun construirEstadoRecetas(
+    todasLasRecetas: List<Receta>,
     preferencias: Map<String, Preferencia>,
     ultimasFechas: Map<String, String>,
     filtro: FiltroRecetas,
     contexto: ContextoLista,
 ): RecetasUiState {
+    val familiaFija = filtro.familiaFija
+    val recetas = soloFamilia(todasLasRecetas, familiaFija)
     val porTexto =
-        recetas.filter { coincideTexto(it, filtro.consulta) }.map { r ->
-            val fecha = ultimasFechas[r.slug]
-            val favorita = preferencias[r.slug]?.favorito == true
-            val fuegos = Gantt.fuegos(r)
-            val hace = Hace.de(fecha, contexto.hoy)
-            val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
-            val tarjeta =
-                TarjetaReceta(
-                    receta = r,
-                    favorita = favorita,
-                    fuegos = fuegos,
-                    ultimaFecha = fecha,
-                    hace = hace,
-                    familia = rasgos.familia,
-                    conHorno = EquipoReceta.CON_HORNO in rasgos.equipo,
-                    hora = contexto.hora(r),
-                    modoHora = contexto.modo,
-                )
-            tarjeta to rasgos
-        }
+        recetas
+            .filter { coincideTexto(it, filtro.consulta) }
+            .map { tarjetaYRasgos(it, preferencias, ultimasFechas, contexto) }
     // Una opción existe si alguna receta del buscador la cumple (las de «Mostrar» siempre, aunque cuenten 0, para que
     // «Favoritas» no desaparezca); las marcadas que ya no existen se ignoran.
     val existentes =
-        OpcionFiltro.TODAS.filter { o -> o is OpcionFiltro.Mostrar || porTexto.any { it.second.cumple(o) } }
+        OpcionFiltro.TODAS.filter { o ->
+            when {
+                familiaFija != null && o is OpcionFiltro.Base -> false
+                else -> o is OpcionFiltro.Mostrar || porTexto.any { it.second.cumple(o) }
+            }
+        }
     val activos = existentes.filter { it in filtro.activos }.sortedWith(OpcionFiltro.ORDEN)
     val secciones =
         existentes
@@ -215,5 +250,7 @@ fun construirEstadoRecetas(
         coincidentes = porTexto.size,
         totalRecetas = recetas.size,
         tarjetas = tarjetas,
+        categorias = categoriasDe(todasLasRecetas),
+        familiaFija = familiaFija,
     )
 }

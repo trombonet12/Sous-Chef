@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.recetas
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
@@ -14,6 +15,7 @@ import app.trombito.souschef.receta.Tags
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
+import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.RelojFalso
 import app.trombito.souschef.ui.receta
@@ -267,6 +269,50 @@ class RecetasLogicaTest {
     }
 
     @Test
+    fun categoriasCuentanTodasLasRecetasEnElOrdenDelEnum() {
+        val e = estado(todas + r("otro", "legumbre"))
+        assertEquals(
+            listOf(
+                FamiliaBase.PASTA to 2,
+                FamiliaBase.MASAS to 1,
+                FamiliaBase.SALTEADO to 1,
+                FamiliaBase.OTRA to 1,
+            ),
+            e.categorias,
+        )
+        assertEquals(null, e.familiaFija)
+        assertTrue(e.secciones.any { it.seccion == SeccionFiltro.BASE })
+    }
+
+    @Test
+    fun familiaFijaPrefiltraRecuentosYTotalPeroNoLasCategorias() {
+        val e =
+            construirEstadoRecetas(
+                todas,
+                emptyMap(),
+                emptyMap(),
+                FiltroRecetas(familiaFija = FamiliaBase.PASTA),
+                ContextoLista(hoy),
+            )
+        assertEquals(FamiliaBase.PASTA, e.familiaFija)
+        assertEquals(setOf("pasta", "lasana"), e.slugs().toSet())
+        assertEquals(2, e.totalRecetas)
+        assertEquals(2, e.coincidentes)
+        assertEquals(3, e.categorias.size)
+        assertEquals(1, e.chip(OpcionFiltro.Equipo(EquipoReceta.SIN_HORNO))?.n)
+    }
+
+    @Test
+    fun familiaFijaQuitaLaSeccionBaseEIgnoraSusFiltros() {
+        val filtro =
+            FiltroRecetas(activos = setOf(OpcionFiltro.Base(FamiliaBase.SALTEADO)), familiaFija = FamiliaBase.PASTA)
+        val e = construirEstadoRecetas(todas, emptyMap(), emptyMap(), filtro, ContextoLista(hoy))
+        assertTrue(e.secciones.none { it.seccion == SeccionFiltro.BASE })
+        assertTrue(e.activos.isEmpty())
+        assertEquals(setOf("pasta", "lasana"), e.slugs().toSet())
+    }
+
+    @Test
     fun laTarjetaTraeFamiliaHornoFuegosHoraDeEmpezarYHace() {
         val e = estado(listOf(lasana, pollo), fechas = mapOf("pollo" to "2026-07-01"))
         val l = e.tarjetas.first { it.receta.slug == "lasana" }
@@ -306,7 +352,7 @@ class RecetasViewModelTest {
                 }
             val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta"), receta("b", base = "arroz")))
             val ajustes = FakeAjustesRepo()
-            val vm = RecetasViewModel(recetas, prefs, historial, ajustes, reloj)
+            val vm = RecetasViewModel(SavedStateHandle(), recetas, prefs, historial, ajustes, reloj)
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             assertEquals(2, vm.estado.value.tarjetas.size)
@@ -337,7 +383,15 @@ class RecetasViewModelTest {
         runTest(UnconfinedTestDispatcher()) {
             val ajustes = FakeAjustesRepo()
             val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta"), receta("b", base = "arroz")))
-            val vm = RecetasViewModel(recetas, FakePreferenciasRepo(), FakeHistorialRepo(), ajustes, { 0L })
+            val vm =
+                RecetasViewModel(
+                    SavedStateHandle(),
+                    recetas,
+                    FakePreferenciasRepo(),
+                    FakeHistorialRepo(),
+                    ajustes,
+                    { 0L },
+                )
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             vm.alternarFiltro(OpcionFiltro.Base(FamiliaBase.PASTA))
@@ -370,13 +424,52 @@ class RecetasViewModelTest {
         }
 
     @Test
+    fun laFamiliaDeLaRutaFijaLaLista() =
+        runTest(UnconfinedTestDispatcher()) {
+            val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta"), receta("b", base = "arroz")))
+            val args = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to "arroz"))
+            val vm =
+                RecetasViewModel(args, recetas, FakePreferenciasRepo(), FakeHistorialRepo(), FakeAjustesRepo(), { 0L })
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            assertEquals(FamiliaBase.ARROZ, vm.estado.value.familiaFija)
+            assertEquals(
+                listOf("b"),
+                vm.estado.value.tarjetas
+                    .map { it.receta.slug },
+            )
+            assertEquals(2, vm.estado.value.categorias.size)
+        }
+
+    @Test
+    fun sinArgumentoOConUnoDesconocidoNoHayFamiliaFija() =
+        runTest(UnconfinedTestDispatcher()) {
+            val recetas = FakeRecetasRepo(listOf(receta("a", base = "pasta")))
+            val args = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to "nada"))
+            val vm =
+                RecetasViewModel(args, recetas, FakePreferenciasRepo(), FakeHistorialRepo(), FakeAjustesRepo(), { 0L })
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            assertEquals(null, vm.estado.value.familiaFija)
+            assertEquals(1, vm.estado.value.tarjetas.size)
+        }
+
+    @Test
     fun enModoAcabasLaHoraAvanzaConElReloj() =
         runTest(UnconfinedTestDispatcher()) {
             val ajustes = FakeAjustesRepo()
             ajustes.actual.value = ajustes.actual.value.copy(horaTarjeta = HoraTarjeta.ACABAR)
             val reloj = RelojFalso()
             val recetas = FakeRecetasRepo(listOf(receta("a")))
-            val vm = RecetasViewModel(recetas, FakePreferenciasRepo(), FakeHistorialRepo(), ajustes, reloj)
+            val vm =
+                RecetasViewModel(
+                    SavedStateHandle(),
+                    recetas,
+                    FakePreferenciasRepo(),
+                    FakeHistorialRepo(),
+                    ajustes,
+                    reloj,
+                )
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
             try {
                 val local = { ms: Long -> Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()) }

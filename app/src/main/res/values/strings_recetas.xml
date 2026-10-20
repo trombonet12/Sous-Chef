@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pestaña Recetas: cuadraditos de familia y lista completa. -->
+<resources>
+    <string name="recetas_todas">Todas las recetas</string>
+</resources>
