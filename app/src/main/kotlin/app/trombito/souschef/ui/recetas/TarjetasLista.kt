@@ -2,19 +2,11 @@
 
 package app.trombito.souschef.ui.recetas
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -35,20 +27,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Tags
+import app.trombito.souschef.ui.comun.MarcoTarjeta
 import app.trombito.souschef.ui.ficha.Servir
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
-private val ANCHO_BLOQUE_TIEMPO = 64.dp
-private val GROSOR_SEPARADOR = 1.dp
-private val ANCHO_FRANJA = 5.dp
-private val SIN_ELEVACION = 0.dp
 private const val SEPARADOR = " · "
 private const val SIN_PROTEINA = "ninguna"
 private const val LINEAS_TITULO = 2
@@ -80,28 +68,14 @@ private fun TarjetaTinte(
     onAbrir: () -> Unit,
     modifier: Modifier,
 ) {
-    val color = colorBase(tarjeta.familia)
-    Card(
+    MarcoTarjeta(
+        disposicion = DisposicionLista.TINTE,
+        color = colorBase(tarjeta.familia),
         onClick = onAbrir,
-        modifier = modifier.fillMaxWidth(),
-        colors =
-            CardDefaults.cardColors(
-                containerColor = color.tinte,
-                contentColor = MaterialTheme.colorScheme.onSurface,
-            ),
-        elevation = CardDefaults.cardElevation(defaultElevation = SIN_ELEVACION),
+        modifier = modifier,
+        bloque = { BloqueTiempo(tarjeta) },
     ) {
-        Row(Modifier.height(IntrinsicSize.Min), verticalAlignment = Alignment.CenterVertically) {
-            BloqueTiempo(tarjeta, Modifier.width(ANCHO_BLOQUE_TIEMPO))
-            Box(
-                Modifier
-                    .fillMaxHeight()
-                    .padding(vertical = Espacio.s)
-                    .width(GROSOR_SEPARADOR)
-                    .background(color.acento),
-            )
-            CuerpoTinte(tarjeta, onFavorita, Modifier.weight(1f))
-        }
+        CuerpoTinte(tarjeta, onFavorita)
     }
 }
 
@@ -185,15 +159,8 @@ private fun TarjetaFranja(
     onAbrir: () -> Unit,
     modifier: Modifier,
 ) {
-    Card(
-        onClick = onAbrir,
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-    ) {
-        Row(Modifier.height(IntrinsicSize.Min)) {
-            Box(Modifier.fillMaxHeight().width(ANCHO_FRANJA).background(colorBase(tarjeta.familia).acento))
-            CuerpoFranja(tarjeta, onFavorita, Modifier.weight(1f))
-        }
+    MarcoTarjeta(DisposicionLista.FRANJA, colorBase(tarjeta.familia), onAbrir, modifier) {
+        CuerpoFranja(tarjeta, onFavorita)
     }
 }
 
@@ -232,7 +199,7 @@ private fun TarjetaClasica(
     modifier: Modifier,
 ) {
     val receta = tarjeta.receta
-    Card(onClick = onAbrir, modifier = modifier.fillMaxWidth()) {
+    MarcoTarjeta(DisposicionLista.CLASICA, colorBase(tarjeta.familia), onAbrir, modifier) {
         Column(Modifier.padding(start = Espacio.l, top = Espacio.s, end = Espacio.xs, bottom = Espacio.m)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
