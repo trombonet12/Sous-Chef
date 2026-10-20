@@ -341,3 +341,17 @@
   `native-debug-symbols-<v>.zip`, que adjunta a la release y sube con `debugSymbols`. Son `.so` stripped, solo con
   la tabla de símbolos exportados. Si Play sigue avisando, se ignora (ver la entrada de la v1.3.2).
 - **v1.3.3** es la primera versión que sube el CI a la pista interna como borrador (`PLAY_ESTADO` por defecto).
+
+## 2026-10-20 · Ronda 13 (vídeo promocional con Remotion)
+- **Vídeo de Play horizontal con Remotion** (ADR-0012). El vertical salía como Short en YouTube y el montaje con
+  ffmpeg quedaba tosco.
+  - Proyecto Node en `video/`, con Remotion 4.0.533 en versión exacta, React 19.2.3 y TypeScript.
+  - Composición `Promo` de 1920×1080, 30 fps y unos 31 s.
+  - Un móvil dibujado con los clips reales, rótulos animados y Trombito animado.
+  - Música CC0: «Cozy Puzzle In-Game 3», de MintoDog, en `video/public/musica/`. FreePD.com ha cerrado.
+- Remotion no es MIT: su licencia gratuita cubre a un particular. Joan aceptó la excepción a la regla de licencias
+  permisivas de `dependency-add`.
+- **Un comando:** `node scripts/video/promo.mjs [--grabar] [--control]` deja `build/promo/sous-chef-promo-1920x1080.mp4`,
+  que no se versiona. El guion de datos está en `video/src/guion.ts`. El render se hace en local, no en el CI.
+- Skills oficiales de Remotion en `.claude/skills/`: best-practices, render y multimedia (4.0.537, sin tocar el
+  contenido técnico). La skill propia `video-promo` sigue este flujo. Se retira `scripts/video/montar-promo.py`.

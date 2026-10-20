@@ -11,6 +11,7 @@
 | Ronda 10 · lista de recetas y lasaña | **completada**: v1.1.0 (OK de Joan a la receta) |
 | Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
 | Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 a v1.3.3 |
+| Ronda 13 · Vídeo promocional con Remotion | **completada** |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -117,6 +118,12 @@
     cuadraditos (ocultos al buscar o filtrar) y una raya antes de la lista.
   - Capturas en `docs/capturas/v1.3-*.png`, tomadas en el emulador.
 
+- 2026-10-20 · Ronda 13 · vídeo promocional:
+  - Vídeo horizontal (1920×1080, unos 31 s, con música CC0) hecho con Remotion en `video/` (ADR-0012).
+  - Se genera con `node scripts/video/promo.mjs [--grabar] [--control]`; skill `video-promo`.
+  - La ficha de Play está en `distribution/listing/`. El vídeo vertical anterior está en YouTube
+    (`ZcVUNMAC-Uc`) y hay que sustituirlo.
+
 ## Entorno
 | Herramienta | Estado |
 |---|---|
@@ -126,6 +133,8 @@
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 
 ## Pendiente del usuario
+- Subir `build/promo/sous-chef-promo-1920x1080.mp4` a YouTube como oculto y cambiar la URL del vídeo en Play
+  Console (`https://www.youtube.com/watch?v=<id>`).
 - Al cocinar la lasaña: contar cuántas placas El Pavo caben por capa en la fuente de 28×20 y decírmelo para
   ajustar las 14 de la receta.
 - Google Play: los pasos manuales de `docs/play.md`:
