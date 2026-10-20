@@ -355,3 +355,18 @@
   que no se versiona. El guion de datos está en `video/src/guion.ts`. El render se hace en local, no en el CI.
 - Skills oficiales de Remotion en `.claude/skills/`: best-practices, render y multimedia (4.0.537, sin tocar el
   contenido técnico). La skill propia `video-promo` sigue este flujo. Se retira `scripts/video/montar-promo.py`.
+
+## 2026-10-20 · Ronda 14 (v1.4.0: cocina configurable, intro, ficha y checklist, testers)
+- **Cocina configurable** (ADR-0014): vitro, inducción o gas; mando digital (9-20) o analógico (4-12 o sin números).
+  Las recetas siguen en vitro 0-9 y la potencia del texto va marcada como `{N}`; la app traduce al mostrar.
+- **Raciones por defecto** (1-6, global) dentro del rango `escala` de cada receta, revisado por el chef-reviewer.
+- **Fuegos y horno** del usuario: las recetas que piden más salen marcadas.
+- **Intro guiada** al primer arranque y desde Ajustes, con los componentes reales y los permisos.
+- **Ficha en pestañas** (Resumen, Ingredientes, Preparación, Pasos, ¿Por qué?) y **checklist por bloques** con
+  progreso. El PDF impreso sigue completo.
+- **Buzón** (pedir receta, fallo, sugerencia) por la app de correo, sin servidor. **Guía de la primera cocinada**.
+  **«¿Qué me da tiempo?»** en Recetas.
+- **Actualización obligatoria desde Play** (ADR-0013): `app-update-ktx` 2.1.0 con licencia de Google, excepción
+  aceptada por Joan. Prioridad 5 en el CI.
+- Bunyols de les Verges: boniato, harina de fuerza y levadura seca de panadería entran en la despensa.
+- Pendientes para otra ronda: notas por cocinada y compartir ingredientes.
