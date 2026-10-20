@@ -31,6 +31,9 @@ Una línea por skill: `nombre | argumentos | contenido mínimo`. Las marcadas **
 - android-profile | [cpu|memory|battery] | Medir CPU, memoria o batería de Sous Chef (p. ej. cronómetro con varios recipientes, alarmas) antes de optimizar y registrar métricas antes/después
 - android-review | [lifecycle|background|permissions|alarms] | Revisar Android de Sous Chef sin modificar (lifecycle, background, permissions, alarms) con findings por severidad
 - video-promo | — | Rehacer el vídeo promocional vertical de Play: clips del emulador trombito-36 y montaje ffmpeg/Pillow en build/promo; no sube a YouTube **[manual]**
+- remotion-best-practices | — | Router oficial de Remotion (v4.0.537, copia de remotion-dev/skills): guías de composición, markup, captions y docs para el proyecto video/
+- remotion-render | — | Exportar vídeo o still de Remotion (npx remotion render/still, transparencia); el promo se renderiza con node scripts/video/promo.mjs
+- remotion-multimedia | — | Duración y dimensiones de audio/vídeo con Mediabunny en el proyecto Remotion de video/
 
 ## 5. Calidad y tests
 - test-write | [unit|domain|integration|android-ui|db|cli] | Escribir tests por tipo (unit, domain, integration, android-ui, db, cli) con TDD en lógica crítica
