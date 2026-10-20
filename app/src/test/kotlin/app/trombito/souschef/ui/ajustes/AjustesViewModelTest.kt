@@ -7,6 +7,9 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.domain.copia.ArchivoCopia
 import app.trombito.souschef.domain.copia.GestorCopia
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
@@ -58,6 +61,42 @@ class AjustesViewModelTest {
 
             assertEquals(TemaApp.OSCURO, vm.estado.value.tema)
             assertEquals(HoraTarjeta.ACABAR, vm.estado.value.horaTarjeta)
+        }
+
+    @Test
+    fun cocinaFuegosHornoYRacionesSeGuardan() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+            val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
+
+            vm.elegirCocina(gas)
+            vm.ajustarFuegos(4)
+            vm.activarHorno(false)
+            vm.ajustarRacionesDefecto(4)
+
+            val a = vm.estado.value
+            assertEquals(gas, a.cocina)
+            assertEquals(4, a.fuegos)
+            assertEquals(false, a.horno)
+            assertEquals(4, a.racionesDefecto)
+        }
+
+    @Test
+    fun marcarIntroYGuiaVistasYRepetirlas() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            vm.marcarIntroVista(true)
+            vm.marcarGuiaCronoVista(true)
+            assertEquals(true, vm.estado.value.introVista)
+            assertEquals(true, vm.estado.value.guiaCronoVista)
+
+            vm.marcarIntroVista(false)
+            vm.marcarGuiaCronoVista(false)
+            assertEquals(false, vm.estado.value.introVista)
+            assertEquals(false, vm.estado.value.guiaCronoVista)
         }
 
     @Test

@@ -10,6 +10,7 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.domain.copia.GestorCopia
 import app.trombito.souschef.domain.copia.ResultadoCopia
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions") // una intención por ajuste de la pantalla
 @HiltViewModel
 class AjustesViewModel
     @Inject
@@ -66,5 +68,29 @@ class AjustesViewModel
 
         fun elegirHoraTarjeta(h: HoraTarjeta) {
             viewModelScope.launch { ajustes.fijarHoraTarjeta(h) }
+        }
+
+        fun elegirCocina(c: Cocina) {
+            viewModelScope.launch { ajustes.fijarCocina(c) }
+        }
+
+        fun ajustarFuegos(n: Int) {
+            viewModelScope.launch { ajustes.fijarFuegos(n) }
+        }
+
+        fun activarHorno(tiene: Boolean) {
+            viewModelScope.launch { ajustes.fijarHorno(tiene) }
+        }
+
+        fun ajustarRacionesDefecto(n: Int) {
+            viewModelScope.launch { ajustes.fijarRacionesDefecto(n) }
+        }
+
+        fun marcarIntroVista(vista: Boolean) {
+            viewModelScope.launch { ajustes.marcarIntroVista(vista) }
+        }
+
+        fun marcarGuiaCronoVista(vista: Boolean) {
+            viewModelScope.launch { ajustes.marcarGuiaCronoVista(vista) }
         }
     }

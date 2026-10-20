@@ -10,6 +10,9 @@ import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -50,10 +53,10 @@ class AjustesRepoRoomTest {
         runBlocking {
             repo.fijarDisposicion(DisposicionCrono.APILADA)
             repo.fijarVoz(false)
-            assertEquals(Ajustes(DisposicionCrono.APILADA, false), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.APILADA, false, introVista = true), repo.observar().first())
 
             repo.fijarDisposicion(DisposicionCrono.FOCO)
-            assertEquals(Ajustes(DisposicionCrono.FOCO, false), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.FOCO, false, introVista = true), repo.observar().first())
         }
 
     @Test
@@ -66,7 +69,136 @@ class AjustesRepoRoomTest {
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_TEMA, "sepia"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_SERVIR, "25:99"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_HORA, "manana"))
+            // Hay claves ajustes.* guardadas, aunque corruptas: la app ya se usaba, así que no se enseña la intro.
+            assertEquals(Ajustes(introVista = true), repo.observar().first())
+        }
+
+    @Test
+    fun valoresCorruptosDeLaCocinaYLosNuevosAjustesVuelvenAlDefecto() =
+        runBlocking {
+            val meta = db.metaDao()
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_TIPO, "microondas"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MANDO, "tactil"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MAX, "muchos"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_FUEGOS, "tres"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_HORNO, "puede"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_RACIONES, ""))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_INTRO, "quizá"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_GUIA, "0"))
+            // Una intro corrupta no cuenta como vista: vuelve al defecto (false).
             assertEquals(Ajustes(), repo.observar().first())
+        }
+
+    @Test
+    fun laCocinaGuardadaFueraDeRangoSeAjustaConValida() =
+        runBlocking {
+            val meta = db.metaDao()
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_TIPO, "GAS"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MANDO, "ANALOGICO"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MAX, "99"))
+            assertEquals(Cocina(TipoCocina.GAS, Mando.ANALOGICO, Cocina.ANALOGICO_MAX), repo.observar().first().cocina)
+
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MANDO, "DIGITAL"))
+            meta.fijar(MetaEntity(AjustesRepoRoom.CLAVE_COCINA_MAX, ""))
+            assertEquals(Cocina(TipoCocina.GAS, Mando.DIGITAL, Cocina.DIGITAL_MIN), repo.observar().first().cocina)
+        }
+
+    @Test
+    fun cocinaIdaYVuelta() =
+        runBlocking {
+            assertEquals(Cocina.VITRO_9, repo.observar().first().cocina)
+
+            val induccion = Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 14)
+            repo.fijarCocina(induccion)
+            assertEquals(induccion, repo.observar().first().cocina)
+
+            val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, 6)
+            repo.fijarCocina(gas)
+            assertEquals(gas, repo.observar().first().cocina)
+
+            val sinNumeros = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
+            repo.fijarCocina(sinNumeros)
+            assertEquals(sinNumeros, repo.observar().first().cocina)
+            assertEquals("", db.metaDao().valor(AjustesRepoRoom.CLAVE_COCINA_MAX))
+        }
+
+    @Test
+    fun fijarCocinaLaAjustaConValida() =
+        runBlocking {
+            repo.fijarCocina(Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 50))
+            val tope = Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, Cocina.DIGITAL_MAX)
+            assertEquals(tope, repo.observar().first().cocina)
+            assertEquals("20", db.metaDao().valor(AjustesRepoRoom.CLAVE_COCINA_MAX))
+
+            repo.fijarCocina(Cocina(TipoCocina.GAS, Mando.ANALOGICO, 1))
+            assertEquals(Cocina(TipoCocina.GAS, Mando.ANALOGICO, Cocina.ANALOGICO_MIN), repo.observar().first().cocina)
+        }
+
+    @Test
+    fun fuegosHornoYRacionesPorDefectoIdaYVuelta() =
+        runBlocking {
+            val defecto = repo.observar().first()
+            assertEquals(3, defecto.fuegos)
+            assertEquals(true, defecto.horno)
+            assertEquals(2, defecto.racionesDefecto)
+
+            repo.fijarFuegos(4)
+            repo.fijarHorno(false)
+            repo.fijarRacionesDefecto(5)
+            val a = repo.observar().first()
+            assertEquals(4, a.fuegos)
+            assertEquals(false, a.horno)
+            assertEquals(5, a.racionesDefecto)
+            assertEquals("4", db.metaDao().valor(AjustesRepoRoom.CLAVE_FUEGOS))
+            assertEquals("5", db.metaDao().valor(AjustesRepoRoom.CLAVE_RACIONES))
+        }
+
+    @Test
+    fun fuegosYRacionesSeAjustanASuRango() =
+        runBlocking {
+            repo.fijarFuegos(0)
+            repo.fijarRacionesDefecto(0)
+            assertEquals(1, repo.observar().first().fuegos)
+            assertEquals(1, repo.observar().first().racionesDefecto)
+
+            repo.fijarFuegos(99)
+            repo.fijarRacionesDefecto(99)
+            assertEquals(6, repo.observar().first().fuegos)
+            assertEquals(6, repo.observar().first().racionesDefecto)
+        }
+
+    @Test
+    fun marcasDeIntroYDeGuiaIdaYVuelta() =
+        runBlocking {
+            assertEquals(false, repo.observar().first().introVista)
+            assertEquals(false, repo.observar().first().guiaCronoVista)
+
+            repo.marcarIntroVista(true)
+            repo.marcarGuiaCronoVista(true)
+            val vistas = repo.observar().first()
+            assertEquals(true, vistas.introVista)
+            assertEquals(true, vistas.guiaCronoVista)
+
+            repo.marcarIntroVista(false)
+            repo.marcarGuiaCronoVista(false)
+            val repetir = repo.observar().first()
+            assertEquals(false, repetir.introVista)
+            assertEquals(false, repetir.guiaCronoVista)
+        }
+
+    @Test
+    fun sinMarcaDeIntroPeroConOtrosAjustesLaAppYaSeUsabaYNoSeMuestraLaIntro() =
+        runBlocking {
+            repo.fijarTema(TemaApp.OSCURO)
+            assertEquals(true, repo.observar().first().introVista)
+        }
+
+    @Test
+    fun conLaMarcaDeIntroExplicitaNoSeInfiere() =
+        runBlocking {
+            repo.fijarTema(TemaApp.OSCURO)
+            repo.marcarIntroVista(false)
+            assertEquals(false, repo.observar().first().introVista)
         }
 
     @Test

@@ -1,5 +1,7 @@
 package app.trombito.souschef.domain
 
+import app.trombito.souschef.receta.Cocina
+
 /** Paso realmente cronometrado al cocinar (segundos desde que se abrió el paso hasta Hecho). */
 data class PasoReal(
     val id: String,
@@ -73,7 +75,25 @@ data class Ajustes(
     /** Punto de partida de la ficha y del cronómetro, en minutos del día. */
     val servirMin: Int = SERVIR_DEFECTO_MIN,
     val horaTarjeta: HoraTarjeta = HoraTarjeta.EMPEZAR,
+    /** Cocina del usuario (ADR-0014); las recetas se traducen a ella al mostrarse. */
+    val cocina: Cocina = Cocina.VITRO_9,
+    /** Fuegos de la cocina, 1..[FUEGOS_MAX]. */
+    val fuegos: Int = FUEGOS_DEFECTO,
+    val horno: Boolean = true,
+    /** Raciones con las que se abre una receta sin elección previa, 1..[RACIONES_MAX]. */
+    val racionesDefecto: Int = RACIONES_DEFECTO,
+    /** La intro de primer uso ya se vio. */
+    val introVista: Boolean = false,
+    /** La guía del cronómetro ya se vio. */
+    val guiaCronoVista: Boolean = false,
 )
+
+const val FUEGOS_MIN = 1
+const val FUEGOS_MAX = 6
+const val FUEGOS_DEFECTO = 3
+const val RACIONES_MIN = 1
+const val RACIONES_MAX = 6
+const val RACIONES_DEFECTO = 2
 
 /** Estado serializado del cronómetro de una receta (el JSON lo interpreta el motor, no el repositorio). */
 data class CronoEstado(

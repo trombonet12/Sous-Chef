@@ -1,5 +1,6 @@
 package app.trombito.souschef.domain
 
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import kotlinx.coroutines.flow.Flow
@@ -50,6 +51,7 @@ interface PreferenciasRepo {
     )
 }
 
+@Suppress("TooManyFunctions") // un setter por ajuste
 interface AjustesRepo {
     fun observar(): Flow<Ajustes>
 
@@ -67,6 +69,23 @@ interface AjustesRepo {
     suspend fun fijarServir(minutos: Int)
 
     suspend fun fijarHoraTarjeta(h: HoraTarjeta)
+
+    /** Se guarda ya ajustada con `Cocina.valida()`. */
+    suspend fun fijarCocina(c: Cocina)
+
+    /** [n] se ajusta a [FUEGOS_MIN]..[FUEGOS_MAX]. */
+    suspend fun fijarFuegos(n: Int)
+
+    suspend fun fijarHorno(tiene: Boolean)
+
+    /** [n] se ajusta a [RACIONES_MIN]..[RACIONES_MAX]. */
+    suspend fun fijarRacionesDefecto(n: Int)
+
+    /** Con `false` la intro se vuelve a ver (desde Ajustes). */
+    suspend fun marcarIntroVista(vista: Boolean)
+
+    /** Con `false` la guía del cronómetro se vuelve a ver (desde Ajustes). */
+    suspend fun marcarGuiaCronoVista(vista: Boolean)
 }
 
 interface CronoEstadoRepo {

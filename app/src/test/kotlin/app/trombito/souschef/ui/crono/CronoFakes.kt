@@ -6,8 +6,12 @@ import app.trombito.souschef.domain.CronoEstado
 import app.trombito.souschef.domain.CronoEstadoRepo
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
+import app.trombito.souschef.domain.FUEGOS_MAX
+import app.trombito.souschef.domain.FUEGOS_MIN
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
+import app.trombito.souschef.domain.RACIONES_MAX
+import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.domain.crono.AlarmaSistema
@@ -17,6 +21,7 @@ import app.trombito.souschef.domain.crono.ResumenCocina
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.AlarmaActiva
@@ -94,6 +99,30 @@ class FakeAjustesRepo : AjustesRepo {
 
     override suspend fun fijarHoraTarjeta(h: HoraTarjeta) {
         actual.value = actual.value.copy(horaTarjeta = h)
+    }
+
+    override suspend fun fijarCocina(c: Cocina) {
+        actual.value = actual.value.copy(cocina = c.valida())
+    }
+
+    override suspend fun fijarFuegos(n: Int) {
+        actual.value = actual.value.copy(fuegos = n.coerceIn(FUEGOS_MIN, FUEGOS_MAX))
+    }
+
+    override suspend fun fijarHorno(tiene: Boolean) {
+        actual.value = actual.value.copy(horno = tiene)
+    }
+
+    override suspend fun fijarRacionesDefecto(n: Int) {
+        actual.value = actual.value.copy(racionesDefecto = n.coerceIn(RACIONES_MIN, RACIONES_MAX))
+    }
+
+    override suspend fun marcarIntroVista(vista: Boolean) {
+        actual.value = actual.value.copy(introVista = vista)
+    }
+
+    override suspend fun marcarGuiaCronoVista(vista: Boolean) {
+        actual.value = actual.value.copy(guiaCronoVista = vista)
     }
 }
 
