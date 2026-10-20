@@ -9,12 +9,17 @@ import androidx.test.core.app.ApplicationProvider
 import app.trombito.souschef.domain.crono.ConstructorCarriles
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.ResumenCocina
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.receta.crono.AlarmaActiva
 import app.trombito.souschef.receta.crono.LineaAlarma
 import app.trombito.souschef.receta.crono.MotorCrono
 import app.trombito.souschef.receta.crono.SesionCrono
+import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.T0
 import app.trombito.souschef.ui.crono.recetaCrono
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -31,6 +36,7 @@ class NotificadorAndroidTest {
     private lateinit var contexto: Context
     private lateinit var gestor: NotificationManager
     private lateinit var notificador: NotificadorAndroid
+    private val ajustes = FakeAjustesRepo()
     private val receta = recetaCrono()
     private val estado =
         MotorCrono.empezar(
@@ -44,7 +50,7 @@ class NotificadorAndroidTest {
     fun preparar() {
         contexto = ApplicationProvider.getApplicationContext<Context>()
         gestor = contexto.getSystemService(NotificationManager::class.java)
-        notificador = NotificadorAndroid(contexto)
+        notificador = NotificadorAndroid(contexto, ajustes)
     }
 
     private fun resumen(urgente: String? = null) =
@@ -97,6 +103,53 @@ class NotificadorAndroidTest {
         assertTrue(n.extras.getBoolean(Notification.EXTRA_SHOW_CHRONOMETER))
         assertEquals(T0 + 120_000L, n.`when`)
     }
+
+    @Test
+    fun laPotenciaYElTextoSeDicenEnLaCocinaDelUsuario() =
+        runTest {
+            val canonica =
+                recetaCrono().copy(
+                    pasos = recetaCrono().pasos.map { if (it.id == "p1") it.copy(t = "Baja al {3}", f = 7) else it },
+                )
+            val estadoCanonico =
+                MotorCrono.empezar(
+                    SesionCrono.abrir(SesionCrono.inicial(canonica, T0 + 15 * 60_000L, T0, 2), canonica, T0),
+                    canonica,
+                    "f0",
+                    T0,
+                )
+            val carriles = ConstructorCarriles.construir(canonica, estadoCanonico, T0 + 10_000L)
+            // El modelo de la notificación sigue siendo el canónico.
+            assertEquals("Baja al {3}", carriles.single { it.carril == "f0" }.texto)
+            ajustes.fijarCocina(Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+            notificador.cocina(resumen().copy(carriles = carriles))
+            val gas = cuerpoCocina()
+            assertTrue(gas.toString(), gas.any { it.startsWith("F0 · Baja a fuego bajo · fuego medio-alto") })
+
+            ajustes.fijarCocina(Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 12))
+            notificador.cocina(resumen().copy(carriles = carriles))
+            val digital = cuerpoCocina()
+            assertTrue(digital.toString(), digital.any { it.startsWith("F0 · Baja al 4 · fuego 9") })
+        }
+
+    @Test
+    fun laAlarmaTraduceLasMarcasDePotenciaDeSusLineas() =
+        runTest {
+            ajustes.fijarCocina(Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+            val lineas = AlarmaActiva(System.currentTimeMillis(), listOf(LineaAlarma("f0", "F0: Baja al {3}: hecho")))
+            notificador.alarma("r", "Receta r", lineas, sonar = true, urgente = null)
+            assertEquals(
+                "F0: Baja a fuego bajo: hecho",
+                alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
+            )
+        }
+
+    private fun cuerpoCocina() =
+        cocinaActiva()
+            .notification.extras
+            .getCharSequence(Notification.EXTRA_BIG_TEXT)
+            .toString()
+            .lines()
 
     @Test
     fun laAccionHechoSoloAparecePorUnPasoVencido() {

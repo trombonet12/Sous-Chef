@@ -55,7 +55,7 @@ internal fun DialogoDiagrama(
     datos: DatosCrono,
     onCerrar: () -> Unit,
 ) {
-    val receta = datos.receta
+    val receta = datos.recetaUi
     val paleta =
         PaletaDiagrama(
             meta = CronoPalette.tenue,

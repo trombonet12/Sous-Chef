@@ -59,7 +59,7 @@ fun CronoCocina(
 ) {
     val receta = ui.receta ?: return
     val estado = ui.estado ?: return
-    val datos = DatosCrono(receta, estado, ui.ahoraMs)
+    val datos = DatosCrono(receta, estado, ui.ahoraMs, ui.cocina, ui.recetaUi ?: receta)
     val vistas = vistasCarriles(datos)
     var porque by remember { mutableStateOf<Pair<String, Int>?>(null) }
     // Atrás vuelve a la ficha con la cocinada viva (sigue en segundo plano); abandonar solo desde el menú ⋮, o al

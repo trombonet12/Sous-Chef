@@ -22,12 +22,13 @@ data class CarrilNotificacion(
     /** Paso actual, base 1. */
     val indice: Int,
     val total: Int,
+    /** Título del paso tal como está en la receta canónica (puede llevar marcas `{N}`); el notificador las traduce. */
     val texto: String,
     val situacion: SituacionCarril,
     val finAtMs: Long?,
     /** Segundos que quedan del paso (0 si no corre con tiempo por delante). */
     val quedanS: Int = 0,
-    /** Fuego (vitrocerámica) del paso, si lo lleva. */
+    /** Potencia canónica 0-9 del paso, si la lleva; el notificador la traduce a la cocina del usuario (ADR-0014). */
     val fuego: Int? = null,
 ) {
     val titulo: String get() = "$nombre · paso $indice/$total"

@@ -88,10 +88,14 @@ object SesionCrono {
             actualizadoMs = ahoraMs,
         )
 
-    /** Id estable por contenido (FNV-1a de la línea), no por posición: reordenar la receta no desmarca. */
+    /**
+     * Id estable por contenido (FNV-1a de la línea), no por posición: reordenar la receta no desmarca. Las llaves de
+     * las marcas de potencia (`{3}`, ADR-0014) no cuentan: el id es el de antes del marcado, con el mismo número.
+     */
     fun idCasilla(linea: String): String {
         var h = FNV_BASE
-        for (b in linea.trim().toByteArray(Charsets.UTF_8)) {
+        val sinLlaves = linea.trim().filterNot { it == '{' || it == '}' }
+        for (b in sinLlaves.toByteArray(Charsets.UTF_8)) {
             h = (h xor (b.toInt() and 0xFF)) * FNV_PRIMO
         }
         return "mep-" + Integer.toHexString(h).padStart(8, '0')

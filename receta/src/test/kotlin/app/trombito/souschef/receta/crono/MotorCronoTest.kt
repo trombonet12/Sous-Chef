@@ -608,6 +608,14 @@ class MotorCronoTest {
         )
     }
 
+    @Test
+    fun lasLlavesDeLaMarcaDePotenciaNoCambianElIdDeLaCasilla() {
+        val id = SesionCrono.idCasilla("Aceite a calentar al {7}")
+        assertEquals(SesionCrono.idCasilla("Aceite a calentar al 7"), id)
+        assertEquals(SesionCrono.idCasilla("{1} y {2}"), SesionCrono.idCasilla("1 y 2"))
+        assertNotEquals(SesionCrono.idCasilla("Aceite a calentar al 8"), id)
+    }
+
     // ---- Cierre ----
 
     @Test

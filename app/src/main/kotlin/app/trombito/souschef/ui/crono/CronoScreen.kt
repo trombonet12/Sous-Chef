@@ -19,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,6 +38,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.EstadoVacio
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.theme.CronoPalette
 
 /** Cronómetro de una receta: portada, cocina y cierre. Sigue el tema de la app y mantiene la pantalla encendida. */
@@ -62,11 +64,13 @@ fun CronoScreen(
     AvisarAlSalirDeLaVista(viewModel)
     val pedirMicrofono = permisoDeMicrofono(ui.voz, viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
-    Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
-        Box(Modifier.fillMaxSize()) {
-            Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
-            ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
+    CompositionLocalProvider(LocalCocina provides ui.cocina) {
+        Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
+            Box(Modifier.fillMaxSize()) {
+                Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono)
+                SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+                ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
+            }
         }
     }
 }
@@ -108,7 +112,7 @@ private fun Contenido(
         }
 
         estado.inicioMs == null -> {
-            CronoPortada(receta, estado, viewModel, onSalir)
+            CronoPortada(receta, ui.recetaUi ?: receta, estado, viewModel, onSalir)
         }
 
         else -> {

@@ -14,7 +14,10 @@ import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Potencia
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.receta.crono.Aviso
 import app.trombito.souschef.receta.crono.AvisosCrono
 import app.trombito.souschef.receta.crono.ConsultasCrono
@@ -58,7 +61,12 @@ data class LineaBanda(
 
 data class CronoUi(
     val cargando: Boolean = true,
+    /** Receta canónica (vitro 0-9): con ella trabajan el motor, las alarmas, el estado guardado y las casillas. */
     val receta: Receta? = null,
+    /** La misma receta con la potencia de los textos traducida a la [cocina]: solo para pintarla (ADR-0014). */
+    val recetaUi: Receta? = null,
+    /** Cocina del usuario (Ajustes). */
+    val cocina: Cocina = Cocina.VITRO_9,
     val estado: EstadoCrono? = null,
     val ahoraMs: Long = 0L,
     val banda: List<LineaBanda> = emptyList(),
@@ -152,7 +160,7 @@ class CronoViewModel
             viewModelScope.launch {
                 ajustes.observar().collect { a ->
                     vozActiva = a.vozActiva
-                    _ui.update { it.copy(disposicion = a.disposicion) }
+                    _ui.update { conCocinaDe(it, a.cocina).copy(disposicion = a.disposicion) }
                     reevaluarVoz()
                 }
             }
@@ -167,8 +175,9 @@ class CronoViewModel
 
         private suspend fun cargar() {
             val receta = recetas.obtener(slug)
+            val cocina = ajustes.observar().first().cocina
             if (receta == null || receta.pasos.isEmpty()) {
-                _ui.update { it.copy(cargando = false, receta = receta) }
+                _ui.update { conCocinaDe(it.copy(cargando = false, receta = receta), cocina) }
                 return
             }
             val ahora = reloj.ahoraMs()
@@ -201,9 +210,18 @@ class CronoViewModel
                     .distinct()
                     .mapNotNull { s -> tecnicas.obtener(s)?.let { s to it.titulo } }
                     .toMap()
-            _ui.update { it.copy(cargando = false, receta = receta, tecnicas = enlaces) }
+            _ui.update { conCocinaDe(it.copy(cargando = false, receta = receta, tecnicas = enlaces), cocina) }
             aplicar(estado, ahora)
             cadena.reprogramar()
+        }
+
+        /** Fija la [cocina] y deja `recetaUi` al día; solo traduce de nuevo si cambió la receta o la cocina. */
+        private fun conCocinaDe(
+            u: CronoUi,
+            cocina: Cocina,
+        ): CronoUi {
+            val alDia = u.cocina == cocina && (u.receta == null) == (u.recetaUi == null)
+            return if (alDia) u else u.copy(cocina = cocina, recetaUi = u.receta?.conCocina(cocina))
         }
 
         // --- tic ------------------------------------------------------------------------------------------------
@@ -248,15 +266,23 @@ class CronoViewModel
             val sonido = suenan.minByOrNull { prioridad(it.tipo) }
             if (sonido != null) avisador.sonar(sonido.tipo)
             val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
+            val cocina = _ui.value.cocina
             if (suenan.isNotEmpty()) {
-                control.anunciar(suenan.map { "${nombres[it.carril] ?: it.carril}: ${it.texto}" })
+                // El texto del aviso sale de la receta canónica: se traduce a la cocina antes de oírlo.
+                control.anunciar(
+                    suenan.map { "${nombres[it.carril] ?: it.carril}: ${Potencia.reescribir(it.texto, cocina)}" },
+                )
             }
             val perdidos = avisos.filter { it.silencioso }
             if (perdidos.isEmpty()) return
             avisador.resumen()
             val lineas =
                 perdidos.map {
-                    LineaBanda(nombres[it.carril] ?: it.carril, it.texto, ((ahora - it.instanteMs) / MS_MINUTO).toInt())
+                    LineaBanda(
+                        nombres[it.carril] ?: it.carril,
+                        Potencia.reescribir(it.texto, cocina),
+                        ((ahora - it.instanteMs) / MS_MINUTO).toInt(),
+                    )
                 }
             _ui.update { it.copy(banda = (it.banda + lineas).takeLast(MAX_LINEAS_BANDA)) }
         }
@@ -448,7 +474,11 @@ class CronoViewModel
                     raciones = estado.raciones,
                     minutosReales = resumen.minutosReales,
                     nota = nota.trim().take(MAX_NOTA).ifBlank { null },
-                    pasosReales = resumen.pasosReales.map { PasoRealHistorial(it.id, it.t, it.segundos) },
+                    // El historial lleva el título del paso en la cocina del usuario: ahí no hay llaves de potencia.
+                    pasosReales =
+                        resumen.pasosReales.map {
+                            PasoRealHistorial(it.id, Potencia.reescribir(it.t, actual.cocina), it.segundos)
+                        },
                 )
             cierre = {
                 historial.agregar(entrada)
@@ -541,7 +571,7 @@ class CronoViewModel
             return if (receta == null || estado == null) {
                 emptyList()
             } else {
-                vistasCarriles(DatosCrono(receta, estado, reloj.ahoraMs()))
+                vistasCarriles(DatosCrono(receta, estado, reloj.ahoraMs(), u.cocina, u.recetaUi ?: receta))
             }
         }
 

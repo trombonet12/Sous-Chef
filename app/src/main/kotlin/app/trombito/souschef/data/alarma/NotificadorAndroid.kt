@@ -16,15 +16,20 @@ import android.os.PowerManager
 import androidx.core.net.toUri
 import app.trombito.souschef.MainActivity
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.Notificador
 import app.trombito.souschef.domain.crono.ResumenCocina
 import app.trombito.souschef.domain.crono.SituacionCarril
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Potencia
 import app.trombito.souschef.receta.crono.AgrupadorAlarmas
 import app.trombito.souschef.receta.crono.AlarmaActiva
 import app.trombito.souschef.ui.crono.AlarmaActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -42,9 +47,16 @@ class NotificadorAndroid
     @Inject
     constructor(
         @ApplicationContext private val context: Context,
+        private val ajustes: AjustesRepo,
     ) : Notificador {
         private val gestor = context.getSystemService(NotificationManager::class.java)
         private var canalesListos = false
+
+        /**
+         * Cocina del usuario (ADR-0014). La cadena de alarmas trabaja con la receta canónica; el texto y la potencia
+         * se traducen aquí, al pintar. La lectura de Ajustes es instantánea (el valor ya está en memoria).
+         */
+        private fun cocinaDelUsuario(): Cocina = runBlocking { ajustes.observar().first().cocina }
 
         override fun cocina(resumen: ResumenCocina) {
             val slug = resumen.slug
@@ -72,7 +84,8 @@ class NotificadorAndroid
             val ahora = System.currentTimeMillis()
             // El tope es el de la alarma entera: una actualización en silencio no alarga lo que queda de sonido.
             val restante = (AgrupadorAlarmas.VENTANA_MS - (ahora - alarma.inicioMs)).coerceAtLeast(TIMEOUT_MINIMO_MS)
-            val textos = alarma.lineas.map { it.texto }
+            val cocina = cocinaDelUsuario()
+            val textos = alarma.lineas.map { Potencia.reescribir(it.texto, cocina) }
             val builder =
                 Notification
                     .Builder(context, CANAL_ALARMA)
@@ -88,7 +101,9 @@ class NotificadorAndroid
                     .setContentIntent(abrirCrono(slug))
                     .addAction(accion(R.string.crono_notif_parar, parar(slug)))
             if (urgente != null) builder.addAction(accion(R.string.crono_notif_hecho_siguiente, siguiente(slug)))
-            if (sonar && bloqueado()) builder.setFullScreenIntent(pantallaCompleta(slug, titulo, alarma, urgente), true)
+            if (sonar && bloqueado()) {
+                builder.setFullScreenIntent(pantallaCompleta(slug, titulo, textos, alarma.inicioMs, urgente), true)
+            }
             val notificacion = builder.build()
             if (sonar) notificacion.flags = notificacion.flags or Notification.FLAG_INSISTENT
             gestor.notify(IdsNotificacion.tagAlarma(slug), IdsNotificacion.ID_ALARMA, notificacion)
@@ -121,7 +136,8 @@ class NotificadorAndroid
                 context.getSystemService(PowerManager::class.java)?.isInteractive == false
 
         private fun notificacionCocina(r: ResumenCocina): Notification {
-            val lineas = r.carriles.map { linea(it) }
+            val cocina = cocinaDelUsuario()
+            val lineas = r.carriles.map { linea(it, cocina) }
             // BigTextStyle (no Inbox): es de los estilos que Android 16 deja promocionar a Live Update.
             val builder =
                 Notification
@@ -149,11 +165,14 @@ class NotificadorAndroid
                 ?: r.tituloReceta
 
         /** «SARTÉN GRANDE · Primera fritura · fuego 4 · acaba 15:12». Siempre horas absolutas, nunca cuentas atrás. */
-        private fun linea(c: CarrilNotificacion): String =
+        private fun linea(
+            c: CarrilNotificacion,
+            cocina: Cocina,
+        ): String =
             listOfNotNull(
                 c.nombre,
-                c.texto,
-                c.fuego?.let { context.getString(R.string.crono_cocina_fuego, it) },
+                Potencia.reescribir(c.texto, cocina),
+                c.fuego?.let { context.getString(R.string.crono_cocina_fuego, Potencia.texto(it, cocina)) },
                 when (c.situacion) {
                     SituacionCarril.CORRIENDO -> {
                         c.finAtMs?.let { context.getString(R.string.crono_cocina_acaba, hora(it)) }
@@ -227,7 +246,8 @@ class NotificadorAndroid
         private fun pantallaCompleta(
             slug: String,
             titulo: String,
-            alarma: AlarmaActiva,
+            lineas: List<String>,
+            instanteMs: Long,
             urgente: String?,
         ): PendingIntent =
             PendingIntent.getActivity(
@@ -238,8 +258,8 @@ class NotificadorAndroid
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     .putExtra(AlarmaActivity.EXTRA_SLUG, slug)
                     .putExtra(AlarmaActivity.EXTRA_TITULO, titulo)
-                    .putExtra(AlarmaActivity.EXTRA_LINEAS, alarma.lineas.map { it.texto }.toTypedArray())
-                    .putExtra(AlarmaActivity.EXTRA_INSTANTE, alarma.inicioMs)
+                    .putExtra(AlarmaActivity.EXTRA_LINEAS, lineas.toTypedArray())
+                    .putExtra(AlarmaActivity.EXTRA_INSTANTE, instanteMs)
                     .putExtra(AlarmaActivity.EXTRA_HECHO, urgente != null),
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
             )

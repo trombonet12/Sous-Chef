@@ -198,7 +198,7 @@ private fun PieDelPaso(
             val duracion = minutosPaso(siguiente)
             val detalle =
                 if (datos.carril(carril)?.tipoCarril == TipoCarril.FUEGO && f != null) {
-                    stringResource(R.string.crono_despues_fuego, siguiente.t, duracion, f)
+                    stringResource(R.string.crono_despues_fuego, siguiente.t, duracion, datos.cocina.despuesNivel(f))
                 } else {
                     stringResource(R.string.crono_despues, siguiente.t, duracion)
                 }

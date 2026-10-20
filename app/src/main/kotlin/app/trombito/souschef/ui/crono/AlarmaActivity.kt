@@ -20,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -36,6 +37,7 @@ import app.trombito.souschef.R
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.SousChefTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,8 +74,10 @@ class AlarmaActivity : ComponentActivity() {
         setContent {
             val ajustes by ajustesRepo.observar().collectAsStateWithLifecycle(initialValue = Ajustes())
             SousChefTheme(darkTheme = ajustes.tema.oscuro(isSystemInDarkTheme())) {
-                Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
-                    datos?.let { d -> PantallaAlarma(d, ::parar, ::hechoYSiguiente, ::abrirCocina) }
+                CompositionLocalProvider(LocalCocina provides ajustes.cocina) {
+                    Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
+                        datos?.let { d -> PantallaAlarma(d, ::parar, ::hechoYSiguiente, ::abrirCocina) }
+                    }
                 }
             }
         }

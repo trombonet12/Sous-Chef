@@ -26,6 +26,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
+import app.trombito.souschef.ui.comun.LocalCocina
+import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
 
@@ -122,10 +124,10 @@ internal fun Chip(
     )
 }
 
-/** "🔥 5" si el carril es de fuego y el paso fija potencia. */
+/** "🔥 5" (o "🔥 medio-alto") si el carril es de fuego y el paso fija potencia; en la cocina del usuario. */
 @Composable
 internal fun ChipFuego(v: VistaCarril) {
-    val potencia = v.fuego ?: return
+    val potencia = LocalCocina.current.nivel(v.fuego ?: return)
     Chip(
         stringResource(R.string.crono_fuego_chip, potencia),
         CronoPalette.acento,

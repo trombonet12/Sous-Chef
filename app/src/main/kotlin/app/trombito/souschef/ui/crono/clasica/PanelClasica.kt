@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Holgura
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
@@ -53,7 +54,8 @@ import app.trombito.souschef.ui.crono.vistasCarriles
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
 
-private const val SEGMENTOS_POTENCIA = 9
+private const val TAMANO_NUMERO = 56
+private const val TAMANO_PALABRA = 30
 
 /** Panel del paso actual de un recipiente (o "Terminado"). */
 @Composable
@@ -100,7 +102,7 @@ internal fun PanelCarril(
                 color = colorTexto,
             )
             Text(paso.t, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-            if (carril.tipoCarril == TipoCarril.FUEGO) BloqueFuego(paso, color)
+            if (carril.tipoCarril == TipoCarril.FUEGO) BloqueFuego(paso, color, datos.cocina)
             Pildoras(datos, carril.id, paso)
             Requisitos(datos, paso, onEnfocar)
             Paralelos(datos, carril.id, onEnfocar)
@@ -129,29 +131,30 @@ private fun PanelTerminado(
     }
 }
 
-/** Potencia 0-9: número grande, barra de 9 segmentos y tapa. */
+/** Potencia en la cocina del usuario: número (o palabra) grande, barra de segmentos y tapa. */
 @Composable
 private fun BloqueFuego(
     paso: Paso,
     color: Color,
+    cocina: Cocina,
 ) {
-    val potencia = (paso.f ?: 0).coerceIn(0, SEGMENTOS_POTENCIA)
+    val barra = barraPotencia(paso.f ?: 0, cocina)
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            "$potencia",
-            fontSize = 56.sp,
+            barra.texto,
+            fontSize = if (barra.esPalabra) TAMANO_PALABRA.sp else TAMANO_NUMERO.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = if (potencia == 0) CronoPalette.tenue else colorCarrilTexto(color),
+            color = if (barra.encendidos == 0) CronoPalette.tenue else colorCarrilTexto(color),
         )
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-                repeat(SEGMENTOS_POTENCIA) { s ->
+                repeat(barra.segmentos) { s ->
                     Box(
                         Modifier
                             .weight(1f)
                             .height(14.dp)
                             .clip(RoundedCornerShape(3.dp))
-                            .background(if (s < potencia) color else CronoPalette.carta2),
+                            .background(if (s < barra.encendidos) color else CronoPalette.carta2),
                     )
                 }
             }
@@ -215,7 +218,7 @@ private fun Requisitos(
     paso: Paso,
     onEnfocar: (String) -> Unit,
 ) {
-    val req = requisitos(datos.receta, datos.estado, paso)
+    val req = requisitos(datos.recetaUi, datos.estado, paso)
     if (paso.dep.isNotEmpty()) {
         val falta = req.pendientes.isNotEmpty()
         Text(
@@ -231,7 +234,7 @@ private fun Requisitos(
             )
         }
     }
-    paso.junto?.let { datos.receta.paso(it) }?.let {
+    paso.junto?.let { datos.recetaUi.paso(it) }?.let {
         Text(
             stringResource(R.string.crono_a_la_vez, it.t),
             style = MaterialTheme.typography.bodyMedium,
@@ -288,7 +291,7 @@ private fun FilaParalela(
             fontWeight = FontWeight.Bold,
             fontSize = 12.sp,
         )
-        Text(fila.paso, Modifier.weight(1f), fontSize = 13.sp, maxLines = 1)
+        Text(datos.texto(fila.paso), Modifier.weight(1f), fontSize = 13.sp, maxLines = 1)
         Text(
             etiqueta,
             style = MaterialTheme.typography.labelMedium.merge(Tabular),

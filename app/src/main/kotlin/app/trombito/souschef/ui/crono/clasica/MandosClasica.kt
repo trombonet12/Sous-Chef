@@ -47,7 +47,7 @@ internal fun MandosCarril(
         Row(Modifier.fillMaxWidth().padding(12.dp)) { BotonDeshacerClasico(datos, carril, acciones) }
         return
     }
-    val req = requisitos(datos.receta, datos.estado, paso)
+    val req = requisitos(datos.recetaUi, datos.estado, paso)
     val bloqueado = req.pendientes.isNotEmpty() && !ec.corriendo && !ec.pausado && !ec.salto
     val vencido = ec.corriendo && datos.quedan(carril.id) <= 0
     Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

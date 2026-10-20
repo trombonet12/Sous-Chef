@@ -1,5 +1,8 @@
 package app.trombito.souschef.ui.crono.voz
 
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.receta.voz.OrdenVoz
 import app.trombito.souschef.ui.crono.AccionCarril
@@ -137,6 +140,34 @@ class RespuestasVozTest {
     fun `queToca da titulo fuego y tapa del carril mas urgente`() {
         val v = corriendo(300).copy(fuego = 8, tapa = "SIN TAPA", titulo = "Sellar")
         assertEquals("Sartén grande: Sellar. Fuego 8, destapada.", RespuestasVoz.queToca(listOf(v), null))
+    }
+
+    @Test
+    fun `queToca y info dicen el fuego en la cocina del usuario`() {
+        val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
+        val digital12 = Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 12)
+        val analogico = Cocina(TipoCocina.GAS, Mando.ANALOGICO, 6)
+        val base = corriendo(300).copy(fuego = 7, titulo = "Sellar")
+        assertEquals(
+            "Sartén grande: Sellar. Fuego medio-alto.",
+            RespuestasVoz.queToca(listOf(base.copy(cocina = gas)), null),
+        )
+        assertEquals(
+            "Sartén grande: Sellar. Fuego 9.",
+            RespuestasVoz.queToca(listOf(base.copy(cocina = digital12)), null),
+        )
+        assertEquals(
+            "Sartén grande: Sellar. Fuego 4,5.",
+            RespuestasVoz.queToca(listOf(base.copy(cocina = analogico)), null),
+        )
+        assertEquals(
+            "Sartén grande: Sellar. Fuego 7. Quedan 5 minutos.",
+            RespuestasVoz.info(base),
+        )
+        assertEquals(
+            "Sartén grande: Sellar. Fuego máximo. Quedan 5 minutos.",
+            RespuestasVoz.info(base.copy(fuego = 9, cocina = gas)),
+        )
     }
 
     @Test

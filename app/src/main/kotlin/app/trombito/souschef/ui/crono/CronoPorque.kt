@@ -22,7 +22,9 @@ import app.trombito.souschef.R
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.colorCarril
+import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
@@ -64,10 +66,10 @@ fun PorqueSheet(
             paso.meto?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_meto, CronoPalette.meto, it) }
             paso.saco?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, it) }
             paso.tapa?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_tapa, CronoPalette.tapa, it) }
-            val potencia = paso.f
-            if (carril.tipoCarril == TipoCarril.FUEGO && potencia != null) {
+            val canonica = paso.f
+            if (carril.tipoCarril == TipoCarril.FUEGO && canonica != null) {
                 Text(
-                    stringResource(R.string.crono_potencia, potencia),
+                    stringResource(R.string.crono_potencia, LocalCocina.current.nivel(canonica)),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

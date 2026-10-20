@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.crono.voz
 
+import app.trombito.souschef.receta.Potencia
 import app.trombito.souschef.receta.voz.OrdenVoz
 import app.trombito.souschef.ui.crono.AccionCarril
 import app.trombito.souschef.ui.crono.VistaCarril
@@ -138,7 +139,7 @@ private val separadorAviso = Regex("""[.!?]?\s+·\s+""")
 private val cierres = setOf('.', '!', '?')
 
 private fun detalles(v: VistaCarril): String {
-    val partes = listOfNotNull(v.fuego?.let { "fuego $it" }, textoTapa(v.tapa))
+    val partes = listOfNotNull(v.fuego?.let { "fuego ${Potencia.texto(it, v.cocina)}" }, textoTapa(v.tapa))
     if (partes.isEmpty()) return ""
     return " " + partes.joinToString(", ").replaceFirstChar { it.titlecase() } + "."
 }

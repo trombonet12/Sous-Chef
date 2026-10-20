@@ -6,7 +6,13 @@ import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.receta.BloqueMep
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.receta.crono.EstadoCrono
+import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.receta.crono.TipoAviso
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
@@ -630,4 +636,56 @@ class CronoViewModelTest {
             assertEquals(EstadoVoz.ESCUCHANDO, vm.ui.value.voz)
             assertTrue(ajustes.actual.value.vozActiva)
         }
+
+    @Test
+    fun laUiRecibeLaRecetaTraducidaYElMotorSigueConLaCanonicaAlCambiarDeCocina() =
+        prueba {
+            val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
+            val canonica =
+                recetaCrono().copy(
+                    mep = listOf(BloqueMep("Antes", l = listOf("Aceite al {7}"))),
+                    pasos = recetaCrono().pasos.map { if (it.id == "p1") it.copy(t = "Baja al {3}") else it },
+                )
+            recetas.datos.value = listOf(canonica)
+            ajustes.fijarCocina(gas)
+            val vm = crear()
+            assertEquals(gas, vm.ui.value.cocina)
+            assertEquals("Baja al {3}", vm.textoCanonico())
+            assertEquals("Baja a fuego bajo", vm.textoTraducido())
+
+            val id = SesionCrono.idCasilla(canonica.mep[0].l[0])
+            vm.marcar(id, true)
+            runCurrent()
+            val antes = guardado()
+            assertTrue(id in antes.marcados)
+
+            ajustes.fijarCocina(Cocina.VITRO_9)
+            runCurrent()
+            assertEquals("Baja al 3", vm.textoTraducido())
+            assertEquals("Baja al {3}", vm.textoCanonico())
+            assertEquals(antes.marcados, guardado().marcados)
+        }
+
+    @Test
+    fun conInduccionDigital12LaUiMuestraElNumeroProporcional() =
+        prueba {
+            ajustes.fijarCocina(Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 12))
+            recetas.datos.value =
+                listOf(
+                    recetaCrono().copy(
+                        pasos = recetaCrono().pasos.map { if (it.id == "p1") it.copy(t = "Sube al {9}") else it },
+                    ),
+                )
+            val vm = crear()
+            vm.abrirCocina()
+            runCurrent()
+            assertEquals("Sube al {9}", vm.textoCanonico())
+            assertEquals("Sube al 12", vm.textoTraducido())
+        }
+
+    private fun Receta?.textoP1(): String? = this?.let { it.pasos[0].t }
+
+    private fun CronoViewModel.textoCanonico(): String? = ui.value.receta.textoP1()
+
+    private fun CronoViewModel.textoTraducido(): String? = ui.value.recetaUi.textoP1()
 }

@@ -11,6 +11,7 @@ val LocalCocina = staticCompositionLocalOf { Cocina.VITRO_9 }
 fun Cocina.nivel(f: Int): String = Potencia.texto(f.coerceIn(0, F_MAX), this)
 
 /** «al 7» o «a fuego medio-alto»: la misma gramática que el texto de las recetas. */
-fun Cocina.alNivel(f: Int): String = Potencia.reescribir("al {${f.coerceIn(0, F_MAX)}}", this)
+fun Cocina.alNivel(f: Int): String =
+    Potencia.reescribir("al {${f.coerceIn(0, F_MAX)}}", this).replaceFirstChar { it.lowercaseChar() }
 
 private const val F_MAX = 9

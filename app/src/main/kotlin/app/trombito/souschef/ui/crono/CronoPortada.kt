@@ -48,23 +48,34 @@ import app.trombito.souschef.ui.theme.CronoPalette
 private const val PASO_SERVIR_MIN = 15
 
 /** Una casilla de la portada: id estable por contenido y texto con negritas. */
-private data class Casilla(
+internal data class Casilla(
     val id: String,
     val texto: String,
 )
 
-private data class BloqueCasillas(
+internal data class BloqueCasillas(
     val titulo: String?,
     val casillas: List<Casilla>,
 )
 
-/** Checklist de mise en place: los bloques `mep`, o los `grupos` ("<b>cantidad</b> · nombre") si no hay. */
-private fun bloquesPortada(
+/**
+ * Checklist de mise en place: los bloques `mep`, o los `grupos` ("<b>cantidad</b> · nombre") si no hay.
+ * El id de cada casilla sale de la línea de la receta canónica [receta] (no cambia con la cocina del usuario,
+ * ADR-0014) y el texto de la traducida [traducida], que empareja por posición.
+ */
+internal fun bloquesPortada(
     receta: Receta,
+    traducida: Receta,
     raciones: Int,
 ): List<BloqueCasillas> =
     if (receta.mep.isNotEmpty()) {
-        receta.mep.map { b -> BloqueCasillas(b.t, b.l.map { Casilla(SesionCrono.idCasilla(it), it) }) }
+        receta.mep.mapIndexed { i, b ->
+            val lineas = traducida.mep.getOrNull(i)?.l ?: emptyList()
+            BloqueCasillas(
+                b.t,
+                b.l.mapIndexed { j, linea -> Casilla(SesionCrono.idCasilla(linea), lineas.getOrElse(j) { linea }) },
+            )
+        }
     } else {
         val f = Escalado.factor(raciones, receta.raciones)
         receta.grupos.map { g ->
@@ -82,6 +93,7 @@ private fun bloquesPortada(
 @Composable
 fun CronoPortada(
     receta: Receta,
+    recetaUi: Receta,
     estado: EstadoCrono,
     viewModel: CronoViewModel,
     onSalir: () -> Unit,
@@ -96,7 +108,7 @@ fun CronoPortada(
                 PackageManager.PERMISSION_GRANTED
         if (necesita) pedirPermiso.launch(Manifest.permission.POST_NOTIFICATIONS) else viewModel.abrirCocina()
     }
-    val bloques = bloquesPortada(receta, estado.raciones)
+    val bloques = bloquesPortada(receta, recetaUi, estado.raciones)
     Column(Modifier.fillMaxSize()) {
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
@@ -104,8 +116,8 @@ fun CronoPortada(
         ) {
             BarraTitulo(receta.titulo, onSalir)
             AvisoPantallaCompleta()
-            if (receta.descripcion.isNotBlank()) {
-                Text(receta.descripcion, color = CronoPalette.apagado, style = MaterialTheme.typography.bodyMedium)
+            if (recetaUi.descripcion.isNotBlank()) {
+                Text(recetaUi.descripcion, color = CronoPalette.apagado, style = MaterialTheme.typography.bodyMedium)
             }
             Text(
                 stringResource(

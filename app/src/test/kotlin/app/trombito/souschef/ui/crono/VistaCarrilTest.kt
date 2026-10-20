@@ -1,10 +1,14 @@
 package app.trombito.souschef.ui.crono
 
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Hito
+import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tags
+import app.trombito.souschef.receta.TipoCocina
+import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.receta.crono.EstadoCarril
 import app.trombito.souschef.receta.crono.EstadoCrono
@@ -176,6 +180,25 @@ class VistaCarrilTest {
     @Test
     fun `despues es el siguiente paso con fuego en carril de fuego`() {
         assertEquals("Reposo · fuego 8", vistas()[0].despues)
+    }
+
+    @Test
+    fun `despues dice el fuego en la cocina del usuario y trae los textos traducidos`() {
+        val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
+        val r =
+            receta.copy(
+                pasos = receta.pasos.map { if (it.id == "p2") it.copy(t = "Subir al {8}", f = 8) else it },
+            )
+        val carriles = mapOf("f0" to EstadoCarril(), "m" to EstadoCarril())
+        val estado = EstadoCrono("r", 2, servir, carriles, actualizadoMs = ahora)
+        val datos = DatosCrono(r, estado, ahora, gas, r.conCocina(gas))
+        val v = vistasCarriles(datos)
+        assertEquals("Subir a fuego alto · fuego alto", v[0].despues)
+        assertEquals(gas, v[0].cocina)
+        // El motor sigue con la receta canónica: ids, f y duraciones no cambian.
+        val p2 = datos.receta.paso("p2")
+        assertEquals(8, p2?.f)
+        assertEquals("Subir al {8}", p2?.t)
     }
 
     @Test

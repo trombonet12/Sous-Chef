@@ -1,10 +1,12 @@
 package app.trombito.souschef.ui.crono
 
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.receta.crono.EstadoCarril
+import app.trombito.souschef.ui.comun.nivel
 
 /** Acción principal de un carril; el botón grande de la UI la ejecuta. */
 enum class AccionCarril { EMPEZAR, PAUSAR, SEGUIR, HECHO, BLOQUEADO, TERMINADO }
@@ -37,7 +39,7 @@ data class VistaCarril(
     val pasos: Int,
     /** Título del paso actual; null = carril terminado. */
     val titulo: String?,
-    /** Potencia 0-9, solo en carril FUEGO con `f` definido. */
+    /** Potencia canónica 0-9, solo en carril FUEGO con `f` definido; se pinta con [cocina] (`Cocina.nivel`). */
     val fuego: Int?,
     /** Campo `tapa` crudo; la UI usa [recursoTapa]. */
     val tapa: String?,
@@ -50,7 +52,7 @@ data class VistaCarril(
     val meto: String?,
     val saco: String?,
     val nota: String?,
-    /** Título del siguiente paso del carril (+ " · fuego N" si FUEGO), o null si es el último. */
+    /** Título del siguiente paso del carril (+ " · fuego X" si FUEGO, X en la [cocina]), o null si es el último. */
     val despues: String?,
     /** Duración en segundos del siguiente paso (solo pantalla; la voz no la dice), o null si es el último. */
     val despuesS: Int? = null,
@@ -74,6 +76,8 @@ data class VistaCarril(
     val deshacerA: String? = null,
     /** Este carril tiene el último Hecho de la cocina (el que deshace «deshaz» sin nombrar carril). */
     val ultimoHecho: Boolean = false,
+    /** Cocina del usuario: la voz dice el [fuego] con ella (ADR-0014). */
+    val cocina: Cocina = Cocina.VITRO_9,
 ) {
     val puedeDeshacer: Boolean get() = deshacerA != null
 
@@ -97,6 +101,7 @@ fun vistasCarriles(datos: DatosCrono): List<VistaCarril> =
         vista.copy(
             deshacerA = datos.estado.deshacer[carril.id]?.let { datos.cola(carril.id).getOrNull(it.i)?.t },
             ultimoHecho = datos.estado.ultimoHecho == carril.id,
+            cocina = datos.cocina,
         )
     }
 
@@ -140,7 +145,7 @@ private fun vistaActiva(
     paso: Paso,
 ): VistaCarril {
     val quedan = datos.quedan(carril.id)
-    val pendientes = requisitos(datos.receta, datos.estado, paso).pendientes
+    val pendientes = requisitos(datos.recetaUi, datos.estado, paso).pendientes
     val accion = accionDe(ec, quedan, pendientes.isNotEmpty())
     val hitos = hitosDe(paso, ec)
     val vista = datos.vista(carril.id)
@@ -164,7 +169,7 @@ private fun vistaActiva(
         meto = paso.meto,
         saco = paso.saco,
         nota = paso.nota,
-        despues = datos.cola(carril.id).getOrNull(ec.i + 1)?.let { despuesDe(it, esFuego) },
+        despues = datos.cola(carril.id).getOrNull(ec.i + 1)?.let { despuesDe(it, esFuego, datos.cocina) },
         despuesS = datos.cola(carril.id).getOrNull(ec.i + 1)?.segundos,
         accion = accion,
         bloqueadoPor =
@@ -240,7 +245,8 @@ private fun hitosDe(
 private fun despuesDe(
     siguiente: Paso,
     esFuego: Boolean,
-): String = if (esFuego && siguiente.f != null) "${siguiente.t} · fuego ${siguiente.f}" else siguiente.t
+    cocina: Cocina,
+): String = siguiente.f?.takeIf { esFuego }?.let { "${siguiente.t} · fuego ${cocina.nivel(it)}" } ?: siguiente.t
 
 /**
  * Carril en foco. Prioridad: 1) HECHO vencido con el fin más antiguo (gana incluso a un [fijado] de otro carril);

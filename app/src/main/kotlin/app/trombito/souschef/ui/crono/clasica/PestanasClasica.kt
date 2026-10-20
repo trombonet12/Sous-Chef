@@ -29,6 +29,7 @@ import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.crono.AccionesCarril
 import app.trombito.souschef.ui.crono.DatosCrono
 import app.trombito.souschef.ui.crono.PorqueSheet
@@ -144,7 +145,7 @@ private fun segundaLinea(
     val fuego =
         when {
             carril.tipoCarril != TipoCarril.FUEGO -> null
-            potencia > 0 -> stringResource(R.string.ficha_fuego_bajo, potencia)
+            potencia > 0 -> stringResource(R.string.ficha_fuego_bajo, datos.cocina.nivel(potencia))
             else -> stringResource(R.string.ficha_sin_fuego_bajo)
         }
     val tapa = recursoTapa(paso.tapa)?.let { stringResource(it) }
