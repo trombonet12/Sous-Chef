@@ -36,6 +36,33 @@ class AjustesPantallasTest {
     }
 
     @Test
+    fun `el pie del menu muestra autor, correo y web`() {
+        banco.poner { MaterialTheme { AjustesMenu(Ajustes(), "1", {}, {}) } }
+
+        val textos = banco.textos(banco.raiz())
+        assertTrue(textos.toString(), "Trombonet12© and Co. Interactive Systems Solutions" in textos)
+        assertTrue(textos.toString(), "trombonet12@trombonet12.es" in textos)
+        assertTrue(textos.toString(), "www.trombonet12.es" in textos)
+        botonConDescripcion("Escribir a trombonet12@trombonet12.es")
+        botonConDescripcion("Abrir la web www.trombonet12.es")
+    }
+
+    @Test
+    fun `tocar correo y web avisa al menu`() {
+        val tocados = mutableListOf<String>()
+        banco.poner {
+            MaterialTheme {
+                AjustesMenu(Ajustes(), "1", {}, {}, onCorreo = { tocados += "correo" }, onWeb = { tocados += "web" })
+            }
+        }
+
+        banco.pulsar(banco.conEtiqueta("ajustes-contacto"))
+        banco.pulsar(banco.conEtiqueta("ajustes-web"))
+
+        assertEquals(listOf("correo", "web"), tocados)
+    }
+
+    @Test
     fun `el resumen del horario cambia con la hora de las tarjetas`() {
         val ajustes = Ajustes(horaTarjeta = HoraTarjeta.ACABAR, servirMin = 14 * 60, vozActiva = false)
         banco.poner { MaterialTheme { AjustesMenu(ajustes, "1", {}, {}) } }
@@ -69,6 +96,7 @@ class AjustesPantallasTest {
         banco.pulsar(banco.conEtiqueta("tema-OSCURO"))
         banco.pulsar(banco.conEtiqueta("lista-CLASICA"))
 
+        assertTrue(banco.textos(banco.raiz()).toString(), "Diseño de las listas" in banco.textos(banco.raiz()))
         assertEquals(listOf(TemaApp.OSCURO), temas)
         assertEquals(listOf(DisposicionLista.CLASICA), listas)
     }

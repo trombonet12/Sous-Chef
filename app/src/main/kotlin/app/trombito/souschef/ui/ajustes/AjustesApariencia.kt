@@ -54,7 +54,7 @@ internal fun AjustesApariencia(
         )
         SelectorTema(ajustes.tema, onTema)
         Text(
-            stringResource(R.string.ajustes_lista),
+            stringResource(R.string.ajustes_diseno_listas),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary,
         )

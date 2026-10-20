@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ajustes_lista">Lista de recetas</string>
     <string name="ajustes_lista_tinte">Tinte</string>
     <string name="ajustes_lista_tinte_detalle">Tarjeta teñida con el color de la base y el tiempo grande a la izquierda.</string>
     <string name="ajustes_lista_franja">Franja</string>

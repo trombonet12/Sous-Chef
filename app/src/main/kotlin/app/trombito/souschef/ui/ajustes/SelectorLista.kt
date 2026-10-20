@@ -60,8 +60,8 @@ private fun paletaLista(): PaletaLista {
 }
 
 /**
- * Los tres diseños de la lista de recetas como tarjetas con una miniatura (un esquema con los colores del tema en
- * uso), con el mismo aspecto que el selector del cronómetro.
+ * Los tres diseños de las listas (recetas, técnicas e historial) como tarjetas con una miniatura (un esquema con los
+ * colores del tema en uso), con el mismo aspecto que el selector del cronómetro.
  */
 @Composable
 fun SelectorLista(

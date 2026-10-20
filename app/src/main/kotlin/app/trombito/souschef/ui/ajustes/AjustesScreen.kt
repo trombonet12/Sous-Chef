@@ -1,5 +1,7 @@
 package app.trombito.souschef.ui.ajustes
 
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.clickable
@@ -25,7 +27,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
@@ -56,6 +61,9 @@ internal fun PantallaAjustes(
     }
 }
 
+private const val CORREO = "trombonet12@trombonet12.es"
+private const val WEB = "https://www.trombonet12.es/"
+
 /** Menú de Ajustes: cuatro apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
 @Composable
 fun AjustesScreen(
@@ -64,16 +72,32 @@ fun AjustesScreen(
     viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    AjustesMenu(ajustes, versionApp(), onAtras, onAbrir)
+    val contexto = LocalContext.current
+    val version = versionApp()
+    AjustesMenu(
+        ajustes,
+        version,
+        onAtras,
+        onAbrir,
+        onCorreo = {
+            val asunto = contexto.getString(R.string.ajustes_contacto_asunto, version)
+            val correo = Intent(Intent.ACTION_SENDTO, "mailto:$CORREO".toUri()).putExtra(Intent.EXTRA_SUBJECT, asunto)
+            contexto.abrir(correo)
+        },
+        onWeb = { contexto.abrir(Intent(Intent.ACTION_VIEW, WEB.toUri())) },
+    )
 }
 
-/** Menú sin ViewModel: estado y versión llegan hechos. */
+/** Menú sin ViewModel: estado y versión llegan hechos. Correo y web se delegan en [onCorreo] y [onWeb]. */
+@Suppress("LongParameterList") // menú con sus cuatro callbacks de navegación y de enlaces externos
 @Composable
 internal fun AjustesMenu(
     ajustes: Ajustes,
     version: String,
     onAtras: () -> Unit,
     onAbrir: (String) -> Unit,
+    onCorreo: () -> Unit = {},
+    onWeb: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_titulo), onAtras) {
         FilaApartado(Icono.Apariencia, R.string.ajustes_apariencia, Rutas.AJUSTES_APARIENCIA, onAbrir) {
@@ -107,7 +131,51 @@ internal fun AjustesMenu(
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        Text(
+            stringResource(R.string.ajustes_autor),
+            modifier = Modifier.fillMaxWidth().testTag("ajustes-autor"),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        EnlaceAjustes(
+            texto = stringResource(R.string.ajustes_contacto),
+            descripcion = stringResource(R.string.ajustes_contacto_desc, CORREO),
+            etiqueta = "ajustes-contacto",
+            onClick = onCorreo,
+        )
+        EnlaceAjustes(
+            texto = stringResource(R.string.ajustes_web),
+            descripcion = stringResource(R.string.ajustes_web_desc, stringResource(R.string.ajustes_web)),
+            etiqueta = "ajustes-web",
+            onClick = onWeb,
+        )
     }
+}
+
+/** Enlace tocable de pie de menú, con área de al menos 48 dp y el texto en color primario. */
+@Composable
+private fun EnlaceAjustes(
+    texto: String,
+    descripcion: String,
+    etiqueta: String,
+    onClick: () -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .testTag(etiqueta)
+            .semantics { contentDescription = descripcion }
+            .clickable(role = Role.Button, onClick = onClick),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(texto, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+    }
+}
+
+/** Lanza una actividad externa; sin app que la atienda no hace nada. */
+private fun Context.abrir(intent: Intent) {
+    runCatching { startActivity(intent) }
 }
 
 @Composable
