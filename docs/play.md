@@ -46,7 +46,8 @@ a mano, en Play Console.
 2. En Play Console > Usuarios y permisos, invitar el correo de la cuenta de servicio, solo para esta app, con permiso
    para **publicar en pistas de prueba**.
 3. En GitHub > Settings > Secrets and variables > Actions:
-   - secreto `PLAY_SERVICE_ACCOUNT_JSON`, con el contenido del JSON;
+   - secreto `PLAY_SERVICE_ACCOUNT_JSON`, con el contenido del JSON. Lo sube `node scripts/subir-secreto-play.mjs`,
+     que comprueba la forma de la clave y no imprime valores;
    - variable `PLAY_ESTADO`:
      - `draft` mientras la app esté en borrador en Play;
      - `completed` cuando ya haya salido una versión, para que cada release llegue sola a los testers.
