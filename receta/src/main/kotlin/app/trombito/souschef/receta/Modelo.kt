@@ -67,6 +67,9 @@ data class Ingrediente(
 ) {
     /** Sal, especias potentes, levadura: escala con exponente 0,75. */
     val sublineal: Boolean get() = esc == "sub"
+
+    /** Aceite de freír, agua de cocción: la cantidad es la profundidad del recipiente y no cambia con las raciones. */
+    val fijo: Boolean get() = esc == "fijo"
 }
 
 @Serializable

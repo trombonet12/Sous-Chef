@@ -156,6 +156,15 @@ class ValidadorTest {
         assertTrue(13 !in reglas(conGrupo(ing("sal", a = null, txt = "½ cdta"))))
     }
 
+    @Test
+    fun r13EscSoloSubOFijo() {
+        fun con(esc: String?) = reglas(conGrupo(Ingrediente(n = "sal", a = 2.0, u = "g", esc = esc)))
+        assertTrue(13 !in con("sub"))
+        assertTrue(13 !in con("fijo"))
+        assertTrue(13 !in con(null))
+        assertTrue(13 in con("lineal"))
+    }
+
     private fun conCortes(
         off: Double,
         textoPaso: String = "Cortar",
@@ -429,6 +438,7 @@ class ValidadorTest {
         assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("arroz", 150.0, "g"))))
         assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("sal", 3.0, "uds", esc = "sub"))))
         assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("huevos", txt = "3"))))
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 3, Ingrediente("huevos", 2.0, "uds", esc = "fijo"))))
     }
 
     private fun r27(r: Receta) = Validador.receta(r).filter { it.regla == 27 }

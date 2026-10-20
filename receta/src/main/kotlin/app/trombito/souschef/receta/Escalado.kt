@@ -40,7 +40,10 @@ object Escalado {
         base: Int,
     ): Double = if (base <= 0) 1.0 else raciones.toDouble() / base
 
-    /** Cantidad escalada y formateada: "250 g", "2,5 ml", "½ cdta *". El asterisco marca escalado sublineal. */
+    /**
+     * Cantidad escalada y formateada: "250 g", "2,5 ml", "½ cdta *". El asterisco marca escalado sublineal; un
+     * ingrediente `fijo` no cambia con las raciones.
+     */
     fun cantidad(
         item: Ingrediente,
         f: Double,
@@ -57,7 +60,12 @@ object Escalado {
             }
 
             else -> {
-                val v = a * if (item.sublineal) f.pow(EXPONENTE_SUB) else f
+                val v =
+                    when {
+                        item.fijo -> a
+                        item.sublineal -> a * f.pow(EXPONENTE_SUB)
+                        else -> a * f
+                    }
                 val u =
                     item.u
                         ?.takeIf { it.isNotBlank() }

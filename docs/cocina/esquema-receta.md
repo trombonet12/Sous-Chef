@@ -31,7 +31,7 @@ Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril
       { "a": 500, "u": "g", "n": "carne picada mixta" },   // a entero o decimal
       { "txt": "½ cdta", "n": "pimienta negra", "esc": "sub" }
     ]}
-    // formas de item: {a,n,u} · {a,esc,n,u} · {esc,n,txt} · {n,txt}; esc solo "sub" (no escala lineal)
+    // formas de item: {a,n,u} · {a,esc,n,u} · {esc,n,txt} · {n,txt}; `esc` admite "sub" (sublineal) o "fijo" (no escala: aceite de freír, agua de cocción que es la profundidad de la olla)
   ],
   "notaEscala": "Qué no escala en línea recta y por qué.",
 

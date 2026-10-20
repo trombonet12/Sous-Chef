@@ -24,6 +24,33 @@ class EscaladoTest {
     }
 
     @Test
+    fun fijoNoEscalaNiMarca() {
+        assertEquals("300 ml", Escalado.cantidad(Ingrediente(n = "aceite", a = 300.0, u = "ml", esc = "fijo"), 2.0))
+        assertEquals("300 ml", Escalado.cantidad(Ingrediente(n = "aceite", a = 300.0, u = "ml", esc = "fijo"), 0.5))
+        assertEquals("1 vaso", Escalado.cantidad(Ingrediente(n = "aceite", txt = "1 vaso", esc = "fijo"), 3.0))
+    }
+
+    @Test
+    fun listaGeneralNoSumaFijoConNoFijo() {
+        val r =
+            Receta(
+                slug = "x",
+                titulo = "x",
+                grupos =
+                    listOf(
+                        Grupo("A", listOf(Ingrediente("aceite", 300.0, "ml", esc = "fijo"))),
+                        Grupo(
+                            "B",
+                            listOf(Ingrediente("aceite", 20.0, "ml"), Ingrediente("aceite", 200.0, "ml", esc = "fijo")),
+                        ),
+                    ),
+            )
+        val lista = Escalado.listaGeneral(r)
+        assertEquals(listOf(500.0, 20.0), lista.map { it.a })
+        assertEquals(listOf("fijo", null), lista.map { it.esc })
+    }
+
+    @Test
     fun textoNoEscala() {
         assertEquals("½ cdta *", Escalado.cantidad(Ingrediente(n = "pimienta", txt = "½ cdta", esc = "sub"), 2.0))
         assertEquals("1 pizca", Escalado.cantidad(Ingrediente(n = "x", txt = "1 pizca"), 3.0))

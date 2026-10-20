@@ -255,6 +255,7 @@ private class Ctx(
         val prohibidas = listOf("al gusto", "chorrito", "c/s")
         for (i in r.grupos.flatMap { it.items }) {
             if (i.a == null && i.txt.isNullOrBlank()) err(13, "'${i.n}' sin cantidad (ni a ni txt)")
+            if (i.esc != null && !i.sublineal && !i.fijo) err(13, "'${i.n}': esc '${i.esc}' no es «sub» ni «fijo»")
             val texto = Texto.normalizar("${i.n} ${i.txt.orEmpty()}")
             prohibidas
                 .filter { Regex("(?<![a-z])" + Regex.escape(it) + "(?![a-z])").containsMatchIn(texto) }
@@ -363,7 +364,7 @@ private class Ctx(
     }
 
     private fun contablesSinMedios(permitidas: List<Int>) {
-        for (i in r.grupos.flatMap { it.items }.filter { !it.sublineal && esContable(it) }) {
+        for (i in r.grupos.flatMap { it.items }.filter { !it.sublineal && !it.fijo && esContable(it) }) {
             val a = i.a ?: 0.0
             val malas =
                 permitidas
