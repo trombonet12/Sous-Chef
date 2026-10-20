@@ -1,6 +1,6 @@
 # ADR-0009: Avisar de versión nueva consultando la API pública de releases
 
-- Estado: aceptado
+- Estado: sustituido por [ADR-0011](0011-sin-aviso-de-version-nueva.md)
 - Fecha: 2026-10-17
 - Relacionado: `docs/decisiones.md` § 2026-10-17 · Ronda 8, [ADR-0007](0007-app-solo-local-sin-supabase.md)
 

@@ -24,6 +24,7 @@
 - Instalada desde Play (`installingPackageName == com.android.vending`), la app no consulta GitHub ni avisa de versión
   nueva: actualiza la tienda. Con Obtainium o `adb` todo sigue como en ADR-0009.
 - Política de privacidad pública en `docs/privacidad.md`, porque la app pide el micrófono.
+- Nota (2026-10-20): el aviso de versión nueva de GitHub ya no existe; ver [ADR-0011](0011-sin-aviso-de-version-nueva.md).
 
 ## Consecuencias
 - Hay una sola fuente de versiones (`version.properties`) para GitHub y para Play, así que `versionCode` tiene que

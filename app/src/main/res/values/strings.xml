@@ -260,7 +260,4 @@
     <string name="crono_canal_cocina">Cocina en marcha</string>
     <string name="crono_aviso_notificaciones">Las notificaciones de Sous Chef están desactivadas: el cronómetro no avisará.</string>
     <string name="crono_aviso_exactas">Sin permiso de alarmas exactas los avisos pueden llegar tarde.</string>
-    <string name="actualizacion_canal">Actualizaciones</string>
-    <string name="actualizacion_titulo">Sous Chef %1$s disponible</string>
-    <string name="actualizacion_texto">Toca para actualizar con Obtainium.</string>
 </resources>

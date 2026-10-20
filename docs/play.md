@@ -1,6 +1,6 @@
 # Google Play
 
-> Propósito: pasos para publicar Sous Chef en Google Play y dejar la subida automática · Audiencia: Joan · Actualizado: 2026-10-18
+> Propósito: pasos para publicar Sous Chef en Google Play y dejar la subida automática · Audiencia: Joan · Actualizado: 2026-10-20
 
 ## Resumen
 El CI ya genera el AAB firmado en cada release y, si tiene credenciales, lo sube solo a la pista interna de Play
@@ -23,11 +23,14 @@ a mano, en Play Console.
    3. Añadir a Joan como tester (lista de correos) y abrir el enlace de participación en el móvil.
 5. **Contenido de la app** (menú Política):
    - Política de privacidad: `https://github.com/trombonet12/Sous-Chef/blob/main/docs/privacidad.md`.
-   - Seguridad de los datos: no se recoge ni se comparte ningún dato. El micrófono se usa en el dispositivo y no
-     guarda nada.
+   - Seguridad de los datos: no se recoge ni se comparte ningún dato. La app no usa Internet: no pide permisos de red
+     y no envía nada. El micrófono se usa en el dispositivo y no guarda nada.
    - Permisos:
      - `USE_EXACT_ALARM`: es un temporizador de cocina y la alarma tiene que sonar al segundo.
      - `USE_FULL_SCREEN_INTENT`: la alarma del paso sale a pantalla completa con el móvil bloqueado.
+     - Ningún permiso de red: la app no pide `INTERNET` ni `ACCESS_NETWORK_STATE` ([ADR-0011](adr/0011-sin-aviso-de-version-nueva.md)).
+   - Datos de contacto (para los usuarios): correo `trombonet12@trombonet12.es`, web `https://www.trombonet12.es/`.
+     Desarrollador: «Trombonet12© and Co. Interactive Systems Solutions».
    - Público objetivo: adultos. Sin anuncios.
    - Clasificación de contenido: rellenar el cuestionario; no hay contenido sensible.
 6. **Ficha de Play Store:** descripción corta y larga, icono de 512 px, gráfico de 1024×500 y al menos 2 capturas
@@ -49,8 +52,8 @@ a mano, en Play Console.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
 
 ## Qué cambia en la app instalada desde Play
-- No avisa de versiones de GitHub, porque actualiza Play. Instalada con Obtainium o `adb`, sigue avisando
-  (ADR-0009).
+- No tiene red ni avisa de versiones: las actualizaciones las da Play. Instalada con Obtainium o `adb`, Obtainium
+  avisa de las releases de GitHub (ADR-0011).
 - En el mismo móvil no se pueden mezclar Play y Obtainium, porque Play firma con su clave y las firmas no coinciden.
   Para pasar de una a otra hay que desinstalar, y el historial se pierde salvo que haya copia de seguridad de
   Android.

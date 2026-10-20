@@ -307,3 +307,11 @@
   - en Obtainium, quitar la app y volver a añadirla.
 
   En Play no afecta, porque la primera subida sigue pendiente. El esquema `souschef://` se queda igual.
+- **Sin aviso de versión nueva** (ADR-0011, sustituye a ADR-0009). Se quitan el comprobador, el trabajo diario y la
+  notificación «Actualizaciones». El manifest pierde `INTERNET`, `ACCESS_NETWORK_STATE` y los `<queries>` de
+  Obtainium, así que la app queda **sin red**. Las versiones nuevas las avisa Obtainium, que sigue las Releases de
+  GitHub, o Play. `docs/privacidad.md` y `docs/play.md` cambian en consecuencia.
+- **Contacto** para usuarios (en el pie de Ajustes, en Play y en la política de privacidad):
+  - desarrollador «Trombonet12© and Co. Interactive Systems Solutions»;
+  - correo trombonet12@trombonet12.es;
+  - web https://www.trombonet12.es/.

@@ -1,6 +1,6 @@
 # Política de privacidad de Sous Chef
 
-> Propósito: política de privacidad pública de la app (enlazada desde Google Play) · Audiencia: usuarios de la app · Actualizado: 2026-10-18
+> Propósito: política de privacidad pública de la app (enlazada desde Google Play) · Audiencia: usuarios de la app · Actualizado: 2026-10-20
 
 ## Resumen
 Sous Chef no recoge, no envía y no comparte datos personales. Todo lo que guardas se queda en tu móvil.
@@ -17,11 +17,10 @@ Sous Chef no recoge, no envía y no comparte datos personales. Todo lo que guard
   pantalla. El reconocimiento lo hace el sistema; la app no graba ni guarda audio ni transcripciones.
 - **Notificaciones, alarmas exactas y pantalla completa:** sirven para avisarte de cada paso de la receta a su hora,
   también con el móvil bloqueado.
-- **Internet:** solo lo usa la versión que no viene de Google Play, para consultar en la página pública de releases de
-  GitHub si hay una versión nueva. No se envía ningún dato tuyo.
+- **Internet:** la app no lo pide ni lo usa. Funciona entera sin conexión.
 
 ## Terceros
 Sin publicidad, sin analítica, sin cuentas y sin servidores propios.
 
 ## Contacto
-trombonet12@gmail.com
+Trombonet12© and Co. Interactive Systems Solutions · trombonet12@trombonet12.es · https://www.trombonet12.es/
