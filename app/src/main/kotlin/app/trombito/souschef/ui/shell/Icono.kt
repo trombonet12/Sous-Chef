@@ -76,6 +76,103 @@ enum class Icono(
 
     /** Círculo medio relleno: apariencia (claro/oscuro). */
     Apariencia("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "F:M12 3a9 9 0 0 1 0 18z"),
+
+    /** Tenedor y espagueti: categoría de pasta. */
+    Pasta(
+        "M6 3v5a2 2 0 0 0 4 0V3",
+        "M8 3v5",
+        "M8 10v11",
+        "M14 7c1-1.5 2-1.5 3 0s2 1.5 3 0",
+        "M14 12c1-1.5 2-1.5 3 0s2 1.5 3 0",
+        "M14 17c1-1.5 2-1.5 3 0s2 1.5 3 0",
+    ),
+
+    /** Cuenco con granos: categoría de arroz. */
+    Arroz(
+        "M4 11h16a8 8 0 0 1-16 0z",
+        "F:M8 8a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+        "F:M12 7a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+        "F:M16 8a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+    ),
+
+    /** Patata con sus ojos: categoría de patata. */
+    Patata(
+        "M5 14c0-5 4-9 9-9 3 0 5 2 5 5 0 5-4 9-9 9-3 0-5-2-5-5z",
+        "M10 11h.01",
+        "M14 15h.01",
+        "M15 9h.01",
+    ),
+
+    /** Pez de perfil: categoría de pescado. */
+    Pescado(
+        "M3 12c2.5-4 6-5.5 10-5c2 .3 4 2 5 5c-1 3-3 4.7-5 5c-4 .5-7.5-1-10-5z",
+        "M18 12l3.5-3.5v7z",
+        "M8 11h.01",
+    ),
+
+    /** Hoja con nervio: categoría de verdura. */
+    Verdura("M5 19c0-9 5-14 15-15c0 10-5 15-15 15z", "M4 20L13 11"),
+
+    /** Porción de pizza con rodajas: categoría de masas. */
+    Masas(
+        "M12 21L4 6c5-3 11-3 16 0z",
+        "F:M10 11a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+        "F:M14 12a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+        "F:M12 16a1 1 0 1 0 0-2a1 1 0 0 0 0 2z",
+    ),
+
+    /** Sartén con mango y trozos en el aire: categoría de salteado. */
+    Salteado(
+        "M3 11h14v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z",
+        "M17 12h5",
+        "M8 8V6",
+        "M12 8V4",
+    ),
+
+    /** Plato visto desde arriba: categoría genérica u otra. */
+    Plato("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "M12 17a5 5 0 1 0 0-10a5 5 0 0 0 0 10z"),
+
+    /** Destellos: categoría de acabado. */
+    Acabado(
+        "M10 4l1.8 5.2L17 11l-5.2 1.8L10 18l-1.8-5.2L3 11l5.2-1.8z",
+        "M18 3v4",
+        "M16 5h4",
+        "M19 15v4",
+        "M17 17h4",
+    ),
+
+    /** Olla con tapa: categoría de base. */
+    Base("M4 9h16v8a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z", "M5 6h14", "M12 6V4"),
+
+    /** Olla con vapor: categoría de cocción. */
+    Coccion(
+        "M4 12h16v5a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z",
+        "M8 9c-1-1.5 1-2.5 0-4",
+        "M12 9c-1-1.5 1-2.5 0-4",
+        "M16 9c-1-1.5 1-2.5 0-4",
+    ),
+
+    /** Cuchillo de cocinero: categoría de corte. */
+    Corte("M3 21c0-7 4-12 11-14l3 3c-2 7-7 11-14 11z", "M15.5 8.5L20 4"),
+
+    /** Sartén con burbujas de aceite: categoría de fritura. */
+    Fritura(
+        "M3 13h14v2a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z",
+        "M17 14h5",
+        "M7 9h.01",
+        "M11 6h.01",
+        "M13 10h.01",
+    ),
+
+    /** Cuenco con gotas encima: categoría de marinado. */
+    Marinado(
+        "M4 13h16a8 7 0 0 1-16 0z",
+        "M8 3c1.5 2 2.5 3.5 2.5 5a2.5 2.5 0 0 1-5 0c0-1.5 1-3 2.5-5z",
+        "M16 5c1 1.5 1.75 2.5 1.75 3.5a1.75 1.75 0 0 1-3.5 0c0-1 .75-2 1.75-3.5z",
+    ),
+
+    /** Cazo con mango largo: categoría de salsa. */
+    Salsa("M8 21a5 5 0 1 0 0-10a5 5 0 0 0 0 10z", "M11.5 12.5L21 3"),
     ;
 
     val vector: ImageVector by lazy {
