@@ -93,7 +93,13 @@ mkdirSync(SALIDA, { recursive: true });
 const tmp = mkdtempSync(join(tmpdir(), 'ficha-play-'));
 
 // Icono: el SVG del repo a 512x512, sin esquinas redondeadas (rx=0).
-const icono = ajustarSvg(leerSvg('icono.svg'), { ancho: 512, alto: 512 }).replace(/(<rect [^>]*?) rx="\d+"/, '$1 rx="0"');
+// En Play la mascota llena ~80 % del alto (el SVG la reduce al 75 % para el icono adaptativo de Android).
+const icono = ajustarSvg(leerSvg('icono.svg'), { ancho: 512, alto: 512 })
+  .replace(/(<rect [^>]*?) rx="\d+"/, '$1 rx="0"')
+  .replace(
+    'transform="translate(0 8.4) translate(54 54) scale(0.75) translate(-54 -54)"',
+    'transform="translate(2.2 11.4) translate(54 54) scale(1.12) translate(-54 -54)"',
+  );
 const htmlIcono = `<!doctype html><html><head><meta charset="utf-8"><style>
 html,body{margin:0;padding:0;background:#F6E7C6;overflow:hidden}svg{display:block}
 </style></head><body>${icono}</body></html>`;
