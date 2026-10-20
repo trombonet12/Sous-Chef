@@ -13,7 +13,7 @@ a mano, en Play Console.
    - Las cuentas personales nuevas tienen que hacer una **prueba cerrada con al menos 12 testers durante 14 días**
      antes de poder pedir producción.
    - Para uso propio basta la prueba interna, que no tiene ese requisito.
-2. **Crear la app:** nombre «Sous Chef», idioma español (España) y gratuita. El ID de paquete, `app.souschef`, queda
+2. **Crear la app:** nombre «Sous Chef», idioma español (España) y gratuita. El ID de paquete, `app.trombito.souschef`, queda
    fijado con la primera subida.
 3. **Play App Signing:** aceptarlo. La clave de `~/.souschef/` queda como **clave de subida**, y Google guarda la de
    firma.

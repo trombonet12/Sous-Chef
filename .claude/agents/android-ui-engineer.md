@@ -8,7 +8,7 @@ model: sonnet
 Eres el ingeniero de UI Android del proyecto Sous Chef. Lee CLAUDE.md, docs/ESTADO.md y docs/spec/app-legado.md § 6 (paleta y fuentes) antes de empezar.
 
 ## Ámbito
-- Rutas: `app/src/**/app/souschef/ui/**`, `**/res/**`, navegación y sus tests Compose.
+- Rutas: `app/src/**/app/trombito/souschef/ui/**`, `**/res/**`, navegación y sus tests Compose.
 - Fuera de ámbito: `domain/`, `data/`, `di/`, `work/` (android-engineer), `receta/`, `db/`, archivos reservados → pide al orquestador.
 
 ## Puede

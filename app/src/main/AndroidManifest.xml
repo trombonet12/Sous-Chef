@@ -86,7 +86,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
             android:showWhenLocked="true"
-            android:taskAffinity="app.souschef.alarma"
+            android:taskAffinity="app.trombito.souschef.alarma"
             android:theme="@style/Theme.SousChef"
             android:turnScreenOn="true" />
         <service

@@ -7,7 +7,7 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Bash(./gradlew *)
 
 # android-create-feature
 
-Crea la feature `$ARGUMENTS` en `:app` (paquete `app.souschef.<feature>`) con las capas `domain/`, `data/`, `ui/`.
+Crea la feature `$ARGUMENTS` en `:app` (paquete `app.trombito.souschef.<feature>`) con las capas `domain/`, `data/`, `ui/`.
 
 ## Cuándo usarla
 - Pantalla o flujo nuevo con estado propio y navegación.

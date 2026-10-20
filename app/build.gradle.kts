@@ -41,11 +41,11 @@ fun versionProp(key: String): String =
         ?: error("version.properties: falta la clave '$key'")
 
 android {
-    namespace = "app.souschef"
+    namespace = "app.trombito.souschef"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "app.souschef"
+        applicationId = "app.trombito.souschef"
         minSdk = 26
         targetSdk = 36
         versionCode = versionProp("versionCode").toInt()

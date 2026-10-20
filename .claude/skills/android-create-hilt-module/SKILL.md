@@ -22,7 +22,7 @@ Crea un módulo Hilt que enlaza interfaces de dominio con implementaciones de da
 - Decidir el scope: `SingletonComponent` (Room, clientes, estado compartido), `ViewModelComponent` (por ViewModel).
 
 ## Pasos
-1. Crear `data/di/<Nombre>Module.kt` (paquete `app.souschef.<capa>.di`); nunca en `domain/`.
+1. Crear `data/di/<Nombre>Module.kt` (paquete `app.trombito.souschef.<capa>.di`); nunca en `domain/`.
 2. Interfaz con implementación propia: `@Module @InstallIn(<Componente>::class) abstract class` con `@Binds`; la impl lleva `@Inject constructor`.
 3. Objetos sin `@Inject` (builders, librerías): `@Module @InstallIn(...) object` con `@Provides`. No mezclar `@Binds` y `@Provides` en la misma clase abstracta.
 4. `@Singleton` solo con estado compartido o construcción cara; el resto sin scope.

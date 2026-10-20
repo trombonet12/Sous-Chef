@@ -294,3 +294,16 @@
   - Historial: copia.
 
   Al pie, la versión.
+
+## 2026-10-20 · Ronda 12 → v1.3.0 (paquete, listas coherentes, sin aviso de versión)
+- **Id de paquete `app.trombito.souschef`** (antes `app.souschef`; debug, `app.trombito.souschef.dev`). Todas las apps
+  de Joan empezarán por `app.trombito.`. Cambian a la vez el `applicationId`, el `namespace` y el paquete del código
+  de `:app`, `:receta` y `:tools`, y también la carpeta de esquemas de Room.
+
+  Para Android es **otra app**:
+  - antes de instalarla, guardar una copia del historial en la vieja (Ajustes → Historial);
+  - instalar la nueva, cargar la copia y desinstalar la vieja. El formato de la copia no guarda nombres de clase,
+    así que sirve;
+  - en Obtainium, quitar la app y volver a añadirla.
+
+  En Play no afecta, porque la primera subida sigue pendiente. El esquema `souschef://` se queda igual.

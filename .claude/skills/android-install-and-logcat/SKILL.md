@@ -21,7 +21,7 @@ Instala el APK debug en el emulador (o dispositivo), lo arranca, captura logcat 
 - SDK en `%LOCALAPPDATA%\Android\Sdk` (Git Bash: `$LOCALAPPDATA/Android/Sdk`); `platform-tools` y `emulator` en el `PATH` o llamados por ruta completa.
 - AVD disponible: `trombito-36` (`emulator -list-avds`). Si hay varios dispositivos, `-s <serial>` en cada comando.
 - APK en `app/build/outputs/apk/debug/*.apk`; si falta o es antiguo, `./gradlew assembleDebug`.
-- `<paquete>` = `applicationId` de `app/build.gradle.kts` (esperado `app.souschef`, con posible sufijo en debug). No asumirlo.
+- `<paquete>` = `applicationId` de `app/build.gradle.kts` (esperado `app.trombito.souschef`, con posible sufijo en debug). No asumirlo.
 
 ## Pasos
 1. Emulador: `adb devices`; si no hay ninguno, `emulator -avd trombito-36 -no-snapshot-save &` y esperar con `adb wait-for-device` y `adb shell getprop sys.boot_completed` = `1`.

@@ -28,7 +28,7 @@ Ejecuta los tests de `$ARGUMENTS` (por defecto `all`), lee los reportes y resume
 
 | Valor | Comando | Notas |
 |-------|---------|-------|
-| `app` | `./gradlew :app:testDebugUnitTest` | Un caso: `--tests "app.souschef.<Clase>"` |
+| `app` | `./gradlew :app:testDebugUnitTest` | Un caso: `--tests "app.trombito.souschef.<Clase>"` |
 | `receta` | `./gradlew :receta:test` | Un caso: `--tests "<Clase>"` |
 | `all` | `./gradlew :receta:test :tools:test testDebugUnitTest` | Gate completo en `android-static-analysis` |
 

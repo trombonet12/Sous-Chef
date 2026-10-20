@@ -1,0 +1,15 @@
+package app.trombito.souschef.ui.shell
+
+import androidx.annotation.StringRes
+import app.trombito.souschef.R
+
+/** Pestañas de la barra inferior (decisión del usuario: tres; el resto en el menú). */
+enum class Pestana(
+    val ruta: String,
+    @param:StringRes val titulo: Int,
+    val icono: Icono,
+) {
+    Recetas("recetas", R.string.tab_recetas, Icono.Libro),
+    Tecnicas("tecnicas", R.string.tab_tecnicas, Icono.Libreta),
+    Historial("historial", R.string.tab_historial, Icono.Reloj),
+}

@@ -22,7 +22,7 @@ java {
 }
 
 application {
-    mainClass.set("app.souschef.tools.MainKt")
+    mainClass.set("app.trombito.souschef.tools.MainKt")
     applicationName = "tools"
 }
 
