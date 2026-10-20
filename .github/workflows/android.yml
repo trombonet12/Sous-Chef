@@ -171,7 +171,15 @@ jobs:
           mkdir -p dist
           cp "$apk" "dist/sous-chef-${VERSION}.apk"
           cp "$aab" "dist/sous-chef-${VERSION}.aab"
-          (cd dist && sha256sum "sous-chef-${VERSION}.apk" "sous-chef-${VERSION}.aab" > checksums.txt)
+          # Simbolos nativos para Play: carpetas de ABI en la raiz del zip (<abi>/<lib>.so), tal como salen de base/lib del AAB.
+          symdir="$(mktemp -d)"
+          if unzip -q "$aab" 'base/lib/*' -d "$symdir" 2>/dev/null && [ -d "$symdir/base/lib" ]; then
+            (cd "$symdir/base/lib" && zip -qr "$GITHUB_WORKSPACE/dist/native-debug-symbols-${VERSION}.zip" .)
+          else
+            echo "::notice::El AAB no tiene base/lib (sin codigo nativo): no se genera native-debug-symbols."
+          fi
+          rm -rf "$symdir"
+          (cd dist && files=("sous-chef-${VERSION}.apk" "sous-chef-${VERSION}.aab")             && { [ ! -f "native-debug-symbols-${VERSION}.zip" ] || files+=("native-debug-symbols-${VERSION}.zip"); }             && sha256sum "${files[@]}" > checksums.txt)
 
       - name: Crear GitHub Release
         if: steps.ver.outputs.publicar == 'true'
@@ -179,8 +187,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.ver.outputs.version }}
         run: |
+          assets=("dist/sous-chef-${VERSION}.apk" "dist/sous-chef-${VERSION}.aab" dist/checksums.txt)
+          if [ -f "dist/native-debug-symbols-${VERSION}.zip" ]; then
+            assets+=("dist/native-debug-symbols-${VERSION}.zip")
+          fi
           gh release create "v${VERSION}" \
-            "dist/sous-chef-${VERSION}.apk" "dist/sous-chef-${VERSION}.aab" dist/checksums.txt \
+            "${assets[@]}" \
             --target "$GITHUB_SHA" \
             --title "Sous Chef ${VERSION}" \
             --generate-notes
@@ -192,6 +204,7 @@ jobs:
           name: play-${{ steps.ver.outputs.version }}
           path: |
             dist/sous-chef-${{ steps.ver.outputs.version }}.aab
+            dist/native-debug-symbols-*.zip
             distribution/whatsnew/
           if-no-files-found: error
           retention-days: 7
@@ -235,6 +248,19 @@ jobs:
           name: play-${{ needs.release.outputs.version }}
           path: play
 
+      - name: Localizar simbolos nativos
+        id: sym
+        if: steps.play.outputs.subir == 'true'
+        env:
+          ZIP: play/dist/native-debug-symbols-${{ needs.release.outputs.version }}.zip
+        run: |
+          if [ -f "$ZIP" ]; then
+            echo "existe=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Sin native-debug-symbols en el artifact: se sube solo el AAB."
+            echo "existe=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Subir el AAB
         if: steps.play.outputs.subir == 'true'
         uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
@@ -246,3 +272,5 @@ jobs:
           status: ${{ steps.play.outputs.estado }}
           # El mapping de R8 va dentro del AAB: https://developer.android.com/topic/performance/app-optimization/test-and-troubleshoot-the-optimization
           whatsNewDirectory: play/distribution/whatsnew
+          # Los .so de AndroidX vienen stripped: se sube la tabla de simbolos exportados para que Play no avise.
+          debugSymbols: ${{ steps.sym.outputs.existe == 'true' && format('play/dist/native-debug-symbols-{0}.zip', needs.release.outputs.version) || '' }}
