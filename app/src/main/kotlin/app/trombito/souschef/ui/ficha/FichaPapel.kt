@@ -1,123 +1,38 @@
-@file:Suppress("TooManyFunctions") // una función por sección de la ficha
-
 package app.trombito.souschef.ui.ficha
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ChipColors
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.SelectableChipColors
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
-import app.trombito.souschef.receta.BloqueMep
-import app.trombito.souschef.receta.Escalado
-import app.trombito.souschef.receta.Ingrediente
-import app.trombito.souschef.receta.Paso
-import app.trombito.souschef.receta.Receta
-import app.trombito.souschef.ui.comun.CeldaDato
-import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.PasosMasMenos
-import app.trombito.souschef.ui.comun.SeccionPapel
-import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.comun.nivel
-import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.FichaPalette
 
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun PortadaFicha(
-    receta: Receta,
-    raciones: Int,
-) {
-    Column(Modifier.padding(top = 4.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(receta.titulo, style = MaterialTheme.typography.headlineSmall)
-        if (receta.descripcion.isNotBlank()) {
-            Text(
-                receta.descripcion,
-                style = MaterialTheme.typography.bodyMedium,
-                fontStyle = FontStyle.Italic,
-                color = FichaPalette.tinta2,
-            )
-        }
-        FlowRow(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            CeldaDato(raciones.toString(), pluralStringResource(R.plurals.ficha_unidad_racion, raciones))
-            receta.datos.filter { it.isNotEmpty() }.forEach { CeldaDato(it[0], it.getOrElse(1) { "" }) }
-        }
-    }
-}
-
-@Composable
-fun IngredientesFicha(
-    receta: Receta,
-    estado: FichaUiState,
-    onRaciones: (Int) -> Unit,
-) {
-    if (receta.grupos.isEmpty()) return
-    val raciones = estado.raciones
-    val permitidas = estado.racionesPermitidas
-    SeccionPapel(stringResource(R.string.ficha_sec_ingredientes)) {
-        if (permitidas.size > 1) {
-            val i = permitidas.indexOf(raciones)
-            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                Text(
-                    stringResource(R.string.ficha_raciones_etiqueta).uppercase(),
-                    Modifier.weight(1f),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = FichaPalette.meta,
-                )
-                PasosMasMenos(
-                    valor = stringResource(R.string.ficha_raciones_valor, raciones),
-                    descMenos = stringResource(R.string.ficha_raciones_menos),
-                    descMas = stringResource(R.string.ficha_raciones_mas),
-                    onMenos = { permitidas.getOrNull(i - 1)?.let(onRaciones) },
-                    onMas = { permitidas.getOrNull(i + 1)?.let(onRaciones) },
-                )
-            }
-        }
-        val f = Escalado.factor(raciones, receta.raciones)
-        var porZona by rememberSaveable(receta.slug) { mutableStateOf(false) }
-        SelectorIngredientes(porZona) { porZona = it }
-        if (porZona) {
-            receta.grupos.forEach { g ->
-                Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 8.dp))
-                g.items.forEach { FilaIngrediente(it, f) }
-            }
-        } else {
-            Escalado.listaGeneral(receta).forEach { FilaIngrediente(it, f) }
-        }
-        receta.notaEscala?.takeIf { it.isNotBlank() }?.let {
-            Text(
-                it,
-                style = MaterialTheme.typography.bodySmall,
-                fontStyle = FontStyle.Italic,
-                color = FichaPalette.meta,
-            )
-        }
-        if (estado.fueraDeBase) NotaFicha(stringResource(R.string.ficha_aviso_fuera_de_base, receta.raciones))
-        if (estado.ajustadoAlRango && permitidas.isNotEmpty()) {
-            NotaFicha(stringResource(R.string.ficha_aviso_rango, permitidas.first(), permitidas.last()))
-        }
-    }
-}
+// Piezas comunes de las pestañas de la ficha, siempre en papel (también con el tema oscuro del sistema).
 
 /** Aviso discreto en papel: una línea pequeña y apagada. */
 @Composable
@@ -130,144 +45,92 @@ fun NotaFicha(texto: String) {
     )
 }
 
+/** Etiqueta pequeña de solo lectura sobre papel (minuto de entrada, fuego, tapa). */
 @Composable
-private fun SelectorIngredientes(
-    porZona: Boolean,
-    onPorZona: (Boolean) -> Unit,
+fun ChipPapel(
+    texto: String,
+    modifier: Modifier = Modifier,
 ) {
-    val colores =
-        SegmentedButtonDefaults.colors(
-            activeContainerColor = FichaPalette.papel2,
-            activeContentColor = FichaPalette.tinta,
-            activeBorderColor = FichaPalette.tinta3,
-            inactiveContainerColor = FichaPalette.papel,
-            inactiveContentColor = FichaPalette.tinta2,
-            inactiveBorderColor = FichaPalette.tinta3,
-        )
-    val opciones = listOf(R.string.ficha_ing_todo_junto, R.string.ficha_ing_por_zona)
-    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(top = 8.dp)) {
-        opciones.forEachIndexed { i, texto ->
-            SegmentedButton(
-                selected = porZona == (i == 1),
-                onClick = { onPorZona(i == 1) },
-                shape = SegmentedButtonDefaults.itemShape(i, opciones.size),
-                colors = colores,
-            ) { Text(stringResource(texto)) }
-        }
-    }
-}
-
-@Composable
-private fun FilaIngrediente(
-    item: Ingrediente,
-    f: Double,
-) {
-    Row(Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.extraSmall,
+        color = FichaPalette.papel2,
+        contentColor = FichaPalette.tinta2,
+        border = BorderStroke(1.dp, FichaPalette.linea),
+    ) {
         Text(
-            Escalado.cantidad(item, f),
-            Modifier.width(84.dp).padding(end = 12.dp),
-            style = MaterialTheme.typography.bodyMedium.merge(Tabular),
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.End,
+            texto,
+            Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+            style = MaterialTheme.typography.labelMedium,
         )
-        Text(item.n, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
     }
 }
 
+/** Colores de los chips que se tocan (filtros, notas) sobre papel. */
 @Composable
-fun MepFicha(receta: Receta) {
-    if (receta.mep.isEmpty()) return
-    SeccionPapel(stringResource(R.string.ficha_sec_mep)) {
-        receta.mep.forEach { BloqueMepVista(it) }
-    }
-}
+fun coloresAsistentePapel(): ChipColors =
+    AssistChipDefaults.assistChipColors(
+        containerColor = FichaPalette.papel,
+        labelColor = FichaPalette.tinta,
+        leadingIconContentColor = FichaPalette.tinta2,
+    )
 
 @Composable
-private fun BloqueMepVista(bloque: BloqueMep) {
-    Column(Modifier.padding(bottom = 6.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-        Text(bloque.t, style = MaterialTheme.typography.titleSmall)
-        bloque.porq?.takeIf { it.isNotBlank() }?.let {
-            Text(it, style = MaterialTheme.typography.bodySmall, color = FichaPalette.tinta2)
-        }
-        bloque.l.forEachIndexed { i, linea ->
-            val marca = if (bloque.orden) "${i + 1}. " else "• "
-            Row {
-                Text(marca, Modifier.width(28.dp), style = MaterialTheme.typography.bodyMedium.merge(Tabular))
-                Text(textoRico(linea), Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
-            }
-        }
-    }
-}
+fun bordeAsistentePapel() = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = FichaPalette.tinta3)
 
 @Composable
-fun PasosFicha(receta: Receta) {
-    if (receta.pasos.isEmpty()) return
-    SeccionPapel(stringResource(R.string.ficha_sec_pasos)) {
-        receta.pasos.forEachIndexed { i, paso -> PasoVista(i + 1, paso, receta) }
-    }
-}
+fun coloresFiltroPapel(): SelectableChipColors =
+    FilterChipDefaults.filterChipColors(
+        containerColor = FichaPalette.papel,
+        labelColor = FichaPalette.tinta,
+        selectedContainerColor = FichaPalette.papel2,
+        selectedLabelColor = FichaPalette.tinta,
+    )
 
 @Composable
-private fun PasoVista(
-    numero: Int,
-    paso: Paso,
-    receta: Receta,
+fun bordeFiltroPapel(seleccionado: Boolean) =
+    FilterChipDefaults.filterChipBorder(
+        enabled = true,
+        selected = seleccionado,
+        borderColor = FichaPalette.linea,
+        selectedBorderColor = FichaPalette.tinta3,
+    )
+
+/**
+ * Bloque plegable: el título (con un [extra] opcional a la derecha) siempre se ve y el contenido sale al tocar.
+ * Lo plegado se recuerda al girar la pantalla y al cambiar de pestaña.
+ */
+@Composable
+fun PlegableFicha(
+    titulo: String,
+    modifier: Modifier = Modifier,
+    abiertoInicial: Boolean = false,
+    extra: String? = null,
+    contenido: @Composable ColumnScope.() -> Unit,
 ) {
-    Row(Modifier.padding(bottom = 10.dp)) {
-        Text(
-            "$numero.",
-            Modifier.width(32.dp),
-            style = MaterialTheme.typography.titleSmall.merge(Tabular),
-        )
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(paso.t, style = MaterialTheme.typography.titleSmall)
-            Text(
-                lineaMetaPaso(paso, receta),
-                style = MaterialTheme.typography.labelMedium,
-                color = FichaPalette.meta,
+    var abierto by rememberSaveable { mutableStateOf(abiertoInicial) }
+    val estado = stringResource(if (abierto) R.string.ficha_desplegado else R.string.ficha_plegado)
+    Column(modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .heightIn(min = 48.dp)
+                .clickable { abierto = !abierto }
+                .semantics { stateDescription = estado },
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(titulo, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
+            if (extra != null) {
+                Text(extra, style = MaterialTheme.typography.labelMedium, color = FichaPalette.meta)
+            }
+            Icon(
+                Icono.Chevron.vector,
+                contentDescription = null,
+                modifier = Modifier.padding(start = 4.dp).rotate(if (abierto) GIRO_ABIERTO else 0f),
             )
-            (paso.p ?: paso.nota)?.takeIf { it.isNotBlank() }?.let {
-                Text(textoRico(it), style = MaterialTheme.typography.bodyMedium)
-            }
-            paso.hitosValidos.forEach { h ->
-                Text(
-                    "${formatoHito(h.en)} ${h.t}",
-                    style = MaterialTheme.typography.bodySmall.merge(Tabular),
-                    color = FichaPalette.tinta2,
-                )
-            }
         }
+        if (abierto) contenido()
     }
 }
 
-/** "SARTÉN · 12 MIN · FUEGO 8 · SIN TAPA". */
-@Composable
-fun lineaMetaPaso(
-    paso: Paso,
-    receta: Receta,
-): String {
-    val cocina = LocalCocina.current
-    val partes =
-        buildList {
-            add((receta.carril(paso.carril)?.nombre ?: paso.carril).uppercase())
-            add(stringResource(R.string.ficha_minutos_meta, Escalado.minutos(paso.min)).uppercase())
-            add(
-                paso.f?.let { stringResource(R.string.ficha_fuego_meta, cocina.nivel(it).uppercase()) }
-                    ?: stringResource(R.string.ficha_sin_fuego),
-            )
-            paso.tapa?.takeIf { it.isNotBlank() }?.let { add(it.uppercase()) }
-        }
-    return partes.joinToString(" · ")
-}
-
-@Composable
-fun TecnicaFicha(receta: Receta) {
-    if (receta.cortes.isEmpty() && receta.porque.isEmpty()) return
-    SeccionPapel(stringResource(R.string.ficha_sec_tecnica)) {
-        receta.cortes.forEach { CorteVista(it) }
-        receta.porque.filter { it.isNotEmpty() }.forEach { par ->
-            Text(par[0], style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 4.dp))
-            par.getOrNull(1)?.let { Text(textoRico(it), style = MaterialTheme.typography.bodyMedium) }
-        }
-    }
-}
+internal const val GIRO_ABIERTO = 90f

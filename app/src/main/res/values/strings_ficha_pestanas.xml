@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ficha_tab_resumen">Resumen</string>
+    <string name="ficha_tab_ingredientes">Ingredientes</string>
+    <string name="ficha_tab_preparacion">Preparación</string>
+    <string name="ficha_tab_pasos">Pasos</string>
+    <string name="ficha_tab_porque">¿Por qué?</string>
+    <string name="ficha_tab_vacia">Esta receta no tiene nada en este apartado.</string>
+
+    <string name="ficha_plegado">Plegado</string>
+    <string name="ficha_desplegado">Desplegado</string>
+
+    <string name="ficha_diagrama_ver">Ver diagrama completo</string>
+    <string name="ficha_diagrama_titulo">Diagrama de tiempos</string>
+    <string name="ficha_diagrama_cerrar">Cerrar el diagrama</string>
+    <string name="ficha_carril_resumen">%1$s, de %2$s a %3$s minutos</string>
+    <string name="ficha_reparte">Cómo se reparte el tiempo</string>
+
+    <string name="ficha_nota_escala_chip">Sobre las cantidades</string>
+
+    <plurals name="ficha_prep_cosas">
+        <item quantity="one">%d cosa</item>
+        <item quantity="many">%d cosas</item>
+        <item quantity="other">%d cosas</item>
+    </plurals>
+    <string name="ficha_prep_minuto">min %1$d</string>
+    <string name="ficha_prep_ver_detalle">Ver el detalle</string>
+    <string name="ficha_prep_porque">Por qué se hace así</string>
+
+    <string name="ficha_filtro_todos">Todos</string>
+    <string name="ficha_paso_abrir">Ver el paso completo</string>
+    <string name="ficha_paso_entra">Entra: %1$s</string>
+    <string name="ficha_paso_sale">Sale: %1$s</string>
+    <string name="ficha_paso_hitos">Hitos</string>
+</resources>

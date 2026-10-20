@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
@@ -37,7 +36,6 @@ import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.colorCarril
 import app.trombito.souschef.ui.comun.nivel
@@ -66,18 +64,6 @@ val PaletaPapel =
         ahora = FichaPalette.tinta,
         colorDe = { colorCarril(it?.color ?: "") },
     )
-
-/** "El tiempo": eje, una fila por paso con su barra sobre el carril, leyenda y lectura. */
-@Composable
-fun TiempoFicha(receta: Receta) {
-    if (receta.totalEfectivo <= 0 || receta.pasos.isEmpty()) return
-    SeccionPapel(stringResource(R.string.ficha_sec_tiempo)) {
-        DiagramaTiempos(receta, PaletaPapel)
-        receta.lectura?.takeIf { it.isNotBlank() }?.let {
-            Text(it, style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic)
-        }
-    }
-}
 
 /**
  * Eje, una fila por paso con su barra sobre el carril y leyenda. Con [ahoraMin] (minuto del plan, 0..total) pinta una
@@ -109,17 +95,18 @@ fun DiagramaTiempos(
 }
 
 @Composable
-private fun EjeTiempos(
+internal fun EjeTiempos(
     marcas: List<Double>,
     total: Double,
     paleta: PaletaDiagrama,
+    modifier: Modifier = Modifier,
 ) {
     val medidor = rememberTextMeasurer()
     val estilo =
         MaterialTheme.typography.labelSmall
             .merge(Tabular)
             .copy(color = paleta.meta)
-    Canvas(Modifier.fillMaxWidth().height(16.dp).clearAndSetSemantics {}) {
+    Canvas(modifier.fillMaxWidth().height(16.dp).clearAndSetSemantics {}) {
         marcas.forEach { m ->
             val texto = medidor.measure(Escalado.minutos(m), estilo)
             val x = (m / total * size.width).toFloat() - texto.size.width / 2f

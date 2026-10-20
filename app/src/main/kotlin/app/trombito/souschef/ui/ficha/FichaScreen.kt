@@ -12,10 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -27,8 +24,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,14 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
-import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
-import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.PasosMasMenos
-import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.FichaPalette
 
@@ -58,7 +54,6 @@ fun FichaScreen(
     viewModel: FichaViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
-    val receta = estado.receta
     // Con la cocinada viva, salir de la ficha es abandonarla (con confirmación); ir a una técnica no.
     var confirmarSalida by remember { mutableStateOf(false) }
     val salir = { if (estado.cocinando != null) confirmarSalida = true else onAtras() }
@@ -73,12 +68,21 @@ fun FichaScreen(
             onNo = { confirmarSalida = false },
         )
     }
+    val acciones =
+        AccionesFicha(
+            onAtras = salir,
+            onTecnica = onTecnica,
+            onCocinar = onCocinar,
+            onRaciones = viewModel::cambiarRaciones,
+            onServir = viewModel::ajustarServir,
+            onFavorita = viewModel::alternarFavorita,
+        )
     when {
         estado.cargando -> {
             Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator() }
         }
 
-        receta == null -> {
+        estado.receta == null -> {
             Column {
                 BarraTitulo("", onAtras)
                 EstadoVacio(stringResource(R.string.ficha_no_encontrada), null)
@@ -86,20 +90,34 @@ fun FichaScreen(
         }
 
         else -> {
-            CompositionLocalProvider(LocalCocina provides estado.cocina) {
-                Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-                    BarraFicha(estado, viewModel, salir, onCocinar)
-                    estado.cocinando?.let { BandaCocinando(it) }
-                    EnlacesTecnicas(estado.tecnicas, onTecnica)
-                    Surface(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-                        shape = MaterialTheme.shapes.medium,
-                        color = FichaPalette.papel,
-                        contentColor = FichaPalette.tinta,
-                    ) {
-                        HojaPapel(receta, estado, viewModel)
-                    }
-                }
+            FichaContenido(estado, acciones)
+        }
+    }
+}
+
+/**
+ * La ficha en capas: cabecera fija (título, raciones, hora, cronómetro) y cinco pestañas con su propio scroll. Es
+ * estado y callbacks, sin ViewModel, para poder probarla.
+ */
+@Composable
+fun FichaContenido(
+    estado: FichaUiState,
+    acciones: AccionesFicha,
+) {
+    val receta = estado.receta ?: return
+    var elegida by rememberSaveable { mutableIntStateOf(0) }
+    CompositionLocalProvider(LocalCocina provides estado.cocina) {
+        Column(Modifier.fillMaxSize()) {
+            CabeceraFicha(estado, receta, acciones)
+            BarraPestanas(PestanaFicha.entries[elegida]) { elegida = it.ordinal }
+            // La hoja es papel siempre, también con el tema oscuro del sistema.
+            Surface(
+                modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = 12.dp, vertical = 8.dp),
+                shape = MaterialTheme.shapes.medium,
+                color = FichaPalette.papel,
+                contentColor = FichaPalette.tinta,
+            ) {
+                ContenidoPestana(PestanaFicha.entries[elegida], receta, estado, acciones.onTecnica)
             }
         }
     }
@@ -134,140 +152,107 @@ private fun DialogoAbandonarDesdeFicha(
     )
 }
 
+/** Lo que no se mueve al leer: título, favorita, imprimir, raciones, hora, cronómetro y la banda «Cocinando». */
 @Composable
-private fun BarraFicha(
+private fun CabeceraFicha(
     estado: FichaUiState,
-    viewModel: FichaViewModel,
-    onAtras: () -> Unit,
-    onCocinar: (Int, String) -> Unit,
+    receta: Receta,
+    acciones: AccionesFicha,
 ) {
     Column {
         val contexto = LocalContext.current
-        val nombrePdf = stringResource(R.string.ficha_pdf_nombre, estado.receta?.titulo.orEmpty())
-        BarraTitulo(estado.receta?.titulo.orEmpty(), onAtras) {
-            val receta = estado.receta
-            if (receta != null) {
-                IconButton(
-                    onClick = {
-                        imprimirFicha(
-                            contexto,
-                            nombrePdf,
-                            fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
-                        )
-                    },
-                ) {
-                    Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
-                }
+        val nombrePdf = stringResource(R.string.ficha_pdf_nombre, receta.titulo)
+        BarraTitulo(receta.titulo, acciones.onAtras) {
+            IconButton(onClick = acciones.onFavorita) {
+                val nombre =
+                    stringResource(
+                        if (estado.favorita) R.string.favorita_quitar else R.string.favorita_marcar,
+                        receta.titulo,
+                    )
+                val esquema = MaterialTheme.colorScheme
+                Icon(
+                    if (estado.favorita) Icono.EstrellaLlena.vector else Icono.Estrella.vector,
+                    contentDescription = nombre,
+                    tint = if (estado.favorita) esquema.primary else esquema.onSurfaceVariant,
+                )
+            }
+            IconButton(
+                onClick = {
+                    imprimirFicha(
+                        contexto,
+                        nombrePdf,
+                        fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
+                    )
+                },
+            ) {
+                Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
             }
         }
-        FilaServir(estado, viewModel, onCocinar)
+        FilaControles(estado, receta, acciones)
+        BotonCocinar(estado, acciones)
+        estado.cocinando?.let { BandaCocinando(it) }
     }
 }
 
-/** Hora de servir con su −/+, la hora de empezar y el botón del cronómetro (o «Volver a la cocina»). */
+/** «Raciones ± · Servir ± · Empieza HH:mm»; las raciones solo si la receta admite más de un valor. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun FilaServir(
+private fun FilaControles(
     estado: FichaUiState,
-    viewModel: FichaViewModel,
-    onCocinar: (Int, String) -> Unit,
+    receta: Receta,
+    acciones: AccionesFicha,
 ) {
-    Row(
+    FlowRow(
         Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
+        val permitidas = estado.racionesPermitidas
+        if (permitidas.size > 1) {
+            val i = permitidas.indexOf(estado.raciones)
+            Column {
+                Text(stringResource(R.string.ficha_raciones_etiqueta), style = MaterialTheme.typography.labelMedium)
+                PasosMasMenos(
+                    valor = estado.raciones.toString(),
+                    descMenos = stringResource(R.string.ficha_raciones_menos),
+                    descMas = stringResource(R.string.ficha_raciones_mas),
+                    onMenos = { permitidas.getOrNull(i - 1)?.let(acciones.onRaciones) },
+                    onMas = { permitidas.getOrNull(i + 1)?.let(acciones.onRaciones) },
+                )
+            }
+        }
         Column {
             Text(stringResource(R.string.ficha_servir_a), style = MaterialTheme.typography.labelMedium)
             PasosMasMenos(
                 valor = Servir.formato(estado.servirMin),
                 descMenos = stringResource(R.string.ficha_servir_menos),
                 descMas = stringResource(R.string.ficha_servir_mas),
-                onMenos = { viewModel.ajustarServir(-Servir.PASO) },
-                onMas = { viewModel.ajustarServir(Servir.PASO) },
+                onMenos = { acciones.onServir(-Servir.PASO) },
+                onMas = { acciones.onServir(Servir.PASO) },
             )
-            estado.receta?.let { r ->
-                Text(
-                    stringResource(R.string.ficha_empezar_a, Servir.formato(Servir.inicio(estado.servirMin, r))),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
         }
+        Text(
+            stringResource(R.string.ficha_empezar_a, Servir.formato(Servir.inicio(estado.servirMin, receta))),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun BotonCocinar(
+    estado: FichaUiState,
+    acciones: AccionesFicha,
+) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
         Button(
-            onClick = { onCocinar(estado.raciones, Servir.formato(estado.servirMin)) },
-            modifier = Modifier.heightIn(min = 48.dp),
+            onClick = { acciones.onCocinar(estado.raciones, Servir.formato(estado.servirMin)) },
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
         ) {
             Icon(Icono.Crono.vector, contentDescription = null)
             Text(
-                stringResource(
-                    if (estado.cocinando !=
-                        null
-                    ) {
-                        R.string.ficha_volver_cocina
-                    } else {
-                        R.string.ficha_cocinar
-                    },
-                ),
+                stringResource(if (estado.cocinando != null) R.string.ficha_volver_cocina else R.string.ficha_cocinar),
                 Modifier.padding(start = 8.dp),
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun EnlacesTecnicas(
-    tecnicas: List<TecnicaEnlace>,
-    onTecnica: (String) -> Unit,
-) {
-    if (tecnicas.isNotEmpty()) {
-        FlowRow(
-            Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            tecnicas.forEach { t ->
-                AssistChip(
-                    onClick = { onTecnica(t.slug) },
-                    label = { Text(stringResource(R.string.ficha_tecnica, t.titulo)) },
-                )
-            }
-        }
-    }
-}
-
-/** En gas o inducción el calor responde al instante; las explicaciones de inercia de la vitro no se traducen. */
-@Composable
-private fun NotaCocina(cocina: Cocina) {
-    val nombre =
-        when (cocina.tipo) {
-            TipoCocina.GAS -> R.string.ficha_cocina_gas
-            TipoCocina.INDUCCION -> R.string.ficha_cocina_induccion
-            TipoCocina.VITRO -> return
-        }
-    NotaFicha(stringResource(R.string.ficha_nota_cocina, stringResource(nombre)))
-}
-
-/** Hoja de papel: siempre clara, también con el tema oscuro del sistema. */
-@Composable
-private fun HojaPapel(
-    receta: Receta,
-    estado: FichaUiState,
-    viewModel: FichaViewModel,
-) {
-    Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-        PortadaFicha(receta, estado.raciones)
-        IngredientesFicha(receta, estado, viewModel::cambiarRaciones)
-        TiempoFicha(receta)
-        MepFicha(receta)
-        NotaCocina(estado.cocina)
-        PasosFicha(receta)
-        TecnicaFicha(receta)
-        receta.pie?.takeIf { it.isNotBlank() }?.let {
-            Text(
-                it,
-                modifier = Modifier.padding(top = 12.dp),
-                style = MaterialTheme.typography.bodySmall.merge(Tabular),
-                color = FichaPalette.meta,
             )
         }
     }

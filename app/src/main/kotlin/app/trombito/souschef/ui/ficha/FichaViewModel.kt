@@ -78,6 +78,7 @@ class FichaViewModel
                     ajustadoAlRango =
                         receta != null && guardada !in permitidas && a.racionesDefecto !in permitidas,
                     servirMin = l.servirMin ?: a.servirMin,
+                    favorita = pref?.favorito == true,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                 )
@@ -116,6 +117,11 @@ class FichaViewModel
         /** Salir de la ficha con la cocinada viva la abandona; en un scope que sobrevive a la salida. */
         fun abandonarCocinada() {
             ambito.launch { cadena.abandonar(slug) }
+        }
+
+        fun alternarFavorita() {
+            val nueva = !estado.value.favorita
+            viewModelScope.launch { preferencias.fijarFavorito(slug, nueva) }
         }
 
         fun ajustarServir(delta: Int) {

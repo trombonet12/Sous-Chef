@@ -70,12 +70,10 @@ class SelectorCocinaTest {
     }
 
     @Test
-    fun `elegir gas con ruleta sin numeros pone el ejemplo en palabras`() {
+    fun `elegir gas propone ruleta sin numeros y pone el ejemplo en palabras`() {
         val elegidas = ponerConEstado()
 
         banco.pulsar(banco.conEtiqueta("cocina-tipo-GAS"))
-        banco.pulsar(banco.conEtiqueta("cocina-mando-ANALOGICO"))
-        banco.pulsar(banco.conEtiqueta("cocina-sin-numeros"))
 
         assertEquals(Cocina(TipoCocina.GAS, Mando.ANALOGICO, null), elegidas.last())
         assertEquals("Pon la sartén a fuego alto y, cuando humee, baja a fuego medio-alto.", ejemplo())
