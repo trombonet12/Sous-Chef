@@ -12,6 +12,7 @@
 | Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
 | Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 a v1.3.3 |
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
+| Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **en curso** (ver § Ronda 14) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -123,6 +124,28 @@
   - Se genera con `node scripts/video/promo.mjs [--grabar] [--control]`; skill `video-promo`.
   - La ficha de Play está en `distribution/listing/`. El vídeo vertical anterior está en YouTube
     (`ZcVUNMAC-Uc`) y hay que sustituirlo.
+
+## Ronda 14 · en curso (retomar aquí)
+Plan aprobado: `~/.claude/plans/pasted-content-id-acab-vamos-a-nifty-nygaard.md`. Decisiones: `docs/decisiones.md` § Ronda 14,
+ADR-0013 y ADR-0014. Todo en commits locales **sin push** (main va por delante de origin).
+- Hecho y en commit: bunyols (OK de Joan); `Potencia`/`LineaMep`; `{N}` en data (R27); `escala` revisada por el chef-reviewer
+  (R26) y `esc:"fijo"`; Ajustes nuevos; «Tu cocina»; potencia traducida en ficha, PDF, técnicas, crono, voz, alarma y
+  notificaciones; ficha en pestañas; checklist por bloques; guía de la primera cocinada; actualización obligatoria de Play
+  (prioridad 5 en el CI); docs y skills.
+- Sin commit al cortar la sesión (revisar `git status`):
+  - intro guiada (`ui/bienvenida/**`, `ui/comun/Permisos.kt`, Rutas, AppNavGraph, SousChefShell, AjustesAcerca);
+  - Buzón (`ui/buzon/**`) y «¿Qué me da tiempo?» (`ui/recetas/QueMeDaTiempo.kt`…). Falta añadir la ruta `buzon` en
+    Rutas/AppNavGraph y cablear `onBuzon` en Ajustes y en el ⋮.
+- Pendiente, en orden:
+  1. Terminar o revisar esos dos lotes y hacer su commit.
+  2. Tests Compose que fallan solo con la suite entera (BienvenidaTest, BuzonPantallaTest, ChecklistAntesTest,
+     FichaPestanasTest, GuiaCocinaTest): estado compartido entre tests (ventanas o `BancoFicha` con
+     `WindowManagerGlobal`). Skill `test-debug-flaky`.
+  3. Revisión: architecture-reviewer (opus) sobre el crono canónico/traducido, el `runBlocking` de NotificadorAndroid y
+     los títulos traducidos que se guardan en el historial; y `/code-review`.
+  4. Gate completo, `version.properties` 1.4.0 (versionCode 20), `distribution/whatsnew`, capturas `v1.4-*`.
+  5. Emulador abierto para Joan. Con su OK: `gh variable set PLAY_ESTADO --body completed`, push a main y vigilar el CI.
+- Para la siguiente ronda: notas por cocinada y compartir ingredientes (propuestas 2 y 3).
 
 ## Entorno
 | Herramienta | Estado |
