@@ -100,6 +100,8 @@ class RecetasViewModel
                 ahoraMin = local.hour * MIN_HORA + local.minute,
                 servirMin = a.servirMin,
                 modo = a.horaTarjeta,
+                fuegos = a.fuegos,
+                horno = a.horno,
             )
         }
 

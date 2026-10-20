@@ -57,7 +57,7 @@ internal fun PantallaAjustes(
     }
 }
 
-/** Menú de Ajustes: cinco apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
+/** Menú de Ajustes: seis apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
 @Composable
 fun AjustesScreen(
     onAtras: () -> Unit,
@@ -77,6 +77,7 @@ internal fun AjustesMenu(
     onAbrir: (String) -> Unit,
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_titulo), onAtras) {
+        FilaApartado(Icono.Base, R.string.ajustes_cocina, Rutas.AJUSTES_COCINA, onAbrir) { resumenCocina(ajustes) }
         FilaApartado(Icono.Apariencia, R.string.ajustes_apariencia, Rutas.AJUSTES_APARIENCIA, onAbrir) {
             val tema = nombreTema(ajustes.tema).lowercase()
             stringResource(R.string.ajustes_resumen_apariencia, tema, nombreLista(ajustes.lista))

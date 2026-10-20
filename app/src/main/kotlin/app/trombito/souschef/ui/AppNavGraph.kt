@@ -12,6 +12,7 @@ import androidx.navigation.navDeepLink
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.ajustes.AjustesAcercaScreen
 import app.trombito.souschef.ui.ajustes.AjustesAparienciaScreen
+import app.trombito.souschef.ui.ajustes.AjustesCocinaScreen
 import app.trombito.souschef.ui.ajustes.AjustesCronoScreen
 import app.trombito.souschef.ui.ajustes.AjustesHistorialScreen
 import app.trombito.souschef.ui.ajustes.AjustesHorarioScreen
@@ -49,6 +50,7 @@ fun SousChefNavGraph(
         composable(Rutas.AJUSTES) {
             AjustesScreen(onAtras = { navController.popBackStack() }, onAbrir = { navController.navigate(it) })
         }
+        composable(Rutas.AJUSTES_COCINA) { AjustesCocinaScreen(onAtras = { navController.popBackStack() }) }
         composable(Rutas.AJUSTES_APARIENCIA) { AjustesAparienciaScreen(onAtras = { navController.popBackStack() }) }
         composable(Rutas.AJUSTES_HORARIO) { AjustesHorarioScreen(onAtras = { navController.popBackStack() }) }
         composable(Rutas.AJUSTES_CRONO) { AjustesCronoScreen(onAtras = { navController.popBackStack() }) }

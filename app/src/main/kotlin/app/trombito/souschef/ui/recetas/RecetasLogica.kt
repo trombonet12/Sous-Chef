@@ -1,6 +1,7 @@
 package app.trombito.souschef.ui.recetas
 
 import app.trombito.souschef.domain.DisposicionLista
+import app.trombito.souschef.domain.FUEGOS_DEFECTO
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
@@ -61,15 +62,23 @@ data class TarjetaReceta(
     /** Minutos del día: cuándo empezar (EMPEZAR) o cuándo acabas si empiezas ya (ACABAR). */
     val hora: Int = Servir.inicio(Servir.DEFECTO, receta),
     val modoHora: HoraTarjeta = HoraTarjeta.EMPEZAR,
+    /** Fuegos que pide la receta si son más de los de la cocina del usuario; 0 si le bastan. */
+    val pideFuegos: Int = 0,
+    /** La receta usa el horno y el usuario no tiene. */
+    val pideHorno: Boolean = false,
 )
 
-/** Cuándo se mira la lista y qué hora enseña cada tarjeta. */
+/** Cuándo se mira la lista, qué hora enseña cada tarjeta y qué equipo tiene el usuario. */
 data class ContextoLista(
     val hoy: LocalDate,
     /** Hora actual en minutos del día, en la zona del móvil. */
     val ahoraMin: Int = 0,
     val servirMin: Int = Servir.DEFECTO,
     val modo: HoraTarjeta = HoraTarjeta.EMPEZAR,
+    /** Fuegos de la cocina del usuario (Ajustes). */
+    val fuegos: Int = FUEGOS_DEFECTO,
+    /** El usuario tiene horno (Ajustes). */
+    val horno: Boolean = true,
 ) {
     fun hora(r: Receta): Int =
         when (modo) {
@@ -98,6 +107,10 @@ data class RecetasUiState(
     val secciones: List<GrupoFiltro> = emptyList(),
     val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
     val disposicion: DisposicionLista = DisposicionLista.TINTE,
+    /** Fuegos de la cocina del usuario, de Ajustes. */
+    val fuegos: Int = FUEGOS_DEFECTO,
+    /** El usuario tiene horno, de Ajustes. */
+    val horno: Boolean = true,
     /** Recetas que pasan el buscador (sin los filtros de la hoja). */
     val coincidentes: Int = 0,
     val totalRecetas: Int = 0,
@@ -182,6 +195,7 @@ private fun tarjetaYRasgos(
     val fuegos = Gantt.fuegos(r)
     val hace = Hace.de(fecha, contexto.hoy)
     val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
+    val conHorno = EquipoReceta.CON_HORNO in rasgos.equipo
     val tarjeta =
         TarjetaReceta(
             receta = r,
@@ -190,9 +204,11 @@ private fun tarjetaYRasgos(
             ultimaFecha = fecha,
             hace = hace,
             familia = rasgos.familia,
-            conHorno = EquipoReceta.CON_HORNO in rasgos.equipo,
+            conHorno = conHorno,
             hora = contexto.hora(r),
             modoHora = contexto.modo,
+            pideFuegos = fuegos.takeIf { it > contexto.fuegos } ?: 0,
+            pideHorno = conHorno && !contexto.horno,
         )
     return tarjeta to rasgos
 }
@@ -250,6 +266,8 @@ fun construirEstadoRecetas(
         coincidentes = porTexto.size,
         totalRecetas = recetas.size,
         tarjetas = tarjetas,
+        fuegos = contexto.fuegos,
+        horno = contexto.horno,
         categorias = categoriasDe(todasLasRecetas),
         familiaFija = familiaFija,
     )

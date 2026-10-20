@@ -32,7 +32,9 @@ import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Tags
+import app.trombito.souschef.ui.comun.Etiqueta
 import app.trombito.souschef.ui.comun.MarcoTarjeta
+import app.trombito.souschef.ui.comun.Tono
 import app.trombito.souschef.ui.ficha.Servir
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
@@ -146,6 +148,7 @@ private fun CuerpoTinte(
                 maxLines = LINEAS_PIE,
                 overflow = TextOverflow.Ellipsis,
             )
+            EtiquetasEquipo(tarjeta)
         }
     }
 }
@@ -185,6 +188,7 @@ private fun CuerpoFranja(
                 maxLines = LINEAS_PIE,
                 overflow = TextOverflow.Ellipsis,
             )
+            EtiquetasEquipo(tarjeta)
         }
     }
 }
@@ -222,6 +226,7 @@ private fun TarjetaClasica(
                 }
                 Huella(receta)
                 PieTarjeta(tarjeta)
+                EtiquetasEquipo(tarjeta)
             }
         }
     }
@@ -255,6 +260,18 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
 }
 
 // ---- Piezas comunes ----
+
+/** «Pide 4 fuegos» y «Pide horno»: la receta pide más equipo del que hay en la cocina del usuario. */
+@Composable
+private fun EtiquetasEquipo(tarjeta: TarjetaReceta) {
+    if (tarjeta.pideFuegos == 0 && !tarjeta.pideHorno) return
+    Row(Modifier.padding(top = Espacio.xs), horizontalArrangement = Arrangement.spacedBy(Espacio.xs)) {
+        if (tarjeta.pideFuegos > 0) {
+            Etiqueta(stringResource(R.string.lista_pide_fuegos, tarjeta.pideFuegos), tono = Tono.Teja)
+        }
+        if (tarjeta.pideHorno) Etiqueta(stringResource(R.string.lista_pide_horno), tono = Tono.Teja)
+    }
+}
 
 /** «empieza 14:43» o «acabas 16:02», según el modo elegido en Ajustes. */
 @Composable

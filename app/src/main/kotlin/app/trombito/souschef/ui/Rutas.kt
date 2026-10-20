@@ -13,6 +13,7 @@ object Rutas {
 
     const val FICHA = "receta/{$ARG_SLUG}"
     const val AJUSTES = "ajustes"
+    const val AJUSTES_COCINA = "ajustes/cocina"
     const val AJUSTES_APARIENCIA = "ajustes/apariencia"
     const val AJUSTES_HORARIO = "ajustes/horario"
     const val AJUSTES_CRONO = "ajustes/crono"

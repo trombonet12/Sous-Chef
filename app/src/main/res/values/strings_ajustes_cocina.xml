@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menú y pantalla «Tu cocina» -->
+    <string name="ajustes_cocina">Tu cocina</string>
+    <string name="ajustes_cocina_nota">Las recetas están escritas para una vitrocerámica del 0 al 9. La app las traduce a tu cocina al mostrarlas.</string>
+    <string name="ajustes_resumen_cocina_digital">%1$s digital 1-%2$d</string>
+    <string name="ajustes_resumen_cocina_ruleta">%1$s · ruleta 1-%2$d</string>
+    <string name="ajustes_resumen_cocina_sin_numeros">%1$s · sin números</string>
+    <string name="ajustes_resumen_tipo_vitro">Vitro</string>
+    <string name="ajustes_resumen_tipo_induccion">Inducción</string>
+    <string name="ajustes_resumen_tipo_gas">Gas</string>
+
+    <!-- Tipo y mando -->
+    <string name="cocina_tipo_titulo">Tipo de cocina</string>
+    <string name="cocina_tipo_vitro">Vitrocerámica</string>
+    <string name="cocina_tipo_vitro_detalle">Placa de cristal con zonas de calor. Tarda en enfriarse al bajar la potencia.</string>
+    <string name="cocina_tipo_induccion">Inducción</string>
+    <string name="cocina_tipo_induccion_detalle">Placa lisa que calienta la sartén. El calor responde al instante.</string>
+    <string name="cocina_tipo_gas">Gas</string>
+    <string name="cocina_tipo_gas_detalle">Llama bajo la sartén. El calor responde al instante.</string>
+    <string name="cocina_mando_titulo">Mando</string>
+    <string name="cocina_mando_digital">Digital</string>
+    <string name="cocina_mando_analogico">Con ruleta</string>
+    <string name="cocina_max_titulo">Potencia máxima</string>
+    <string name="cocina_max_nota">El número más alto que marca tu mando.</string>
+    <string name="cocina_max_mas">Subir la potencia máxima</string>
+    <string name="cocina_max_menos">Bajar la potencia máxima</string>
+    <string name="cocina_sin_numeros">Mi mando no tiene números</string>
+    <string name="cocina_sin_numeros_detalle">Las recetas dirán «fuego medio» o «fuego alto» en vez de un número.</string>
+
+    <!-- Ejemplo en vivo -->
+    <string name="cocina_ejemplo_titulo">Así lo verás en las recetas</string>
+    <string name="cocina_ejemplo_texto">Pon la sartén al {8} y, cuando humee, baja al {6}.</string>
+    <string name="cocina_ejemplo_chip_desc">En el cronómetro: %1$s</string>
+
+    <!-- Equipo -->
+    <string name="equipo_titulo">Tu equipo</string>
+    <string name="equipo_fuegos">Fuegos</string>
+    <string name="equipo_fuegos_mas">Un fuego más</string>
+    <string name="equipo_fuegos_menos">Un fuego menos</string>
+    <string name="equipo_horno">Tengo horno</string>
+    <string name="equipo_horno_detalle">Las recetas que piden más fuegos u horno de los que tienes llevan una etiqueta en la lista.</string>
+
+    <!-- Raciones por defecto -->
+    <string name="raciones_titulo">Raciones por defecto</string>
+    <plurals name="raciones_valor">
+        <item quantity="one">%d ración</item>
+        <item quantity="other">%d raciones</item>
+    </plurals>
+    <string name="raciones_nota">Cada receta tiene su rango: la ficha se ajusta a lo que admite.</string>
+
+    <!-- Etiquetas de la lista de recetas -->
+    <string name="lista_pide_fuegos">Pide %1$d fuegos</string>
+    <string name="lista_pide_horno">Pide horno</string>
+</resources>
