@@ -63,6 +63,11 @@
     ]
   ],
   "descripcion": "La mitad del bacon se queda dentro del tomate y se vuelve sabor; la otra mitad sale crujiente y corona el plato. Sin laurel y sin plátano. La dificultad no está en la salsa, que aguanta media hora sola: está en encajar el arroz, los huevos y el punto de la salsa en los últimos diez minutos.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -197,7 +202,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "La sal, el azúcar y la pimienta no escalan en línea recta: sube menos que el resto y corrige probando al final, que es cuando la salsa ya ha reducido. El arroz, el agua, los huevos y el bacon sí son proporcionales. El tomate no: la lata es de 800 g y a la mitad reduce en unos 20 minutos en vez de 30, porque lo que evapora es la superficie de la sartén y esa no se parte por la mitad — si bajas a dos raciones, el chup-chup se acorta y el encaje con el arroz hay que recalcularlo. El gráfico está calculado para cuatro. Y las 4 raciones son deliberadas, no un descuido del proyecto: 800 g de tomate y 200 g de bacon dan una salsa que mejora al día siguiente, y el huevo frito es lo único que hay que hacer en el momento. A dos raciones la salsa reduce antes de tiempo en la misma sartén y hay que bajar el fuego del chup-chup.",
+  "notaEscala": "Se queda en 4 raciones a propósito: 800 g de tomate y 200 g de bacon dan una salsa que mejora al día siguiente. Los 36 minutos de chup-chup están calculados para la lata entera, porque lo que evapora es la superficie de la sartén: con menos tomate se pasa de reducción y con más queda aguada. Y los huevos, de uno en uno, dan justo para cuatro en sus 5 minutos.",
   "pasos": [
     {
       "carril": "mesa",

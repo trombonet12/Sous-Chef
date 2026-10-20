@@ -53,6 +53,11 @@
     ]
   ],
   "descripcion": "Los buñuelos mallorquines de la noche de les Verges: masa de patata y boniato con harina de fuerza, huevo y levadura, levada una hora y frita en anillos que se forman con las manos mojadas. La dificultad está en dos sitios: el puré tiene que estar tibio antes de la levadura y la masa es tan húmeda que solo se trabaja con las manos mojadas. Salen unos 12, rebozados en azúcar.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -68,6 +73,7 @@
         },
         {
           "a": 1000,
+          "esc": "fijo",
           "n": "agua fría (4 vasos)",
           "u": "ml"
         }
@@ -115,6 +121,7 @@
       "items": [
         {
           "a": 1000,
+          "esc": "fijo",
           "n": "aceite de girasol (4 vasos de agua)",
           "u": "ml"
         }
@@ -166,7 +173,7 @@
       "t": "EL PUESTO DE FREÍR"
     }
   ],
-  "notaEscala": "A 4 raciones es el doble de masa en el mismo bol, pero el aceite no se dobla: es la profundidad de la olla, no la cantidad de bunyols. Lo que crece es la fritura, de tres tandas a seis, y el plan se alarga 16 minutos. La levadura y la sal suben menos que el resto: con el doble de masa, 9 g de levadura levan en la misma hora.",
+  "notaEscala": "Va de 1 a 2 raciones con las mismas tres tandas: a 1 ración son dos bunyols por tanda y cada uno tarda lo mismo, porque lo marca su tamaño, no cuántos hay. El aceite y el agua de cocción no cambian: uno es la profundidad para que floten y el otro cubre los dados y hierve en los mismos 8 minutos. La levadura y la sal suben menos que el resto.",
   "pasos": [
     {
       "carril": "mesa",

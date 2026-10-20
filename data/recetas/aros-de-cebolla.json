@@ -41,6 +41,11 @@
     ]
   ],
   "descripcion": "Aros de cebolla rebozados para dos, en tres platos: harina con un poco de maicena, huevo espesado con harina y pan rallado. El huevo con harina es lo que facilita el rebozado: se queda pegado a la cebolla en vez de escurrirse, y el pan rallado agarra a la primera. Se fríen en cuatro tandas en una sartén honda de 22-24 cm con 300 ml de aceite de girasol (1¼ vasos de agua), que dan algo más de 1 cm de profundidad, y se salan al salir.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -107,6 +112,7 @@
       "items": [
         {
           "a": 300,
+          "esc": "fijo",
           "n": "aceite de girasol (1¼ vasos de agua)",
           "u": "ml"
         },
@@ -144,7 +150,7 @@
       "t": "TRES PLATOS EN FILA"
     }
   ],
-  "notaEscala": "A 4 raciones son 2 cebollas y el doble de aros, pero la sartén no admite más de 6 a la vez sin que baje la temperatura del aceite: serían ocho tandas y unos 36 minutos de freír, así que el plan se alarga 18 minutos. El aceite no se dobla, porque es la profundidad de la sartén, no la cantidad de cebolla. La sal no escala en línea recta.",
+  "notaEscala": "Va de 1 a 2 raciones con las mismas cuatro tandas: a 1 ración cada tanda lleva tres aros en vez de seis y tarda lo mismo, porque los 2 minutos por lado los marca el rebozado. El aceite no cambia: es la profundidad de la sartén, no la cantidad de cebolla. Por encima de 2 harían falta más tandas de las que caben en 18 minutos.",
   "pasos": [
     {
       "carril": "mesa",

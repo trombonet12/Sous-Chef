@@ -47,6 +47,11 @@
     ]
   ],
   "descripcion": "Patata en bastón con doble fritura, jamón serrano y pimientos de padrón dorados en la sartén pequeña, y huevos con puntilla al final, todo repartido entre dos sartenes que casi no paran. La dificultad está en el tramo del minuto 28 al 36, con las dos sartenes encendidas.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -57,6 +62,7 @@
         },
         {
           "a": 500,
+          "esc": "fijo",
           "n": "aceite de girasol (2 vasos)",
           "u": "ml"
         },
@@ -137,7 +143,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "La sal no escala en línea recta: prueba al final. El aceite tampoco depende de la cantidad de patata sino del tamaño de la sartén — el que cubra el fondo con margen.",
+  "notaEscala": "Va de 1 a 2 raciones con las mismas tandas: el aceite no cambia, porque es la profundidad de la sartén y no depende de la patata. A 1 ración la segunda fritura dora antes, porque la patata enfría menos el aceite: sácala por el color, no por el reloj. Por encima de 2 la patata enfría el aceite y no cruje, y los huevos ya no caben en sus 3 minutos.",
   "pasos": [
     {
       "carril": "mesa",
@@ -405,28 +411,28 @@
       "hitos": [
         {
           "en": 60,
-          "t": "Fuera los dos primeros, escurriendo"
+          "t": "Fuera la primera tanda, escurriendo"
         },
         {
           "en": 90,
-          "t": "Entran el tercero y el cuarto"
+          "t": "Entra la segunda tanda"
         },
         {
           "en": 150,
-          "t": "Fuera los dos últimos"
+          "t": "Fuera la segunda tanda"
         }
       ],
       "holgura": "critico",
       "id": "freir-huevos",
       "junto": null,
-      "meto": "4 huevos de la huevera, de dos en dos, en el mismo aceite de girasol",
+      "meto": "los huevos de la huevera, la mitad en cada tanda, en el mismo aceite de girasol",
       "min": 3,
       "nota": "60 segundos de fritura por tanda, ni uno más: puntilla hecha y yema líquida. Echa aceite por encima de la clara con una cuchara.",
       "off": 42,
       "p": "En la misma sartén y el mismo aceite, al {7}, de dos en dos porque cuatro juntos no dejan sitio para que la clara suba con puntilla. Sesenta segundos de fritura por tanda y ni uno más: es lo que tarda la clara en cuajar y el borde en encresparse, y lo justo para que la yema siga entera y líquida. Eso es lo que hace que estos huevos sean rotos y no fritos — al romperlos la yema tiene que correr entre la patata, y si cuaja ya no hay salsa. Los treinta segundos entre tanda y tanda son para sacar y cascar, no para freír. El aceite reutilizado ya lleva el sabor de la patata, así que estos huevos no salen neutros.",
       "s": 180,
       "saco": "cada tanda, directa al plato",
-      "t": "Freír los huevos, 2 tandas de 2",
+      "t": "Freír los huevos en dos tandas",
       "tapa": "sin tapa"
     },
     {

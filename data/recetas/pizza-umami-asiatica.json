@@ -61,6 +61,11 @@
     ]
   ],
   "descripcion": "Fuera la base clásica: nada de tomate triturado. Rompería el perfil umami-asiático y competiría con la soja, así que la sustituye un glaseado soja-miel en dos tandas. La dificultad no está en la técnica, está en el orden: bacon y piña se saltean y se montan ya cocinados, para que el horno solo tenga que dorar.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -167,7 +172,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Doblar raciones no duplica el horno: una segunda masa pide bandeja aparte o una segunda tanda, y el tiempo de horneado casi no cambia por bandeja. El glaseado y el relleno sí escalan en línea recta; el sésamo y la pimienta, no.",
+  "notaEscala": "Se queda en 2 raciones: la base refrigerada es una pieza entera y hay una sola bandeja. Media base no tiene sentido y una segunda pide otra tanda de 11 minutos de horno.",
   "pasos": [
     {
       "carril": "horno",

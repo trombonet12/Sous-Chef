@@ -78,6 +78,11 @@
     ]
   ],
   "descripcion": "Tres rellenos para ocho, en tres bols: carne picada guisada con tomate y especias, alubias cocidas en la grasa del bacon, y pollo marinado en yogur asado al horno sobre una base fría de pepino y tomate en dados. Cada uno se monta el suyo sobre minitortilla caliente, con cebolla morada encurtida, feta, guacamole y jalapeños en la mesa. La dificultad no está en ningún relleno: está en que los tres y las tortillas lleguen al mismo minuto con solo dos fuegos encendidos.",
+  "escala": {
+    "max": 8,
+    "min": 6,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -385,7 +390,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Va a 8 raciones a propósito: es la versión de fiesta de los tacos de carne, que es la de 2. La sal, el comino, el pimentón y el ajo en polvo no escalan en línea recta: al subir raciones multiplícalos por 1,5 y corrige probando al final. El guiso de la carne es lo que peor escala de todo: la superficie de evaporación de la sartén no crece con la cantidad, así que cada ración de más pide minutos de tapa fuera, no más tomate. El pollo del horno casi no cambia con una bandeja, pero con dos hay que rotarlas en el volteo y sumar tres o cuatro minutos. Las minitortillas sí son proporcionales: 6 por persona, medio pack.",
+  "notaEscala": "Va de 6 a 8 raciones; es la versión de fiesta de los tacos de carne, que es la de 2. Por debajo de 6, el guiso y las alubias se pasan de reducción en sus tiempos, porque lo que evapora es la superficie de la sartén; por encima de 8, la carne no cabe en dos tandas y las alubias pasan de una lata. La sal, el comino, el pimentón y el ajo en polvo suben menos que el resto: corrige probando al final.",
   "pasos": [
     {
       "carril": "mesa",

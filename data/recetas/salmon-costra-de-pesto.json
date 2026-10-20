@@ -50,6 +50,11 @@
     ]
   ],
   "descripcion": "Un filete de salmón para dos, con una capa de pesto y una costra de pan rallado y Grana Padano, asado en la misma bandeja que las patatas baby y los tomates cherry. La dificultad está en que tres cosas con tiempos distintos acaben juntas en un solo horno: las patatas entran primero y el salmón se suma cuando les faltan 16 minutos. En total salen de la despensa 30 ml de aceite de oliva (2 cucharadas soperas) y 5 g de sal (algo menos de 1 cucharadita), repartidos entre las patatas, los cherry, el salmón y la costra.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -157,7 +162,7 @@
       "t": "CUATRO SITIOS, CUATRO MOMENTOS"
     }
   ],
-  "notaEscala": "El tiempo del salmón depende de su grosor, no del peso: dos filetes de 500 g, uno al lado del otro, siguen tardando 16 minutos, pero uno de 800 g más grueso tarda unos 20. A 4 raciones la bandeja no admite 800 g de patata sin amontonarla, y amontonada se cuece al vapor en vez de dorarse: con una sola bandeja, esta receta está pensada para 2. La sal no escala en línea recta, porque el pesto y el queso ya son salados.",
+  "notaEscala": "Va de 1 a 2 raciones. El salmón tarda lo que marca su grosor, no su peso: para uno, pide 250 g del mismo lomo cortado de través, no un filete más fino, y siguen siendo 16 minutos. A partir de 3, las patatas no caben en una capa en la única bandeja y se cuecen en su vapor en vez de dorarse.",
   "pasos": [
     {
       "carril": "horno",

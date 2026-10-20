@@ -71,6 +71,11 @@
     ]
   ],
   "descripcion": "Pechuga en dados con una hora de marinada de soja, ajo y jengibre, pasada por maicena y sellada en dos tandas, con zanahoria, calabacín y una salsa de caldo que napa y brilla sin una gota de dulce. Las almendras se tuestan en seco durante la nevera y entran al final, fuera del fuego, para que lleguen crujientes. El arroz blanco va en paralelo y acaba su reposo en el mismo minuto que el salteado.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [

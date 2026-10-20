@@ -51,6 +51,11 @@
     ]
   ],
   "descripcion": "Hojaldre del paquete con una capa fina de pan rallado debajo, manzana laminada en abanico encima, horneada entera y glaseada con mermelada de melocotón templada. Sin hora fija: el reposo final es lo único que no se puede saltar antes de cortarla.",
+  "escala": {
+    "max": 6,
+    "min": 6,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [

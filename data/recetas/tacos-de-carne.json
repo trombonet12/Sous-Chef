@@ -57,6 +57,11 @@
     ]
   ],
   "descripcion": "Carne picada guisada con tomate y especias, en tortilla calentada a la plancha, con cebolla morada encurtida en vinagre, feta y guacamole de remate. La dificultad está en que las tortillas salgan calientes justo cuando la carne está lista, sin haber esperado en el paño.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [

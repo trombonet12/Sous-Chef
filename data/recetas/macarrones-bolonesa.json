@@ -57,6 +57,11 @@
     ]
   ],
   "descripcion": "Ragú corto de tomate y carne mixta, terminado con la pasta dentro de la sartén. Dos fuegos que se solapan en la segunda mitad: mientras la salsa reduce, el agua hierve y la pasta cuece.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -201,7 +206,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "La sal y las especias no escalan en línea recta: suben menos que el resto y se corrigen probando al final del chup-chup. Escalar tampoco multiplica los tiempos, sobre todo el de reducción; el gráfico está calculado para las cuatro raciones de partida.",
+  "notaEscala": "Se queda en 4 raciones a propósito: una bandeja de carne y un bote de tomate en la sartén de 28 cm. Los 15 minutos de dorar y los 30 de chup-chup están calculados para esa cantidad, porque lo que evapora es la superficie de la sartén: con menos la salsa se pasa y la carne se reseca, y con más queda aguada.",
   "pasos": [
     {
       "carril": "mesa",

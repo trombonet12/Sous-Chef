@@ -72,6 +72,11 @@
     ]
   ],
   "descripcion": "Patata en rodajas finas cocida en leche, nata y ajo, con una capa de carne picada en medio y queso gratinado encima. La dificultad no está en ninguna técnica suelta, sino en el reparto: dos fuegos y el horno tienen que acabar a la vez. En total salen de la despensa 5 dientes de ajo, un brik entero de 400 ml de nata para cocinar y 12 g de sal (2 cucharaditas), repartidos entre la cazuela y la sartén.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -226,7 +231,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Se queda en 4 raciones a propósito: el tamaño lo marca la fuente de 28×20 cm, y la proporción de 500 g de carne sobre 1300 g de patata es la que hace cuajar la capa del medio. La sal, la nuez moscada, la pimienta y la soja suben menos que el resto. Y escalar no multiplica los tiempos: a dos raciones el horno son 25 minutos en vez de 32 y la sartén 8 en vez de 13, mientras que cortar y gratinar apenas cambian.",
+  "notaEscala": "Se queda en 4 raciones a propósito: el tamaño lo marca la fuente de 28×20 cm, y la proporción de 500 g de carne sobre 1300 g de patata es la que hace cuajar la capa del medio. Con menos cantidad en la misma fuente las capas salen finas y los 32 minutos de horno las secan.",
   "pasos": [
     {
       "carril": "mesa",

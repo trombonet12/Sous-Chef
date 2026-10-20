@@ -65,6 +65,11 @@
     ]
   ],
   "descripcion": "Dos pechugas para dos personas. Una hora de marinada en bolsa y treinta y cinco minutos de sartén sin pausas. Los tres pimientos entran escalonados, porque si van juntos el rojo se deshace antes de que el verde esté hecho.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [

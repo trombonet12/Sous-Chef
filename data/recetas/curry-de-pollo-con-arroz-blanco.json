@@ -57,6 +57,11 @@
     ]
   ],
   "descripcion": "Curry de leche de coco sin caldo y sin tomate, con el pollo sellado aparte y devuelto a la salsa solo los últimos seis minutos. La dificultad no está en la salsa: está en que la pechuga no se seque y en que el arroz llegue a su reposo justo cuando el limón entra en la sartén.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -214,7 +219,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Las cantidades con asterisco no escalan en línea recta: la sal, el curry y el comino suben menos que el resto, así que empieza por ahí y corrige al probar. El arroz y su agua sí son proporcionales. Escalar tampoco multiplica los tiempos: a cuatro raciones el sellado del pollo pide dos tandas y la reducción se va a catorce o quince minutos, porque la superficie de evaporación de la sartén no crece con la cantidad. El gráfico está calculado para dos.",
+  "notaEscala": "Se queda en 2 raciones: 400 g de pollo es lo que sella en una sola tanda sin soltar agua, y los 10 minutos de reducción están calculados para 300 ml en esta sartén, porque lo que evapora es la superficie. Con más, la salsa queda aguada; con menos, se seca y el arroz con tan poca agua se pega.",
   "pasos": [
     {
       "carril": "mesa",

@@ -66,6 +66,11 @@
     ]
   ],
   "descripcion": "Filetes de emperador de 2 cm marcados a fuego fuerte, bañados al salir con salmoriglio (el aliño siciliano de limón, ajo, orégano y aceite de oliva) y acompañados de patatas en gajos al horno. La dificultad está en el punto: el emperador casi no tiene grasa y pasa de jugoso a seco en un minuto, así que la plancha va muy caliente y el tiempo va medido. En total salen de la despensa 75 ml de aceite de oliva (5 cucharadas soperas) y 6 g de sal (1 cucharadita), repartidos entre la plancha, la salsa y las patatas.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [

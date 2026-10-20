@@ -46,6 +46,11 @@
     ]
   ],
   "descripcion": "Ensalada de bolsa con atún y feta, rematada con ñoquis dorados en sartén como si fueran picatostes calientes. La única dificultad real es que los ñoquis lleguen a la mesa recién salidos del fuego: el resto es corte y montaje sin complicación.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
@@ -162,7 +167,7 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "La sal, el sésamo y el pimentón picante no escalan en línea recta: suben menos que el resto, y el picante es el que menos — al doblar la ración no se dobla, se sube apenas. Escalar tampoco alarga el fuego: los ñoquis dorados tardan casi lo mismo aunque dobles la ración, lo que cambia es que la sartén se satura antes; con más de 350 g conviene ir por tandas o subir el tiempo de dorado un 60 %.",
+  "notaEscala": "Va de 1 a 2 raciones; la sal, el sésamo y el pimentón picante suben menos que el resto. Por encima de 2, los ñoquis pasan de 350 g, ya no caben en una capa y se cuecen en su vapor en vez de dorarse en sus 7 minutos.",
   "pasos": [
     {
       "carril": "mesa",

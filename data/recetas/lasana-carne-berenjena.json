@@ -78,6 +78,11 @@
     ]
   ],
   "descripcion": "Ragú de carne picada con berenjena dorada aparte, bechamel casera y placas precocidas, para cuatro en la fuente de 28×20. La dificultad está en que ragú, bechamel y placas lleguen a la vez al minuto 83: las placas se remojan diez minutos en agua caliente justo antes de montar, ni antes ni después.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
   "grupos": [
     {
       "items": [
