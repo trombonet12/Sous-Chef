@@ -19,8 +19,10 @@ a mano, en Play Console.
    firma.
 4. **Primera subida, a mano:**
    1. Prueba > Prueba interna > Crear versión.
-   2. Subir el `sous-chef-<versión>.aab` de la release de GitHub.
-   3. Añadir a Joan como tester (lista de correos) y abrir el enlace de participación en el móvil.
+   2. Subir el `sous-chef-<versión>.aab` de la release de GitHub. No hace falta subir archivo de desofuscación: el
+      mapping de R8 va dentro del AAB.
+   3. Pegar las notas de versión en «Novedades» (ver «Notas de versión», más abajo).
+   4. Añadir a Joan como tester (lista de correos) y abrir el enlace de participación en el móvil.
 5. **Contenido de la app** (menú Política):
    - Política de privacidad: `https://github.com/trombonet12/Sous-Chef/blob/main/docs/privacidad.md`.
    - Seguridad de los datos: no se recoge ni se comparte ningún dato. La app no usa Internet: no pide permisos de red
@@ -51,6 +53,12 @@ a mano, en Play Console.
 4. A partir de ahí, cada push a main con un `version.properties` nuevo publica en GitHub **y** en la pista interna.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
 
+## Notas de versión
+- Están en `distribution/whatsnew/whatsnew-es-ES`. Son texto para el usuario: máximo 500 caracteres, viñetas «• ».
+- Se actualizan en cada versión (skill `release-notes`, destino `play`).
+- Con el secreto `PLAY_SERVICE_ACCOUNT_JSON`, el CI las sube junto con el AAB.
+- Subida manual: copiar el texto en «Novedades» envuelto en `<es-ES>` y `</es-ES>`.
+
 ## Qué cambia en la app instalada desde Play
 - No tiene red ni avisa de versiones: las actualizaciones las da Play. Instalada con Obtainium o `adb`, Obtainium
   avisa de las releases de GitHub (ADR-0011).
@@ -66,3 +74,15 @@ a mano, en Play Console.
 - `APK specifies a version code that has already been used`: hay que subir `versionCode` en `version.properties`.
 - `The caller does not have permission`: la cuenta de servicio no está invitada en Play Console o le falta el
   permiso.
+
+## Avisos conocidos
+
+### «Este App Bundle contiene código nativo, pero no has subido símbolos de depuración»
+- Es informativo: no bloquea la subida ni la publicación.
+- Lo provoca `libandroidx.graphics.path.so`, de Compose UI. Google lo distribuye sin símbolos, así que no se puede
+  simbolizar.
+- Activar `ndk.debugSymbolLevel` no lo quita, y obligaría a fijar un NDK en el CI.
+- Decisión: ignorarlo.
+- Desde la v1.3.2 aparece menos: se quitó la dependencia sin uso datastore-preferences, que añadía
+  `libdatastore_shared_counter.so`.
+- Más información: <https://developer.android.com/build/include-native-symbols>

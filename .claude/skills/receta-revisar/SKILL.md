@@ -25,7 +25,7 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
    - **Cambios de plato** (sustituir ingrediente, cambiar potencia o tiempo con efecto en el resultado, quitar o añadir algo): no los apliques. Anótalos como propuesta en `docs/revision-recetas.md` (crea el archivo si no existe) con receta, qué cambiaría, por qué y qué efecto tiene en el plato.
 4. `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>`.
 5. Informa a Joan en pocas líneas: qué se corrigió y qué propuestas hay pendientes de su decisión. Si decide aplicar una, trátala como edición de receta y repite el paso 4.
-6. Con su OK: publicar = commit del JSON, subir `versionCode`/`versionName` en `app/build.gradle.kts`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug`, push a main y `node scripts/gh.mjs workflow run release-android.yml`.
+6. Con su OK: publicar = commit del JSON, subir `versionCode`/`versionName` en `version.properties`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y push a main (`android.yml` crea la GitHub Release v<versionName>).
 
 ## Validaciones / tests
 - `scripts/sc validar --estricto <slug>` sin errores.

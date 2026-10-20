@@ -43,7 +43,7 @@ sequenceDiagram
   C->>R: escribe data/recetas/slug.json
   C->>S: sc validar --estricto
   S-->>C: informe
-  J->>G: release nueva del APK (workflow release-android)
+  J->>G: release nueva del APK (push de version.properties a main, workflow android.yml)
   G->>M: Obtainium instala el APK
   Note over M: al arrancar con un hash de datos nuevo, resiembra recetas y técnicas
 ```
@@ -85,7 +85,7 @@ docs/ ESTADO.md decisiones.md arquitectura.md pasos-manuales.md testing.md ci-cd
       adr/ fases/ _templates/ cocina/{reglas.md,perfil.md,esquema-receta.md,entregables.md,sugerencias-compra.md}
       spec/app-legado.md (inventario funcional completo de la app vieja)  legado/sous-chef-publicada.html
 .claude/ settings.json hooks/ skills/ agents/      scripts/ sc.ps1 sc.cmd check-claude-assets.mjs test-hooks.sh
-.github/ workflows/{android.yml,release-android.yml,claude-assets.yml} dependabot.yml pull_request_template.md
+.github/ workflows/{android.yml,claude-assets.yml} dependabot.yml pull_request_template.md
 CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 ```
 

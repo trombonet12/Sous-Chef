@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Sube a GitHub Actions los 4 secretos de firma de release-android.yml desde
+// Sube a GitHub Actions los 4 secretos de firma del workflow android.yml desde
 // %USERPROFILE%/.souschef/release-signing.properties y su keystore. Los valores van por stdin a `gh secret set`;
 // solo se imprime el nombre de cada secreto y si se subió.
 // Uso: node scripts/subir-secretos-release.mjs

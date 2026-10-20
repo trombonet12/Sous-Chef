@@ -31,7 +31,7 @@ Secretos de firma (una vez; repetir si cambia el keystore): `node scripts/subir-
 `ANDROID_KEY_PASSWORD` y `ANDROID_KEYSTORE_BASE64` sin imprimir valores. Comprobar: `node scripts/gh.mjs secret list`.
 
 Cada versión: subir `versionName` y `versionCode` en `version.properties` y push a `main`; el CI publica la release
-`v<versionName>` con el APK y `checksums.txt` si el gate pasa (Obtainium puede seguir el repo). Un push sin cambio de
+`v<versionName>` con el APK, el AAB (para Play) y `checksums.txt` si el gate pasa (Obtainium puede seguir el repo). Un push sin cambio de
 versión no publica nada.
 
 CI: `Android` y `Claude assets` corren en push a `main` (con filtro de rutas), en PR y a mano; se hace un push por

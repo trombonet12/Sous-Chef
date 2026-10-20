@@ -19,4 +19,4 @@ Cada fila es una comprobación; un incumplimiento es un finding con la severidad
 | privacy | Un solo usuario; los datos no salen del móvil (ADR-0007); sin SDKs de analítica ni de terceros | HIGH |
 | logging | Sin tokens, contraseñas ni claves en logs (Android, `tools/`); `Log.d` de depuración fuera de release | HIGH |
 | ci | `permissions:` mínimos por workflow/job; acciones de terceros fijadas; sin `pull_request_target` con checkout de código externo | HIGH |
-| ci | `release-android.yml`: secretos solo vía `secrets.*`, sin `echo`; disparo solo `workflow_dispatch` | HIGH |
+| ci | `android.yml`: secretos solo vía `secrets.*`, sin `echo`; disparo solo `push` a main, `pull_request` y `workflow_dispatch` (sin `pull_request_target`) | HIGH |

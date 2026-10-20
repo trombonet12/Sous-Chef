@@ -26,8 +26,8 @@ Comprueba que el repositorio está listo para publicar. Solo lee y ejecuta verif
 2. Secret scan: skill `security-secret-scan` sobre árbol e historial; cualquier hallazgo = NO-GO hasta rotar/limpiar.
 3. Migraciones Room: si `data/db/Migrations.kt` cambió, el test de migración de `./gradlew testDebugUnitTest` debe estar en verde; si no, anotar «sin migraciones».
 4. Versión: localizar `versionCode` y `versionName` en `app/build.gradle.kts` (`Grep versionCode`). `versionCode` debe superar al publicado y `versionName` ser coherente con el changelog.
-5. Notas: existe `CHANGELOG.md` o notas de la versión (skill `release-notes`); si no, proponer generarlas.
-6. Firma y CI (solo nombres): `~/.souschef/release-signing.properties` existe y define `SOUSCHEF_KEYSTORE_FILE`, `SOUSCHEF_KEYSTORE_PASSWORD`, `SOUSCHEF_KEY_ALIAS`, `SOUSCHEF_KEY_PASSWORD` (comprobar claves, no valores); el workflow `release-android.yml` existe (`gh workflow list`) y sus secrets constan en `gh secret list`. Falta alguno → NO-GO.
+5. Notas: existe `CHANGELOG.md` o notas de la versión (skill `release-notes`); si no, proponer generarlas. Las notas de Play `distribution/whatsnew/whatsnew-es-ES` deben estar al día para esta versión y medir ≤ 500 (`wc -m`).
+6. Firma y CI (solo nombres): `~/.souschef/release-signing.properties` existe y define `SOUSCHEF_KEYSTORE_FILE`, `SOUSCHEF_KEYSTORE_PASSWORD`, `SOUSCHEF_KEY_ALIAS`, `SOUSCHEF_KEY_PASSWORD` (comprobar claves, no valores); el workflow `.github/workflows/android.yml` existe y genera la release con APK, AAB y `checksums.txt` al hacer push a main; sus secrets constan en `gh secret list`. Falta alguno → NO-GO.
 7. Entregar informe `punto | estado (OK/HUECO/NO-GO) | evidencia | acción` y el veredicto final.
 
 ## Validaciones / tests

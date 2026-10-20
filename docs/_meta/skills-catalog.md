@@ -47,7 +47,7 @@ Una línea por skill: `nombre | argumentos | contenido mínimo`. Las marcadas **
 - git-check | [working-tree|generated|large-files] | Auditar el árbol git (solo lectura) [working-tree|generated|large-files]: cambios sin commitear, generados rastreados, archivos grandes. Para commitear usa git-commit
 - git-commit | — | Revisar y crear un commit local Conventional Commits tras el gate qa fast y secret scan **[manual]**
 - git-prepare-pr | — | Redactar la descripción de un PR (resumen, tipo, fase, DoD, pruebas) para pegar o revisar
-- release | [local|github] | Publicar una release Android: build firmado local con assembleRelease y/o GitHub Release vía release-android.yml (workflow_dispatch) **[manual]**
+- release | [local|github] | Publicar una release Android: build firmado local con assembleRelease y/o GitHub Release vía push de `version.properties` a main (`android.yml`) **[manual]**
 - release-preflight | — | Checklist obligatorio antes de publicar: gate qa full, secret scan, versión/changelog y firma
 - release-notes | — | Redactar notas de versión desde Conventional Commits (último tag..HEAD), por tipo y en lenguaje de usuario final
 - dependency-add | — | Evaluar y añadir una dependencia nueva (Gradle/Version Catalog) con versión exacta
