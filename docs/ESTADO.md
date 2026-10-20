@@ -105,7 +105,10 @@
     recetas». Técnicas, igual con cuadraditos por categoría, que sustituyen a los chips.
   - Historial y Técnicas **siguen el diseño de lista** de Ajustes (Tinte, Franja o Clásica). El apartado se llama
     ahora «Diseño de las listas».
-  - Pie de Ajustes: autor, correo (abre la app de correo) y web (abre el navegador).
+  - Ajustes: apartado «Acerca de» con el icono, la versión, el autor y el contacto (correo y web). En el pie del menú,
+    solo la versión y el autor.
+  - Tras la publicación (sin versión todavía): en Recetas y Técnicas, el buscador y el orden van arriba; debajo, los
+    cuadraditos (ocultos al buscar o filtrar) y una raya antes de la lista.
   - Capturas en `docs/capturas/v1.3-*.png`, tomadas en el emulador.
 
 ## Entorno

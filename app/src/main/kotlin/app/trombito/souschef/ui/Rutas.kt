@@ -17,6 +17,7 @@ object Rutas {
     const val AJUSTES_HORARIO = "ajustes/horario"
     const val AJUSTES_CRONO = "ajustes/crono"
     const val AJUSTES_HISTORIAL = "ajustes/historial"
+    const val AJUSTES_ACERCA = "ajustes/acerca"
     const val TECNICA = "tecnica/{$ARG_SLUG}"
     const val CRONO = "crono/{$ARG_SLUG}?$ARG_RACIONES={$ARG_RACIONES}&$ARG_SERVIR={$ARG_SERVIR}"
 

@@ -24,7 +24,7 @@ class AjustesPantallasTest {
     private val banco = BancoCompose()
 
     @Test
-    fun `el menu muestra los cuatro resumenes y la version`() {
+    fun `el menu muestra los resumenes y la version`() {
         banco.poner { MaterialTheme { AjustesMenu(Ajustes(), "1.2.3", {}, {}) } }
 
         val textos = banco.textos(banco.raiz())
@@ -36,23 +36,50 @@ class AjustesPantallasTest {
     }
 
     @Test
-    fun `el pie del menu muestra autor, correo y web`() {
-        banco.poner { MaterialTheme { AjustesMenu(Ajustes(), "1", {}, {}) } }
+    fun `el menu tiene la fila Acerca de y el pie con version y autor`() {
+        banco.poner { MaterialTheme { AjustesMenu(Ajustes(), "1.3.0", {}, {}) } }
 
         val textos = banco.textos(banco.raiz())
+        assertTrue(textos.toString(), "Acerca de" in textos)
+        assertTrue(textos.toString(), "Versión 1.3.0 · contacto" in textos)
+        assertTrue(textos.toString(), "Sous Chef 1.3.0" in textos)
         assertTrue(textos.toString(), "Trombonet12© and Co. Interactive Systems Solutions" in textos)
-        assertTrue(textos.toString(), "trombonet12@trombonet12.es" in textos)
-        assertTrue(textos.toString(), "www.trombonet12.es" in textos)
-        botonConDescripcion("Escribir a trombonet12@trombonet12.es")
-        botonConDescripcion("Abrir la web www.trombonet12.es")
+        assertTrue(textos.toString(), "trombonet12@trombonet12.es" !in textos)
+        banco.conEtiqueta("ajustes-version")
+        banco.conEtiqueta("ajustes-autor")
     }
 
     @Test
-    fun `tocar correo y web avisa al menu`() {
+    fun `tocar Acerca de abre su ruta`() {
+        val abiertas = mutableListOf<String>()
+        banco.poner { MaterialTheme { AjustesMenu(Ajustes(), "1", {}, { abiertas += it }) } }
+
+        banco.pulsar(banco.conEtiqueta("ajustes-${Rutas.AJUSTES_ACERCA}"))
+
+        assertEquals(listOf(Rutas.AJUSTES_ACERCA), abiertas)
+    }
+
+    @Test
+    fun `acerca muestra version, autor y las dos filas de contacto`() {
+        banco.poner { MaterialTheme { AjustesAcerca("1.3.0", {}, {}, {}) } }
+
+        val textos = banco.textos(banco.raiz())
+        assertTrue(textos.toString(), "Sous Chef" in textos)
+        assertTrue(textos.toString(), "Versión 1.3.0" in textos)
+        assertTrue(textos.toString(), "Trombonet12© and Co. Interactive Systems Solutions" in textos)
+        assertTrue(textos.toString(), "Contacto" in textos)
+        assertTrue(textos.toString(), "Escribir un correo" in textos)
+        assertTrue(textos.toString(), "trombonet12@trombonet12.es" in textos)
+        assertTrue(textos.toString(), "Visitar la web" in textos)
+        assertTrue(textos.toString(), "www.trombonet12.es" in textos)
+    }
+
+    @Test
+    fun `tocar correo y web en acerca avisa a los callbacks`() {
         val tocados = mutableListOf<String>()
         banco.poner {
             MaterialTheme {
-                AjustesMenu(Ajustes(), "1", {}, {}, onCorreo = { tocados += "correo" }, onWeb = { tocados += "web" })
+                AjustesAcerca("1", {}, onCorreo = { tocados += "correo" }, onWeb = { tocados += "web" })
             }
         }
 

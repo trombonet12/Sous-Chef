@@ -77,6 +77,23 @@ enum class Icono(
     /** Círculo medio relleno: apariencia (claro/oscuro). */
     Apariencia("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "F:M12 3a9 9 0 0 1 0 18z"),
 
+    /** Círculo con una «i»: información (Acerca de). */
+    Info("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "M12 11v6", "M12 7.5h.01"),
+
+    /** Sobre de carta: correo. */
+    Correo("M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z", "M3 7l9 6.5L21 7"),
+
+    /** Globo terráqueo: web. */
+    Web(
+        "M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z",
+        "M3 12h18",
+        "M12 3c3.5 3 3.5 15 0 18",
+        "M12 3c-3.5 3-3.5 15 0 18",
+    ),
+
+    /** Flecha saliendo de una caja: enlace externo. */
+    Externo("M14 4h6v6", "M20 4l-9 9", "M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"),
+
     /** Tenedor y espagueti: categoría de pasta. */
     Pasta(
         "M6 3v5a2 2 0 0 0 4 0V3",

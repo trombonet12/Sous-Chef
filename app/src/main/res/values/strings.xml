@@ -39,9 +39,13 @@
     <string name="ajustes_autor">Trombonet12© and Co. Interactive Systems Solutions</string>
     <string name="ajustes_contacto">trombonet12@trombonet12.es</string>
     <string name="ajustes_web">www.trombonet12.es</string>
-    <string name="ajustes_contacto_desc">Escribir a %1$s</string>
-    <string name="ajustes_web_desc">Abrir la web %1$s</string>
     <string name="ajustes_contacto_asunto">Sous Chef %1$s</string>
+    <string name="ajustes_acerca">Acerca de</string>
+    <string name="ajustes_resumen_acerca">Versión %1$s · contacto</string>
+    <string name="ajustes_acerca_contacto">Contacto</string>
+    <string name="ajustes_acerca_correo">Escribir un correo</string>
+    <string name="ajustes_acerca_web">Visitar la web</string>
+    <string name="ajustes_acerca_version">Versión %1$s</string>
 
     <!-- Comunes -->
     <string name="atras">Volver</string>

@@ -311,7 +311,11 @@
   notificación «Actualizaciones». El manifest pierde `INTERNET`, `ACCESS_NETWORK_STATE` y los `<queries>` de
   Obtainium, así que la app queda **sin red**. Las versiones nuevas las avisa Obtainium, que sigue las Releases de
   GitHub, o Play. `docs/privacidad.md` y `docs/play.md` cambian en consecuencia.
-- **Contacto** para usuarios (en el pie de Ajustes, en Play y en la política de privacidad):
+- **Orden de las listas** (a petición de Joan): primero el buscador con el orden y los filtros, después los
+  cuadraditos y una raya antes de la lista. Los cuadraditos se ocultan al buscar o filtrar, para ir directo a los
+  resultados.
+- **Contacto** para usuarios (en Ajustes → Acerca de, en Play y en la política de privacidad). Joan descartó los
+  enlaces sueltos en el pie del menú por feos:
   - desarrollador «Trombonet12© and Co. Interactive Systems Solutions»;
   - correo trombonet12@trombonet12.es;
   - web https://www.trombonet12.es/.

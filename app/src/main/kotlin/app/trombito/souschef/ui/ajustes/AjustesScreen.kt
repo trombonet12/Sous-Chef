@@ -1,7 +1,5 @@
 package app.trombito.souschef.ui.ajustes
 
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.clickable
@@ -27,11 +25,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
@@ -62,10 +57,7 @@ internal fun PantallaAjustes(
     }
 }
 
-private const val CORREO = "trombonet12@trombonet12.es"
-private const val WEB = "https://www.trombonet12.es/"
-
-/** Menú de Ajustes: cuatro apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
+/** Menú de Ajustes: cinco apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
 @Composable
 fun AjustesScreen(
     onAtras: () -> Unit,
@@ -73,32 +65,16 @@ fun AjustesScreen(
     viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    val contexto = LocalContext.current
-    val version = versionApp()
-    val asunto = stringResource(R.string.ajustes_contacto_asunto, version)
-    AjustesMenu(
-        ajustes,
-        version,
-        onAtras,
-        onAbrir,
-        onCorreo = {
-            val correo = Intent(Intent.ACTION_SENDTO, "mailto:$CORREO".toUri()).putExtra(Intent.EXTRA_SUBJECT, asunto)
-            contexto.abrir(correo)
-        },
-        onWeb = { contexto.abrir(Intent(Intent.ACTION_VIEW, WEB.toUri())) },
-    )
+    AjustesMenu(ajustes, versionApp(), onAtras, onAbrir)
 }
 
-/** Menú sin ViewModel: estado y versión llegan hechos. Correo y web se delegan en [onCorreo] y [onWeb]. */
-@Suppress("LongParameterList") // menú con sus cuatro callbacks de navegación y de enlaces externos
+/** Menú sin ViewModel: estado y versión llegan hechos. */
 @Composable
 internal fun AjustesMenu(
     ajustes: Ajustes,
     version: String,
     onAtras: () -> Unit,
     onAbrir: (String) -> Unit,
-    onCorreo: () -> Unit = {},
-    onWeb: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_titulo), onAtras) {
         FilaApartado(Icono.Apariencia, R.string.ajustes_apariencia, Rutas.AJUSTES_APARIENCIA, onAbrir) {
@@ -126,64 +102,24 @@ internal fun AjustesMenu(
         FilaApartado(Icono.Libreta, R.string.ajustes_historial, Rutas.AJUSTES_HISTORIAL, onAbrir) {
             stringResource(R.string.ajustes_resumen_historial)
         }
+        FilaApartado(Icono.Info, R.string.ajustes_acerca, Rutas.AJUSTES_ACERCA, onAbrir) {
+            stringResource(R.string.ajustes_resumen_acerca, version)
+        }
         Text(
             stringResource(R.string.ajustes_version, version),
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp).testTag("ajustes-version"),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
         )
         Text(
             stringResource(R.string.ajustes_autor),
             modifier = Modifier.fillMaxWidth().testTag("ajustes-autor"),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Column {
-            EnlaceAjustes(
-                texto = stringResource(R.string.ajustes_contacto),
-                descripcion = stringResource(R.string.ajustes_contacto_desc, CORREO),
-                etiqueta = "ajustes-contacto",
-                onClick = onCorreo,
-            )
-            EnlaceAjustes(
-                texto = stringResource(R.string.ajustes_web),
-                descripcion = stringResource(R.string.ajustes_web_desc, stringResource(R.string.ajustes_web)),
-                etiqueta = "ajustes-web",
-                onClick = onWeb,
-            )
-        }
-    }
-}
-
-/** Enlace tocable de pie de menú, con área de al menos 48 dp y el texto en color primario. */
-@Composable
-private fun EnlaceAjustes(
-    texto: String,
-    descripcion: String,
-    etiqueta: String,
-    onClick: () -> Unit,
-) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .heightIn(min = 48.dp)
-            .testTag(etiqueta)
-            .semantics { contentDescription = descripcion }
-            .clickable(role = Role.Button, onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            texto,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary,
-            textDecoration = TextDecoration.Underline,
+            textAlign = TextAlign.Center,
         )
     }
-}
-
-/** Lanza una actividad externa; sin app que la atienda no hace nada. */
-private fun Context.abrir(intent: Intent) {
-    runCatching { startActivity(intent) }
 }
 
 @Composable
@@ -194,26 +130,47 @@ private fun FilaApartado(
     onAbrir: (String) -> Unit,
     resumen: @Composable () -> String,
 ) {
+    FilaAjuste(
+        icono = icono,
+        titulo = stringResource(titulo),
+        resumen = resumen(),
+        final = Icono.Chevron,
+        etiqueta = "ajustes-$ruta",
+        onClick = { onAbrir(ruta) },
+    )
+}
+
+/** Fila común de Ajustes: icono, título con resumen y un icono final (chevron o enlace externo). */
+@Suppress("LongParameterList") // fila presentacional: cada parámetro es una pieza visible
+@Composable
+internal fun FilaAjuste(
+    icono: Icono,
+    titulo: String,
+    resumen: String,
+    final: Icono,
+    etiqueta: String,
+    onClick: () -> Unit,
+) {
     Row(
         Modifier
             .fillMaxWidth()
             .heightIn(min = 64.dp)
-            .testTag("ajustes-$ruta")
-            .clickable(role = Role.Button) { onAbrir(ruta) }
+            .testTag(etiqueta)
+            .clickable(role = Role.Button, onClick = onClick)
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Icon(icono.vector, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
         Column(Modifier.weight(1f)) {
-            Text(stringResource(titulo), style = MaterialTheme.typography.titleMedium)
+            Text(titulo, style = MaterialTheme.typography.titleMedium)
             Text(
-                resumen(),
+                resumen,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        Icon(Icono.Chevron.vector, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        Icon(final.vector, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -249,7 +206,7 @@ private fun nombreDisposicion(d: DisposicionCrono): String =
 
 /** Versión instalada (el proyecto no genera BuildConfig, así que se lee del paquete). */
 @Composable
-private fun versionApp(): String {
+internal fun versionApp(): String {
     val contexto = LocalContext.current
     return remember(contexto) {
         runCatching {
