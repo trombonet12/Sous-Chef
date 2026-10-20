@@ -61,10 +61,22 @@ a mano, en Play Console.
 ## Vídeo promocional
 - Play lo pide como URL de YouTube (pública u oculta, sin anuncios, embebible). Solo se reproducen solos los primeros
   30 s, en silencio, así que la app tiene que verse pronto.
+- Es **horizontal** (1920×1080). El vertical sale como Short en YouTube y no sirve para la ficha de Play. El vídeo
+  vertical anterior (<https://www.youtube.com/watch?v=ZcVUNMAC-Uc>) se sustituye por el nuevo.
+- Se hace con Remotion en `video/` ([ADR-0012](adr/0012-video-promocional-con-remotion.md)). Un solo comando:
+  ```
+  node scripts/video/promo.mjs              # renderiza build/promo/sous-chef-promo-1920x1080.mp4
+  node scripts/video/promo.mjs --grabar     # graba antes los clips en el emulador (scripts/video/grabar-clips.sh)
+  node scripts/video/promo.mjs --control    # opción --control del mismo comando (VERIFICAR qué hace)
+  ```
+  Las dependencias de `video/` (`node_modules`) viven solo en local. La música y el guion están en
+  `video/public/musica/` y `video/src/guion.ts`.
 - Se rehace tras cambios visibles grandes o antes de una versión de producción. Procedimiento completo: skill
   `video-promo` (`.claude/skills/video-promo/SKILL.md`).
-- El MP4 queda en `build/promo/` y no se versiona. La subida a YouTube («Oculto») y la URL en Play Console → Ficha →
-  Vídeo las hace Joan a mano.
+- El MP4 queda en `build/promo/` y no se versiona. La subida es a mano:
+  1. Subir el MP4 a YouTube como **Oculto**.
+  2. Copiar la URL `https://www.youtube.com/watch?v=<id>`.
+  3. Pegarla en Play Console → Ficha → Vídeo.
 
 ## Notas de versión
 - Están en `distribution/whatsnew/whatsnew-es-ES`. Son texto para el usuario: máximo 500 caracteres, viñetas «• ».

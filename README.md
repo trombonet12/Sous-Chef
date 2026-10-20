@@ -52,7 +52,8 @@ receta/     Kotlin puro: modelos, escalado, gantt, validador, motor del cronóme
 tools/      CLI sc: validar, formatear
 data/       Recetas y técnicas (fuente de verdad), despensa interna, datos legados
 distribution/  Notas de Play y ficha de la tienda (textos, icono, capturas)
-scripts/    Comprobaciones, release local y utilidades de Play
+video/      Vídeo promocional con Remotion (proyecto Node, solo en local)
+scripts/    Comprobaciones, release local, utilidades de Play y vídeo
 docs/       Estado, decisiones, ADRs, fases, reglas de cocina, especificación
 .claude/    Skills, agentes y hooks de Claude Code
 ```

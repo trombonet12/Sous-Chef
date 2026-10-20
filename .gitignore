@@ -50,3 +50,7 @@ Thumbs.db
 
 # Worktrees de subagentes
 .claude/worktrees/
+
+# Video promo (Remotion)
+video/public/clips/
+video/out/

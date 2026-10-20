@@ -101,6 +101,7 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0009 Aviso de versión nueva](adr/0009-aviso-de-version-nueva.md) (sustituido por ADR-0011)
 - [ADR-0010 Distribución por Google Play](adr/0010-distribucion-por-google-play.md)
 - [ADR-0011 Sin aviso de versión nueva](adr/0011-sin-aviso-de-version-nueva.md)
+- [ADR-0012 Vídeo promocional con Remotion](adr/0012-video-promocional-con-remotion.md)
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente
