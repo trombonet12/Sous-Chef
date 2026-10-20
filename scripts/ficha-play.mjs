@@ -107,8 +107,11 @@ const pngIcono = join(SALIDA, 'icon-512.png');
 renderizar(chrome, htmlIcono, 512, 512, pngIcono, tmp, 'icono');
 aplanarARgb(pngIcono);
 
-// Gráfico de funciones: mascota a la izquierda (380 px de alto), texto a la derecha.
-const mascota = ajustarSvg(leerSvg('mascota-trombito.svg'), { ancho: 447, alto: 380, viewBox: '14 20 80 68' });
+// Gráfico de funciones: la mascota del icono (con gorro), sin su fondo, a la izquierda; texto a la derecha.
+const mascota = ajustarSvg(leerSvg('icono.svg'), { ancho: 368, alto: 400, viewBox: '24 24 57 62' }).replace(
+  /<rect [^>]*\/>/,
+  '',
+);
 const htmlFunciones = `<!doctype html><html><head><meta charset="utf-8"><style>
 html,body{margin:0;padding:0;width:1024px;height:500px;overflow:hidden;background:${PAPEL}}
 body{display:flex;align-items:center;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
