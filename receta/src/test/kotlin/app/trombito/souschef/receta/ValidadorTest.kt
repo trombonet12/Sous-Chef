@@ -24,6 +24,7 @@ class ValidadorTest {
             slug = "r",
             titulo = "R",
             totalMin = 10.0,
+            escala = Escala(1, 4),
             tags = Tags(base = "arroz", tecnica = listOf("sofrito")),
             carriles = listOf(Carril("a", tipo = "fuego"), Carril("b", tipo = "mesa")),
             pasos = listOf(paso("p1"), paso("p2", carril = "b")),
@@ -345,6 +346,122 @@ class ValidadorTest {
     fun r25PasoSinFNoSeAnaliza() {
         val r = base().copy(pasos = listOf(paso("p1"), paso("p2", "b") { it.copy(t = "Baja al 5") }))
         assertEquals(emptyList(), r25(r))
+    }
+
+    @Test
+    fun r20LeeLaPotenciaMarcada() {
+        assertTrue(20 !in reglas(conPotencias("Baja al {3}"), Nivel.AVISO))
+        assertTrue(20 !in reglas(conPotencias("Del {4} al {3}"), Nivel.AVISO))
+        assertTrue(20 in reglas(conPotencias("Baja al {5}"), Nivel.AVISO))
+    }
+
+    @Test
+    fun r25LeeLaPotenciaMarcada() {
+        assertEquals(emptyList(), r25(transicion(7, 4, "Baja al {4} y tapa")))
+        assertEquals(emptyList(), r25(transicion(3, 7, "Sube al {7} para dorar", nota = "Súbelo al {7}.")))
+        val h = r25(transicion(4, 7, "Baja al {7}"))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertEquals("paso 'p2': dice «baja al 7» pero la potencia pasa de 4 a 7", h.single().texto)
+        assertEquals(listOf(Nivel.ERROR), r25(transicion(8, 5, "Sube al {5}")).map { it.nivel })
+        assertEquals(
+            listOf(Nivel.ERROR),
+            r25(transicion(4, 5, "Seguir", nota = "Baja al {5} si salta.")).map { it.nivel },
+        )
+        assertEquals(listOf(Nivel.AVISO), r25(transicion(5, 8, "Sube del {6} al {8}")).map { it.nivel })
+        assertEquals(emptyList(), r25(transicion(5, 8, "Sube del {5} al {8}")))
+        val mal = r25(transicion(7, 4, "Hacer al {4}", hito = "Si cogen color, baja al {5}"))
+        assertEquals(listOf(Nivel.ERROR), mal.map { it.nivel })
+    }
+
+    private fun r26(r: Receta) = Validador.receta(r).filter { it.regla == 26 }
+
+    private fun conEscala(
+        escala: Escala?,
+        raciones: Int = 2,
+        vararg i: Ingrediente,
+    ) = conGrupo(*i).copy(escala = escala, raciones = raciones)
+
+    @Test
+    fun r26SinEscalaEsAviso() {
+        val h = r26(conEscala(null))
+        assertEquals(listOf(Nivel.AVISO), h.map { it.nivel })
+        assertEquals("sin escala de raciones", h.single().texto)
+    }
+
+    @Test
+    fun r26EscalaCoherenteNoDaHallazgos() {
+        assertEquals(emptyList(), r26(conEscala(Escala(2, 6, 2), raciones = 4)))
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4))))
+    }
+
+    @Test
+    fun r26EscalaIncoherenteEsError() {
+        listOf(
+            Escala(0, 4) to 2,
+            Escala(1, 4, 0) to 2,
+            Escala(4, 2) to 3,
+            Escala(2, 4) to 6,
+            Escala(2, 4) to 1,
+            Escala(2, 6, 2) to 3,
+        ).forEach { (e, raciones) ->
+            val h = r26(conEscala(e, raciones))
+            assertTrue(h.isNotEmpty() && h.all { it.nivel == Nivel.ERROR }, "$e con $raciones raciones: $h")
+        }
+    }
+
+    @Test
+    fun r26ContableSinMediosEsAviso() {
+        val huevos = Ingrediente("huevos", 2.0, "uds")
+        val h = r26(conEscala(Escala(1, 4), 3, huevos))
+        assertEquals(listOf(Nivel.AVISO), h.map { it.nivel })
+        assertTrue("huevos" in h.single().texto && "1 (0,7)" in h.single().texto, h.single().texto)
+        // con 3 y 6 raciones salen 2 y 4: enteros
+        assertEquals(emptyList(), r26(conEscala(Escala(3, 6, 3), 3, huevos)))
+        // el nombre también vale, aunque la unidad sea otra
+        val diente = Ingrediente("dientes de ajo", 1.0, "g")
+        assertEquals(1, r26(conEscala(Escala(1, 3), 3, diente)).size)
+        // los múltiplos de 0,5 valen
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("huevos", 2.0, "uds"))))
+    }
+
+    @Test
+    fun r26IgnoraLoNoContableNiSublineal() {
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("arroz", 150.0, "g"))))
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("sal", 3.0, "uds", esc = "sub"))))
+        assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 2, Ingrediente("huevos", txt = "3"))))
+    }
+
+    private fun r27(r: Receta) = Validador.receta(r).filter { it.regla == 27 }
+
+    @Test
+    fun r27PotenciaSinMarcarEsError() {
+        val h = r27(conPasos(paso("p1") { it.copy(f = 3, nota = "Después baja al 3 y tapa") }, paso("p2", "b")))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertTrue(h.single().texto.startsWith("potencia sin marcar: «") && "baja al 3" in h.single().texto)
+        assertEquals(2, r27(base().copy(descripcion = "Hazlo del 4 al 5")).size) // un hallazgo por número
+        assertEquals(1, r27(base().copy(mep = listOf(BloqueMep("m", l = listOf("fuego 7"))))).size)
+    }
+
+    @Test
+    fun r27PotenciaMarcadaOSinPotenciaNoDaHallazgo() {
+        assertEquals(emptyList(), r27(conPasos(paso("p1") { it.copy(nota = "Baja al {3}") }, paso("p2", "b"))))
+        assertEquals(emptyList(), r27(base().copy(descripcion = "Del {4} al {5}; 30 min; paso 3; 2 tandas")))
+    }
+
+    @Test
+    fun r27LlaveQueNoFormaPotenciaEsError() {
+        assertEquals(1, r27(base().copy(descripcion = "Baja al {12}")).size)
+        assertEquals(1, r27(base().copy(descripcion = "Baja al {x} ya")).size)
+        assertEquals(1, r27(base().copy(descripcion = "Baja al {")).size)
+    }
+
+    @Test
+    fun r27TambienEnTecnicas() {
+        val t =
+            Tecnica("t", "T", pasos = listOf(PasoTecnica("Sofreír", "Baja al 3 y tapa")), consejos = listOf("Fuego 5"))
+        assertEquals(listOf(27, 27), Validador.tecnica(t).map { it.regla })
+        val bien = t.copy(pasos = listOf(PasoTecnica("Sofreír", "Baja al {3}")), consejos = listOf("Fuego {5}"))
+        assertEquals(emptyList(), Validador.tecnica(bien))
     }
 
     @Test

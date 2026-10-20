@@ -1,5 +1,6 @@
 package app.trombito.souschef.receta
 
+import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.pow
 import kotlin.math.roundToLong
@@ -10,6 +11,29 @@ object Escalado {
     const val RACIONES_MAX = 20
     private const val EXPONENTE_SUB = 0.75
     private val ESPACIOS = Regex("\\s+")
+
+    /**
+     * Raciones con las que se puede abrir la receta: de `escala.min` a `escala.max` de `paso` en `paso`; sin escala (o
+     * con una inválida, que el validador ya rechaza), de [RACIONES_MIN] a [RACIONES_MAX].
+     */
+    fun racionesPermitidas(r: Receta): List<Int> {
+        val e = r.escala?.takeIf { it.valida }
+        return if (e == null) (RACIONES_MIN..RACIONES_MAX).toList() else (e.min..e.max step e.paso).toList()
+    }
+
+    /**
+     * Raciones con las que abrir la receta: la [guardada] si está permitida; si no, la permitida más cercana al
+     * [defecto] global (en empate, la menor).
+     */
+    fun racionesIniciales(
+        r: Receta,
+        guardada: Int?,
+        defecto: Int,
+    ): Int {
+        val permitidas = racionesPermitidas(r)
+        if (guardada != null && guardada in permitidas) return guardada
+        return permitidas.minWithOrNull(compareBy({ abs(it - defecto) }, { it })) ?: defecto
+    }
 
     fun factor(
         raciones: Int,

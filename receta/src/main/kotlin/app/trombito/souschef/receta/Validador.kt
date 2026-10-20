@@ -19,8 +19,11 @@ private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
 /**
- * Validador (reglas 1-8, 10, 11, 13-21 y 23-25 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Validador (reglas 1-8, 10, 11, 13-21 y 23-27 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
  * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
+ *
+ * La potencia del texto libre va marcada como `{N}` (ADR-0014): las reglas 20 y 25 la leen sin llaves, la 26 mira
+ * `escala` (raciones permitidas) y la 27 exige que toda potencia del texto esté marcada.
  */
 object Validador {
     /** Si [tecnicasExistentes] es null no se comprueba la regla 23. */
@@ -47,6 +50,8 @@ object Validador {
         ctx.regla21()
         ctx.regla24()
         ctx.regla25()
+        ctx.regla26()
+        ctx.regla27()
         return h
     }
 
@@ -56,6 +61,7 @@ object Validador {
             if (t.slug.isBlank()) add(Hallazgo(t.slug, 0, Nivel.ERROR, "slug vacío"))
             if (t.titulo.isBlank()) add(Hallazgo(t.slug, 0, Nivel.ERROR, "titulo vacío"))
             if (t.pasos.isEmpty()) add(Hallazgo(t.slug, 0, Nivel.ERROR, "sin pasos"))
+            addAll(potenciaSinMarcar(t.slug, textosLibres(t)))
         }
 }
 
@@ -279,7 +285,7 @@ private class Ctx(
         for ((carril, pasos) in fuego.groupBy { it.carril }) {
             for ((a, b) in pasos.sortedBy { it.off }.zipWithNext()) {
                 val f = b.f ?: continue
-                val texto = Texto.normalizar("${b.t} ${b.nota.orEmpty()} ${b.p}")
+                val texto = Texto.normalizar(sinMarcas("${b.t} ${b.nota.orEmpty()} ${b.p}"))
                 val nombrada =
                     Regex("(?<![0-9])$f(?![0-9])").containsMatchIn(texto) ||
                         (f == 0 && APAGAR.containsMatchIn(texto))
@@ -310,7 +316,7 @@ private class Ctx(
         previa: Int,
         f: Int,
     ) {
-        for (frase in Texto.normalizar(texto).split(FIN_FRASE)) {
+        for (frase in Texto.normalizar(sinMarcas(texto)).split(FIN_FRASE)) {
             for (m in BAJA_AL.findAll(frase)) {
                 val n = m.groupValues[1].toInt()
                 if (n >= maxOf(previa, f)) errPotencia(id, "baja", n, previa, f)
@@ -337,6 +343,57 @@ private class Ctx(
         f: Int,
     ) = err(25, "paso '$id': dice «$verbo al $n» pero la potencia pasa de $previa a $f")
 
+    /**
+     * Regla 26. `escala` (raciones permitidas): ausente → aviso; incoherente → error; y avisa de los ingredientes
+     * contables (huevos, dientes, unidades) que con escalado lineal no salen en múltiplos de 0,5 en algún valor.
+     */
+    fun regla26() {
+        val e = r.escala ?: return aviso(26, "sin escala de raciones")
+        val fallos =
+            listOfNotNull(
+                "min ${e.min} < 1".takeIf { e.min < 1 },
+                "paso ${e.paso} < 1".takeIf { e.paso < 1 },
+                "max ${e.max} < min ${e.min}".takeIf { e.max < e.min },
+                "raciones ${r.raciones} fuera de [${e.min}, ${e.max}]".takeIf { r.raciones !in e.min..e.max },
+                "raciones ${r.raciones} no está en la escala (min ${e.min}, paso ${e.paso})"
+                    .takeIf { e.paso >= 1 && (r.raciones - e.min) % e.paso != 0 && r.raciones in e.min..e.max },
+            )
+        fallos.forEach { err(26, "escala: $it") }
+        if (fallos.isEmpty()) contablesSinMedios(Escalado.racionesPermitidas(r))
+    }
+
+    private fun contablesSinMedios(permitidas: List<Int>) {
+        for (i in r.grupos.flatMap { it.items }.filter { !it.sublineal && esContable(it) }) {
+            val a = i.a ?: 0.0
+            val malas =
+                permitidas
+                    .map {
+                        it to a *
+                            Escalado.factor(
+                                it,
+                                r.raciones,
+                            )
+                    }.filter { !esMultiploDeMedio(it.second) }
+            if (malas.isNotEmpty() && i.a != null) {
+                val detalle = malas.joinToString(", ") { (n, v) -> "$n (${Escalado.numero(v)})" }
+                aviso(26, "ingrediente contable '${i.n}' sin múltiplo de 0,5 con $detalle raciones")
+            }
+        }
+    }
+
+    private fun esContable(i: Ingrediente): Boolean {
+        val unidad = i.u?.trim()?.lowercase()
+        val nombre = Texto.normalizar(i.n)
+        return unidad in UNIDADES_CONTABLES || nombre.startsWith("huevo") || nombre.startsWith("diente")
+    }
+
+    private fun esMultiploDeMedio(v: Double) = abs(v * 2 - Math.round(v * 2)) < EPS
+
+    /** Regla 27. Toda potencia del texto libre va marcada `{N}`; un `{` que no forma `{0-9}` es un error. */
+    fun regla27() {
+        potenciaSinMarcar(r.slug, textosLibres(r)).forEach { h += it }
+    }
+
     fun regla24() {
         for (i in r.grupos.flatMap { it.items }) {
             val n = Texto.normalizar(i.n)
@@ -346,6 +403,39 @@ private class Ctx(
         }
     }
 }
+
+private val UNIDADES_CONTABLES = setOf("u", "ud", "uds", "unidad", "unidades")
+private val LLAVE_SUELTA = Regex("\\{(?!\\d\\})")
+
+/** El texto sin las llaves de la potencia marcada: «baja al {3}» → «baja al 3». */
+private fun sinMarcas(texto: String) = Potencia.TOKEN.replace(texto) { it.groupValues[1] }
+
+/** Textos libres de una receta (los mismos campos que traduce [conCocina]). */
+private fun textosLibres(r: Receta): List<String> =
+    listOfNotNull(r.descripcion, r.notaEscala, r.lectura, r.pie) +
+        r.porque.flatten() +
+        r.cortes.mapNotNull { it.p } +
+        r.mep.flatMap { listOfNotNull(it.porq) + it.l } +
+        r.pasos.flatMap { p -> listOfNotNull(p.t, p.nota, p.p, p.meto, p.saco, p.sinHitos) + p.hitos.map { it.t } }
+
+/** Textos libres de una técnica (los mismos campos que traduce [conCocina]). */
+private fun textosLibres(t: Tecnica): List<String> =
+    listOfNotNull(t.resumen, t.pie) + t.pasos.flatMap { listOf(it.t, it.p) } + t.consejos + t.cortes.mapNotNull { it.p }
+
+/** Regla 27 sobre una lista de textos: potencia sin marcar y llaves que no forman `{0-9}`. */
+private fun potenciaSinMarcar(
+    slug: String,
+    textos: List<String>,
+): List<Hallazgo> =
+    textos.flatMap { t ->
+        MarcaPotencia.candidatos(t).map {
+            Hallazgo(slug, 27, Nivel.ERROR, "potencia sin marcar: «${it.contexto}»")
+        } +
+            LLAVE_SUELTA.findAll(t).map {
+                val contexto = t.substring(maxOf(0, it.range.first - 20), minOf(t.length, it.range.first + 20))
+                Hallazgo(slug, 27, Nivel.ERROR, "llave que no forma {0-9}: «$contexto»")
+            }
+    }
 
 private val CORTA =
     Regex(

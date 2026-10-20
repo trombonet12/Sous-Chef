@@ -93,6 +93,42 @@ class EscaladoTest {
         assertEquals(listOf(70.0, 3.0, 250.0), lista.map { it.a })
     }
 
+    private fun conEscala(escala: Escala?) = Receta(slug = "x", titulo = "x", escala = escala)
+
+    @Test
+    fun racionesPermitidasSinEscalaEsElRangoGlobal() {
+        assertEquals((1..20).toList(), Escalado.racionesPermitidas(conEscala(null)))
+    }
+
+    @Test
+    fun racionesPermitidasConEscalaVaDeMinAMaxDePasoEnPaso() {
+        assertEquals(listOf(2, 3, 4), Escalado.racionesPermitidas(conEscala(Escala(2, 4))))
+        assertEquals(listOf(2, 4, 6), Escalado.racionesPermitidas(conEscala(Escala(2, 6, 2))))
+        assertEquals(listOf(2, 4, 6), Escalado.racionesPermitidas(conEscala(Escala(2, 7, 2))))
+    }
+
+    @Test
+    fun racionesPermitidasConEscalaInvalidaCaeAlRangoGlobal() {
+        assertEquals((1..20).toList(), Escalado.racionesPermitidas(conEscala(Escala(1, 4, 0))))
+        assertEquals((1..20).toList(), Escalado.racionesPermitidas(conEscala(Escala(5, 2))))
+    }
+
+    @Test
+    fun racionesInicialesUsaLaGuardadaSiEstaPermitida() {
+        assertEquals(3, Escalado.racionesIniciales(conEscala(Escala(2, 4)), guardada = 3, defecto = 2))
+        assertEquals(7, Escalado.racionesIniciales(conEscala(null), guardada = 7, defecto = 2))
+    }
+
+    @Test
+    fun racionesInicialesSinGuardadaValidaVaAlMasCercanoAlDefecto() {
+        val r = conEscala(Escala(2, 6, 2))
+        assertEquals(2, Escalado.racionesIniciales(r, guardada = null, defecto = 1))
+        assertEquals(6, Escalado.racionesIniciales(r, guardada = null, defecto = 9))
+        assertEquals(4, Escalado.racionesIniciales(r, guardada = 3, defecto = 4))
+        assertEquals(4, Escalado.racionesIniciales(r, guardada = 20, defecto = 5), "5 equidista de 4 y 6: el menor")
+        assertEquals(2, Escalado.racionesIniciales(conEscala(null), guardada = null, defecto = 2))
+    }
+
     @Test
     fun minutosAMedios() {
         assertEquals("2,5", Escalado.minutos(2.5))

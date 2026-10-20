@@ -19,6 +19,7 @@ data class Receta(
     val carriles: List<Carril> = emptyList(),
     val grupos: List<Grupo> = emptyList(),
     val notaEscala: String? = null,
+    val escala: Escala? = null,
     val pasos: List<Paso> = emptyList(),
     val lectura: String? = null,
     val mep: List<BloqueMep> = emptyList(),
@@ -35,6 +36,17 @@ data class Receta(
     /** `totalMin` si es válido; si no, el final más tardío (como hacía la app vieja). */
     val totalEfectivo: Double
         get() = if (totalMin > 0) totalMin else pasos.maxOfOrNull { it.off + it.min } ?: 0.0
+}
+
+/** Raciones permitidas de una receta: `min`, `min + paso`, … `max` (regla 26; fijada tras una revisión culinaria). */
+@Serializable
+data class Escala(
+    val min: Int,
+    val max: Int,
+    val paso: Int = 1,
+) {
+    /** `min` ≥ 1, `paso` ≥ 1 y `max` ≥ `min`. */
+    val valida: Boolean get() = min >= 1 && paso >= 1 && max >= min
 }
 
 @Serializable
