@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -137,18 +138,20 @@ internal fun AjustesMenu(
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        EnlaceAjustes(
-            texto = stringResource(R.string.ajustes_contacto),
-            descripcion = stringResource(R.string.ajustes_contacto_desc, CORREO),
-            etiqueta = "ajustes-contacto",
-            onClick = onCorreo,
-        )
-        EnlaceAjustes(
-            texto = stringResource(R.string.ajustes_web),
-            descripcion = stringResource(R.string.ajustes_web_desc, stringResource(R.string.ajustes_web)),
-            etiqueta = "ajustes-web",
-            onClick = onWeb,
-        )
+        Column {
+            EnlaceAjustes(
+                texto = stringResource(R.string.ajustes_contacto),
+                descripcion = stringResource(R.string.ajustes_contacto_desc, CORREO),
+                etiqueta = "ajustes-contacto",
+                onClick = onCorreo,
+            )
+            EnlaceAjustes(
+                texto = stringResource(R.string.ajustes_web),
+                descripcion = stringResource(R.string.ajustes_web_desc, stringResource(R.string.ajustes_web)),
+                etiqueta = "ajustes-web",
+                onClick = onWeb,
+            )
+        }
     }
 }
 
@@ -169,7 +172,12 @@ private fun EnlaceAjustes(
             .clickable(role = Role.Button, onClick = onClick),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(texto, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+        Text(
+            texto,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary,
+            textDecoration = TextDecoration.Underline,
+        )
     }
 }
 

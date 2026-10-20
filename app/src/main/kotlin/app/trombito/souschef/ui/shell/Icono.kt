@@ -153,7 +153,11 @@ enum class Icono(
     ),
 
     /** Cuchillo de cocinero: categoría de corte. */
-    Corte("M3 21c0-7 4-12 11-14l3 3c-2 7-7 11-14 11z", "M15.5 8.5L20 4"),
+    Corte(
+        "M3 8h11v8c-5 0-9-2-11-8z",
+        "M14 8h6a2 2 0 0 1 0 4h-6",
+        "M17 10h.01",
+    ),
 
     /** Sartén con burbujas de aceite: categoría de fritura. */
     Fritura(

@@ -56,4 +56,15 @@ class RejillaCategoriasTest {
                 .orEmpty()
         assertTrue(descripcion.toString(), descripcion.contains("Arroz, 1 receta"))
     }
+
+    @Test
+    fun `las filas no se solapan y los cuadraditos de una fila miden igual de alto`() {
+        val banco = pintar()
+        val pasta = banco.conEtiqueta("categoria-pasta").boundsInRoot
+        val arroz = banco.conEtiqueta("categoria-arroz").boundsInRoot
+        val otra = banco.conEtiqueta("categoria-otra").boundsInRoot
+
+        assertTrue("fila 1 ${pasta.bottom} debe acabar antes de fila 2 ${otra.top}", pasta.bottom <= otra.top)
+        assertEquals(pasta.height, arroz.height, 0.5f)
+    }
 }
