@@ -10,7 +10,7 @@
 | Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
 | Ronda 10 · lista de recetas y lasaña | **completada**: v1.1.0 (OK de Joan a la receta) |
 | Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
-| Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 y v1.3.1 |
+| Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0, v1.3.1 y v1.3.2 |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -107,6 +107,9 @@
     ahora «Diseño de las listas».
   - Ajustes: apartado «Acerca de» con el icono, la versión, el autor y el contacto (correo y web). En el pie del menú,
     solo la versión y el autor.
+  - **v1.3.2**: preparada para Play. Sin `datastore-preferences` (no se usaba), notas de Play en
+    `distribution/whatsnew/whatsnew-es-ES`, y el aviso de símbolos nativos documentado como ignorable. Skills de
+    publicación al día.
   - **v1.3.1**: en Recetas y Técnicas, el buscador y el orden van arriba; debajo, los
     cuadraditos (ocultos al buscar o filtrar) y una raya antes de la lista.
   - Capturas en `docs/capturas/v1.3-*.png`, tomadas en el emulador.
@@ -150,7 +153,8 @@
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.3.1 publicada con el push. Pendiente:
+v1.3.2 publicada con el push. Pendiente:
+- subir el AAB 1.3.2 a la pista interna de Play (las notas, en `distribution/whatsnew/whatsnew-es-ES`);
 - comprobar la release (APK y AAB);
 - que Joan migre al paquete nuevo (ver Pendiente del usuario) y lo pruebe en el móvil;
 - al cocinar la lasaña, ajustar las placas por capa.

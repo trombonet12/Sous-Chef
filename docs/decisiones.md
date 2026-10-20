@@ -319,3 +319,15 @@
   - desarrollador «Trombonet12© and Co. Interactive Systems Solutions»;
   - correo trombonet12@trombonet12.es;
   - web https://www.trombonet12.es/.
+
+## 2026-10-20 · v1.3.2 (publicar en Google Play)
+- **Aviso de Play «código nativo sin símbolos de depuración»: se ignora.** Lo provoca `libandroidx.graphics.path.so`,
+  de Compose UI, que Google distribuye ya stripped. Con `ndk.debugSymbolLevel` el aviso sigue, porque esa librería
+  no tiene símbolos que extraer, y además habría que fijar un NDK en el CI. Ver `docs/play.md` § Avisos conocidos.
+- Fuera `androidx.datastore:datastore-preferences`, que estaba declarada sin uso y metía
+  `libdatastore_shared_counter.so` en el AAB.
+- **Notas de Play versionadas** en `distribution/whatsnew/whatsnew-es-ES`, con 500 caracteres como máximo. El job
+  `play` del CI las sube con `whatsNewDirectory`; en una subida manual se pegan en «Novedades».
+- El CI ya no sube el `mapping.txt`, porque R8 lo incrusta en el AAB.
+- Skills `release`, `release-notes` y `release-preflight` al día con el flujo real (versión + push; Play a mano
+  mientras no exista `PLAY_SERVICE_ACCOUNT_JSON`).
