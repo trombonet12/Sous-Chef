@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tarjetas del historial según la disposición de lista -->
+    <string name="historial_bloque_min">%1$d min</string>
+    <string name="historial_dos_seguidas_corta">Dos seguidas</string>
+</resources>

@@ -1,8 +1,10 @@
 package app.trombito.souschef.ui.historial
 
+import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
+import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,6 +71,19 @@ class HistorialLogicaTest {
         assertTrue(coincideHistorial(e, "pasta"))
         assertFalse(coincideHistorial(e, "pizza"))
     }
+
+    @Test
+    fun diaYMesSeparaElDiaSinCeroYElMesCorto() {
+        assertEquals("14" to "oct", diaYMes("2026-10-14"))
+        assertEquals("5" to "ene", diaYMes("2026-01-05"))
+        assertEquals("30" to "dic", diaYMes("2026-12-30T21:15:00"))
+    }
+
+    @Test
+    fun diaYMesDevuelveNuloSiLaFechaNoSeEntiende() {
+        assertNull(diaYMes("ayer"))
+        assertNull(diaYMes(""))
+    }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -83,7 +98,7 @@ class HistorialViewModelTest {
     fun borrarNecesitaUnSegundoToqueDentroDeTresSegundos() =
         runTest(UnconfinedTestDispatcher()) {
             val repo = FakeHistorialRepo(listOf(entrada("a", "2026-10-01", "x"), entrada("b", "2026-09-01", "y")))
-            val vm = HistorialViewModel(repo, FakeRecetasRepo(listOf(receta("a"))))
+            val vm = HistorialViewModel(repo, FakeRecetasRepo(listOf(receta("a"))), FakeAjustesRepo())
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             vm.tocarBorrar("a")
@@ -106,7 +121,7 @@ class HistorialViewModelTest {
     fun tocarOtraEntradaCambiaLaConfirmacionSinBorrar() =
         runTest(UnconfinedTestDispatcher()) {
             val repo = FakeHistorialRepo(listOf(entrada("a", "2026-10-01", "x"), entrada("b", "2026-09-01", "y")))
-            val vm = HistorialViewModel(repo, FakeRecetasRepo())
+            val vm = HistorialViewModel(repo, FakeRecetasRepo(), FakeAjustesRepo())
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             vm.tocarBorrar("a")
@@ -118,5 +133,22 @@ class HistorialViewModelTest {
                     .first()
                     .recetaExiste,
             )
+        }
+
+    @Test
+    fun laDisposicionDeAjustesLlegaAlEstado() =
+        runTest(UnconfinedTestDispatcher()) {
+            val ajustes = FakeAjustesRepo()
+            val vm =
+                HistorialViewModel(
+                    FakeHistorialRepo(listOf(entrada("a", "2026-10-01", "x"))),
+                    FakeRecetasRepo(),
+                    ajustes,
+                )
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            assertEquals(DisposicionLista.TINTE, vm.estado.value.disposicion)
+            ajustes.fijarLista(DisposicionLista.FRANJA)
+            assertEquals(DisposicionLista.FRANJA, vm.estado.value.disposicion)
         }
 }

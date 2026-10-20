@@ -1,7 +1,10 @@
 package app.trombito.souschef.ui.historial
 
+import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.ui.comun.fechaCorta
 import app.trombito.souschef.ui.comun.normalizado
+import java.time.LocalDate
 
 data class FilaHistorial(
     val entrada: EntradaHistorial,
@@ -17,7 +20,16 @@ data class HistorialUiState(
     val filas: List<FilaHistorial> = emptyList(),
     /** Id de la entrada que espera el segundo toque para borrarse. */
     val pendienteBorrar: String? = null,
+    /** Diseño de tarjeta elegido en Ajustes. */
+    val disposicion: DisposicionLista = DisposicionLista.TINTE,
 )
+
+/** "2026-10-14" -> ("14", "oct"); null si la fecha no se entiende. */
+fun diaYMes(fecha: String): Pair<String, String>? {
+    runCatching { LocalDate.parse(fecha.take(10)) }.getOrNull() ?: return null
+    val partes = fechaCorta(fecha).split(' ', limit = 2)
+    return if (partes.size == 2) partes[0] to partes[1] else null
+}
 
 /** La marca de repetición se calcula sobre la lista completa, no sobre la filtrada. */
 fun marcarRepeticiones(
@@ -51,6 +63,7 @@ fun construirEstadoHistorial(
     slugsExistentes: Set<String>,
     consulta: String,
     pendienteBorrar: String?,
+    disposicion: DisposicionLista = DisposicionLista.TINTE,
 ): HistorialUiState =
     HistorialUiState(
         cargando = false,
@@ -58,4 +71,5 @@ fun construirEstadoHistorial(
         total = entradas.size,
         filas = marcarRepeticiones(entradas, slugsExistentes).filter { coincideHistorial(it.entrada, consulta) },
         pendienteBorrar = pendienteBorrar,
+        disposicion = disposicion,
     )
