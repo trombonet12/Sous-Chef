@@ -13,12 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -28,11 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Escalado
@@ -41,7 +35,9 @@ import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.crono.portada.AccionesChecklist
+import app.trombito.souschef.ui.crono.portada.ChecklistAntes
+import app.trombito.souschef.ui.crono.portada.EncabezadoChecklist
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 
@@ -116,59 +112,21 @@ fun CronoPortada(
         ) {
             BarraTitulo(receta.titulo, onSalir)
             AvisoPantallaCompleta()
-            if (recetaUi.descripcion.isNotBlank()) {
-                Text(recetaUi.descripcion, color = CronoPalette.apagado, style = MaterialTheme.typography.bodyMedium)
-            }
-            Text(
-                stringResource(
-                    if (receta.mep.isNotEmpty()) R.string.crono_antes_de_encender else R.string.crono_saca_esto,
-                ),
-                style = MaterialTheme.typography.labelLarge,
-                color = CronoPalette.acento,
-                letterSpacing = 1.2.sp,
+            ChecklistAntes(
+                encabezado =
+                    EncabezadoChecklist(
+                        stringResource(
+                            if (receta.mep.isNotEmpty()) R.string.crono_antes_de_encender else R.string.crono_saca_esto,
+                        ),
+                        recetaUi.descripcion,
+                    ),
+                bloques = bloques,
+                marcados = estado.marcados,
+                conDetalle = receta.mep.isNotEmpty(),
+                acciones = AccionesChecklist(viewModel::marcar, viewModel::marcarVarias),
             )
-            bloques.forEach { b ->
-                if (b.titulo != null) {
-                    Text(b.titulo, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                }
-                b.casillas.forEach { c ->
-                    FilaCasilla(c, c.id in estado.marcados) { viewModel.marcar(c.id, it) }
-                }
-            }
         }
         PieAbrir(estado.servirMs, { viewModel.cambiarServir(it) }, abrir)
-    }
-}
-
-@Composable
-private fun FilaCasilla(
-    casilla: Casilla,
-    marcada: Boolean,
-    onCambio: (Boolean) -> Unit,
-) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .heightIn(min = 48.dp)
-            .toggleable(value = marcada, role = Role.Checkbox, onValueChange = onCambio),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Checkbox(
-            checked = marcada,
-            onCheckedChange = null,
-            colors =
-                CheckboxDefaults.colors(
-                    checkedColor = CronoPalette.ok,
-                    checkmarkColor = CronoPalette.onPrincipal,
-                    uncheckedColor = CronoPalette.tenue,
-                ),
-        )
-        Text(
-            textoRico(casilla.texto),
-            Modifier.padding(start = 12.dp),
-            color = if (marcada) CronoPalette.ok else CronoPalette.texto,
-            textDecoration = if (marcada) TextDecoration.LineThrough else null,
-        )
     }
 }
 

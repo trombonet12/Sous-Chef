@@ -364,6 +364,12 @@ class CronoViewModel
             marcada: Boolean,
         ) = mutar { e, _, t -> SesionCrono.marcar(e, idCasilla, marcada, t) }
 
+        /** «Marcar todo» de un bloque: un único cambio de sesión para todas sus casillas. */
+        fun marcarVarias(
+            idsCasilla: List<String>,
+            marcada: Boolean,
+        ) = mutar { e, _, t -> idsCasilla.fold(e) { acc, id -> SesionCrono.marcar(acc, id, marcada, t) } }
+
         fun enfocar(carril: String) = mutar { e, _, t -> SesionCrono.enfocar(e, carril, t) }
 
         /** La misma preferencia que en Ajustes: la cocina se repinta con la nueva disposición sin reiniciarse. */
