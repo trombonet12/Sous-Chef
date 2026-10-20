@@ -10,6 +10,7 @@
 | Ronda 9 · cierre de la versión 1 | **completada**: v1.0.0 |
 | Ronda 10 · lista de recetas y lasaña | **completada**: v1.1.0 (OK de Joan a la receta) |
 | Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
+| Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -95,6 +96,18 @@
   - Probado en el emulador (claro y oscuro, cronómetro Clásica y Apilada en claro); capturas en
     `docs/capturas/v1.2-*.png`.
 
+- 2026-10-20 · Ronda 12 → **v1.3.0**:
+  - **Id de paquete `app.trombito.souschef`** (también el código de `:app`, `:receta` y `:tools`). Es otra app en el
+    móvil: hay que guardar la copia del historial en la vieja, cargarla en la nueva y desinstalar la vieja. En
+    Obtainium, quitar la app y volver a añadirla.
+  - **Sin aviso de versión nueva** (ADR-0011): la app ya no pide `INTERNET`, comprobado en el emulador.
+  - Recetas: **cuadraditos por familia de base** arriba, que abren la lista de esa familia; debajo, «Todas las
+    recetas». Técnicas, igual con cuadraditos por categoría, que sustituyen a los chips.
+  - Historial y Técnicas **siguen el diseño de lista** de Ajustes (Tinte, Franja o Clásica). El apartado se llama
+    ahora «Diseño de las listas».
+  - Pie de Ajustes: autor, correo (abre la app de correo) y web (abre el navegador).
+  - Capturas en `docs/capturas/v1.3-*.png`, tomadas en el emulador.
+
 ## Entorno
 | Herramienta | Estado |
 |---|---|
@@ -111,6 +124,8 @@
   - primera subida del AAB adjunto a la release v1.0.0;
   - declaración de permisos y seguridad de datos;
   - cuenta de servicio, secreto `PLAY_SERVICE_ACCOUNT_JSON` y variable `PLAY_ESTADO`.
+- **Pasar a la v1.3.0 (paquete nuevo):** guardar la copia del historial en la app vieja, instalar la nueva, cargar la
+  copia y desinstalar la vieja. En Obtainium, quitar la app y añadirla de nuevo.
 - Guardar una copia del historial de vez en cuando (Ajustes → Historial → «Guardar copia»).
 - Revisar la receta `pollo-almendras` antes de cocinarla, sobre todo las cantidades de la salsa y el tostado de las
   almendras al 5.
@@ -126,14 +141,13 @@
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
 - Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
-- Sin probar en el móvil: el diálogo al salir (ronda 7), la tarjeta compacta (ronda 8, solo emulador) y el aviso de
-  versión nueva (v0.8.0, probado en el emulador).
+- Sin probar en el móvil: el diálogo al salir (ronda 7), la tarjeta compacta (ronda 8, solo emulador) y los
+  cuadraditos y las listas de la v1.3 (solo emulador).
 - Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.2.0 publicada con el push. Pendiente:
+v1.3.0 publicada con el push. Pendiente:
 - comprobar la release (APK y AAB);
-- probar en el móvil el cronómetro en claro con pantalla apagada y la alarma a pantalla completa (sin probar en
-  claro);
+- que Joan migre al paquete nuevo (ver Pendiente del usuario) y lo pruebe en el móvil;
 - al cocinar la lasaña, ajustar las placas por capa.
