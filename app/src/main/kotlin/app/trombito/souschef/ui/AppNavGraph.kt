@@ -2,6 +2,7 @@ package app.trombito.souschef.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -23,6 +24,8 @@ import app.trombito.souschef.ui.tecnicas.TecnicaScreen
 import app.trombito.souschef.ui.tecnicas.TecnicasScreen
 
 private val ARG_SLUG = navArgument(Rutas.ARG_SLUG) { type = NavType.StringType }
+private val ARG_FAMILIA = navArgument(Rutas.ARG_FAMILIA) { type = NavType.StringType }
+private val ARG_CATEGORIA = navArgument(Rutas.ARG_CATEGORIA) { type = NavType.StringType }
 
 /** Grafo de destinos. */
 @Composable
@@ -31,12 +34,9 @@ fun SousChefNavGraph(
     modifier: Modifier = Modifier,
 ) {
     val abrirFicha: (String) -> Unit = { navController.navigate(Rutas.ficha(it)) }
+    val abrirTecnica: (String) -> Unit = { navController.navigate(Rutas.tecnica(it)) }
     NavHost(navController, startDestination = Pestana.Recetas.ruta, modifier = modifier) {
-        composable(Pestana.Recetas.ruta) { RecetasScreen(onAbrir = abrirFicha) }
-        composable(Pestana.Tecnicas.ruta) {
-            TecnicasScreen(onAtras = null, onAbrir = { navController.navigate(Rutas.tecnica(it)) })
-        }
-        composable(Pestana.Historial.ruta) { HistorialScreen(onRepetir = abrirFicha) }
+        listas(navController, abrirFicha, abrirTecnica)
         composable(Rutas.FICHA, arguments = listOf(ARG_SLUG)) { entrada ->
             val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
             FichaScreen(
@@ -85,4 +85,29 @@ fun SousChefNavGraph(
             )
         }
     }
+}
+
+/** Las tres pestañas de lista y las listas de una familia o categoría. */
+private fun NavGraphBuilder.listas(
+    navController: NavHostController,
+    abrirFicha: (String) -> Unit,
+    abrirTecnica: (String) -> Unit,
+) {
+    composable(Pestana.Recetas.ruta) {
+        RecetasScreen(onAbrir = abrirFicha, onCategoria = { navController.navigate(Rutas.recetasFamilia(it)) })
+    }
+    composable(Rutas.RECETAS_FAMILIA, arguments = listOf(ARG_FAMILIA)) {
+        RecetasScreen(onAbrir = abrirFicha, onAtras = { navController.popBackStack() })
+    }
+    composable(Pestana.Tecnicas.ruta) {
+        TecnicasScreen(
+            onAtras = null,
+            onAbrir = abrirTecnica,
+            onCategoria = { navController.navigate(Rutas.tecnicasCategoria(it)) },
+        )
+    }
+    composable(Rutas.TECNICAS_CATEGORIA, arguments = listOf(ARG_CATEGORIA)) {
+        TecnicasScreen(onAtras = { navController.popBackStack() }, onAbrir = abrirTecnica)
+    }
+    composable(Pestana.Historial.ruta) { HistorialScreen(onRepetir = abrirFicha) }
 }

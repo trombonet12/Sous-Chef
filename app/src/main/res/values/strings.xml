@@ -48,7 +48,6 @@
     <string name="limpiar_busqueda">Borrar la búsqueda</string>
     <string name="cargando">Cargando…</string>
     <string name="filtro_todas">Todas</string>
-    <string name="filtro_todas_n">Todas (%1$d)</string>
     <string name="filtro_n">%1$s (%2$d)</string>
 
     <!-- Lista de recetas -->

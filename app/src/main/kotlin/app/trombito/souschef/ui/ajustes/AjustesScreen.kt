@@ -74,13 +74,13 @@ fun AjustesScreen(
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
     val contexto = LocalContext.current
     val version = versionApp()
+    val asunto = stringResource(R.string.ajustes_contacto_asunto, version)
     AjustesMenu(
         ajustes,
         version,
         onAtras,
         onAbrir,
         onCorreo = {
-            val asunto = contexto.getString(R.string.ajustes_contacto_asunto, version)
             val correo = Intent(Intent.ACTION_SENDTO, "mailto:$CORREO".toUri()).putExtra(Intent.EXTRA_SUBJECT, asunto)
             contexto.abrir(correo)
         },

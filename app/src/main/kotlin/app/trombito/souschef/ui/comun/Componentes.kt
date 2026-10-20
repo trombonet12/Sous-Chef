@@ -3,14 +3,10 @@ package app.trombito.souschef.ui.comun
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -71,32 +67,6 @@ fun CampoBusqueda(
             },
         shape = MaterialTheme.shapes.small,
     )
-}
-
-/** Chips "Todas" + uno por valor; tocar el activo lo desactiva. */
-@Composable
-fun ChipsFiltro(
-    opciones: List<Pair<String, Int>>,
-    activa: String?,
-    total: Int,
-    onElegir: (String?) -> Unit,
-) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 2.dp)) {
-        item {
-            FilterChip(
-                selected = activa == null,
-                onClick = { onElegir(null) },
-                label = { Text(stringResource(R.string.filtro_todas_n, total)) },
-            )
-        }
-        items(opciones, key = { it.first }) { (valor, n) ->
-            FilterChip(
-                selected = activa == valor,
-                onClick = { onElegir(if (activa == valor) null else valor) },
-                label = { Text(stringResource(R.string.filtro_n, valor, n)) },
-            )
-        }
-    }
 }
 
 enum class Tono { Neutro, Teja, Oliva, Ambar }
