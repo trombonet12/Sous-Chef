@@ -4,9 +4,14 @@ import androidx.lifecycle.SavedStateHandle
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Escala
 import app.trombito.souschef.receta.Grupo
 import app.trombito.souschef.receta.Ingrediente
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Tecnica
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
@@ -30,7 +35,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -168,6 +175,108 @@ class FichaViewModelTest {
             assertEquals(1, vm.estado.value.raciones)
             vm.cambiarRaciones(99)
             assertEquals(20, vm.estado.value.raciones)
+        }
+
+    private fun conEscala(
+        escala: Escala?,
+        base: Int = 2,
+    ) {
+        val actual = recetas.datos.value.first()
+        recetas.datos.value = listOf(actual.copy(raciones = base, escala = escala))
+    }
+
+    @Test
+    fun conRangoLaGuardadaManda() =
+        runTest(UnconfinedTestDispatcher()) {
+            conEscala(Escala(2, 8, 2))
+            prefs.datos.value = mapOf("sopa" to Preferencia("sopa", raciones = 6))
+            val vm = crear()
+            assertEquals(6, vm.estado.value.raciones)
+            assertEquals(listOf(2, 4, 6, 8), vm.estado.value.racionesPermitidas)
+            assertFalse(vm.estado.value.ajustadoAlRango)
+        }
+
+    @Test
+    fun siLaGuardadaNoCabeSeUsaElDefectoDeAjustes() =
+        runTest(UnconfinedTestDispatcher()) {
+            conEscala(Escala(2, 8, 2))
+            prefs.datos.value = mapOf("sopa" to Preferencia("sopa", raciones = 3))
+            ajustes.actual.value = ajustes.actual.value.copy(racionesDefecto = 4)
+            assertEquals(4, crear().estado.value.raciones)
+        }
+
+    @Test
+    fun elDefectoGlobalSeAjustaAlRangoDeLaReceta() =
+        runTest(UnconfinedTestDispatcher()) {
+            conEscala(Escala(1, 4, 1))
+            ajustes.actual.value = ajustes.actual.value.copy(racionesDefecto = 6)
+            val estado = crear().estado.value
+            assertEquals(4, estado.raciones)
+            assertTrue(estado.ajustadoAlRango)
+        }
+
+    @Test
+    fun unaRecetaFijaAbreConSuUnicoValorYNoDejaMoverse() =
+        runTest(UnconfinedTestDispatcher()) {
+            conEscala(Escala(2, 2, 1))
+            ajustes.actual.value = ajustes.actual.value.copy(racionesDefecto = 5)
+            val vm = crear()
+            assertEquals(2, vm.estado.value.raciones)
+            assertEquals(listOf(2), vm.estado.value.racionesPermitidas)
+            vm.cambiarRaciones(7)
+            assertEquals(2, vm.estado.value.raciones)
+        }
+
+    @Test
+    fun cambiarRacionesSoloSeMueveDentroDeLasPermitidas() =
+        runTest(UnconfinedTestDispatcher()) {
+            conEscala(Escala(2, 6, 2))
+            val vm = crear()
+            vm.cambiarRaciones(99)
+            assertEquals(6, vm.estado.value.raciones)
+            vm.cambiarRaciones(0)
+            assertEquals(2, vm.estado.value.raciones)
+            vm.cambiarRaciones(5)
+            assertEquals(4, vm.estado.value.raciones)
+        }
+
+    @Test
+    fun fueraDeBaseSoloSiLasRacionesNoSonLasDeLaReceta() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            assertEquals(2, vm.estado.value.raciones)
+            assertFalse(vm.estado.value.fueraDeBase)
+            vm.cambiarRaciones(4)
+            assertTrue(vm.estado.value.fueraDeBase)
+            vm.cambiarRaciones(2)
+            assertFalse(vm.estado.value.fueraDeBase)
+        }
+
+    @Test
+    fun laRecetaLlegaTraducidaALaCocinaSinNumeros() =
+        runTest(UnconfinedTestDispatcher()) {
+            val canonica = recetas.datos.value.first()
+            recetas.datos.value =
+                listOf(canonica.copy(pasos = listOf(Paso("p1", "Baja al {7}", "m", 0.0, 5.0, f = 7))))
+            ajustes.actual.value = ajustes.actual.value.copy(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+            val estado = crear().estado.value
+            val paso = estado.receta?.pasos?.firstOrNull()
+            assertEquals("Baja a fuego medio-alto", paso?.t)
+            // El fuego numérico y los ids no cambian: la identidad canónica es del motor.
+            assertEquals(7, paso?.f)
+            assertEquals("p1", paso?.id)
+            assertEquals(TipoCocina.GAS, estado.cocina.tipo)
+        }
+
+    @Test
+    fun enVitroCanonicaElTextoNoCambia() =
+        runTest(UnconfinedTestDispatcher()) {
+            val canonica = recetas.datos.value.first()
+            recetas.datos.value =
+                listOf(canonica.copy(pasos = listOf(Paso("p1", "Baja al {3}", "m", 0.0, 5.0, f = 3))))
+            val estado = crear().estado.value
+            val paso = estado.receta?.pasos?.firstOrNull()
+            assertEquals("Baja al 3", paso?.t)
         }
 
     @Test

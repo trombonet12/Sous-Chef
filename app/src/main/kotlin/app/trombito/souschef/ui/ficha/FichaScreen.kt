@@ -25,6 +25,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,9 +39,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.EstadoVacio
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.PasosMasMenos
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.shell.Icono
@@ -82,17 +86,19 @@ fun FichaScreen(
         }
 
         else -> {
-            Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-                BarraFicha(estado, viewModel, salir, onCocinar)
-                estado.cocinando?.let { BandaCocinando(it) }
-                EnlacesTecnicas(estado.tecnicas, onTecnica)
-                Surface(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    color = FichaPalette.papel,
-                    contentColor = FichaPalette.tinta,
-                ) {
-                    HojaPapel(receta, estado, viewModel)
+            CompositionLocalProvider(LocalCocina provides estado.cocina) {
+                Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+                    BarraFicha(estado, viewModel, salir, onCocinar)
+                    estado.cocinando?.let { BandaCocinando(it) }
+                    EnlacesTecnicas(estado.tecnicas, onTecnica)
+                    Surface(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                        shape = MaterialTheme.shapes.medium,
+                        color = FichaPalette.papel,
+                        contentColor = FichaPalette.tinta,
+                    ) {
+                        HojaPapel(receta, estado, viewModel)
+                    }
                 }
             }
         }
@@ -146,7 +152,7 @@ private fun BarraFicha(
                         imprimirFicha(
                             contexto,
                             nombrePdf,
-                            fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto)),
+                            fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
                         )
                     },
                 ) {
@@ -229,6 +235,18 @@ private fun EnlacesTecnicas(
     }
 }
 
+/** En gas o inducción el calor responde al instante; las explicaciones de inercia de la vitro no se traducen. */
+@Composable
+private fun NotaCocina(cocina: Cocina) {
+    val nombre =
+        when (cocina.tipo) {
+            TipoCocina.GAS -> R.string.ficha_cocina_gas
+            TipoCocina.INDUCCION -> R.string.ficha_cocina_induccion
+            TipoCocina.VITRO -> return
+        }
+    NotaFicha(stringResource(R.string.ficha_nota_cocina, stringResource(nombre)))
+}
+
 /** Hoja de papel: siempre clara, también con el tema oscuro del sistema. */
 @Composable
 private fun HojaPapel(
@@ -238,9 +256,10 @@ private fun HojaPapel(
 ) {
     Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         PortadaFicha(receta, estado.raciones)
-        IngredientesFicha(receta, estado.raciones, viewModel::cambiarRaciones)
+        IngredientesFicha(receta, estado, viewModel::cambiarRaciones)
         TiempoFicha(receta)
         MepFicha(receta)
+        NotaCocina(estado.cocina)
         PasosFicha(receta)
         TecnicaFicha(receta)
         receta.pie?.takeIf { it.isNotBlank() }?.let {

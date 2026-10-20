@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
+import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,7 +53,9 @@ class TecnicasViewModel
 
 data class TecnicaUiState(
     val cargando: Boolean = true,
+    /** Técnica ya traducida a [cocina] (`Tecnica.conCocina`). */
     val tecnica: Tecnica? = null,
+    val cocina: Cocina = Cocina.VITRO_9,
     val recetas: List<Receta> = emptyList(),
 )
 
@@ -62,11 +66,21 @@ class TecnicaViewModel
         savedStateHandle: SavedStateHandle,
         tecnicas: TecnicasRepo,
         recetas: RecetasRepo,
+        ajustes: AjustesRepo,
     ) : ViewModel() {
         private val slug: String = checkNotNull(savedStateHandle[Rutas.ARG_SLUG])
 
         val estado: StateFlow<TecnicaUiState> =
-            combine(tecnicas.observar(slug), recetas.observarTodas()) { t, r ->
-                TecnicaUiState(cargando = false, tecnica = t, recetas = recetasConTecnica(slug, r))
+            combine(
+                tecnicas.observar(slug),
+                recetas.observarTodas(),
+                ajustes.observar().map { it.cocina }.distinctUntilChanged(),
+            ) { t, r, cocina ->
+                TecnicaUiState(
+                    cargando = false,
+                    tecnica = t?.conCocina(cocina),
+                    cocina = cocina,
+                    recetas = recetasConTecnica(slug, r),
+                )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TecnicaUiState())
     }

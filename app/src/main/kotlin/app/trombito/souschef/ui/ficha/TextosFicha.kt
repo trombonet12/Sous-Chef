@@ -2,6 +2,8 @@ package app.trombito.souschef.ui.ficha
 
 import android.content.Context
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.ui.comun.nivel
 
 /** Textos de la ficha impresa (vienen de `strings.xml`; así la función de HTML se prueba sin Context). */
 data class TextosFicha(
@@ -21,7 +23,11 @@ data class TextosFicha(
     val fuego: (Int) -> String,
 ) {
     companion object {
-        fun desde(contexto: Context): TextosFicha {
+        /** [cocina] decide cómo se escribe la potencia («fuego 7», «fuego 3,5», «fuego medio-alto»). */
+        fun desde(
+            contexto: Context,
+            cocina: Cocina,
+        ): TextosFicha {
             val r = contexto.resources
             return TextosFicha(
                 ingredientes = r.getString(R.string.ficha_sec_ingredientes),
@@ -37,7 +43,7 @@ data class TextosFicha(
                 raciones = { n -> "$n " + r.getQuantityString(R.plurals.ficha_unidad_racion, n) },
                 duracion = { m -> r.getString(R.string.ficha_duracion, m) },
                 rango = { a, b -> r.getString(R.string.ficha_min_rango, a, b) },
-                fuego = { f -> r.getString(R.string.ficha_fuego_bajo, f) },
+                fuego = { f -> r.getString(R.string.ficha_fuego_bajo, cocina.nivel(f)) },
             )
         }
     }

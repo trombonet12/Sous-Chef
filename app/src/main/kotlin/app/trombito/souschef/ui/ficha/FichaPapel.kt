@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions") // una función por sección de la ficha
+
 package app.trombito.souschef.ui.ficha
 
 import androidx.compose.foundation.layout.Arrangement
@@ -32,9 +34,11 @@ import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.CeldaDato
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.PasosMasMenos
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.FichaPalette
 
@@ -64,25 +68,30 @@ fun PortadaFicha(
 @Composable
 fun IngredientesFicha(
     receta: Receta,
-    raciones: Int,
+    estado: FichaUiState,
     onRaciones: (Int) -> Unit,
 ) {
     if (receta.grupos.isEmpty()) return
+    val raciones = estado.raciones
+    val permitidas = estado.racionesPermitidas
     SeccionPapel(stringResource(R.string.ficha_sec_ingredientes)) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Text(
-                stringResource(R.string.ficha_raciones_etiqueta).uppercase(),
-                Modifier.weight(1f),
-                style = MaterialTheme.typography.labelMedium,
-                color = FichaPalette.meta,
-            )
-            PasosMasMenos(
-                valor = stringResource(R.string.ficha_raciones_valor, raciones),
-                descMenos = stringResource(R.string.ficha_raciones_menos),
-                descMas = stringResource(R.string.ficha_raciones_mas),
-                onMenos = { onRaciones(raciones - 1) },
-                onMas = { onRaciones(raciones + 1) },
-            )
+        if (permitidas.size > 1) {
+            val i = permitidas.indexOf(raciones)
+            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                Text(
+                    stringResource(R.string.ficha_raciones_etiqueta).uppercase(),
+                    Modifier.weight(1f),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = FichaPalette.meta,
+                )
+                PasosMasMenos(
+                    valor = stringResource(R.string.ficha_raciones_valor, raciones),
+                    descMenos = stringResource(R.string.ficha_raciones_menos),
+                    descMas = stringResource(R.string.ficha_raciones_mas),
+                    onMenos = { permitidas.getOrNull(i - 1)?.let(onRaciones) },
+                    onMas = { permitidas.getOrNull(i + 1)?.let(onRaciones) },
+                )
+            }
         }
         val f = Escalado.factor(raciones, receta.raciones)
         var porZona by rememberSaveable(receta.slug) { mutableStateOf(false) }
@@ -103,7 +112,22 @@ fun IngredientesFicha(
                 color = FichaPalette.meta,
             )
         }
+        if (estado.fueraDeBase) NotaFicha(stringResource(R.string.ficha_aviso_fuera_de_base, receta.raciones))
+        if (estado.ajustadoAlRango && permitidas.isNotEmpty()) {
+            NotaFicha(stringResource(R.string.ficha_aviso_rango, permitidas.first(), permitidas.last()))
+        }
     }
+}
+
+/** Aviso discreto en papel: una línea pequeña y apagada. */
+@Composable
+fun NotaFicha(texto: String) {
+    Text(
+        texto,
+        Modifier.padding(top = 6.dp),
+        style = MaterialTheme.typography.bodySmall,
+        color = FichaPalette.meta,
+    )
 }
 
 @Composable
@@ -222,12 +246,13 @@ fun lineaMetaPaso(
     paso: Paso,
     receta: Receta,
 ): String {
+    val cocina = LocalCocina.current
     val partes =
         buildList {
             add((receta.carril(paso.carril)?.nombre ?: paso.carril).uppercase())
             add(stringResource(R.string.ficha_minutos_meta, Escalado.minutos(paso.min)).uppercase())
             add(
-                paso.f?.let { stringResource(R.string.ficha_fuego_meta, it) }
+                paso.f?.let { stringResource(R.string.ficha_fuego_meta, cocina.nivel(it).uppercase()) }
                     ?: stringResource(R.string.ficha_sin_fuego),
             )
             paso.tapa?.takeIf { it.isNotBlank() }?.let { add(it.uppercase()) }

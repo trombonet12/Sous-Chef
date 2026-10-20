@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +33,7 @@ import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.CeldaDato
 import app.trombito.souschef.ui.comun.EstadoVacio
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
@@ -59,16 +61,18 @@ fun TecnicaScreen(
         }
 
         else -> {
-            Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-                BarraTitulo(tecnica.titulo, onAtras)
-                EnlacesRecetas(estado, onReceta)
-                Surface(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    color = FichaPalette.papel,
-                    contentColor = FichaPalette.tinta,
-                ) {
-                    HojaTecnica(tecnica)
+            CompositionLocalProvider(LocalCocina provides estado.cocina) {
+                Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+                    BarraTitulo(tecnica.titulo, onAtras)
+                    EnlacesRecetas(estado, onReceta)
+                    Surface(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                        shape = MaterialTheme.shapes.medium,
+                        color = FichaPalette.papel,
+                        contentColor = FichaPalette.tinta,
+                    ) {
+                        HojaTecnica(tecnica)
+                    }
                 }
             }
         }

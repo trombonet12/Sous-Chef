@@ -36,9 +36,11 @@ import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.colorCarril
+import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.theme.FichaPalette
 
 private const val CADA_REJILLA_MIN = 10
@@ -158,8 +160,10 @@ private fun subLinea(
     carril: Carril?,
 ): String {
     val rango = stringResource(R.string.ficha_min_rango, Escalado.minutos(paso.off), Escalado.minutos(paso.fin))
+    val cocina = LocalCocina.current
     val fuego =
-        paso.f?.let { stringResource(R.string.ficha_fuego_bajo, it) } ?: stringResource(R.string.ficha_sin_fuego_bajo)
+        paso.f?.let { stringResource(R.string.ficha_fuego_bajo, cocina.nivel(it)) }
+            ?: stringResource(R.string.ficha_sin_fuego_bajo)
     return listOfNotNull(carril?.nombre?.uppercase(), rango, fuego, paso.tapa?.uppercase()).joinToString(" · ")
 }
 

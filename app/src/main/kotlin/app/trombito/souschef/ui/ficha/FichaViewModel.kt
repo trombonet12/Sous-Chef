@@ -10,6 +10,7 @@ import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.receta.Escalado
+import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.ui.Rutas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.abs
 
 /** Retardo de guardado de las raciones tras el último toque (docs/spec/app-legado.md §2). */
 const val DEBOUNCE_RACIONES_MS = 600L
@@ -58,22 +60,36 @@ class FichaViewModel
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
                 cadena.viva(slug),
-                combine(local, ajustes.observar()) { l, a -> l to a.servirMin },
-            ) { receta, pref, existentes, viva, (l, servirDefecto) ->
-                val raciones = l.raciones ?: pref?.raciones ?: receta?.raciones ?: 2
+                combine(local, ajustes.observar()) { l, a -> l to a },
+            ) { receta, pref, existentes, viva, (l, a) ->
+                val permitidas = receta?.let { Escalado.racionesPermitidas(it) } ?: FichaUiState().racionesPermitidas
+                val guardada = l.raciones ?: pref?.raciones
+                val raciones =
+                    l.raciones?.takeIf { it in permitidas }
+                        ?: receta?.let { Escalado.racionesIniciales(it, guardada, a.racionesDefecto) }
+                        ?: guardada
+                        ?: a.racionesDefecto
                 FichaUiState(
                     cargando = false,
-                    receta = receta,
+                    receta = receta?.conCocina(a.cocina),
+                    cocina = a.cocina,
                     raciones = raciones,
-                    servirMin = l.servirMin ?: servirDefecto,
+                    racionesPermitidas = permitidas,
+                    ajustadoAlRango =
+                        receta != null && guardada !in permitidas && a.racionesDefecto !in permitidas,
+                    servirMin = l.servirMin ?: a.servirMin,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 
-        /** Cambia las raciones al instante y las guarda 600 ms después del último toque. */
+        /**
+         * Cambia las raciones al instante (a la permitida más cercana) y las guarda 600 ms después del último
+         * toque.
+         */
         fun cambiarRaciones(nuevas: Int) {
-            val valor = nuevas.coerceIn(Escalado.RACIONES_MIN, Escalado.RACIONES_MAX)
+            val permitidas = estado.value.racionesPermitidas
+            val valor = permitidas.minWithOrNull(compareBy({ abs(it - nuevas) }, { it })) ?: return
             local.update { it.copy(raciones = valor) }
             pendiente = valor
             jobGuardar?.cancel()

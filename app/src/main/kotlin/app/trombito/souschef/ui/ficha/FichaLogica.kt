@@ -1,6 +1,8 @@
 package app.trombito.souschef.ui.ficha
 
 import app.trombito.souschef.domain.SERVIR_DEFECTO_MIN
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import java.util.Locale
@@ -33,13 +35,22 @@ data class TecnicaEnlace(
 
 data class FichaUiState(
     val cargando: Boolean = true,
+    /** Receta ya traducida a [cocina] (`Receta.conCocina`): para pintar e imprimir, no para el motor. */
     val receta: Receta? = null,
+    val cocina: Cocina = Cocina.VITRO_9,
     val raciones: Int = 2,
+    /** Raciones que admite la receta (su `escala`, o 1..20); el stepper solo recorre estas. */
+    val racionesPermitidas: List<Int> = (Escalado.RACIONES_MIN..Escalado.RACIONES_MAX).toList(),
+    /** El defecto global de Ajustes no cabía en el rango de la receta y se ajustó a la más cercana. */
+    val ajustadoAlRango: Boolean = false,
     val servirMin: Int = Servir.DEFECTO,
     val tecnicas: List<TecnicaEnlace> = emptyList(),
     /** Carriles aún en marcha si esta receta tiene una cocinada viva; null si no la tiene. */
     val cocinando: Int? = null,
-)
+) {
+    /** Las raciones no son las de la receta: los gramos de pasos y preparación siguen siendo los de la base. */
+    val fueraDeBase: Boolean get() = receta != null && raciones != receta.raciones
+}
 
 /** Enlaces solo a las técnicas de `tags.tecnica` que existen. */
 fun enlacesTecnicas(
