@@ -202,3 +202,7 @@ tasks.matching { it.name == "assembleRelease" || it.name == "bundleRelease" }.co
         ) { "Release sin firma: faltan las variables SOUSCHEF_* (usa node scripts/android-release.mjs)" }
     }
 }
+
+// La caché de build restauraba un componente Hilt viejo tras cambiar el constructor de un ViewModel (NoSuchMethodError
+// en ejecución, ronda 14). El componente se regenera siempre.
+tasks.matching { it.name.startsWith("hiltJavaCompile") }.configureEach { outputs.cacheIf { false } }
