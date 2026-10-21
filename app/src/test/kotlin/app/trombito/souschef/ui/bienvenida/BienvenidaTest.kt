@@ -356,9 +356,10 @@ class BienvenidaTest {
         val vm = demoVm()
         vm.probarVoz("Hola")
         escucha.oir("chef que toca")
+        val voz = vm.voz.value
         banco.poner {
             SousChefTheme(darkTheme = false) {
-                PaginaVoz(EstadoIntro(voz = vm.voz.value), onVoz = {}, onProbar = {})
+                PaginaVoz(EstadoIntro(voz = voz), onVoz = {}, onProbar = {})
             }
         }
 
