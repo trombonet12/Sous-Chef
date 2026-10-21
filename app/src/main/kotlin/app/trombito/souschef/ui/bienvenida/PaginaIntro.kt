@@ -35,7 +35,6 @@ internal enum class PaginaIntro(
     BIENVENIDA(R.string.intro_p1_titulo, R.string.intro_p1_texto),
     RECETAS(R.string.intro_p2_titulo, R.string.intro_p2_texto),
     CRONOMETRO(R.string.intro_p3_titulo, R.string.intro_p3_texto),
-    HISTORIAL(R.string.intro_p4_titulo, R.string.intro_p4_texto),
     COCINA(R.string.intro_p5_titulo, R.string.intro_p5_texto, conControles = true),
     RACIONES(R.string.intro_p6_titulo, R.string.intro_p6_texto, conControles = true),
     HORARIO(R.string.intro_p7_titulo, R.string.intro_p7_texto, conControles = true),

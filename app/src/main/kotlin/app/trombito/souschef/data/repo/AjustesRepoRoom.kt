@@ -32,8 +32,6 @@ class AjustesRepoRoom
 
         private fun leer(v: Array<String?>): Ajustes {
             val defecto = Ajustes()
-            // Sin marca de intro pero con cualquier otro ajuste guardado: la app ya se usaba antes de la intro.
-            val introPorDefecto = v[I_INTRO] == null && v.any { it != null }
             return Ajustes(
                 disposicion = enumDe(v[I_DISPOSICION], defecto.disposicion),
                 vozActiva = booleanoDe(v[I_VOZ], defecto.vozActiva),
@@ -46,7 +44,7 @@ class AjustesRepoRoom
                 fuegos = enteroDe(v[I_FUEGOS], FUEGOS_MIN..FUEGOS_MAX, defecto.fuegos),
                 horno = booleanoDe(v[I_HORNO], defecto.horno),
                 racionesDefecto = enteroDe(v[I_RACIONES], RACIONES_MIN..RACIONES_MAX, defecto.racionesDefecto),
-                introVista = booleanoDe(v[I_INTRO], introPorDefecto),
+                introVista = booleanoDe(v[I_INTRO], defecto.introVista),
                 guiaCronoVista = booleanoDe(v[I_GUIA], defecto.guiaCronoVista),
             )
         }

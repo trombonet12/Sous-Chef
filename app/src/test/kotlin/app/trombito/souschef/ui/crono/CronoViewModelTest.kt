@@ -616,6 +616,11 @@ class CronoViewModelTest {
             vm.vozIniciar(permiso = true)
             assertEquals(0, sinReconocedor.empezadas)
             assertEquals(EstadoVoz.APAGADA, vm.ui.value.voz)
+
+            // El botón sigue ahí y silenciar al Chef corta el habla aunque no haya reconocedor.
+            assertTrue(vm.ui.value.vozActiva)
+            vm.silenciarVoz()
+            assertEquals(1, habla.calladas)
         }
 
     @Test

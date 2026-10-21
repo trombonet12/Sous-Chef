@@ -31,18 +31,6 @@
     <string name="intro_crono_voz">Con la voz</string>
     <string name="intro_crono_voz_texto">Con las manos sucias, pregúntale al chef y mándale hecho, pausa o más tiempo.</string>
 
-    <!-- 4. Historial y técnicas -->
-    <string name="intro_p4_titulo">Historial y técnicas</string>
-    <string name="intro_p4_texto">Lo que has cocinado y las bases que hay detrás de cada receta.</string>
-    <string name="intro_hist_historial">Historial</string>
-    <string name="intro_hist_historial_texto">Cada cocinada queda guardada con lo que tardaste de verdad en cada paso.</string>
-    <string name="intro_hist_tecnicas">Técnicas</string>
-    <string name="intro_hist_tecnicas_texto">Las bases de cocina explicadas, enlazadas desde cada receta.</string>
-    <string name="intro_hist_copia">Copia del historial</string>
-    <string name="intro_hist_copia_texto">Guárdala o cárgala en otro móvil desde Ajustes.</string>
-    <string name="intro_hist_buzon">Buzón</string>
-    <string name="intro_hist_buzon_texto">Pide una receta, cuenta un fallo o sugiere algo desde Ajustes.</string>
-
     <!-- 5. Tu cocina -->
     <string name="intro_p5_titulo">Tu cocina</string>
     <string name="intro_p5_texto">Elige cómo es tu cocina y las recetas se traducen solas a tus mandos. El ejemplo de abajo cambia en vivo.</string>
@@ -67,6 +55,28 @@
     <!-- 10. Voz -->
     <string name="intro_p10_titulo">Hablar con el chef</string>
     <string name="intro_p10_texto">Con el cronómetro abierto, di «Chef, …» para preguntar o mandar sin tocar la pantalla. Pruébalo ahora.</string>
+    <string name="intro_voz_cabecera">Puedes cocinar una receta entera sin tocar la pantalla: empieza cada orden con «Chef».</string>
+    <string name="intro_voz_ordenes_titulo">Qué puedes decirle</string>
+    <string name="intro_voz_g_avanzar">Avanzar</string>
+    <string name="intro_voz_g_avanzar_texto">«Chef, hecho» (o listo, siguiente, ya está)
+«Chef, empieza» (o arranca, vamos)
+«Chef, deshaz» (o me he equivocado)</string>
+    <string name="intro_voz_g_tiempo">Tiempo</string>
+    <string name="intro_voz_g_tiempo_texto">«Chef, pausa» (o espera)
+«Chef, sigue» (o continúa, dale)
+«Chef, dos minutos más» (o medio minuto, un poco más)
+«Chef, cuánto queda»</string>
+    <string name="intro_voz_g_preguntar">Preguntar</string>
+    <string name="intro_voz_g_preguntar_texto">«Chef, qué toca» (o qué tengo que hacer)
+«Chef, qué viene»
+«Chef, próximos pasos»
+«Chef, por qué»
+«Chef, info»</string>
+    <string name="intro_voz_g_alarma">Alarma y repetición</string>
+    <string name="intro_voz_g_alarma_texto">«Chef, para» (apaga la alarma)
+«Chef, repite»</string>
+    <string name="intro_voz_g_carril">Un recipiente en concreto</string>
+    <string name="intro_voz_g_carril_texto">Añade su número: «Chef, info dos», «Chef, hecho del 2», «Chef, para el 1».</string>
     <string name="intro_voz_probar">Probar</string>
     <string name="intro_voz_frase">Hola, soy el Chef. Dime: qué tengo que hacer</string>
     <string name="intro_voz_pista">Pulsa Probar y, cuando el chef termine de hablar, di por ejemplo «Chef, qué toca».</string>

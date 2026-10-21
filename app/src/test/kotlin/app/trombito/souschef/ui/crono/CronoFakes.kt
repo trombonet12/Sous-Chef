@@ -241,6 +241,7 @@ class FakeEscucha(
 class FakeHabla : Habla {
     val dichas = mutableListOf<String>()
     var liberada = 0
+    var calladas = 0
 
     override fun decir(
         texto: String,
@@ -250,7 +251,9 @@ class FakeHabla : Habla {
         alAcabar()
     }
 
-    override fun callar() = Unit
+    override fun callar() {
+        calladas++
+    }
 
     override fun liberar() {
         liberada++

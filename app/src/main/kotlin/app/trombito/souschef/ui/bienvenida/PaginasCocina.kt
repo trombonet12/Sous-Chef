@@ -28,7 +28,6 @@ import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.ajustes.SelectorCocina
-import app.trombito.souschef.ui.ajustes.SelectorDisposicion
 import app.trombito.souschef.ui.ajustes.SelectorEquipo
 import app.trombito.souschef.ui.ajustes.SelectorRaciones
 import app.trombito.souschef.ui.comun.LocalCocina
@@ -89,7 +88,7 @@ internal fun PaginaDisposicion(
     acciones: AccionesAjustes,
 ) {
     PaginaMarco(PaginaIntro.DISPOSICION) {
-        SelectorDisposicion(estado.ajustes.disposicion, acciones.disposicion)
+        SelectorDisposicionTexto(estado.ajustes.disposicion, acciones.disposicion)
         CocinaEnMarco(estado.demo, estado.ajustes, ALTO_MARCO_COCINA)
     }
 }

@@ -2,12 +2,15 @@ package app.trombito.souschef.ui.bienvenida
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.trombito.souschef.di.ApplicationScope
+import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.voz.InterpreteVoz
 import app.trombito.souschef.receta.voz.OrdenVoz
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,6 +53,8 @@ class BienvenidaViewModel
         private val recetas: RecetasRepo,
         private val escucha: Escucha,
         private val habla: Habla,
+        private val ajustes: AjustesRepo,
+        @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private val _demo = MutableStateFlow(DatosDemo())
         val demo: StateFlow<DatosDemo> = _demo
@@ -74,6 +79,11 @@ class BienvenidaViewModel
             }
             _voz.value = PruebaVoz.Hablando
             habla.decir(frase) { if (_voz.value == PruebaVoz.Hablando) escuchar() }
+        }
+
+        /** Marca la intro como vista en el ámbito de aplicación: no se pierde al desapilar la pantalla. */
+        fun marcarIntroVista() {
+            ambito.launch { ajustes.marcarIntroVista(true) }
         }
 
         /** El usuario no dio el micrófono. */

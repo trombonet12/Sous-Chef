@@ -4,7 +4,9 @@ import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.voz.OrdenVoz
 import app.trombito.souschef.ui.FakeRecetasRepo
+import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.recetaCrono
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -69,6 +71,7 @@ class HablaGuion : Habla {
 class BienvenidaViewModelTest {
     private val escucha = EscuchaGuion()
     private val habla = HablaGuion()
+    private val ajustes = FakeAjustesRepo()
 
     @Before
     fun antes() = Dispatchers.setMain(UnconfinedTestDispatcher())
@@ -79,7 +82,7 @@ class BienvenidaViewModelTest {
     private fun vm(
         escucha: EscuchaGuion = this.escucha,
         recetas: FakeRecetasRepo = FakeRecetasRepo(listOf(recetaCrono(SLUG_COCINA), recetaCrono(SLUG_RACIONES))),
-    ) = BienvenidaViewModel(recetas, escucha, habla)
+    ) = BienvenidaViewModel(recetas, escucha, habla, ajustes, CoroutineScope(Dispatchers.Unconfined))
 
     @Test
     fun `carga las recetas de ejemplo del repositorio`() {

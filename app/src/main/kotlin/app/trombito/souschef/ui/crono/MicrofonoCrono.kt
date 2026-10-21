@@ -69,30 +69,33 @@ internal fun permisoDeMicrofono(
     }
 }
 
-/** Micrófono de la cabecera: escuchando, silenciado o sin permiso. Oculto si la voz no está en juego. */
+/**
+ * Micrófono de la cabecera: silencia o reactiva al Chef (ni habla ni escucha) en esta cocinada. Con el ajuste de voz
+ * activo se ve siempre, haya o no reconocedor; sin permiso, el toque lo pide.
+ */
 @Composable
 internal fun BotonMicrofono(
     ui: CronoUi,
     silenciar: () -> Unit,
     pedirPermiso: () -> Unit,
 ) {
-    if (ui.voz == EstadoVoz.APAGADA && !ui.vozSilenciada) return
+    if (!ui.vozActiva) return
     val sinPermiso = ui.voz == EstadoVoz.SIN_PERMISO
-    val escuchando = ui.voz == EstadoVoz.ESCUCHANDO
+    val activo = !ui.vozSilenciada
     val descripcion =
         when {
             sinPermiso -> R.string.crono_voz_sin_permiso
-            escuchando -> R.string.crono_voz_silenciar
+            activo -> R.string.crono_voz_silenciar
             else -> R.string.crono_voz_activar
         }
     IconButton(onClick = if (sinPermiso) pedirPermiso else silenciar, Modifier.size(48.dp).guia(GuiaIds.MICRO)) {
         Icon(
-            if (escuchando) Icono.Microfono.vector else Icono.MicrofonoMudo.vector,
+            if (activo && !sinPermiso) Icono.Microfono.vector else Icono.MicrofonoMudo.vector,
             stringResource(descripcion),
             tint =
                 when {
                     sinPermiso -> CronoPalette.alerta
-                    escuchando -> CronoPalette.acento
+                    activo -> CronoPalette.acento
                     else -> CronoPalette.tenue
                 },
         )

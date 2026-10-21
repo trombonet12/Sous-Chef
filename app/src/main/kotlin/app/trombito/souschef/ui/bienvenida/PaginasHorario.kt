@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.HoraTarjeta
-import app.trombito.souschef.ui.ajustes.SelectorLista
 import app.trombito.souschef.ui.ajustes.SelectorTema
 import app.trombito.souschef.ui.ajustes.TituloApartado
 import app.trombito.souschef.ui.comun.PasosMasMenos
@@ -77,7 +76,7 @@ internal fun PaginaApariencia(
         TituloApartado(stringResource(R.string.ajustes_tema))
         SelectorTema(ajustes.tema, acciones.tema)
         TituloApartado(stringResource(R.string.ajustes_diseno_listas))
-        SelectorLista(ajustes.lista, acciones.lista)
+        SelectorListaTexto(ajustes.lista, acciones.lista)
         Column(Modifier.testTag("intro-tarjetas"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             estado.demo.tarjetas.forEach {
                 TarjetaLista(

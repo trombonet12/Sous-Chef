@@ -31,7 +31,6 @@ import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.ui.ajustes.resumenCocina
 import app.trombito.souschef.ui.ficha.Servir
 import app.trombito.souschef.ui.recetas.TarjetaLista
-import app.trombito.souschef.ui.shell.Icono
 
 /** Lado del círculo con la mascota de la bienvenida. */
 private val LADO_MASCOTA_GRANDE = 176.dp
@@ -87,17 +86,6 @@ internal fun PaginaRecetas(estado: EstadoIntro) {
                 }
             }
         }
-    }
-}
-
-/** 4. Historial, técnicas, la copia del historial y el Buzón. */
-@Composable
-internal fun PaginaHistorial() {
-    PaginaMarco(PaginaIntro.HISTORIAL) {
-        FilaExplica(Icono.Reloj, R.string.intro_hist_historial, R.string.intro_hist_historial_texto)
-        FilaExplica(Icono.Libreta, R.string.intro_hist_tecnicas, R.string.intro_hist_tecnicas_texto)
-        FilaExplica(Icono.Copiar, R.string.intro_hist_copia, R.string.intro_hist_copia_texto)
-        FilaExplica(Icono.Correo, R.string.intro_hist_buzon, R.string.intro_hist_buzon_texto)
     }
 }
 

@@ -72,7 +72,7 @@ fun BienvenidaScreen(
     val pedirMicrofono = rememberPedirMicrofono { if (it) demoVm.probarVoz(frase) else demoVm.sinPermiso() }
     LaunchedEffect(Unit) { ajustesVm.marcarIntroVista(false) }
     val terminar = {
-        ajustesVm.marcarIntroVista(true)
+        demoVm.marcarIntroVista()
         onTerminar()
     }
     val acciones =
@@ -144,7 +144,6 @@ private fun Pagina(
         PaginaIntro.BIENVENIDA -> PaginaBienvenida()
         PaginaIntro.RECETAS -> PaginaRecetas(estado)
         PaginaIntro.CRONOMETRO -> PaginaCronometro(estado)
-        PaginaIntro.HISTORIAL -> PaginaHistorial()
         PaginaIntro.COCINA -> PaginaCocina(estado.ajustes, acciones.ajustes)
         PaginaIntro.RACIONES -> PaginaRaciones(estado, acciones.ajustes)
         PaginaIntro.HORARIO -> PaginaHorario(estado, acciones.ajustes)
@@ -171,7 +170,7 @@ private fun BarraSuperior(
     }
 }
 
-/** Puntos de progreso; para TalkBack son un solo elemento («Paso 3 de 12»). */
+/** Puntos de progreso; para TalkBack son un solo elemento («Paso 3 de 11»). */
 @Composable
 private fun Puntos(
     actual: Int,

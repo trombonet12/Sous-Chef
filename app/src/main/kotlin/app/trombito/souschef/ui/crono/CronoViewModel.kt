@@ -87,6 +87,8 @@ data class CronoUi(
     val voz: EstadoVoz = EstadoVoz.APAGADA,
     /** El usuario ha silenciado la voz en esta cocinada (no se guarda). */
     val vozSilenciada: Boolean = false,
+    /** El ajuste de voz está activo (con él, el botón de silenciar al Chef se ve siempre en la cocina). */
+    val vozActiva: Boolean = false,
     /**
      * La guía de la primera cocinada ya se vio (Ajustes). Parte de true para que no parpadee antes de leer el ajuste.
      */
@@ -165,7 +167,8 @@ class CronoViewModel
                 ajustes.observar().collect { a ->
                     vozActiva = a.vozActiva
                     _ui.update {
-                        conCocinaDe(it, a.cocina).copy(disposicion = a.disposicion, guiaVista = a.guiaCronoVista)
+                        conCocinaDe(it, a.cocina)
+                            .copy(disposicion = a.disposicion, guiaVista = a.guiaCronoVista, vozActiva = a.vozActiva)
                     }
                     reevaluarVoz()
                 }

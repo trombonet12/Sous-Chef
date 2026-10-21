@@ -201,8 +201,8 @@
     <string name="crono_destapada">destapada</string>
     <string name="crono_tapa_medias">tapa a medias</string>
     <string name="crono_terminado">Terminado</string>
-    <string name="crono_voz_silenciar">Silenciar la voz</string>
-    <string name="crono_voz_activar">Activar la voz</string>
+    <string name="crono_voz_silenciar">Silenciar al Chef</string>
+    <string name="crono_voz_activar">Activar al Chef</string>
     <string name="crono_voz_sin_permiso">Dar permiso de micrófono para hablar con el chef</string>
     <string name="crono_meto">METO</string>
     <string name="crono_saco">SACO</string>

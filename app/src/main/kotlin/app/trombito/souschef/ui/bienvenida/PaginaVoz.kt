@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,8 @@ internal fun PaginaVoz(
     onProbar: () -> Unit,
 ) {
     PaginaMarco(PaginaIntro.VOZ) {
+        Text(stringResource(R.string.intro_voz_cabecera), style = MaterialTheme.typography.titleMedium)
+        OrdenesDisponibles()
         Row(
             Modifier
                 .fillMaxWidth()
@@ -56,6 +59,37 @@ internal fun PaginaVoz(
             Text(stringResource(R.string.intro_voz_probar))
         }
         ResultadoVoz(estado.voz)
+    }
+}
+
+private val GRUPOS_ORDENES =
+    listOf(
+        R.string.intro_voz_g_avanzar to R.string.intro_voz_g_avanzar_texto,
+        R.string.intro_voz_g_tiempo to R.string.intro_voz_g_tiempo_texto,
+        R.string.intro_voz_g_preguntar to R.string.intro_voz_g_preguntar_texto,
+        R.string.intro_voz_g_alarma to R.string.intro_voz_g_alarma_texto,
+        R.string.intro_voz_g_carril to R.string.intro_voz_g_carril_texto,
+    )
+
+/** Las órdenes que entiende el intérprete, agrupadas y con un ejemplo dicho de cada una. */
+@Composable
+private fun OrdenesDisponibles() {
+    Column(Modifier.fillMaxWidth().testTag("intro-voz-ordenes"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            stringResource(R.string.intro_voz_ordenes_titulo),
+            Modifier.semantics { heading() },
+            style = MaterialTheme.typography.titleLarge,
+        )
+        GRUPOS_ORDENES.forEach { (titulo, texto) ->
+            Column {
+                Text(
+                    stringResource(titulo),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+                Text(stringResource(texto), style = MaterialTheme.typography.bodyMedium)
+            }
+        }
     }
 }
 

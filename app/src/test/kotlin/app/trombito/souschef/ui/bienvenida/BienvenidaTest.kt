@@ -27,6 +27,8 @@ import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.LimpiezaCompose
 import app.trombito.souschef.ui.crono.RelojFalso
 import app.trombito.souschef.ui.theme.SousChefTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -74,7 +76,14 @@ class BienvenidaTest {
             ),
         )
 
-    private fun demoVm() = BienvenidaViewModel(FakeRecetasRepo(listOf(pollo, tacos)), escucha, habla)
+    private fun demoVm() =
+        BienvenidaViewModel(
+            FakeRecetasRepo(listOf(pollo, tacos)),
+            escucha,
+            habla,
+            repo,
+            CoroutineScope(Dispatchers.Unconfined),
+        )
 
     /**
      * La intro sobre [pagina] con los ajustes de ahora. Las elecciones se guardan con el [AjustesViewModel] (como en la
@@ -154,7 +163,7 @@ class BienvenidaTest {
         assertTrue(hay("intro-saltar"))
         assertTrue(hay("intro-siguiente"))
         assertTrue(hay("intro-trombito"))
-        assertTrue("Paso 1 de 12" in todoElTexto())
+        assertTrue("Paso 1 de 11" in todoElTexto())
     }
 
     @Test
@@ -349,6 +358,24 @@ class BienvenidaTest {
         assertEquals(DisposicionLista.FRANJA, repo.actual.value.lista)
         assertTrue(pollo.titulo in todoElTexto())
         assertTrue(tacos.titulo in todoElTexto())
+    }
+
+    @Test
+    fun `la disposicion del cronometro se elige con botones de texto`() {
+        poner(PaginaIntro.DISPOSICION)
+
+        banco.pulsar(banco.conEtiqueta("disposicion-FOCO"))
+
+        assertEquals(DisposicionCrono.FOCO, repo.actual.value.disposicion)
+    }
+
+    @Test
+    fun `la pagina de voz lista las ordenes y la palabra de activacion`() {
+        banco.poner { SousChefTheme(darkTheme = false) { PaginaVoz(EstadoIntro(), onVoz = {}, onProbar = {}) } }
+
+        val textos = banco.textos(banco.conEtiqueta("intro-voz-ordenes")).joinToString(" ")
+        assertTrue(textos, "«Chef, qué toca»" in textos && "«Chef, info dos»" in textos && "«Chef, repite»" in textos)
+        assertTrue(todoElTexto().any { "empieza cada orden con «Chef»" in it })
     }
 
     @Test

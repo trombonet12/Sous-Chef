@@ -53,10 +53,10 @@ class AjustesRepoRoomTest {
         runBlocking {
             repo.fijarDisposicion(DisposicionCrono.APILADA)
             repo.fijarVoz(false)
-            assertEquals(Ajustes(DisposicionCrono.APILADA, false, introVista = true), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.APILADA, false), repo.observar().first())
 
             repo.fijarDisposicion(DisposicionCrono.FOCO)
-            assertEquals(Ajustes(DisposicionCrono.FOCO, false, introVista = true), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.FOCO, false), repo.observar().first())
         }
 
     @Test
@@ -69,8 +69,7 @@ class AjustesRepoRoomTest {
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_TEMA, "sepia"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_SERVIR, "25:99"))
             db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_HORA, "manana"))
-            // Hay claves ajustes.* guardadas, aunque corruptas: la app ya se usaba, así que no se enseña la intro.
-            assertEquals(Ajustes(introVista = true), repo.observar().first())
+            assertEquals(Ajustes(), repo.observar().first())
         }
 
     @Test
@@ -187,10 +186,10 @@ class AjustesRepoRoomTest {
         }
 
     @Test
-    fun sinMarcaDeIntroPeroConOtrosAjustesLaAppYaSeUsabaYNoSeMuestraLaIntro() =
+    fun sinMarcaDeIntroPeroConOtrosAjustesLaIntroSeMuestraUnaVez() =
         runBlocking {
             repo.fijarTema(TemaApp.OSCURO)
-            assertEquals(true, repo.observar().first().introVista)
+            assertEquals(false, repo.observar().first().introVista)
         }
 
     @Test
