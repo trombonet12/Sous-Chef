@@ -12,7 +12,7 @@
 | Ronda 11 · Ajustes, tema y hora de servir | **completada**: v1.2.0 |
 | Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 a v1.3.3 |
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
-| Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **lista, falta el OK de Joan** (ver § Ronda 14) |
+| Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -125,7 +125,7 @@
   - La ficha de Play está en `distribution/listing/`. El vídeo vertical anterior está en YouTube
     (`ZcVUNMAC-Uc`) y hay que sustituirlo.
 
-## Ronda 14 · v1.4.0 (lista, pendiente del OK de Joan)
+## Ronda 14 · v1.4.0 (publicada el 2026-10-21)
 Plan: `~/.claude/plans/pasted-content-id-acab-vamos-a-nifty-nygaard.md`. Decisiones: `docs/decisiones.md` § Ronda 14,
 ADR-0013 y ADR-0014. Gate completo en verde (545 tests en app). Commits locales **sin push**.
 - Hecho:
