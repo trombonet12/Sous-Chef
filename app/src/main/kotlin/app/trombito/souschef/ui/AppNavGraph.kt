@@ -1,7 +1,10 @@
 package app.trombito.souschef.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -17,6 +20,9 @@ import app.trombito.souschef.ui.ajustes.AjustesCronoScreen
 import app.trombito.souschef.ui.ajustes.AjustesHistorialScreen
 import app.trombito.souschef.ui.ajustes.AjustesHorarioScreen
 import app.trombito.souschef.ui.ajustes.AjustesScreen
+import app.trombito.souschef.ui.bienvenida.DestinoInicioViewModel
+import app.trombito.souschef.ui.bienvenida.bienvenida
+import app.trombito.souschef.ui.buzon.BuzonScreen
 import app.trombito.souschef.ui.crono.CronoScreen
 import app.trombito.souschef.ui.ficha.FichaScreen
 import app.trombito.souschef.ui.historial.HistorialScreen
@@ -37,7 +43,10 @@ fun SousChefNavGraph(
 ) {
     val abrirFicha: (String) -> Unit = { navController.navigate(Rutas.ficha(it)) }
     val abrirTecnica: (String) -> Unit = { navController.navigate(Rutas.tecnica(it)) }
-    NavHost(navController, startDestination = Pestana.Recetas.ruta, modifier = modifier) {
+    // El destino de inicio se decide una sola vez, con los ajustes ya cargados (intro si aún no se vio).
+    val inicio by hiltViewModel<DestinoInicioViewModel>().destino.collectAsStateWithLifecycle()
+    val destinoInicio = inicio ?: return
+    NavHost(navController, startDestination = destinoInicio, modifier = modifier) {
         listas(navController, abrirFicha, abrirTecnica)
         composable(Rutas.FICHA, arguments = listOf(ARG_SLUG)) { entrada ->
             val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
@@ -47,15 +56,8 @@ fun SousChefNavGraph(
                 onCocinar = { raciones, servir -> navController.navigate(Rutas.crono(slug, raciones, servir)) },
             )
         }
-        composable(Rutas.AJUSTES) {
-            AjustesScreen(onAtras = { navController.popBackStack() }, onAbrir = { navController.navigate(it) })
-        }
-        composable(Rutas.AJUSTES_COCINA) { AjustesCocinaScreen(onAtras = { navController.popBackStack() }) }
-        composable(Rutas.AJUSTES_APARIENCIA) { AjustesAparienciaScreen(onAtras = { navController.popBackStack() }) }
-        composable(Rutas.AJUSTES_HORARIO) { AjustesHorarioScreen(onAtras = { navController.popBackStack() }) }
-        composable(Rutas.AJUSTES_CRONO) { AjustesCronoScreen(onAtras = { navController.popBackStack() }) }
-        composable(Rutas.AJUSTES_HISTORIAL) { AjustesHistorialScreen(onAtras = { navController.popBackStack() }) }
-        composable(Rutas.AJUSTES_ACERCA) { AjustesAcercaScreen(onAtras = { navController.popBackStack() }) }
+        ajustes(navController)
+        bienvenida(navController)
         composable(Rutas.TECNICA, arguments = listOf(ARG_SLUG)) {
             TecnicaScreen(onAtras = { navController.popBackStack() }, onReceta = abrirFicha)
         }
@@ -88,6 +90,27 @@ fun SousChefNavGraph(
                 onTecnica = { navController.navigate(Rutas.tecnica(it)) },
             )
         }
+    }
+}
+
+/** El menú de Ajustes y sus pantallas. */
+private fun NavGraphBuilder.ajustes(navController: NavHostController) {
+    val atras: () -> Unit = { navController.popBackStack() }
+    composable(Rutas.AJUSTES) {
+        AjustesScreen(
+            onAtras = atras,
+            onAbrir = { navController.navigate(it) },
+            onBuzon = { navController.navigate(Rutas.BUZON) },
+        )
+    }
+    composable(Rutas.BUZON) { BuzonScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_COCINA) { AjustesCocinaScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_APARIENCIA) { AjustesAparienciaScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_HORARIO) { AjustesHorarioScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_CRONO) { AjustesCronoScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_HISTORIAL) { AjustesHistorialScreen(onAtras = atras) }
+    composable(Rutas.AJUSTES_ACERCA) {
+        AjustesAcercaScreen(onAtras = atras, onIntro = { navController.navigate(Rutas.BIENVENIDA_REPETIR) })
     }
 }
 

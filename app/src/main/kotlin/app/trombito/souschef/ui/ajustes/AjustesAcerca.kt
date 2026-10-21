@@ -38,7 +38,10 @@ private val LADO_ICONO = 96.dp
 private val LADO_MASCOTA = LADO_ICONO * 108 / 72
 
 @Composable
-fun AjustesAcercaScreen(onAtras: () -> Unit) {
+fun AjustesAcercaScreen(
+    onAtras: () -> Unit,
+    onIntro: () -> Unit = {},
+) {
     val contexto = LocalContext.current
     val version = versionApp()
     val asunto = stringResource(R.string.ajustes_contacto_asunto, version)
@@ -50,6 +53,7 @@ fun AjustesAcercaScreen(onAtras: () -> Unit) {
             contexto.abrir(correo)
         },
         onWeb = { contexto.abrir(Intent(Intent.ACTION_VIEW, WEB.toUri())) },
+        onIntro = onIntro,
     )
 }
 
@@ -60,9 +64,18 @@ internal fun AjustesAcerca(
     onAtras: () -> Unit,
     onCorreo: () -> Unit,
     onWeb: () -> Unit,
+    onIntro: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_acerca), onAtras) {
         Cabecera(version)
+        FilaAjuste(
+            icono = Icono.Libro,
+            titulo = stringResource(R.string.intro_ver),
+            resumen = stringResource(R.string.intro_ver_resumen),
+            final = Icono.Chevron,
+            etiqueta = "ajustes-intro",
+            onClick = onIntro,
+        )
         Text(
             stringResource(R.string.ajustes_acerca_contacto),
             modifier = Modifier.padding(top = 16.dp),

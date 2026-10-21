@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Marco de la intro -->
+    <string name="intro_saltar">Saltar</string>
+    <string name="intro_atras">Atrás</string>
+    <string name="intro_siguiente">Siguiente</string>
+    <string name="intro_empezar">Empezar a cocinar</string>
+    <string name="intro_progreso">Paso %1$d de %2$d</string>
+    <string name="intro_demo_lista">Ejemplo: dos tarjetas de la lista de recetas</string>
+    <string name="intro_demo_cocina">Ejemplo: la pantalla de cocina con una receta en marcha</string>
+
+    <!-- Ajustes: volver a ver la intro -->
+    <string name="intro_ver">Ver la intro</string>
+    <string name="intro_ver_resumen">Repasa las funciones y vuelve a elegir tus opciones</string>
+
+    <!-- 1. Bienvenida -->
+    <string name="intro_p1_titulo">Bienvenido a Sous Chef</string>
+    <string name="intro_p1_texto">Tu cocina, paso a paso: recetas cronometradas con todos los fuegos a la vez, para que todo llegue caliente a la mesa a la hora que quieras.</string>
+
+    <!-- 2. Recetas -->
+    <string name="intro_p2_titulo">Las recetas</string>
+    <string name="intro_p2_texto">Busca en la lista, filtra por familias y abre la ficha: resumen, ingredientes, preparación, pasos y el porqué de cada cosa. Cada tarjeta te dice cuándo empezar.</string>
+
+    <!-- 3. Cronómetro -->
+    <string name="intro_p3_titulo">El cronómetro</string>
+    <string name="intro_p3_texto">Al cocinar, el cronómetro lleva el hilo de todos los recipientes a la vez.</string>
+    <string name="intro_crono_carriles">Un carril por recipiente</string>
+    <string name="intro_crono_carriles_texto">Sartén, olla, horno o mesa: cada uno con su paso, su reloj y su botón.</string>
+    <string name="intro_crono_alarma">Avisos con alarma</string>
+    <string name="intro_crono_alarma_texto">Suenan aunque el móvil esté bloqueado o la app en segundo plano.</string>
+    <string name="intro_crono_voz">Con la voz</string>
+    <string name="intro_crono_voz_texto">Con las manos sucias, pregúntale al chef y mándale hecho, pausa o más tiempo.</string>
+
+    <!-- 4. Historial y técnicas -->
+    <string name="intro_p4_titulo">Historial y técnicas</string>
+    <string name="intro_p4_texto">Lo que has cocinado y las bases que hay detrás de cada receta.</string>
+    <string name="intro_hist_historial">Historial</string>
+    <string name="intro_hist_historial_texto">Cada cocinada queda guardada con lo que tardaste de verdad en cada paso.</string>
+    <string name="intro_hist_tecnicas">Técnicas</string>
+    <string name="intro_hist_tecnicas_texto">Las bases de cocina explicadas, enlazadas desde cada receta.</string>
+    <string name="intro_hist_copia">Copia del historial</string>
+    <string name="intro_hist_copia_texto">Guárdala o cárgala en otro móvil desde Ajustes.</string>
+    <string name="intro_hist_buzon">Buzón</string>
+    <string name="intro_hist_buzon_texto">Pide una receta, cuenta un fallo o sugiere algo desde Ajustes.</string>
+
+    <!-- 5. Tu cocina -->
+    <string name="intro_p5_titulo">Tu cocina</string>
+    <string name="intro_p5_texto">Elige cómo es tu cocina y las recetas se traducen solas a tus mandos. El ejemplo de abajo cambia en vivo.</string>
+
+    <!-- 6. Raciones -->
+    <string name="intro_p6_titulo">Raciones</string>
+    <string name="intro_p6_texto">Cuántas raciones cocinas normalmente. Mira cómo se ajustan los ingredientes de una receta.</string>
+    <string name="intro_raciones_ejemplo">Ingredientes de %1$s para %2$s</string>
+
+    <!-- 7. Horario -->
+    <string name="intro_p7_titulo">Horario</string>
+    <string name="intro_p7_texto">A qué hora quieres comer normalmente y qué hora enseñan las tarjetas de la lista.</string>
+
+    <!-- 8. Apariencia -->
+    <string name="intro_p8_titulo">Apariencia</string>
+    <string name="intro_p8_texto">Elige el tema y el diseño de las listas. Debajo ves dos tarjetas reales con tu elección.</string>
+
+    <!-- 9. Disposición del cronómetro -->
+    <string name="intro_p9_titulo">Tu cronómetro</string>
+    <string name="intro_p9_texto">Elige cómo ver los recipientes mientras cocinas. Debajo, la pantalla real con una receta de ejemplo.</string>
+
+    <!-- 10. Voz -->
+    <string name="intro_p10_titulo">Hablar con el chef</string>
+    <string name="intro_p10_texto">Con el cronómetro abierto, di «Chef, …» para preguntar o mandar sin tocar la pantalla. Pruébalo ahora.</string>
+    <string name="intro_voz_probar">Probar</string>
+    <string name="intro_voz_frase">Hola, soy el Chef. Dime: qué tengo que hacer</string>
+    <string name="intro_voz_pista">Pulsa Probar y, cuando el chef termine de hablar, di por ejemplo «Chef, qué toca».</string>
+    <string name="intro_voz_hablando">El chef está hablando…</string>
+    <string name="intro_voz_escuchando">Te escucho… di por ejemplo «Chef, qué toca».</string>
+    <string name="intro_voz_oido">Has dicho: «%1$s»</string>
+    <string name="intro_voz_entendido">He entendido: %1$s</string>
+    <string name="intro_voz_no_entendido">No te he entendido</string>
+    <string name="intro_voz_nada">No he oído nada. Pulsa Probar para intentarlo otra vez.</string>
+    <string name="intro_voz_sin_reconocedor">Este móvil no tiene reconocimiento de voz. Puedes usar la app sin él.</string>
+    <string name="intro_voz_sin_permiso">Sin permiso de micrófono no puedo oírte. Puedes darlo en los ajustes del móvil.</string>
+    <string name="intro_mic_titulo">Permiso de micrófono</string>
+    <string name="intro_mic_texto">Sous Chef usa el micrófono solo con el cronómetro abierto, para oír tus órdenes. No guarda el audio ni lo que dices.</string>
+    <string name="intro_mic_continuar">Continuar</string>
+    <string name="intro_mic_ahora_no">Ahora no</string>
+    <string name="intro_orden_hecho">hecho, pasa al siguiente paso</string>
+    <string name="intro_orden_pausa">pausa</string>
+    <string name="intro_orden_seguir">seguir</string>
+    <string name="intro_orden_empezar">empezar el paso</string>
+    <string name="intro_orden_prorrogar">más tiempo</string>
+    <string name="intro_orden_consulta">una pregunta sobre lo que toca</string>
+    <string name="intro_orden_explica">explicar el porqué o el detalle</string>
+    <string name="intro_orden_para">silenciar la alarma</string>
+    <string name="intro_orden_repite">repetir lo último</string>
+    <string name="intro_orden_deshacer">deshacer el último hecho</string>
+
+    <!-- 11. Permisos -->
+    <string name="intro_p11_titulo">Permisos</string>
+    <string name="intro_p11_texto">Para que los avisos suenen a tiempo aunque el móvil esté bloqueado necesito estos tres permisos.</string>
+    <string name="intro_perm_notificaciones">Notificaciones</string>
+    <string name="intro_perm_notificaciones_texto">Los avisos de cada paso en la barra y en la pantalla de bloqueo.</string>
+    <string name="intro_perm_alarma">Alarmas exactas</string>
+    <string name="intro_perm_alarma_texto">Para que el aviso suene en el segundo justo.</string>
+    <string name="intro_perm_pantalla">Pantalla completa</string>
+    <string name="intro_perm_pantalla_texto">Para encender la pantalla cuando toca un paso.</string>
+    <string name="intro_perm_marca">✓</string>
+    <string name="intro_perm_concedido">Concedido</string>
+    <string name="intro_perm_falta">Falta el permiso</string>
+    <string name="intro_perm_permitir">Permitir</string>
+
+    <!-- 12. Listo -->
+    <string name="intro_p12_titulo">Todo listo</string>
+    <string name="intro_p12_texto">Esto es lo que has elegido. Lo puedes cambiar cuando quieras en Ajustes.</string>
+    <string name="intro_res_cocina">Tu cocina</string>
+    <string name="intro_res_raciones">Raciones por defecto</string>
+    <string name="intro_res_horario">Horario</string>
+    <string name="intro_res_apariencia">Apariencia</string>
+    <string name="intro_res_crono">Cronómetro</string>
+</resources>

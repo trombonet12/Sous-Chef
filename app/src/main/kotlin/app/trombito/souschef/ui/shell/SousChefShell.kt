@@ -26,16 +26,21 @@ import app.trombito.souschef.R
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.SousChefNavGraph
 
-/** Shell con tres pestañas abajo (Recetas, Técnicas, Historial) y menú superior (Ajustes). */
+/** Shell con tres pestañas abajo (Recetas, Técnicas, Historial) y menú superior (Buzón y Ajustes). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SousChefShell(navController: NavHostController) {
+fun SousChefShell(
+    navController: NavHostController,
+    onBuzon: () -> Unit = { navController.navigate(Rutas.BUZON) { launchSingleTop = true } },
+) {
     val entrada by navController.currentBackStackEntryAsState()
     val rutaActual = entrada?.destination?.route
     var menuAbierto by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
-            if (rutaActual?.startsWith("crono") == true) return@Scaffold
+            // Sin barras en el cronómetro ni en la intro (que pinta a pantalla completa).
+            val sinBarra = rutaActual?.startsWith("crono") == true || rutaActual?.startsWith(Rutas.BIENVENIDA) == true
+            if (sinBarra) return@Scaffold
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineSmall) },
                 actions = {
@@ -43,6 +48,13 @@ fun SousChefShell(navController: NavHostController) {
                         Icon(Icono.Mas.vector, contentDescription = stringResource(R.string.menu_mas))
                     }
                     DropdownMenu(expanded = menuAbierto, onDismissRequest = { menuAbierto = false }) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.buzon_titulo)) },
+                            onClick = {
+                                menuAbierto = false
+                                onBuzon()
+                            },
+                        )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.menu_ajustes)) },
                             onClick = {

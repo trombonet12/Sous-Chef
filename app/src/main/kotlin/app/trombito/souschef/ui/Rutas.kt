@@ -11,8 +11,15 @@ object Rutas {
     const val ARG_FAMILIA = "familia"
     const val ARG_CATEGORIA = "categoria"
 
+    /** Intro de primer arranque: sin barras, y al acabar limpia la pila y va a Recetas. */
+    const val BIENVENIDA = "bienvenida"
+
+    /** La misma intro abierta desde Ajustes: al acabar vuelve atrás. */
+    const val BIENVENIDA_REPETIR = "bienvenida/repetir"
+
     const val FICHA = "receta/{$ARG_SLUG}"
     const val AJUSTES = "ajustes"
+    const val BUZON = "buzon"
     const val AJUSTES_COCINA = "ajustes/cocina"
     const val AJUSTES_APARIENCIA = "ajustes/apariencia"
     const val AJUSTES_HORARIO = "ajustes/horario"
