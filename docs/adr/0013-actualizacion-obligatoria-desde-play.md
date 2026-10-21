@@ -19,6 +19,8 @@
 - `MainActivity`, en `onResume`, lanza el flujo **INMEDIATO** (pantalla de Play bloqueante) si se cumplen todas:
   la app se instaló desde Play (`com.android.vending`), no hay cocinada viva, hay actualización con prioridad ≥ 4 y
   Play permite `IMMEDIATE`. Si una actualización inmediata quedó a medias, se reanuda.
+- Si el usuario cancela la pantalla de Play o falla (p. ej. sin red), no se relanza hasta el siguiente arranque en frío:
+  la app es solo local y no puede quedar bloqueada sin conexión.
 - El CI sube cada versión con `inAppUpdatePriority: 5`. Para publicar una versión no obligatoria se baja a 3.
 - Instalaciones desde GitHub u Obtainium: no cambia nada.
 

@@ -29,8 +29,16 @@ class MainActivity : ComponentActivity() {
 
     @Inject lateinit var actualizacion: ActualizacionPlay
 
-    /** Resultado de la pantalla de Play; si se cancela no se reintenta hasta el siguiente `onResume`. */
-    private val pantallaActualizacion = registerForActivityResult(StartIntentSenderForResult()) {}
+    /**
+     * Resultado de la pantalla de Play. Si se cancela o falla (p. ej. sin red), no se vuelve a lanzar hasta el próximo
+     * arranque en frío: si no, cada vuelta a la app la relanzaría y una app solo local quedaría bloqueada sin conexión.
+     */
+    private val pantallaActualizacion =
+        registerForActivityResult(StartIntentSenderForResult()) { resultado ->
+            if (resultado.resultCode != RESULT_OK) rechazadaEnEsteProceso = true
+        }
+
+    private var rechazadaEnEsteProceso = false
 
     private var comprobacion: Job? = null
 
@@ -59,7 +67,7 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         // Actualización obligatoria desde Play (ADR-0013); nunca con una cocinada viva.
-        if (comprobacion?.isActive == true) return
+        if (rechazadaEnEsteProceso || comprobacion?.isActive == true) return
         comprobacion = lifecycleScope.launch { actualizacion.comprobar(pantallaActualizacion) }
     }
 

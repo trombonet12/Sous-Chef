@@ -489,7 +489,7 @@
   "porque": [
     [
       "El pollo se sella y se saca",
-      "Dorar pide un 8 y la salsa pide un 3, y son incompatibles en el mismo minuto. Sellando aparte te quedas con el fondo tostado en la sartén, que es lo que da profundidad sin caldo, y con la pechuga cruda por dentro. Vuelve solo los últimos seis minutos, que es lo que tarda el centro de un dado de 2,5 cm en llegar a temperatura sumergido en líquido a noventa grados. Dentro desde el principio serían veinte minutos y la pechuga saldría seca."
+      "Dorar pide un {8} y la salsa pide un {3}, y son incompatibles en el mismo minuto. Sellando aparte te quedas con el fondo tostado en la sartén, que es lo que da profundidad sin caldo, y con la pechuga cruda por dentro. Vuelve solo los últimos seis minutos, que es lo que tarda el centro de un dado de 2,5 cm en llegar a temperatura sumergido en líquido a noventa grados. Dentro desde el principio serían veinte minutos y la pechuga saldría seca."
     ],
     [
       "Las especias en la grasa y no en el líquido",
