@@ -7,8 +7,10 @@ import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -17,6 +19,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class AjustesCocinaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val banco = BancoCompose()
     private val gasSinNumeros = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
 

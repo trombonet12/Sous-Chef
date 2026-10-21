@@ -5,9 +5,11 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.ui.ajustes.AjustesMenu
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -16,6 +18,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class BuzonPantallaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val datos = DatosApp("1.4.0", "Pixel 9", "16", 36, "Vitro digital 1-9")
 
     private class Registro {

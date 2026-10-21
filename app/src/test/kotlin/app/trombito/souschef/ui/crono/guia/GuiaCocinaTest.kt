@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import app.trombito.souschef.ui.theme.DarkColors
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -24,6 +26,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class GuiaCocinaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val todos = listOf("carril", "hecho", "prorroga", "deshacer", "micro", "menu")
 
     private fun texto(id: Int) = RuntimeEnvironment.getApplication().getString(id)

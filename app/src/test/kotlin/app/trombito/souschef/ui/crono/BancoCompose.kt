@@ -1,6 +1,7 @@
 package app.trombito.souschef.ui.crono
 
 import android.os.Looper
+import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
@@ -12,8 +13,13 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.android.controller.ActivityController
+import org.robolectric.shadows.ShadowSystemClock
 import java.time.Duration
 
 /**
@@ -22,7 +28,7 @@ import java.time.Duration
  */
 @OptIn(InternalComposeUiApi::class)
 class BancoCompose {
-    private val controlador = Robolectric.buildActivity(ComponentActivity::class.java).setup()
+    private val controlador = Robolectric.buildActivity(ComponentActivity::class.java).setup().also { vivos += it }
 
     fun poner(contenido: @Composable () -> Unit) {
         controlador.get().setContent(content = contenido)
@@ -30,9 +36,7 @@ class BancoCompose {
     }
 
     /** Deja correr composición, medida y dibujo pendientes. */
-    fun reposo() {
-        repeat(FOTOGRAMAS) { shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(MS_FOTOGRAMA)) }
-    }
+    fun reposo() = dejarCorrer()
 
     fun raiz(): SemanticsNode {
         val vista = buscarRaiz(controlador.get().window.decorView)
@@ -93,8 +97,63 @@ class BancoCompose {
             else -> null
         }
 
-    private companion object {
-        const val FOTOGRAMAS = 4
-        const val MS_FOTOGRAMA = 20L
+    companion object {
+        private const val FOTOGRAMAS = 4
+        private const val MS_FOTOGRAMA = 20L
+        private const val MAX_TAREAS = 10_000
+        private val vivos = mutableListOf<ActivityController<ComponentActivity>>()
+
+        private fun dejarCorrer() {
+            repeat(FOTOGRAMAS) { avanzar(MS_FOTOGRAMA) }
+        }
+
+        /**
+         * Como `idleFor`, pero tarea a tarea. Con una hoja inferior abierta, `idleFor` de Robolectric no vuelve
+         * (minutos de CPU con el reloj virtual disparado); ejecutar las tareas vencidas una a una sí, y avisa si no
+         * se calma.
+         */
+        private fun avanzar(ms: Long) {
+            val bucle = shadowOf(Looper.getMainLooper())
+            val fin = SystemClock.uptimeMillis() + ms
+            var tareas = 0
+            while (true) {
+                val siguiente = bucle.nextScheduledTaskTime
+                if (siguiente == Duration.ZERO || siguiente.toMillis() > fin) break
+                check(++tareas <= MAX_TAREAS) { "El bucle principal no se calma: más de $MAX_TAREAS tareas en $ms ms" }
+                bucle.runOneTask()
+            }
+            val resto = fin - SystemClock.uptimeMillis()
+            if (resto > 0) ShadowSystemClock.advanceBy(Duration.ofMillis(resto))
+        }
+
+        /** Vacía lo pendiente y cierra las actividades de este test (lo llama [LimpiezaCompose]). */
+        internal fun cerrarTodo() {
+            dejarCorrer()
+            vivos.forEach { it.pause().stop().destroy() }
+            vivos.clear()
+            dejarCorrer()
+        }
     }
+}
+
+/**
+ * Regla obligatoria en toda clase que use [BancoCompose] o `BancoFicha`. Al acabar cada test deja correr el bucle
+ * principal y cierra las actividades. Sin ella, un cambio de estado hecho tras el último reposo deja pendiente el
+ * aviso global de Compose (`Snapshot.sendApplyNotifications`); Robolectric descarta ese mensaje al reiniciar el
+ * bucle, el aviso no se vuelve a enviar y ningún test posterior de la JVM recompone tras un toque.
+ */
+class LimpiezaCompose : TestRule {
+    override fun apply(
+        base: Statement,
+        description: Description,
+    ): Statement =
+        object : Statement() {
+            override fun evaluate() {
+                try {
+                    base.evaluate()
+                } finally {
+                    BancoCompose.cerrarTodo()
+                }
+            }
+        }
 }

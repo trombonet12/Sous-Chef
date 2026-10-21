@@ -4,9 +4,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.semantics.SemanticsProperties
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import app.trombito.souschef.ui.receta
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -16,6 +18,9 @@ import java.time.LocalDate
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class RecetasPantallaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val recetas =
         listOf(
             receta("a", "Macarrones", base = "pasta"),

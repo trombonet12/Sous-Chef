@@ -4,9 +4,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import app.trombito.souschef.ui.shell.Icono
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -15,6 +17,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class RejillaCategoriasTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val categorias =
         listOf(
             CategoriaVista("pasta", "Pasta", Icono.Pasta, Paleta.de(TonoPaleta.AMBAR, false), "5 recetas"),

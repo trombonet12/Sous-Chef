@@ -4,8 +4,10 @@ import androidx.compose.material3.MaterialTheme
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.ajustes.FilaRepetirGuia
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -16,6 +18,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class FilaRepetirGuiaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private fun texto(id: Int) = RuntimeEnvironment.getApplication().getString(id)
 
     @Test

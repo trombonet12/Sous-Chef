@@ -11,8 +11,10 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.BancoCompose
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -21,6 +23,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class AjustesPantallasTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val banco = BancoCompose()
 
     @Test

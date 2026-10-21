@@ -24,11 +24,13 @@ import app.trombito.souschef.ui.comun.EstadoPermisos
 import app.trombito.souschef.ui.comun.PermisoApp
 import app.trombito.souschef.ui.crono.BancoCompose
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import app.trombito.souschef.ui.crono.RelojFalso
 import app.trombito.souschef.ui.theme.SousChefTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -44,6 +46,9 @@ internal fun recetaReal(slug: String): Receta {
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class BienvenidaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val banco = BancoCompose()
     private val repo = FakeAjustesRepo()
     private val escucha = EscuchaGuion()

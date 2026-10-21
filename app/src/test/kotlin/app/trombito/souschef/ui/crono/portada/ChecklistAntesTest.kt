@@ -15,9 +15,11 @@ import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.crono.BancoCompose
 import app.trombito.souschef.ui.crono.BloqueCasillas
 import app.trombito.souschef.ui.crono.Casilla
+import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -27,6 +29,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class ChecklistAntesTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val bloques =
         listOf(
             BloqueCasillas(
