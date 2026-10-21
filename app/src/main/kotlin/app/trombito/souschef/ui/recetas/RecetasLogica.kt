@@ -66,6 +66,8 @@ data class TarjetaReceta(
     val pideFuegos: Int = 0,
     /** La receta usa el horno y el usuario no tiene. */
     val pideHorno: Boolean = false,
+    /** Si llega a servir a la hora elegida en «¿Qué me da tiempo?»; null con el modo apagado. */
+    val llegada: Llegada? = null,
 )
 
 /** Cuándo se mira la lista, qué hora enseña cada tarjeta y qué equipo tiene el usuario. */
@@ -119,6 +121,10 @@ data class RecetasUiState(
     val categorias: List<Pair<FamiliaBase, Int>> = emptyList(),
     /** Si la lista es la de una sola familia (se abre desde un cuadradito de la pestaña). */
     val familiaFija: FamiliaBase? = null,
+    /** El modo «¿Qué me da tiempo?» si está puesto. */
+    val tiempo: ModoTiempo? = null,
+    /** Con el modo puesto, la hora de servir ya pasó y no hay margen: no llega ninguna. */
+    val tiempoVencido: Boolean = false,
 )
 
 /** Texto sobre el que busca: titulo, descripcion, base, ingredientes de los grupos y títulos de los pasos. */
@@ -169,6 +175,8 @@ data class FiltroRecetas(
     val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
     /** Si no es null, solo cuentan las recetas de esta familia y el filtro de Base no existe. */
     val familiaFija: FamiliaBase? = null,
+    /** Modo «¿Qué me da tiempo?»; null = apagado. No se guarda. */
+    val tiempo: ModoTiempo? = null,
 )
 
 /** Las familias con al menos una receta y cuántas tiene cada una, en el orden del enum. */
@@ -257,6 +265,7 @@ fun construirEstadoRecetas(
             .filter { (_, rasgos) -> rasgos.pasa(activos) }
             .map { it.first }
             .sortedWith(comparador(filtro.orden))
+            .let { aplicarTiempo(it, filtro.tiempo, contexto.ahoraMin) }
     return RecetasUiState(
         cargando = false,
         consulta = filtro.consulta,
@@ -270,5 +279,7 @@ fun construirEstadoRecetas(
         horno = contexto.horno,
         categorias = categoriasDe(todasLasRecetas),
         familiaFija = familiaFija,
+        tiempo = filtro.tiempo,
+        tiempoVencido = filtro.tiempo?.let { QueMeDaTiempo.margen(contexto.ahoraMin, it.servirMin) == null } == true,
     )
 }

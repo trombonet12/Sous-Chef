@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -149,6 +150,7 @@ private fun CuerpoTinte(
                 overflow = TextOverflow.Ellipsis,
             )
             EtiquetasEquipo(tarjeta)
+            EtiquetaLlegada(tarjeta)
         }
     }
 }
@@ -189,6 +191,7 @@ private fun CuerpoFranja(
                 overflow = TextOverflow.Ellipsis,
             )
             EtiquetasEquipo(tarjeta)
+            EtiquetaLlegada(tarjeta)
         }
     }
 }
@@ -227,6 +230,7 @@ private fun TarjetaClasica(
                 Huella(receta)
                 PieTarjeta(tarjeta)
                 EtiquetasEquipo(tarjeta)
+                EtiquetaLlegada(tarjeta)
             }
         }
     }
@@ -271,6 +275,23 @@ private fun EtiquetasEquipo(tarjeta: TarjetaReceta) {
         }
         if (tarjeta.pideHorno) Etiqueta(stringResource(R.string.lista_pide_horno), tono = Tono.Teja)
     }
+}
+
+/** «Llegas · empieza 14:43» o «No llegas · acabarías 16:02», solo con «¿Qué me da tiempo?» puesto. */
+@Composable
+private fun EtiquetaLlegada(tarjeta: TarjetaReceta) {
+    val llegada = tarjeta.llegada ?: return
+    val texto =
+        if (llegada.llega) {
+            stringResource(R.string.que_tiempo_llegas, Servir.formato(llegada.empiezaMin))
+        } else {
+            stringResource(R.string.que_tiempo_no_llegas, Servir.formato(llegada.acabariaMin ?: llegada.empiezaMin))
+        }
+    Etiqueta(
+        texto,
+        modifier = Modifier.padding(top = Espacio.xs).testTag("etiqueta-llegada"),
+        tono = if (llegada.llega) Tono.Oliva else Tono.Teja,
+    )
 }
 
 /** «empieza 14:43» o «acabas 16:02», según el modo elegido en Ajustes. */

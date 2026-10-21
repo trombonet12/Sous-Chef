@@ -32,7 +32,10 @@ import app.trombito.souschef.ui.theme.Espacio
 
 private val BOTON_FILTROS = 56.dp
 
-/** Buscador con el botón de filtros, los filtros puestos (cada uno con su ✕) y la línea «N recetas · Orden». */
+/**
+ * Buscador con el botón de filtros, el chip de «¿Qué me da tiempo?», los filtros puestos (cada uno con su ✕) y la
+ * línea «N recetas · Orden».
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CabeceraRecetas(
@@ -40,14 +43,19 @@ fun CabeceraRecetas(
     onBuscar: (String) -> Unit,
     onQuitar: (OpcionFiltro) -> Unit,
     onAbrirFiltros: () -> Unit,
+    chipTiempo: (@Composable () -> Unit)? = null,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Espacio.s)) {
             CampoBusqueda(estado.consulta, stringResource(R.string.recetas_buscar), onBuscar, Modifier.weight(1f))
             BotonFiltros(estado.activos.size, onAbrirFiltros)
         }
-        if (estado.activos.isNotEmpty()) {
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(Espacio.s)) {
+        if (chipTiempo != null || estado.activos.isNotEmpty()) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(Espacio.s),
+                verticalArrangement = Arrangement.Center,
+            ) {
+                chipTiempo?.invoke()
                 estado.activos.forEach { ChipActivo(it, onQuitar) }
             }
         }

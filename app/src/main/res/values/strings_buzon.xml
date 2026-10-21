@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Buzón: formulario para pedir una receta, contar un fallo o sugerir algo; se envía con la app de correo. -->
+<resources>
+    <string name="buzon_titulo">Buzón</string>
+    <string name="ajustes_resumen_buzon">Pide una receta, cuenta un fallo o sugiere algo</string>
+    <string name="buzon_intro">Rellénalo y se abre tu app de correo con el mensaje listo para enviar.</string>
+
+    <string name="buzon_tipo_descripcion">Tipo de mensaje</string>
+    <string name="buzon_tipo_receta">Pedir una receta</string>
+    <string name="buzon_tipo_fallo">Contar un fallo</string>
+    <string name="buzon_tipo_sugerencia">Sugerencia</string>
+
+    <string name="buzon_plato">¿Qué plato?</string>
+    <string name="buzon_ingredientes">Ingredientes que quieres usar o evitar</string>
+    <string name="buzon_tiempo_max">Tiempo máximo</string>
+    <string name="buzon_raciones">Raciones</string>
+    <string name="buzon_que_paso">¿Qué pasó?</string>
+    <string name="buzon_que_hacias">¿Qué estabas haciendo?</string>
+    <string name="buzon_pantalla">Pantalla</string>
+    <string name="buzon_pantalla_elegir">Elige una pantalla</string>
+    <string name="buzon_sugerencia">Tu sugerencia</string>
+
+    <string name="buzon_pantalla_recetas">Recetas</string>
+    <string name="buzon_pantalla_ficha">Ficha de una receta</string>
+    <string name="buzon_pantalla_crono">Cronómetro</string>
+    <string name="buzon_pantalla_tecnicas">Técnicas</string>
+    <string name="buzon_pantalla_historial">Historial</string>
+    <string name="buzon_pantalla_ajustes">Ajustes</string>
+    <string name="buzon_pantalla_otra">Otra</string>
+
+    <string name="buzon_enviar">Enviar por correo</string>
+    <string name="buzon_sin_correo">No hay app de correo; copia el texto</string>
+    <string name="buzon_copiar">Copiar el texto</string>
+    <string name="buzon_copiado">Texto copiado</string>
+
+    <!-- Lo que lee quien recibe el correo. -->
+    <string name="buzon_correo_plato">Plato</string>
+    <string name="buzon_correo_ingredientes">Ingredientes (usar o evitar)</string>
+    <string name="buzon_correo_tiempo">Tiempo máximo</string>
+    <string name="buzon_correo_raciones">Raciones</string>
+    <string name="buzon_correo_que_paso">Qué pasó</string>
+    <string name="buzon_correo_que_hacias">Qué estaba haciendo</string>
+    <string name="buzon_correo_pantalla">Pantalla</string>
+    <string name="buzon_correo_sugerencia">Sugerencia</string>
+    <string name="buzon_correo_datos">— Datos —</string>
+    <string name="buzon_correo_version">Versión de la app</string>
+    <string name="buzon_correo_dispositivo">Dispositivo</string>
+    <string name="buzon_correo_android">Android</string>
+    <string name="buzon_correo_cocina">Cocina</string>
+</resources>

@@ -57,15 +57,19 @@ internal fun PantallaAjustes(
     }
 }
 
-/** Menú de Ajustes: seis apartados, cada uno con su pantalla. [onAbrir] recibe la ruta del apartado. */
+/**
+ * Menú de Ajustes: seis apartados, cada uno con su pantalla, y el Buzón. [onAbrir] recibe la ruta del apartado;
+ * [onBuzon] abre el Buzón.
+ */
 @Composable
 fun AjustesScreen(
     onAtras: () -> Unit,
     onAbrir: (String) -> Unit,
+    onBuzon: () -> Unit = {},
     viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    AjustesMenu(ajustes, versionApp(), onAtras, onAbrir)
+    AjustesMenu(ajustes, versionApp(), onAtras, onAbrir, onBuzon)
 }
 
 /** Menú sin ViewModel: estado y versión llegan hechos. */
@@ -75,6 +79,7 @@ internal fun AjustesMenu(
     version: String,
     onAtras: () -> Unit,
     onAbrir: (String) -> Unit,
+    onBuzon: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_titulo), onAtras) {
         FilaApartado(Icono.Base, R.string.ajustes_cocina, Rutas.AJUSTES_COCINA, onAbrir) { resumenCocina(ajustes) }
@@ -103,6 +108,14 @@ internal fun AjustesMenu(
         FilaApartado(Icono.Libreta, R.string.ajustes_historial, Rutas.AJUSTES_HISTORIAL, onAbrir) {
             stringResource(R.string.ajustes_resumen_historial)
         }
+        FilaAjuste(
+            icono = Icono.Correo,
+            titulo = stringResource(R.string.buzon_titulo),
+            resumen = stringResource(R.string.ajustes_resumen_buzon),
+            final = Icono.Chevron,
+            etiqueta = "ajustes-buzon",
+            onClick = onBuzon,
+        )
         FilaApartado(Icono.Info, R.string.ajustes_acerca, Rutas.AJUSTES_ACERCA, onAbrir) {
             stringResource(R.string.ajustes_resumen_acerca, version)
         }

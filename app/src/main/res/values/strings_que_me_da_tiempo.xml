@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- «¿Qué me da tiempo?» en la lista de recetas: chip, hoja y etiquetas de las tarjetas. -->
+<resources>
+    <string name="que_tiempo_chip">¿Qué me da tiempo?</string>
+    <string name="que_tiempo_chip_activo">Servir a las %1$s</string>
+    <string name="que_tiempo_chip_abrir">¿Qué me da tiempo? Servir a las %1$s. Cambiar la hora</string>
+    <string name="que_tiempo_salir">Salir de ¿Qué me da tiempo?</string>
+    <string name="que_tiempo_titulo">¿Qué me da tiempo?</string>
+    <string name="que_tiempo_intro">Mira a qué recetas llegas si empiezas ahora y quieres servir a una hora.</string>
+    <string name="que_tiempo_servir">Servir a las %1$s</string>
+    <string name="que_tiempo_servir_mas">Servir 15 minutos más tarde</string>
+    <string name="que_tiempo_servir_menos">Servir 15 minutos antes</string>
+    <string name="que_tiempo_solo">Solo las que llego</string>
+    <string name="que_tiempo_vencido">Esa hora ya pasó hoy y la de mañana queda a más de 12 horas: no llega ninguna. Sube la hora.</string>
+    <string name="que_tiempo_llegas">Llegas · empieza %1$s</string>
+    <string name="que_tiempo_no_llegas">No llegas · acabarías %1$s</string>
+    <string name="que_tiempo_vacio_titulo">Ninguna llega a tiempo</string>
+    <string name="que_tiempo_vacio_detalle">Prueba a servir más tarde o apaga «Solo las que llego».</string>
+</resources>

@@ -12,6 +12,7 @@ import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.ui.Rutas
+import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -20,9 +21,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -66,18 +70,20 @@ class RecetasViewModel
                     p,
                     h,
                     f.copy(orden = a.orden),
-                    contexto(a, ahoraMs),
+                    contextoLista(a, ahoraMs),
                 ).copy(disposicion = a.lista)
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
 
         /**
-         * Los ajustes con la hora actual. Solo en el modo «acabas» hace falta que la hora avance: entonces emite al
-         * cambiar cada minuto; en el otro, una vez.
+         * Los ajustes con la hora actual. Solo en el modo «acabas» o con «¿Qué me da tiempo?» puesto hace falta que la
+         * hora avance: entonces emite al cambiar cada minuto; en el otro, una vez.
          */
         @OptIn(ExperimentalCoroutinesApi::class)
         private fun ajustesYHora(): Flow<Pair<Ajustes, Long>> =
-            ajustes.observar().flatMapLatest { a ->
-                if (a.horaTarjeta == HoraTarjeta.ACABAR) {
+            combine(ajustes.observar(), filtro.map { it.tiempo != null }.distinctUntilChanged()) { a, conTiempo ->
+                a to conTiempo
+            }.flatMapLatest { (a, conTiempo) ->
+                if (a.horaTarjeta == HoraTarjeta.ACABAR || conTiempo) {
                     flow {
                         while (true) {
                             val ahora = reloj.ahoraMs()
@@ -90,21 +96,6 @@ class RecetasViewModel
                 }
             }
 
-        private fun contexto(
-            a: Ajustes,
-            ahoraMs: Long,
-        ): ContextoLista {
-            val local = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault())
-            return ContextoLista(
-                hoy = Instant.ofEpochMilli(ahoraMs).atZone(ZoneOffset.UTC).toLocalDate(),
-                ahoraMin = local.hour * MIN_HORA + local.minute,
-                servirMin = a.servirMin,
-                modo = a.horaTarjeta,
-                fuegos = a.fuegos,
-                horno = a.horno,
-            )
-        }
-
         fun buscar(texto: String) {
             filtro.update { it.copy(consulta = texto) }
         }
@@ -115,6 +106,29 @@ class RecetasViewModel
 
         fun limpiarFiltros() {
             filtro.update { it.copy(activos = emptySet()) }
+        }
+
+        /** Enciende «¿Qué me da tiempo?» con la hora de servir de Ajustes; si ya está puesto no cambia nada. */
+        fun activarTiempo() {
+            viewModelScope.launch {
+                val servir = ajustes.observar().first().servirMin
+                filtro.update { it.copy(tiempo = it.tiempo ?: ModoTiempo(servir)) }
+            }
+        }
+
+        fun salirTiempo() {
+            filtro.update { it.copy(tiempo = null) }
+        }
+
+        /** Mueve la hora de servir [delta] minutos (±15), sin salirse del día. */
+        fun moverServir(delta: Int) {
+            filtro.update { f ->
+                f.copy(tiempo = f.tiempo?.let { it.copy(servirMin = Servir.ajustar(it.servirMin, delta)) })
+            }
+        }
+
+        fun soloLlego(activo: Boolean) {
+            filtro.update { f -> f.copy(tiempo = f.tiempo?.copy(soloLlego = activo)) }
         }
 
         fun elegirOrden(orden: OrdenRecetas) {
@@ -130,6 +144,22 @@ class RecetasViewModel
 
         private companion object {
             const val MS_MINUTO = 60_000L
-            const val MIN_HORA = 60
         }
     }
+
+private const val MIN_HORA = 60
+
+private fun contextoLista(
+    a: Ajustes,
+    ahoraMs: Long,
+): ContextoLista {
+    val local = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault())
+    return ContextoLista(
+        hoy = Instant.ofEpochMilli(ahoraMs).atZone(ZoneOffset.UTC).toLocalDate(),
+        ahoraMin = local.hour * MIN_HORA + local.minute,
+        servirMin = a.servirMin,
+        modo = a.horaTarjeta,
+        fuegos = a.fuegos,
+        horno = a.horno,
+    )
+}

@@ -47,7 +47,16 @@ fun RecetasScreen(
             AccionesFiltro(viewModel::alternarFiltro, viewModel::limpiarFiltros, viewModel::elegirOrden)
         }
     val lista = AccionesLista(viewModel::alternarFavorita, onAbrir, onCategoria, onAtras)
-    RecetasContenido(estado, viewModel::buscar, acciones, lista)
+    val tiempo =
+        remember(viewModel) {
+            AccionesTiempo(
+                viewModel::activarTiempo,
+                viewModel::salirTiempo,
+                viewModel::moverServir,
+                viewModel::soloLlego,
+            )
+        }
+    RecetasContenido(estado, viewModel::buscar, acciones, lista, tiempo)
 }
 
 /** Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, y volver. */
@@ -64,9 +73,20 @@ fun RecetasContenido(
     onBuscar: (String) -> Unit,
     acciones: AccionesFiltro,
     lista: AccionesLista,
+    tiempo: AccionesTiempo = AccionesTiempo(),
 ) {
     var hojaAbierta by rememberSaveable { mutableStateOf(false) }
     if (hojaAbierta) HojaFiltros(estado, acciones) { hojaAbierta = false }
+    var hojaTiempo by rememberSaveable { mutableStateOf(false) }
+    if (hojaTiempo) HojaQueMeDaTiempo(estado, tiempo) { hojaTiempo = false }
+    val abrirTiempo = {
+        if (estado.tiempo == null) tiempo.activar()
+        hojaTiempo = true
+    }
+    val salirTiempo = {
+        hojaTiempo = false
+        tiempo.salir()
+    }
     val familia = estado.familiaFija
     Column(Modifier.fillMaxSize()) {
         if (familia != null) BarraTitulo(textoOpcion(OpcionFiltro.Base(familia)), lista.atras)
@@ -75,7 +95,15 @@ fun RecetasContenido(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(Espacio.m),
         ) {
-            item { CabeceraRecetas(estado, onBuscar, acciones.alternar) { hojaAbierta = true } }
+            item {
+                CabeceraRecetas(
+                    estado,
+                    onBuscar,
+                    acciones.alternar,
+                    { hojaAbierta = true },
+                    { ChipTiempo(estado, abrirTiempo, salirTiempo) },
+                )
+            }
             val sinBusqueda = estado.consulta.isBlank() && estado.activos.isEmpty()
             if (familia == null && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
                 item { CategoriasFamilia(estado.categorias, lista.categoria) }
@@ -150,6 +178,8 @@ private fun LazyListScope.cuerpo(
 private fun RecetasVacio(estado: RecetasUiState) {
     if (estado.totalRecetas == 0) {
         EstadoVacio(stringResource(R.string.recetas_vacio_titulo), stringResource(R.string.recetas_vacio_detalle))
+    } else if (estado.tiempo?.soloLlego == true && estado.activos.isEmpty() && estado.consulta.isBlank()) {
+        EstadoVacio(stringResource(R.string.que_tiempo_vacio_titulo), stringResource(R.string.que_tiempo_vacio_detalle))
     } else {
         val detalle =
             if (estado.activos.isNotEmpty()) R.string.recetas_nada_detalle_filtro else R.string.recetas_nada_detalle
