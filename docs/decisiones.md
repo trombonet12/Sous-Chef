@@ -370,3 +370,13 @@
   aceptada por Joan. Prioridad 5 en el CI.
 - Bunyols de les Verges: boniato, harina de fuerza y levadura seca de panadería entran en la despensa.
 - Pendientes para otra ronda: notas por cocinada y compartir ingredientes.
+
+## Ronda 15 · v1.5.0 (2026-10-24)
+- **Versión calculada por commit:** `version.properties` solo guarda `versionMajor` y `versionMinor`. El parche son los
+  commits desde el último cambio de ese archivo y el versionCode es `git rev-list --count HEAD` (monótono: nunca
+  force-push). `./gradlew -q :app:imprimirVersion` lo imprime. Un push a main publica solo si cambia
+  `version.properties` (versión menor); los parches se publican a mano con `workflow_dispatch` y `publicar=true`.
+  El CI hace checkout con `fetch-depth: 0`.
+- **Notas de la última vez** sin tabla nueva: se leen del historial (`notasDe`). **Compartir ingredientes** por
+  `ACTION_SEND`, sin permisos. `Notificador.cocina/alarma` pasan a `suspend` (sin `runBlocking`).
+- Costillar BBQ con boniato: «costillar de cerdo» entra en la despensa. Base `asado` (familia OTRA).
