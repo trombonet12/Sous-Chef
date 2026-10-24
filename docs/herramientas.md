@@ -8,7 +8,7 @@ Código de salida: 0 bien · 1 fallos de validación · 2 error de uso o de ento
 
 **Estado actual (MVP local):** la CLI solo tiene `validar` y `formatear`. No hay backend: las recetas y técnicas viajan
 dentro del APK desde `data/recetas/*.json` y `data/tecnicas/*.json`. Publicar = validar en estricto + commit +
-`versionCode`/`versionName` en `version.properties` + gate + push a main (`android.yml` crea la GitHub Release v<versionName> con APK, AAB y checksums.txt).
+`versionMinor` (o `versionMajor`) en `version.properties` + gate + push a main (`android.yml` crea la GitHub Release v<versionName> con APK, AAB y checksums.txt). El parche y el versionCode se calculan desde git; para ver la versión resultante: `./gradlew -q :app:imprimirVersion` (imprime `versionName versionCode`, p. ej. `1.5.1 178`).
 
 **Nunca imprime secretos.**
 

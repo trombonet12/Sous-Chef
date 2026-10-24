@@ -55,7 +55,7 @@ a mano, en Play Console.
    - variable `PLAY_ESTADO`:
      - `draft` mientras la app esté en borrador en Play;
      - `completed` cuando ya haya salido una versión, para que cada release llegue sola a los testers.
-4. A partir de ahí, cada push a main con un `version.properties` nuevo publica en GitHub **y** en la pista interna.
+4. A partir de ahí, cada push a main que cambie `versionMinor` o `versionMajor` en `version.properties` publica en GitHub **y** en la pista interna.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
 
 ## Actualización obligatoria
@@ -104,7 +104,7 @@ a mano, en Play Console.
   repite solo el job `play` (el AAB se guarda 7 días como artefacto). Si no, sube a mano el AAB adjunto a la release.
 - `Only releases with status draft may be created on draft app`: falta poner `PLAY_ESTADO=draft`, o la app sigue en
   borrador en Play.
-- `APK specifies a version code that has already been used`: hay que subir `versionCode` en `version.properties`.
+- `APK specifies a version code that has already been used`: el clon era superficial (el versionCode es `git rev-list --count HEAD` y necesita `fetch-depth: 0`) o esa versión ya estaba subida. No hay que subir nada a mano.
 - `The caller does not have permission`: la cuenta de servicio no está invitada en Play Console o le falta el
   permiso.
 

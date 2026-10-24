@@ -27,7 +27,7 @@ flowchart LR
   CC[Claude Code + skill receta-cronometrada] -->|data/recetas/*.json| R[(repo git)]
   R -->|sc validar --estricto · APK con las recetas| A[App Android]
   A -->|historial · favoritas y raciones · ajustes · estado del cronómetro| Room[(Room en el móvil)]
-  R -->|push con version.properties nuevo| GA[GitHub Actions]
+  R -->|push con versión menor nueva| GA[GitHub Actions]
   GA --> GR[GitHub Release: APK y AAB]
   GR --> OB[Obtainium en el móvil]
   GA -->|AAB| GP[Google Play, pista interna]
@@ -74,7 +74,7 @@ scripts/sc validar --estricto                     # valida todas las recetas
 | `node scripts/android-release.mjs` | APK firmado en local |
 | `node scripts/check-claude-assets.mjs ; node scripts/gen-claude-index.mjs --check ; bash scripts/test-hooks.sh ; node scripts/check-docs.mjs` | Comprobaciones del repo |
 
-Publicar: subir `version.properties` y push a main (skill `release`).
+Publicar: una versión menor, subir `versionMinor` (o `versionMajor`) en `version.properties` y push a main; un parche, GitHub → Actions → Android → Run workflow en main marcando `publicar` (skill `release`).
 
 ## 📚 Documentación
 | | |
