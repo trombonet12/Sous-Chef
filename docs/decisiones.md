@@ -380,3 +380,22 @@
 - **Notas de la última vez** sin tabla nueva: se leen del historial (`notasDe`). **Compartir ingredientes** por
   `ACTION_SEND`, sin permisos. `Notificador.cocina/alarma` pasan a `suspend` (sin `runBlocking`).
 - Costillar BBQ con boniato: «costillar de cerdo» entra en la despensa. Base `asado` (familia OTRA).
+
+## Ronda 16 · v1.6.0 (2026-10-24)
+- Alcance elegido por Joan en `docs/analisis/v1.6.md § Alcance elegido` (análisis de cinco especialistas).
+- **Novedades tras actualizar** (N1): salen solo al cambiar `major.minor` (los parches nunca; `destacar` se quitó para no
+  dejar un campo muerto). Se marcan vistas al mostrarse; la intro marca intro y novedades en una sola transacción
+  (`terminarIntro`). No salen con cocinada viva, por deep link ni mientras Play enseña su actualización inmediata (se
+  espera a `EstadoActualizacion`, sin timeout: sin Play responde al momento). Texto en `distribution/novedades/<v>.json`,
+  copiado a assets; el build comprueba 3-5 líneas, título, versión = nombre de archivo y que `whatsnew-es-ES` sale del JSON
+  más alto. **Confeti con Canvas propio**, sin dependencia: ≤ 60 partículas, ≤ 3 s, sin semántica, estático si se reducen
+  animaciones o hay TalkBack, una sola ráfaga aunque se gire.
+- **Deep link** `souschef://crono` sin intent-filter público: las notificaciones usan intents explícitos y la entrada valida
+  el slug (`SlugReceta`) y que la receta exista.
+- **Copia del historial**: tope de 2 MB y 5000 entradas, entradas inválidas descartadas y contadas, importación IGNORE en
+  transacción (nunca pisa).
+- **Voz**: se mantiene el reconocedor del sistema como respaldo; la declaración de privacidad y de Play lo dice.
+- **Alarma** sin pantalla completa si el usuario retira `USE_FULL_SCREEN_INTENT` (API 34+): sale igual como HIGH.
+- `core.autocrlf=false` en el repo (los avisos de CRLF los daban copias de trabajo convertidas); el índice ya es LF por
+  `.gitattributes`.
+- Tink fuera (sin uso desde ADR-0007). Spike de alarmas de debug retirado.
