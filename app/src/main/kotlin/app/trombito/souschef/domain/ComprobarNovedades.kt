@@ -1,5 +1,6 @@
 package app.trombito.souschef.domain
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 
 /**
@@ -14,24 +15,40 @@ class ComprobarNovedades(
 ) {
     /**
      * Las novedades que toca enseñar ahora, o `null`. [entradaDirecta]: se llegó por `souschef://crono` o por la
-     * alarma. [playPendiente]: hay una actualización de Play por aplicar (hoy la app no lo sabe: queda en false).
+     * alarma. [playPendiente]: hay una actualización de Play por aplicar. Cualquier fallo al leer da `null`.
      */
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     suspend operator fun invoke(
         entradaDirecta: Boolean,
         playPendiente: Boolean = false,
+    ): List<Novedades>? =
+        try {
+            calcular(entradaDirecta, playPendiente)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null // unas novedades que fallan nunca tumban la app: simplemente no se enseñan
+        }
+
+    private suspend fun calcular(
+        entradaDirecta: Boolean,
+        playPendiente: Boolean,
     ): List<Novedades>? {
         val a = ajustes.observar().first()
         // Barato primero: sin intro vista no se lee nada más.
         if (!a.introVista || entradaDirecta || playPendiente) return null
-        return novedadesPendientes(
-            actual = version.nombre,
-            vista = a.novedadesVistas,
-            introVista = a.introVista,
-            hayViva = hayViva(),
-            entradaDirecta = entradaDirecta,
-            playPendiente = playPendiente,
-            todas = fuente.todas(),
-        )
+        val pendientes =
+            novedadesPendientes(
+                actual = version.nombre,
+                vista = a.novedadesVistas,
+                introVista = a.introVista,
+                hayViva = hayViva(),
+                entradaDirecta = entradaDirecta,
+                playPendiente = playPendiente,
+                todas = fuente.todas(),
+            )
+        // Leer los assets tarda: una cocinada puede haber arrancado en ese hueco.
+        return pendientes?.takeUnless { hayViva() }
     }
 
     /** Guarda `major.minor` de [version] (la de la app, normalmente) como vista. */

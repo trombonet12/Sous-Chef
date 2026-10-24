@@ -2,6 +2,7 @@ package app.trombito.souschef.di
 
 import android.content.Context
 import app.trombito.souschef.data.actualizacion.ActualizacionPlay
+import app.trombito.souschef.domain.EstadoActualizacion
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -29,4 +30,7 @@ object ActualizacionModule {
         cadena: CadenaAlarmas,
     ): ActualizacionPlay =
         ActualizacionPlay(manager, { ActualizacionPlay.instaladorDe(contexto) }, { cadena.hayViva() })
+
+    @Provides
+    fun estadoActualizacion(actualizacion: ActualizacionPlay): EstadoActualizacion = actualizacion
 }

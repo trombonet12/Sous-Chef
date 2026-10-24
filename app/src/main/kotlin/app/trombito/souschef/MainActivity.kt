@@ -35,7 +35,10 @@ class MainActivity : ComponentActivity() {
      */
     private val pantallaActualizacion =
         registerForActivityResult(StartIntentSenderForResult()) { resultado ->
-            if (resultado.resultCode != RESULT_OK) rechazadaEnEsteProceso = true
+            if (resultado.resultCode != RESULT_OK) {
+                rechazadaEnEsteProceso = true
+                actualizacion.inmediataTerminada()
+            }
         }
 
     private var rechazadaEnEsteProceso = false

@@ -11,8 +11,8 @@ import java.io.IOException
 class FuenteNovedadesAssetsTest {
     private val valido =
         """
-        {"version":"1.6","titulo":"Sous Chef 1.6 ya está en tu cocina","destacar":true,
-         "lineas":[{"texto":"Seis recetas nuevas","destino":"recetas"},{"texto":"Sin destino"}],"otro":1}
+        {"version":"1.6","titulo":"Sous Chef 1.6 ya está en tu cocina",
+         "lineas":[{"texto":"Seis recetas nuevas","destino":"recetas"},{"texto":"Sin destino"},{"texto":"Otra"}],"otro":1}
         """.trimIndent()
 
     private class Fuente(
@@ -33,15 +33,35 @@ class FuenteNovedadesAssetsTest {
 
         assertEquals("1.6", n?.version)
         assertEquals("Sous Chef 1.6 ya está en tu cocina", n?.titulo)
-        assertEquals(true, n?.destacar)
-        assertEquals(listOf(LineaNovedad("Seis recetas nuevas", "recetas"), LineaNovedad("Sin destino")), n?.lineas)
+        assertEquals(
+            listOf(LineaNovedad("Seis recetas nuevas", "recetas"), LineaNovedad("Sin destino"), LineaNovedad("Otra")),
+            n?.lineas,
+        )
+    }
+
+    private fun json(
+        version: String = "1.6",
+        titulo: String = "t",
+        textos: List<String> = listOf("a", "b", "c"),
+    ) = """{"version":"$version","titulo":"$titulo","lineas":[${textos.joinToString(",") { """{"texto":"$it"}""" }}]}"""
+
+    @Test
+    fun `exige de 3 a 5 lineas de 90 caracteres como mucho`() {
+        assertNull(FuenteNovedadesAssets.parsear(json(textos = listOf("a", "b"))))
+        assertEquals(3, FuenteNovedadesAssets.parsear(json(textos = listOf("a", "b", "c")))?.lineas?.size)
+        assertEquals(5, FuenteNovedadesAssets.parsear(json(textos = List(5) { "x" }))?.lineas?.size)
+        assertNull(FuenteNovedadesAssets.parsear(json(textos = List(6) { "x" })))
+        val justa = FuenteNovedadesAssets.parsear(json(textos = listOf("x".repeat(90), "b", "c")))
+        val primera = justa?.lineas?.firstOrNull()
+        assertEquals(90, primera?.texto?.length)
+        assertNull(FuenteNovedadesAssets.parsear(json(textos = listOf("x".repeat(91), "b", "c"))))
     }
 
     @Test
-    fun `destacar por defecto es false`() {
-        val n = FuenteNovedadesAssets.parsear("""{"version":"1.5","titulo":"t","lineas":[{"texto":"a"}]}""")
-
-        assertEquals(false, n?.destacar)
+    fun `la version debe ser major_minor e igual al nombre del archivo`() {
+        assertNull(FuenteNovedadesAssets.parsear(json(version = "1.6.1")))
+        assertEquals("1.6", FuenteNovedadesAssets.parsear(json(), "1.6")?.version)
+        assertNull(FuenteNovedadesAssets.parsear(json(), "1.5"))
     }
 
     @Test
@@ -49,8 +69,8 @@ class FuenteNovedadesAssetsTest {
         assertNull(FuenteNovedadesAssets.parsear("{ esto no es json"))
         assertNull(FuenteNovedadesAssets.parsear(""))
         assertNull(FuenteNovedadesAssets.parsear("""{"version":"1.6","titulo":"t","lineas":"no"}"""))
-        assertNull(FuenteNovedadesAssets.parsear("""{"version":"x","titulo":"t","lineas":[{"texto":"a"}]}"""))
-        assertNull(FuenteNovedadesAssets.parsear("""{"version":"1.6","titulo":"","lineas":[{"texto":"a"}]}"""))
+        assertNull(FuenteNovedadesAssets.parsear(json(version = "x")))
+        assertNull(FuenteNovedadesAssets.parsear(json(titulo = "")))
         assertNull(FuenteNovedadesAssets.parsear("""{"version":"1.6","titulo":"t","lineas":[]}"""))
     }
 
@@ -64,7 +84,8 @@ class FuenteNovedadesAssetsTest {
                         "novedades/1.10.json" to valido.replace("1.6", "1.10"),
                         "novedades/1.5.json" to valido.replace("1.6", "1.5"),
                         "novedades/1.7.json" to "{ roto",
-                        "novedades/1.8.json" to valido,
+                        "novedades/1.8.json" to valido.replace("1.6", "1.8"),
+                        "novedades/1.4.json" to valido, // la version no coincide con el nombre
                         "novedades/LEEME.txt" to "ignorar",
                     ),
                     ilegibles = setOf("novedades/1.8.json"),

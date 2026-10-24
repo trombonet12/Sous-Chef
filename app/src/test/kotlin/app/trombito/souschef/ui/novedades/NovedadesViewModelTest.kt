@@ -3,10 +3,12 @@ package app.trombito.souschef.ui.novedades
 import androidx.compose.ui.graphics.Color
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.ComprobarNovedades
+import app.trombito.souschef.domain.EstadoActualizacionFijo
 import app.trombito.souschef.domain.FuenteNovedadesFija
 import app.trombito.souschef.domain.VersionFija
 import app.trombito.souschef.domain.novedad
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -32,9 +34,35 @@ class NovedadesViewModelTest {
     @After
     fun despues() = Dispatchers.resetMain()
 
+    private val play = EstadoActualizacionFijo(false)
+
     private fun vm(): NovedadesViewModel {
         val fuente = FuenteNovedadesFija(listOf(novedad("1.6"), novedad("1.5")))
-        return NovedadesViewModel(ComprobarNovedades(ajustes, fuente, VersionFija("1.6.0")) { false })
+        val caso = ComprobarNovedades(ajustes, fuente, VersionFija("1.6.0")) { false }
+        return NovedadesViewModel(caso, play, CoroutineScope(UnconfinedTestDispatcher()))
+    }
+
+    @Test
+    fun `espera a saber si Play tiene una actualizacion inmediata`() {
+        play.inmediataEnCurso.value = null
+        val vm = vm()
+
+        vm.alLlegarARecetas(entradaDirecta = false)
+        assertNull(vm.pendientes.value)
+
+        play.inmediataEnCurso.value = false
+        assertEquals(listOf("1.6", "1.5"), vm.pendientes.value?.map { it.version })
+    }
+
+    @Test
+    fun `con el flujo inmediato de Play en curso no enseña nada`() {
+        play.inmediataEnCurso.value = true
+        val vm = vm()
+
+        vm.alLlegarARecetas(entradaDirecta = false)
+
+        assertNull(vm.pendientes.value)
+        assertEquals("1.5", ajustes.actual.value.novedadesVistas)
     }
 
     @Test

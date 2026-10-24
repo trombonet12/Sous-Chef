@@ -90,6 +90,13 @@ interface AjustesRepo {
     /** Con `false` la intro se vuelve a ver (desde Ajustes). */
     suspend fun marcarIntroVista(vista: Boolean)
 
+    /**
+     * Fin de la intro: marca la intro como vista y [version] (`major.minor`) como novedades vistas, las dos claves en
+     * una sola transacción (una instalación nueva no tiene «novedades» que enseñar). Si [version] no se entiende,
+     * solo marca la intro.
+     */
+    suspend fun terminarIntro(version: String)
+
     /** Con `false` la guía del cronómetro se vuelve a ver (desde Ajustes). */
     suspend fun marcarGuiaCronoVista(vista: Boolean)
 

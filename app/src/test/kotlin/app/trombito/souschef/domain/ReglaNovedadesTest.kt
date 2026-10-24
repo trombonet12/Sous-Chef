@@ -48,8 +48,8 @@ class ReglaNovedadesTest {
     }
 
     @Test
-    fun `un parche no la saca aunque destaque`() {
-        assertNull(pendientes(actual = "1.6.3", vista = "1.6", lista = listOf(novedad("1.6", destacar = true))))
+    fun `un parche no saca novedades`() {
+        assertNull(pendientes(actual = "1.6.3", vista = "1.6", lista = listOf(novedad("1.6"))))
     }
 
     @Test

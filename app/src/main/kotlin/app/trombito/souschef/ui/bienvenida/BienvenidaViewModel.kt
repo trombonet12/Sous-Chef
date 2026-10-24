@@ -88,10 +88,7 @@ class BienvenidaViewModel
          * la versión actual como vista: en una instalación nueva no hay «novedades» que enseñar.
          */
         fun marcarIntroVista() {
-            ambito.launch {
-                ajustes.marcarIntroVista(true)
-                ajustes.marcarNovedadesVistas(version.nombre)
-            }
+            ambito.launch { ajustes.terminarIntro(version.nombre) }
         }
 
         /** El usuario no dio el micrófono. */

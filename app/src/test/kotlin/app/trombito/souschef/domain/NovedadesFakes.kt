@@ -1,8 +1,16 @@
 package app.trombito.souschef.domain
 
+import kotlinx.coroutines.flow.MutableStateFlow
+
 class VersionFija(
     override val nombre: String,
 ) : VersionApp
+
+class EstadoActualizacionFijo(
+    valor: Boolean? = false,
+) : EstadoActualizacion {
+    override val inmediataEnCurso = MutableStateFlow(valor)
+}
 
 class FuenteNovedadesFija(
     private val lista: List<Novedades>,
@@ -10,7 +18,4 @@ class FuenteNovedadesFija(
     override suspend fun todas(): List<Novedades> = lista
 }
 
-fun novedad(
-    version: String,
-    destacar: Boolean = false,
-) = Novedades(version, "Sous Chef $version", destacar, listOf(LineaNovedad("Algo nuevo en $version")))
+fun novedad(version: String) = Novedades(version, "Sous Chef $version", listOf(LineaNovedad("Algo nuevo en $version")))

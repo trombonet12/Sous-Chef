@@ -249,6 +249,25 @@ class AjustesRepoRoomTest {
         }
 
     @Test
+    fun terminarIntroGuardaIntroYNovedadesJuntas() =
+        runBlocking {
+            repo.terminarIntro("1.6.2")
+            val a = repo.observar().first()
+            assertEquals(true, a.introVista)
+            assertEquals("1.6", a.novedadesVistas)
+        }
+
+    @Test
+    fun terminarIntroConVersionIlegibleSoloMarcaLaIntro() =
+        runBlocking {
+            repo.marcarNovedadesVistas("1.5")
+            repo.terminarIntro("basura")
+            val a = repo.observar().first()
+            assertEquals(true, a.introVista)
+            assertEquals("1.5", a.novedadesVistas)
+        }
+
+    @Test
     fun sinMarcaDeIntroPeroConOtrosAjustesLaIntroSeMuestraUnaVez() =
         runBlocking {
             repo.fijarTema(TemaApp.OSCURO)

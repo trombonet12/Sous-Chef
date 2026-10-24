@@ -6,7 +6,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -77,7 +79,8 @@ internal fun generarParticulas(
 }
 
 /**
- * Una ráfaga de confeti desde arriba, de [DURACION_CONFETI_MS] ms y hasta [MAX_PARTICULAS] piezas, sin dependencias.
+ * Una ráfaga de confeti desde arriba (no se repite al girar), de [DURACION_CONFETI_MS] ms y hasta
+ * [MAX_PARTICULAS] piezas, sin dependencias.
  * Decorativo: sin semántica, sin sonido ni vibración. Con [reducido] (animaciones reducidas o TalkBack) no se anima:
  * unas pocas piezas quietas en la parte alta. Va detrás del contenido y no recibe toques.
  */
@@ -89,9 +92,14 @@ fun Confeti(
     val colores = FamiliaBase.entries.map { colorBase(it).acento }
     val cuantas = if (reducido) PARTICULAS_ESTATICAS else MAX_PARTICULAS
     val particulas = remember(colores, cuantas) { generarParticulas(cuantas, colores) }
-    val progreso = remember { Animatable(if (reducido) 1f else 0f) }
+    // Una sola ráfaga por diálogo: girar la pantalla no la repite.
+    val lanzada = rememberSaveable { mutableStateOf(false) }
+    val progreso = remember { Animatable(if (reducido || lanzada.value) 1f else 0f) }
     LaunchedEffect(reducido) {
-        if (!reducido) progreso.animateTo(1f, tween(DURACION_CONFETI_MS, easing = LinearEasing))
+        if (!reducido && !lanzada.value) {
+            lanzada.value = true
+            progreso.animateTo(1f, tween(DURACION_CONFETI_MS, easing = LinearEasing))
+        }
     }
     Canvas(modifier.clearAndSetSemantics {}) {
         if (reducido) {

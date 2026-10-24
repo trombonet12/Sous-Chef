@@ -28,7 +28,6 @@ class DialogoNovedadesTest {
         Novedades(
             "1.6",
             "Sous Chef 1.6 ya está en tu cocina",
-            false,
             listOf(
                 LineaNovedad("Seis recetas nuevas", "recetas"),
                 LineaNovedad("Receta del mes", "receta:costillar-bbq"),
@@ -36,7 +35,7 @@ class DialogoNovedadesTest {
             ),
         )
     private val v15 =
-        Novedades("1.5", "Sous Chef 1.5 ya está en tu cocina", false, listOf(LineaNovedad("Comparte ingredientes")))
+        Novedades("1.5", "Sous Chef 1.5 ya está en tu cocina", listOf(LineaNovedad("Comparte ingredientes")))
 
     private fun poner(
         lista: List<Novedades>,

@@ -203,11 +203,19 @@ abstract class ComprobarNovedades : DefaultTask() {
     @get:Input
     abstract val minor: Property<Int>
 
+    // Mismas reglas que FuenteNovedadesAssets.parsear (la app ignora en silencio lo que las incumple).
     @Suppress("UNCHECKED_CAST")
     private fun textosDe(f: File): List<String> {
         val json = groovy.json.JsonSlurper().parseText(f.readText(Charsets.UTF_8)) as Map<String, Any?>
+        val version = f.name.removeSuffix(".json")
+        check(json["version"] == version) { "${f.name}: \"version\" debe ser \"$version\" (el nombre del archivo)" }
+        check((json["titulo"] as? String).orEmpty().isNotBlank()) { "${f.name}: falta \"titulo\"" }
         val lineas = json["lineas"] as? List<Map<String, Any?>> ?: error("${f.name}: falta \"lineas\"")
-        return lineas.map { it["texto"] as? String ?: error("${f.name}: línea sin texto") }
+        val textos = lineas.map { it["texto"] as? String ?: error("${f.name}: línea sin texto") }
+        check(textos.all { it.isNotBlank() }) { "${f.name}: hay una línea vacía" }
+        check(textos.size in 3..5) { "${f.name}: debe tener entre 3 y 5 líneas (tiene ${textos.size})" }
+        textos.forEach { t -> check(t.length <= 90) { "${f.name}: línea de más de 90 caracteres: $t" } }
+        return textos
     }
 
     @TaskAction
@@ -226,17 +234,13 @@ abstract class ComprobarNovedades : DefaultTask() {
 
         // Desde la 1.6 cada versión publicada exige su JSON (antes no existía la función).
         val actual = "${major.get()}.${minor.get()}"
-        if (minor.get() >= 6) {
+        if (major.get() > 1 || (major.get() == 1 && minor.get() >= 6)) {
             check(jsons.any { it.first == major.get() && it.second == minor.get() }) {
                 "Falta distribution/novedades/$actual.json (obligatorio desde la 1.6)"
             }
         }
 
-        jsons.forEach { (_, _, f) ->
-            val textos = textosDe(f)
-            check(textos.size in 1..5) { "${f.name}: debe tener entre 1 y 5 líneas" }
-            textos.forEach { t -> check(t.length <= 90) { "${f.name}: línea de más de 90 caracteres: $t" } }
-        }
+        jsons.forEach { (_, _, f) -> textosDe(f) }
 
         // whatsnew se publica en Play junto a la versión que viene: se compara con el JSON de versión más alta
         // que exista (con versionMinor=5 ya es la 1.6), no con el major.minor actual.

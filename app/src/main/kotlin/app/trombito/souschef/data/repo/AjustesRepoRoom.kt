@@ -97,6 +97,12 @@ class AjustesRepoRoom
 
         override suspend fun marcarIntroVista(vista: Boolean) = dao.fijar(MetaEntity(CLAVE_INTRO, vista.toString()))
 
+        override suspend fun terminarIntro(version: String) {
+            val marcas = listOf(MetaEntity(CLAVE_INTRO, true.toString()))
+            val novedades = claveNovedades(version)?.let { listOf(MetaEntity(CLAVE_NOVEDADES, it)) }.orEmpty()
+            dao.fijarVarias(marcas + novedades)
+        }
+
         override suspend fun marcarGuiaCronoVista(vista: Boolean) = dao.fijar(MetaEntity(CLAVE_GUIA, vista.toString()))
 
         override suspend fun marcarNovedadesVistas(version: String) {

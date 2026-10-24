@@ -122,6 +122,11 @@ class FakeAjustesRepo : AjustesRepo {
         actual.value = actual.value.copy(introVista = vista)
     }
 
+    override suspend fun terminarIntro(version: String) {
+        val a = actual.value
+        actual.value = a.copy(introVista = true, novedadesVistas = claveNovedades(version) ?: a.novedadesVistas)
+    }
+
     override suspend fun marcarGuiaCronoVista(vista: Boolean) {
         actual.value = actual.value.copy(guiaCronoVista = vista)
     }

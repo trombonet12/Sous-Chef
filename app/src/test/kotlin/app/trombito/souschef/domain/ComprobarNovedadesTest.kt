@@ -15,6 +15,42 @@ class ComprobarNovedadesTest {
         ComprobarNovedades(ajustes, FuenteNovedadesFija(todas), VersionFija(version)) { viva }
 
     @Test
+    fun `si hayViva lanza no se muestra nada y no cae`() =
+        runBlocking {
+            ajustes.actual.value = Ajustes(introVista = true, novedadesVistas = "1.5")
+            val uc =
+                ComprobarNovedades(ajustes, FuenteNovedadesFija(todas), VersionFija("1.6.0")) {
+                    error("sin cadena de alarmas")
+                }
+
+            assertNull(uc(entradaDirecta = false))
+        }
+
+    @Test
+    fun `si arranca una cocinada mientras se leen las novedades no se muestran`() =
+        runBlocking {
+            ajustes.actual.value = Ajustes(introVista = true, novedadesVistas = "1.5")
+            var llamadas = 0
+            val uc =
+                ComprobarNovedades(ajustes, FuenteNovedadesFija(todas), VersionFija("1.6.0")) { ++llamadas > 1 }
+
+            assertNull(uc(entradaDirecta = false))
+            assertEquals(2, llamadas)
+        }
+
+    @Test
+    fun `si la fuente lanza no se muestra nada y no cae`() =
+        runBlocking {
+            ajustes.actual.value = Ajustes(introVista = true, novedadesVistas = "1.5")
+            val rota =
+                object : FuenteNovedades {
+                    override suspend fun todas(): List<Novedades> = throw java.io.IOException("assets")
+                }
+
+            assertNull(ComprobarNovedades(ajustes, rota, VersionFija("1.6.0")) { false }(entradaDirecta = false))
+        }
+
+    @Test
     fun `de 1_5 a 1_6 ensena la 1_6 y marcarla evita repetirla`() =
         runBlocking {
             ajustes.actual.value = Ajustes(introVista = true, novedadesVistas = "1.5")

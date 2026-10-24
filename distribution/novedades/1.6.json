@@ -1,7 +1,6 @@
 {
   "version": "1.6",
   "titulo": "Sous Chef 1.6 ya está en tu cocina",
-  "destacar": false,
   "lineas": [
     { "texto": "Seis recetas nuevas: carbonara, hamburguesa smash, tortilla de patatas y más.", "destino": "recetas" },
     { "texto": "«Tu ritmo»: la hora de empezar se ajusta a lo que sueles tardar." },

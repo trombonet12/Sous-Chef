@@ -3,13 +3,18 @@ package app.trombito.souschef.ui.novedades
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.trombito.souschef.di.ApplicationScope
 import app.trombito.souschef.domain.ComprobarNovedades
+import app.trombito.souschef.domain.EstadoActualizacion
 import app.trombito.souschef.domain.FuenteNovedades
 import app.trombito.souschef.domain.Novedades
 import app.trombito.souschef.domain.SlugReceta
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,6 +40,8 @@ class NovedadesViewModel
     @Inject
     constructor(
         private val comprobar: ComprobarNovedades,
+        private val actualizacion: EstadoActualizacion,
+        @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private val _pendientes = MutableStateFlow<List<Novedades>?>(null)
 
@@ -46,12 +53,19 @@ class NovedadesViewModel
         fun alLlegarARecetas(entradaDirecta: Boolean) {
             if (comprobado) return
             comprobado = true
-            viewModelScope.launch { _pendientes.value = comprobar(entradaDirecta)?.takeIf { it.isNotEmpty() } }
+            viewModelScope.launch {
+                // El flujo inmediato de Play tapa la app: se espera a saber si lo hay (con entrada directa, no).
+                val play = !entradaDirecta && actualizacion.inmediataEnCurso.filterNotNull().first()
+                _pendientes.value = comprobar(entradaDirecta, play)?.takeIf { it.isNotEmpty() }
+            }
         }
 
-        /** La UI ya las pinta: se marcan como vistas ahora, no al cerrar, para no repetirlas si muere el proceso. */
+        /**
+         * La UI ya las pinta: se marcan como vistas ahora, no al cerrar, para no repetirlas si muere el proceso. En el
+         * ámbito de la aplicación: si la pantalla se destruye al instante, la marca no se pierde.
+         */
         fun alMostrarse() {
-            viewModelScope.launch { comprobar.marcarVistas() }
+            ambito.launch { comprobar.marcarVistas() }
         }
 
         fun cerrar() {

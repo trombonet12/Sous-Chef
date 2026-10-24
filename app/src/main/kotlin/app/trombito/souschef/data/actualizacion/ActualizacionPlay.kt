@@ -5,12 +5,15 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
+import app.trombito.souschef.domain.EstadoActualizacion
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.requestAppUpdateInfo
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /** Decisión pura de ADR-0013: qué hacer con lo que dice Play. Sin Android, para poder testearla. */
 object DecisionActualizacion {
@@ -46,13 +49,28 @@ class ActualizacionPlay(
     private val manager: AppUpdateManager,
     private val instalador: () -> String?,
     private val hayViva: suspend () -> Boolean,
-) {
+) : EstadoActualizacion {
+    private val _inmediataEnCurso = MutableStateFlow<Boolean?>(null)
+
+    /** `null` hasta la primera comprobación; `true` solo desde que se lanza el flujo hasta [inmediataTerminada]. */
+    override val inmediataEnCurso: StateFlow<Boolean?> = _inmediataEnCurso
+
+    /** La pantalla de Play se cerró sin instalar (cancelada o con error): ya no tapa la app. */
+    fun inmediataTerminada() {
+        _inmediataEnCurso.value = false
+    }
+
     /** Comprueba y, si procede, lanza la pantalla de Play. Sin Play o con error, no hace nada. */
-    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     suspend fun comprobar(lanzador: ActivityResultLauncher<IntentSenderRequest>) {
+        // Si se cancela, el valor se queda como estaba: la siguiente comprobación lo resuelve.
+        _inmediataEnCurso.value = lanzarSiProcede(lanzador)
+    }
+
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
+    private suspend fun lanzarSiProcede(lanzador: ActivityResultLauncher<IntentSenderRequest>): Boolean {
         val origen = instalador()
-        if (origen != DecisionActualizacion.INSTALADOR_PLAY || hayViva()) return
-        try {
+        if (origen != DecisionActualizacion.INSTALADOR_PLAY || hayViva()) return false
+        return try {
             val info = manager.requestAppUpdateInfo()
             val lanzar =
                 DecisionActualizacion.lanzar(
@@ -63,14 +81,16 @@ class ActualizacionPlay(
                     inmediatoPermitido = info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE),
                 )
             // requestAppUpdateInfo tarda: una cocinada puede haber arrancado en ese hueco.
-            if (lanzar && !hayViva()) {
+            val lanzada = lanzar && !hayViva()
+            if (lanzada) {
                 val opciones = AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
                 manager.startUpdateFlowForResult(info, lanzador, opciones)
             }
+            lanzada
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            // Sin Play Store o sin respuesta: la app sigue como si nada.
+            false // Sin Play Store o sin respuesta: la app sigue como si nada.
         }
     }
 
