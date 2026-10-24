@@ -13,6 +13,7 @@
 | Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 a v1.3.3 |
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
 | Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
+| Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **en curso**: commits locales, sin push; falta la prueba en el emulador |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -139,16 +140,26 @@ ADR-0013 y ADR-0014. Gate completo en verde (545 tests en app). Commits locales 
   - actualización obligatoria de Play (prioridad 5; sin bucle si se cancela);
   - tests Compose aislados (`LimpiezaCompose`).
 - Con el OK de Joan: `gh variable set PLAY_ESTADO --body completed`, push a main y vigilar el CI (release v1.4.0 en GitHub y Play).
-- Revisión de arquitectura: quedan sin aplicar 4 MEDIUM y 8 LOW, para la próxima ronda:
-  - `pasosReales` del historial guardados traducidos;
-  - `runBlocking` en NotificadorAndroid;
-  - los dudosos de R27 sin aviso;
-  - `fijarCocina` no atómica;
-  - `hayViva` releído antes de lanzar Play;
-  - `CuerpoCrono` compartido;
-  - `docs/arquitectura.md` sin ADR-0013/0014.
-- Sin capturas `v1.4-*` ni `/code-review` del diff, por la cuota.
-- Siguiente ronda: notas por cocinada y compartir ingredientes.
+- Revisión de arquitectura: aplicados en la ronda 15 todos los nombrados salvo `CuerpoCrono` compartido.
+
+## Ronda 15 · v1.5.0 (2026-10-24, sin publicar)
+Plan: `~/.claude/plans/buenos-d-as-vamos-a-modular-quasar.md`. 15 commits locales sobre `4cf059c`; **sin push hasta que
+Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la portada del cronómetro`.
+- Hecho:
+  - Receta `costillar-bbq-con-boniato` (172 min, 1 fuego, horno 150 → 200 °C; OK de Joan: tiene aluminio, 1 g de
+    pimentón, boniato en gajos de 3 cm) y «costillar de cerdo» en la despensa. `SeederTest` cuenta 18 recetas.
+  - Revisión v1.4.0: `Notificador.cocina/alarma` suspend (sin `runBlocking`); `fijarCocina` en una transacción y
+    `AjustesRepoRoom.observar()` en una sola consulta; `hayViva` releído antes de lanzar Play; `pasosReales` guardados
+    canónicos con `{N}`; R27 da AVISO (estricto) por las potencias dudosas; `docs/arquitectura.md` con ADR-0013/0014.
+  - Notas de la última vez: `domain/NotaCocinada.kt` (`notasDe`), `FichaUiState.notas` y `CronoUi.notas`, tarjeta
+    `ui/comun/UltimaVez.kt` arriba del Resumen de la ficha y en la portada del cronómetro (la última + «Ver N más»).
+  - Compartir ingredientes: botón al pie de la pestaña Ingredientes, texto según el selector (`TextoCompartir.kt`),
+    `ACTION_SEND` sin permisos.
+  - `version.properties` 1.5.0 (21) y `distribution/whatsnew/whatsnew-es-ES`.
+- Tests: `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug :receta:test :tools:installDist` en
+  verde; `scripts/sc validar --estricto` 0 errores y 0 avisos (18 recetas); check-docs y check-claude-assets sin errores.
+- Fuera: `CuerpoCrono` compartido (sin alcance claro), los LOW sin nombre de la revisión v1.4.0, `/code-review` del diff
+  (lo lanza Joan).
 
 ## Entorno
 | Herramienta | Estado |
@@ -191,9 +202,10 @@ ADR-0013 y ADR-0014. Gate completo en verde (545 tests en app). Commits locales 
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.3.3 publicada con el push. Pendiente:
-- en Play Console: lanzar el borrador de la versión 19 en la pista interna, comprobar si sigue el aviso de símbolos y
-  rellenar la ficha con `distribution/listing/`;
-- comprobar la release (APK y AAB);
-- que Joan migre al paquete nuevo (ver Pendiente del usuario) y lo pruebe en el móvil;
-- al cocinar la lasaña, ajustar las placas por capa.
+Cuando Joan lo pida, prueba en el emulador (skill `android-install-and-logcat`, AVD `trombito-36`, APK de
+`./gradlew assembleDebug`):
+1. ficha de `costillar-bbq-con-boniato`: «Empieza a las 12:38» con servir 15:30 y diagrama de tiempos;
+2. Ajustes → Tu cocina en gas, arrancar el costillar y ver la notificación y la alarma con la potencia traducida;
+3. cerrar una cocinada con nota y ver «La última vez» en la ficha y en la portada del cronómetro; botón Compartir;
+4. capturas `docs/capturas/v1.4-*` / `v1.5-*` en claro y oscuro.
+Después, **solo con el OK de Joan**: `git push origin main` (publica la v1.5.0) y vigilar el workflow de release.
