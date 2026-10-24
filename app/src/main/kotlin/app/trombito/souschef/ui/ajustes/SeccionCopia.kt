@@ -68,11 +68,17 @@ private fun textoResultado(r: ResultadoCopia): String =
         }
 
         is ResultadoCopia.Cargada -> {
-            pluralStringResource(
-                R.plurals.ajustes_copia_cargada,
-                r.cocinadasNuevas,
-                r.cocinadasNuevas,
-            )
+            val cargada =
+                pluralStringResource(R.plurals.ajustes_copia_cargada, r.cocinadasNuevas, r.cocinadasNuevas)
+            if (r.descartadas > 0) {
+                "$cargada ${stringResource(R.string.ajustes_copia_descartadas, r.descartadas)}"
+            } else {
+                cargada
+            }
+        }
+
+        ResultadoCopia.Grande -> {
+            stringResource(R.string.ajustes_copia_grande)
         }
 
         ResultadoCopia.NoValida -> {

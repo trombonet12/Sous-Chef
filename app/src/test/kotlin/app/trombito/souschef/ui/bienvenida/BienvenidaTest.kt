@@ -63,6 +63,7 @@ class BienvenidaTest {
             repo,
             GestorCopia(
                 FakeHistorialRepo(),
+                FakeRecetasRepo(),
                 FakePreferenciasRepo(),
                 object : ArchivoCopia {
                     override suspend fun escribir(

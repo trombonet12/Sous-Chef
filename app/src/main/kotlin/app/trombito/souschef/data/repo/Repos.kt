@@ -70,6 +70,9 @@ class HistorialRepoRoom
 
         override suspend fun agregar(entrada: EntradaHistorial) = dao.insertar(entrada.aEntidad())
 
+        override suspend fun importar(entradas: List<EntradaHistorial>): Int =
+            dao.insertarNuevas(entradas.map { it.aEntidad() }).count { it != -1L }
+
         override suspend fun borrar(id: String) = dao.borrar(id)
     }
 

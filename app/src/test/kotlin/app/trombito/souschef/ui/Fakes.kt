@@ -69,6 +69,13 @@ class FakeHistorialRepo(
         datos.value = listOf(entrada) + datos.value
     }
 
+    override suspend fun importar(entradas: List<EntradaHistorial>): Int {
+        val ids = datos.value.map { it.id }.toSet()
+        val nuevas = entradas.filter { it.id !in ids }.distinctBy { it.id }
+        datos.value = nuevas.reversed() + datos.value
+        return nuevas.size
+    }
+
     override suspend fun borrar(id: String) {
         datos.value = datos.value.filterNot { it.id == id }
     }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
@@ -70,6 +71,14 @@ interface HistorialDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarTodas(entradas: List<HistorialEntity>)
+
+    /**
+     * Solo para importar una copia: en lote y en una transacción, y las que ya existen (mismo id) se ignoran en vez de
+     * pisarse. Devuelve el rowid de cada una insertada, o -1 si se ignoró.
+     */
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertarNuevas(entradas: List<HistorialEntity>): List<Long>
 
     @Query("DELETE FROM historial WHERE id = :id")
     suspend fun borrar(id: String)

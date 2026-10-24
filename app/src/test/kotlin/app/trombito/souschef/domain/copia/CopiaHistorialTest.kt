@@ -22,19 +22,20 @@ class CopiaHistorialTest {
             pasosReales = listOf(PasoReal("p1", "Sofrito", 610)),
         )
     private val tacos = EntradaHistorial("tacos-2026-10-05", "tacos", "Tacos", "2026-10-05")
+    private val slugs = setOf("curry", "tacos")
 
     @Test
     fun `exportar y leer devuelve lo mismo`() {
         val prefs = listOf(Preferencia("curry", favorito = true, raciones = 4))
-        val copia = CopiaHistorial.leer(CopiaHistorial.exportar(listOf(curry, tacos), prefs, "2026-10-18"))
+        val copia = CopiaHistorial.leer(CopiaHistorial.exportar(listOf(curry, tacos), prefs, "2026-10-18"), slugs)
         assertEquals(Copia(listOf(curry, tacos), prefs), copia)
     }
 
     @Test
     fun `un archivo que no es una copia no se lee`() {
-        assertNull(CopiaHistorial.leer("no es json"))
-        assertNull(CopiaHistorial.leer("""{"formato":"otra-cosa","version":1}"""))
-        assertNull(CopiaHistorial.leer("""{"formato":"sous-chef-historial","version":99}"""))
+        assertNull(CopiaHistorial.leer("no es json", slugs))
+        assertNull(CopiaHistorial.leer("""{"formato":"otra-cosa","version":1}""", slugs))
+        assertNull(CopiaHistorial.leer("""{"formato":"sous-chef-historial","version":99}""", slugs))
     }
 
     @Test

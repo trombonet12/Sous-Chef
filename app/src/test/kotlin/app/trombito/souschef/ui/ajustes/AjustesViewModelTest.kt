@@ -12,6 +12,7 @@ import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
+import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.RelojFalso
 import kotlinx.coroutines.Dispatchers
@@ -119,6 +120,7 @@ class AjustesViewModelTest {
     private fun copiasSinArchivos() =
         GestorCopia(
             FakeHistorialRepo(),
+            FakeRecetasRepo(),
             FakePreferenciasRepo(),
             object : ArchivoCopia {
                 override suspend fun escribir(

@@ -60,10 +60,11 @@ object DatabaseModule {
     @Provides
     fun gestorCopia(
         historial: HistorialRepo,
+        recetas: RecetasRepo,
         preferencias: PreferenciasRepo,
         archivo: ArchivoCopia,
         reloj: Reloj,
-    ): GestorCopia = GestorCopia(historial, preferencias, archivo, reloj)
+    ): GestorCopia = GestorCopia(historial, recetas, preferencias, archivo, reloj)
 }
 
 @Module

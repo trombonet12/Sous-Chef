@@ -6,6 +6,7 @@ import app.trombito.souschef.domain.Preferencia
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import java.time.LocalDate
 
 /**
  * Copia del historial en un archivo JSON que el usuario guarda donde quiera del móvil (fuera de los datos de la app),
@@ -14,6 +15,14 @@ import kotlinx.serialization.json.Json
 object CopiaHistorial {
     const val VERSION = 1
     private const val FORMATO = "sous-chef-historial"
+
+    /** Entradas (y preferencias) que admite una copia; más es un archivo sospechoso y se rechaza entero. */
+    const val MAX_ENTRADAS = 5000
+    const val MAX_NOTA = 160
+    const val MAX_TITULO = 120
+    const val MAX_PASOS = 200
+    const val RACIONES_MIN = 1
+    const val RACIONES_MAX = 20
 
     private val json =
         Json {
@@ -38,15 +47,26 @@ object CopiaHistorial {
             ),
         )
 
-    /** La copia leída, o null si el texto no es una copia de Sous Chef (o es de una versión futura). */
-    fun leer(texto: String): Copia? =
+    /**
+     * La copia leída, o null si el texto no es una copia de Sous Chef, es de una versión futura o trae más de
+     * [MAX_ENTRADAS] entradas. Las entradas y preferencias inválidas (slug que no está en [slugsValidos], fecha,
+     * raciones, pasos...) se descartan y se cuentan en [Copia.descartadas]; título y nota se recortan a su máximo.
+     */
+    fun leer(
+        texto: String,
+        slugsValidos: Set<String>,
+    ): Copia? =
         runCatching { json.decodeFromString(CopiaDto.serializer(), texto) }
             .getOrNull()
             ?.takeIf { it.formato == FORMATO && it.version <= VERSION }
+            ?.takeIf { it.historial.size <= MAX_ENTRADAS && it.preferencias.size <= MAX_ENTRADAS }
             ?.let { dto ->
+                val entradas = dto.historial.map { it.validar(slugsValidos) }
+                val prefs = dto.preferencias.filter { it.valida(slugsValidos) }
                 Copia(
-                    historial = dto.historial.map { it.aDominio() },
-                    preferencias = dto.preferencias.map { Preferencia(it.slug, it.favorito, it.raciones) },
+                    historial = entradas.filterNotNull(),
+                    preferencias = prefs.map { Preferencia(it.slug, it.favorito, it.raciones) },
+                    descartadas = entradas.count { it == null } + (dto.preferencias.size - prefs.size),
                 )
             }
 
@@ -82,6 +102,8 @@ object CopiaHistorial {
 data class Copia(
     val historial: List<EntradaHistorial>,
     val preferencias: List<Preferencia>,
+    /** Entradas y preferencias de la copia que no eran válidas y no se han cargado. */
+    val descartadas: Int = 0,
 )
 
 @Serializable
@@ -135,16 +157,47 @@ private fun EntradaHistorial.aDto() =
         pasosReales.map { PasoDto(it.id, it.t, it.segundos) },
     )
 
-private fun EntradaDto.aDominio() =
-    EntradaHistorial(
-        id,
-        slug,
-        titulo,
-        fecha,
-        base,
-        tecnica,
-        raciones,
-        minutosReales,
-        nota,
-        pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
-    )
+private val SLUG_VALIDO = Regex("^[a-z0-9-]{1,64}$")
+
+private fun slugValido(
+    slug: String,
+    slugsValidos: Set<String>,
+) = SLUG_VALIDO.matches(slug) && slug in slugsValidos
+
+private fun fechaValida(fecha: String) = runCatching { LocalDate.parse(fecha) }.isSuccess
+
+private fun racionesValidas(raciones: Int?) =
+    raciones == null || raciones in CopiaHistorial.RACIONES_MIN..CopiaHistorial.RACIONES_MAX
+
+private fun PreferenciaDto.valida(slugsValidos: Set<String>) =
+    slugValido(slug, slugsValidos) && racionesValidas(raciones)
+
+/** La entrada ya saneada, o null si no es válida. */
+private fun EntradaDto.validar(slugsValidos: Set<String>): EntradaHistorial? {
+    val valida =
+        id.length in 1..MAX_ID_ENTRADA &&
+            slugValido(slug, slugsValidos) &&
+            fechaValida(fecha) &&
+            racionesValidas(raciones) &&
+            (minutosReales ?: 0) >= 0 &&
+            pasosReales.size <= CopiaHistorial.MAX_PASOS &&
+            pasosReales.all { it.segundos >= 0 }
+    return if (valida) {
+        EntradaHistorial(
+            id,
+            slug,
+            titulo.trim().take(CopiaHistorial.MAX_TITULO),
+            fecha,
+            base,
+            tecnica,
+            raciones,
+            minutosReales,
+            nota?.trim()?.take(CopiaHistorial.MAX_NOTA)?.ifBlank { null },
+            pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
+        )
+    } else {
+        null
+    }
+}
+
+private const val MAX_ID_ENTRADA = 128

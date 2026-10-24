@@ -1,10 +1,13 @@
 package app.trombito.souschef.domain.copia
 
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
+import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.crono.RelojFalso
+import app.trombito.souschef.ui.receta
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -28,11 +31,22 @@ class GestorCopiaTest {
     private val curry = EntradaHistorial("curry-2026-10-01", "curry", "Curry", "2026-10-01")
     private val tacos = EntradaHistorial("tacos-2026-10-05", "tacos", "Tacos", "2026-10-05")
     private val archivos = ArchivosEnMemoria()
+    private val recetas = FakeRecetasRepo(listOf(receta("curry"), receta("tacos")))
 
     private fun gestor(
         historial: FakeHistorialRepo,
         prefs: FakePreferenciasRepo = FakePreferenciasRepo(),
-    ) = GestorCopia(historial, prefs, archivos, RelojFalso())
+    ) = GestorCopia(historial, recetas, prefs, archivos, RelojFalso())
+
+    /** Escribe en `content://malo` una copia con [entradas] tal cual (el exportador no valida) y la importa. */
+    private suspend fun importarEntradas(
+        entradas: List<EntradaHistorial>,
+        destino: FakeHistorialRepo = FakeHistorialRepo(),
+        prefs: List<Preferencia> = emptyList(),
+    ): ResultadoCopia {
+        archivos.archivos["content://malo"] = CopiaHistorial.exportar(entradas, prefs, "2026-10-24")
+        return gestor(destino).importar("content://malo")
+    }
 
     @Test
     fun guardarYCargarEnUnaAppVaciaRecuperaElHistorial() =
@@ -80,5 +94,126 @@ class GestorCopiaTest {
             archivos.fallar = true
             assertEquals(ResultadoCopia.Fallo, gestor(h).exportar("content://copia"))
             assertEquals(listOf(curry), h.datos.value)
+        }
+
+    @Test
+    fun slugInexistenteSeDescartaYNoCreaPreferencias() =
+        runTest {
+            val destino = FakeHistorialRepo()
+            val fantasma = curry.copy(id = "fantasma-2026-10-01", slug = "fantasma")
+            val prefs =
+                listOf(Preferencia("fantasma", favorito = true, raciones = 4), Preferencia("curry", favorito = true))
+            archivos.archivos["content://malo"] = CopiaHistorial.exportar(listOf(curry, fantasma), prefs, "2026-10-24")
+            val prefsDestino = FakePreferenciasRepo()
+            assertEquals(ResultadoCopia.Cargada(1, 2), gestor(destino, prefsDestino).importar("content://malo"))
+            assertEquals(listOf(curry), destino.datos.value)
+            assertEquals(setOf("curry"), prefsDestino.datos.value.keys)
+        }
+
+    @Test
+    fun slugConFormatoRaroSeDescarta() =
+        runTest {
+            val slugs = listOf("../etc", "Curry", "", "a".repeat(65))
+            val malos = slugs.mapIndexed { i, s -> curry.copy(id = "x$i", slug = s) }
+            assertEquals(ResultadoCopia.Cargada(0, 4), importarEntradas(malos))
+        }
+
+    @Test
+    fun fechaMalaSeDescarta() =
+        runTest {
+            val fechas = listOf("2026-13-45", "ayer", "2026-10-1", "")
+            val malas = fechas.mapIndexed { i, f -> curry.copy(id = "x$i", fecha = f) }
+            val destino = FakeHistorialRepo()
+            assertEquals(ResultadoCopia.Cargada(1, 4), importarEntradas(malas + tacos, destino))
+            assertEquals(listOf(tacos), destino.datos.value)
+        }
+
+    @Test
+    fun racionesFueraDeRangoSeDescartan() =
+        runTest {
+            val entradas =
+                listOf(0, 99, -1, 1, 20, null).mapIndexed { i, r -> curry.copy(id = "x$i", raciones = r) }
+            val destino = FakeHistorialRepo()
+            assertEquals(ResultadoCopia.Cargada(3, 3), importarEntradas(entradas, destino))
+            assertEquals(
+                setOf(1, 20, null),
+                destino.datos.value
+                    .map { it.raciones }
+                    .toSet(),
+            )
+        }
+
+    @Test
+    fun segundosNegativosOMasDe200PasosSeDescartan() =
+        runTest {
+            val negativo = curry.copy(id = "neg", pasosReales = listOf(PasoReal("p1", "Picar", -5)))
+            val muchos = curry.copy(id = "muchos", pasosReales = List(201) { PasoReal("p$it", "Paso", 10) })
+            val bien = curry.copy(id = "bien", pasosReales = List(200) { PasoReal("p$it", "Paso", 0) })
+            val destino = FakeHistorialRepo()
+            assertEquals(ResultadoCopia.Cargada(1, 2), importarEntradas(listOf(negativo, muchos, bien), destino))
+            assertEquals(listOf("bien"), destino.datos.value.map { it.id })
+        }
+
+    @Test
+    fun notaYTituloSeRecortan() =
+        runTest {
+            val largo = curry.copy(titulo = "T".repeat(500), nota = "n".repeat(500))
+            val destino = FakeHistorialRepo()
+            assertEquals(ResultadoCopia.Cargada(1, 0), importarEntradas(listOf(largo), destino))
+            assertEquals(
+                120,
+                destino.datos.value
+                    .single()
+                    .titulo.length,
+            )
+            assertEquals(
+                160,
+                destino.datos.value
+                    .single()
+                    .nota
+                    ?.length,
+            )
+        }
+
+    @Test
+    fun masDe5000EntradasRechazaElArchivoSinTocarNada() =
+        runTest {
+            val demasiadas = List(5001) { curry.copy(id = "curry-$it") }
+            val destino = FakeHistorialRepo(listOf(tacos))
+            assertEquals(ResultadoCopia.NoValida, importarEntradas(demasiadas, destino))
+            assertEquals(listOf(tacos), destino.datos.value)
+            assertEquals(ResultadoCopia.Cargada(5000, 0), importarEntradas(demasiadas.take(5000)))
+        }
+
+    @Test
+    fun reimportarLaMismaCopiaNoDuplicaNiPisa() =
+        runTest {
+            val original = curry.copy(nota = "la mía")
+            val destino = FakeHistorialRepo(listOf(original))
+            val copia = listOf(curry.copy(nota = "otra", titulo = "Cambiado"), tacos)
+            archivos.archivos["content://malo"] = CopiaHistorial.exportar(copia, emptyList(), "2026-10-24")
+
+            assertEquals(ResultadoCopia.Cargada(1, 0), gestor(destino).importar("content://malo"))
+            assertEquals(ResultadoCopia.Cargada(0, 0), gestor(destino).importar("content://malo"))
+            assertEquals(setOf(original, tacos), destino.datos.value.toSet())
+            assertEquals(2, destino.datos.value.size)
+        }
+
+    @Test
+    fun archivoDemasiadoGrandeSeDiceSinTocarNada() =
+        runTest {
+            val destino = FakeHistorialRepo(listOf(curry))
+            val grande =
+                object : ArchivoCopia {
+                    override suspend fun escribir(
+                        destino: String,
+                        texto: String,
+                    ) = true
+
+                    override suspend fun leer(origen: String): String? = throw ArchivoDemasiadoGrande()
+                }
+            val g = GestorCopia(destino, recetas, FakePreferenciasRepo(), grande, RelojFalso())
+            assertEquals(ResultadoCopia.Grande, g.importar("content://enorme"))
+            assertEquals(listOf(curry), destino.datos.value)
         }
 }

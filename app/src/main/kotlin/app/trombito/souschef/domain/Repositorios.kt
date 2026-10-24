@@ -32,6 +32,12 @@ interface HistorialRepo {
 
     suspend fun agregar(entrada: EntradaHistorial)
 
+    /**
+     * Importación de una copia: añade en una sola transacción las entradas cuyo id no existe y devuelve cuántas
+     * entraron. Nunca pisa una cocinada que ya está.
+     */
+    suspend fun importar(entradas: List<EntradaHistorial>): Int
+
     suspend fun borrar(id: String)
 }
 
