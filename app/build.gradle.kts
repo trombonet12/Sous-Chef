@@ -33,7 +33,10 @@ val versionProps =
     Properties().apply {
         val file = rootProject.file("version.properties")
         check(file.isFile) { "Falta version.properties en la raíz del repo (versionMajor, versionMinor)" }
-        providers.fileContents(rootProject.layout.projectDirectory.file("version.properties")).asText.get()
+        providers
+            .fileContents(rootProject.layout.projectDirectory.file("version.properties"))
+            .asText
+            .get()
             .reader()
             .use { load(it) }
     }
