@@ -1,6 +1,6 @@
 ---
 name: release
-description: Publicar una versión: menor (subir versionMinor y push a main) o parche (workflow_dispatch con publicar), gate, vigilar el CI (Release APK+AAB) y subir el AAB a Google Play; no preparar (release-preflight) ni notas (release-notes).
+description: Publicar una versión menor (versionMinor + push) o un parche (dispatch con publicar): gate, push, vigilar el CI y subir el AAB a Play; no preparar (release-preflight) ni notas (release-notes).
 argument-hint: "[local|github]"
 allowed-tools: Read, Edit, Grep, Bash(./gradlew *), Bash(git status*), Bash(git log*), Bash(git rev-parse*), Bash(git add version.properties*), Bash(git add distribution/*), Bash(git add CHANGELOG.md*), Bash(git commit *), Bash(git push origin main), Bash(gh run *), Bash(gh release view*), Bash(node scripts/gh.mjs *), Bash(wc *), Bash(sha256sum *)
 disable-model-invocation: true
