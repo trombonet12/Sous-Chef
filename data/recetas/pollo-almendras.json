@@ -1,5 +1,5 @@
 {
-  "actualizada": "2026-10-17T00:00:00Z",
+  "actualizada": "2026-10-24T00:00:00Z",
   "carriles": [
     {
       "color": "#C0B7A6",
@@ -70,7 +70,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Pechuga en dados con una hora de marinada de soja, ajo y jengibre, pasada por maicena y sellada en dos tandas, con zanahoria, calabacín y una salsa de caldo que napa y brilla sin una gota de dulce. Las almendras se tuestan en seco durante la nevera y entran al final, fuera del fuego, para que lleguen crujientes. El arroz blanco va en paralelo y acaba su reposo en el mismo minuto que el salteado.",
+  "descripcion": "Pechuga en dados con una hora de marinada de soja, ajo y jengibre, pasada por maicena y sellada en dos tandas, con zanahoria, calabacín y una salsa de caldo que napa, brilla y llega para mojar el arroz, sin una gota de dulce. Las almendras se tuestan en seco durante la nevera y entran al final, fuera del fuego, para que lleguen crujientes. El arroz blanco va en paralelo y acaba su reposo en el mismo minuto que el salteado.",
   "escala": {
     "max": 2,
     "min": 2,
@@ -146,19 +146,19 @@
           "u": "g"
         },
         {
-          "a": 150,
-          "n": "caldo de pollo (⅔ de vaso)",
+          "a": 200,
+          "n": "caldo de pollo (casi un vaso)",
           "u": "ml"
         },
         {
-          "a": 20,
+          "a": 25,
           "esc": "sub",
-          "n": "salsa de soja, para la salsa (1 cucharada sopera y 1 cucharadita)",
+          "n": "salsa de soja, para la salsa (1 cucharada sopera y 2 cucharaditas)",
           "u": "ml"
         },
         {
-          "a": 6,
-          "n": "maicena, para la salsa (2 cucharaditas rasas)",
+          "a": 8,
+          "n": "maicena, para la salsa (2½ cucharaditas rasas)",
           "u": "g"
         },
         {
@@ -210,7 +210,7 @@
     {
       "l": [
         "<b>Agua del arroz · 270 ml (1 vaso y un dedo)</b> · a la olla en frío con 3 g de sal (½ cucharadita) en el minuto 101. Se enciende en el 111.",
-        "<b>La salsa</b> · 150 ml de caldo de pollo (⅔ de vaso) + 20 ml de salsa de soja (1 cucharada sopera y 1 cucharadita) + 6 g de maicena (2 cucharaditas rasas), removido hasta que no quede polvo. Se mezcla en el 101 y entra en el minuto 130."
+        "<b>La salsa</b> · 200 ml de caldo de pollo (casi un vaso) + 25 ml de salsa de soja (1 cucharada sopera y 2 cucharaditas) + 8 g de maicena (2½ cucharaditas rasas), removido hasta que no quede polvo. Se mezcla en el 101 y entra en el minuto 130."
       ],
       "orden": true,
       "porq": "El agua primero porque no deja residuo; la salsa después, en el mismo vaso, y ahí se queda hasta que entra. Grasa no se mide en el vaso: el aceite va a cucharadas, en el momento.",
@@ -385,7 +385,7 @@
       "holgura": "flexible",
       "id": "arroz-y-salsa",
       "junto": null,
-      "meto": "olla: 270 ml de agua (1 vaso y un dedo) + 3 g de sal (½ cucharadita); vaso: 150 ml de caldo de pollo (⅔ de vaso) + 20 ml de salsa de soja (1 cucharada sopera y 1 cucharadita) + 6 g de maicena (2 cucharaditas rasas)",
+      "meto": "olla: 270 ml de agua (1 vaso y un dedo) + 3 g de sal (½ cucharadita); vaso: 200 ml de caldo de pollo (casi un vaso) + 25 ml de salsa de soja (1 cucharada sopera y 2 cucharaditas) + 8 g de maicena (2½ cucharaditas rasas)",
       "min": 3,
       "nota": "El agua primero en el vaso, después la salsa. La maicena, siempre en frío: en caliente hace grumos.",
       "off": 101,
@@ -640,7 +640,7 @@
       "holgura": "critico",
       "id": "salsa",
       "junto": null,
-      "meto": "el vaso, removido otra vez: 150 ml de caldo de pollo, 20 ml de salsa de soja y 6 g de maicena",
+      "meto": "el vaso, removido otra vez: 200 ml de caldo de pollo, 25 ml de salsa de soja y 8 g de maicena",
       "min": 2,
       "nota": "Remueve el vaso antes de verterlo. Sube al {8} y remueve sin parar hasta que hierva y pase de lechosa a brillante.",
       "off": 130,
@@ -683,7 +683,7 @@
       "junto": null,
       "meto": "todo el pollo y los jugos del plato",
       "min": 3,
-      "nota": "Baja al {5}. Remueve para que la salsa cubra cada dado: que nape, no que sobre.",
+      "nota": "Baja al {5}. Remueve para que la salsa cubra cada dado: que nape y que sobre un poco para mojar el arroz.",
       "off": 132,
       "p": "Baja al {5} y devuelve el pollo con el jugo que haya soltado en el plato. Remueve para que cada dado quede cubierto: la película de maicena agarra la salsa y la espesa un punto más, que es cuando napa. Tres minutos bastan para que el centro de un dado de 2 cm llegue a temperatura segura; más, y la pechuga se seca. Si la salsa queda espesa como pasta, una cucharada de agua la suelta.",
       "s": 180,
@@ -720,6 +720,10 @@
     [
       "Maicena justo antes de sellar",
       "Una película fina de almidón que en el aceite caliente se seca en costra, protege la pechuga de secarse y después agarra la salsa. Puesta antes de tiempo chupa la humedad del pollo y se hace pasta."
+    ],
+    [
+      "Salsa para mojar el arroz",
+      "200 ml de caldo con 8 g de maicena: la misma proporción de almidón que antes, así que espesa igual, pero con salsa de sobra para el arroz. La soja sube a 25 ml, en proporción al caldo, para que el sabor no se diluya."
     ],
     [
       "Almendras tostadas en seco y al final",
