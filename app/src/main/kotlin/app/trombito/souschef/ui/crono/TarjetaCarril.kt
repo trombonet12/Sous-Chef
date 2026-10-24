@@ -35,6 +35,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
@@ -69,6 +71,7 @@ fun TarjetaCarril(
             .testTag("tarjeta-${v.id}")
             .guia(GuiaIds.CARRIL)
             .clip(forma)
+            .avisoVencido(v)
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
             .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
     ) {
@@ -137,20 +140,34 @@ internal fun MandosSecundarios(
 ) {
     when (v.accion) {
         AccionCarril.PAUSAR, AccionCarril.HECHO -> {
-            BotonSecundario(stringResource(R.string.crono_pausa), compacto) { acciones.alternar(v.id) }
-            BotonSecundario(stringResource(R.string.crono_mas_30), compacto, Modifier.guia(GuiaIds.PRORROGA)) {
-                acciones.masTreinta(v.id)
-            }
+            BotonSecundario(
+                stringResource(R.string.crono_pausa),
+                stringResource(R.string.crono_a11y_pausa, v.nombre),
+                compacto,
+            ) { acciones.alternar(v.id) }
+            BotonSecundario(
+                stringResource(R.string.crono_mas_30),
+                stringResource(R.string.crono_a11y_mas_30, v.nombre),
+                compacto,
+                Modifier.guia(GuiaIds.PRORROGA),
+            ) { acciones.masTreinta(v.id) }
         }
 
         AccionCarril.SEGUIR -> {
-            BotonSecundario(stringResource(R.string.crono_mas_30), compacto, Modifier.guia(GuiaIds.PRORROGA)) {
-                acciones.masTreinta(v.id)
-            }
+            BotonSecundario(
+                stringResource(R.string.crono_mas_30),
+                stringResource(R.string.crono_a11y_mas_30, v.nombre),
+                compacto,
+                Modifier.guia(GuiaIds.PRORROGA),
+            ) { acciones.masTreinta(v.id) }
         }
 
         AccionCarril.BLOQUEADO -> {
-            BotonSecundario(stringResource(R.string.crono_empezar_igual), compacto) { acciones.empezarIgual(v.id) }
+            BotonSecundario(
+                stringResource(R.string.crono_empezar_igual),
+                stringResource(R.string.crono_a11y_empezar_igual, v.nombre),
+                compacto,
+            ) { acciones.empezarIgual(v.id) }
         }
 
         AccionCarril.EMPEZAR, AccionCarril.TERMINADO -> {
@@ -169,11 +186,11 @@ internal fun BotonDeshacer(
     if (!v.puedeDeshacer) return
     IconButton(
         onClick = { acciones.deshacer(v.id) },
-        Modifier.size(40.dp).testTag("deshacer-${v.id}").guia(GuiaIds.DESHACER),
+        Modifier.size(48.dp).testTag("deshacer-${v.id}").guia(GuiaIds.DESHACER),
     ) {
         Icon(
             Icono.Deshacer.vector,
-            stringResource(R.string.crono_deshacer_paso, v.deshacerA.orEmpty()),
+            stringResource(R.string.crono_a11y_deshacer, v.nombre, v.deshacerA.orEmpty()),
             Modifier.size(20.dp),
             tint = CronoPalette.apagado,
         )
@@ -183,13 +200,18 @@ internal fun BotonDeshacer(
 @Composable
 private fun BotonSecundario(
     texto: String,
+    descripcion: String,
     compacto: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.heightIn(min = 48.dp).padding(start = if (compacto) 4.dp else 6.dp),
+        modifier =
+            modifier
+                .heightIn(min = 48.dp)
+                .padding(start = if (compacto) 4.dp else 6.dp)
+                .semantics { contentDescription = descripcion },
         contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 10.dp, vertical = 2.dp),
         border = BorderStroke(1.dp, CronoPalette.linea),
     ) {
@@ -235,6 +257,7 @@ internal fun IconoPorque() {
     Text(
         "i",
         Modifier
+            .clearAndSetSemantics {}
             .clip(RoundedCornerShape(50))
             .background(CronoPalette.carta2)
             .width(22.dp)

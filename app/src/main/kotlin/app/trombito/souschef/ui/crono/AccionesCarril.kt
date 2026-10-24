@@ -20,8 +20,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -113,6 +116,40 @@ internal fun etiquetaAccion(v: VistaCarril): String =
         AccionCarril.TERMINADO -> stringResource(R.string.crono_terminado)
     }
 
+/** Lo que lee TalkBack en la acción principal: qué hace y de qué carril (y paso) es. */
+@Composable
+internal fun descripcionAccion(v: VistaCarril): String {
+    val paso = v.titulo.orEmpty()
+    return when (v.accion) {
+        AccionCarril.EMPEZAR -> {
+            stringResource(R.string.crono_a11y_empezar, v.nombre, paso)
+        }
+
+        AccionCarril.SEGUIR -> {
+            stringResource(R.string.crono_a11y_seguir, v.nombre, paso)
+        }
+
+        AccionCarril.PAUSAR, AccionCarril.HECHO -> {
+            stringResource(R.string.crono_a11y_hecho, v.nombre, paso)
+        }
+
+        AccionCarril.BLOQUEADO, AccionCarril.TERMINADO -> {
+            stringResource(R.string.crono_a11y_accion_otro, v.nombre, etiquetaAccion(v))
+        }
+    }
+}
+
+/** Un paso vencido no se distingue solo por el color: lo dice «Vencido» y, al pasar a vencido, TalkBack lo anuncia. */
+@Composable
+internal fun Modifier.avisoVencido(v: VistaCarril): Modifier {
+    if (!v.vencido) return this
+    val vencido = stringResource(R.string.crono_a11y_vencido)
+    return semantics {
+        stateDescription = vencido
+        liveRegion = LiveRegionMode.Assertive
+    }
+}
+
 /** Botón de la acción principal; ≥ 48 dp. Deshabilitado si el carril espera a otro. */
 @Composable
 internal fun BotonAccion(
@@ -122,6 +159,7 @@ internal fun BotonAccion(
     compacto: Boolean = false,
 ) {
     val bloqueado = v.accion == AccionCarril.BLOQUEADO
+    val descripcion = descripcionAccion(v)
     val tipografia = MaterialTheme.typography
     // Solo el botón que dice «Hecho» es el punto de la guía.
     val diceHecho = v.accion == AccionCarril.PAUSAR || v.accion == AccionCarril.HECHO
@@ -133,6 +171,7 @@ internal fun BotonAccion(
             modifier
                 .heightIn(min = 48.dp)
                 .testTag("accion-${v.id}")
+                .semantics { contentDescription = descripcion }
                 .then(puntoGuia),
         contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 20.dp, vertical = 4.dp),
         colors =

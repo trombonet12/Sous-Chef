@@ -218,7 +218,6 @@
     <string name="crono_diagrama_horas">Empezar %1$s · servir %2$s</string>
     <string name="crono_diagrama_cerrar_corto">Cerrar</string>
     <string name="crono_diagrama_cerrar">Cerrar el diagrama</string>
-    <string name="crono_deshacer_paso">Deshacer: volver a «%1$s»</string>
     <string name="crono_prevista">Prevista a las %1$s</string>
     <string name="crono_prevista_tarde">Prevista a las %1$s, va %2$d min tarde</string>
     <string name="crono_prevista_pronto">Prevista a las %1$s, va %2$d min adelantado</string>

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.animacionesReducidas
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
@@ -108,7 +109,8 @@ private fun CabeceraCompacta(
             Modifier.weight(1f).desplazarSiNoCabe(),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
-            maxLines = 1,
+            maxLines = lineasSinMarquesina(),
+            overflow = desbordeSinMarquesina(),
         )
         HoraPrevista(v, estilo = MaterialTheme.typography.labelMedium)
         ChipFuego(v)
@@ -153,18 +155,33 @@ private fun LineaExtra(
         color = color,
         style = MaterialTheme.typography.bodySmall,
         fontStyle = estilo,
-        maxLines = 1,
+        maxLines = lineasSinMarquesina(),
+        overflow = desbordeSinMarquesina(),
     )
 }
 
 /** El texto que no cabe en una línea se desplaza despacio, sin fin, para poder leerlo entero. */
+@Composable
 internal fun Modifier.desplazarSiNoCabe(): Modifier =
-    basicMarquee(
-        iterations = Int.MAX_VALUE,
-        initialDelayMillis = MARQUESINA_ESPERA_MS,
-        repeatDelayMillis = MARQUESINA_ESPERA_MS,
-        velocity = MARQUESINA_VELOCIDAD,
-    )
+    if (animacionesReducidas()) {
+        this
+    } else {
+        basicMarquee(
+            iterations = Int.MAX_VALUE,
+            initialDelayMillis = MARQUESINA_ESPERA_MS,
+            repeatDelayMillis = MARQUESINA_ESPERA_MS,
+            velocity = MARQUESINA_VELOCIDAD,
+        )
+    }
+
+/** Líneas de un texto que se desplazaba: 1 con marquesina; 2 con elipsis si las animaciones están reducidas. */
+@Composable
+internal fun lineasSinMarquesina(): Int = if (animacionesReducidas()) 2 else 1
+
+/** Elipsis solo cuando no hay marquesina. */
+@Composable
+internal fun desbordeSinMarquesina(): TextOverflow =
+    if (animacionesReducidas()) TextOverflow.Ellipsis else TextOverflow.Clip
 
 private const val MARQUESINA_ESPERA_MS = 2_000
 private val MARQUESINA_VELOCIDAD = 24.dp

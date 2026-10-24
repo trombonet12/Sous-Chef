@@ -46,6 +46,7 @@ fun FilaCarrilCompacta(
             .height(ALTO_FILA)
             .clip(RoundedCornerShape(12.dp))
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
+            .avisoVencido(v)
             .clickable(onClickLabel = etiquetaEnfocar) { acciones.enfocar(v.id) }
             .padding(start = 10.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -70,7 +71,8 @@ fun FilaCarrilCompacta(
                 v.titulo ?: stringResource(R.string.crono_terminado),
                 Modifier.desplazarSiNoCabe(),
                 style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
+                maxLines = lineasSinMarquesina(),
+                overflow = desbordeSinMarquesina(),
             )
         }
         FinalFila(v, acciones)

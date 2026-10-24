@@ -184,7 +184,11 @@ private fun PantallaAlarma(
         Button(
             onClick = onParar,
             Modifier.fillMaxWidth().heightIn(min = 72.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = CronoPalette.alerta),
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = CronoPalette.alerta,
+                    contentColor = CronoPalette.onUrgente,
+                ),
         ) { Text(stringResource(R.string.crono_alarma_parar), style = MaterialTheme.typography.titleLarge) }
         if (d.conHecho) {
             OutlinedButton(onClick = onSiguiente, Modifier.fillMaxWidth().heightIn(min = 64.dp)) {

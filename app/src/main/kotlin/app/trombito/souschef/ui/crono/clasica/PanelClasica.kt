@@ -229,7 +229,7 @@ private fun Requisitos(
         (req.pendientes + req.cumplidos).forEach {
             Text(
                 "${it.t} (${datos.nombre(it.carril)})",
-                Modifier.heightIn(min = 32.dp).clickable { onEnfocar(it.carril) },
+                Modifier.heightIn(min = 48.dp).clickable { onEnfocar(it.carril) },
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
