@@ -49,6 +49,7 @@ jobs:
       # Historial completo: el build calcula versionName/versionCode contando commits.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 0
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
@@ -59,6 +60,20 @@ jobs:
         run: echo "sdk.dir=$ANDROID_HOME" > local.properties
       - name: ktlint, detekt, lint, tests y assembleDebug
         run: ./gradlew ktlintCheck detekt lintDebug testDebugUnitTest :receta:test :tools:test assembleDebug
+      # ADR-0011 y ADR-0013: la app de release no pide red. Manifest fusionado de release, sin firma.
+      - name: Manifest de release sin permisos de red
+        run: |
+          set -euo pipefail
+          ./gradlew :app:processReleaseMainManifest
+          manifests="$(find app/build/intermediates -path '*merged_manifest*/release/*' -name AndroidManifest.xml)"
+          if [ -z "$manifests" ]; then
+            echo "::error::No se genero el manifest fusionado de release"
+            exit 1
+          fi
+          if printf '%s\n' "$manifests" | xargs grep -nE 'android\.permission\.(INTERNET|ACCESS_NETWORK_STATE)'; then
+            echo "::error::El manifest de release pide INTERNET o ACCESS_NETWORK_STATE (prohibido por ADR-0011 y ADR-0013)"
+            exit 1
+          fi
       - name: Validar recetas y tecnicas
         continue-on-error: false
         run: scripts/sc validar --estricto
