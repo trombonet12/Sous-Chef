@@ -100,6 +100,26 @@ class ActualizacionPlayTest {
         }
 
     @Test
+    fun noLanzaSiLaCocinadaArrancaMientrasSeConsultaAPlay() =
+        runTest {
+            hayActualizacion(5)
+            // Primera comprobación libre; la cocinada arranca durante requestAppUpdateInfo.
+            var llamadas = 0
+            val actualizacion =
+                ActualizacionPlay(
+                    manager,
+                    { DecisionActualizacion.INSTALADOR_PLAY },
+                    {
+                        llamadas++
+                        llamadas >= 2
+                    },
+                )
+            actualizacion.comprobar(lanzador)
+            assertEquals(2, llamadas)
+            lanzamientos(0)
+        }
+
+    @Test
     fun noReanudaConCocinadaViva() =
         runTest {
             actualizacionAMedias()

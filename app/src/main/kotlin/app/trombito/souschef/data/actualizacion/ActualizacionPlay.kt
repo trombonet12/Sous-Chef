@@ -62,7 +62,8 @@ class ActualizacionPlay(
                     prioridad = info.updatePriority(),
                     inmediatoPermitido = info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE),
                 )
-            if (lanzar) {
+            // requestAppUpdateInfo tarda: una cocinada puede haber arrancado en ese hueco.
+            if (lanzar && !hayViva()) {
                 val opciones = AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
                 manager.startUpdateFlowForResult(info, lanzador, opciones)
             }
