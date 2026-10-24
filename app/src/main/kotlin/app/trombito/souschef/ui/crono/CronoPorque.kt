@@ -15,6 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,6 @@ import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.colorCarril
 import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
@@ -31,10 +31,12 @@ import app.trombito.souschef.ui.theme.colorCarrilTexto
 
 /** "Ver el porqué": el paso completo y enlaces a las técnicas de la receta. */
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("LongParameterList")
 @Composable
 fun PorqueSheet(
     paso: Paso,
     carril: Carril,
+    color: Color,
     tecnicas: Map<String, String>,
     onTecnica: (String) -> Unit,
     onCerrar: () -> Unit,
@@ -56,7 +58,7 @@ fun PorqueSheet(
             Text(
                 "${carril.nombre} · ${minutosPaso(paso)}",
                 style = MaterialTheme.typography.labelLarge,
-                color = colorCarrilTexto(colorCarril(carril.color)),
+                color = colorCarrilTexto(color),
             )
             Text(paso.t, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
             paso.p?.takeIf { it.isNotBlank() }?.let { Text(textoRico(it), style = MaterialTheme.typography.bodyLarge) }

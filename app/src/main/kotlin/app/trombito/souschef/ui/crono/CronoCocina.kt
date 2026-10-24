@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +34,6 @@ import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.ui.ajustes.SelectorDisposicion
 import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.crono.clasica.CronoClasico
 import app.trombito.souschef.ui.crono.guia.GuiaIds
 import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.shell.Icono
@@ -62,7 +62,6 @@ fun CronoCocina(
     val receta = ui.receta ?: return
     val estado = ui.estado ?: return
     val datos = DatosCrono(receta, estado, ui.ahoraMs, ui.cocina, ui.recetaUi ?: receta)
-    val vistas = vistasCarriles(datos)
     var porque by remember { mutableStateOf<Pair<String, Int>?>(null) }
     // Atrás vuelve a la ficha con la cocinada viva (sigue en segundo plano); abandonar solo desde el menú ⋮, o al
     // salir de la ficha.
@@ -90,20 +89,16 @@ fun CronoCocina(
                 interfaz = { interfaz = true },
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
-        val cuerpo = Modifier.weight(1f).fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 8.dp)
-        when (ui.disposicion) {
-            DisposicionCrono.FOCO -> {
-                CronoFoco(vistas, elegirFoco(vistas, estado.foco), acciones, cuerpo)
-            }
-
-            DisposicionCrono.APILADA -> {
-                CronoApilado(vistas, acciones, cuerpo)
-            }
-
-            DisposicionCrono.CLASICA -> {
-                CronoClasico(datos, ui.tecnicas, acciones, salidas.tecnica, Modifier.weight(1f).fillMaxWidth())
-            }
-        }
+        CuerpoCrono(
+            datos,
+            ui.disposicion,
+            acciones,
+            ui.tecnicas,
+            salidas.tecnica,
+            relleno = PaddingValues(start = 12.dp, end = 12.dp, bottom = 8.dp),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
+            rellenoClasica = PaddingValues(0.dp),
+        )
     }
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
@@ -134,7 +129,7 @@ private fun HojaPorque(
     val paso = datos.paso(id)
     val carril = datos.carril(id)
     if (paso == null || carril == null || datos.ec(id)?.i != indice) return
-    PorqueSheet(paso, carril, ui.tecnicas, salidas.tecnica, onCerrar)
+    PorqueSheet(paso, carril, datos.color(id), ui.tecnicas, salidas.tecnica, onCerrar)
 }
 
 @Composable

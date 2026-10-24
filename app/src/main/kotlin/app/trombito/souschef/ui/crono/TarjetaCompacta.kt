@@ -1,7 +1,6 @@
 package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,11 +88,8 @@ private fun CabeceraCompacta(
     color: Color,
     acciones: AccionesCarril,
 ) {
-    val etiquetaPorque = stringResource(R.string.crono_ver_porque)
-    val toque =
-        if (v.tienePorque) Modifier.clickable(onClickLabel = etiquetaPorque) { acciones.porque(v.id) } else Modifier
     Row(
-        Modifier.fillMaxWidth().then(toque),
+        Modifier.fillMaxWidth().abrePorque(v, acciones),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {

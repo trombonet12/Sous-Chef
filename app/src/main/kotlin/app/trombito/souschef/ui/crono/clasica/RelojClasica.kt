@@ -180,7 +180,7 @@ private fun Porque(
         color = CronoPalette.acento,
         style = MaterialTheme.typography.labelLarge,
     )
-    if (abierto) PorqueSheet(paso, carril, tecnicas, onTecnica) { abierto = false }
+    if (abierto) PorqueSheet(paso, carril, datos.color(carril.id), tecnicas, onTecnica) { abierto = false }
 }
 
 @Composable

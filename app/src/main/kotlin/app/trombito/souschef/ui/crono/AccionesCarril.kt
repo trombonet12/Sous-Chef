@@ -1,9 +1,13 @@
 package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -23,6 +27,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
@@ -47,7 +52,47 @@ class AccionesCarril(
     val porque: (String) -> Unit,
     /** Deshace el último Hecho del carril (toque sin querer). */
     val deshacer: (String) -> Unit = {},
-)
+) {
+    companion object {
+        /** Mandos sin efecto: la cocina de muestra de la intro no se toca. */
+        val INERTES =
+            AccionesCarril(
+                hecho = {},
+                alternar = {},
+                masTreinta = {},
+                empezarIgual = {},
+                enfocar = {},
+                porque = {},
+            )
+    }
+}
+
+/** Franja de color del carril (4 dp de ancho) que abre cada tarjeta o fila. */
+@Composable
+internal fun FranjaCarril(
+    color: Color,
+    alto: Dp,
+    modifier: Modifier = Modifier,
+) {
+    Spacer(
+        modifier
+            .width(4.dp)
+            .height(alto)
+            .clip(RoundedCornerShape(2.dp))
+            .background(color),
+    )
+}
+
+/** Toque que abre «Ver el porqué» del carril [v]; no hace nada si el paso no tiene porqué. */
+@Composable
+internal fun Modifier.abrePorque(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+): Modifier {
+    if (!v.tienePorque) return this
+    val etiquetaPorque = stringResource(R.string.crono_ver_porque)
+    return clickable(onClickLabel = etiquetaPorque) { acciones.porque(v.id) }
+}
 
 /** Ejecuta la acción principal del carril: empezar/seguir alternan; en marcha o vencido, "Hecho y siguiente". */
 fun AccionesCarril.principal(v: VistaCarril) {

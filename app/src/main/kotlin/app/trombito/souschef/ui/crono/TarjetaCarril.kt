@@ -4,16 +4,13 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -108,13 +105,7 @@ private fun FilaTitulo(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Spacer(
-                Modifier
-                    .width(4.dp)
-                    .height(24.dp)
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(color),
-            )
+            FranjaCarril(color, 24.dp)
             InsigniaCarril(v, color)
             Text(
                 v.nombre,
@@ -218,15 +209,8 @@ private fun TituloPaso(
     lineas: Int,
     acciones: AccionesCarril,
 ) {
-    val etiquetaPorque = stringResource(R.string.crono_ver_porque)
-    val toque =
-        if (v.tienePorque) {
-            Modifier.clickable(onClickLabel = etiquetaPorque) { acciones.porque(v.id) }
-        } else {
-            Modifier
-        }
     Row(
-        Modifier.fillMaxWidth().then(toque),
+        Modifier.fillMaxWidth().abrePorque(v, acciones),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {

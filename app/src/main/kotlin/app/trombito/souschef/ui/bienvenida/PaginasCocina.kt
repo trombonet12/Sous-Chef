@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.bienvenida
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +24,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.Ajustes
-import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Receta
@@ -33,12 +33,7 @@ import app.trombito.souschef.ui.ajustes.SelectorRaciones
 import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.crono.AccionesCarril
-import app.trombito.souschef.ui.crono.CronoApilado
-import app.trombito.souschef.ui.crono.CronoFoco
-import app.trombito.souschef.ui.crono.DatosCrono
-import app.trombito.souschef.ui.crono.clasica.CronoClasico
-import app.trombito.souschef.ui.crono.elegirFoco
-import app.trombito.souschef.ui.crono.vistasCarriles
+import app.trombito.souschef.ui.crono.CuerpoCrono
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.FichaPalette
@@ -164,32 +159,16 @@ internal fun CocinaEnMarco(
     MarcoDemo(stringResource(R.string.intro_demo_cocina), alto, fondo = CronoPalette.fondo) {
         CompositionLocalProvider(LocalCocina provides ajustes.cocina) {
             Surface(Modifier.fillMaxSize(), color = CronoPalette.fondo, contentColor = CronoPalette.texto) {
-                CuerpoCocina(datos, ajustes.disposicion)
+                CuerpoCrono(
+                    datos,
+                    ajustes.disposicion,
+                    AccionesCarril.INERTES,
+                    emptyMap(),
+                    {},
+                    relleno = PaddingValues(12.dp),
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
-    }
-}
-
-/** Los carriles en la [disposicion] elegida, con los mandos sin efecto (la cocina de muestra no se toca). */
-@Composable
-private fun CuerpoCocina(
-    datos: DatosCrono,
-    disposicion: DisposicionCrono,
-) {
-    val vistas = vistasCarriles(datos)
-    val acciones =
-        AccionesCarril(
-            hecho = {},
-            alternar = {},
-            masTreinta = {},
-            empezarIgual = {},
-            enfocar = {},
-            porque = {},
-        )
-    val cuerpo = Modifier.fillMaxSize().padding(12.dp)
-    when (disposicion) {
-        DisposicionCrono.FOCO -> CronoFoco(vistas, elegirFoco(vistas, datos.estado.foco), acciones, cuerpo)
-        DisposicionCrono.APILADA -> CronoApilado(vistas, acciones, cuerpo)
-        DisposicionCrono.CLASICA -> CronoClasico(datos, emptyMap(), acciones, {}, cuerpo)
     }
 }
