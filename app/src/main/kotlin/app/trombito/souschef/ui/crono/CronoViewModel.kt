@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.DisposicionCrono
-import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.entradaDe
 import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
@@ -31,7 +31,8 @@ import app.trombito.souschef.receta.crono.TipoAviso
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.voz.ControlVoz
 import app.trombito.souschef.ui.crono.voz.MandosVoz
-import app.trombito.souschef.ui.crono.voz.planVoz
+import app.trombito.souschef.ui.crono.voz.SesionVoz
+import app.trombito.souschef.ui.crono.voz.SituacionVoz
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -44,12 +45,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Instant
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 import javax.inject.Inject
-import app.trombito.souschef.domain.PasoReal as PasoRealHistorial
 
 /** Estado del control por voz para la cabecera (ADR-0008). */
 enum class EstadoVoz { APAGADA, ESCUCHANDO, SIN_PERMISO }
@@ -102,7 +99,6 @@ data class CronoUi(
 private const val PERIODO_TIC_MS = 1_000L
 const val VENTANA_REINICIAR_MS = 4_000L
 const val VENTANA_DESHACER_MS = 8_000L
-const val MAX_NOTA = 160
 private const val MAX_LINEAS_BANDA = 4
 private const val MS_MINUTO = 60_000L
 private const val ETIQUETA_VOZ = "Voz"
@@ -140,14 +136,6 @@ class CronoViewModel
         private var cierre: (suspend () -> Unit)? = null
         private var otraSlug: String? = null
 
-        // Voz (ADR-0008): la pantalla avisa de si se ve y de si hay permiso; el resto lo decide reevaluarVoz().
-        private var vozActiva = false
-        private var enPantalla = false
-        private var permisoMicrofono = false
-        private var escuchando = false
-        private var vozCaida = false
-        private val hayReconocedor: Boolean by lazy { escucha.disponible }
-
         private val control =
             ControlVoz(
                 escucha = escucha,
@@ -166,15 +154,25 @@ class CronoViewModel
                 registro = { Log.d(ETIQUETA_VOZ, "orden: $it") },
             )
 
+        // Voz (ADR-0008): la pantalla avisa de si se ve y de si hay permiso; el resto lo decide SesionVoz.
+        private val voz =
+            SesionVoz(
+                escucha = escucha,
+                habla = habla,
+                control = control,
+                situacion = ::situacionVoz,
+                alCambiar = { estado -> _ui.update { if (it.voz == estado) it else it.copy(voz = estado) } },
+            )
+
         init {
             viewModelScope.launch {
                 ajustes.observar().collect { a ->
-                    vozActiva = a.vozActiva
+                    voz.ajusteActivo = a.vozActiva
                     _ui.update {
                         conCocinaDe(it, a.cocina)
                             .copy(disposicion = a.disposicion, guiaVista = a.guiaCronoVista, vozActiva = a.vozActiva)
                     }
-                    reevaluarVoz()
+                    voz.reevaluar()
                 }
             }
             viewModelScope.launch {
@@ -200,29 +198,11 @@ class CronoViewModel
                 return
             }
             val ahora = reloj.ahoraMs()
-            val guardado = SesionCrono.vigente(cadena.almacen.leer(slug), receta, ahora)
+            val guardado = cadena.almacen.leer(slug)
             val raciones = if (racionesRuta > 0) racionesRuta else receta.raciones
             // Sin hora en la ruta (p. ej. desde la notificación), la de Ajustes.
             val servir = servirRuta.ifBlank { Servir.formato(ajustes.observar().first().servirMin) }
-            val estado =
-                when {
-                    guardado == null -> {
-                        SesionCrono.inicial(receta, servirDeHoy(servir, ahora, zona), ahora, raciones)
-                    }
-
-                    // Cocinada en marcha: se reanuda tal cual, sin pisarla con la hora de la ficha.
-                    guardado.inicioMs != null -> {
-                        guardado
-                    }
-
-                    else -> {
-                        guardado.copy(
-                            raciones = raciones,
-                            servirMs = servirDeHoy(servir, ahora, zona),
-                            actualizadoMs = ahora,
-                        )
-                    }
-                }
+            val estado = SesionCrono.reanudar(guardado, receta, raciones, servirDeHoy(servir, ahora, zona), ahora)
             cadena.almacen.fijar(estado)
             val enlaces =
                 receta.tags.tecnica
@@ -288,7 +268,7 @@ class CronoViewModel
             val cocina = _ui.value.cocina
             if (suenan.isNotEmpty()) {
                 // El texto del aviso sale de la receta canónica: se traduce a la cocina antes de oírlo.
-                control.anunciar(
+                voz.anunciar(
                     suenan.map { "${nombres[it.carril] ?: it.carril}: ${Potencia.reescribir(it.texto, cocina)}" },
                 )
             }
@@ -325,7 +305,7 @@ class CronoViewModel
                 val resumen = SesionCrono.resumen(estado, receta, ahora)
                 _ui.update { it.copy(resumen = resumen) }
             }
-            reevaluarVoz()
+            voz.reevaluar()
         }
 
         // --- mandos ---------------------------------------------------------------------------------------------
@@ -492,22 +472,7 @@ class CronoViewModel
             val resumen = actual.resumen
             if (actual.cierrePendiente) return
             if (receta == null || estado == null || resumen == null) return
-            val momento = Instant.ofEpochMilli(resumen.servidoMs).atZone(zona)
-            val sello = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT).format(momento)
-            val entrada =
-                EntradaHistorial(
-                    id = "$slug-$sello",
-                    slug = slug,
-                    titulo = receta.titulo,
-                    fecha = DateTimeFormatter.ISO_LOCAL_DATE.format(momento),
-                    base = receta.tags.base,
-                    tecnica = receta.tags.tecnica,
-                    raciones = estado.raciones,
-                    minutosReales = resumen.minutosReales,
-                    nota = nota.trim().take(MAX_NOTA).ifBlank { null },
-                    // Lo guardado es canónico (con `{N}`, ADR-0014): se traduce al mostrarlo, no al guardarlo.
-                    pasosReales = resumen.pasosReales.map { PasoRealHistorial(it.id, it.t, it.segundos) },
-                )
+            val entrada = entradaDe(receta, estado, resumen, nota, zona)
             cierre = {
                 historial.agregar(entrada)
                 cadena.almacen.borrar(slug)
@@ -515,7 +480,7 @@ class CronoViewModel
                 _ui.update { it.copy(salida = true) }
             }
             _ui.update { it.copy(cierrePendiente = true) }
-            reevaluarVoz()
+            voz.reevaluar()
             cadena.cerrado(slug)
             jobCierre =
                 viewModelScope.launch {
@@ -530,7 +495,7 @@ class CronoViewModel
             jobCierre = null
             cierre = null
             _ui.update { it.copy(cierrePendiente = false) }
-            reevaluarVoz()
+            voz.reevaluar()
         }
 
         /** Confirma ya un cierre pendiente (vence la ventana o se sale de la pantalla). */
@@ -545,51 +510,20 @@ class CronoViewModel
         // --- voz ------------------------------------------------------------------------------------------------
 
         /** La cocina se ve: escucha si el ajuste está activo, hay reconocedor y [permiso] de micrófono. */
-        fun vozIniciar(permiso: Boolean) {
-            enPantalla = true
-            permisoMicrofono = permiso
-            vozCaida = false
-            reevaluarVoz()
-        }
+        fun vozIniciar(permiso: Boolean) = voz.iniciar(permiso)
 
-        fun vozParar() {
-            enPantalla = false
-            reevaluarVoz()
-        }
+        fun vozParar() = voz.parar()
 
         /** Silencia o reactiva la voz de esta cocinada; no se guarda. */
         fun silenciarVoz() {
-            vozCaida = false
+            voz.olvidarCaida()
             _ui.update { it.copy(vozSilenciada = !it.vozSilenciada) }
-            reevaluarVoz()
+            voz.reevaluar()
         }
 
-        /** Solo se escucha con la cocina abierta y a la vista; la voz del cierre o de la portada no hace falta. */
-        private fun reevaluarVoz() {
+        private fun situacionVoz(): SituacionVoz {
             val u = _ui.value
-            val cocinando = u.estado?.inicioMs != null && u.resumen == null && !u.cierrePendiente
-            val oirPosible = hayReconocedor && !vozCaida
-            val plan = planVoz(enPantalla && cocinando, vozActiva, u.vozSilenciada, permisoMicrofono, oirPosible)
-            val hablabaAntes = control.puedeHablar
-            control.puedeHablar = plan.habla
-            when {
-                plan.oye && !escuchando -> control.escuchar(::alDetenerseLaEscucha)
-                !plan.oye && escuchando -> control.parar()
-                hablabaAntes && !plan.habla -> habla.callar()
-            }
-            escuchando = plan.oye
-            if (u.voz != plan.estado) _ui.update { it.copy(voz = plan.estado) }
-        }
-
-        /**
-         * El bucle de escucha se paró solo (sin permiso o idioma no disponible): la cabecera deja de decir escuchando.
-         * Sin permiso se muestra SIN_PERMISO; si no, la voz queda apagada hasta que la pantalla vuelva a verse o se
-         * reactive, para no reintentar en bucle.
-         */
-        private fun alDetenerseLaEscucha(porPermiso: Boolean) {
-            escuchando = false
-            if (porPermiso) permisoMicrofono = false else vozCaida = true
-            reevaluarVoz()
+            return SituacionVoz(u.estado?.inicioMs != null && u.resumen == null && !u.cierrePendiente, u.vozSilenciada)
         }
 
         private fun vistasAhora(): List<VistaCarril> {
@@ -604,7 +538,7 @@ class CronoViewModel
         }
 
         override fun onCleared() {
-            control.liberar()
+            voz.liberar()
             super.onCleared()
         }
 

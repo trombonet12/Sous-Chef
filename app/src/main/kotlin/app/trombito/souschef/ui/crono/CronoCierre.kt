@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.MAX_NOTA
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.ResumenCrono

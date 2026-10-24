@@ -3,7 +3,11 @@ package app.trombito.souschef.receta.crono
 import app.trombito.souschef.receta.Receta
 import kotlin.math.abs
 
-/** Ciclo de vida de la cocinada: creación, apertura, caducidad, checklist y cierre (§4.1, §4.5, §4.13). */
+/**
+ * Ciclo de vida de la cocinada: creación, apertura, caducidad, checklist y cierre (§4.1, §4.5, §4.13). Una función por
+ * transición: es una fachada sin estado compartido que separar.
+ */
+@Suppress("TooManyFunctions")
 object SesionCrono {
     const val CADUCIDAD_MS = 12 * 3_600_000L
     private const val MAX_MIN_REALES = 720
@@ -113,6 +117,27 @@ object SesionCrono {
         receta: Receta,
         ahoraMs: Long,
     ): EstadoCrono? = e?.takeIf { it.slug == receta.slug && !caducado(it, ahoraMs) }
+
+    /**
+     * Estado con el que se entra en la cocina a partir de lo [guardado]:
+     * - nada vigente (ausente, caducado o de otra receta): cocinada nueva con [raciones] y [servirMs];
+     * - cocinada ya abierta: se reanuda tal cual, sin pisarla con la hora de la ficha;
+     * - solo portada: se conserva el progreso (checklist, foco) y se toman las [raciones] y la hora de servir nuevas.
+     */
+    fun reanudar(
+        guardado: EstadoCrono?,
+        receta: Receta,
+        raciones: Int,
+        servirMs: Long,
+        ahoraMs: Long,
+    ): EstadoCrono {
+        val vivo = vigente(guardado, receta, ahoraMs)
+        return when {
+            vivo == null -> inicial(receta, servirMs, ahoraMs, raciones)
+            vivo.inicioMs != null -> vivo
+            else -> vivo.copy(raciones = raciones, servirMs = servirMs, actualizadoMs = ahoraMs)
+        }
+    }
 
     /** Datos del cierre (§4.13). `ahoraMs` es el instante de servir. */
     fun resumen(
