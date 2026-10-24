@@ -26,6 +26,8 @@ import app.trombito.souschef.ui.buzon.BuzonScreen
 import app.trombito.souschef.ui.crono.CronoScreen
 import app.trombito.souschef.ui.ficha.FichaScreen
 import app.trombito.souschef.ui.historial.HistorialScreen
+import app.trombito.souschef.ui.novedades.PuertaNovedades
+import app.trombito.souschef.ui.novedades.TodasNovedadesScreen
 import app.trombito.souschef.ui.recetas.RecetasScreen
 import app.trombito.souschef.ui.shell.Pestana
 import app.trombito.souschef.ui.tecnicas.TecnicaScreen
@@ -112,7 +114,14 @@ private fun NavGraphBuilder.ajustes(navController: NavHostController) {
     composable(Rutas.AJUSTES_CRONO) { AjustesCronoScreen(onAtras = atras) }
     composable(Rutas.AJUSTES_HISTORIAL) { AjustesHistorialScreen(onAtras = atras) }
     composable(Rutas.AJUSTES_ACERCA) {
-        AjustesAcercaScreen(onAtras = atras, onIntro = { navController.navigate(Rutas.BIENVENIDA_REPETIR) })
+        AjustesAcercaScreen(
+            onAtras = atras,
+            onIntro = { navController.navigate(Rutas.BIENVENIDA_REPETIR) },
+            onNovedades = { navController.navigate(Rutas.AJUSTES_NOVEDADES) },
+        )
+    }
+    composable(Rutas.AJUSTES_NOVEDADES) {
+        TodasNovedadesScreen(onAtras = atras, onReceta = { navController.navigate(Rutas.ficha(it)) })
     }
 }
 
@@ -124,6 +133,8 @@ private fun NavGraphBuilder.listas(
 ) {
     composable(Pestana.Recetas.ruta) {
         RecetasScreen(onAbrir = abrirFicha, onCategoria = { navController.navigate(Rutas.recetasFamilia(it)) })
+        // Las novedades tras actualizar solo salen aquí, en el destino Recetas.
+        PuertaNovedades(onReceta = abrirFicha)
     }
     composable(Rutas.RECETAS_FAMILIA, arguments = listOf(ARG_FAMILIA)) {
         RecetasScreen(onAbrir = abrirFicha, onAtras = { navController.popBackStack() })

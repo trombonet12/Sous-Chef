@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Diálogo de novedades tras actualizar -->
+    <string name="novedades_cerrar">A cocinar</string>
+    <string name="novedades_tambien">También en %1$s</string>
+    <string name="novedades_plegado">Plegado</string>
+    <string name="novedades_desplegado">Desplegado</string>
+    <string name="novedades_abrir_receta">Abrir la receta</string>
+
+    <!-- Ajustes → Acerca de → Novedades -->
+    <string name="novedades_fila">Novedades</string>
+    <string name="novedades_fila_resumen">Qué trajo cada versión</string>
+    <string name="novedades_titulo">Novedades</string>
+    <string name="novedades_vacio_titulo">No hay novedades que mostrar</string>
+    <string name="novedades_vacio_detalle">Cuando haya una versión nueva, aquí quedará su resumen.</string>
+</resources>

@@ -41,6 +41,7 @@ private val LADO_MASCOTA = LADO_ICONO * 108 / 72
 fun AjustesAcercaScreen(
     onAtras: () -> Unit,
     onIntro: () -> Unit = {},
+    onNovedades: () -> Unit = {},
 ) {
     val contexto = LocalContext.current
     val version = versionApp()
@@ -54,10 +55,12 @@ fun AjustesAcercaScreen(
         },
         onWeb = { contexto.abrir(Intent(Intent.ACTION_VIEW, WEB.toUri())) },
         onIntro = onIntro,
+        onNovedades = onNovedades,
     )
 }
 
 /** Pantalla «Acerca de» sin contexto: la versión llega hecha y correo y web se delegan en los callbacks. */
+@Suppress("LongParameterList") // pantalla presentacional: una acción por fila
 @Composable
 internal fun AjustesAcerca(
     version: String,
@@ -65,9 +68,18 @@ internal fun AjustesAcerca(
     onCorreo: () -> Unit,
     onWeb: () -> Unit,
     onIntro: () -> Unit = {},
+    onNovedades: () -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_acerca), onAtras) {
         Cabecera(version)
+        FilaAjuste(
+            icono = Icono.Info,
+            titulo = stringResource(R.string.novedades_fila),
+            resumen = stringResource(R.string.novedades_fila_resumen),
+            final = Icono.Chevron,
+            etiqueta = "ajustes-novedades",
+            onClick = onNovedades,
+        )
         FilaAjuste(
             icono = Icono.Libro,
             titulo = stringResource(R.string.intro_ver),
