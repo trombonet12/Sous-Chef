@@ -1,0 +1,44 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Si huele a tostado, no rasques más: pasa todo a otra olla sin raspar el fondo, o el sabor a quemado se reparte por la crema.",
+    "La piel que forma la leche en la superficie y en las paredes se mezcla removiendo; no la quites, es leche y sabor.",
+    "Si se ha pasado de espeso, unas cucharadas de leche caliente, removiendo, lo devuelven al punto.",
+    "La canela molida, nunca dentro de la leche: se va al fondo, se tuesta y oscurece la crema. Va por encima, al servir."
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "pasos": [
+    {
+      "p": "Los aromas de la piel de cítrico son aceites que se disuelven en la grasa de la leche: la piel entra con ella en frío y los va soltando mientras se calienta y durante toda la cocción. De la piel, solo lo amarillo: lo blanco amarga en una cocción larga.",
+      "t": "El aroma, en la leche fría"
+    },
+    {
+      "p": "La leche sube de golpe porque sus proteínas forman una piel en la superficie que atrapa el vapor. Al {6} y sin tapa se ve venir: humea y salen burbujas pequeñas en el borde. Un fondo grueso reparte el calor y retrasa que las proteínas se tuesten contra el metal.",
+      "t": "Olla de fondo grueso y fuego mediano para subir"
+    },
+    {
+      "p": "Echado de golpe, el arroz cae en un bloque al fondo y se pega antes de hidratarse. En lluvia y removiendo, cada grano queda suelto en la leche caliente. Sin lavar: el polvo de almidón que lo recubre es la primera parte de la crema.",
+      "t": "El arroz, en lluvia y sin lavar"
+    },
+    {
+      "p": "Al {3} la leche se mueve sin hervir, hacia los 95 °C: el almidón del grano se hincha y pasa a la leche, y el agua se evapora por la boca abierta de la olla. Con tapa la espuma rebosaría y no se reduciría; con hervor fuerte, se agarra y se desborda.",
+      "t": "Hervor mínimo y sin tapa"
+    },
+    {
+      "p": "La lactosa y las proteínas de la leche se depositan en el fondo y, con el almidón, forman una capa que se tuesta en minutos. Una cuchara de madera de canto recto, rascando el fondo y las esquinas cada cuatro minutos, la levanta antes de que se pegue. No es un chup-chup: aquí se remueve a menudo y sin tapa.",
+      "t": "Remover desde el fondo cada pocos minutos"
+    },
+    {
+      "p": "El azúcar compite con el almidón por el agua y retrasa que el grano se hidrate: echado al principio, el arroz queda entero y duro. También carameliza en el fondo antes que la leche sola, así que desde que entra se remueve el doble de a menudo.",
+      "t": "El azúcar, al final"
+    },
+    {
+      "p": "En caliente el almidón está disuelto; al enfriar forma una red que lo espesa mucho. El punto es cuando cubre la cuchara y aún gotea: lo que en la olla parece justo, en el cuenco frío queda como un bloque.",
+      "t": "Apagar cuando aún fluye"
+    }
+  ],
+  "resumen": "Cocer un almidón, como el arroz redondo, despacio en leche, sin tapa y removiendo desde el fondo: la leche se infusiona y se reduce, y el almidón la convierte en crema sin que se agarre ni rebose.",
+  "slug": "coccion-lenta-en-leche",
+  "titulo": "Cocción lenta en leche"
+}

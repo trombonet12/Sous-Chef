@@ -1,0 +1,379 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA MEDIANA",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "El pelador va de polo a polo, siguiendo la curva del limón y sin apretar, en tiras de unos 2 cm de ancho. Así sale solo la capa amarilla, donde están las glándulas del aceite esencial, y no lo blanco, que amarga en una hora de leche caliente. Tiras anchas y largas porque se pescan enteras al final; en ralladura se quedarían en la crema.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Limón visto de lado, de polo a polo, con la piel sacada en tiras de 2 cm a lo largo\"><ellipse cx=\"60\" cy=\"40\" rx=\"46\" ry=\"28\" fill=\"#F2D64B\" fill-opacity=\".3\" stroke=\"#C9A81E\"/><path d=\"M14 40 L8 40\" stroke=\"#C9A81E\" stroke-width=\"2\"/><path d=\"M106 40 L112 40\" stroke=\"#C9A81E\" stroke-width=\"2\"/><g fill=\"#C9A81E\" opacity=\".6\"><circle cx=\"40\" cy=\"30\" r=\"1\"/><circle cx=\"70\" cy=\"24\" r=\"1\"/><circle cx=\"84\" cy=\"50\" r=\"1\"/><circle cx=\"48\" cy=\"54\" r=\"1\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 40 Q60 6 106 40\"/><path d=\"M14 40 Q60 22 106 40\"/><path d=\"M14 40 Q60 38 106 40\"/><path d=\"M14 40 Q60 56 106 40\"/></g><text x=\"60\" y=\"82\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">tiras de 2 cm, de polo a polo</text></svg>",
+      "t": "Limón · piel en tiras de 2 cm, sin lo blanco"
+    }
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "datos": [
+    [
+      "84 min",
+      "de principio a fin"
+    ],
+    [
+      "57 min",
+      "de fuego"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "8",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Arroz redondo cocido despacio en leche infusionada con piel de limón, endulzado al final y servido templado con canela molida por encima. La dificultad es la paciencia: casi una hora de fuego suave sin tapa, removiendo desde el fondo para que no se agarre, y apagar cuando aún fluye, porque el almidón lo espesa al enfriar. Se apoya en la leche: sin un litro, no hay plato.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 1,
+          "n": "leche (1 brick de 1 l)",
+          "u": "l"
+        },
+        {
+          "a": 1,
+          "n": "limón (solo la piel), en tiras de 2 cm sin lo blanco",
+          "u": "uds"
+        }
+      ],
+      "n": "OLLA · LA INFUSIÓN"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "arroz redondo (½ vaso de agua), sin lavar",
+          "u": "g"
+        },
+        {
+          "a": 90,
+          "n": "azúcar blanco (7 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "OLLA · EL ARROZ"
+    },
+    {
+      "items": [
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "canela molida (1 cucharadita rasa; ¼ por cuenco)",
+          "u": "g"
+        }
+      ],
+      "n": "CUENCOS · AL SERVIR"
+    }
+  ],
+  "lectura": "Un solo fuego, el mediano, del minuto 3 al 60. Tramos: 3 de preparar + 9 de calentar la leche + 2 de arroz + 34 de cocción + 12 con el azúcar + 2 de repartir + 20 de templar + 2 de servir = 84 minutos. De los 57 de fuego ninguno es para irse lejos: se remueve cada cuatro minutos, y cada dos desde que entra el azúcar.",
+  "mep": [
+    {
+      "l": [
+        "<b>Limón · 1 (solo la piel)</b> · lavado, seco y pelado de polo a polo en tiras de 2 cm sin lo blanco, en el minuto 0. A la olla con la leche; el limón pelado, a un táper en la nevera."
+      ],
+      "orden": true,
+      "porq": "Solo pasa el limón, y solo su piel: la tabla queda limpia. El limón pelado no se tira, que sirve para otra receta.",
+      "t": "UNA TABLA Y EL PELADOR"
+    },
+    {
+      "l": [
+        "<b>Olla mediana de fondo grueso, en frío</b> · 1 l de leche (1 brick) + la piel del limón en el minuto 0; al fuego mediano en el 3. El arroz entra en el 12 y el azúcar en el 48.",
+        "<b>Vaso medidor</b> · 100 g de arroz redondo (½ vaso de agua), sin lavar, pesado en el minuto 0. A la olla en el 12.",
+        "<b>Uno de los 4 cuencos</b> · 90 g de azúcar blanco (7 cucharadas soperas), en el minuto 0. A la olla en el 48; el cuenco vuelve a servir en el 60.",
+        "<b>4 cuencos de postre</b> · unos 200 g de arroz con leche en cada uno en el minuto 60.",
+        "<b>Bote de canela molida</b> · 2 g (1 cucharadita rasa): ¼ de cucharadita por cuenco, en 2 cuencos en el minuto 82 y en los otros 2 al sacarlos de la nevera.",
+        "<b>Cuchara de madera de canto recto</b> · junto a la olla desde el minuto 3, para rascar el fondo."
+      ],
+      "orden": false,
+      "porq": "La olla en frío es el recipiente de la leche y de la piel. El arroz pesado espera en el vaso medidor y el azúcar en uno de los cuencos de servir, que vuelve a usarse sin lavar. Fondo grueso porque reparte el calor y retrasa que la leche se agarre.",
+      "t": "LOS RECIPIENTES"
+    }
+  ],
+  "notaEscala": "Va a 4 raciones a propósito, aunque el defecto sea 2. Un litro de leche es un brick entero, y la reducción depende de la superficie de la olla mediana: con medio litro en la misma olla se evaporaría de más en los mismos 46 minutos de arroz y se agarraría; con dos litros no cabe ni espesa a tiempo. Aguanta 3 días en la nevera: 2 cuencos hoy templados y 2 mañana fríos.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "preparar",
+      "meto": "olla mediana en frío: 1 l de leche + la piel de 1 limón en tiras de 2 cm",
+      "min": 3,
+      "nota": "Lava y seca el limón y saca la piel con el pelador, de polo a polo, en tiras de 2 cm sin lo blanco; a la olla con el litro de leche. Pesa el arroz en el vaso medidor y el azúcar en uno de los cuencos.",
+      "off": 0,
+      "p": "Con el pelador y sin apretar sale solo la capa amarilla, donde están las glándulas del aceite esencial; lo blanco de debajo amarga y en una hora de leche caliente lo soltaría todo. En tiras anchas y largas para pescarlas enteras al final. La piel entra con la leche fría porque su aroma se disuelve en la grasa de la leche a medida que se calienta: la infusión dura todo el plan.",
+      "s": 180,
+      "saco": "",
+      "t": "Sacar la piel del limón en tiras de 2 cm y la leche a la olla",
+      "tapa": null
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "preparar"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve rascando el fondo con la cuchara de madera"
+        },
+        {
+          "en": 420,
+          "t": "Quédate al lado: la leche está a punto de subir"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "calentar",
+      "meto": "la olla con la leche y la piel, al fuego mediano",
+      "min": 9,
+      "nota": "Enciende el fuego mediano al {6}. Está cuando humea y salen burbujas pequeñas en el borde; si la espuma sube de golpe, aparta la olla de la placa un momento.",
+      "off": 3,
+      "p": "Al {6} el litro de leche llega a casi 90 °C en unos nueve minutos sin que el fondo se agarre. La leche sube de golpe porque sus proteínas forman una piel en la superficie que atrapa el vapor: sin tapa se ve venir, y removiendo la piel se rompe. Mientras se calienta, la grasa de la leche va sacando el aceite esencial de la piel del limón: es la infusión.",
+      "s": 540,
+      "saco": "",
+      "t": "Calentar la leche con la piel al {6}, sin tapa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "f": 6,
+      "holgura": "ajustado",
+      "id": "arroz",
+      "meto": "100 g de arroz redondo del vaso medidor, sin lavar",
+      "min": 2,
+      "nota": "Echa el arroz en lluvia, removiendo, y sigue removiendo 2 minutos al {6} hasta que la leche vuelva a burbujear en el borde.",
+      "off": 12,
+      "p": "En lluvia y removiendo, cada grano queda suelto en la leche caliente y no cae en un bloque al fondo, donde se pegaría antes de hidratarse. La leche casi hirviendo empieza a hinchar el almidón de la superficie del grano desde el primer minuto. Sin lavar, porque el polvo de almidón que lo recubre es la primera parte de la crema. Dos minutos más al {6} recuperan el calor que se lleva el arroz.",
+      "s": 120,
+      "saco": "",
+      "t": "Echar el arroz en lluvia y remover sin parar al {6}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 480,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 720,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 960,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 1200,
+          "t": "Remueve y despega la piel de las paredes"
+        },
+        {
+          "en": 1440,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 1680,
+          "t": "Remueve desde el fondo y las esquinas"
+        },
+        {
+          "en": 1920,
+          "t": "Prueba un grano: tierno, con un punto firme en el centro"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "cocer",
+      "meto": "",
+      "min": 34,
+      "nota": "Baja al {3}: burbuja lenta en el borde, nunca hervor. Si deja de burbujear, sube al {4}; si huele a tostado, pasa todo a otra olla sin rascar el fondo.",
+      "off": 14,
+      "p": "Al {3} la leche se mueve sin hervir: el arroz se cuece hacia los 95 °C, el almidón de la superficie del grano se hincha y pasa a la leche, y el agua se evapora por la boca abierta de la olla. Sin tapa por dos razones: con ella la espuma rebosaría y no se iría el agua que hay que reducir. Las proteínas y la lactosa de la leche se depositan en el fondo y se tuestan en minutos si nadie las mueve: remover cada cuatro minutos rascando el fondo es lo que evita el sabor a quemado.",
+      "s": 2040,
+      "saco": "",
+      "t": "Bajar al {3} y cocer sin tapa, removiendo desde el fondo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve rascando el fondo: con el azúcar se agarra antes"
+        },
+        {
+          "en": 240,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 360,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 480,
+          "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 600,
+          "t": "Saca la cuchara: si sale cubierta y aún gotea, está"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "azucar",
+      "meto": "90 g de azúcar blanco del cuenco",
+      "min": 12,
+      "nota": "Echa el azúcar y remueve hasta que se disuelva; sigue al {3}. Está cuando cubre la cuchara y aún fluye, porque espesa al enfriar: apaga antes de que parezca hecho.",
+      "off": 48,
+      "p": "El azúcar va al final porque compite con el almidón por el agua: echado al principio, el grano se hidrata más despacio y queda entero y duro tras una hora. Además el azúcar carameliza contra el fondo antes que la leche sola, por eso ahora se remueve cada dos minutos. El punto se juzga en caliente y fluido: al enfriar, el almidón disuelto forma una red que lo espesa, y lo que en la olla parece justo en el cuenco queda como un bloque.",
+      "s": 720,
+      "saco": "apaga el fuego mediano y aparta la olla de la placa",
+      "t": "El azúcar y los últimos 12 minutos, removiendo más a menudo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "azucar"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "repartir",
+      "meto": "el arroz con leche de la olla, a 4 cuencos",
+      "min": 2,
+      "nota": "Pesca las tiras de piel con la cuchara y tíralas. Reparte en los 4 cuencos, unos 200 g en cada uno, sin rascar el fondo si se ha agarrado.",
+      "off": 60,
+      "p": "Se reparte enseguida porque la olla caliente sigue cociendo el fondo, que se agarraría, y sigue espesando la crema. La piel sale ahora: ya ha dado su aroma y, si se queda, suelta el amargor del poco blanco que lleve. En cuencos individuales se templa en veinte minutos; en la olla tardaría más de una hora.",
+      "s": 120,
+      "saco": "",
+      "t": "Quitar la piel de limón y repartir en 4 cuencos",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "hitos": [
+        {
+          "en": 600,
+          "t": "Remueve la superficie de cada cuenco para romper la piel"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "templar",
+      "meto": "",
+      "min": 20,
+      "nota": "Deja los 4 cuencos en la encimera, sin tapar y lejos del fuego. Espesa a medida que templa.",
+      "off": 62,
+      "p": "De unos 85 a unos 45 °C en veinte minutos, que es la temperatura de comerlo templado: el almidón ya ha cogido cuerpo y la crema aguanta en la cuchara, y el limón todavía huele, porque sus aromas se liberan con el calor y en frío apenas se notan. Sin tapar, el vapor sale y no gotea agua en la superficie; la piel que forma la leche al secarse se deshace removiendo una vez.",
+      "s": 1200,
+      "saco": "",
+      "t": "Templar 20 minutos en los cuencos",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "ajustado",
+      "id": "servir",
+      "meto": "canela molida: ¼ de cucharadita por cuenco",
+      "min": 2,
+      "nota": "Espolvorea ¼ de cucharadita de canela sobre 2 cuencos, desde un palmo de altura, y a la mesa. Los otros 2, sin canela y tapados, a la nevera en cuanto estén fríos: duran 3 días.",
+      "off": 82,
+      "p": "La canela va al final y en seco porque es molida: echada en la leche se habría ido al fondo, oscurecido la crema y tostado contra la olla. Sobre la superficie templada su aroma llega directo, y desde un palmo cae en un velo fino y no en grumos. Los cuencos de mañana se espolvorean al sacarlos, no antes: en la nevera la canela se empapa y se vuelve una pasta parda.",
+      "s": 120,
+      "saco": "2 cuencos de arroz con leche templado con canela, a la mesa; los otros 2, a la nevera",
+      "t": "Canela molida por encima y a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "leche",
+    "limón"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Arroz redondo y sin lavar",
+      "El redondo suelta almidón y es el que hace la crema; el largo quedaría suelto, en granos nadando en leche. Lavarlo tiraría por el fregadero el polvo de almidón que lo recubre, que es la primera parte del espesor."
+    ],
+    [
+      "Un litro de leche, 100 g de arroz y 90 g de azúcar",
+      "Diez de leche por uno de arroz es la proporción que, con 46 minutos de cocción sin tapa, deja el grano tierno y la leche reducida a una crema que aún fluye. El azúcar, algo por debajo del arroz, endulza sin tapar el limón. Con leche entera sale más cremoso que con semidesnatada."
+    ],
+    [
+      "El azúcar, en los últimos 12 minutos",
+      "Compite con el almidón por el agua y retrasa que el grano se hidrate: echado al principio, el arroz queda duro tras una hora. Y carameliza contra el fondo antes que la leche sola."
+    ],
+    [
+      "Sin tapa y removiendo cada cuatro minutos",
+      "Con tapa la espuma de la leche rebosaría y no se iría el agua que hay que reducir. Las proteínas y la lactosa se depositan en el fondo y se tuestan si nadie las mueve: es el riesgo del plato, y por eso los hitos."
+    ],
+    [
+      "Infusión solo con la piel de limón",
+      "No hay canela en rama. La molida dentro de la leche se va al fondo, se tuesta contra la olla, amarga y deja la crema parda. Por eso la leche se aromatiza solo con el limón y la canela va por encima, en seco, al servir."
+    ],
+    [
+      "La piel sin lo blanco",
+      "La capa amarilla tiene el aceite esencial; lo blanco tiene compuestos amargos que una hora de leche caliente saca todos. Con el pelador y sin apretar sale limpia."
+    ],
+    [
+      "Servir templado, y no recién sacado de la nevera",
+      "La hora de servir cierra el plan en la mesa. Hacia los 45 °C la crema ya aguanta en la cuchara, el limón huele y la textura es la más suave. Los 2 cuencos que sobran pasan a la nevera y al día siguiente son la versión fría, más espesa: por eso el punto se da cuando aún fluye."
+    ],
+    [
+      "Cuatro raciones y no dos",
+      "El brick de un litro es la unidad, y con la mitad en la misma olla la reducción se dispara y se agarra. Aguanta 3 días en la nevera."
+    ],
+    [
+      "Sin mantequilla, nata ni yema",
+      "La cremosidad la hace el almidón del arroz redondo en la leche reducida. La grasa de más lo vuelve pesado y tapa el limón; la yema pediría otro control de temperatura para no cuajar."
+    ],
+    [
+      "Sin sal",
+      "La leche reducida a casi la mitad concentra su propia sal, que es la que redondea el dulce. Un pellizco más no se notaría frente al azúcar."
+    ],
+    [
+      "Sin vainilla ni anís",
+      "No hay en la despensa, y el limón y la canela son el arroz con leche clásico: no les falta nada."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "arroz-con-leche",
+  "tags": {
+    "base": "postre",
+    "proteina": "ninguna",
+    "tecnica": [
+      "coccion-lenta-en-leche"
+    ]
+  },
+  "titulo": "Arroz con leche",
+  "totalMin": 84
+}

@@ -1,0 +1,40 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "categoria": "acabado",
+  "consejos": [
+    "Si salpica, la cuchilla no está cubierta: apágala antes de sacarla e inclina la olla para darle fondo.",
+    "Si la crema sale elástica y pegajosa, se ha batido de más: no tiene vuelta atrás, la próxima vez para a los dos minutos.",
+    "Si la grasa brilla separada en la superficie, falta patata o la crema hirvió con el queso dentro: unos segundos más de batidora la vuelven a ligar.",
+    "Para aflojar una crema espesa, caldo caliente y no agua fría: el frío la enfría y hay que volver a calentarla, con riesgo de que se pegue."
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "pasos": [
+    {
+      "p": "La batidora no ablanda: solo rompe lo que ya está blando. Si la patata no se deshace al apretarla, el almidón sigue dentro de sus gránulos y la crema sale arenosa y sin cuerpo; la cebolla o el calabacín a medio hacer quedan en hebras.",
+      "t": "La verdura, cocida hasta deshacerse"
+    },
+    {
+      "p": "La textura la decide la proporción de líquido y sólido antes de triturar: lo que sobra ya no se quita sin reducir, y una crema triturada que reduce se pega al fondo. Con la tapa puesta, la verdura que asoma se cuece en vapor y el calabacín suelta su propia agua.",
+      "t": "Poco líquido: el que cubra a medias"
+    },
+    {
+      "p": "A 100 °C lo que salpica quema. Apartada de la placa, la crema deja de hervir y baja hacia los 90 °C; con la cuchilla hundida hasta el fondo antes de encender, el remolino queda dentro. Si hay poca cantidad, inclinar la olla hacia la batidora le da profundidad.",
+      "t": "Fuera de la placa y con la cuchilla dentro antes de encender"
+    },
+    {
+      "p": "La cuchilla parte el aceite y la grasa del queso en gotas diminutas; el almidón suelto de la patata, hinchado en la cocción, espesa el agua y envuelve esas gotas para que no vuelvan a juntarse. Así la crema sale lisa, brillante y con cuerpo sin nata. Sin patata, la grasa acaba flotando arriba.",
+      "t": "La emulsión: grasa en gotas y almidón que las sujeta"
+    },
+    {
+      "p": "Con dos minutos basta para una crema lisa. Más rato revienta los gránulos de almidón hinchados, que sueltan sus cadenas largas: es lo que le pasa al puré de patata batido, que se vuelve elástico y pegajoso. La batidora se mueve despacio por el fondo, sin sacarla, para no meter aire.",
+      "t": "Dos minutos, moviendo despacio"
+    },
+    {
+      "p": "El queso entra fuera del fuego, justo antes de triturar: se funde hacia los 90 °C y la cuchilla lo reparte. Si hierve, su red de proteínas se encoge, suelta la grasa y queda en hebras gomosas que la batidora ya no deshace.",
+      "t": "El queso, al final y sin hervir"
+    }
+  ],
+  "resumen": "Triturar con batidora de mano una verdura cocida en poco caldo: la cuchilla rompe las fibras y parte la grasa en gotas, y el almidón de la patata las sujeta en una crema lisa y con cuerpo, sin nata.",
+  "slug": "triturado",
+  "titulo": "Triturado de cremas"
+}
