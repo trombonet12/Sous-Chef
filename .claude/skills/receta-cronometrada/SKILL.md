@@ -29,7 +29,7 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 7. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Incluye R27 (potencia sin marcar) y R26 (`escala`: decide el rango de raciones en el que el plan vale sin cambiar pasos, tandas ni recipientes). Comprueba tú la aritmética además.
 8. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, `escala` coherente con `notaEscala`, reglas 9 y 22).
 9. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
-10. **Publicar** (las recetas viajan dentro del APK): commit del JSON, subir `versionCode`/`versionName` en `version.properties`, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y push a main: el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
+10. **Publicar** (las recetas viajan dentro del APK): commit del JSON, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y skill `release` (menor o parche; la versión se calcula desde git): el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
 11. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
 
 ## Errores típicos

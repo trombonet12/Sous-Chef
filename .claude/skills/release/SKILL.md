@@ -1,6 +1,6 @@
 ---
 name: release
-description: Publicar una versión: subir version.properties, gate, commit y push a main, vigilar el CI (Release APK+AAB) y subir el AAB a Google Play; no preparar (release-preflight) ni notas (release-notes).
+description: Publicar una versión: menor (subir versionMinor y push a main) o parche (workflow_dispatch con publicar), gate, vigilar el CI (Release APK+AAB) y subir el AAB a Google Play; no preparar (release-preflight) ni notas (release-notes).
 argument-hint: "[local|github]"
 allowed-tools: Read, Edit, Grep, Bash(./gradlew *), Bash(git status*), Bash(git log*), Bash(git rev-parse*), Bash(git add version.properties*), Bash(git add distribution/*), Bash(git add CHANGELOG.md*), Bash(git commit *), Bash(git push origin main), Bash(gh run *), Bash(gh release view*), Bash(node scripts/gh.mjs *), Bash(wc *), Bash(sha256sum *)
 disable-model-invocation: true
@@ -26,13 +26,13 @@ Publica la versión `$ARGUMENTS`. Sin valor, preguntar `local|github` y parar. A
 - `github`: `gh` autenticado (o `node scripts/gh.mjs <args>`, que usa el token de Git Credential Manager). Jamás force-push.
 
 ## Pasos
-1. `git status` y `git rev-parse HEAD`; mostrar commit y versión actual de `version.properties` y confirmar con el usuario antes de actuar.
+1. `git status` y `git rev-parse HEAD`; mostrar commit y versión actual (`./gradlew -q :app:imprimirVersion` → `versionName versionCode`, calculados desde git) y confirmar con el usuario antes de actuar.
 2. **local**: `./gradlew assembleRelease` con las variables de firma en el entorno. El APK queda en `app/build/outputs/apk/release/`. Calcular su SHA-256 (`sha256sum`). Terminar con el paso 11.
-3. **github**: subir `versionName` y `versionCode` en `version.properties` (`versionCode` mayor que el publicado; `versionName` coherente con el changelog).
+3. **github**: elegir con el usuario **menor** (subir `versionMinor`, o `versionMajor` con `versionMinor=0`, en `version.properties`: ese commit es el `.0`) o **parche** (no se toca nada: el parche son los commits desde el último cambio de `version.properties`). El versionCode es `git rev-list --count HEAD`, siempre creciente.
 4. Gate: `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug`. Si falla, parar y reportar; no se publica con el gate en rojo.
 5. Comprobar `wc -m distribution/whatsnew/whatsnew-es-ES` ≤ 500.
-6. Commit sin trailer `Co-Authored-By`: `chore(release): v<versionName>` (incluye `version.properties`, notas de Play y `CHANGELOG.md` si cambió).
-7. `git push origin main` (publicar es el push; un push sin cambio de versión no publica nada).
+6. Commit sin trailer `Co-Authored-By`: `chore(release): v<versionName>` (incluye `version.properties` si es menor, notas de Play y `CHANGELOG.md` si cambió); `<versionName>` sale de `imprimirVersion` tras el commit.
+7. `git push origin main`. Menor: el push publica (el CI solo publica si el push cambia `version.properties`). Parche: después del push, `gh workflow run android.yml --ref main -f publicar=true`.
 8. Vigilar el CI: `gh run list --limit 3`, luego `gh run view <id> --json conclusion` hasta `success`. Si falla, reportar el job y no reintentar a ciegas.
 9. Comprobar la release: `gh release view v<versionName> --json assets` debe listar `sous-chef-<v>.apk`, `sous-chef-<v>.aab` y `checksums.txt`.
 10. Play: el job `play` solo sube si existe el secreto `PLAY_SERVICE_ACCOUNT_JSON` (hoy no existe). Mientras no exista, subida manual en Play Console: Prueba interna > Crear versión > subir el `.aab` de la release > en «Novedades» pegar las notas envueltas en `<es-ES>…</es-ES>`. Ver `docs/play.md`.

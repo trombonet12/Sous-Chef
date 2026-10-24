@@ -25,7 +25,7 @@ JDK 21 vía `~/.gradle/gradle.properties` (`org.gradle.java.installations.paths`
   `{N}` (la app la traduce a la cocina del usuario, ADR-0014); máx. 3 fuegos a la vez; hora de servir por defecto 15:30.
 - Vetos: garbanzos, guisantes, champiñones, coliflor, brócoli, casquería, anchoas, alcaparras, marisco. Pescado solo sin espinas.
 - Todo ingrediente de una receta está en la despensa (`data/despensa-semilla.md`); no hay `compra` por receta. Gramos/ml + equivalencia de andar por casa.
-- Toda receta pasa `scripts/sc validar --estricto` antes de publicarse. El repo manda; una versión nueva en `version.properties` + push a main publica el APK.
+- Toda receta pasa `scripts/sc validar --estricto` antes de publicarse. El repo manda; publicar = skill `release` (versión menor en `version.properties` + push a main, o parche por `workflow_dispatch`; el parche y el versionCode salen de git).
 
 ## Reglas de trabajo
 - Antes de trabajar: `docs/ESTADO.md` y la fase activa (`docs/fases/`). Al terminar: actualizar ESTADO.md (skill session-handoff).
