@@ -16,6 +16,8 @@ import android.os.PowerManager
 import androidx.core.net.toUri
 import app.trombito.souschef.MainActivity
 import app.trombito.souschef.R
+import app.trombito.souschef.di.ApplicationScope
+import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.IdsNotificacion
@@ -28,7 +30,12 @@ import app.trombito.souschef.receta.crono.AgrupadorAlarmas
 import app.trombito.souschef.receta.crono.AlarmaActiva
 import app.trombito.souschef.ui.crono.AlarmaActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import java.time.ZoneId
@@ -48,15 +55,33 @@ class NotificadorAndroid
     constructor(
         @ApplicationContext private val context: Context,
         private val ajustes: AjustesRepo,
+        @ApplicationScope ambito: CoroutineScope,
     ) : Notificador {
         private val gestor = context.getSystemService(NotificationManager::class.java)
         private var canalesListos = false
 
         /**
-         * Cocina del usuario (ADR-0014). La cadena de alarmas trabaja con la receta canónica; el texto y la potencia
-         * se traducen aquí, al pintar. La lectura de Ajustes es instantánea (el valor ya está en memoria).
+         * Última cocina del usuario conocida (ADR-0014), mantenida por una colección en el ámbito de aplicación; `null`
+         * hasta la primera emisión. La cadena de alarmas trabaja con la receta canónica; el texto y la potencia se
+         * traducen aquí, al pintar. Si Ajustes fallara, se conserva la última conocida.
          */
-        private fun cocinaDelUsuario(): Cocina = runBlocking { ajustes.observar().first().cocina }
+        private val cocinaConocida =
+            ajustes
+                .observar()
+                .map<Ajustes, Cocina?> { it.cocina }
+                .catch { /* Ajustes ilegible: se sigue con la última cocina conocida. */ }
+                .stateIn(ambito, SharingStarted.Eagerly, null)
+
+        /**
+         * Lectura sin Room mientras hay valor en memoria. La lectura bloqueante de [lecturaFria] solo ocurre una vez,
+         * en un proceso en frío (alarma con el proceso muerto) y antes de la primera emisión: así la primera alarma ya
+         * sale con la potencia de la cocina real y no con la canónica. Sus llamantes son las funciones suspend de la
+         * cadena de alarmas, que corren en el hilo de goAsync o en IO, nunca en el principal; con la UI viva el flujo
+         * ya ha emitido y no se bloquea.
+         */
+        private fun cocinaDelUsuario(): Cocina = cocinaConocida.value ?: lecturaFria()
+
+        private fun lecturaFria(): Cocina = runBlocking { ajustes.observar().first().cocina }
 
         override fun cocina(resumen: ResumenCocina) {
             val slug = resumen.slug

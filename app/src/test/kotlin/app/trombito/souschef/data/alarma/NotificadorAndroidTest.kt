@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.PowerManager
 import androidx.test.core.app.ApplicationProvider
+import app.trombito.souschef.domain.Ajustes
+import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.ConstructorCarriles
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.ResumenCocina
@@ -19,7 +21,16 @@ import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.T0
 import app.trombito.souschef.ui.crono.recetaCrono
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -30,13 +41,16 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
+import java.util.concurrent.atomic.AtomicInteger
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
 class NotificadorAndroidTest {
     private lateinit var contexto: Context
     private lateinit var gestor: NotificationManager
     private lateinit var notificador: NotificadorAndroid
     private val ajustes = FakeAjustesRepo()
+    private val ambito = CoroutineScope(SupervisorJob() + UnconfinedTestDispatcher())
     private val receta = recetaCrono()
     private val estado =
         MotorCrono.empezar(
@@ -50,7 +64,12 @@ class NotificadorAndroidTest {
     fun preparar() {
         contexto = ApplicationProvider.getApplicationContext<Context>()
         gestor = contexto.getSystemService(NotificationManager::class.java)
-        notificador = NotificadorAndroid(contexto, ajustes)
+        notificador = NotificadorAndroid(contexto, ajustes, ambito)
+    }
+
+    @After
+    fun cerrar() {
+        ambito.cancel()
     }
 
     private fun resumen(urgente: String? = null) =
@@ -143,6 +162,45 @@ class NotificadorAndroidTest {
                 alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
             )
         }
+
+    private fun alarmaGas() =
+        AlarmaActiva(System.currentTimeMillis(), listOf(LineaAlarma("f0", "F0: Baja al {3}: hecho")))
+
+    private fun repoContando(
+        llamadas: AtomicInteger,
+        primera: Flow<Ajustes>,
+    ): AjustesRepo =
+        object : AjustesRepo by ajustes {
+            override fun observar(): Flow<Ajustes> = if (llamadas.incrementAndGet() == 1) primera else ajustes.actual
+        }
+
+    @Test
+    fun sinEmisionPreviaLeeLaCocinaRealDelRepoYNoLaCanonica() {
+        // Proceso en frío: la colección del ámbito aún no ha emitido (la primera suscripción no emite nunca).
+        ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+        val llamadas = AtomicInteger()
+        val frio = NotificadorAndroid(contexto, repoContando(llamadas, flow { awaitCancellation() }), ambito)
+        frio.alarma("r", "Receta r", alarmaGas(), sonar = true, urgente = null)
+        assertEquals(
+            "F0: Baja a fuego bajo: hecho",
+            alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
+        )
+        assertEquals(2, llamadas.get())
+    }
+
+    @Test
+    fun trasLaPrimeraEmisionNoVuelveAleerAjustes() {
+        ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+        val llamadas = AtomicInteger()
+        val vivo = NotificadorAndroid(contexto, repoContando(llamadas, ajustes.actual), ambito)
+        vivo.alarma("r", "Receta r", alarmaGas(), sonar = true, urgente = null)
+        vivo.alarma("r", "Receta r", alarmaGas(), sonar = false, urgente = null)
+        assertEquals(1, llamadas.get())
+        assertEquals(
+            "F0: Baja a fuego bajo: hecho",
+            alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
+        )
+    }
 
     private fun cuerpoCocina() =
         cocinaActiva()
