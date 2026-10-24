@@ -19,6 +19,8 @@ CONTROL POR VOZ (OPCIONAL)
 • Con las manos ocupadas, di «siguiente», «¿qué tengo que hacer?» o pide una prórroga.
 • La app te responde hablando.
 • Solo funciona si lo activas y solo con la cocina en pantalla.
+• Reconoce la voz en el propio móvil cuando el sistema lo permite. Si no, usa el servicio de voz del sistema, que
+  puede procesar el audio fuera del móvil. Sous Chef no guarda ni envía el audio.
 
 TÉCNICAS
 • Técnicas de cocina explicadas paso a paso, enlazadas desde las recetas que las usan.
@@ -29,7 +31,9 @@ HISTORIAL
 
 PRIVACIDAD
 • Sin cuentas, sin anuncios y sin analítica.
-• No pide internet: funciona entera sin conexión.
+• No pide permiso de internet ni envía datos por su cuenta. Las recetas y el cronómetro funcionan sin conexión.
+• El Buzón solo abre tu app de correo con un mensaje que puedes revisar; lo envías tú.
+• Las actualizaciones las gestiona Google Play.
 • Todo lo que guardas se queda en tu móvil.
 
 Sous Chef no crea recetas: trae las suyas y te acompaña para que todo esté listo a la vez.

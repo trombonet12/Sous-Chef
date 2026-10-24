@@ -1,6 +1,6 @@
 # Google Play
 
-> Propósito: pasos para publicar Sous Chef en Google Play y dejar la subida automática · Audiencia: Joan · Actualizado: 2026-10-20
+> Propósito: pasos para publicar Sous Chef en Google Play y dejar la subida automática · Audiencia: Joan · Actualizado: 2026-10-24
 
 ## Resumen
 El CI ya genera el AAB firmado en cada release y, si tiene credenciales, lo sube solo a la pista interna de Play
@@ -25,8 +25,15 @@ a mano, en Play Console.
    4. Añadir a Joan como tester (lista de correos) y abrir el enlace de participación en el móvil.
 5. **Contenido de la app** (menú Política):
    - Política de privacidad: `https://github.com/trombonet12/Sous-Chef/blob/main/docs/privacidad.md`.
-   - Seguridad de los datos: no se recoge ni se comparte ningún dato. La app no usa Internet: no pide permisos de red
-     y no envía nada. El micrófono se usa en el dispositivo y no guarda nada.
+   - Seguridad de los datos: la app no recoge ni comparte datos por su cuenta. No pide permisos de red y no envía
+     nada. El micrófono solo se usa con el control por voz activado y no guarda audio ni transcripciones. El
+     reconocimiento va en el móvil si el sistema lo permite; si no, usa el servicio de voz del sistema, que puede
+     procesar el audio fuera del móvil según el proveedor (VERIFICAR qué declarar en el formulario).
+     - Buzón: el correo lo envía el usuario desde su app de correo, con modelo, versión de Android y del SDK, versión
+       de la app y cocina configurada. VERIFICAR si el formulario obliga a declarar estos datos o si no cuentan como
+       recogidos, porque la app no los envía al desarrollador.
+     - In-App Updates: la consulta la hace Play Store. VERIFICAR si Play exige declarar algún metadato de esta
+       consulta.
    - Permisos:
      - `USE_EXACT_ALARM`: es un temporizador de cocina y la alarma tiene que sonar al segundo.
      - `USE_FULL_SCREEN_INTENT`: la alarma del paso sale a pantalla completa con el móvil bloqueado.
@@ -57,6 +64,9 @@ a mano, en Play Console.
      - `completed` cuando ya haya salido una versión, para que cada release llegue sola a los testers.
 4. A partir de ahí, cada push a main que cambie `versionMinor` o `versionMajor` en `version.properties` publica en GitHub **y** en la pista interna.
    Para pasar de interna a producción, en Play Console: «Promocionar versión».
+5. Parche a mano: lanzar el workflow de Android con `workflow_dispatch` en main y `publicar=true`. Publica en GitHub **y**
+   en Play, igual que el push. Solo puede lanzarlo quien tenga permiso de escritura en el repo, que hoy es solo Joan
+   (VERIFICAR en Settings > Collaborators).
 
 ## Actualización obligatoria
 - La app fuerza la actualización con la pantalla de Play (In-App Updates, [ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md))
@@ -96,8 +106,8 @@ a mano, en Play Console.
 - No tiene red ni avisa de versiones: las actualizaciones las da Play. Instalada con Obtainium o `adb`, Obtainium
   avisa de las releases de GitHub (ADR-0011).
 - En el mismo móvil no se pueden mezclar Play y Obtainium, porque Play firma con su clave y las firmas no coinciden.
-  Para pasar de una a otra hay que desinstalar, y el historial se pierde salvo que haya copia de seguridad de
-  Android.
+  Para pasar de una a otra hay que desinstalar, y el historial se pierde salvo que haya copia manual (Ajustes →
+  Historial). La copia de seguridad de Android no sirve: `allowBackup` está desactivado y no guarda nada de la app.
 
 ## Problemas típicos
 - Si falla la subida a Play, la release de GitHub ya está hecha. En la ejecución de Actions, «Re-run failed jobs»
