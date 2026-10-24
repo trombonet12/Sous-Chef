@@ -51,7 +51,7 @@ class NotificadorAndroidTest {
     fun preparar() {
         contexto = ApplicationProvider.getApplicationContext<Context>()
         gestor = contexto.getSystemService(NotificationManager::class.java)
-        notificador = NotificadorAndroid(contexto, ajustes)
+        notificador = NotificadorAndroid(contexto, ajustes).apply { puedePantallaCompleta = { true } }
     }
 
     private fun resumen(urgente: String? = null) =

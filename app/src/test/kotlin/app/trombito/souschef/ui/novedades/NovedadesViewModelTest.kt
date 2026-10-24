@@ -51,7 +51,7 @@ class NovedadesViewModelTest {
         assertNull(vm.pendientes.value)
 
         play.inmediataEnCurso.value = false
-        assertEquals(listOf("1.6", "1.5"), vm.pendientes.value?.map { it.version })
+        assertEquals(listOf("1.6"), vm.pendientes.value?.map { it.version })
     }
 
     @Test
@@ -71,7 +71,7 @@ class NovedadesViewModelTest {
 
         vm.alLlegarARecetas(entradaDirecta = false)
 
-        assertEquals(listOf("1.6", "1.5"), vm.pendientes.value?.map { it.version })
+        assertEquals(listOf("1.6"), vm.pendientes.value?.map { it.version })
         assertEquals("1.5", ajustes.actual.value.novedadesVistas)
     }
 
