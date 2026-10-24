@@ -27,6 +27,7 @@ fun main(args: Array<String>) {
             "validar" -> validar(resto)
             "formatear" -> formatear(resto)
             "potencias" -> potencias(resto)
+            "historial" -> historial(resto, ::raiz)
             else -> uso()
         }
     exitProcess(codigo)

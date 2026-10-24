@@ -6,7 +6,7 @@
 `./gradlew :tools:installDist -q` solo si `tools/` o `receta/` cambiaron. Salida en español, sin colores si no hay TTY.
 Código de salida: 0 bien · 1 fallos de validación · 2 error de uso o de entorno.
 
-**Estado actual (MVP local):** la CLI solo tiene `validar` y `formatear`. No hay backend: las recetas y técnicas viajan
+**Estado actual (MVP local):** la CLI tiene `validar`, `formatear`, `potencias` e `historial`. No hay backend: las recetas y técnicas viajan
 dentro del APK desde `data/recetas/*.json` y `data/tecnicas/*.json`. Publicar = validar en estricto + commit +
 `versionMinor` (o `versionMajor`) en `version.properties` + gate + push a main (`android.yml` crea la GitHub Release v<versionName> con APK, AAB y checksums.txt). El parche y el versionCode se calculan desde git; para ver la versión resultante: `./gradlew -q :app:imprimirVersion` (imprime `versionName versionCode`, p. ej. `1.5.1 178`).
 
@@ -17,3 +17,4 @@ dentro del APK desde `data/recetas/*.json` y `data/tecnicas/*.json`. Publicar = 
 | `sc validar [--estricto] [--json] [slug…]` | Valida `data/recetas/*.json` y `data/tecnicas/*.json` (o los slugs dados): plan que cuadra + completitud (ver `docs/cocina/esquema-receta.md § Validación`). La comprobación de despensa (regla 12) usa `data/despensa-semilla.md`; «agua» siempre vale. |
 | `sc formatear [--comprobar] [slug…]` | Reescribe los JSON con formato canónico (`indent 2`, claves ordenadas, UTF-8, `\n` final). |
 | `sc potencias [--marcar] [slug…]` | Detecta los números de potencia (0-9, vitro) del texto libre de recetas y técnicas. Sin flag solo lista candidatos y dudosos (`slug  campo  «contexto»`); con `--marcar` los escribe como `{N}` (idempotente) y lista cambios y dudosos. Los dudosos («del N» suelto, «sube a N», «mantén el N», «potencias del 0 al 9», «al N de…») nunca se marcan. Detector: `MarcaPotencia` en `receta/`. |
+| `sc historial <copia.json> [slug]` | Lee la copia del historial que exporta la app (Ajustes, formato `sous-chef-historial`, con `historial[].pasosReales`) y las recetas de `data/recetas`. Por cada receta cocinada imprime `slug · título · N cocinadas` y debajo los pasos con la mediana del desvío (real menos previsto, `+3 min`) y en cuántas cocinadas se midió (`3×`), de mayor a menor. Con `slug` solo esa receta; los títulos salen canónicos (`{N}`). Sin argumentos o con `--help` muestra el uso (2 sin argumentos, 0 con `--help`). Para ajustar de memoria los tiempos de las recetas; lógica en `tools/…/Historial.kt` y `receta/…/Desvio.kt`. |
