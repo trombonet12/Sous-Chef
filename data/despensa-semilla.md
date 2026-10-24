@@ -11,7 +11,7 @@ Y dos reglas de formato al escribir una receta:
 - **Pimentón: solo hay picante, y en polvo.** No hay dulce ni ahumado, así que ninguna receta puede apoyarse en el ahumado ni dar por hecho que el pimentón no pica: la cantidad se calcula contando con el pique. Viene en un bote desazonador (de agujeros, no de cuchara), así que si una cantidad exacta en gramos no es práctica de sacar del bote, dilo en una línea en vez de asumir que se mide como una especia de tarro normal.
 
 ## Carnes
-Bacon · carne picada · pechuga familiar · pechugas finas · jamón serrano en lonchas
+Bacon · carne picada · pechuga familiar · pechugas finas · jamón serrano en lonchas · costillar de cerdo
 
 ## Pescado
 Emperador · salmón
