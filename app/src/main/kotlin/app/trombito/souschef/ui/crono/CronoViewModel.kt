@@ -495,11 +495,8 @@ class CronoViewModel
                     raciones = estado.raciones,
                     minutosReales = resumen.minutosReales,
                     nota = nota.trim().take(MAX_NOTA).ifBlank { null },
-                    // El historial lleva el título del paso en la cocina del usuario: ahí no hay llaves de potencia.
-                    pasosReales =
-                        resumen.pasosReales.map {
-                            PasoRealHistorial(it.id, Potencia.reescribir(it.t, actual.cocina), it.segundos)
-                        },
+                    // Lo guardado es canónico (con `{N}`, ADR-0014): se traduce al mostrarlo, no al guardarlo.
+                    pasosReales = resumen.pasosReales.map { PasoRealHistorial(it.id, it.t, it.segundos) },
                 )
             cierre = {
                 historial.agregar(entrada)
