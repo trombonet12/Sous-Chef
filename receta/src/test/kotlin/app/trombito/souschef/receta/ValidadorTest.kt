@@ -459,6 +459,29 @@ class ValidadorTest {
     }
 
     @Test
+    fun r27DudosoDaAvisoNoError() {
+        for (t in listOf("Mantén el 3 hasta el final", "Sube a 5 y sella", "Déjalo del 4 un rato", "Potencias 2 y 7")) {
+            val h = r27(conPasos(paso("p1") { it.copy(nota = t) }, paso("p2", "b")))
+            assertEquals(listOf(Nivel.AVISO), h.map { it.nivel }, t)
+            assertTrue(h.single().texto.startsWith("potencia dudosa sin marcar: «"), t)
+        }
+        val tecnica = Tecnica("t", "T", pasos = listOf(PasoTecnica("Sofreír", "Mantén el 3")), consejos = emptyList())
+        assertEquals(listOf(Nivel.AVISO), Validador.tecnica(tecnica).map { it.nivel })
+    }
+
+    @Test
+    fun r27DudosoMarcadoNoDaNiErrorNiAviso() {
+        val t = "Mantén el {3} hasta el final; sube a {5}; déjalo del {4} un rato"
+        assertEquals(emptyList(), r27(conPasos(paso("p1") { it.copy(nota = t) }, paso("p2", "b"))))
+    }
+
+    @Test
+    fun r27SinMarcarSeguroSigueSiendoErrorAunqueHayaDudosos() {
+        val h = r27(base().copy(descripcion = "Baja al 3 y mantén el 4"))
+        assertEquals(listOf(Nivel.ERROR, Nivel.AVISO), h.map { it.nivel })
+    }
+
+    @Test
     fun r27LlaveQueNoFormaPotenciaEsError() {
         assertEquals(1, r27(base().copy(descripcion = "Baja al {12}")).size)
         assertEquals(1, r27(base().copy(descripcion = "Baja al {x} ya")).size)

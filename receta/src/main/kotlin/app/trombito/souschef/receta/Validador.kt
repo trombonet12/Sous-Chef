@@ -390,7 +390,10 @@ private class Ctx(
 
     private fun esMultiploDeMedio(v: Double) = abs(v * 2 - Math.round(v * 2)) < EPS
 
-    /** Regla 27. Toda potencia del texto libre va marcada `{N}`; un `{` que no forma `{0-9}` es un error. */
+    /**
+     * Regla 27. Toda potencia del texto libre va marcada `{N}` (sin marcar es error, dudosa es aviso); un `{` que no
+     * forma `{0-9}` es un error.
+     */
     fun regla27() {
         potenciaSinMarcar(r.slug, textosLibres(r)).forEach { h += it }
     }
@@ -423,15 +426,22 @@ private fun textosLibres(r: Receta): List<String> =
 private fun textosLibres(t: Tecnica): List<String> =
     listOfNotNull(t.resumen, t.pie) + t.pasos.flatMap { listOf(it.t, it.p) } + t.consejos + t.cortes.mapNotNull { it.p }
 
-/** Regla 27 sobre una lista de textos: potencia sin marcar y llaves que no forman `{0-9}`. */
+/**
+ * Regla 27 sobre una lista de textos: potencia sin marcar (ERROR), potencia dudosa sin marcar (AVISO) y llaves que no
+ * forman `{0-9}` (ERROR).
+ */
 private fun potenciaSinMarcar(
     slug: String,
     textos: List<String>,
 ): List<Hallazgo> =
     textos.flatMap { t ->
-        MarcaPotencia.candidatos(t).map {
+        val marca = MarcaPotencia.marcar(t)
+        marca.cambios.map {
             Hallazgo(slug, 27, Nivel.ERROR, "potencia sin marcar: «${it.contexto}»")
         } +
+            marca.dudosos.map {
+                Hallazgo(slug, 27, Nivel.AVISO, "potencia dudosa sin marcar: «${it.contexto}»")
+            } +
             LLAVE_SUELTA.findAll(t).map {
                 val contexto = t.substring(maxOf(0, it.range.first - 20), minOf(t.length, it.range.first + 20))
                 Hallazgo(slug, 27, Nivel.ERROR, "llave que no forma {0-9}: «$contexto»")
