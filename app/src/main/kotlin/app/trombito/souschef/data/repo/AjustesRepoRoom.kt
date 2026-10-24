@@ -15,8 +15,8 @@ import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.receta.Cocina
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import java.time.LocalTime
 import java.util.Locale
 import javax.inject.Inject
@@ -28,7 +28,14 @@ class AjustesRepoRoom
     constructor(
         private val dao: MetaDao,
     ) : AjustesRepo {
-        override fun observar(): Flow<Ajustes> = combine(CLAVES.map(dao::observar)) { leer(it) }.distinctUntilChanged()
+        /** Una sola consulta sobre todas las claves, para que una escritura atómica se vea también atómica. */
+        override fun observar(): Flow<Ajustes> =
+            dao
+                .observarVarias(CLAVES)
+                .map { filas ->
+                    val porClave = filas.associate { it.clave to it.valor }
+                    leer(Array(CLAVES.size) { porClave[CLAVES[it]] })
+                }.distinctUntilChanged()
 
         private fun leer(v: Array<String?>): Ajustes {
             val defecto = Ajustes()
@@ -68,9 +75,14 @@ class AjustesRepoRoom
 
         override suspend fun fijarCocina(c: Cocina) {
             val v = c.valida()
-            dao.fijar(MetaEntity(CLAVE_COCINA_TIPO, v.tipo.name))
-            dao.fijar(MetaEntity(CLAVE_COCINA_MANDO, v.mando.name))
-            dao.fijar(MetaEntity(CLAVE_COCINA_MAX, v.max?.toString().orEmpty()))
+            // Una sola transacción: un observador nunca ve el tipo nuevo con el mando viejo.
+            dao.fijarVarias(
+                listOf(
+                    MetaEntity(CLAVE_COCINA_TIPO, v.tipo.name),
+                    MetaEntity(CLAVE_COCINA_MANDO, v.mando.name),
+                    MetaEntity(CLAVE_COCINA_MAX, v.max?.toString().orEmpty()),
+                ),
+            )
         }
 
         override suspend fun fijarFuegos(n: Int) =

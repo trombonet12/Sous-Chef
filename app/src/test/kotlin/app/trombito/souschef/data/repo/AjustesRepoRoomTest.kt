@@ -13,14 +13,23 @@ import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.TipoCocina
+import io.mockk.coVerify
+import io.mockk.slot
+import io.mockk.spyk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.util.concurrent.CopyOnWriteArrayList
 
 @RunWith(RobolectricTestRunner::class)
 class AjustesRepoRoomTest {
@@ -119,6 +128,45 @@ class AjustesRepoRoomTest {
             repo.fijarCocina(sinNumeros)
             assertEquals(sinNumeros, repo.observar().first().cocina)
             assertEquals("", db.metaDao().valor(AjustesRepoRoom.CLAVE_COCINA_MAX))
+        }
+
+    @Test
+    fun fijarCocinaEscribeLasTresClavesEnUnaSolaLlamadaAtomica() =
+        runBlocking {
+            val dao = spyk(db.metaDao())
+            val repoEspia = AjustesRepoRoom(dao)
+            val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, 6)
+
+            repoEspia.fijarCocina(gas)
+
+            val escritas = slot<List<MetaEntity>>()
+            coVerify(exactly = 1) { dao.fijarVarias(capture(escritas)) }
+            coVerify(exactly = 0) { dao.fijar(any()) }
+            assertEquals(
+                setOf(
+                    AjustesRepoRoom.CLAVE_COCINA_TIPO,
+                    AjustesRepoRoom.CLAVE_COCINA_MANDO,
+                    AjustesRepoRoom.CLAVE_COCINA_MAX,
+                ),
+                escritas.captured.map { it.clave }.toSet(),
+            )
+            assertEquals(gas, repo.observar().first().cocina)
+        }
+
+    @Test
+    fun observarNuncaEmiteUnaCocinaMezclada() =
+        runBlocking {
+            val a = Cocina(TipoCocina.INDUCCION, Mando.DIGITAL, 14)
+            val b = Cocina(TipoCocina.GAS, Mando.ANALOGICO, 6)
+            repo.fijarCocina(a)
+
+            val vistas = CopyOnWriteArrayList<Cocina>()
+            val colector = launch(Dispatchers.IO) { repo.observar().collect { vistas.add(it.cocina) } }
+            repeat(RONDAS) { i -> repo.fijarCocina(if (i % 2 == 0) b else a) }
+            withTimeout(ESPERA_MS) { while (vistas.lastOrNull() != a) delay(PAUSA_MS) }
+            colector.cancel()
+
+            assertTrue("Cocinas mezcladas: ${vistas.toSet() - setOf(a, b)}", setOf(a, b).containsAll(vistas))
         }
 
     @Test
@@ -225,4 +273,10 @@ class AjustesRepoRoomTest {
             assertEquals(HoraTarjeta.ACABAR, a.horaTarjeta)
             assertEquals("14:15", db.metaDao().valor(AjustesRepoRoom.CLAVE_SERVIR))
         }
+
+    private companion object {
+        const val RONDAS = 40
+        const val ESPERA_MS = 5_000L
+        const val PAUSA_MS = 10L
+    }
 }

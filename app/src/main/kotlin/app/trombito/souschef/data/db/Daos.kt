@@ -119,6 +119,14 @@ interface MetaDao {
     @Query("SELECT valor FROM meta WHERE clave = :clave")
     fun observar(clave: String): Flow<String?>
 
+    /** Una sola consulta para varias claves: el observador ve siempre un estado coherente (ausentes no salen). */
+    @Query("SELECT * FROM meta WHERE clave IN (:claves)")
+    fun observarVarias(claves: List<String>): Flow<List<MetaEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun fijar(meta: MetaEntity)
+
+    /** Escribe todas las filas en una sola transacción: o entran todas o ninguna. */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun fijarVarias(metas: List<MetaEntity>)
 }
