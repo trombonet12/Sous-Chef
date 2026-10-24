@@ -215,7 +215,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    implementation(libs.tink.android)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
