@@ -265,11 +265,22 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
 
 // ---- Piezas comunes ----
 
-/** «Pide 4 fuegos» y «Pide horno»: la receta pide más equipo del que hay en la cocina del usuario. */
+/**
+ * «Nueva» (sin cocinar y de hace menos de 30 días), «Pide 4 fuegos» y «Pide horno» (la receta pide más equipo del que
+ * hay en la cocina del usuario). Al ir dentro de la tarjeta, TalkBack lee «Nueva» con el resto de su texto.
+ */
 @Composable
 private fun EtiquetasEquipo(tarjeta: TarjetaReceta) {
-    if (tarjeta.pideFuegos == 0 && !tarjeta.pideHorno) return
+    if (!tarjeta.nueva && tarjeta.pideFuegos == 0 && !tarjeta.pideHorno) return
     Row(Modifier.padding(top = Espacio.xs), horizontalArrangement = Arrangement.spacedBy(Espacio.xs)) {
+        if (tarjeta.nueva) {
+            Etiqueta(
+                stringResource(R.string.nueva_etiqueta),
+                modifier = Modifier.testTag("etiqueta-nueva"),
+                tono = Tono.Ambar,
+                negrita = true,
+            )
+        }
         if (tarjeta.pideFuegos > 0) {
             Etiqueta(stringResource(R.string.lista_pide_fuegos, tarjeta.pideFuegos), tono = Tono.Teja)
         }

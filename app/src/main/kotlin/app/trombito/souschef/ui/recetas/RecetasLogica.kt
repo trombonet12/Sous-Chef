@@ -5,6 +5,7 @@ import app.trombito.souschef.domain.FUEGOS_DEFECTO
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.esNueva
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.normalizado
@@ -68,6 +69,8 @@ data class TarjetaReceta(
     val pideHorno: Boolean = false,
     /** Si llega a servir a la hora elegida en «¿Qué me da tiempo?»; null con el modo apagado. */
     val llegada: Llegada? = null,
+    /** Sin cocinar y creada hace menos de 30 días (`esNueva`). */
+    val nueva: Boolean = false,
 )
 
 /** Cuándo se mira la lista, qué hora enseña cada tarjeta y qué equipo tiene el usuario. */
@@ -202,7 +205,8 @@ private fun tarjetaYRasgos(
     val favorita = preferencias[r.slug]?.favorito == true
     val fuegos = Gantt.fuegos(r)
     val hace = Hace.de(fecha, contexto.hoy)
-    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace)
+    val nueva = esNueva(r, fecha, contexto.hoy)
+    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace, nueva)
     val conHorno = EquipoReceta.CON_HORNO in rasgos.equipo
     val tarjeta =
         TarjetaReceta(
@@ -217,6 +221,7 @@ private fun tarjetaYRasgos(
             modoHora = contexto.modo,
             pideFuegos = fuegos.takeIf { it > contexto.fuegos } ?: 0,
             pideHorno = conHorno && !contexto.horno,
+            nueva = nueva,
         )
     return tarjeta to rasgos
 }

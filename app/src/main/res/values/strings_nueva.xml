@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- «Nueva»: recetas sin cocinar y creadas hace menos de 30 días (chip de la tarjeta y filtro). -->
+<resources>
+    <string name="nueva_etiqueta">Nueva</string>
+    <string name="filtro_mostrar_nuevas">Nuevas</string>
+</resources>

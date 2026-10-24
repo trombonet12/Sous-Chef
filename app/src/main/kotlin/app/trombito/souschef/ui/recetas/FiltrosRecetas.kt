@@ -97,7 +97,7 @@ enum class TramoTiempo {
 enum class EquipoReceta { SIN_HORNO, CON_HORNO, UN_FUEGO }
 
 /** «Hace tiempo»: cocinada hace [Hace.DIAS_RESALTE] días o más (la que sale resaltada en la tarjeta). */
-enum class MostrarRecetas { FAVORITAS, SIN_ESTRENAR, HACE_TIEMPO }
+enum class MostrarRecetas { FAVORITAS, NUEVAS, SIN_ESTRENAR, HACE_TIEMPO }
 
 /** Secciones de la hoja de filtros, en su orden: dentro de una se suman opciones (O) y entre ellas se restringe (Y). */
 enum class SeccionFiltro { MOSTRAR, TIEMPO, BASE, PROTEINA, EQUIPO }
@@ -184,6 +184,7 @@ data class RasgosReceta(
             favorita: Boolean,
             fuegos: Int,
             hace: Hace,
+            nueva: Boolean = false,
         ): RasgosReceta {
             val conHorno = receta.carriles.any { it.tipoCarril == TipoCarril.HORNO }
             return RasgosReceta(
@@ -198,6 +199,7 @@ data class RasgosReceta(
                 mostrar =
                     buildSet {
                         if (favorita) add(MostrarRecetas.FAVORITAS)
+                        if (nueva) add(MostrarRecetas.NUEVAS)
                         if (hace.unidad == UnidadHace.SIN_ESTRENAR) {
                             add(MostrarRecetas.SIN_ESTRENAR)
                         } else if (hace.resaltado) {
