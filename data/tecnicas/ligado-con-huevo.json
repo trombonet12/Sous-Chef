@@ -1,0 +1,36 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "categoria": "salsa",
+  "consejos": [
+    "La señal buena: la salsa napa los espaguetis, brilla y no deja líquido en el fondo. Si está espesa y opaca, una cucharada de agua de cocción y remover.",
+    "Si ves grumos como de huevo revuelto, el calor ya se pasó: un chorro de agua de cocción y remover rápido los afina, pero no los deshace. La próxima vez, un minuto más en la encimera antes de la crema.",
+    "Se sirve al momento: la pasta sigue cediendo calor y en dos o tres minutos la crema pasa de napar a hacerse pastosa.",
+    "Sin nata: la nata no liga, diluye. La crema la hacen la yema, el queso, la grasa y el almidón."
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "pasos": [
+    {
+      "p": "Yema y queso forman una pasta espesa que luego afloja el agua de cocción. El queso rallado fino se funde con el calor de la pasta, sin fuego; en grueso hace hebras. Una clara como mucho por cada dos yemas: la clara empieza a cuajar hacia los 62 °C, antes que la yema, y es la que forma los grumos.",
+      "t": "Yemas, queso rallado fino y pimienta en un bol, antes de cocer"
+    },
+    {
+      "p": "El almidón que suelta la pasta es, con la lecitina de la yema, lo que une la grasa y el agua en una crema que no se separa. Con unos 2 l para 200 g el agua sale más turbia y liga mejor; una vez escurrida la pasta ya no hay de dónde sacarla.",
+      "t": "Poca agua en la olla y una parte apartada antes de escurrir"
+    },
+    {
+      "p": "Antes del huevo, la pasta pasa un minuto con la grasa (bacon, mantequilla) y unos 30 ml de agua de cocción por cada 100 g. Al removerlas, el almidón envuelve las gotas de grasa: es una primera emulsión que cubre la pasta, y la crema de huevo se agarra encima en vez de resbalar.",
+      "t": "La pasta, primero con la grasa y un poco de agua"
+    },
+    {
+      "p": "La yema espesa hacia los 65-70 °C y por encima se corta en grumos. La pasta escurrida está a unos 95 °C: un minuto fuera del fuego, removiendo, la baja a unos 75 °C, y la crema templada deja la mezcla en la franja buena. En vitrocerámica la placa apagada sigue calentando un par de minutos: la sartén sale a la encimera.",
+      "t": "Fuera del fuego, y fuera de la placa"
+    },
+    {
+      "p": "Dos cucharadas de agua de cocción en la crema la aflojan y la templan, así se reparte en segundos y ninguna zona se calienta antes que el resto. Removiendo, el calor de la pasta se reparte igual; quieta, la yema que toca el metal cuaja antes de que la de arriba espese.",
+      "t": "Crema templada con agua y remover sin parar"
+    }
+  ],
+  "resumen": "Ligar una pasta con yema, queso, grasa y agua de cocción fuera del fuego: una crema que espesa hacia los 65-70 °C sin llegar a cuajar.",
+  "slug": "ligado-con-huevo",
+  "titulo": "Ligado con huevo"
+}

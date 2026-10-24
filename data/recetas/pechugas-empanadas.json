@@ -1,0 +1,388 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN GRANDE",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Partida por la mitad de la raíz a la punta y con la cara plana sobre la tabla, el cuchillo va en la misma dirección que las vetas, de la raíz a la punta, en láminas de 2 mm. Siguiendo la fibra se rompen menos células, la cebolla suelta menos compuestos que pican y aguanta crujiente en el vinagre; cruzándola saldría blanda y más agresiva.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla morada vista desde arriba, con las vetas de la raíz a la punta y cortes que las siguen, en pluma\"><ellipse cx=\"60\" cy=\"42\" rx=\"50\" ry=\"28\" fill=\"#8E3B6E\" fill-opacity=\".16\" stroke=\"#7A2E5C\"/><g stroke=\"#7A2E5C\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><path d=\"M12 42 Q60 22 108 42\"/><path d=\"M12 42 Q60 34 108 42\"/><path d=\"M12 42 Q60 50 108 42\"/><path d=\"M12 42 Q60 62 108 42\"/></g><line x1=\"12\" y1=\"32\" x2=\"12\" y2=\"52\" stroke=\"#B5372A\" stroke-width=\"2\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 42 Q60 16 106 42\"/><path d=\"M14 42 Q60 28 106 42\"/><line x1=\"14\" y1=\"42\" x2=\"106\" y2=\"42\"/><path d=\"M14 42 Q60 56 106 42\"/><path d=\"M14 42 Q60 68 106 42\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">pluma de 2 mm, con las vetas</text></svg>",
+      "t": "Cebolla morada · pluma de 2 mm, siguiendo las vetas"
+    },
+    {
+      "p": "Sin el pedúnculo, el tomate se parte por la mitad y cada mitad en cuatro gajos, siempre desde el centro hacia la piel, para que salgan de unos 2,5 cm en la parte ancha. Desde el centro, cada gajo conserva su parte de semillas y gelatina, que es donde está el sabor y el ácido; en rodajas finas se vaciarían en el bol y quedarían acuosas.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Tomate visto desde arriba, sin pedúnculo, cortado desde el centro en ocho gajos\"><circle cx=\"60\" cy=\"40\" r=\"30\" fill=\"#D9412E\" fill-opacity=\".18\" stroke=\"#B5372A\"/><g stroke=\"#B5372A\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><circle cx=\"60\" cy=\"40\" r=\"18\"/></g><circle cx=\"60\" cy=\"40\" r=\"3\" fill=\"#6B8E3A\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"24\" y1=\"40\" x2=\"96\" y2=\"40\"/><line x1=\"60\" y1=\"4\" x2=\"60\" y2=\"76\"/><line x1=\"35\" y1=\"15\" x2=\"85\" y2=\"65\"/><line x1=\"85\" y1=\"15\" x2=\"35\" y2=\"65\"/></g><text x=\"60\" y=\"86\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">8 gajos desde el centro</text></svg>",
+      "t": "Tomate · 8 gajos de 2,5 cm, desde el centro"
+    }
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "datos": [
+    [
+      "30 min",
+      "de principio a fin"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "2 × 2",
+      "tandas de filetes"
+    ],
+    [
+      "7",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Filetes finos de pechuga empanados en harina, huevo y pan rallado y fritos en aceite de girasol en dos tandas, con una ensalada de tomate y cebolla morada macerada en vinagre. La dificultad está en el aceite: lo bastante caliente para que el pan se dore en dos minutos por cara sin que el pollo se seque. El plato se apoya en las pechugas finas: confírmalas antes de empezar.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 300,
+          "n": "pechugas finas (4 filetes de 5-6 mm)",
+          "u": "g"
+        }
+      ],
+      "n": "LAS PECHUGAS"
+    },
+    {
+      "items": [
+        {
+          "a": 40,
+          "n": "harina (4 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (½ cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 1 · HARINA"
+    },
+    {
+      "items": [
+        {
+          "a": 1,
+          "n": "huevo",
+          "u": "uds"
+        },
+        {
+          "a": 15,
+          "n": "agua (1 cucharada sopera)",
+          "u": "ml"
+        }
+      ],
+      "n": "PLATO 2 · HUEVO"
+    },
+    {
+      "items": [
+        {
+          "a": 70,
+          "n": "pan rallado (unas 8 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 3 · PAN RALLADO"
+    },
+    {
+      "items": [
+        {
+          "a": 250,
+          "esc": "fijo",
+          "n": "aceite de girasol (1 vaso de agua)",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN GRANDE · LA FRITURA"
+    },
+    {
+      "items": [
+        {
+          "a": 300,
+          "n": "tomates (2 tomates medianos), en gajos de 2,5 cm",
+          "u": "g"
+        },
+        {
+          "a": 40,
+          "n": "cebolla morada (¼ de cebolla morada mediana), en pluma de 2 mm",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "vinagre de vino (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 20,
+          "n": "aceite de oliva (1½ cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (1 g con la cebolla + 1 g con el tomate)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA ENSALADA"
+    }
+  ],
+  "lectura": "Un solo fuego. Mesa: 4 de cebolla + 3 de platos + 6 de empanar = 13 minutos; el aceite se calienta del 13 al 19 mientras cortas el tomate y los filetes reposan; 8 de fritura en dos tandas, del 19 al 27, y 3 de aliñar y emplatar: 13 + 6 + 8 + 3 = 30 minutos. Lo que no espera es la fritura y el emplatado: del minuto 19 al 30 no hay pausa.",
+  "mep": [
+    {
+      "l": [
+        "<b>Cebolla morada · 40 g (¼ de cebolla morada mediana)</b> · en pluma de 2 mm siguiendo las vetas, en el minuto 0. Al bol grande con el vinagre y 1 g de sal.",
+        "<b>Tomates · 300 g (2 tomates medianos)</b> · en 8 gajos de 2,5 cm cada uno, en el minuto 13. Al bol grande, sobre la cebolla."
+      ],
+      "orden": true,
+      "porq": "El pollo no toca la tabla: se seca y se empana en su bandeja y en los platos, así la tabla no se lava y la verdura cruda no se cruza con el pollo crudo. Lo seco primero, la cebolla; el tomate, que moja, al final.",
+      "t": "UNA TABLA, SOLO VERDURA"
+    },
+    {
+      "l": [
+        "<b>Vinagre de vino · 10 ml (2 cucharaditas)</b> · al bol grande en el minuto 0.",
+        "<b>Agua · 15 ml (1 cucharada sopera)</b> · al plato hondo del huevo en el minuto 4.",
+        "<b>Aceite de girasol · 250 ml (1 vaso de agua)</b> · a la sartén grande en el minuto 13.",
+        "<b>Aceite de oliva · 20 ml (1½ cucharadas soperas)</b> · se mide detrás del girasol, en el minuto 13, y espera en el vaso hasta el 27, cuando va al bol grande."
+      ],
+      "orden": true,
+      "porq": "Primero lo que no deja residuo; las dos grasas al final, una detrás de otra, porque el film del girasol no molesta al aceite de oliva.",
+      "t": "UN VASO MEDIDOR"
+    },
+    {
+      "l": [
+        "<b>Plato 1</b> · 40 g de harina (4 cucharadas soperas) + 3 g de sal (½ cucharadita), mezclados en el minuto 4.",
+        "<b>Plato hondo 2</b> · 1 huevo + 15 ml de agua del vaso, batidos en el minuto 4.",
+        "<b>Plato 3</b> · 70 g de pan rallado (unas 8 cucharadas soperas), en el minuto 4.",
+        "<b>Bandeja de las pechugas</b> · 300 g de pechugas finas (4 filetes de 5-6 mm), de la nevera a la mesa en el minuto 7 para secarlas y empanarlas.",
+        "<b>Fuente</b> · vacía, al final de la fila: los filetes empanados desde el minuto 7, sin tocarse.",
+        "<b>Bol grande</b> · 40 g de cebolla morada + 10 ml de vinagre de vino + 1 g de sal en el minuto 0; 300 g de tomates en el 13; 1 g de sal + 20 ml de aceite de oliva en el 27.",
+        "<b>Sartén grande</b> · 250 ml de aceite de girasol, al fuego grande en el minuto 13.",
+        "<b>Plato con papel de cocina</b> · junto a la sartén desde el minuto 13, para cada tanda."
+      ],
+      "orden": false,
+      "porq": "Los tres platos van en el orden de uso, con la fuente al final, para que los filetes avancen en una sola dirección. El bol grande recibe la ensalada en tres momentos: la cebolla en el 0, el tomate en el 13 y el aliño en el 27.",
+      "t": "TRES PLATOS EN FILA Y SUS COMPAÑEROS"
+    }
+  ],
+  "notaEscala": "Va solo a 2 raciones: el plan son dos tandas de dos filetes en la sartén grande. Con 1 ración sería una sola tanda, y con 3 o 4, tres o cuatro tandas que alargan la fritura y enfrían las primeras. El aceite no escala: es la profundidad de la sartén, no la cantidad de pollo.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cebolla",
+      "meto": "bol grande: 40 g de cebolla morada en pluma + 10 ml de vinagre de vino + 1 g de sal",
+      "min": 4,
+      "nota": "Pela un cuarto de cebolla morada (el resto, a un táper) y córtalo en pluma de 2 mm, de la raíz a la punta, siguiendo las vetas. Al bol grande con el vinagre y 1 g de sal, y remueve.",
+      "off": 0,
+      "p": "Cortada a lo largo de las vetas, la cebolla rompe menos células y suelta menos de los compuestos de azufre que pican: queda crujiente y menos agresiva que cruzando la fibra. En el vinagre con sal, durante la media hora del plan, se suaviza aún más y sus antocianinas viran de morado a rosa intenso. Va la primera porque es lo más seco que pasa por la tabla.",
+      "s": 240,
+      "saco": "",
+      "t": "Cortar la cebolla morada en pluma de 2 mm y macerarla",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "platos",
+      "meto": "plato 1: 40 g de harina + 3 g de sal · plato hondo 2: 1 huevo + 15 ml de agua · plato 3: 70 g de pan rallado",
+      "min": 3,
+      "nota": "En fila, de izquierda a derecha: la harina mezclada con la sal, el huevo batido con el agua hasta que no haga hebras y el pan rallado. Una fuente vacía al final.",
+      "off": 4,
+      "p": "En fila y en el orden de uso, los filetes avanzan en una sola dirección y la mano con huevo nunca vuelve a la harina. La sal va en la harina para salar el pollo justo antes de empanarlo y de forma pareja: echada sobre la carne desde antes le sacaría agua y la harina se haría pasta. El agua aligera el huevo, que así cubre en una capa fina y no gotea.",
+      "s": 180,
+      "saco": "",
+      "t": "Montar los tres platos: harina, huevo y pan rallado",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "empanar",
+      "meto": "los 4 filetes de pechuga (300 g), de su bandeja a la fila de platos · fuente: los filetes empanados",
+      "min": 6,
+      "nota": "Seca los filetes con papel. Mano seca, mano húmeda: harina y sacude, huevo y escurre, pan rallado y aprieta con la palma por las dos caras. A la fuente sin que se toquen, y lávate las manos.",
+      "off": 7,
+      "p": "Sobre la carne seca la harina se pega en una capa fina, el huevo se agarra a la harina y el pan rallado al huevo; con agua en la superficie, la harina se hace engrudo y el empanado se despega en la sartén. Apretar el pan con la palma lo incrusta en el huevo. Una mano para lo seco y otra para el huevo, o a los dos filetes llevas los dedos empanados.",
+      "s": 360,
+      "saco": "",
+      "t": "Secar y empanar los cuatro filetes",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "tomate",
+      "meto": "bol grande: 300 g de tomate en gajos, sobre la cebolla",
+      "min": 4,
+      "nota": "Quita el pedúnculo y corta cada tomate en 8 gajos desde el centro. Al bol con la cebolla, sin mezclar ni salar. Deja un plato con papel de cocina junto a la sartén.",
+      "off": 13,
+      "p": "Gajos de unos 2,5 cm en la parte ancha: se pinchan enteros con el tenedor y guardan las semillas y su gelatina, que es lo más sabroso del tomate. Se cortan ahora, y no al principio, porque el tomate cortado empieza a soltar agua; sin sal encima aguanta los diez minutos hasta el aliño sin encharcar el bol. Mientras tanto los filetes reposan y el empanado se asienta.",
+      "s": 240,
+      "saco": "",
+      "t": "Cortar el tomate en gajos de 2,5 cm",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "empanar"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "aceite",
+      "meto": "250 ml de aceite de girasol en la sartén grande",
+      "min": 6,
+      "nota": "Enciende el fuego grande al {7}, sin tapa. Está listo cuando una miga de pan rallado burbujea en cuanto toca el aceite.",
+      "off": 13,
+      "p": "250 ml en la sartén grande dejan algo más de medio centímetro de fondo: los filetes de 5-6 mm quedan medio sumergidos y se fríen cara a cara. El girasol aguanta los 170-180 °C sin humear ni dar sabor, y seis minutos al {7} lo llevan ahí. Con el aceite frío, el pan chupa grasa antes de formar costra y sale blando. Se enciende con las manos ya lavadas y el empanado hecho.",
+      "s": 360,
+      "saco": "",
+      "sinHitos": "El aceite se calienta solo y no hay nada que mover: la comprobación de la miga está al final del paso.",
+      "t": "Calentar el aceite de girasol al {7}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 7,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Da la vuelta a los dos filetes"
+        },
+        {
+          "en": 210,
+          "t": "Sácalos al plato con papel, sin apilar"
+        },
+        {
+          "en": 270,
+          "t": "Mete los otros dos filetes"
+        },
+        {
+          "en": 390,
+          "t": "Da la vuelta a los dos filetes"
+        }
+      ],
+      "holgura": "critico",
+      "id": "freir",
+      "meto": "los 4 filetes empanados, de dos en dos, de la fuente a la sartén",
+      "min": 8,
+      "nota": "Mete los filetes alejándolos de ti para no salpicarte, sin que se toquen: 2 minutos por la primera cara y 1½ por la segunda. Si el aceite humea o el pan se oscurece antes, baja del {7} al {6}.",
+      "off": 19,
+      "p": "La primera cara va más rato porque el filete entra frío y baja la temperatura del aceite; la segunda se hace sobre una carne ya caliente. En 3½ minutos un filete de 5-6 mm pasa de 70 °C por dentro y el pan se dora. El minuto entre tandas deja que el aceite se recupere: en aceite tibio la segunda tanda saldría grasienta. Al papel sin apilar, porque uno encima de otro el vapor ablanda la costra.",
+      "s": 480,
+      "saco": "los filetes, al plato con papel; apaga y aparta la sartén a un fuego frío",
+      "t": "Freír en dos tandas de dos filetes",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "freir"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "meto": "bol grande: 1 g de sal sobre el tomate + 20 ml de aceite de oliva",
+      "min": 3,
+      "nota": "Echa la sal que queda sobre el tomate y el aceite de oliva, y mezcla con la cebolla y su vinagre. Dos filetes por plato, sin apilar, con la ensalada al lado.",
+      "off": 27,
+      "p": "La sal entra al final para que el tomate no suelte el agua antes de tiempo; con ella y el vinagre de la cebolla se forma en el fondo un caldo que aliña cada gajo. Aceite de oliva y no de girasol, porque en crudo es el que da sabor. Los filetes escurren en el papel mientras aliñas: sírvelos ya, que el vapor que suelta el pollo ablanda la costra en pocos minutos.",
+      "s": 180,
+      "saco": "2 platos: dos filetes empanados y la mitad de la ensalada en cada uno",
+      "t": "Aliñar la ensalada y a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "pechugas finas",
+    "tomates",
+    "cebolla morada"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Harina, huevo y pan rallado",
+      "La harina seca la superficie y da agarre; el huevo pega y, al cuajar, sostiene la costra; el pan rallado es lo que se dora y cruje. Sin harina, el huevo resbala en la pechuga lisa y deja calvas."
+    ],
+    [
+      "Filetes finos, sin aplanar",
+      "Con 5-6 mm se hacen por dentro en los mismos 3½ minutos en que se dora el pan. Un filete de más de 1 cm se quemaría por fuera antes de llegar a 70 °C en el centro."
+    ],
+    [
+      "Sal en la harina",
+      "Sala la carne justo antes de empanarla y de forma pareja. Salada antes, la pechuga suelta agua y la harina se hace pasta."
+    ],
+    [
+      "Agua en el huevo",
+      "Una cucharada aligera el huevo: cubre en una capa fina y no gotea. Así un solo huevo basta para cuatro filetes."
+    ],
+    [
+      "Aceite de girasol, no de oliva",
+      "Neutro y con punto de humo alto: aguanta los 170-180 °C sin humear y la costra sabe a pan tostado, no a aceite. El de oliva queda para la ensalada, en crudo."
+    ],
+    [
+      "Dos tandas de dos",
+      "Cuatro filetes a la vez bajan el aceite de golpe y se cuecen en vez de freírse. El minuto entre tandas deja que se recupere."
+    ],
+    [
+      "Cebolla morada macerada desde el principio",
+      "En la media hora del plan, el vinagre y la sal le quitan el picor y sus antocianinas viran a rosa. La morada es menos agresiva en crudo que la blanca."
+    ],
+    [
+      "Sin maicena",
+      "En los aros afina la primera capa sobre una cebolla lisa y húmeda; en una pechuga seca la harina sola agarra bien y la costra la da el pan."
+    ],
+    [
+      "Sin ajo ni perejil en el huevo",
+      "No hay perejil fresco y el seco no aporta nada en tres minutos de fritura. El ajo en polvo se tuesta de más en la costra y amarga."
+    ],
+    [
+      "Sin limón",
+      "El vinagre de la ensalada ya pone el ácido en el plato, y el limón sobre la costra la ablanda."
+    ],
+    [
+      "Sin orégano en la ensalada",
+      "Las hierbas secas en crudo saben a polvo: necesitan calor y líquido para abrirse."
+    ],
+    [
+      "Sin reposo en nevera",
+      "Los seis minutos que tarda el aceite bastan para que el empanado se asiente sobre una pechuga seca. Los aros lo necesitan porque la cebolla es lisa y suelta agua."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "pechugas-empanadas",
+  "tags": {
+    "base": "fritura",
+    "proteina": "pollo",
+    "tecnica": [
+      "empanado",
+      "punto-del-aceite"
+    ]
+  },
+  "titulo": "Pechugas empanadas con ensalada de tomate",
+  "totalMin": 30
+}

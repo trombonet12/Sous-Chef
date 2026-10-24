@@ -1,0 +1,40 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "categoria": "fritura",
+  "consejos": [
+    "La señal del aceite: una miga de pan rallado burbujea en cuanto lo toca. Si humea o el pan se oscurece antes de 2 minutos, el centro quedará crudo: baja la potencia.",
+    "Al salir, a un plato con papel y sin apilar: una pieza encima de otra ablanda con su vapor la costra de la de abajo.",
+    "Una pieza de más de 1 cm no se hace por dentro antes de que se queme el pan: ábrela o aplánala a 5-6 mm.",
+    "En piezas lisas y húmedas, como los aros de cebolla, un poco de harina batida con el huevo lo espesa y no gotea."
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "pasos": [
+    {
+      "p": "Sobre una superficie seca la harina se pega en una capa fina; sobre agua se hace engrudo y el empanado se despega en la sartén. La sal va mezclada en la harina, justo antes, para salar parejo sin sacarle agua a la pieza antes de tiempo.",
+      "t": "Secar la pieza con papel"
+    },
+    {
+      "p": "La harina seca la superficie y da agarre al huevo; el huevo es el pegamento y, al cuajar, la base de la costra; el pan rallado es lo que se dora y cruje. En fila y en ese orden, la pieza avanza en una sola dirección y la mano con huevo no vuelve a la harina.",
+      "t": "Tres platos en fila: harina, huevo batido y pan rallado"
+    },
+    {
+      "p": "Una mano solo toca la harina y el pan rallado, la otra solo el huevo. Si las dos tocan todo, en dos piezas los dedos llevan una costra de pasta que arranca el empanado de la siguiente.",
+      "t": "Mano seca, mano húmeda"
+    },
+    {
+      "p": "La harina de más forma una capa pastosa que se separa al freír; el huevo de más gotea y deja calvas. Apretar el pan rallado con la palma lo incrusta en el huevo, y así no se suelta al darle la vuelta en la sartén.",
+      "t": "Sacudir la harina, escurrir el huevo y apretar el pan"
+    },
+    {
+      "p": "En 5-10 minutos el pan rallado absorbe parte del huevo y la capa se asienta sobre la pieza. Es justo lo que tarda el aceite en calentarse: el reposo no alarga el plan y el empanado aguanta la vuelta sin despegarse.",
+      "t": "Reposar unos minutos antes de freír"
+    },
+    {
+      "p": "Hacia los 170-180 °C el agua de la superficie se evapora de golpe y el pan se dora en unos 2 minutos por cara; con el aceite más frío, la costra chupa grasa antes de formarse y sale blanda. En tandas pequeñas, porque cada pieza fría que entra baja la temperatura del aceite.",
+      "t": "Freír al {7} en aceite de girasol, sin amontonar"
+    }
+  ],
+  "resumen": "La costra de harina, huevo y pan rallado que se fríe crujiente y protege lo de dentro: filetes finos, aros de cebolla, verduras en rodajas.",
+  "slug": "empanado",
+  "titulo": "Empanado"
+}

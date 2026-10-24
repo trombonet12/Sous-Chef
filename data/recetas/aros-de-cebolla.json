@@ -340,7 +340,8 @@
     "base": "verdura",
     "proteina": "huevo",
     "tecnica": [
-      "punto-del-aceite"
+      "punto-del-aceite",
+      "empanado"
     ]
   },
   "titulo": "Aros de cebolla rebozados",
