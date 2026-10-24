@@ -1,5 +1,7 @@
 package app.trombito.souschef.ui.crono
 
+import androidx.compose.material3.MaterialTheme
+import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.receta.BloqueMep
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Mando
@@ -8,10 +10,20 @@ import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.SesionCrono
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class CronoPortadaTest {
+    @get:Rule
+    val limpieza = LimpiezaCompose()
+
     private val canonica =
         recetaCrono().copy(
             mep =
@@ -53,5 +65,25 @@ class CronoPortadaTest {
         val b = bloques(gas)
         assertEquals(listOf("Antes de encender", "Mesa"), b.map { it.titulo })
         assertEquals("Pica la cebolla", b[1].casillas.single().texto)
+    }
+
+    private fun pintar(notas: List<NotaCocinada>): BancoCompose {
+        val estado = EstadoCrono("r", 2, 0L, emptyMap(), actualizadoMs = 0L)
+        val acciones = AccionesPortada({ _, _ -> }, { _, _ -> }, {}, {}, {})
+        val banco = BancoCompose()
+        banco.poner { MaterialTheme { PortadaCuerpo(canonica, canonica, estado, notas, acciones) } }
+        return banco
+    }
+
+    @Test
+    fun laPortadaMuestraLaUltimaVezSiHayNotas() {
+        val banco = pintar(listOf(NotaCocinada("2026-10-12", "Menos sal")))
+        assertTrue("ultima-vez" in banco.etiquetas("ultima-vez"))
+        assertTrue(banco.textos(banco.raiz()).contains("Menos sal"))
+    }
+
+    @Test
+    fun laPortadaNoMuestraLaUltimaVezSinNotas() {
+        assertFalse("ultima-vez" in pintar(emptyList()).etiquetas("ultima-vez"))
     }
 }

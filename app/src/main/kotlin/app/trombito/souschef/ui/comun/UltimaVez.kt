@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.NotaCocinada
+import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.FichaPalette
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
@@ -49,6 +51,18 @@ data class ColoresUltimaVez(
                 acento = FichaPalette.tinta2,
                 apagado = FichaPalette.meta,
             )
+
+        /** Paleta del cronómetro en uso (clara u oscura): carta, texto, acento y apagado ya cumplen contraste. */
+        val Crono: ColoresUltimaVez
+            @Composable
+            @ReadOnlyComposable
+            get() =
+                ColoresUltimaVez(
+                    fondo = CronoPalette.carta,
+                    texto = CronoPalette.texto,
+                    acento = CronoPalette.acento,
+                    apagado = CronoPalette.apagado,
+                )
     }
 }
 

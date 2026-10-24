@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,13 +29,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.ui.comun.BarraTitulo
+import app.trombito.souschef.ui.comun.ColoresUltimaVez
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.UltimaVez
 import app.trombito.souschef.ui.crono.portada.AccionesChecklist
 import app.trombito.souschef.ui.crono.portada.ChecklistAntes
 import app.trombito.souschef.ui.crono.portada.EncabezadoChecklist
@@ -104,14 +109,42 @@ fun CronoPortada(
                 PackageManager.PERMISSION_GRANTED
         if (necesita) pedirPermiso.launch(Manifest.permission.POST_NOTIFICATIONS) else viewModel.abrirCocina()
     }
+    val ui by viewModel.ui.collectAsStateWithLifecycle()
+    PortadaCuerpo(
+        receta,
+        recetaUi,
+        estado,
+        ui.notas,
+        AccionesPortada(viewModel::marcar, viewModel::marcarVarias, viewModel::cambiarServir, abrir, onSalir),
+    )
+}
+
+/** Lo que la portada le pide al modelo de vista; agrupado para poder probar el cuerpo sin él. */
+internal class AccionesPortada(
+    val marcar: (String, Boolean) -> Unit,
+    val marcarVarias: (List<String>, Boolean) -> Unit,
+    val servir: (Int) -> Unit,
+    val abrir: () -> Unit,
+    val salir: () -> Unit,
+)
+
+@Composable
+internal fun PortadaCuerpo(
+    receta: Receta,
+    recetaUi: Receta,
+    estado: EstadoCrono,
+    notas: List<NotaCocinada>,
+    acciones: AccionesPortada,
+) {
     val bloques = bloquesPortada(receta, recetaUi, estado.raciones)
     Column(Modifier.fillMaxSize()) {
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            BarraTitulo(receta.titulo, onSalir)
+            BarraTitulo(receta.titulo, acciones.salir)
             AvisoPantallaCompleta()
+            UltimaVez(notas, ColoresUltimaVez.Crono)
             ChecklistAntes(
                 encabezado =
                     EncabezadoChecklist(
@@ -123,10 +156,10 @@ fun CronoPortada(
                 bloques = bloques,
                 marcados = estado.marcados,
                 conDetalle = receta.mep.isNotEmpty(),
-                acciones = AccionesChecklist(viewModel::marcar, viewModel::marcarVarias),
+                acciones = AccionesChecklist(acciones.marcar, acciones.marcarVarias),
             )
         }
-        PieAbrir(estado.servirMs, { viewModel.cambiarServir(it) }, abrir)
+        PieAbrir(estado.servirMs, acciones.servir, acciones.abrir)
     }
 }
 
