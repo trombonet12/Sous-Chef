@@ -1,12 +1,19 @@
 package app.trombito.souschef.ui.ficha
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -17,7 +24,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,11 +59,55 @@ fun PestanaIngredientes(
     } else {
         Escalado.listaGeneral(receta).forEach { FilaIngrediente(it, f) }
     }
+    BotonCompartir(receta, estado.raciones, porZona)
     receta.notaEscala?.takeIf { it.isNotBlank() }?.let { NotaEscala(it) }
     if (estado.fueraDeBase) NotaFicha(stringResource(R.string.ficha_aviso_fuera_de_base, receta.raciones))
     if (estado.ajustadoAlRango && permitidas.isNotEmpty()) {
         NotaFicha(stringResource(R.string.ficha_aviso_rango, permitidas.first(), permitidas.last()))
     }
+}
+
+/** Manda como texto plano la lista que se ve (según «Todo junto» / «Por zona» y las raciones elegidas). */
+@Composable
+private fun BotonCompartir(
+    receta: Receta,
+    raciones: Int,
+    porZona: Boolean,
+) {
+    val contexto = LocalContext.current
+    val descripcion = stringResource(R.string.ficha_compartir_ingredientes_descripcion)
+    OutlinedButton(
+        onClick = { compartirIngredientes(contexto, receta, raciones, porZona) },
+        modifier =
+            Modifier
+                .padding(top = 8.dp)
+                .heightIn(min = 48.dp)
+                .testTag("compartir-ingredientes")
+                .semantics { contentDescription = descripcion },
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = FichaPalette.tinta),
+        border = BorderStroke(1.dp, FichaPalette.tinta3),
+    ) { Text(stringResource(R.string.ficha_compartir_ingredientes)) }
+}
+
+private fun compartirIngredientes(
+    contexto: Context,
+    receta: Receta,
+    raciones: Int,
+    porZona: Boolean,
+) {
+    val r = contexto.resources
+    val texto =
+        textoIngredientes(receta, raciones, porZona) { n ->
+            "$n " + r.getQuantityString(R.plurals.ficha_unidad_racion, n)
+        }
+    val envio =
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, texto)
+        }
+    val selector = Intent.createChooser(envio, r.getString(R.string.ficha_compartir_titulo))
+    if (contexto !is Activity) selector.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    contexto.startActivity(selector)
 }
 
 @Composable

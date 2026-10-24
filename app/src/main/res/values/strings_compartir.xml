@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ficha_compartir_ingredientes">Compartir</string>
+    <string name="ficha_compartir_ingredientes_descripcion">Compartir la lista de ingredientes</string>
+    <string name="ficha_compartir_titulo">Compartir ingredientes</string>
+</resources>
