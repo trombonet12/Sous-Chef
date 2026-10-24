@@ -262,6 +262,20 @@ class NotificadorAndroidTest {
         }
 
     @Test
+    fun sinPermisoDePantallaCompletaLaAlarmaSaleIgualSinPantallaCompleta() =
+        runTest {
+            // ShadowNotificationManager (4.17) no simula canUseFullScreenIntent: se niega por el punto de extensión.
+            shadowOf(contexto.getSystemService(KeyguardManager::class.java)).setKeyguardLocked(true)
+            notificador.puedePantallaCompleta = { false }
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            val n = alarmaActiva()
+            assertNull(n.fullScreenIntent)
+            assertEquals("crono_alarma_v3", n.channelId)
+            assertTrue(n.flags and Notification.FLAG_INSISTENT != 0)
+            assertEquals(listOf("Parar"), n.actions.map { it.title.toString() })
+        }
+
+    @Test
     fun quitarAlarmaDejaLaCocinaYLimpiarQuitaLasDos() =
         runTest {
             notificador.cocina(resumen())

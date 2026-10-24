@@ -39,7 +39,8 @@ import javax.inject.Inject
  * ongoing) con una línea por carril, cuenta atrás nativa y, en Android 16, chip de Live Update con la hora de fin.
  * [alarma]: una sola en el canal `crono_alarma_v3` (HIGH, tono de alarma del sistema), que suena solo si `sonar`
  * (insistente hasta Parar, Hecho o 60 s) y agrupa en líneas lo que coincide. El sonido lo pone solo el canal: no hay
- * reproductor propio ni servicio (ADR-0005). La pantalla completa solo se pide con el móvil bloqueado.
+ * reproductor propio ni servicio (ADR-0005). La pantalla completa solo se pide con el móvil bloqueado y si el sistema
+ * la concede.
  */
 @Suppress("TooManyFunctions")
 class NotificadorAndroid
@@ -101,7 +102,7 @@ class NotificadorAndroid
                     .setContentIntent(abrirCrono(slug))
                     .addAction(accion(R.string.crono_notif_parar, parar(slug)))
             if (urgente != null) builder.addAction(accion(R.string.crono_notif_hecho_siguiente, siguiente(slug)))
-            if (sonar && bloqueado()) {
+            if (sonar && bloqueado() && puedePantallaCompleta()) {
                 builder.setFullScreenIntent(pantallaCompleta(slug, titulo, textos, alarma.inicioMs, urgente), true)
             }
             val notificacion = builder.build()
@@ -128,6 +129,15 @@ class NotificadorAndroid
             gestor.cancel(IdsNotificacion.tagEnMarcha(slug), IdsNotificacion.ID_EN_MARCHA)
             val tag = IdsNotificacion.tagCarrilAntiguo(slug)
             gestor.activeNotifications.filter { it.tag == tag }.forEach { gestor.cancel(tag, it.id) }
+        }
+
+        /**
+         * Desde Android 14 Play ya no concede USE_FULL_SCREEN_INTENT de oficio a un temporizador y el usuario puede
+         * retirarlo. Sin él la alarma sale igual (HIGH, con el sonido del canal), solo que sin pantalla completa.
+         * Es una propiedad para poder simular la denegación en tests: Robolectric no la expone.
+         */
+        internal var puedePantallaCompleta: () -> Boolean = {
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE || gestor.canUseFullScreenIntent()
         }
 
         /** Bloqueado o con la pantalla apagada: la pantalla completa la enciende y deja la alarma a la vista. */

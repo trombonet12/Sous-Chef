@@ -118,6 +118,16 @@ a mano, en Play Console.
 - `The caller does not have permission`: la cuenta de servicio no está invitada en Play Console o le falta el
   permiso.
 
+## Declaración de USE_FULL_SCREEN_INTENT
+- El manifest declara el permiso. Desde Android 14 Play solo lo concede de oficio a apps de alarma o de llamadas, así
+  que puede pedir una declaración en Play Console (Contenido de la app → Permisos de intent de pantalla completa).
+- Texto de la declaración: Sous Chef es un temporizador de cocina con varios recipientes a la vez. Cuando vence un
+  paso, la alarma se muestra sobre la pantalla de bloqueo para que se vea y se pare con las manos ocupadas.
+  Solo se pide con el móvil bloqueado o con la pantalla apagada, y nunca para avisos que no son una alarma.
+- Si se deniega o el usuario lo retira: la app comprueba `NotificationManager.canUseFullScreenIntent()` y la alarma
+  sale igual, como notificación de importancia alta con el sonido del canal, el insistente y las acciones Parar y
+  Hecho, pero sin abrir la pantalla de alarma. Nada falla.
+
 ## Avisos conocidos
 
 ### «Este App Bundle contiene código nativo, pero no has subido símbolos de depuración»

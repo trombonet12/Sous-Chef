@@ -4,16 +4,25 @@ Las recetas vienen incluidas en la app: eliges una, la miras en la ficha y la co
 
 RECETAS
 • Cada receta indica a qué hora empezar según la hora a la que quieres servir («empieza a las 14:05»).
-• Ingredientes en gramos y con su medida casera, que se recalculan al cambiar las raciones.
+• «¿Qué me da tiempo?»: dices a qué hora quieres servir y la lista te marca qué recetas llegas a hacer.
+• Ingredientes en gramos y con su medida casera, que se recalculan al cambiar las raciones. Puedes compartir la lista de ingredientes.
 • Cortes, mise en place y un diagrama de tiempos para ver qué corre a la vez.
 • La ficha se imprime o se guarda en PDF.
-• Categorías por base: pasta, arroz, patata, pescado, verdura, masas y salteado.
+• Las recetas nuevas llevan la marca «Nueva» hasta que las cocinas por primera vez, y puedes filtrarlas.
+• Categorías por base: pasta, pasta rápida, arroz, patata, pescado, verdura, masas, salteado, asado, hamburguesa, postre y crema.
 • Tres diseños de lista y tema claro u oscuro.
+
+TU COCINA
+• Elige si cocinas con vitrocerámica, inducción o gas, y la app te dice la potencia en tu mando: un número del 1 al 9, un fuego bajo o medio, lo que corresponda.
+• Una intro guiada te lo pregunta la primera vez, y lo cambias cuando quieras en Ajustes.
 
 CRONÓMETRO DE COCINA
 • Varios recipientes a la vez: sartén, olla, horno… cada uno con sus propios pasos.
 • Cada aviso suena a su hora, con alarma también con el móvil bloqueado.
 • Deshacer el último paso y prorrogar un tiempo cuando el plato lo pide.
+• Al terminar, el informe de la cocinada te resume lo que ha tardado cada paso y lo puedes compartir.
+• «Tu ritmo»: la ficha te dice cuánto sueles tardar tú de más o de menos y ajusta la hora de empezar.
+• «La última vez»: en la ficha y al abrir el cronómetro ves las notas que dejaste al cocinar esa receta.
 
 CONTROL POR VOZ (OPCIONAL)
 • Con las manos ocupadas, di «siguiente», «¿qué tengo que hacer?» o pide una prórroga.
@@ -28,6 +37,13 @@ TÉCNICAS
 HISTORIAL
 • Lo que has cocinado queda guardado en el móvil.
 • Puedes hacer una copia de seguridad en un archivo que eliges tú y cargarla cuando quieras.
+
+NOVEDADES
+• Al actualizar, un aviso te cuenta lo que ha cambiado, y puedes releerlo en Acerca de.
+
+ACCESIBILIDAD
+• Funciona con TalkBack: botones y avisos con su etiqueta.
+• Respeta la opción del sistema de reducir animaciones.
 
 PRIVACIDAD
 • Sin cuentas, sin anuncios y sin analítica.
