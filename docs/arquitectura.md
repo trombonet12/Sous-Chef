@@ -56,7 +56,7 @@ sequenceDiagram
 
 ### Historial y preferencias
 1. La UI escribe directamente en Room. No hay red, cola ni sincronización.
-2. Si se pierde el móvil sin copia de seguridad, se pierde el historial. Las copias salen por el backup de Android ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
+2. Si se pierde el móvil sin copia de seguridad, se pierde el historial. El historial solo se conserva con la copia manual de Ajustes → Historial ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
 
 ### Cocinar con alarmas
 1. "Abrir la cocina" pide `POST_NOTIFICATIONS` y crea el estado del crono en Room (`finAt` en reloj de pared).
@@ -76,7 +76,7 @@ La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las
 | Módulo | Paquete | Responsabilidad | No puede |
 |---|---|---|---|
 | `:app` | `domain/` | Casos de uso, interfaces de repositorio | Depender de `data/` ni `ui/` ni Android (`DomainDependencyRuleTest`) |
-| `:app` | `data/` | Room (entidades, DAOs, siembra de recetas desde el APK), sesión cifrada | Contener lógica de UI |
+| `:app` | `data/` | Room (entidades, DAOs, siembra de recetas desde el APK) | Contener lógica de UI |
 | `:app` | `ui/` | Pantallas Compose, navegación, tema | Acceder a Room o red directamente |
 | `:app` | alarmas y notificaciones | `AlarmManager`, receivers, canales | Mantener estado fuera de Room |
 | `:receta` | modelos | Receta, técnica, despensa (kotlinx-serialization, campos opcionales tolerantes) | Acceder a disco o entorno |
@@ -117,5 +117,5 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente
-- Spike de alarmas en emulador (F1) y repetición en el móvil real en la sesión final.
+- Spike de alarmas (F1) retirado: las alarmas ya están probadas en el móvil; el código de debug se ha borrado.
 - VERIFICAR (ADR-0013): que el manifest fusionado del release no contiene `INTERNET`, y que la pantalla de Play sale al publicar una versión nueva en la pista interna.

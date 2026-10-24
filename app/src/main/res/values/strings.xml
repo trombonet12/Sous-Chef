@@ -50,8 +50,6 @@
     <!-- Comunes -->
     <string name="atras">Volver</string>
     <string name="limpiar_busqueda">Borrar la búsqueda</string>
-    <string name="cargando">Cargando…</string>
-    <string name="filtro_todas">Todas</string>
     <string name="filtro_n">%1$s (%2$d)</string>
 
     <!-- Lista de recetas -->
@@ -93,7 +91,6 @@
         <item quantity="one">hace %d año</item>
         <item quantity="other">hace %d años</item>
     </plurals>
-    <string name="hace_ultima">últ. %1$s</string>
 
     <!-- Ficha -->
     <string name="ficha_no_encontrada">No encuentro esta receta</string>
@@ -115,7 +112,6 @@
     <string name="ficha_raciones_etiqueta">Raciones</string>
     <string name="ficha_raciones_mas">Una ración más</string>
     <string name="ficha_raciones_menos">Una ración menos</string>
-    <string name="ficha_raciones_valor">%1$d raciones</string>
     <plurals name="ficha_unidad_racion">
         <item quantity="one">ración</item>
         <item quantity="other">raciones</item>
@@ -133,7 +129,6 @@
     <string name="ficha_sin_fuego">SIN FUEGO</string>
     <string name="ficha_sin_fuego_bajo">sin fuego</string>
     <string name="ficha_fuego_bajo">fuego %1$s</string>
-    <string name="ficha_cantidad_nombre">%1$s %2$s</string>
     <string name="ficha_imprimir">Imprimir o guardar como PDF</string>
     <string name="ficha_pdf_nombre">Sous Chef – %1$s</string>
     <string name="ficha_meto">Meto</string>
@@ -264,7 +259,6 @@
     <string name="crono_guardado">Cocinada guardada en el historial</string>
     <string name="crono_deshacer">Deshacer</string>
     <string name="crono_tecnica_enlace">Técnica: %1$s →</string>
-    <string name="crono_porque_cerrar">Cerrar</string>
     <string name="crono_porque_hitos">Hitos</string>
     <string name="crono_canal_alarma">Alarma del cronómetro</string>
     <string name="crono_canal_cocina">Cocina en marcha</string>
