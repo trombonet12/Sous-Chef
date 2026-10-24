@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.ficha
 
+import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.SERVIR_DEFECTO_MIN
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Escalado
@@ -48,6 +49,8 @@ data class FichaUiState(
     val tecnicas: List<TecnicaEnlace> = emptyList(),
     /** Carriles aún en marcha si esta receta tiene una cocinada viva; null si no la tiene. */
     val cocinando: Int? = null,
+    /** Notas «para la próxima vez» de cocinadas anteriores de esta receta, la más reciente primero. */
+    val notas: List<NotaCocinada> = emptyList(),
 ) {
     /** Las raciones no son las de la receta: los gramos de pasos y preparación siguen siendo los de la base. */
     val fueraDeBase: Boolean get() = receta != null && raciones != receta.raciones

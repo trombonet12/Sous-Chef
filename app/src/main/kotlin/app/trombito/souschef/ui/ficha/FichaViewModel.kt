@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.di.ApplicationScope
 import app.trombito.souschef.domain.AjustesRepo
+import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.ui.Rutas
@@ -47,6 +49,7 @@ class FichaViewModel
         private val preferencias: PreferenciasRepo,
         private val cadena: CadenaAlarmas,
         ajustes: AjustesRepo,
+        historial: HistorialRepo,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private var pendiente: Int? = null
@@ -60,8 +63,12 @@ class FichaViewModel
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
                 cadena.viva(slug),
-                combine(local, ajustes.observar()) { l, a -> l to a },
-            ) { receta, pref, existentes, viva, (l, a) ->
+                combine(
+                    local,
+                    ajustes.observar(),
+                    historial.observarTodo(),
+                ) { l, a, h -> Triple(l, a, notasDe(h, slug)) },
+            ) { receta, pref, existentes, viva, (l, a, notas) ->
                 val permitidas = receta?.let { Escalado.racionesPermitidas(it) } ?: FichaUiState().racionesPermitidas
                 val guardada = l.raciones ?: pref?.raciones
                 val raciones =
@@ -81,6 +88,7 @@ class FichaViewModel
                     favorita = pref?.favorito == true,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
+                    notas = notas,
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 

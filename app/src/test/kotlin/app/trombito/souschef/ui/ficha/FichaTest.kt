@@ -1,6 +1,8 @@
 package app.trombito.souschef.ui.ficha
 
 import androidx.lifecycle.SavedStateHandle
+import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.CadenaAlarmas
@@ -13,6 +15,7 @@ import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.receta.crono.SesionCrono
+import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.FakeTecnicasRepo
@@ -94,6 +97,7 @@ class FichaViewModelTest {
     private val almacen = AlmacenCrono(repoCrono)
     private val cadena = CadenaAlarmas(almacen, recetas, reloj, FakeAlarmaSistema(), FakeNotificador())
     private val ajustes = FakeAjustesRepo()
+    private val historial = FakeHistorialRepo()
 
     private fun TestScope.crear(): FichaViewModel {
         val vm =
@@ -104,6 +108,7 @@ class FichaViewModelTest {
                 prefs,
                 cadena,
                 ajustes,
+                historial,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -277,6 +282,23 @@ class FichaViewModelTest {
             val estado = crear().estado.value
             val paso = estado.receta?.pasos?.firstOrNull()
             assertEquals("Baja al 3", paso?.t)
+        }
+
+    @Test
+    fun laFichaTraeLasNotasDeEsaRecetaYNoLasDeOtra() =
+        runTest(UnconfinedTestDispatcher()) {
+            historial.datos.value =
+                listOf(
+                    EntradaHistorial("1", "sopa", "Sopa", "2026-01-01", nota = "menos sal"),
+                    EntradaHistorial("2", "arroz", "Arroz", "2026-02-01", nota = "de otra"),
+                    EntradaHistorial("3", "sopa", "Sopa", "2026-03-01", nota = "más tiempo"),
+                    EntradaHistorial("4", "sopa", "Sopa", "2026-04-01", nota = null),
+                )
+            val vm = crear()
+            assertEquals(
+                listOf(NotaCocinada("2026-03-01", "más tiempo"), NotaCocinada("2026-01-01", "menos sal")),
+                vm.estado.value.notas,
+            )
         }
 
     @Test
