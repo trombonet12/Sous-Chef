@@ -14,7 +14,7 @@
     <string name="intro_ver_resumen">Repasa las funciones y vuelve a elegir tus opciones</string>
 
     <!-- 1. Bienvenida -->
-    <string name="intro_p1_titulo">Bienvenido a Sous Chef</string>
+    <string name="intro_p1_titulo">Te damos la bienvenida a Sous Chef</string>
     <string name="intro_p1_texto">Tu cocina, paso a paso: recetas cronometradas con todos los fuegos a la vez, para que todo llegue caliente a la mesa a la hora que quieras.</string>
 
     <!-- 2. Recetas -->

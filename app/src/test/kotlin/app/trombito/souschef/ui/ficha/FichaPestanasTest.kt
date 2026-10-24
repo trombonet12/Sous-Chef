@@ -167,7 +167,7 @@ class FichaPestanasTest {
         val banco = pintar()
         banco.ir("porque")
         assertTrue(banco.textos().contains("Servir a"))
-        assertTrue(banco.textos().contains("Cronómetro"))
+        assertTrue(banco.textos().contains("Empezar a cocinar"))
     }
 }
 

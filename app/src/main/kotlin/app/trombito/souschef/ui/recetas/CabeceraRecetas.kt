@@ -69,7 +69,7 @@ fun CabeceraRecetas(
                 )
                 TextButton(onClick = onAbrirFiltros) {
                     Text(
-                        stringResource(R.string.filtros_orden_actual, textoOrden(estado.orden)) + " ▾",
+                        stringResource(R.string.filtros_orden_actual, textoOrden(estado.orden)),
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }
