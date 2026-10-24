@@ -28,17 +28,55 @@ val releaseKeyPassword: String? = System.getenv("SOUSCHEF_KEY_PASSWORD")
 val hasReleaseSigning =
     listOf(releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword).all { !it.isNullOrBlank() }
 
-// Versión de la app: version.properties en la raíz (fuente única).
+// Versión de la app: major/minor en version.properties; patch y versionCode salen de git (ver version.properties).
 val versionProps =
     Properties().apply {
         val file = rootProject.file("version.properties")
-        check(file.isFile) { "Falta version.properties en la raíz del repo (versionName, versionCode)" }
-        file.inputStream().use { load(it) }
+        check(file.isFile) { "Falta version.properties en la raíz del repo (versionMajor, versionMinor)" }
+        providers.fileContents(rootProject.layout.projectDirectory.file("version.properties")).asText.get()
+            .reader()
+            .use { load(it) }
     }
 
 fun versionProp(key: String): String =
     versionProps.getProperty(key)?.trim()?.takeIf { it.isNotEmpty() }
         ?: error("version.properties: falta la clave '$key'")
+
+/** Salida de git (compatible con la configuration cache) o null si git no está o el comando falla. */
+fun gitOutput(vararg args: String): String? =
+    try {
+        val result =
+            providers.exec {
+                workingDir = rootProject.projectDir
+                commandLine(listOf("git") + args)
+                isIgnoreExitValue = true
+            }
+        if (result.result.get().exitValue == 0) {
+            result.standardOutput.asText.get().trim().takeIf { it.isNotEmpty() }
+        } else {
+            null
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+val gitPatch: Int? =
+    gitOutput("log", "-1", "--format=%H", "--", "version.properties")
+        ?.let { gitOutput("rev-list", "--count", "$it..HEAD") }
+        ?.toIntOrNull()
+val gitCount: Int? = gitOutput("rev-list", "--count", "HEAD")?.toIntOrNull()
+if (gitPatch == null || gitCount == null) {
+    logger.warn("No se pudo leer git: versión con patch 0 y versionCode 1")
+}
+val appVersionName = "${versionProp("versionMajor")}.${versionProp("versionMinor")}.${gitPatch ?: 0}"
+val appVersionCode = gitCount ?: 1
+
+tasks.register("imprimirVersion") {
+    group = "help"
+    description = "Imprime 'versionName versionCode' en una línea."
+    val linea = "$appVersionName $appVersionCode"
+    doLast { println(linea) }
+}
 
 android {
     namespace = "app.trombito.souschef"
@@ -48,8 +86,8 @@ android {
         applicationId = "app.trombito.souschef"
         minSdk = 26
         targetSdk = 36
-        versionCode = versionProp("versionCode").toInt()
-        versionName = versionProp("versionName")
+        versionCode = appVersionCode
+        versionName = appVersionName
     }
 
     signingConfigs {
