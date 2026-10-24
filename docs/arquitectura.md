@@ -70,6 +70,7 @@ La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las
 1. Al terminar, el motor produce el resumen con `pasosReales`; la persona añade una nota.
 2. Se escribe una fila de `historial` en Room con id `slug-fecha-HHMMSS`.
 3. Se muestra "Deshacer" durante 8 s. El estado del crono se borra (solo local).
+4. La nota vuelve a salir como «La última vez» en la ficha de esa receta y en la portada del cronómetro (`notasDe` en `domain/NotaCocinada.kt`, leída del historial; sin tabla nueva). Los títulos de `pasosReales` se guardan canónicos, con `{N}`.
 
 ## Límites de componentes
 | Módulo | Paquete | Responsabilidad | No puede |
