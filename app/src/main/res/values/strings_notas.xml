@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ultima_vez_titulo">La última vez</string>
+    <plurals name="ultima_vez_ver_mas">
+        <item quantity="one">Ver %d más</item>
+        <item quantity="other">Ver %d más</item>
+    </plurals>
+    <string name="ultima_vez_ver_menos">Ver menos</string>
+    <!-- Fecha corta: día y mes abreviado, sin depender del idioma del sistema. -->
+    <string name="ultima_vez_fecha">%1$d %2$s</string>
+    <string-array name="ultima_vez_meses">
+        <item>ene</item>
+        <item>feb</item>
+        <item>mar</item>
+        <item>abr</item>
+        <item>may</item>
+        <item>jun</item>
+        <item>jul</item>
+        <item>ago</item>
+        <item>sep</item>
+        <item>oct</item>
+        <item>nov</item>
+        <item>dic</item>
+    </string-array>
+</resources>

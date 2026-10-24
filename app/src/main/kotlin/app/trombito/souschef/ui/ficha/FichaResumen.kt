@@ -24,7 +24,9 @@ import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.CeldaDato
+import app.trombito.souschef.ui.comun.ColoresUltimaVez
 import app.trombito.souschef.ui.comun.SeccionPapel
+import app.trombito.souschef.ui.comun.UltimaVez
 import app.trombito.souschef.ui.theme.FichaPalette
 
 /** Resumen: lo que se lee de un vistazo. Lo largo queda en las demás pestañas o plegado. */
@@ -35,6 +37,7 @@ fun PestanaResumen(
     estado: FichaUiState,
     onTecnica: (String) -> Unit,
 ) {
+    UltimaVez(estado.notas, ColoresUltimaVez.Papel)
     if (receta.descripcion.isNotBlank()) {
         Text(
             receta.descripcion,
