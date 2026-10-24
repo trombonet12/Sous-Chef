@@ -1,30 +1,39 @@
 {
-  "actualizada": "2026-09-16T11:12:00Z",
+  "actualizada": "2026-10-24T00:00:00Z",
   "categoria": "salsa",
   "consejos": [
     "Si se corta, un huevo nuevo en un vaso limpio y volcar encima la mezcla cortada, en hilo fino, casi siempre la recupera.",
-    "Con ajo majado se convierte en alioli: el ajo entra al principio, junto con el huevo, no al final."
+    "Con ajo se convierte en mayonesa de ajo: el ajo entra al principio, junto con el huevo, para que la cuchilla lo deshaga; echado al final queda en trozos que pican.",
+    "Lleva huevo crudo: a la nevera tapada en cuanto está hecha y, lo que sobre, a comer en 24 horas."
   ],
   "creada": "2026-09-16T11:12:00Z",
   "pasos": [
     {
-      "p": "Huevo y aceite recién sacados de la nevera cortan la emulsión con más facilidad que a temperatura ambiente.",
-      "t": "Todo a temperatura ambiente"
+      "p": "A mano, el huevo recién sacado de la nevera corta la emulsión con más facilidad: sácalo media hora antes. Con batidora de mano basta con sacarlo al empezar, porque la emulsión se forma en segundos en el fondo del vaso.",
+      "t": "El huevo, mejor a temperatura ambiente"
     },
     {
-      "p": "Es la proporción que más margen de error da. Con solo la yema, la emulsión se corta más fácil.",
-      "t": "Un huevo entero por 200 ml de aceite de girasol"
+      "p": "Es la proporción que más margen de error da: con 150 ml sale más suave y con 200 ml más firme. Con solo la yema, la emulsión se corta más fácil.",
+      "t": "Un huevo entero por 150-200 ml de aceite de girasol"
     },
     {
-      "p": "Echado de golpe, el aceite no se integra y queda separado en vez de ligado con el huevo.",
-      "t": "Aceite en un hilo fino y constante, batiendo sin parar"
+      "p": "15 ml de zumo de limón o de vinagre por huevo, en el vaso desde el principio. El agua del ácido es parte de la fase en la que se reparten las gotas de aceite, y el ácido ayuda a la lecitina de la yema a envolverlas.",
+      "t": "El ácido, con el huevo"
+    },
+    {
+      "p": "Huevo, ácido y ajo al fondo de un vaso alto y estrecho, y el aceite encima, que flota. Con la batidora apoyada en el fondo y quieta, la cuchilla solo alcanza al huevo y va tirando del aceite poco a poco; cuando el fondo blanquea, en 10-15 segundos, se sube despacio. Si la levantas antes, entra el aceite de golpe y se corta.",
+      "t": "Con batidora de mano: todo en el vaso y la cuchilla quieta en el fondo"
+    },
+    {
+      "p": "A mano o con varillas, echado de golpe el aceite no se integra y queda separado en vez de ligado con el huevo.",
+      "t": "A mano, aceite en un hilo fino y constante, batiendo sin parar"
     },
     {
       "p": "Salar desde el principio no ayuda a ligar y puede quedar repartida de forma desigual en la mezcla.",
       "t": "Sal al final, 2-3 g, cuando ya ha espesado"
     }
   ],
-  "resumen": "La base de una mayonesa o un alioli casero: por qué se corta la emulsión y cómo se arregla si pasa.",
+  "resumen": "La base de una mayonesa o un alioli casero, a mano o con batidora: por qué se corta la emulsión y cómo se arregla si pasa.",
   "slug": "emulsion-con-huevo",
   "titulo": "Emulsión rápida con huevo"
 }

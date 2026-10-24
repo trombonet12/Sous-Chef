@@ -1,0 +1,40 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "La pieza está cuando se deshace al apretarla con la espátula, sin resistencia, y sigue pálida. Si ya se dora, el aceite estaba caliente de más.",
+    "El aceite recuperado, colado y en un tarro cerrado lejos de la luz, aguanta dos o tres usos. Tíralo si huele a rancio, hace espuma o se oscurece.",
+    "Aceite de oliva para lo que se come con su sabor (patata, ajo, cebolla); el de girasol si se quiere neutro.",
+    "Sin tapa: el vapor que se condensa en ella gotea al aceite y salpica."
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "pasos": [
+    {
+      "p": "La pieza tiene que estar casi sumergida para que el calor le llegue igual por todas las caras. Con poco aceite, la parte de arriba se cuece en vapor y la de abajo se fríe contra el fondo, y sale a dos texturas.",
+      "t": "Grasa abundante, que casi cubra"
+    },
+    {
+      "p": "A esa temperatura el agua de dentro hierve despacio, el almidón se hincha y la pectina de las paredes se ablanda, pero la superficie no llega a los 140 °C de la reacción de Maillard: no hay costra. Por encima de 150 °C ya es freír; por debajo de 90 °C la pieza solo chupa aceite.",
+      "t": "Templada, no caliente: de 110 a 130 °C"
+    },
+    {
+      "p": "Sin termómetro, el aceite habla: burbujas finas y continuas alrededor de la pieza son el agua que sale despacio. Si chisporrotea fuerte o los bordes se doran, está demasiado caliente; si no burbujea, se ha quedado frío. En vitro, arranca al {5} y mantén al {4}.",
+      "t": "La señal es la burbuja: pequeña y constante"
+    },
+    {
+      "p": "La carga fría baja el aceite de golpe, de unos 130 a unos 90 °C. Unos minutos al {5} lo devuelven a la franja, y entonces se baja al {4}, contando con que la vitro tarda un par de minutos en notar el cambio.",
+      "t": "Arrancar más alto y bajar cuando se recupera"
+    },
+    {
+      "p": "Cada pocos minutos, la espátula por debajo y dando la vuelta a la masa, para que lo de arriba pase por el aceite. Sin aplastar: la pieza confitada se vuelve frágil y se rompe en migas.",
+      "t": "Remover poco y desde el fondo"
+    },
+    {
+      "p": "Todo al colador sobre un bol de metal o cristal, nunca de plástico: el aceite sale a más de 100 °C. Ya frío, se cuela al tarro y sirve para otro confitado, un sofrito o una fritura suave, porque a esa temperatura no se ha degradado.",
+      "t": "Escurrir y recuperar el aceite"
+    }
+  ],
+  "resumen": "Cocer despacio dentro de mucha grasa templada, de 110 a 130 °C: la pieza se hace tierna por dentro sin formar costra, y el aceite se cuela y se vuelve a usar.",
+  "slug": "confitado",
+  "titulo": "Confitado"
+}

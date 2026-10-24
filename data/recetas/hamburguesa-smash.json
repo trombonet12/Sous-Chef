@@ -1,0 +1,514 @@
+{
+  "actualizada": "2026-10-24T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN · FUEGO MEDIANO",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#E8836B",
+      "id": "plancha",
+      "nombre": "PLANCHA · FUEGO GRANDE",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Del lado ancho de la cuña, en lonchas de 2 mm paralelas a la corteza, de unos 7 × 7 cm: cubren casi entera una hamburguesa aplastada de 10-11 cm. Así de finas funden en el minuto bajo la tapa; un semicurado más grueso, que funde peor que un queso de hamburguesa, se quedaría blando por fuera y entero por dentro.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cuña de queso semicurado vista de lado, con la corteza abajo y cortes paralelos a ella cada 2 mm\"><path d=\"M10 66 L110 66 L110 20 Z\" fill=\"#E9C46A\" fill-opacity=\".22\" stroke=\"#C9A13E\"/><line x1=\"10\" y1=\"66\" x2=\"110\" y2=\"66\" stroke=\"#8A6A2A\" stroke-width=\"3\"/><g stroke=\"#C9A13E\" stroke-width=\".8\" opacity=\".6\"><circle cx=\"88\" cy=\"52\" r=\"1.5\" fill=\"none\"/><circle cx=\"98\" cy=\"40\" r=\"1.2\" fill=\"none\"/><circle cx=\"70\" cy=\"58\" r=\"1.2\" fill=\"none\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"22\" y1=\"60\" x2=\"110\" y2=\"60\"/><line x1=\"35\" y1=\"54\" x2=\"110\" y2=\"54\"/><line x1=\"48\" y1=\"48\" x2=\"110\" y2=\"48\"/><line x1=\"61\" y1=\"42\" x2=\"110\" y2=\"42\"/></g><text x=\"60\" y=\"82\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">lonchas de 2 mm, paralelas a la corteza</text></svg>",
+      "t": "Queso semicurado · lonchas de 2 mm"
+    },
+    {
+      "p": "Partida por la mitad de la raíz a la punta y con la cara plana sobre la tabla, el cuchillo va en la dirección de las vetas, en láminas de 3 mm. Siguiendo la fibra, la cebolla aguanta la media hora de pochado en hebras enteras que se reparten sobre la carne; cruzándola se desharía en papilla y soltaría más agua en el pan.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla vista desde arriba, con las vetas de la raíz a la punta y cortes que las siguen, en pluma de 3 mm\"><ellipse cx=\"60\" cy=\"42\" rx=\"50\" ry=\"28\" fill=\"#E8D9A8\" fill-opacity=\".3\" stroke=\"#B89A5A\"/><g stroke=\"#B89A5A\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><path d=\"M12 42 Q60 22 108 42\"/><path d=\"M12 42 Q60 34 108 42\"/><path d=\"M12 42 Q60 50 108 42\"/><path d=\"M12 42 Q60 62 108 42\"/></g><line x1=\"12\" y1=\"32\" x2=\"12\" y2=\"52\" stroke=\"#8A6A3A\" stroke-width=\"2\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 42 Q60 16 106 42\"/><path d=\"M14 42 Q60 28 106 42\"/><line x1=\"14\" y1=\"42\" x2=\"106\" y2=\"42\"/><path d=\"M14 42 Q60 56 106 42\"/><path d=\"M14 42 Q60 68 106 42\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">pluma de 3 mm, con las vetas</text></svg>",
+      "t": "Cebolla · pluma de 3 mm, siguiendo las vetas"
+    }
+  ],
+  "creada": "2026-10-24T00:00:00Z",
+  "datos": [
+    [
+      "35 min",
+      "de principio a fin"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "4 × 62 g",
+      "bolas, en dos tandas"
+    ],
+    [
+      "12",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Dos bolas de carne picada por hamburguesa, aplastadas contra la plancha muy caliente hasta 5 mm, con queso semicurado fundido, cebolla pochada y mayonesa de ajo hecha con la batidora de mano, en pan tostado. La dificultad está en la plancha: tiene que estar a tope cuando cae la bola, y aplastarla en los primeros 10 segundos, ni antes ni después. Se apoya en la carne picada y el pan de hamburguesa: confírmalos antes de empezar.",
+  "escala": {
+    "max": 2,
+    "min": 2,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 250,
+          "n": "carne picada mixta (1 de las 2 palanganas de 250 g), en 4 bolas de 62 g",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (4 pellizcos pequeños, uno por bola)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimienta negra (⅓ de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 60,
+          "n": "queso semicurado (4 lonchas de 2 mm)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "n": "pan de hamburguesa",
+          "u": "uds"
+        }
+      ],
+      "n": "PLANCHA · LA CARNE"
+    },
+    {
+      "items": [
+        {
+          "a": 150,
+          "n": "cebolla (1 cebolla mediana), en pluma de 3 mm",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "aceite de oliva (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal (un pellizco)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · LA CEBOLLA"
+    },
+    {
+      "items": [
+        {
+          "a": 1,
+          "esc": "fijo",
+          "n": "huevo",
+          "u": "uds"
+        },
+        {
+          "a": 150,
+          "esc": "fijo",
+          "n": "aceite de girasol (10 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "esc": "fijo",
+          "n": "limón, en zumo (½ limón: 1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "esc": "fijo",
+          "n": "ajo (1 diente pequeño, sin el germen)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "fijo",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "VASO DE LA BATIDORA · MAYONESA DE AJO"
+    }
+  ],
+  "lectura": "Dos fuegos, nunca tres: la sartén del minuto 5 al 30 y la plancha del 20 al 33, solapadas del 20 al 30. El camino crítico es la cebolla: 5 de cortar + 12 tapada + 13 destapada = 30 minutos. La plancha arranca en el 20: 6 de calentar + 1 de pan + 2 tandas de 2 + 1 = 13, hasta el 33, y 2 de montar: 35 minutos. La mayonesa (del 10 al 16) y las bolas (del 20 al 24) caben en los huecos de la cebolla. Del minuto 26 al 35 no hay pausa.",
+  "mep": [
+    {
+      "l": [
+        "<b>Queso semicurado · 60 g (4 lonchas de 2 mm)</b> · en el minuto 0, al plato pequeño.",
+        "<b>Cebolla · 150 g (1 cebolla mediana)</b> · en pluma de 3 mm siguiendo las vetas, en el minuto 2, a la sartén en frío.",
+        "<b>Limón · ½ limón (15 ml de zumo)</b> · partido en el minuto 10 y exprimido en el vaso medidor; el otro medio, a un táper.",
+        "<b>Ajo · 4 g (1 diente pequeño)</b> · pelado, partido a lo largo y sin el germen, en el minuto 10, al vaso de la batidora."
+      ],
+      "orden": true,
+      "porq": "La carne no toca la tabla: se bolea en su palangana, y así la tabla no se lava. Lo seco primero, el queso; luego la cebolla, que moja; el limón, y el ajo al final, que deja olor.",
+      "t": "UNA TABLA"
+    },
+    {
+      "l": [
+        "<b>Zumo de limón · 15 ml (1 cucharada sopera)</b> · en el minuto 10, al vaso de la batidora, sobre el huevo.",
+        "<b>Aceite de girasol · 150 ml (10 cucharadas soperas)</b> · en el minuto 11, al vaso de la batidora, encima de todo."
+      ],
+      "orden": true,
+      "porq": "El zumo primero y el girasol detrás, en el mismo vaso, porque los dos acaban en el vaso de la batidora. El aceite de oliva de la cebolla va con la cuchara, directo a la sartén.",
+      "t": "UN VASO MEDIDOR"
+    },
+    {
+      "l": [
+        "<b>Sartén, en frío</b> · 150 g de cebolla + 15 ml de aceite de oliva (1 cucharada sopera) + 1 g de sal (un pellizco), en el minuto 2. Al fuego mediano en el 5.",
+        "<b>Plato pequeño</b> · las 4 lonchas de queso semicurado (60 g), desde el minuto 0. A la plancha en los minutos 29 y 32.",
+        "<b>Huevo · 1</b> · de la nevera a la encimera en el minuto 0; al vaso de la batidora en el 10.",
+        "<b>Vaso alto de la batidora</b> · 1 huevo + 15 ml de zumo de limón + 4 g de ajo + 150 ml de aceite de girasol en el minuto 10, y 2 g de sal (⅓ de cucharadita) al final. Tapado a la nevera hasta el minuto 27.",
+        "<b>Palangana de carne picada mixta · 250 g</b> · en 4 bolas de 62 g en el minuto 20; a la plancha 2 bolas en el 27 y 2 en el 30. La otra palangana, cerrada, a la nevera o al congelador.",
+        "<b>Platito</b> · 2 g de sal (4 pellizcos pequeños) + 1 g de pimienta negra (⅓ de cucharadita), mezclados en el minuto 20, junto a la plancha.",
+        "<b>Pan de hamburguesa · 2</b> · abiertos en el minuto 20; a la plancha en el 26 y a los 2 platos llanos en el 27.",
+        "<b>Papel de horno</b> · 2 cuadrados de 15 cm, cortados en el minuto 20, junto a la plancha con la espátula ancha."
+      ],
+      "orden": false,
+      "porq": "La sartén en frío es el recipiente de la cebolla, la palangana el de las bolas y el vaso de la batidora el de la mayonesa: solo hacen falta un plato pequeño y un platito. Los dos platos llanos reciben el pan tostado y en ellos se monta.",
+      "t": "LOS RECIPIENTES"
+    }
+  ],
+  "notaEscala": "Va solo a 2 raciones: una palangana de 250 g da 4 bolas de 62 g, que son dos tandas de dos en la zona caliente de la plancha. Con 1 ración sería una sola tanda y con 4 serían cuatro, con el pan y la primera carne esperando de más. La mayonesa no escala: un huevo es lo mínimo para que la batidora de mano trabaje en el vaso, y ya sobra para dos.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "plato pequeño: 4 lonchas de queso semicurado (60 g) · sartén en frío: 150 g de cebolla en pluma + 15 ml de aceite de oliva + 1 g de sal",
+      "min": 5,
+      "nota": "Saca el huevo de la nevera a la encimera. Corta el queso en 4 lonchas de 2 mm al plato pequeño; luego la cebolla, en pluma de 3 mm siguiendo las vetas, a la sartén fría con el aceite de oliva y la sal.",
+      "off": 0,
+      "p": "El queso va primero porque es lo único seco que pasa por la tabla; en lonchas de 2 mm funde en el minuto que pasa bajo la tapa, y esperando media hora en la encimera llega templado, lo que le ayuda. La cebolla en pluma, a lo largo de las vetas, aguanta la media hora de pochado sin deshacerse en papilla y queda en hebras que se reparten bien sobre la carne. La sal entra ya con la cebolla: le saca agua y la ayuda a ablandarse sin dorar.",
+      "s": 300,
+      "saco": "",
+      "t": "Cortar el queso en lonchas de 2 mm y la cebolla en pluma de 3 mm",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 480,
+          "t": "Destapa, remueve y vuelve a tapar"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "pochar-tapada",
+      "meto": "la cebolla con el aceite y la sal, que ya están en la sartén en frío",
+      "min": 12,
+      "nota": "Pon la sartén en el fuego mediano, enciéndelo al {4} y tapa. Tiene que sudar sin chisporrotear: si suena a fritura, baja al {3}.",
+      "off": 5,
+      "p": "Tapada y al {4}, la cebolla se cuece en el vapor de su propia agua, que la tapa devuelve a la sartén: se vuelve blanda y translúcida sin que el fondo se tueste. Es la fase en la que el calor rompe las paredes de las células y suelta los azúcares. Si se dorase ahora, por fuera estaría tostada y por dentro todavía cruda y picante.",
+      "s": 720,
+      "saco": "",
+      "t": "Pochar la cebolla tapada al {4}",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "mayonesa",
+      "meto": "vaso de la batidora: 1 huevo + 15 ml de zumo de limón + 4 g de ajo + 150 ml de aceite de girasol; al final, 2 g de sal",
+      "min": 6,
+      "nota": "Parte el limón, exprime medio en el vaso medidor y pela el ajo, partido a lo largo y sin el germen. Al vaso de la batidora, en este orden: huevo, zumo, ajo y el girasol encima; batidora al fondo, quieta hasta que blanquee, y súbela despacio; la sal al final, 2 segundos más, y a la nevera tapada.",
+      "off": 10,
+      "p": "Con la cuchilla quieta en el fondo, la batidora solo alcanza al huevo y va tirando del aceite que flota encima poco a poco, como si cayera en hilo: las gotas se reparten tan finas que la lecitina de la yema las envuelve y la mezcla espesa en 10-15 segundos. Si la subes antes de que blanquee, entra el aceite de golpe y se corta. El ajo va al principio para que la cuchilla lo deshaga; la sal, al final, como pide la técnica.",
+      "s": 360,
+      "saco": "",
+      "t": "Hacer la mayonesa de ajo con la batidora de mano",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "f": 4,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve y rasca el fondo"
+        },
+        {
+          "en": 360,
+          "t": "Remueve y rasca el fondo. Si se agarra, baja al {3}"
+        },
+        {
+          "en": 540,
+          "t": "Remueve y rasca el fondo"
+        },
+        {
+          "en": 690,
+          "t": "Prueba una hebra: tiene que estar dulce y sin nada de pique"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "pochar-destapada",
+      "meto": "",
+      "min": 13,
+      "nota": "Quita la tapa y déjala a mano: hace falta en la plancha. Sigue al {4}, removiendo, hasta que la cebolla esté blanda y de color miel.",
+      "off": 17,
+      "p": "Sin tapa, el agua que queda se evapora y, cuando el fondo se seca, los azúcares que soltó la cebolla empiezan a tostarse: pasa de translúcida a color miel y gana el punto dulce que equilibra la sal de la carne y el ajo crudo de la mayonesa. Al {4} y removiendo cada tres minutos el dorado es lento y parejo; más fuerte, los bordes se queman antes de que el centro se ablande.",
+      "s": 780,
+      "saco": "apaga el fuego mediano; la cebolla espera en la sartén, sobre la placa apagada, hasta montar",
+      "t": "Destapar y seguir pochando al {4} hasta dorar",
+      "tapa": "tapa fuera"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "bolas",
+      "meto": "palangana: 250 g de carne picada mixta en 4 bolas · platito: 2 g de sal + 1 g de pimienta negra · 2 cuadrados de papel de horno de 15 cm · los 2 panes, abiertos",
+      "min": 4,
+      "nota": "Divide la carne de la palangana en 4 bolas de 62 g, sin apretar, y déjalas en la misma palangana; lávate las manos. Mezcla la sal y la pimienta en un platito, corta dos cuadrados de papel de horno de 15 cm y abre los panes.",
+      "off": 20,
+      "p": "La bola se forma suelta, sin amasar ni salar: apretada o con sal dentro, la proteína se trabaja y la hamburguesa sale compacta como una salchicha. Se hace ahora, mientras la plancha se calienta, para que la carne siga fría al tocarla: la grasa sólida no se unta al aplastar y se funde ya sobre la plancha. El papel de horno va entre la espátula y la carne, para que no se pegue al aplastar.",
+      "s": 240,
+      "saco": "",
+      "t": "Bolear la carne en 4 bolas de 62 g",
+      "tapa": null
+    },
+    {
+      "carril": "plancha",
+      "f": 8,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Echa unas gotas de agua: si bailan y desaparecen, está; si hierven, espera un minuto"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "calentar-plancha",
+      "meto": "la plancha, vacía y seca, en el fuego grande",
+      "min": 6,
+      "nota": "Pon la plancha en el fuego grande y enciéndelo al {8}, sin aceite. Está cuando una gota de agua baila y desaparece en segundos.",
+      "off": 20,
+      "p": "El smash es todo costra, y la costra pide una plancha muy por encima de los 140 °C de la reacción de Maillard en toda la superficie: seis minutos al {8}, vacía, porque una plancha gruesa tarda en acumular calor y la vitro un poco más. Sin aceite: la carne mixta lleva grasa de sobra, que se funde en cuanto la bola toca el metal. La gota que baila es la señal de que la plancha está tan caliente que forma vapor debajo.",
+      "s": 360,
+      "saco": "",
+      "t": "Calentar la plancha vacía al {8}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "f": 8,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Levanta una mitad: si está dorada, sácalas todas a los platos"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "tostar-pan",
+      "meto": "los 2 panes abiertos, por la cara cortada",
+      "min": 1,
+      "nota": "Apoya las cuatro mitades por la cara cortada y apriétalas un segundo con la mano. A los 30 segundos levanta una: si está dorada, sácalas todas.",
+      "off": 26,
+      "p": "Al {8} la miga se tuesta en menos de un minuto: el calor seca la cara cortada y la dora, y esa capa seca es la que luego aguanta el jugo de la carne y la mayonesa sin empaparse. Se tuesta en seco porque la mayonesa ya pone la grasa. Va antes que la carne porque la carne no puede esperar al pan, y el pan tostado sí aguanta unos minutos a la carne.",
+      "s": 60,
+      "saco": "los 4 medios panes, a los 2 platos llanos, con la cara tostada hacia arriba",
+      "t": "Tostar el pan por la cara cortada",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [
+        "bolas"
+      ],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Saca la mayonesa y unta cada base de pan con 1 cucharada"
+        },
+        {
+          "en": 100,
+          "t": "Mira el borde: marrón oscuro y con puntillas, listo para girar"
+        }
+      ],
+      "holgura": "critico",
+      "id": "smash-1",
+      "meto": "2 bolas de la palangana, separadas en el centro de la plancha + el papel de horno encima",
+      "min": 2,
+      "nota": "Pon 2 bolas separadas, el papel encima y aplasta con la espátula ancha, apretándola con la otra mano, hasta 10-11 cm y 5 mm, en los primeros 10 segundos. Quita el papel, echa un pellizco de la sal con pimienta sobre cada una y no las toques.",
+      "off": 27,
+      "p": "Se aplasta nada más tocar la plancha, con la carne aún fría: toda la cara inferior queda pegada al metal y empieza a dorarse a la vez, con bordes finos como puntilla. Pasados unos 10 segundos ya no se toca: aplastar una carne que ha empezado a hacerse solo le saca el jugo. Con 5 mm de grosor, dos minutos por la primera cara forman una costra de Maillard que es casi la mitad del sabor.",
+      "s": 120,
+      "saco": "",
+      "t": "Primera tanda: aplastar dos bolas",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "f": 8,
+      "holgura": "critico",
+      "id": "queso-1",
+      "meto": "1 loncha de queso semicurado del plato pequeño sobre cada hamburguesa + la tapa de la sartén encima",
+      "min": 1,
+      "nota": "Rasca por debajo con el canto de la espátula, levantando la costra entera, y dales la vuelta. Una loncha de queso encima de cada una y la tapa de la sartén encima, 1 minuto.",
+      "off": 29,
+      "p": "La costra se pega a la plancha: rascando con el canto de la espátula se levanta entera, en vez de dejarla en el metal. La segunda cara solo necesita un minuto, porque con 5 mm el calor de la primera ya ha llegado al centro y la carne mixta, que lleva cerdo, queda hecha del todo. La tapa atrapa el calor y el vapor alrededor del queso: el semicurado, que funde peor que un queso de hamburguesa, se derrite en ese minuto.",
+      "s": 60,
+      "saco": "las 2 hamburguesas con su queso, una sobre cada base de pan untada",
+      "t": "Dar la vuelta, queso encima y tapar 1 minuto",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "plancha",
+      "f": 8,
+      "hitos": [
+        {
+          "en": 100,
+          "t": "Mira el borde: marrón oscuro y con puntillas, listo para girar"
+        }
+      ],
+      "holgura": "critico",
+      "id": "smash-2",
+      "meto": "las 2 bolas que quedan en la palangana + el papel de horno encima",
+      "min": 2,
+      "nota": "Rasca con la espátula los restos de la primera tanda hacia un lado. Igual que antes: papel, aplastar en 10 segundos hasta 5 mm, sal con pimienta y no tocar.",
+      "off": 30,
+      "p": "Dos tandas porque la plancha solo cabe en el fuego grande y la zona que de verdad calienta mide unos 20 cm: caben dos bolas aplastadas de 11 cm, no cuatro. Cuatro a la vez saldrían a la parte tibia y bajarían la temperatura del metal, y se cocerían en su jugo en vez de dorarse. Los restos tostados se apartan porque, quemándose, amargan la costra de la segunda tanda.",
+      "s": 120,
+      "saco": "",
+      "t": "Segunda tanda: aplastar las otras dos bolas",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "f": 8,
+      "holgura": "critico",
+      "id": "queso-2",
+      "meto": "1 loncha de queso semicurado sobre cada hamburguesa + la tapa de la sartén encima",
+      "min": 1,
+      "nota": "Rasca, da la vuelta, queso encima y tapa 1 minuto. Apaga el fuego grande y pasa cada una sobre la de la primera tanda.",
+      "off": 32,
+      "p": "Es el mismo minuto que en la primera tanda: la segunda cara se termina de hacer y el queso se funde bajo la tapa. Al apilarla encima, la carne recién hecha y su queso fundido devuelven calor a la de abajo, que ha esperado tres minutos sobre el pan. La plancha se aparta del fuego al acabar porque guarda tanto calor que seguiría quemando la grasa que queda.",
+      "s": 60,
+      "saco": "las 2 hamburguesas con su queso, encima de las de la primera tanda; apaga el fuego grande y aparta la plancha",
+      "t": "Dar la vuelta, queso encima y tapar 1 minuto",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "queso-2",
+        "pochar-destapada"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "montar",
+      "meto": "la cebolla pochada de la sartén, la mitad sobre cada hamburguesa · 1 cucharada de mayonesa en cada tapa de pan",
+      "min": 2,
+      "nota": "Reparte la cebolla sobre las dos hamburguesas, unta cada tapa con 1 cucharada de mayonesa y ciérralas apretando un poco. A la mesa ya; la mayonesa que sobra, tapada a la nevera.",
+      "off": 33,
+      "p": "La cebolla va encima de la carne y no debajo: el queso fundido la sujeta, y el jugo que suelta la cebolla no empapa la base. La mayonesa va en las dos caras del pan, de modo que cada bocado lleva ajo y la grasa fría de la salsa contrasta con la carne caliente. Se sirve al momento: en pocos minutos el vapor de la carne ablanda el pan tostado y la costra deja de crujir.",
+      "s": 120,
+      "saco": "2 platos: una hamburguesa doble con queso, cebolla y mayonesa de ajo; la mayonesa que sobra, tapada a la nevera",
+      "t": "Montar las hamburguesas y a la mesa",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "carne picada mixta",
+    "pan de hamburguesa",
+    "huevos",
+    "limones"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "250 g y no 500",
+      "Una palangana da 125 g por cabeza en dos bolas de 62 g: una hamburguesa doble de verdad, con el pan. Con 500 g serían 250 g de carne por persona y cuatro tandas en la plancha, o bolas de 125 g que no bajan de 1 cm al aplastarlas y dejan de ser smash. La otra palangana sigue cerrada: para otro día o al congelador."
+    ],
+    [
+      "Dos bolas finas y no una gruesa",
+      "Con 5 mm, cada bola es casi todo costra: la reacción de Maillard en las dos caras es el sabor del plato. Y se hace entera en tres minutos, que es lo que pide la carne mixta, que lleva cerdo."
+    ],
+    [
+      "Aplastar al caer, y solo entonces",
+      "Con la carne fría y la plancha a tope, toda la cara se pega al metal y se dora pareja. Pasados unos 10 segundos ya se está haciendo, y aplastarla solo le saca el jugo."
+    ],
+    [
+      "Sal fuera, nunca dentro",
+      "La sal amasada con la carne disuelve parte de sus proteínas y la vuelve compacta, como una salchicha. Encima, después de aplastar, sala la cara que ya no se toca."
+    ],
+    [
+      "Queso semicurado fino y con tapa",
+      "El semicurado funde peor que un queso de hamburguesa: en lonchas de 2 mm y un minuto bajo la tapa, con el calor y el vapor atrapados, se derrite sin pasar la carne."
+    ],
+    [
+      "Mayonesa con batidora de mano y un huevo entero",
+      "La batidora necesita volumen para cubrir la cuchilla: un huevo con 150 ml de girasol es lo mínimo y salen unos 200 g. Las hamburguesas gastan 4 cucharadas (unos 60 g); el resto, tapado a la nevera y a comer en 24 horas, porque lleva huevo crudo."
+    ],
+    [
+      "Girasol y no oliva en la mayonesa",
+      "El de oliva batido a esa velocidad amarga y tapa el ajo. El de girasol es neutro: la mayonesa sabe a ajo y limón."
+    ],
+    [
+      "Ajo crudo y no en polvo",
+      "Batido crudo es el ajo de la mayonesa de ajo: picante y fresco. El ajo en polvo sabe a tostado y no pica igual. Sin el germen, que es lo que amarga."
+    ],
+    [
+      "Cebolla pochada y no a la plancha",
+      "Veinticinco minutos al {4}, primero tapada y luego destapada, la dejan dulce y blanda; en la plancha se quemaría por fuera y quedaría cruda por dentro, y quitaría sitio a la carne."
+    ],
+    [
+      "Sin aceite en la plancha",
+      "La carne mixta lleva grasa de sobra, que se funde en cuanto toca el metal. Aceite en una plancha vacía al {8} humea antes de que llegue la carne."
+    ],
+    [
+      "Sin ketchup ni mostaza",
+      "La mayonesa de ajo es la salsa. El ketchup, con la cebolla dulce y el queso, empalaga; la mostaza se pelea con el ajo."
+    ],
+    [
+      "Sin lechuga ni tomate",
+      "Sueltan agua en el pan tostado y enfrían la carne. El plato es carne, queso, cebolla y salsa, como el smash clásico."
+    ],
+    [
+      "Sin bacon",
+      "Pondría otra grasa y otra sal encima de la costra, que es lo que se quiere probar."
+    ],
+    [
+      "El pan tostado en seco",
+      "La plancha a tope dora la miga en treinta segundos. La grasa ya la ponen la mayonesa y la carne: mantequilla en el pan sería la tercera."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "hamburguesa-smash",
+  "tags": {
+    "base": "hamburguesa",
+    "proteina": "carne picada",
+    "tecnica": [
+      "plancha",
+      "emulsion-con-huevo"
+    ]
+  },
+  "titulo": "Hamburguesa smash con mayonesa de ajo",
+  "totalMin": 35
+}
