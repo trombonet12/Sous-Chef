@@ -14,7 +14,7 @@
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
 | Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
 | Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **en curso**: commits locales, sin push; falta la prueba en el emulador |
-| Ronda 16 · análisis v1.6 (5 agentes) y versión por commit | **análisis hecho**: `docs/analisis/v1.6.md`; falta que Joan elija el alcance |
+| Ronda 16 · v1.6.0 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **implementada y en verde**, sin push: Joan revisa con `docs/revision-v1.6.md` |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -203,13 +203,8 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 16: versión calculada por commit (`./gradlew -q :app:imprimirVersion`), agentes `ux-reviewer`,
-`product-strategist` y `recetario-strategist`, y backlog en `docs/analisis/v1.6.md`. Joan contesta las preguntas de
-ese doc y elige qué entra en la v1.6 (N1 novedades con confeti es obligatoria). Nada de push ni emulador sin su OK.
-Cuando Joan lo pida, prueba en el emulador (skill `android-install-and-logcat`, AVD `trombito-36`, APK de
-`./gradlew assembleDebug`):
-1. ficha de `costillar-bbq-con-boniato`: «Empieza a las 12:38» con servir 15:30 y diagrama de tiempos;
-2. Ajustes → Tu cocina en gas, arrancar el costillar y ver la notificación y la alarma con la potencia traducida;
-3. cerrar una cocinada con nota y ver «La última vez» en la ficha y en la portada del cronómetro; botón Compartir;
-4. capturas `docs/capturas/v1.4-*` / `v1.5-*` en claro y oscuro.
-Después, **solo con el OK de Joan**: `git push origin main` (publica la v1.5.0) y vigilar el workflow de release.
+Joan revisa la v1.6 con `docs/revision-v1.6.md` (emulador `trombito-36` abierto con la 1.6.0 sobre la 1.4 debug, o
+`adb install -r app/build/outputs/apk/debug/app-debug.apk` en el móvil). Decide O1-O3 y contesta las dudas de las recetas.
+Los KO se corrigen y se repite el gate completo. Con su OK: `git push origin main` (el CI publica la v1.6.N porque cambió
+`version.properties`) y vigilar el workflow. Pendiente fuera de alcance: S4 (Environment de release), A5-A8, F4-F10, U5,
+S6 (ver `docs/analisis/v1.6.md`); placas de la lasaña.
