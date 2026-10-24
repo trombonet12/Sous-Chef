@@ -79,11 +79,13 @@ object Escalado {
     /**
      * Ingredientes de todas las zonas juntos, en orden de primera aparición. Se suman los que coinciden en nombre base
      * (sin la equivalencia entre paréntesis ni lo que va tras la coma, sin mayúsculas ni espacios de más), unidad y
-     * modo de escalado; los de texto salen una vez. Si se juntan varios, la línea lleva el nombre base: la equivalencia
-     * casera de cada uno ya no cuadraría con la suma.
+     * modo de escalado; los de texto salen una vez. Si se juntan varios, la línea lleva el nombre base y, entre
+     * paréntesis, la suma de sus equivalencias caseras cuando todas son cucharadas soperas y cucharaditas
+     * ([MedidaCasera]); si no, sin paréntesis. Un ingrediente que no se repite conserva su nombre tal cual.
      */
     fun listaGeneral(receta: Receta): List<Ingrediente> {
         val juntos = LinkedHashMap<List<String?>, Ingrediente>()
+        val equivalencias = HashMap<List<String?>, MutableList<String?>>()
         receta.grupos.flatMap { it.items }.forEach { i ->
             val clave =
                 listOf(normal(base(i.n)), i.u?.trim()?.lowercase(), i.txt?.trim(), i.esc, (i.a == null).toString())
@@ -94,9 +96,17 @@ object Escalado {
                 } else {
                     previo.copy(n = base(previo.n), a = previo.a?.let { a -> a + (i.a ?: 0.0) })
                 }
+            equivalencias.getOrPut(clave) { mutableListOf() } += MedidaCasera.equivalenciaDe(i.n)
         }
-        return juntos.values.toList()
+        return juntos.map { (clave, i) ->
+            val equivalencia = equivalencias.getValue(clave)
+            val suma = if (equivalencia.size > 1 && i.a != null) sumaCasera(equivalencia) else null
+            if (suma == null) i else i.copy(n = "${i.n} ($suma)")
+        }
     }
+
+    private fun sumaCasera(equivalencias: List<String?>): String? =
+        if (equivalencias.any { it == null }) null else MedidaCasera.sumar(equivalencias.filterNotNull())
 
     private fun base(nombre: String) = nombre.substringBefore('(').substringBefore(',').trim()
 

@@ -12,8 +12,8 @@ data class ColorFamilia(
     val tinte: Color,
 )
 
-/** Los ocho tonos con nombre de la paleta: apagados, del mismo papel que la app. */
-enum class TonoPaleta { AMBAR, OLIVA, TEJA, AZUL, VERDE, ROSA, LILA, PIEDRA }
+/** Los diez tonos con nombre de la paleta: apagados, del mismo papel que la app. */
+enum class TonoPaleta { AMBAR, OLIVA, TEJA, AZUL, VERDE, ROSA, LILA, PIEDRA, GRANATE, CIRUELA }
 
 private const val LUMINANCIA_OSCURO = 0.5f
 
@@ -31,6 +31,8 @@ object Paleta {
             TonoPaleta.ROSA to ColorFamilia(Color(0xFFB5707A), Color(0xFFF2DEE0)),
             TonoPaleta.LILA to ColorFamilia(Color(0xFF8A78B0), Color(0xFFE7E2F0)),
             TonoPaleta.PIEDRA to ColorFamilia(Color(0xFF9A978A), Color(0xFFECEAE1)),
+            TonoPaleta.GRANATE to ColorFamilia(Color(0xFFA8564F), Color(0xFFF0DCD9)),
+            TonoPaleta.CIRUELA to ColorFamilia(Color(0xFF94658C), Color(0xFFEEE0EC)),
         )
 
     private val OSCUROS =
@@ -43,6 +45,8 @@ object Paleta {
             TonoPaleta.ROSA to ColorFamilia(Color(0xFFD9939D), Color(0xFF2E1E21)),
             TonoPaleta.LILA to ColorFamilia(Color(0xFFB3A2D9), Color(0xFF241F30)),
             TonoPaleta.PIEDRA to ColorFamilia(Color(0xFFB9B6A8), Color(0xFF24251F)),
+            TonoPaleta.GRANATE to ColorFamilia(Color(0xFFDB8D85), Color(0xFF2E1D1B)),
+            TonoPaleta.CIRUELA to ColorFamilia(Color(0xFFCB9CC2), Color(0xFF2A1E28)),
         )
 
     fun de(

@@ -62,6 +62,8 @@ private fun FamiliaBase.texto(): Int =
         FamiliaBase.VERDURA -> R.string.filtro_base_verdura
         FamiliaBase.MASAS -> R.string.filtro_base_masas
         FamiliaBase.SALTEADO -> R.string.filtro_base_salteado
+        FamiliaBase.CARNES -> R.string.filtro_base_carnes
+        FamiliaBase.POSTRES -> R.string.filtro_base_postres
         FamiliaBase.OTRA -> R.string.filtro_base_otra
     }
 

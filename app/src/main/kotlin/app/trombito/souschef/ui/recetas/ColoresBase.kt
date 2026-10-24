@@ -21,6 +21,8 @@ object ColoresBase {
             FamiliaBase.VERDURA to TonoPaleta.VERDE,
             FamiliaBase.MASAS to TonoPaleta.ROSA,
             FamiliaBase.SALTEADO to TonoPaleta.LILA,
+            FamiliaBase.CARNES to TonoPaleta.GRANATE,
+            FamiliaBase.POSTRES to TonoPaleta.CIRUELA,
             FamiliaBase.OTRA to TonoPaleta.PIEDRA,
         )
 

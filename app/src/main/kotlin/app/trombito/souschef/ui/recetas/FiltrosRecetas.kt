@@ -4,7 +4,7 @@ import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.ui.comun.normalizado
 
-/** Las bases libres de `tags.base` agrupadas en siete familias, cada una con su color en la lista. */
+/** Las bases libres de `tags.base` agrupadas en diez familias, cada una con su color en la lista. */
 enum class FamiliaBase {
     PASTA,
     ARROZ,
@@ -13,6 +13,8 @@ enum class FamiliaBase {
     VERDURA,
     MASAS,
     SALTEADO,
+    CARNES,
+    POSTRES,
     OTRA,
     ;
 
@@ -25,12 +27,17 @@ enum class FamiliaBase {
                 "pescado" to PESCADO,
                 "verdura" to VERDURA,
                 "ensalada" to VERDURA,
+                "crema" to VERDURA,
                 "masa de pizza" to MASAS,
                 "hojaldre" to MASAS,
                 "taco" to MASAS,
                 // Las claves van sin acentos: `de` normaliza la base ("buñuelo" -> "bunuelo").
                 "bunuelo" to MASAS,
                 "salteado" to SALTEADO,
+                "asado" to CARNES,
+                "hamburguesa" to CARNES,
+                "fritura" to CARNES,
+                "postre" to POSTRES,
             )
 
         fun de(base: String?): FamiliaBase = base?.trim()?.normalizado()?.let { POR_BASE[it] } ?: OTRA

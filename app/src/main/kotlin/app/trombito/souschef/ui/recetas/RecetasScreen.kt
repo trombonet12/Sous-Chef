@@ -144,6 +144,8 @@ private fun FamiliaBase.icono(): Icono =
         FamiliaBase.VERDURA -> Icono.Verdura
         FamiliaBase.MASAS -> Icono.Masas
         FamiliaBase.SALTEADO -> Icono.Salteado
+        FamiliaBase.CARNES -> Icono.Carnes
+        FamiliaBase.POSTRES -> Icono.Postres
         FamiliaBase.OTRA -> Icono.Plato
     }
 

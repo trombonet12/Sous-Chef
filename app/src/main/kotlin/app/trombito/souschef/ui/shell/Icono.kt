@@ -146,6 +146,20 @@ enum class Icono(
         "M12 8V4",
     ),
 
+    /** Chuletón con hueso: categoría de carnes. */
+    Carnes(
+        "M4 13c0-4 3-7 8-7 5 0 8 2 8 6s-3 6-7 6c-2 0-3-1-4-1-3 0-5-1-5-4z",
+        "M9 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0z",
+    ),
+
+    /** Pastel con una vela: categoría de postres. */
+    Postres(
+        "M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z",
+        "M4 15c2 1.5 3.5 1.5 5 0s3-1.5 5 0 3.5 1.5 6 0",
+        "M12 11V8",
+        "M12 6.5h.01",
+    ),
+
     /** Plato visto desde arriba: categoría genérica u otra. */
     Plato("M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "M12 17a5 5 0 1 0 0-10a5 5 0 0 0 0 10z"),
 

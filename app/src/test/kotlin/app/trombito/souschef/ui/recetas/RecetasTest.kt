@@ -92,6 +92,28 @@ class FamiliasTest {
     }
 
     @Test
+    fun carnesPostresYCremaTienenSuFamiliaYOtraVaLaUltima() {
+        assertEquals(FamiliaBase.CARNES, FamiliaBase.de("asado"))
+        assertEquals(FamiliaBase.CARNES, FamiliaBase.de("Hamburguesa"))
+        assertEquals(FamiliaBase.CARNES, FamiliaBase.de("fritura"))
+        assertEquals(FamiliaBase.POSTRES, FamiliaBase.de("postre"))
+        assertEquals(FamiliaBase.VERDURA, FamiliaBase.de("crema"))
+        assertEquals(10, FamiliaBase.entries.size)
+        assertEquals(FamiliaBase.OTRA, FamiliaBase.entries.last())
+        assertEquals(
+            listOf(FamiliaBase.CARNES, FamiliaBase.POSTRES, FamiliaBase.OTRA),
+            FamiliaBase.entries.takeLast(3),
+        )
+    }
+
+    @Test
+    fun cadaFamiliaTieneUnTonoPropioEnClaroYOscuro() {
+        val tonos = FamiliaBase.entries.map { ColoresBase.tono(it) }
+        assertEquals(tonos.size, tonos.toSet().size)
+        FamiliaBase.entries.forEach { assertTrue(ColoresBase.de(it, false) != ColoresBase.de(it, true)) }
+    }
+
+    @Test
     fun proteinaPorPalabrasYVegetarianaSiNoHayCarneNiPescado() {
         assertEquals(setOf(FamiliaProteina.POLLO), FamiliaProteina.de("pollo"))
         assertEquals(

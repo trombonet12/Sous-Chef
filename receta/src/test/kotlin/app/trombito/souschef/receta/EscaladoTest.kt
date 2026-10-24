@@ -116,8 +116,102 @@ class EscaladoTest {
                     ),
             )
         val lista = Escalado.listaGeneral(r)
-        assertEquals(listOf("harina", "sal", "cebolla, en aros de 1 cm (1 cebolla grande)"), lista.map { it.n })
+        assertEquals(
+            listOf("harina (7 cucharadas soperas)", "sal", "cebolla, en aros de 1 cm (1 cebolla grande)"),
+            lista.map { it.n },
+        )
         assertEquals(listOf(70.0, 3.0, 250.0), lista.map { it.a })
+    }
+
+    private fun receta(vararg zonas: List<Ingrediente>) =
+        Receta(slug = "x", titulo = "x", grupos = zonas.mapIndexed { k, items -> Grupo("Z$k", items) })
+
+    @Test
+    fun listaGeneralSumaCucharadasSoperasYCucharaditas() {
+        val lista =
+            Escalado.listaGeneral(
+                receta(
+                    listOf(Ingrediente("vinagre de vino (1 cucharada sopera)", 15.0, "ml")),
+                    listOf(Ingrediente("vinagre de vino (2 cucharaditas)", 10.0, "ml")),
+                ),
+            )
+        assertEquals(listOf("vinagre de vino (1 cucharada sopera y 2 cucharaditas)"), lista.map { it.n })
+        assertEquals(25.0, lista.single().a)
+    }
+
+    @Test
+    fun listaGeneralSumaSoloCucharaditasYLasNormaliza() {
+        val lista =
+            Escalado.listaGeneral(
+                receta(
+                    listOf(
+                        Ingrediente("azúcar (2 cucharaditas)", 10.0, "g"),
+                        Ingrediente("sal (1 cucharadita)", 5.0, "g"),
+                    ),
+                    listOf(
+                        Ingrediente("azúcar (3 cucharaditas)", 15.0, "g"),
+                        Ingrediente("sal (1 cucharadita)", 5.0, "g"),
+                    ),
+                ),
+            )
+        assertEquals(
+            listOf("azúcar (1 cucharada sopera y 2 cucharaditas)", "sal (2 cucharaditas)"),
+            lista.map { it.n },
+        )
+    }
+
+    @Test
+    fun listaGeneralConMezclaNoSumableQuitaElParentesis() {
+        val lista =
+            Escalado.listaGeneral(
+                receta(
+                    listOf(
+                        Ingrediente("cebolla (1 cebolla mediana)", 150.0, "g"),
+                        Ingrediente("sal (1 cucharadita)", 5.0, "g"),
+                        Ingrediente("pimienta (1 cucharadita)", 2.0, "g"),
+                    ),
+                    listOf(
+                        Ingrediente("cebolla (2 cucharadas soperas)", 50.0, "g"),
+                        Ingrediente("sal (una pizca)", 1.0, "g"),
+                        Ingrediente("pimienta", 1.0, "g"),
+                    ),
+                ),
+            )
+        assertEquals(listOf("cebolla", "sal", "pimienta"), lista.map { it.n })
+    }
+
+    @Test
+    fun listaGeneralConservaElTextoDeUnIngredienteQueNoSeRepite() {
+        val lista =
+            Escalado.listaGeneral(
+                receta(listOf(Ingrediente("aceite de oliva, para freír (3 cucharadas soperas)", 45.0, "ml"))),
+            )
+        assertEquals(listOf("aceite de oliva, para freír (3 cucharadas soperas)"), lista.map { it.n })
+    }
+
+    @Test
+    fun medidaCaseraSumaFraccionesYPluraliza() {
+        val tercio = "⅓ de cucharadita"
+        assertEquals("1 cucharadita", MedidaCasera.sumar(listOf(tercio, tercio, tercio)))
+        assertEquals("1¼ cucharaditas", MedidaCasera.sumar(listOf("½ cucharadita", "¾ de cucharadita")))
+        assertEquals(
+            "2 cucharadas soperas",
+            MedidaCasera.sumar(listOf("1½ cucharadas soperas", "media cucharada sopera")),
+        )
+        assertEquals(
+            "2 cucharadas soperas y 1 cucharadita",
+            MedidaCasera.sumar(listOf("1 cucharada sopera y 1 cucharadita", "una cucharada sopera")),
+        )
+    }
+
+    @Test
+    fun medidaCaseraRechazaLoQueNoSabeSumar() {
+        assertEquals(null, MedidaCasera.sumar(emptyList()))
+        assertEquals(null, MedidaCasera.sumar(listOf("1 cucharadita", "1 cucharadita rasa")))
+        assertEquals(null, MedidaCasera.sumar(listOf("1 cucharada", "1 cucharadita")))
+        assertEquals(null, MedidaCasera.sumar(listOf("2 uds", "1 cucharadita")))
+        // ⅓ + ¼ de cucharadita no se escribe con una fracción de las conocidas.
+        assertEquals(null, MedidaCasera.sumar(listOf("⅓ de cucharadita", "¼ de cucharadita")))
     }
 
     private fun conEscala(escala: Escala?) = Receta(slug = "x", titulo = "x", escala = escala)

@@ -37,6 +37,8 @@
     <string name="filtro_base_verdura">Verdura</string>
     <string name="filtro_base_masas">Masas</string>
     <string name="filtro_base_salteado">Salteado</string>
+    <string name="filtro_base_carnes">Carnes</string>
+    <string name="filtro_base_postres">Postres</string>
     <string name="filtro_base_otra">Otras</string>
 
     <string name="filtro_proteina_pollo">Pollo</string>
