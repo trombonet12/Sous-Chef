@@ -14,6 +14,7 @@
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
 | Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
 | Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **en curso**: commits locales, sin push; falta la prueba en el emulador |
+| Ronda 16 · análisis v1.6 (5 agentes) y versión por commit | **análisis hecho**: `docs/analisis/v1.6.md`; falta que Joan elija el alcance |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -202,6 +203,9 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
+Ronda 16: versión calculada por commit (`./gradlew -q :app:imprimirVersion`), agentes `ux-reviewer`,
+`product-strategist` y `recetario-strategist`, y backlog en `docs/analisis/v1.6.md`. Joan contesta las preguntas de
+ese doc y elige qué entra en la v1.6 (N1 novedades con confeti es obligatoria). Nada de push ni emulador sin su OK.
 Cuando Joan lo pida, prueba en el emulador (skill `android-install-and-logcat`, AVD `trombito-36`, APK de
 `./gradlew assembleDebug`):
 1. ficha de `costillar-bbq-con-boniato`: «Empieza a las 12:38» con servir 15:30 y diagrama de tiempos;
