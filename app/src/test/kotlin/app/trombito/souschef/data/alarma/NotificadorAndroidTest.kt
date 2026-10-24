@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.PowerManager
 import androidx.test.core.app.ApplicationProvider
 import app.trombito.souschef.domain.Ajustes
-import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.ConstructorCarriles
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.ResumenCocina
@@ -21,16 +20,7 @@ import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import app.trombito.souschef.ui.crono.T0
 import app.trombito.souschef.ui.crono.recetaCrono
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -41,16 +31,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
-import java.util.concurrent.atomic.AtomicInteger
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
 class NotificadorAndroidTest {
     private lateinit var contexto: Context
     private lateinit var gestor: NotificationManager
     private lateinit var notificador: NotificadorAndroid
     private val ajustes = FakeAjustesRepo()
-    private val ambito = CoroutineScope(SupervisorJob() + UnconfinedTestDispatcher())
     private val receta = recetaCrono()
     private val estado =
         MotorCrono.empezar(
@@ -64,12 +51,7 @@ class NotificadorAndroidTest {
     fun preparar() {
         contexto = ApplicationProvider.getApplicationContext<Context>()
         gestor = contexto.getSystemService(NotificationManager::class.java)
-        notificador = NotificadorAndroid(contexto, ajustes, ambito)
-    }
-
-    @After
-    fun cerrar() {
-        ambito.cancel()
+        notificador = NotificadorAndroid(contexto, ajustes)
     }
 
     private fun resumen(urgente: String? = null) =
@@ -97,31 +79,32 @@ class NotificadorAndroidTest {
             .notification
 
     @Test
-    fun laCocinaEsUnaSolaNotificacionFijaConUnaLineaPorCarril() {
-        notificador.cocina(resumen())
-        assertEquals(1, gestor.activeNotifications.size)
-        val n = cocinaActiva().notification
-        assertEquals("crono_cocina", n.channelId)
-        assertTrue(n.flags and Notification.FLAG_ONGOING_EVENT != 0)
-        assertNotNull(n.contentIntent)
-        assertTrue(n.flags and Notification.FLAG_ONLY_ALERT_ONCE != 0)
-        assertTrue(
-            n.extras
-                .getString(Notification.EXTRA_TITLE)
-                .orEmpty()
-                .startsWith("Receta r · llegas "),
-        )
-        val cuerpo =
-            n.extras
-                .getCharSequence(Notification.EXTRA_BIG_TEXT)
-                .toString()
-                .lines()
-        assertEquals(2, cuerpo.size)
-        assertTrue(cuerpo.any { it.startsWith("M · Cortar") && "acaba" in it })
-        assertTrue(cuerpo.any { it.startsWith("F0 · Sofrito") && "fuego 5" in it })
-        assertTrue(n.extras.getBoolean(Notification.EXTRA_SHOW_CHRONOMETER))
-        assertEquals(T0 + 120_000L, n.`when`)
-    }
+    fun laCocinaEsUnaSolaNotificacionFijaConUnaLineaPorCarril() =
+        runTest {
+            notificador.cocina(resumen())
+            assertEquals(1, gestor.activeNotifications.size)
+            val n = cocinaActiva().notification
+            assertEquals("crono_cocina", n.channelId)
+            assertTrue(n.flags and Notification.FLAG_ONGOING_EVENT != 0)
+            assertNotNull(n.contentIntent)
+            assertTrue(n.flags and Notification.FLAG_ONLY_ALERT_ONCE != 0)
+            assertTrue(
+                n.extras
+                    .getString(Notification.EXTRA_TITLE)
+                    .orEmpty()
+                    .startsWith("Receta r · llegas "),
+            )
+            val cuerpo =
+                n.extras
+                    .getCharSequence(Notification.EXTRA_BIG_TEXT)
+                    .toString()
+                    .lines()
+            assertEquals(2, cuerpo.size)
+            assertTrue(cuerpo.any { it.startsWith("M · Cortar") && "acaba" in it })
+            assertTrue(cuerpo.any { it.startsWith("F0 · Sofrito") && "fuego 5" in it })
+            assertTrue(n.extras.getBoolean(Notification.EXTRA_SHOW_CHRONOMETER))
+            assertEquals(T0 + 120_000L, n.`when`)
+        }
 
     @Test
     fun laPotenciaYElTextoSeDicenEnLaCocinaDelUsuario() =
@@ -163,44 +146,19 @@ class NotificadorAndroidTest {
             )
         }
 
-    private fun alarmaGas() =
-        AlarmaActiva(System.currentTimeMillis(), listOf(LineaAlarma("f0", "F0: Baja al {3}: hecho")))
-
-    private fun repoContando(
-        llamadas: AtomicInteger,
-        primera: Flow<Ajustes>,
-    ): AjustesRepo =
-        object : AjustesRepo by ajustes {
-            override fun observar(): Flow<Ajustes> = if (llamadas.incrementAndGet() == 1) primera else ajustes.actual
+    @Test
+    fun enFrioLaPrimeraAlarmaYaSaleConLaCocinaRealDelRepo() =
+        runTest {
+            // Proceso recién arrancado (alarma con el proceso muerto): sin caché previa, lee la cocina real de Ajustes.
+            ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
+            val frio = NotificadorAndroid(contexto, ajustes)
+            val lineas = AlarmaActiva(System.currentTimeMillis(), listOf(LineaAlarma("f0", "F0: Baja al {3}: hecho")))
+            frio.alarma("r", "Receta r", lineas, sonar = true, urgente = null)
+            assertEquals(
+                "F0: Baja a fuego bajo: hecho",
+                alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
+            )
         }
-
-    @Test
-    fun sinEmisionPreviaLeeLaCocinaRealDelRepoYNoLaCanonica() {
-        // Proceso en frío: la colección del ámbito aún no ha emitido (la primera suscripción no emite nunca).
-        ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
-        val llamadas = AtomicInteger()
-        val frio = NotificadorAndroid(contexto, repoContando(llamadas, flow { awaitCancellation() }), ambito)
-        frio.alarma("r", "Receta r", alarmaGas(), sonar = true, urgente = null)
-        assertEquals(
-            "F0: Baja a fuego bajo: hecho",
-            alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
-        )
-        assertEquals(2, llamadas.get())
-    }
-
-    @Test
-    fun trasLaPrimeraEmisionNoVuelveAleerAjustes() {
-        ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
-        val llamadas = AtomicInteger()
-        val vivo = NotificadorAndroid(contexto, repoContando(llamadas, ajustes.actual), ambito)
-        vivo.alarma("r", "Receta r", alarmaGas(), sonar = true, urgente = null)
-        vivo.alarma("r", "Receta r", alarmaGas(), sonar = false, urgente = null)
-        assertEquals(1, llamadas.get())
-        assertEquals(
-            "F0: Baja a fuego bajo: hecho",
-            alarmaActiva().extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
-        )
-    }
 
     private fun cuerpoCocina() =
         cocinaActiva()
@@ -210,128 +168,138 @@ class NotificadorAndroidTest {
             .lines()
 
     @Test
-    fun laAccionHechoSoloAparecePorUnPasoVencido() {
-        notificador.cocina(resumen())
-        assertNull(cocinaActiva().notification.actions)
-        notificador.cocina(resumen(urgente = "m"))
-        assertEquals(listOf("Hecho"), cocinaActiva().notification.actions.map { it.title.toString() })
-    }
-
-    @Test
-    fun noSePublicaEnMarchaNiPorCarrilYSeLimpianLasAntiguas() {
-        gestor.notify(
-            IdsNotificacion.tagEnMarcha("r"),
-            IdsNotificacion.ID_EN_MARCHA,
-            Notification
-                .Builder(contexto, "crono_carriles")
-                .setSmallIcon(app.trombito.souschef.R.drawable.ic_stat_souschef)
-                .build(),
-        )
-        gestor.notify(
-            IdsNotificacion.tagCarrilAntiguo("r"),
-            "f0".hashCode(),
-            Notification
-                .Builder(contexto, "crono_carriles")
-                .setSmallIcon(app.trombito.souschef.R.drawable.ic_stat_souschef)
-                .build(),
-        )
-        notificador.cocina(resumen())
-        assertEquals(listOf(IdsNotificacion.tagCocina("r")), gestor.activeNotifications.map { it.tag })
-    }
-
-    @Test
-    fun laAlarmaSuenaInsistenteConParar() {
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        val n = alarmaActiva()
-        assertEquals("crono_alarma_v3", n.channelId)
-        assertTrue(n.flags and Notification.FLAG_INSISTENT != 0)
-        assertEquals(Notification.CATEGORY_ALARM, n.category)
-        assertEquals(
-            "M: Cortar: hecho\nF0: Sofrito: hecho",
-            n.extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
-        )
-        assertEquals(listOf("Parar"), n.actions.map { it.title.toString() })
-        assertTrue(n.timeoutAfter in 1..60_000L)
-    }
-
-    @Test
-    fun conUnPasoVencidoOfreceHechoYSiguiente() {
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = "m")
-        assertEquals(listOf("Parar", "Hecho y siguiente"), alarmaActiva().actions.map { it.title.toString() })
-    }
-
-    @Test
-    fun laAlarmaAgrupadaSeActualizaEnSilencio() {
-        notificador.alarma("r", "Receta r", alarma(), sonar = false, urgente = null)
-        val n = alarmaActiva()
-        assertEquals(0, n.flags and Notification.FLAG_INSISTENT)
-        assertTrue(n.flags and Notification.FLAG_ONLY_ALERT_ONCE != 0)
-        assertEquals(1, gestor.activeNotifications.size)
-    }
-
-    @Test
-    fun pantallaCompletaSoloConElMovilBloqueado() {
-        val teclado = contexto.getSystemService(KeyguardManager::class.java)
-        shadowOf(teclado).setKeyguardLocked(false)
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        assertNull(alarmaActiva().fullScreenIntent)
-        shadowOf(teclado).setKeyguardLocked(true)
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        assertNotNull(alarmaActiva().fullScreenIntent)
-        // Una actualización en silencio nunca pide pantalla completa.
-        notificador.alarma("r", "Receta r", alarma(), sonar = false, urgente = null)
-        assertNull(alarmaActiva().fullScreenIntent)
-    }
-
-    @Test
-    fun conLaPantallaApagadaTambienPidePantallaCompletaAunqueNoHayaBloqueo() {
-        val teclado = contexto.getSystemService(KeyguardManager::class.java)
-        val energia = contexto.getSystemService(PowerManager::class.java)
-        shadowOf(teclado).setKeyguardLocked(false)
-        shadowOf(energia).turnScreenOn(false)
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        assertNotNull(alarmaActiva().fullScreenIntent)
-        shadowOf(energia).turnScreenOn(true)
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        assertNull(alarmaActiva().fullScreenIntent)
-    }
-
-    @Test
-    fun quitarAlarmaDejaLaCocinaYLimpiarQuitaLasDos() {
-        notificador.cocina(resumen())
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        assertEquals(2, gestor.activeNotifications.size)
-        notificador.quitarAlarma("r")
-        assertEquals(listOf(IdsNotificacion.ID_COCINA), gestor.activeNotifications.map { it.id })
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        notificador.limpiar("r")
-        assertTrue(gestor.activeNotifications.isEmpty())
-    }
-
-    @Test
-    fun quitarCocinaNoTocaLaAlarma() {
-        notificador.cocina(resumen())
-        notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
-        notificador.quitarCocina("r")
-        assertEquals(listOf(IdsNotificacion.ID_ALARMA), gestor.activeNotifications.map { it.id })
-    }
-
-    @Test
-    fun creaLosCanalesNuevosYBorraLosAntiguos() {
-        listOf("crono_avisos_v2", "crono_carriles").forEach {
-            gestor.createNotificationChannel(
-                android.app.NotificationChannel(it, "viejo", NotificationManager.IMPORTANCE_HIGH),
-            )
+    fun laAccionHechoSoloAparecePorUnPasoVencido() =
+        runTest {
+            notificador.cocina(resumen())
+            assertNull(cocinaActiva().notification.actions)
+            notificador.cocina(resumen(urgente = "m"))
+            assertEquals(listOf("Hecho"), cocinaActiva().notification.actions.map { it.title.toString() })
         }
-        notificador.cocina(resumen())
-        assertNull(gestor.getNotificationChannel("crono_avisos_v2"))
-        assertNull(gestor.getNotificationChannel("crono_carriles"))
-        val alarma = checkNotNull(gestor.getNotificationChannel("crono_alarma_v3"))
-        assertEquals(NotificationManager.IMPORTANCE_HIGH, alarma.importance)
-        assertNotNull(alarma.sound)
-        val cocina = checkNotNull(gestor.getNotificationChannel("crono_cocina"))
-        assertEquals(NotificationManager.IMPORTANCE_LOW, cocina.importance)
-        assertNull(cocina.sound)
-        assertFalse(cocina.shouldVibrate())
-    }
+
+    @Test
+    fun noSePublicaEnMarchaNiPorCarrilYSeLimpianLasAntiguas() =
+        runTest {
+            gestor.notify(
+                IdsNotificacion.tagEnMarcha("r"),
+                IdsNotificacion.ID_EN_MARCHA,
+                Notification
+                    .Builder(contexto, "crono_carriles")
+                    .setSmallIcon(app.trombito.souschef.R.drawable.ic_stat_souschef)
+                    .build(),
+            )
+            gestor.notify(
+                IdsNotificacion.tagCarrilAntiguo("r"),
+                "f0".hashCode(),
+                Notification
+                    .Builder(contexto, "crono_carriles")
+                    .setSmallIcon(app.trombito.souschef.R.drawable.ic_stat_souschef)
+                    .build(),
+            )
+            notificador.cocina(resumen())
+            assertEquals(listOf(IdsNotificacion.tagCocina("r")), gestor.activeNotifications.map { it.tag })
+        }
+
+    @Test
+    fun laAlarmaSuenaInsistenteConParar() =
+        runTest {
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            val n = alarmaActiva()
+            assertEquals("crono_alarma_v3", n.channelId)
+            assertTrue(n.flags and Notification.FLAG_INSISTENT != 0)
+            assertEquals(Notification.CATEGORY_ALARM, n.category)
+            assertEquals(
+                "M: Cortar: hecho\nF0: Sofrito: hecho",
+                n.extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString(),
+            )
+            assertEquals(listOf("Parar"), n.actions.map { it.title.toString() })
+            assertTrue(n.timeoutAfter in 1..60_000L)
+        }
+
+    @Test
+    fun conUnPasoVencidoOfreceHechoYSiguiente() =
+        runTest {
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = "m")
+            assertEquals(listOf("Parar", "Hecho y siguiente"), alarmaActiva().actions.map { it.title.toString() })
+        }
+
+    @Test
+    fun laAlarmaAgrupadaSeActualizaEnSilencio() =
+        runTest {
+            notificador.alarma("r", "Receta r", alarma(), sonar = false, urgente = null)
+            val n = alarmaActiva()
+            assertEquals(0, n.flags and Notification.FLAG_INSISTENT)
+            assertTrue(n.flags and Notification.FLAG_ONLY_ALERT_ONCE != 0)
+            assertEquals(1, gestor.activeNotifications.size)
+        }
+
+    @Test
+    fun pantallaCompletaSoloConElMovilBloqueado() =
+        runTest {
+            val teclado = contexto.getSystemService(KeyguardManager::class.java)
+            shadowOf(teclado).setKeyguardLocked(false)
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            assertNull(alarmaActiva().fullScreenIntent)
+            shadowOf(teclado).setKeyguardLocked(true)
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            assertNotNull(alarmaActiva().fullScreenIntent)
+            // Una actualización en silencio nunca pide pantalla completa.
+            notificador.alarma("r", "Receta r", alarma(), sonar = false, urgente = null)
+            assertNull(alarmaActiva().fullScreenIntent)
+        }
+
+    @Test
+    fun conLaPantallaApagadaTambienPidePantallaCompletaAunqueNoHayaBloqueo() =
+        runTest {
+            val teclado = contexto.getSystemService(KeyguardManager::class.java)
+            val energia = contexto.getSystemService(PowerManager::class.java)
+            shadowOf(teclado).setKeyguardLocked(false)
+            shadowOf(energia).turnScreenOn(false)
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            assertNotNull(alarmaActiva().fullScreenIntent)
+            shadowOf(energia).turnScreenOn(true)
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            assertNull(alarmaActiva().fullScreenIntent)
+        }
+
+    @Test
+    fun quitarAlarmaDejaLaCocinaYLimpiarQuitaLasDos() =
+        runTest {
+            notificador.cocina(resumen())
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            assertEquals(2, gestor.activeNotifications.size)
+            notificador.quitarAlarma("r")
+            assertEquals(listOf(IdsNotificacion.ID_COCINA), gestor.activeNotifications.map { it.id })
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            notificador.limpiar("r")
+            assertTrue(gestor.activeNotifications.isEmpty())
+        }
+
+    @Test
+    fun quitarCocinaNoTocaLaAlarma() =
+        runTest {
+            notificador.cocina(resumen())
+            notificador.alarma("r", "Receta r", alarma(), sonar = true, urgente = null)
+            notificador.quitarCocina("r")
+            assertEquals(listOf(IdsNotificacion.ID_ALARMA), gestor.activeNotifications.map { it.id })
+        }
+
+    @Test
+    fun creaLosCanalesNuevosYBorraLosAntiguos() =
+        runTest {
+            listOf("crono_avisos_v2", "crono_carriles").forEach {
+                gestor.createNotificationChannel(
+                    android.app.NotificationChannel(it, "viejo", NotificationManager.IMPORTANCE_HIGH),
+                )
+            }
+            notificador.cocina(resumen())
+            assertNull(gestor.getNotificationChannel("crono_avisos_v2"))
+            assertNull(gestor.getNotificationChannel("crono_carriles"))
+            val alarma = checkNotNull(gestor.getNotificationChannel("crono_alarma_v3"))
+            assertEquals(NotificationManager.IMPORTANCE_HIGH, alarma.importance)
+            assertNotNull(alarma.sound)
+            val cocina = checkNotNull(gestor.getNotificationChannel("crono_cocina"))
+            assertEquals(NotificationManager.IMPORTANCE_LOW, cocina.importance)
+            assertNull(cocina.sound)
+            assertFalse(cocina.shouldVibrate())
+        }
 }

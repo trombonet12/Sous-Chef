@@ -163,11 +163,11 @@ class FakeNotificador : Notificador {
     val cocinasQuitadas = mutableListOf<String>()
     val limpiados = mutableListOf<String>()
 
-    override fun cocina(resumen: ResumenCocina) {
+    override suspend fun cocina(resumen: ResumenCocina) {
         cocinas[resumen.slug] = resumen
     }
 
-    override fun alarma(
+    override suspend fun alarma(
         slug: String,
         titulo: String,
         alarma: AlarmaActiva,

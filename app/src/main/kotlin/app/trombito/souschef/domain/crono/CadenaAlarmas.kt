@@ -40,14 +40,17 @@ data class ResumenCocina(
 
 /** Notificaciones de la cocina: una fija con todos los carriles y una única alarma que agrupa lo que coincide. */
 interface Notificador {
-    /** Pinta o actualiza la notificación fija de la cocina (sin sonido). */
-    fun cocina(resumen: ResumenCocina)
+    /**
+     * Pinta o actualiza la notificación fija de la cocina (sin sonido). `suspend`: al pintar se lee la cocina del
+     * usuario de Ajustes (ADR-0014) sin bloquear el hilo.
+     */
+    suspend fun cocina(resumen: ResumenCocina)
 
     /**
      * Pinta la alarma única. Con [sonar] suena (insistente hasta Parar, Hecho o 60 s); sin [sonar] se actualiza en
      * silencio. [urgente] != null ofrece «Hecho y siguiente».
      */
-    fun alarma(
+    suspend fun alarma(
         slug: String,
         titulo: String,
         alarma: AlarmaActiva,

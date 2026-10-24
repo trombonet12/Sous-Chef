@@ -16,8 +16,6 @@ import android.os.PowerManager
 import androidx.core.net.toUri
 import app.trombito.souschef.MainActivity
 import app.trombito.souschef.R
-import app.trombito.souschef.di.ApplicationScope
-import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.IdsNotificacion
@@ -30,13 +28,7 @@ import app.trombito.souschef.receta.crono.AgrupadorAlarmas
 import app.trombito.souschef.receta.crono.AlarmaActiva
 import app.trombito.souschef.ui.crono.AlarmaActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -55,35 +47,18 @@ class NotificadorAndroid
     constructor(
         @ApplicationContext private val context: Context,
         private val ajustes: AjustesRepo,
-        @ApplicationScope ambito: CoroutineScope,
     ) : Notificador {
         private val gestor = context.getSystemService(NotificationManager::class.java)
         private var canalesListos = false
 
         /**
-         * Última cocina del usuario conocida (ADR-0014), mantenida por una colección en el ámbito de aplicación; `null`
-         * hasta la primera emisión. La cadena de alarmas trabaja con la receta canónica; el texto y la potencia se
-         * traducen aquí, al pintar. Si Ajustes fallara, se conserva la última conocida.
+         * Cocina del usuario (ADR-0014). La cadena de alarmas trabaja con la receta canónica; el texto y la potencia
+         * se traducen aquí, al pintar. Se lee de Ajustes en cada pintado: `first()` suspende y Room consulta fuera del
+         * hilo principal, así que nada bloquea y siempre es la cocina real (también con el proceso recién arrancado).
          */
-        private val cocinaConocida =
-            ajustes
-                .observar()
-                .map<Ajustes, Cocina?> { it.cocina }
-                .catch { /* Ajustes ilegible: se sigue con la última cocina conocida. */ }
-                .stateIn(ambito, SharingStarted.Eagerly, null)
+        private suspend fun cocinaDelUsuario(): Cocina = ajustes.observar().first().cocina
 
-        /**
-         * Lectura sin Room mientras hay valor en memoria. La lectura bloqueante de [lecturaFria] solo ocurre una vez,
-         * en un proceso en frío (alarma con el proceso muerto) y antes de la primera emisión: así la primera alarma ya
-         * sale con la potencia de la cocina real y no con la canónica. Sus llamantes son las funciones suspend de la
-         * cadena de alarmas, que corren en el hilo de goAsync o en IO, nunca en el principal; con la UI viva el flujo
-         * ya ha emitido y no se bloquea.
-         */
-        private fun cocinaDelUsuario(): Cocina = cocinaConocida.value ?: lecturaFria()
-
-        private fun lecturaFria(): Cocina = runBlocking { ajustes.observar().first().cocina }
-
-        override fun cocina(resumen: ResumenCocina) {
+        override suspend fun cocina(resumen: ResumenCocina) {
             val slug = resumen.slug
             limpiarAntiguas(slug)
             if (resumen.carriles.isEmpty()) {
@@ -94,7 +69,7 @@ class NotificadorAndroid
             gestor.notify(IdsNotificacion.tagCocina(slug), IdsNotificacion.ID_COCINA, notificacionCocina(resumen))
         }
 
-        override fun alarma(
+        override suspend fun alarma(
             slug: String,
             titulo: String,
             alarma: AlarmaActiva,
@@ -160,7 +135,7 @@ class NotificadorAndroid
             context.getSystemService(KeyguardManager::class.java)?.isKeyguardLocked == true ||
                 context.getSystemService(PowerManager::class.java)?.isInteractive == false
 
-        private fun notificacionCocina(r: ResumenCocina): Notification {
+        private suspend fun notificacionCocina(r: ResumenCocina): Notification {
             val cocina = cocinaDelUsuario()
             val lineas = r.carriles.map { linea(it, cocina) }
             // BigTextStyle (no Inbox): es de los estilos que Android 16 deja promocionar a Live Update.
