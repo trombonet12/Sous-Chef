@@ -10,4 +10,5 @@
     <string name="crono_a11y_mas_30">Añadir 30 segundos: %1$s</string>
     <string name="crono_a11y_empezar_igual">Empezar igual: %1$s</string>
     <string name="crono_a11y_deshacer">Deshacer en %1$s: volver a «%2$s»</string>
+    <string name="crono_a11y_deshacer_cierre">Deshacer: volver al cronómetro sin guardar la cocinada</string>
 </resources>

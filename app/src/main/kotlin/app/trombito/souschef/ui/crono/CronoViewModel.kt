@@ -98,7 +98,7 @@ data class CronoUi(
 
 private const val PERIODO_TIC_MS = 1_000L
 const val VENTANA_REINICIAR_MS = 4_000L
-const val VENTANA_DESHACER_MS = 8_000L
+const val VENTANA_DESHACER_MS = 12_000L
 private const val MAX_LINEAS_BANDA = 4
 private const val MS_MINUTO = 60_000L
 private const val ETIQUETA_VOZ = "Voz"
@@ -462,7 +462,7 @@ class CronoViewModel
         }
 
         /**
-         * Cierre con 8 s para deshacer: se quitan avisos y ongoing, pero el historial y el borrado del estado solo se
+         * Cierre con 12 s para deshacer: se quitan avisos y ongoing, pero el historial y el borrado del estado solo se
          * confirman al vencer la ventana o al salir ([confirmarCierre]).
          */
         fun cerrar(nota: String) {

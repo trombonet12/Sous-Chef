@@ -123,7 +123,7 @@ private fun Contenido(
         }
 
         ui.cierrePendiente -> {
-            Box(Modifier.fillMaxSize(), Alignment.Center) { Text(stringResource(R.string.crono_guardado)) }
+            CierreGuardado(viewModel::deshacerCierre)
         }
 
         resumen != null -> {

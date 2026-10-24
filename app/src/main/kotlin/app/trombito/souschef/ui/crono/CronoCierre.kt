@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -19,8 +22,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.MAX_NOTA
@@ -39,7 +46,11 @@ fun CronoCierre(
 ) {
     var nota by rememberSaveable { mutableStateOf("") }
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        Modifier
+            .fillMaxSize()
+            .imePadding()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(stringResource(R.string.crono_todo_fuera), style = MaterialTheme.typography.headlineMedium)
@@ -60,15 +71,17 @@ fun CronoCierre(
             ),
             color = CronoPalette.apagado,
         )
-        Text(
-            stringResource(R.string.crono_proxima_vez),
-            style = MaterialTheme.typography.labelLarge,
-            color = CronoPalette.acento,
-        )
+        val teclado = LocalSoftwareKeyboardController.current
         OutlinedTextField(
             value = nota,
             onValueChange = { nota = it.take(MAX_NOTA) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag("nota-cierre"),
+            label = { Text(stringResource(R.string.crono_proxima_vez)) },
+            minLines = 1,
+            maxLines = 3,
+            keyboardOptions =
+                KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { teclado?.hide() }),
             supportingText = { Text("${nota.length}/$MAX_NOTA") },
         )
         Button(
