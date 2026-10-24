@@ -116,31 +116,31 @@
         {
           "a": 1,
           "esc": "fijo",
-          "n": "huevo",
+          "n": "huevo (solo la yema; la clara, a un táper)",
           "u": "uds"
         },
         {
-          "a": 150,
+          "a": 80,
           "esc": "fijo",
-          "n": "aceite de girasol (10 cucharadas soperas)",
+          "n": "aceite de girasol (⅓ de vaso de agua)",
           "u": "ml"
         },
         {
-          "a": 15,
+          "a": 10,
           "esc": "fijo",
-          "n": "limón, en zumo (½ limón: 1 cucharada sopera)",
+          "n": "limón, en zumo (¼ de limón: 2 cucharaditas)",
           "u": "ml"
-        },
-        {
-          "a": 4,
-          "esc": "fijo",
-          "n": "ajo (1 diente pequeño, sin el germen)",
-          "u": "g"
         },
         {
           "a": 2,
           "esc": "fijo",
-          "n": "sal (⅓ de cucharadita)",
+          "n": "ajo (½ diente pequeño, sin el germen)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "fijo",
+          "n": "sal (un pellizco)",
           "u": "g"
         }
       ],
@@ -153,8 +153,8 @@
       "l": [
         "<b>Queso semicurado · 60 g (4 lonchas de 2 mm)</b> · en el minuto 0, al plato pequeño.",
         "<b>Cebolla · 150 g (1 cebolla mediana)</b> · en pluma de 3 mm siguiendo las vetas, en el minuto 2, a la sartén en frío.",
-        "<b>Limón · ½ limón (15 ml de zumo)</b> · partido en el minuto 10 y exprimido en el vaso medidor; el otro medio, a un táper.",
-        "<b>Ajo · 4 g (1 diente pequeño)</b> · pelado, partido a lo largo y sin el germen, en el minuto 10, al vaso de la batidora."
+        "<b>Limón · ¼ de limón (10 ml de zumo)</b> · partido en cuartos en el minuto 10 y uno exprimido en el vaso medidor; los otros tres, a un táper.",
+        "<b>Ajo · 2 g (½ diente pequeño)</b> · pelado, partido a lo largo y sin el germen, en el minuto 10, al vaso de la batidora; la otra mitad, a un táper."
       ],
       "orden": true,
       "porq": "La carne no toca la tabla: se bolea en su palangana, y así la tabla no se lava. Lo seco primero, el queso; luego la cebolla, que moja; el limón, y el ajo al final, que deja olor.",
@@ -162,8 +162,8 @@
     },
     {
       "l": [
-        "<b>Zumo de limón · 15 ml (1 cucharada sopera)</b> · en el minuto 10, al vaso de la batidora, sobre el huevo.",
-        "<b>Aceite de girasol · 150 ml (10 cucharadas soperas)</b> · en el minuto 11, al vaso de la batidora, encima de todo."
+        "<b>Zumo de limón · 10 ml (2 cucharaditas)</b> · en el minuto 10, al vaso de la batidora, sobre la yema.",
+        "<b>Aceite de girasol · 80 ml (⅓ de vaso de agua)</b> · en el minuto 11, al vaso de la batidora, encima de todo."
       ],
       "orden": true,
       "porq": "El zumo primero y el girasol detrás, en el mismo vaso, porque los dos acaban en el vaso de la batidora. El aceite de oliva de la cebolla va con la cuchara, directo a la sartén.",
@@ -173,8 +173,8 @@
       "l": [
         "<b>Sartén, en frío</b> · 150 g de cebolla + 15 ml de aceite de oliva (1 cucharada sopera) + 1 g de sal (un pellizco), en el minuto 2. Al fuego mediano en el 5.",
         "<b>Plato pequeño</b> · las 4 lonchas de queso semicurado (60 g), desde el minuto 0. A la plancha en los minutos 29 y 32.",
-        "<b>Huevo · 1</b> · de la nevera a la encimera en el minuto 0; al vaso de la batidora en el 10.",
-        "<b>Vaso alto de la batidora</b> · 1 huevo + 15 ml de zumo de limón + 4 g de ajo + 150 ml de aceite de girasol en el minuto 10, y 2 g de sal (⅓ de cucharadita) al final. Tapado a la nevera hasta el minuto 27.",
+        "<b>Huevo · 1 (solo la yema)</b> · de la nevera a la encimera en el minuto 0; en el 10, la yema al vaso de la batidora y la clara a un táper.",
+        "<b>Vaso alto de la batidora</b> · 1 yema + 10 ml de zumo de limón + 2 g de ajo + 80 ml de aceite de girasol en el minuto 10, y 1 g de sal (un pellizco) al final. Tapado a la nevera hasta el minuto 27.",
         "<b>Palangana de carne picada mixta · 250 g</b> · en 4 bolas de 62 g en el minuto 20; a la plancha 2 bolas en el 27 y 2 en el 30. La otra palangana, cerrada, a la nevera o al congelador.",
         "<b>Platito</b> · 2 g de sal (4 pellizcos pequeños) + 1 g de pimienta negra (⅓ de cucharadita), mezclados en el minuto 20, junto a la plancha.",
         "<b>Pan de hamburguesa · 2</b> · abiertos en el minuto 20; a la plancha en el 26 y a los 2 platos llanos en el 27.",
@@ -185,7 +185,7 @@
       "t": "LOS RECIPIENTES"
     }
   ],
-  "notaEscala": "Va solo a 2 raciones: una palangana de 250 g da 4 bolas de 62 g, que son dos tandas de dos en la zona caliente de la plancha. Con 1 ración sería una sola tanda y con 4 serían cuatro, con el pan y la primera carne esperando de más. La mayonesa no escala: un huevo es lo mínimo para que la batidora de mano trabaje en el vaso, y ya sobra para dos.",
+  "notaEscala": "Va solo a 2 raciones: una palangana de 250 g da 4 bolas de 62 g, que son dos tandas de dos en la zona caliente de la plancha. Con 1 ración sería una sola tanda y con 4 serían cuatro, con el pan y la primera carne esperando de más. La mayonesa no escala: una yema con 80 ml de aceite es lo mínimo para que la batidora de mano trabaje en el vaso, y ya da para dos con algo de sobra.",
   "pasos": [
     {
       "carril": "mesa",
@@ -235,14 +235,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "mayonesa",
-      "meto": "vaso de la batidora: 1 huevo + 15 ml de zumo de limón + 4 g de ajo + 150 ml de aceite de girasol; al final, 2 g de sal",
+      "meto": "vaso de la batidora: 1 yema + 10 ml de zumo de limón + 2 g de ajo + 80 ml de aceite de girasol; al final, 1 g de sal",
       "min": 6,
-      "nota": "Parte el limón, exprime medio en el vaso medidor y pela el ajo, partido a lo largo y sin el germen. Al vaso de la batidora, en este orden: huevo, zumo, ajo y el girasol encima; batidora al fondo, quieta hasta que blanquee, y súbela despacio; la sal al final, 2 segundos más, y a la nevera tapada.",
+      "nota": "Exprime un cuarto de limón en el vaso medidor y pela medio diente de ajo, partido a lo largo y sin el germen. Al vaso de la batidora, en este orden: la yema (la clara, a un táper), el zumo, el ajo y el girasol encima; batidora al fondo, quieta hasta que blanquee, y súbela despacio; la sal al final, 2 segundos más, y a la nevera tapada.",
       "off": 10,
-      "p": "Con la cuchilla quieta en el fondo, la batidora solo alcanza al huevo y va tirando del aceite que flota encima poco a poco, como si cayera en hilo: las gotas se reparten tan finas que la lecitina de la yema las envuelve y la mezcla espesa en 10-15 segundos. Si la subes antes de que blanquee, entra el aceite de golpe y se corta. El ajo va al principio para que la cuchilla lo deshaga; la sal, al final, como pide la técnica.",
+      "p": "Con la cuchilla quieta en el fondo, la batidora solo alcanza a la yema y va tirando del aceite que flota encima poco a poco, como si cayera en hilo: las gotas se reparten tan finas que la lecitina las envuelve y la mezcla espesa en 10-15 segundos. Una yema con su zumo es lo mínimo que llena la campana del pie en el vaso alto y estrecho; con menos, la cuchilla bate aire. Si la subes antes de que blanquee, entra el aceite de golpe y se corta. El ajo va al principio para que la cuchilla lo deshaga; la sal, al final, como pide la técnica.",
       "s": 360,
       "saco": "",
-      "t": "Hacer la mayonesa de ajo con la batidora de mano",
+      "t": "Hacer la mayonesa de ajo con una yema y la batidora de mano",
       "tapa": null
     },
     {
@@ -463,8 +463,8 @@
       "El semicurado funde peor que un queso de hamburguesa: en lonchas de 2 mm y un minuto bajo la tapa, con el calor y el vapor atrapados, se derrite sin pasar la carne."
     ],
     [
-      "Mayonesa con batidora de mano y un huevo entero",
-      "La batidora necesita volumen para cubrir la cuchilla: un huevo con 150 ml de girasol es lo mínimo y salen unos 200 g. Las hamburguesas gastan 4 cucharadas (unos 60 g); el resto, tapado a la nevera y a comer en 24 horas, porque lleva huevo crudo."
+      "Mayonesa con batidora de mano y una sola yema",
+      "La batidora necesita un mínimo en el vaso: la yema con su zumo tiene que llenar la campana del pie para que la cuchilla no bata aire, y el aceite tiene que formar encima una capa de un par de dedos de la que ir tirando al subirla. Una yema con 80 ml de girasol, en el vaso alto y estrecho de la batidora, es lo mínimo práctico, y salen unos 105 g. Medio huevo daría un volumen parecido, pero obliga a batir y partir un huevo, y la clara solo pone agua; la yema sola liga más firme. Las hamburguesas gastan 4 cucharadas generosas, unos 65 g; sobran unos 40 g. Con un huevo entero y 150 ml salían 200 g y sobraban 140. Lo que sobra, tapado a la nevera y a comer en 24 horas, porque lleva huevo crudo."
     ],
     [
       "Girasol y no oliva en la mayonesa",

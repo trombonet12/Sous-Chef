@@ -29,7 +29,7 @@
   "creada": "2026-10-24T00:00:00Z",
   "datos": [
     [
-      "30 min",
+      "33 min",
       "de principio a fin"
     ],
     [
@@ -41,11 +41,11 @@
       "tandas de filetes"
     ],
     [
-      "7",
+      "8",
       "pasos"
     ]
   ],
-  "descripcion": "Filetes finos de pechuga empanados en harina, huevo y pan rallado y fritos en aceite de girasol en dos tandas, con una ensalada de tomate y cebolla morada macerada en vinagre. La dificultad está en el aceite: lo bastante caliente para que el pan se dore en dos minutos por cara sin que el pollo se seque. El plato se apoya en las pechugas finas: confírmalas antes de empezar.",
+  "descripcion": "Filetes de pechuga aplanados a 5-6 mm, empanados en harina, huevo y pan rallado y fritos en aceite de girasol en dos tandas, con una ensalada de tomate y cebolla morada macerada en vinagre. La dificultad está en el aceite: lo bastante caliente para que el pan se dore en dos minutos por cara sin que el pollo se seque. El plato se apoya en las pechugas finas: confírmalas antes de empezar.",
   "escala": {
     "max": 2,
     "min": 2,
@@ -56,7 +56,7 @@
       "items": [
         {
           "a": 300,
-          "n": "pechugas finas (4 filetes de 5-6 mm)",
+          "n": "pechugas finas (4 filetes de algo más de 1 cm), aplanadas a 5-6 mm",
           "u": "g"
         }
       ],
@@ -146,23 +146,23 @@
       "n": "BOL GRANDE · LA ENSALADA"
     }
   ],
-  "lectura": "Un solo fuego. Mesa: 4 de cebolla + 3 de platos + 6 de empanar = 13 minutos; el aceite se calienta del 13 al 19 mientras cortas el tomate y los filetes reposan; 8 de fritura en dos tandas, del 19 al 27, y 3 de aliñar y emplatar: 13 + 6 + 8 + 3 = 30 minutos. Lo que no espera es la fritura y el emplatado: del minuto 19 al 30 no hay pausa.",
+  "lectura": "Un solo fuego. Mesa: 4 de cebolla + 3 de platos + 3 de aplanar + 6 de empanar = 16 minutos; el aceite se calienta del 16 al 22 mientras cortas el tomate y los filetes reposan; 8 de fritura en dos tandas, del 22 al 30, y 3 de aliñar y emplatar: 16 + 6 + 8 + 3 = 33 minutos. Lo que no espera es la fritura y el emplatado: del minuto 22 al 33 no hay pausa.",
   "mep": [
     {
       "l": [
         "<b>Cebolla morada · 40 g (¼ de cebolla morada mediana)</b> · en pluma de 2 mm siguiendo las vetas, en el minuto 0. Al bol grande con el vinagre y 1 g de sal.",
-        "<b>Tomates · 300 g (2 tomates medianos)</b> · en 8 gajos de 2,5 cm cada uno, en el minuto 13. Al bol grande, sobre la cebolla."
+        "<b>Tomates · 300 g (2 tomates medianos)</b> · en 8 gajos de 2,5 cm cada uno, en el minuto 16. Al bol grande, sobre la cebolla."
       ],
       "orden": true,
-      "porq": "El pollo no toca la tabla: se seca y se empana en su bandeja y en los platos, así la tabla no se lava y la verdura cruda no se cruza con el pollo crudo. Lo seco primero, la cebolla; el tomate, que moja, al final.",
+      "porq": "El pollo no toca la tabla: se aplana entre papel de horno sobre la encimera y se seca y se empana en su bandeja y en los platos, así la tabla no se lava y la verdura cruda no se cruza con el pollo crudo. Lo seco primero, la cebolla; el tomate, que moja, al final.",
       "t": "UNA TABLA, SOLO VERDURA"
     },
     {
       "l": [
         "<b>Vinagre de vino · 10 ml (2 cucharaditas)</b> · al bol grande en el minuto 0.",
         "<b>Agua · 15 ml (1 cucharada sopera)</b> · al plato hondo del huevo en el minuto 4.",
-        "<b>Aceite de girasol · 250 ml (1 vaso de agua)</b> · a la sartén grande en el minuto 13.",
-        "<b>Aceite de oliva · 20 ml (1½ cucharadas soperas)</b> · se mide detrás del girasol, en el minuto 13, y espera en el vaso hasta el 27, cuando va al bol grande."
+        "<b>Aceite de girasol · 250 ml (1 vaso de agua)</b> · a la sartén grande en el minuto 16.",
+        "<b>Aceite de oliva · 20 ml (1½ cucharadas soperas)</b> · se mide detrás del girasol, en el minuto 16, y espera en el vaso hasta el 30, cuando va al bol grande."
       ],
       "orden": true,
       "porq": "Primero lo que no deja residuo; las dos grasas al final, una detrás de otra, porque el film del girasol no molesta al aceite de oliva.",
@@ -173,14 +173,15 @@
         "<b>Plato 1</b> · 40 g de harina (4 cucharadas soperas) + 3 g de sal (½ cucharadita), mezclados en el minuto 4.",
         "<b>Plato hondo 2</b> · 1 huevo + 15 ml de agua del vaso, batidos en el minuto 4.",
         "<b>Plato 3</b> · 70 g de pan rallado (unas 8 cucharadas soperas), en el minuto 4.",
-        "<b>Bandeja de las pechugas</b> · 300 g de pechugas finas (4 filetes de 5-6 mm), de la nevera a la mesa en el minuto 7 para secarlas y empanarlas.",
-        "<b>Fuente</b> · vacía, al final de la fila: los filetes empanados desde el minuto 7, sin tocarse.",
-        "<b>Bol grande</b> · 40 g de cebolla morada + 10 ml de vinagre de vino + 1 g de sal en el minuto 0; 300 g de tomates en el 13; 1 g de sal + 20 ml de aceite de oliva en el 27.",
-        "<b>Sartén grande</b> · 250 ml de aceite de girasol, al fuego grande en el minuto 13.",
-        "<b>Plato con papel de cocina</b> · junto a la sartén desde el minuto 13, para cada tanda."
+        "<b>Bandeja de las pechugas</b> · 300 g de pechugas finas (4 filetes de algo más de 1 cm), de la nevera a la mesa en el minuto 7 para aplanarlas a 5-6 mm, secarlas y empanarlas.",
+        "<b>Papel de horno · 2 hojas de unos 30 × 40 cm</b> · sobre la encimera en el minuto 7, con un cazo pequeño o el rodillo al lado; a la basura en el 10.",
+        "<b>Fuente</b> · vacía, al final de la fila: los filetes empanados desde el minuto 10, sin tocarse.",
+        "<b>Bol grande</b> · 40 g de cebolla morada + 10 ml de vinagre de vino + 1 g de sal en el minuto 0; 300 g de tomates en el 16; 1 g de sal + 20 ml de aceite de oliva en el 30.",
+        "<b>Sartén grande</b> · 250 ml de aceite de girasol, al fuego grande en el minuto 16.",
+        "<b>Plato con papel de cocina</b> · junto a la sartén desde el minuto 16, para cada tanda."
       ],
       "orden": false,
-      "porq": "Los tres platos van en el orden de uso, con la fuente al final, para que los filetes avancen en una sola dirección. El bol grande recibe la ensalada en tres momentos: la cebolla en el 0, el tomate en el 13 y el aliño en el 27.",
+      "porq": "Los tres platos van en el orden de uso, con la fuente al final, para que los filetes avancen en una sola dirección. El bol grande recibe la ensalada en tres momentos: la cebolla en el 0, el tomate en el 16 y el aliño en el 30.",
       "t": "TRES PLATOS EN FILA Y SUS COMPAÑEROS"
     }
   ],
@@ -220,11 +221,26 @@
       "carril": "mesa",
       "f": null,
       "holgura": "flexible",
+      "id": "aplanar",
+      "meto": "los 4 filetes de pechuga (300 g), de su bandeja al papel de horno, de dos en dos; aplanados, de vuelta a la bandeja",
+      "min": 3,
+      "nota": "Pon dos filetes separados sobre una hoja de papel de horno y tápalos con la otra. Golpéalos con el fondo de un cazo o con el rodillo, del centro hacia los bordes, hasta dejarlos parejos de 5-6 mm; repite con los otros dos y devuélvelos a su bandeja.",
+      "off": 7,
+      "p": "Los filetes pasan de 1 cm y son más gruesos por un lado que por otro. Aplanados a 5-6 mm, el grosor queda uniforme y la carne se hace por dentro en los 3½ minutos en que se dora el pan: con 1 cm, el pan se quemaría antes de que el centro llegase a 70 °C, o el centro quedaría crudo. Con golpes planos del centro hacia fuera, el músculo se extiende sin romperse; el papel de horno evita que se rasgue, que se pegue al cazo y que salpique jugo crudo por la encimera.",
+      "s": 180,
+      "saco": "",
+      "t": "Aplanar los filetes a 5-6 mm entre papel de horno",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
       "id": "empanar",
       "meto": "los 4 filetes de pechuga (300 g), de su bandeja a la fila de platos · fuente: los filetes empanados",
       "min": 6,
-      "nota": "Seca los filetes con papel. Mano seca, mano húmeda: harina y sacude, huevo y escurre, pan rallado y aprieta con la palma por las dos caras. A la fuente sin que se toquen, y lávate las manos.",
-      "off": 7,
+      "nota": "Quita el papel y seca los filetes con papel de cocina. Mano seca, mano húmeda: harina y sacude, huevo y escurre, pan rallado y aprieta con la palma por las dos caras. A la fuente sin que se toquen, y lávate las manos.",
+      "off": 10,
       "p": "Sobre la carne seca la harina se pega en una capa fina, el huevo se agarra a la harina y el pan rallado al huevo; con agua en la superficie, la harina se hace engrudo y el empanado se despega en la sartén. Apretar el pan con la palma lo incrusta en el huevo. Una mano para lo seco y otra para el huevo, o a los dos filetes llevas los dedos empanados.",
       "s": 360,
       "saco": "",
@@ -239,8 +255,8 @@
       "meto": "bol grande: 300 g de tomate en gajos, sobre la cebolla",
       "min": 4,
       "nota": "Quita el pedúnculo y corta cada tomate en 8 gajos desde el centro. Al bol con la cebolla, sin mezclar ni salar. Deja un plato con papel de cocina junto a la sartén.",
-      "off": 13,
-      "p": "Gajos de unos 2,5 cm en la parte ancha: se pinchan enteros con el tenedor y guardan las semillas y su gelatina, que es lo más sabroso del tomate. Se cortan ahora, y no al principio, porque el tomate cortado empieza a soltar agua; sin sal encima aguanta los diez minutos hasta el aliño sin encharcar el bol. Mientras tanto los filetes reposan y el empanado se asienta.",
+      "off": 16,
+      "p": "Gajos de unos 2,5 cm en la parte ancha: se pinchan enteros con el tenedor y guardan las semillas y su gelatina, que es lo más sabroso del tomate. Se cortan ahora, y no al principio, porque el tomate cortado empieza a soltar agua; sin sal encima aguanta hasta el aliño sin encharcar el bol. Mientras tanto los filetes reposan y el empanado se asienta.",
       "s": 240,
       "saco": "",
       "t": "Cortar el tomate en gajos de 2,5 cm",
@@ -257,7 +273,7 @@
       "meto": "250 ml de aceite de girasol en la sartén grande",
       "min": 6,
       "nota": "Enciende el fuego grande al {7}, sin tapa. Está listo cuando una miga de pan rallado burbujea en cuanto toca el aceite.",
-      "off": 13,
+      "off": 16,
       "p": "250 ml en la sartén grande dejan algo más de medio centímetro de fondo: los filetes de 5-6 mm quedan medio sumergidos y se fríen cara a cara. El girasol aguanta los 170-180 °C sin humear ni dar sabor, y seis minutos al {7} lo llevan ahí. Con el aceite frío, el pan chupa grasa antes de formar costra y sale blando. Se enciende con las manos ya lavadas y el empanado hecho.",
       "s": 360,
       "saco": "",
@@ -291,7 +307,7 @@
       "meto": "los 4 filetes empanados, de dos en dos, de la fuente a la sartén",
       "min": 8,
       "nota": "Mete los filetes alejándolos de ti para no salpicarte, sin que se toquen: 2 minutos por la primera cara y 1½ por la segunda. Si el aceite humea o el pan se oscurece antes, baja del {7} al {6}.",
-      "off": 19,
+      "off": 22,
       "p": "La primera cara va más rato porque el filete entra frío y baja la temperatura del aceite; la segunda se hace sobre una carne ya caliente. En 3½ minutos un filete de 5-6 mm pasa de 70 °C por dentro y el pan se dora. El minuto entre tandas deja que el aceite se recupere: en aceite tibio la segunda tanda saldría grasienta. Al papel sin apilar, porque uno encima de otro el vapor ablanda la costra.",
       "s": 480,
       "saco": "los filetes, al plato con papel; apaga y aparta la sartén a un fuego frío",
@@ -309,7 +325,7 @@
       "meto": "bol grande: 1 g de sal sobre el tomate + 20 ml de aceite de oliva",
       "min": 3,
       "nota": "Echa la sal que queda sobre el tomate y el aceite de oliva, y mezcla con la cebolla y su vinagre. Dos filetes por plato, sin apilar, con la ensalada al lado.",
-      "off": 27,
+      "off": 30,
       "p": "La sal entra al final para que el tomate no suelte el agua antes de tiempo; con ella y el vinagre de la cebolla se forma en el fondo un caldo que aliña cada gajo. Aceite de oliva y no de girasol, porque en crudo es el que da sabor. Los filetes escurren en el papel mientras aliñas: sírvelos ya, que el vapor que suelta el pollo ablanda la costra en pocos minutos.",
       "s": 180,
       "saco": "2 platos: dos filetes empanados y la mitad de la ensalada en cada uno",
@@ -329,8 +345,8 @@
       "La harina seca la superficie y da agarre; el huevo pega y, al cuajar, sostiene la costra; el pan rallado es lo que se dora y cruje. Sin harina, el huevo resbala en la pechuga lisa y deja calvas."
     ],
     [
-      "Filetes finos, sin aplanar",
-      "Con 5-6 mm se hacen por dentro en los mismos 3½ minutos en que se dora el pan. Un filete de más de 1 cm se quemaría por fuera antes de llegar a 70 °C en el centro."
+      "Filetes aplanados a 5-6 mm",
+      "Las pechugas finas pasan de 1 cm y no son parejas. Aplanadas entre papel de horno a 5-6 mm, el grosor es uniforme y se hacen por dentro en los mismos 3½ minutos en que se dora el pan. Con 1 cm o más, el pan se quemaría antes de que el centro llegase a 70 °C, o quedaría crudo por dentro. El papel evita que la carne se rasgue y se pegue al cazo o al rodillo."
     ],
     [
       "Sal en la harina",
@@ -384,5 +400,5 @@
     ]
   },
   "titulo": "Pechugas empanadas con ensalada de tomate",
-  "totalMin": 30
+  "totalMin": 33
 }

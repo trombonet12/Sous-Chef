@@ -40,7 +40,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Arroz redondo cocido despacio en leche infusionada con piel de limón, endulzado al final y servido templado con canela molida por encima. La dificultad es la paciencia: casi una hora de fuego suave sin tapa, removiendo desde el fondo para que no se agarre, y apagar cuando aún fluye, porque el almidón lo espesa al enfriar. Se apoya en la leche: sin un litro, no hay plato.",
+  "descripcion": "Arroz redondo cocido despacio en leche semidesnatada infusionada con piel de limón, endulzado al final con un taco de mantequilla que le devuelve la grasa que le falta a la leche, y servido templado con canela molida por encima. La dificultad es la paciencia: casi una hora de fuego suave sin tapa, removiendo desde el fondo para que no se agarre, y apagar cuando aún fluye, porque el almidón lo espesa al enfriar. Se apoya en la leche: sin un litro, no hay plato.",
   "escala": {
     "max": 4,
     "min": 4,
@@ -51,7 +51,7 @@
       "items": [
         {
           "a": 1,
-          "n": "leche (1 brick de 1 l)",
+          "n": "leche semidesnatada (1 brick de 1 l)",
           "u": "l"
         },
         {
@@ -73,6 +73,11 @@
           "a": 90,
           "n": "azúcar blanco (7 cucharadas soperas)",
           "u": "g"
+        },
+        {
+          "a": 25,
+          "n": "mantequilla (un taco de 3 × 3 × 3 cm)",
+          "u": "g"
         }
       ],
       "n": "OLLA · EL ARROZ"
@@ -89,7 +94,7 @@
       "n": "CUENCOS · AL SERVIR"
     }
   ],
-  "lectura": "Un solo fuego, el mediano, del minuto 3 al 60. Tramos: 3 de preparar + 9 de calentar la leche + 2 de arroz + 34 de cocción + 12 con el azúcar + 2 de repartir + 20 de templar + 2 de servir = 84 minutos. De los 57 de fuego ninguno es para irse lejos: se remueve cada cuatro minutos, y cada dos desde que entra el azúcar.",
+  "lectura": "Un solo fuego, el mediano, del minuto 3 al 60. Tramos: 3 de preparar + 9 de calentar la leche + 2 de arroz + 34 de cocción + 12 con el azúcar y la mantequilla + 2 de repartir + 20 de templar + 2 de servir = 84 minutos. De los 57 de fuego ninguno es para irse lejos: se remueve cada cuatro minutos, y cada dos desde que entra el azúcar.",
   "mep": [
     {
       "l": [
@@ -103,13 +108,13 @@
       "l": [
         "<b>Olla mediana de fondo grueso, en frío</b> · 1 l de leche (1 brick) + la piel del limón en el minuto 0; al fuego mediano en el 3. El arroz entra en el 12 y el azúcar en el 48.",
         "<b>Vaso medidor</b> · 100 g de arroz redondo (½ vaso de agua), sin lavar, pesado en el minuto 0. A la olla en el 12.",
-        "<b>Uno de los 4 cuencos</b> · 90 g de azúcar blanco (7 cucharadas soperas), en el minuto 0. A la olla en el 48; el cuenco vuelve a servir en el 60.",
+        "<b>Uno de los 4 cuencos</b> · 90 g de azúcar blanco (7 cucharadas soperas) + 25 g de mantequilla (un taco de 3 × 3 × 3 cm), en el minuto 0: la mantequilla se ablanda ahí. A la olla en el 48; el cuenco vuelve a servir en el 60.",
         "<b>4 cuencos de postre</b> · unos 200 g de arroz con leche en cada uno en el minuto 60.",
         "<b>Bote de canela molida</b> · 2 g (1 cucharadita rasa): ¼ de cucharadita por cuenco, en 2 cuencos en el minuto 82 y en los otros 2 al sacarlos de la nevera.",
         "<b>Cuchara de madera de canto recto</b> · junto a la olla desde el minuto 3, para rascar el fondo."
       ],
       "orden": false,
-      "porq": "La olla en frío es el recipiente de la leche y de la piel. El arroz pesado espera en el vaso medidor y el azúcar en uno de los cuencos de servir, que vuelve a usarse sin lavar. Fondo grueso porque reparte el calor y retrasa que la leche se agarre.",
+      "porq": "La olla en frío es el recipiente de la leche y de la piel. El arroz pesado espera en el vaso medidor, y el azúcar con la mantequilla en uno de los cuencos de servir, que vuelve a usarse sin lavar. Fondo grueso porque reparte el calor y retrasa que la leche se agarre.",
       "t": "LOS RECIPIENTES"
     }
   ],
@@ -249,14 +254,14 @@
       ],
       "holgura": "ajustado",
       "id": "azucar",
-      "meto": "90 g de azúcar blanco del cuenco",
+      "meto": "90 g de azúcar blanco + 25 g de mantequilla, del cuenco",
       "min": 12,
-      "nota": "Echa el azúcar y remueve hasta que se disuelva; sigue al {3}. Está cuando cubre la cuchara y aún fluye, porque espesa al enfriar: apaga antes de que parezca hecho.",
+      "nota": "Echa el azúcar y la mantequilla y remueve hasta que se disuelvan; sigue al {3}. Está cuando cubre la cuchara y aún fluye, porque espesa al enfriar: apaga antes de que parezca hecho.",
       "off": 48,
-      "p": "El azúcar va al final porque compite con el almidón por el agua: echado al principio, el grano se hidrata más despacio y queda entero y duro tras una hora. Además el azúcar carameliza contra el fondo antes que la leche sola, por eso ahora se remueve cada dos minutos. El punto se juzga en caliente y fluido: al enfriar, el almidón disuelto forma una red que lo espesa, y lo que en la olla parece justo en el cuenco queda como un bloque.",
+      "p": "El azúcar va al final porque compite con el almidón por el agua: echado al principio, el grano se hidrata más despacio y queda entero y duro tras una hora. La mantequilla entra con él y pone la grasa que le falta a la semidesnatada: en doce minutos removiendo, el almidón la reparte en gotas finas y la crema gana la untuosidad y el brillo de la leche entera. El azúcar carameliza contra el fondo antes que la leche sola, por eso ahora se remueve cada dos minutos. El punto se juzga en caliente y fluido: al enfriar, el almidón disuelto forma una red que lo espesa.",
       "s": 720,
       "saco": "apaga el fuego mediano y aparta la olla de la placa",
-      "t": "El azúcar y los últimos 12 minutos, removiendo más a menudo",
+      "t": "El azúcar y la mantequilla, y los últimos 12 minutos removiendo más a menudo",
       "tapa": "sin tapa"
     },
     {
@@ -326,7 +331,7 @@
     ],
     [
       "Un litro de leche, 100 g de arroz y 90 g de azúcar",
-      "Diez de leche por uno de arroz es la proporción que, con 46 minutos de cocción sin tapa, deja el grano tierno y la leche reducida a una crema que aún fluye. El azúcar, algo por debajo del arroz, endulza sin tapar el limón. Con leche entera sale más cremoso que con semidesnatada."
+      "Diez de leche por uno de arroz es la proporción que, con 46 minutos de cocción sin tapa, deja el grano tierno y la leche reducida a una crema que aún fluye. El azúcar, algo por debajo del arroz, endulza sin tapar el limón."
     ],
     [
       "El azúcar, en los últimos 12 minutos",
@@ -353,8 +358,8 @@
       "El brick de un litro es la unidad, y con la mitad en la misma olla la reducción se dispara y se agarra. Aguanta 3 días en la nevera."
     ],
     [
-      "Sin mantequilla, nata ni yema",
-      "La cremosidad la hace el almidón del arroz redondo en la leche reducida. La grasa de más lo vuelve pesado y tapa el limón; la yema pediría otro control de temperatura para no cuajar."
+      "Mantequilla, porque la leche es semidesnatada",
+      "Un litro de semidesnatada lleva unos 16 g de grasa y uno de entera unos 36: esa diferencia es la untuosidad que se echa de menos. 25 g de mantequilla ponen esos 20 g de grasa sin añadir agua, así que la reducción y los tiempos no cambian. Más arroz espesaría, pero en pasta, no en crema; reducir más concentraría la leche hasta agarrarse; y la nata para cocinar lleva espesantes y añadiría líquido que pediría otros cinco minutos de fuego. Sin yema: pediría otro control de temperatura para no cuajar."
     ],
     [
       "Sin sal",

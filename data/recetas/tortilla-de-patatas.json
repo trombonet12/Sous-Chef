@@ -45,7 +45,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Tortilla de patata y cebolla confitadas en aceite de oliva a fuego medio-bajo, reposadas en el huevo batido y cuajadas jugosas, con la vuelta con plato. La dificultad está en dos temperaturas: la del aceite del confitado, que tiene que ablandar la patata sin dorarla, y la de la sartén al cuajar, que dora fuera en tres minutos y deja el centro cremoso. Se apoya en los huevos y las patatas: si faltan, no hay plato.",
+  "descripcion": "Tortilla de patata y cebolla confitadas en aceite de oliva a fuego medio-bajo, reposadas en el huevo batido y cuajadas jugosas en la sartén de 24 cm, con la vuelta con plato. La dificultad está en dos temperaturas: la del aceite del confitado, que tiene que ablandar la patata sin dorarla, y la de la sartén al cuajar, que dora fuera en dos minutos y medio y deja el centro cremoso. Se apoya en los huevos y las patatas: si faltan, no hay plato.",
   "escala": {
     "max": 2,
     "min": 2,
@@ -55,19 +55,19 @@
     {
       "items": [
         {
-          "a": 400,
-          "n": "patatas (2 patatas medianas), en cuartos de luna de 3 mm",
+          "a": 500,
+          "n": "patatas (2 patatas grandes), en cuartos de luna de 3 mm",
           "u": "g"
         },
         {
-          "a": 120,
-          "n": "cebolla (¾ de cebolla mediana), en pluma de 3 mm",
+          "a": 150,
+          "n": "cebolla (1 cebolla mediana), en pluma de 3 mm",
           "u": "g"
         },
         {
-          "a": 4,
+          "a": 5,
           "esc": "sub",
-          "n": "sal (⅔ de cucharadita)",
+          "n": "sal (1 cucharadita rasa)",
           "u": "g"
         }
       ],
@@ -76,9 +76,9 @@
     {
       "items": [
         {
-          "a": 375,
+          "a": 500,
           "esc": "fijo",
-          "n": "aceite de oliva (1½ vasos de agua; se recuperan unos 300 ml)",
+          "n": "aceite de oliva (2 vasos de agua; se recuperan unos 400 ml)",
           "u": "ml"
         }
       ],
@@ -87,7 +87,7 @@
     {
       "items": [
         {
-          "a": 4,
+          "a": 5,
           "n": "huevos",
           "u": "uds"
         },
@@ -101,12 +101,12 @@
       "n": "BOL GRANDE · EL HUEVO"
     }
   ],
-  "lectura": "Un solo fuego, el mediano, con la sartén mediana todo el plan. Tramos: 9 de cortar (6 de patata + 3 de cebolla) + 22 de confitado (4 al {5} y 18 al {4}) + 3 de escurrir + 8 de reposo en el huevo + 3 de la primera cara + 1 de vuelta + 1½ de la segunda + 2½ de reposo y servir = 50 minutos. El aceite se calienta entre los minutos 5 y 9, mientras acabas la cebolla, y la sartén vuelve al fuego en el 40, dos minutos antes de que acabe el reposo. Del minuto 42 al 50 no hay pausa.",
+  "lectura": "Un solo fuego, el mediano, con la sartén mediana de 24 cm todo el plan. Tramos: 10 de cortar (7 de patata + 3 de cebolla) + 22 de confitado (4 al {5} y 18 al {4}) + 3 de escurrir + 8 de reposo en el huevo + 2½ de la primera cara + 1 de vuelta + 1 de la segunda + 2½ de reposo y servir = 50 minutos. El aceite se calienta entre los minutos 5 y 10, mientras acabas la patata y cortas la cebolla, y la sartén vuelve al fuego en el 41, dos minutos antes de que acabe el reposo. Del minuto 43 al 50 no hay pausa.",
   "mep": [
     {
       "l": [
-        "<b>Patatas · 400 g (2 patatas medianas)</b> · peladas, lavadas enteras y en cuartos de luna de 3 mm, en el minuto 0. Al bol grande con 4 g de sal (⅔ de cucharadita).",
-        "<b>Cebolla · 120 g (¾ de cebolla mediana)</b> · en pluma de 3 mm siguiendo las vetas, en el minuto 6. Al bol grande, sobre la patata; el cuarto que sobra, a un táper."
+        "<b>Patatas · 500 g (2 patatas grandes)</b> · peladas, lavadas enteras y en cuartos de luna de 3 mm, en el minuto 0. Al bol grande con 5 g de sal (1 cucharadita rasa).",
+        "<b>Cebolla · 150 g (1 cebolla mediana)</b> · en pluma de 3 mm siguiendo las vetas, en el minuto 7. Al bol grande, sobre la patata."
       ],
       "orden": true,
       "porq": "Solo pasa verdura y todo va al mismo bol: la tabla no se lava. La patata, dura y seca por fuera, primero; la cebolla, que moja, después.",
@@ -114,7 +114,7 @@
     },
     {
       "l": [
-        "<b>Aceite de oliva · 375 ml (1½ vasos de agua)</b> · a la sartén mediana en el minuto 5. Vuelven 15 ml (1 cucharada sopera), ya colados, en el 40; se recuperan unos 300 ml."
+        "<b>Aceite de oliva · 500 ml (2 vasos de agua)</b> · a la sartén mediana en el minuto 5. Vuelven 15 ml (1 cucharada sopera), ya colados, en el 41; se recuperan unos 400 ml."
       ],
       "orden": true,
       "porq": "Por el vaso solo pasa el aceite: se mide una vez y no hace falta lavarlo hasta el final.",
@@ -122,30 +122,30 @@
     },
     {
       "l": [
-        "<b>Bol grande</b> · 400 g de patata + 4 g de sal en el minuto 0 y 120 g de cebolla en el 6; a la sartén en el 9. En el 24, 4 huevos + 1 g de sal (un pellizco), batidos; la patata escurrida entra en el 34.",
-        "<b>Sartén mediana, de 20-22 cm</b> · 375 ml de aceite de oliva al fuego mediano en el minuto 5; la patata y la cebolla en el 9. Limpia, con 15 ml del aceite colado, en el 40.",
-        "<b>Colador sobre un bol mediano de metal o cristal</b> · montado junto a la sartén en el minuto 24; recibe la patata y los 375 ml de aceite en el 31.",
-        "<b>Tarro con tapa</b> · el aceite colado, unos 300 ml, cuando se enfríe, después de servir.",
-        "<b>Plato llano más ancho que la sartén</b> · para la vuelta en el minuto 45 y para servir en el 47½."
+        "<b>Bol grande</b> · 500 g de patata + 5 g de sal en el minuto 0 y 150 g de cebolla en el 7; a la sartén en el 10. En el 25, 5 huevos + 1 g de sal (un pellizco), batidos; la patata escurrida entra en el 35.",
+        "<b>Sartén mediana, de 24 cm</b> · 500 ml de aceite de oliva al fuego mediano en el minuto 5; la patata y la cebolla en el 10. Limpia, con 15 ml del aceite colado, en el 41.",
+        "<b>Colador sobre un bol mediano de metal o cristal, de más de 1 l</b> · montado junto a la sartén en el minuto 25; recibe la patata y los 500 ml de aceite en el 32.",
+        "<b>Tarro con tapa</b> · el aceite colado, unos 400 ml, cuando se enfríe, después de servir.",
+        "<b>Plato llano más ancho que la sartén</b> · para la vuelta en el minuto 45½ y para servir en el 47½."
       ],
       "orden": false,
       "porq": "El bol grande sirve dos veces: primero la patata cortada y, vacío, el huevo batido, que luego recibe la patata escurrida. El aceite caliente necesita un bol de metal o cristal. El plato de la vuelta es el de servir.",
       "t": "LOS RECIPIENTES"
     }
   ],
-  "notaEscala": "Va solo a 2 raciones: 4 huevos y 400 g de patata en una sartén de 20-22 cm dan una tortilla de unos 3 cm, que es la que cuaja en 3 minutos más 1½ y queda jugosa. Con la mitad saldría fina y seca en los mismos tiempos; con el doble no cabe en la sartén ni se puede dar la vuelta con un plato. El aceite del confitado no escala: es la profundidad de la sartén, y se recupera.",
+  "notaEscala": "Va solo a 2 raciones: 5 huevos y 500 g de patata en la sartén de 24 cm dan una tortilla de casi 3 cm, que es la que cuaja en 2½ minutos más 1 y queda jugosa. Con menos saldría fina y seca en los mismos tiempos; con más no cabe en la sartén ni se puede dar la vuelta con un plato. El aceite del confitado no escala: es la profundidad de la sartén, y se recupera.",
   "pasos": [
     {
       "carril": "mesa",
       "f": null,
       "holgura": "flexible",
       "id": "cortar-patata",
-      "meto": "bol grande: 400 g de patata en cuartos de luna de 3 mm + 4 g de sal",
-      "min": 6,
+      "meto": "bol grande: 500 g de patata en cuartos de luna de 3 mm + 5 g de sal",
+      "min": 7,
       "nota": "Pela las patatas, lávalas enteras y sécalas con un trapo. Pártelas a lo largo en cuatro, lamina cada cuarto en 3 mm y al bol grande con la sal, mezclando con la mano; después de cortar, no las laves.",
       "off": 0,
       "p": "Se lavan enteras y no cortadas: el almidón que queda en la cara cortada es el que luego traba la patata con el huevo, y lavándola se iría por el fregadero. Con 3 mm, la lámina se ablanda entera en veinte minutos de confitado y algunas se rompen en los bordes, que es lo que da el interior cremoso. La sal va ya: durante el confitado entra hasta el centro, y en el huevo bastará un pellizco.",
-      "s": 360,
+      "s": 420,
       "saco": "",
       "t": "Pelar y cortar la patata en cuartos de luna de 3 mm",
       "tapa": null
@@ -155,12 +155,12 @@
       "f": 5,
       "holgura": "flexible",
       "id": "calentar-aceite",
-      "meto": "375 ml de aceite de oliva en la sartén mediana",
-      "min": 4,
+      "meto": "500 ml de aceite de oliva en la sartén mediana",
+      "min": 5,
       "nota": "Echa el aceite en la sartén mediana y enciende el fuego mediano al {5}. Está cuando una lámina de patata burbujea suave a su alrededor, sin chisporrotear.",
       "off": 5,
-      "p": "375 ml en una sartén de 20-22 cm dejan casi 2 cm de aceite: la patata queda casi cubierta y se confita por todas las caras a la vez. Cuatro minutos al {5} lo llevan hacia los 130 °C, por encima de la franja buena, a propósito: la patata y la cebolla frías lo bajarán de golpe en cuanto entren. Aceite de oliva porque es el sabor de la tortilla, y a esta temperatura no se acerca a su punto de humo.",
-      "s": 240,
+      "p": "500 ml en la sartén de 24 cm dejan casi 2 cm de aceite: la patata queda casi cubierta y se confita por todas las caras a la vez. Cinco minutos al {5} lo llevan hacia los 130 °C, por encima de la franja buena, a propósito: la patata y la cebolla frías lo bajarán de golpe en cuanto entren. Aceite de oliva porque es el sabor de la tortilla, y a esta temperatura no se acerca a su punto de humo.",
+      "s": 300,
       "saco": "",
       "t": "Calentar el aceite de oliva al {5}",
       "tapa": "sin tapa"
@@ -170,10 +170,10 @@
       "f": null,
       "holgura": "flexible",
       "id": "cortar-cebolla",
-      "meto": "bol grande: 120 g de cebolla en pluma de 3 mm, sobre la patata",
+      "meto": "bol grande: 150 g de cebolla en pluma de 3 mm, sobre la patata",
       "min": 3,
-      "nota": "Pela la cebolla, pártela de la raíz a la punta y córtala en pluma de 3 mm siguiendo las vetas; guarda el cuarto que sobra en un táper. Al bol grande y mezcla con la patata.",
-      "off": 6,
+      "nota": "Pela la cebolla, pártela de la raíz a la punta y córtala entera en pluma de 3 mm siguiendo las vetas. Al bol grande y mezcla con la patata.",
+      "off": 7,
       "p": "Va después de la patata porque moja la tabla, y antes de nada más porque entra con ella en el aceite. En pluma de 3 mm y a lo largo de las vetas, se confita en el mismo tiempo que la patata y se funde en hebras dulces dentro de la tortilla; en dados grandes quedaría a medio hacer y suelta en el corte. Mezclada en el bol, entra repartida y no en una capa encima.",
       "s": 180,
       "saco": "",
@@ -194,11 +194,11 @@
       ],
       "holgura": "ajustado",
       "id": "arrancar-confitado",
-      "meto": "todo el bol grande: 400 g de patata + 120 g de cebolla con la sal",
+      "meto": "todo el bol grande: 500 g de patata + 150 g de cebolla con la sal",
       "min": 4,
       "nota": "Acerca el bol al aceite y desliza la patata y la cebolla poco a poco, sin dejarlas caer de alto, y repártelas con la espátula. Sigue al {5} hasta que vuelva a burbujear parejo.",
-      "off": 9,
-      "p": "Medio kilo de verdura fría baja el aceite de unos 130 a unos 90 °C, donde la patata solo chupa grasa. Cuatro minutos más al {5} lo devuelven a la franja del confitado, de 110 a 130 °C, y entonces se baja. Deslizarla desde cerca evita salpicaduras: el agua de la patata cortada hierve al tocar el aceite.",
+      "off": 10,
+      "p": "Más de medio kilo de verdura fría baja el aceite de unos 130 a unos 90 °C, donde la patata solo chupa grasa. Cuatro minutos más al {5} lo devuelven a la franja del confitado, de 110 a 130 °C, y entonces se baja. Deslizarla desde cerca evita salpicaduras: el agua de la patata cortada hierve al tocar el aceite.",
       "s": 240,
       "saco": "",
       "t": "Patata y cebolla al aceite, aún al {5}",
@@ -230,7 +230,7 @@
       "meto": "",
       "min": 18,
       "nota": "Baja al {4}: burbuja pequeña y constante alrededor de la patata, sin dorar. Si chisporrotea o se doran los bordes, baja al {3}; si deja de burbujear, sube al {5}.",
-      "off": 13,
+      "off": 14,
       "p": "Entre 110 y 130 °C el agua de la patata hierve despacio por dentro, el almidón se hincha y la pectina de las paredes se ablanda, pero la superficie no llega a los 140 °C en que empieza a dorarse: la lámina queda tierna, pálida y abierta, y luego chupa el huevo. Una patata frita, con costra, lo dejaría resbalar. La vitro tarda un par de minutos en notar la bajada al {4}; por eso la señal es la burbuja y no el número.",
       "s": 1080,
       "saco": "apaga el fuego mediano; la patata, la cebolla y el aceite, al colador sobre el bol mediano",
@@ -242,10 +242,10 @@
       "f": null,
       "holgura": "flexible",
       "id": "batir-huevos",
-      "meto": "bol grande: 4 huevos + 1 g de sal",
+      "meto": "bol grande: 5 huevos + 1 g de sal",
       "min": 2,
-      "nota": "Casca los 4 huevos en el bol grande, el mismo de la patata, y bátelos con un tenedor con la sal hasta que no hagan hebras. Pon el colador sobre el bol mediano junto a la sartén.",
-      "off": 24,
+      "nota": "Casca los 5 huevos en el bol grande, el mismo de la patata, y bátelos con un tenedor con la sal hasta que no hagan hebras. Pon el colador sobre el bol mediano junto a la sartén.",
+      "off": 25,
       "p": "Batido solo hasta que yema y clara sean una, sin espumar: el aire de más se escapa al cuajar y deja la tortilla seca y con agujeros. El bol es el de la patata, sin lavar, porque el almidón que queda en las paredes ayuda a trabar la mezcla. Solo un pellizco de sal, porque la patata ya va salada desde el corte. El colador se deja montado antes de que el aceite salga caliente.",
       "s": 120,
       "saco": "",
@@ -263,7 +263,7 @@
       "meto": "colador sobre el bol mediano: todo el contenido de la sartén",
       "min": 3,
       "nota": "Vuelca la sartén en el colador sobre el bol mediano, despacio y lejos del cuerpo: el aceite está a más de 100 °C. Deja escurrir 3 minutos moviendo el colador un par de veces, y limpia la sartén con papel de cocina.",
-      "off": 31,
+      "off": 32,
       "p": "Tres minutos de escurrido hacen dos cosas: el aceite que moja la patata cae al bol, y la tortilla no sale grasienta, y la patata baja de unos 110 °C a unos 80 °C. Recién salida del aceite, haría huevo revuelto en cuanto tocase el bol. El bol de metal o cristal, nunca de plástico. El aceite se queda en el bol hasta que se enfría; luego se cuela al tarro.",
       "s": 180,
       "saco": "",
@@ -284,7 +284,7 @@
       "meto": "bol grande: la patata y la cebolla escurridas, sobre el huevo batido",
       "min": 8,
       "nota": "Echa la patata y la cebolla al huevo, mezcla con un tenedor aplastando un poco algunas láminas y deja reposar 8 minutos.",
-      "off": 34,
+      "off": 35,
       "p": "La patata a unos 80 °C lleva la mezcla hacia los 60 °C, justo por debajo de donde la clara empieza a cuajar: el huevo espesa un poco sin hacerse, se mete entre las láminas abiertas del confitado y las suaviza. Las láminas aplastadas sueltan almidón, que traba. En ocho minutos la mezcla pasa de patata nadando en huevo a una masa trabada y templada, que cuaja pareja: dorada fuera y jugosa dentro.",
       "s": 480,
       "saco": "",
@@ -302,7 +302,7 @@
       "meto": "15 ml (1 cucharada sopera) del aceite del bol mediano, en la sartén limpia",
       "min": 2,
       "nota": "Echa 1 cucharada del aceite del confitado en la sartén limpia y enciende el fuego mediano al {6}. Extiéndelo por el fondo y las paredes con la espátula.",
-      "off": 40,
+      "off": 41,
       "p": "La sartén tiene que estar caliente cuando entra la mezcla: el huevo que toca el metal cuaja al momento y forma la piel que no se pega y luego se dora. Al {6} y con dos minutos basta; más fuerte, la cara de abajo se quema antes de que el centro coja calor. El aceite es el del confitado, que ya sabe a patata y cebolla, y en las paredes evita que el borde se agarre.",
       "s": 120,
       "saco": "",
@@ -328,13 +328,13 @@
       "holgura": "critico",
       "id": "cuajar-1",
       "meto": "toda la mezcla del bol grande",
-      "min": 3,
+      "min": 2.5,
       "nota": "Vuelca la mezcla, extiéndela y remueve el centro con la espátula 3 o 4 veces en los primeros 20 segundos. Luego quieta, remetiendo el borde.",
-      "off": 42,
-      "p": "Removiendo el centro en los primeros segundos se forman pequeños cuajos que espesan el interior, y la tortilla queda cremosa y no a capas. Después se deja quieta: el fondo se dora con la reacción de Maillard y sostiene el peso en la vuelta. Al {6}, tres minutos doran la cara de abajo y dejan el centro todavía blando; remeter el borde le da la forma redondeada y que no se quede fino y seco.",
-      "s": 180,
+      "off": 43,
+      "p": "Removiendo el centro en los primeros segundos se forman pequeños cuajos que espesan el interior, y la tortilla queda cremosa y no a capas. Después se deja quieta: el fondo se dora con la reacción de Maillard y sostiene el peso en la vuelta. Al {6}, dos minutos y medio doran la cara de abajo y dejan el centro todavía blando; medio minuto menos que en una sartén más pequeña, porque en la de 24 cm sale algo más fina. Remeter el borde le da la forma redondeada y que no se quede fino y seco.",
+      "s": 150,
       "saco": "",
-      "t": "Cuajar la primera cara al {6}",
+      "t": "Cuajar la primera cara al {6}, 2½ minutos",
       "tapa": "sin tapa"
     },
     {
@@ -345,7 +345,7 @@
       "meto": "un plato llano más ancho que la sartén, boca abajo encima",
       "min": 1,
       "nota": "Sartén fuera del fuego, plato llano boca abajo encima y la mano abierta sobre él; gira de golpe, sobre el fregadero. Desliza la tortilla a la sartén con la cara cruda abajo y remete el borde.",
-      "off": 45,
+      "off": 45.5,
       "p": "Con la cara de arriba aún blanda, la tortilla no se puede girar con la espátula: se partiría. El plato más ancho que la sartén la recoge entera y, girando de golpe en un solo movimiento, el peso cae de una vez y no se descuelga por el borde. Deslizarla de vuelta, en vez de volcarla otra vez, mantiene la cara dorada arriba y entera. El fuego sigue encendido al {6}: el minuto fuera no deja que la placa se enfríe.",
       "s": 60,
       "saco": "",
@@ -358,13 +358,13 @@
       "holgura": "critico",
       "id": "cuajar-2",
       "meto": "",
-      "min": 1.5,
-      "nota": "Sigue al {6}, sin tocarla, 1 minuto y medio. Deslízala al plato de la vuelta y apaga el fuego.",
-      "off": 46,
-      "p": "La segunda cara va menos rato porque la tortilla ya está caliente por dentro desde la primera. En minuto y medio se dora y el centro llega hacia los 65-70 °C, donde el huevo espesa y no está duro: es la tortilla jugosa. Para hacerla más cuajada, un minuto más en este paso; no al final, porque fuera del fuego el calor de dentro sigue cuajando un par de minutos.",
-      "s": 90,
+      "min": 1,
+      "nota": "Sigue al {6}, sin tocarla, 1 minuto. Deslízala al plato de la vuelta y apaga el fuego.",
+      "off": 46.5,
+      "p": "La segunda cara va menos rato porque la tortilla ya está caliente por dentro desde la primera. En un minuto se dora y el centro llega hacia los 60-65 °C, donde el huevo espesa y sigue cremoso: es la tortilla jugosa, y el reposo termina de asentarla. Para hacerla más cuajada, medio minuto más en este paso; no al final, porque fuera del fuego el calor de dentro sigue cuajando un par de minutos.",
+      "s": 60,
       "saco": "la tortilla, deslizada al plato llano de la vuelta; apaga el fuego mediano",
-      "t": "Cuajar la segunda cara, 1½ minutos",
+      "t": "Cuajar la segunda cara, 1 minuto",
       "tapa": "sin tapa"
     },
     {
@@ -403,7 +403,7 @@
     ],
     [
       "El aceite no escala y se recupera",
-      "375 ml es la profundidad de la sartén, no la cantidad de patata: va como fijo. La patata chupa unos 40 ml, 15 ml vuelven a la sartén para cuajar y unos 300 ml se cuelan al tarro: sirven para dos o tres confitados, sofritos o frituras suaves, porque a 130 °C no se degrada."
+      "500 ml es la profundidad de la sartén de 24 cm, no la cantidad de patata: va como fijo. La patata chupa unos 50 ml, 15 ml vuelven a la sartén para cuajar y unos 400 ml se cuelan al tarro: sirven para dos o tres confitados, sofritos o frituras suaves, porque a 130 °C no se degrada."
     ],
     [
       "Aceite de oliva y no de girasol",
@@ -414,8 +414,8 @@
       "Entra a la vez y en pluma de 3 mm: se confita en el mismo tiempo, se vuelve dulce y se funde en la tortilla. Pochada aparte haría falta otro recipiente y no aportaría nada."
     ],
     [
-      "Cuatro huevos para 400 g de patata",
-      "Es la proporción que traba sin que la tortilla sea un revuelto con patatas: unos 200 g de huevo para unos 360 g de patata confitada. En una sartén de 20-22 cm sale de unos 3 cm, que cuaja en 4½ minutos y queda jugosa."
+      "Cinco huevos y 500 g de patata, por la sartén de 24 cm",
+      "La proporción es la misma, unos 250 g de huevo para unos 450 g de patata confitada: traba sin que la tortilla sea un revuelto con patatas. Lo que cambia es la sartén: en 24 cm, 4 huevos y 400 g quedarían en poco más de 2 cm, que cuajan enteros antes de que el fondo se dore y salen secos. Con 5 huevos y 500 g vuelve a casi 3 cm, el grosor que deja el centro cremoso. Aun así sale algo más ancha y fina que en una de 20-22 cm, y la quieres jugosa: por eso las caras van medio minuto más cortas, 2½ y 1 minuto, y el centro acaba de espesar en el reposo."
     ],
     [
       "Patata lavada entera, no cortada",

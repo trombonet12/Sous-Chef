@@ -17,7 +17,7 @@ Bacon · carne picada · pechuga familiar · pechugas finas · jamón serrano en
 Emperador · salmón
 
 ## Lácteos y huevos
-Huevos · leche · mantequilla · yogures · nata para cocinar · nata para montar · cuajada · queso semicurado · queso fuerte · camembert · queso azul · queso feta · queso rallado · Grana Padano
+Huevos · leche semidesnatada · mantequilla · yogures · nata para cocinar · nata para montar · cuajada · queso semicurado · queso fuerte · camembert · queso azul · queso feta · queso rallado · Grana Padano
 
 ## Pasta, arroz y cereales
 Arroz blanco largo · arroz redondo · espaguetis · macarrones · hélices o pajaritas · pasta rellena · láminas de lasaña · ñoquis · muesli crunchy con frutos secos · cereales de leche
