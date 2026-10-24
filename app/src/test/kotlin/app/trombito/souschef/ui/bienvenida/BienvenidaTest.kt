@@ -7,6 +7,7 @@ import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.domain.VersionFija
 import app.trombito.souschef.domain.copia.ArchivoCopia
 import app.trombito.souschef.domain.copia.GestorCopia
 import app.trombito.souschef.receta.Cocina
@@ -83,6 +84,7 @@ class BienvenidaTest {
             escucha,
             habla,
             repo,
+            VersionFija("1.6.0"),
             CoroutineScope(Dispatchers.Unconfined),
         )
 

@@ -92,6 +92,9 @@ interface AjustesRepo {
 
     /** Con `false` la guía del cronómetro se vuelve a ver (desde Ajustes). */
     suspend fun marcarGuiaCronoVista(vista: Boolean)
+
+    /** Guarda el `major.minor` de [version] ("1.6.2" guarda "1.6"); si no se entiende, no hace nada. */
+    suspend fun marcarNovedadesVistas(version: String)
 }
 
 interface CronoEstadoRepo {

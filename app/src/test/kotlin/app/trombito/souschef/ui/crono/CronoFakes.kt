@@ -14,6 +14,7 @@ import app.trombito.souschef.domain.RACIONES_MAX
 import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.domain.claveNovedades
 import app.trombito.souschef.domain.crono.AlarmaSistema
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.Notificador
@@ -123,6 +124,10 @@ class FakeAjustesRepo : AjustesRepo {
 
     override suspend fun marcarGuiaCronoVista(vista: Boolean) {
         actual.value = actual.value.copy(guiaCronoVista = vista)
+    }
+
+    override suspend fun marcarNovedadesVistas(version: String) {
+        actual.value = actual.value.copy(novedadesVistas = claveNovedades(version) ?: return)
     }
 }
 

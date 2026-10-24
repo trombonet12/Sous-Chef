@@ -13,6 +13,7 @@ import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.RACIONES_MAX
 import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.domain.claveNovedades
 import app.trombito.souschef.receta.Cocina
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -53,6 +54,7 @@ class AjustesRepoRoom
                 racionesDefecto = enteroDe(v[I_RACIONES], RACIONES_MIN..RACIONES_MAX, defecto.racionesDefecto),
                 introVista = booleanoDe(v[I_INTRO], defecto.introVista),
                 guiaCronoVista = booleanoDe(v[I_GUIA], defecto.guiaCronoVista),
+                novedadesVistas = claveNovedades(v[I_NOVEDADES].orEmpty()),
             )
         }
 
@@ -97,6 +99,11 @@ class AjustesRepoRoom
 
         override suspend fun marcarGuiaCronoVista(vista: Boolean) = dao.fijar(MetaEntity(CLAVE_GUIA, vista.toString()))
 
+        override suspend fun marcarNovedadesVistas(version: String) {
+            val clave = claveNovedades(version) ?: return
+            dao.fijar(MetaEntity(CLAVE_NOVEDADES, clave))
+        }
+
         companion object {
             const val CLAVE_DISPOSICION = "ajustes.crono.disposicion"
             const val CLAVE_VOZ = "ajustes.voz.activa"
@@ -115,6 +122,9 @@ class AjustesRepoRoom
             const val CLAVE_RACIONES = "ajustes.raciones.defecto"
             const val CLAVE_INTRO = "ajustes.intro.vista"
             const val CLAVE_GUIA = "ajustes.guia.crono.vista"
+
+            /** `major.minor` de las últimas novedades enseñadas, o ausente/vacío. */
+            const val CLAVE_NOVEDADES = "ajustes.novedades.vista"
             private const val MINUTOS_DIA = 24 * 60
 
             /** En el orden en que los lee [observar]; los índices `I_*` son sus posiciones. */
@@ -135,6 +145,7 @@ class AjustesRepoRoom
                     CLAVE_RACIONES,
                     CLAVE_INTRO,
                     CLAVE_GUIA,
+                    CLAVE_NOVEDADES,
                 )
             private const val I_DISPOSICION = 0
             private const val I_VOZ = 1
@@ -151,6 +162,7 @@ class AjustesRepoRoom
             private const val I_RACIONES = 12
             private const val I_INTRO = 13
             private const val I_GUIA = 14
+            private const val I_NOVEDADES = 15
 
             private fun booleanoDe(
                 valor: String?,

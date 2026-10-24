@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.bienvenida
 
+import app.trombito.souschef.domain.VersionFija
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.voz.OrdenVoz
@@ -82,7 +83,14 @@ class BienvenidaViewModelTest {
     private fun vm(
         escucha: EscuchaGuion = this.escucha,
         recetas: FakeRecetasRepo = FakeRecetasRepo(listOf(recetaCrono(SLUG_COCINA), recetaCrono(SLUG_RACIONES))),
-    ) = BienvenidaViewModel(recetas, escucha, habla, ajustes, CoroutineScope(Dispatchers.Unconfined))
+    ) = BienvenidaViewModel(
+        recetas,
+        escucha,
+        habla,
+        ajustes,
+        VersionFija("1.6.0"),
+        CoroutineScope(Dispatchers.Unconfined),
+    )
 
     @Test
     fun `carga las recetas de ejemplo del repositorio`() {
@@ -170,5 +178,13 @@ class BienvenidaViewModelTest {
         vm.pararVoz()
 
         assertEquals(PruebaVoz.Inactiva, vm.voz.value)
+    }
+
+    @Test
+    fun `al acabar la intro la version actual queda como vista`() {
+        vm().marcarIntroVista()
+
+        assertTrue(ajustes.actual.value.introVista)
+        assertEquals("1.6", ajustes.actual.value.novedadesVistas)
     }
 }

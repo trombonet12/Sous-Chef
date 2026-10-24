@@ -234,6 +234,21 @@ class AjustesRepoRoomTest {
         }
 
     @Test
+    fun novedadesVistasGuardaMajorMinorYAusenteEsNull() =
+        runBlocking {
+            assertEquals(null, repo.observar().first().novedadesVistas)
+
+            repo.marcarNovedadesVistas("1.6.2")
+            assertEquals("1.6", repo.observar().first().novedadesVistas)
+
+            repo.marcarNovedadesVistas("basura") // no se entiende: no cambia nada
+            assertEquals("1.6", repo.observar().first().novedadesVistas)
+
+            repo.marcarNovedadesVistas("1.10.0")
+            assertEquals("1.10", repo.observar().first().novedadesVistas)
+        }
+
+    @Test
     fun sinMarcaDeIntroPeroConOtrosAjustesLaIntroSeMuestraUnaVez() =
         runBlocking {
             repo.fijarTema(TemaApp.OSCURO)

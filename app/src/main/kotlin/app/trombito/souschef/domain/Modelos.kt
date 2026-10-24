@@ -86,6 +86,8 @@ data class Ajustes(
     val introVista: Boolean = false,
     /** La guía del cronómetro ya se vio. */
     val guiaCronoVista: Boolean = false,
+    /** `major.minor` de las últimas novedades enseñadas; null = ninguna (viene de antes de las novedades). */
+    val novedadesVistas: String? = null,
 )
 
 const val FUEGOS_MIN = 1

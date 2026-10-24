@@ -1,7 +1,5 @@
 package app.trombito.souschef.ui.ajustes
 
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.data.novedades.VersionAppAndroid
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
@@ -222,17 +221,5 @@ private fun nombreDisposicion(d: DisposicionCrono): String =
 @Composable
 internal fun versionApp(): String {
     val contexto = LocalContext.current
-    return remember(contexto) {
-        runCatching {
-            val gestor = contexto.packageManager
-            val info =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    gestor.getPackageInfo(contexto.packageName, PackageManager.PackageInfoFlags.of(0))
-                } else {
-                    @Suppress("DEPRECATION")
-                    gestor.getPackageInfo(contexto.packageName, 0)
-                }
-            info.versionName
-        }.getOrNull().orEmpty()
-    }
+    return remember(contexto) { VersionAppAndroid.leer(contexto) }
 }
