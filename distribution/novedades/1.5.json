@@ -1,0 +1,11 @@
+{
+  "version": "1.5",
+  "titulo": "Sous Chef 1.5 ya está en tu cocina",
+  "destacar": false,
+  "lineas": [
+    { "texto": "Receta nueva: costillar de cerdo glaseado con boniato asado.", "destino": "receta:costillar-bbq-con-boniato" },
+    { "texto": "«La última vez»: tu nota de la cocinada anterior sale en la ficha y antes de empezar." },
+    { "texto": "Comparte los ingredientes como texto, todo junto o por zona, con tus raciones." },
+    { "texto": "Avisos más fiables al cambiar de cocina y al actualizar desde Play." }
+  ]
+}

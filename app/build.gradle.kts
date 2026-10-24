@@ -143,11 +143,15 @@ android {
     }
 }
 
-// Datos del repo (recetas, técnicas, legado) empaquetados como assets para el seed local.
+// Datos del repo (recetas, técnicas, legado) y novedades por versión empaquetados como assets.
 abstract class CopiarDatos : DefaultTask() {
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val origen: DirectoryProperty
+
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val novedades: DirectoryProperty
 
     @get:OutputDirectory
     abstract val destino: DirectoryProperty
@@ -161,6 +165,10 @@ abstract class CopiarDatos : DefaultTask() {
             from(origen) {
                 include("recetas/**", "tecnicas/**", "legado/**")
             }
+            from(novedades) {
+                include("*.json")
+                into("novedades")
+            }
             into(destino)
         }
     }
@@ -169,6 +177,7 @@ abstract class CopiarDatos : DefaultTask() {
 val copiarDatos =
     tasks.register<CopiarDatos>("copiarDatos") {
         origen.set(rootProject.layout.projectDirectory.dir("data"))
+        novedades.set(rootProject.layout.projectDirectory.dir("distribution/novedades"))
         destino.set(layout.buildDirectory.dir("generated/souschef-datos"))
     }
 
@@ -177,6 +186,81 @@ androidComponents {
         variant.sources.assets?.addGeneratedSourceDirectory(copiarDatos, CopiarDatos::destino)
     }
 }
+
+// Comprueba las novedades tras actualizar: formato de los JSON y que whatsnew (Play) coincida con ellas.
+abstract class ComprobarNovedades : DefaultTask() {
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val novedades: DirectoryProperty
+
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val whatsnew: RegularFileProperty
+
+    @get:Input
+    abstract val major: Property<Int>
+
+    @get:Input
+    abstract val minor: Property<Int>
+
+    @Suppress("UNCHECKED_CAST")
+    private fun textosDe(f: File): List<String> {
+        val json = groovy.json.JsonSlurper().parseText(f.readText(Charsets.UTF_8)) as Map<String, Any?>
+        val lineas = json["lineas"] as? List<Map<String, Any?>> ?: error("${f.name}: falta \"lineas\"")
+        return lineas.map { it["texto"] as? String ?: error("${f.name}: línea sin texto") }
+    }
+
+    @TaskAction
+    fun comprobar() {
+        val nombre = Regex("""(\d+)\.(\d+)\.json""")
+        val jsons =
+            novedades
+                .get()
+                .asFile
+                .listFiles()
+                .orEmpty()
+                .mapNotNull { f ->
+                    nombre.matchEntire(f.name)?.let { Triple(it.groupValues[1].toInt(), it.groupValues[2].toInt(), f) }
+                }.sortedWith(compareBy({ it.first }, { it.second }))
+        check(jsons.isNotEmpty()) { "No hay JSON de novedades en ${novedades.get().asFile}" }
+
+        // Desde la 1.6 cada versión publicada exige su JSON (antes no existía la función).
+        val actual = "${major.get()}.${minor.get()}"
+        if (minor.get() >= 6) {
+            check(jsons.any { it.first == major.get() && it.second == minor.get() }) {
+                "Falta distribution/novedades/$actual.json (obligatorio desde la 1.6)"
+            }
+        }
+
+        jsons.forEach { (_, _, f) ->
+            val textos = textosDe(f)
+            check(textos.size in 1..5) { "${f.name}: debe tener entre 1 y 5 líneas" }
+            textos.forEach { t -> check(t.length <= 90) { "${f.name}: línea de más de 90 caracteres: $t" } }
+        }
+
+        // whatsnew se publica en Play junto a la versión que viene: se compara con el JSON de versión más alta
+        // que exista (con versionMinor=5 ya es la 1.6), no con el major.minor actual.
+        val ultimo = jsons.last().third
+        val esperado = textosDe(ultimo).joinToString("\n") { "• $it" }
+        val crudo = whatsnew.get().asFile.readText(Charsets.UTF_8)
+        val real = crudo.replace("\r\n", "\n").removeSuffix("\n")
+        val msg = "distribution/whatsnew/whatsnew-es-ES no coincide con ${ultimo.name} (líneas con prefijo «• »)"
+        check(real == esperado) { msg }
+        check(real.length <= 500) { "whatsnew-es-ES pasa de 500 caracteres (${real.length})" }
+    }
+}
+
+val comprobarNovedades =
+    tasks.register<ComprobarNovedades>("comprobarNovedades") {
+        group = "verification"
+        description = "Valida distribution/novedades/*.json y que whatsnew-es-ES coincida con el más reciente."
+        novedades.set(rootProject.layout.projectDirectory.dir("distribution/novedades"))
+        whatsnew.set(rootProject.layout.projectDirectory.file("distribution/whatsnew/whatsnew-es-ES"))
+        major.set(versionProp("versionMajor").toInt())
+        minor.set(versionProp("versionMinor").toInt())
+    }
+
+tasks.named("preBuild") { dependsOn(comprobarNovedades) }
 
 // Robolectric (SDK 36) necesita abrir internals del JDK 21.
 tasks.withType<Test>().configureEach {
