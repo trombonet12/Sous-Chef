@@ -51,6 +51,8 @@ data class FichaUiState(
     val cocinando: Int? = null,
     /** Notas «para la próxima vez» de cocinadas anteriores de esta receta, la más reciente primero. */
     val notas: List<NotaCocinada> = emptyList(),
+    /** Minutos que Joan suele desviarse del plan en esta receta (+ tarda más); null si no hay ritmo claro. */
+    val ritmoMin: Int? = null,
 ) {
     /** Las raciones no son las de la receta: los gramos de pasos y preparación siguen siendo los de la base. */
     val fueraDeBase: Boolean get() = receta != null && raciones != receta.raciones

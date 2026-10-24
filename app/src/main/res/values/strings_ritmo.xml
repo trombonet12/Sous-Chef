@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ficha: tu ritmo (v1.6) -->
+    <string name="ficha_ritmo_mas">Tu ritmo: sueles tardar +%1$d min → empieza a las %2$s</string>
+    <string name="ficha_ritmo_menos">Tu ritmo: sueles tardar −%1$d min → empieza a las %2$s</string>
+</resources>

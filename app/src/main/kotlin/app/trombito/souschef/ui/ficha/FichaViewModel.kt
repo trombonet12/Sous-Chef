@@ -10,6 +10,7 @@ import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.desvioHabitualMin
 import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.conCocina
@@ -27,6 +28,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlin.math.ceil
 
 /** Retardo de guardado de las raciones tras el último toque (docs/spec/app-legado.md §2). */
 const val DEBOUNCE_RACIONES_MS = 600L
@@ -67,8 +69,8 @@ class FichaViewModel
                     local,
                     ajustes.observar(),
                     historial.observarTodo(),
-                ) { l, a, h -> Triple(l, a, notasDe(h, slug)) },
-            ) { receta, pref, existentes, viva, (l, a, notas) ->
+                ) { l, a, h -> Triple(l, a, h) },
+            ) { receta, pref, existentes, viva, (l, a, h) ->
                 val permitidas = receta?.let { Escalado.racionesPermitidas(it) } ?: FichaUiState().racionesPermitidas
                 val guardada = l.raciones ?: pref?.raciones
                 val raciones =
@@ -88,7 +90,8 @@ class FichaViewModel
                     favorita = pref?.favorito == true,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
-                    notas = notas,
+                    notas = notasDe(h, slug),
+                    ritmoMin = receta?.let { desvioHabitualMin(h, slug, ceil(it.totalEfectivo).toInt()) },
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 

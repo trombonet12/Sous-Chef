@@ -231,11 +231,26 @@ private fun FilaControles(
                 onMas = { acciones.onServir(Servir.PASO) },
             )
         }
-        Text(
-            stringResource(R.string.ficha_empezar_a, Servir.formato(Servir.inicio(estado.servirMin, receta))),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        val inicio = Servir.inicio(estado.servirMin, receta)
+        Column {
+            Text(
+                stringResource(R.string.ficha_empezar_a, Servir.formato(inicio)),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            estado.ritmoMin?.let { ritmo ->
+                val conRitmo = Servir.formato(Servir.ajustar(inicio, -ritmo))
+                Text(
+                    if (ritmo > 0) {
+                        stringResource(R.string.ficha_ritmo_mas, ritmo, conRitmo)
+                    } else {
+                        stringResource(R.string.ficha_ritmo_menos, -ritmo, conRitmo)
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
     }
 }
 

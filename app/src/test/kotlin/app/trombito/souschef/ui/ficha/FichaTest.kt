@@ -302,6 +302,27 @@ class FichaViewModelTest {
         }
 
     @Test
+    fun laFichaTraeElRitmoSoloSiHayDesvioHabitual() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            assertNull(vm.estado.value.ritmoMin)
+            // La receta de prueba dura 30 min: tarda 38 y 40 -> +9 (mediana de dos, redondeada).
+            historial.datos.value =
+                listOf(
+                    EntradaHistorial("1", "sopa", "Sopa", "2026-01-01", minutosReales = 38),
+                    EntradaHistorial("2", "sopa", "Sopa", "2026-02-01", minutosReales = 40),
+                    EntradaHistorial("3", "arroz", "Arroz", "2026-03-01", minutosReales = 90),
+                )
+            assertEquals(9, vm.estado.value.ritmoMin)
+            historial.datos.value =
+                listOf(
+                    EntradaHistorial("1", "sopa", "Sopa", "2026-01-01", minutosReales = 31),
+                    EntradaHistorial("2", "sopa", "Sopa", "2026-02-01", minutosReales = 30),
+                )
+            assertNull(vm.estado.value.ritmoMin)
+        }
+
+    @Test
     fun conLaCocinaAbiertaLaFichaSabeQueSeEstaCocinandoYAlSalirSeAbandona() =
         runTest(UnconfinedTestDispatcher()) {
             val vm = crear()
