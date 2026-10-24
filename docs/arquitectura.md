@@ -1,15 +1,16 @@
 # Arquitectura
 
-> Propósito: describir la arquitectura de Sous Chef, sus componentes y fronteras · Audiencia: desarrolladores y agentes · Actualizado: 2026-10-20 · Relacionado: docs/adr/, docs/herramientas.md, docs/spec/app-legado.md
+> Propósito: describir la arquitectura de Sous Chef, sus componentes y fronteras · Audiencia: desarrolladores y agentes · Actualizado: 2026-10-24 · Relacionado: docs/adr/, docs/herramientas.md, docs/spec/app-legado.md
 
 ## Resumen
-Sous Chef es una app Android personal de recetas cronometradas que funciona solo en local ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)). Las recetas se escriben y validan en este repo con Claude Code, y viajan empaquetadas en el APK desde `data/`. La app lee recetas y técnicas, guarda historial, preferencias y ajustes en Room, y ejecuta el cronómetro con alarmas del sistema. No hay backend, sync ni login, y la app no usa la red: no pide permisos de Internet ([ADR-0011](adr/0011-sin-aviso-de-version-nueva.md)). **Estado:** descripción de la arquitectura actual; se implementa por fases (`docs/fases/`).
+Sous Chef es una app Android personal de recetas cronometradas que funciona solo en local ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)). Las recetas se escriben y validan en este repo con Claude Code, y viajan empaquetadas en el APK desde `data/`. La app lee recetas y técnicas, guarda historial, preferencias y ajustes en Room, y ejecuta el cronómetro con alarmas del sistema. No hay backend, sync ni login, y la app no usa la red: no pide permisos de Internet ([ADR-0011](adr/0011-sin-aviso-de-version-nueva.md)). Las actualizaciones obligatorias las fuerza Play con la API In-App Updates, sin permiso de red ([ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md)). **Estado:** descripción de la arquitectura actual; se implementa por fases (`docs/fases/`).
 
 ## Principios
 | Principio | Consecuencia arquitectónica |
 |---|---|
 | El repo manda en las recetas | `data/*.json` es la fuente de verdad. El APK empaqueta `data/` y se re-siembra por hash al arrancar con datos nuevos ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)); la app nunca edita recetas ([ADR-0003](adr/0003-el-repo-manda-en-las-recetas.md)). |
 | Una sola implementación de las reglas | Validador y motor del crono en `:receta`, compartidos por la app y la CLI ([ADR-0001](adr/0001-stack-android-y-modulos.md)). |
+| Una receta, cualquier cocina | Las recetas se escriben en vitro 0-9 con la potencia marcada como `{N}`; la app la traduce a la cocina del usuario ([ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)). |
 | Solo local: Room es la única persistencia | Room es la fuente de la UI y guarda todo lo que escribe el usuario (historial, preferencias, ajustes, estado del crono). Sin sync ni outbox. |
 | Avisos fiables sin servicio permanente | Cadena de una alarma `setAlarmClock` con estado en Room ([ADR-0005](adr/0005-cronometro-alarmas-sin-fgs.md)). |
 | Secretos fuera del repo | Firma de release en `~/.souschef/` y `local.properties`; nunca en el repo. |
@@ -48,6 +49,11 @@ sequenceDiagram
   Note over M: al arrancar con un hash de datos nuevo, resiembra recetas y técnicas
 ```
 
+### Actualizar la app
+1. El CI sube cada versión a Play con `inAppUpdatePriority: 5`. Para una versión no obligatoria se baja a 3.
+2. Al abrir la app instalada desde Play, con prioridad ≥ 4 y sin cocinada viva, `MainActivity` lanza la pantalla de actualización inmediata.
+3. Si el usuario la cancela o falla (p. ej. sin red), no vuelve a salir hasta el siguiente arranque en frío. La app sigue funcionando sin red ([ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md)).
+
 ### Historial y preferencias
 1. La UI escribe directamente en Room. No hay red, cola ni sincronización.
 2. Si se pierde el móvil sin copia de seguridad, se pierde el historial. Las copias salen por el backup de Android ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
@@ -57,6 +63,8 @@ sequenceDiagram
 2. El motor calcula el próximo evento y se programa **una** alarma `setAlarmClock`.
 3. Al saltar, el receiver recarga Room, emite lo vencido (hitos con más de 90 s de retraso se marcan sin sonar) y programa la siguiente.
 4. Si el proceso muere o el móvil reinicia, `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `TIME_SET` o `TIMEZONE_CHANGED` reprograman la cadena ([ADR-0005](adr/0005-cronometro-alarmas-sin-fgs.md)).
+
+La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las casillas y lo guardado usan la receta canónica ([ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)).
 
 ### Cocinado a historial
 1. Al terminar, el motor produce el resumen con `pasosReales`; la persona añade una nota.
@@ -72,6 +80,7 @@ sequenceDiagram
 | `:app` | alarmas y notificaciones | `AlarmManager`, receivers, canales | Mantener estado fuera de Room |
 | `:receta` | modelos | Receta, técnica, despensa (kotlinx-serialization, campos opcionales tolerantes) | Acceder a disco o entorno |
 | `:receta` | escalado y formato | `esc:"sub"` (f^0,75), números ("2,5") | Depender de Android |
+| `:receta` | cocina y potencia | Traducir `{N}` a vitro, inducción o gas (`Potencia.kt`, [ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)) | Guardar la receta traducida: solo la UI la recibe |
 | `:receta` | gantt | Plan y huella de fuegos | Depender de Android |
 | `:receta` | validador | 12 comprobaciones, completitud, plurales, `--estricto`, `mep` solo `<b>` | Escribir ficheros |
 | `:receta` | motor del crono | Máquina de estados con `Clock` inyectado | Usar el reloj real |
@@ -102,7 +111,10 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0010 Distribución por Google Play](adr/0010-distribucion-por-google-play.md)
 - [ADR-0011 Sin aviso de versión nueva](adr/0011-sin-aviso-de-version-nueva.md)
 - [ADR-0012 Vídeo promocional con Remotion](adr/0012-video-promocional-con-remotion.md)
+- [ADR-0013 Actualización obligatoria desde Play](adr/0013-actualizacion-obligatoria-desde-play.md) (complementa ADR-0011)
+- [ADR-0014 Cocina configurable y potencia marcada](adr/0014-cocina-configurable-y-potencia-marcada.md)
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente
 - Spike de alarmas en emulador (F1) y repetición en el móvil real en la sesión final.
+- VERIFICAR (ADR-0013): que el manifest fusionado del release no contiene `INTERNET`, y que la pantalla de Play sale al publicar una versión nueva en la pista interna.
