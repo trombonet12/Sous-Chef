@@ -8,10 +8,12 @@ import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.HistorialRepo
+import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.Cocina
@@ -93,6 +95,8 @@ data class CronoUi(
      * La guía de la primera cocinada ya se vio (Ajustes). Parte de true para que no parpadee antes de leer el ajuste.
      */
     val guiaVista: Boolean = true,
+    /** Notas de las cocinadas anteriores de esta receta, de la más reciente a la más antigua. */
+    val notas: List<NotaCocinada> = emptyList(),
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -171,6 +175,12 @@ class CronoViewModel
                             .copy(disposicion = a.disposicion, guiaVista = a.guiaCronoVista, vozActiva = a.vozActiva)
                     }
                     reevaluarVoz()
+                }
+            }
+            viewModelScope.launch {
+                // Viva mientras exista el VM; la nota de esta cocinada puede entrar al cerrar sin consecuencias.
+                historial.observarTodo().collect { entradas ->
+                    _ui.update { it.copy(notas = notasDe(entradas, slug)) }
                 }
             }
             viewModelScope.launch {
