@@ -55,7 +55,10 @@ fun gitOutput(vararg args: String): String? =
                 isIgnoreExitValue = true
             }
         if (result.result.get().exitValue == 0) {
-            result.standardOutput.asText.get().trim().takeIf { it.isNotEmpty() }
+            result.standardOutput.asText
+                .get()
+                .trim()
+                .takeIf { it.isNotEmpty() }
         } else {
             null
         }
@@ -217,7 +220,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-
 
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
