@@ -24,7 +24,13 @@ on:
       - 'version.properties'
       - 'data/**'
       - '.github/workflows/android.yml'
+  # Manual: por defecto solo compila. Con `publicar` activado en main publica la release (p. ej. un parche).
   workflow_dispatch:
+    inputs:
+      publicar:
+        description: 'Publicar release firmada (solo en main; el parche se calcula del historial)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -40,7 +46,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      # Historial completo: el build calcula versionName/versionCode contando commits.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
@@ -74,13 +83,16 @@ jobs:
   release:
     name: Release firmada (si la version es nueva)
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publicar))
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
       contents: write
     outputs:
       version: ${{ steps.ver.outputs.version }}
+      code: ${{ steps.ver.outputs.code }}
       publicar: ${{ steps.ver.outputs.publicar }}
     concurrency:
       group: release-android
@@ -92,19 +104,61 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # Historial completo: el parche y el versionCode salen del recuento de commits.
+          fetch-depth: 0
+
+      # Un push solo publica si toca version.properties (subida de la menor). Los parches salen
+      # a mano con workflow_dispatch + publicar. Si el rango del push no se puede resolver, no se publica.
+      - name: Decidir si corresponde publicar
+        id: gate
+        env:
+          EVENTO: ${{ github.event_name }}
+          ANTES: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          candidato=false
+          if [ "$EVENTO" = "workflow_dispatch" ]; then
+            candidato=true
+          elif git cat-file -e "${ANTES}^{commit}" 2>/dev/null; then
+            if ! git diff --quiet "$ANTES" "$GITHUB_SHA" -- version.properties; then
+              candidato=true
+            fi
+          fi
+          [ "$candidato" = "true" ] || echo "version.properties no cambia en este push: sin release"
+          echo "candidato=$candidato" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        if: steps.gate.outputs.candidato == 'true'
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        if: steps.gate.outputs.candidato == 'true'
+
+      - name: Propiedades locales (solo sdk.dir)
+        if: steps.gate.outputs.candidato == 'true'
+        run: echo "sdk.dir=$ANDROID_HOME" > local.properties
 
       - name: Leer version y comprobar si ya esta publicada
         id: ver
+        if: steps.gate.outputs.candidato == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          version="$(sed -n 's/^[[:space:]]*versionName[[:space:]]*=[[:space:]]*//p' version.properties | tr -d '\r' | head -n1)"
+          linea="$(./gradlew -q :app:imprimirVersion | tr -d '\r' | tail -n1)"
+          version="${linea%% *}"
+          code="${linea#* }"
           if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "::error::versionName invalido o no encontrado en version.properties: '$version'"
+            echo "::error::versionName invalido en la salida de :app:imprimirVersion: '$linea'"
+            exit 1
+          fi
+          if ! printf '%s' "$code" | grep -Eq '^[0-9]+$'; then
+            echo "::error::versionCode invalido en la salida de :app:imprimirVersion: '$linea'"
             exit 1
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
           if gh release view "v${version}" > /dev/null 2>&1; then
             echo "v${version} ya publicada, nada que hacer"
             echo "publicar=false" >> "$GITHUB_OUTPUT"
@@ -128,18 +182,6 @@ jobs:
             fi
           done
           exit "$missing"
-
-      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
-        if: steps.ver.outputs.publicar == 'true'
-        with:
-          distribution: temurin
-          java-version: '21'
-      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
-        if: steps.ver.outputs.publicar == 'true'
-
-      - name: Propiedades locales (solo sdk.dir)
-        if: steps.ver.outputs.publicar == 'true'
-        run: echo "sdk.dir=$ANDROID_HOME" > local.properties
 
       - name: Decodificar keystore
         if: steps.ver.outputs.publicar == 'true'
