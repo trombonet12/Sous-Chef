@@ -43,15 +43,11 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Las notificaciones del cronómetro abren souschef://crono/<slug>. -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="souschef"
-                    android:host="crono" />
-            </intent-filter>
+            <!--
+                Sin intent-filter para souschef://crono/<slug>: la notificación y la alarma lo abren con un intent
+                explícito a esta actividad y Navigation lee el data del intent, no el manifest. Así ninguna web ni
+                app puede lanzarlo por un enlace.
+            -->
         </activity>
 
         <receiver
