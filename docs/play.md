@@ -68,6 +68,16 @@ a mano, en Play Console.
    en Play, igual que el push. Solo puede lanzarlo quien tenga permiso de escritura en el repo, que hoy es solo Joan
    (VERIFICAR en Settings > Collaborators).
 
+## Prueba cerrada (Alpha)
+- Cada versión va a la pista interna y el CI la **promociona** a la prueba cerrada (`alpha`) con
+  `scripts/play-promocionar.mjs`, que copia la release con la API de edits (el mismo AAB no se puede subir dos veces).
+- La prueba cerrada **pasa la revisión de Google en cada versión**; la interna no.
+- Para pedir producción hacen falta 12 testers durante 14 días en la cerrada.
+- Variable `PLAY_PISTA_CERRADA`: vacía = `alpha`; otro nombre = esa pista; `ninguna` desactiva la promoción.
+- A la cuenta de servicio le hace falta el permiso **Publicar en pistas de prueba** en Play Console.
+- Probar sin cambiar nada en Play: `PLAY_SERVICE_ACCOUNT_JSON=... node scripts/play-promocionar.mjs --paquete
+  app.trombito.souschef --version-code <n> --seco` (crea la edición y la borra sin hacer commit).
+
 ## Actualización obligatoria
 - La app fuerza la actualización con la pantalla de Play (In-App Updates, [ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md))
   cuando la versión nueva tiene prioridad 4 o 5. Nunca salta con una cocinada en marcha ni en instalaciones de

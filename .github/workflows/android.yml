@@ -263,6 +263,7 @@ jobs:
             dist/sous-chef-${{ steps.ver.outputs.version }}.aab
             dist/native-debug-symbols-*.zip
             distribution/whatsnew/
+            scripts/play-promocionar.mjs
           if-no-files-found: error
           retention-days: 7
 
@@ -272,9 +273,11 @@ jobs:
 
   # Subida a Google Play (ADR-0010, docs/play.md). Job aparte y sin permisos: la acción de terceros no ve el keystore
   # ni un GITHUB_TOKEN con escritura. Si falla, la release de GitHub ya está hecha y el AAB va adjunto para subirlo a
-  # mano. Sin el secreto PLAY_SERVICE_ACCOUNT_JSON se omite con un aviso.
+  # mano. Sin el secreto PLAY_SERVICE_ACCOUNT_JSON se omite con un aviso. Tras subir a la interna, promociona esa misma
+  # versión a la prueba cerrada (PLAY_PISTA_CERRADA, por defecto alpha; `ninguna` la desactiva). El script viaja en el
+  # artifact para no necesitar checkout (y por tanto permisos) en este job.
   play:
-    name: Google Play (pista interna)
+    name: Google Play (interna y prueba cerrada)
     needs: release
     if: needs.release.outputs.publicar == 'true'
     runs-on: ubuntu-latest
@@ -333,3 +336,20 @@ jobs:
           whatsNewDirectory: play/distribution/whatsnew
           # Los .so de AndroidX vienen stripped: se sube la tabla de simbolos exportados para que Play no avise.
           debugSymbols: ${{ steps.sym.outputs.existe == 'true' && format('play/dist/native-debug-symbols-{0}.zip', needs.release.outputs.version) || '' }}
+
+      # El mismo AAB no se puede subir dos veces: se copia la release de la interna a la pista cerrada con la API de edits.
+      # ubuntu-latest ya trae Node, no hace falta setup-node.
+      - name: Promocionar a la prueba cerrada
+        if: steps.play.outputs.subir == 'true' && vars.PLAY_PISTA_CERRADA != 'ninguna'
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          PISTA_CERRADA: ${{ vars.PLAY_PISTA_CERRADA || 'alpha' }}
+          VERSION_CODE: ${{ needs.release.outputs.code }}
+          ESTADO: ${{ steps.play.outputs.estado }}
+        run: >-
+          node play/scripts/play-promocionar.mjs
+          --paquete app.trombito.souschef
+          --version-code "$VERSION_CODE"
+          --de internal
+          --a "$PISTA_CERRADA"
+          --estado "$ESTADO"

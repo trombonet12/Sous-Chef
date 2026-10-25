@@ -30,7 +30,7 @@ flowchart LR
   R -->|push con versión menor nueva| GA[GitHub Actions]
   GA --> GR[GitHub Release: APK y AAB]
   GR --> OB[Obtainium en el móvil]
-  GA -->|AAB| GP[Google Play, pista interna]
+  GA -->|AAB| GP[Google Play, interna y prueba cerrada]
 ```
 
 Las recetas se diseñan con Claude Code en este repo, se validan con reglas de cocina estrictas y viajan dentro del APK.
@@ -38,7 +38,7 @@ La app nunca las edita: las cocina. Lo que guarda vive en Room, en el móvil; no
 
 ## 📲 Instalar
 - **GitHub Releases:** descarga el APK de la [última release](https://github.com/trombonet12/Sous-Chef/releases) o añade el repo a Obtainium, que avisa de las versiones nuevas.
-- **Google Play:** en pruebas internas. Ver [Google Play](docs/play.md).
+- **Google Play:** en prueba interna y prueba cerrada (Alpha). Ver [Google Play](docs/play.md).
 - No se pueden mezclar los dos orígenes en el mismo móvil: las firmas no coinciden.
 
 ## 🧱 Stack
@@ -86,7 +86,7 @@ Publicar: una versión menor, subir `versionMinor` (o `versionMajor`) en `versio
 | [Esquema de receta](docs/cocina/esquema-receta.md) | El JSON y sus validaciones |
 | [Herramientas](docs/herramientas.md) | La CLI `sc` |
 | [Especificación de la app vieja](docs/spec/app-legado.md) | Contrato de paridad funcional |
-| [Google Play](docs/play.md) | Alta y subida automática a la pista interna |
+| [Google Play](docs/play.md) | Alta y subida automática a la pista interna y a la prueba cerrada |
 | [Privacidad](docs/privacidad.md) | Qué guarda la app y qué no |
 | [Pasos manuales](docs/pasos-manuales.md) | Lo que hace el usuario |
 

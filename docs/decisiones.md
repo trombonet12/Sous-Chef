@@ -399,3 +399,12 @@
 - `core.autocrlf=false` en el repo (los avisos de CRLF los daban copias de trabajo convertidas); el índice ya es LF por
   `.gitattributes`.
 - Tink fuera (sin uso desde ADR-0007). Spike de alarmas de debug retirado.
+
+## Ronda 17 · cabos sueltos y Play (2026-10-25)
+- **Play: interna + prueba cerrada.** Cada versión se sube a la interna (r0adkll) y se promociona a la cerrada (`alpha`,
+  la de por defecto) con `scripts/play-promocionar.mjs` (Node sin dependencias, API de edits): el mismo AAB no se
+  puede subir dos veces. El script viaja en el artifact para que el job `play` siga sin checkout ni permisos.
+  `PLAY_PISTA_CERRADA=ninguna` lo desactiva.
+- **La leche de casa es desnatada**: despensa al día; las recetas con leche se revisan con `receta-revisar`.
+- **zod en /video** forzado a 4.6.6 con `overrides` (alerta alta; Remotion 4.0.538 aún fija 4.5.4). El vídeo es solo
+  herramienta local; renderiza igual.

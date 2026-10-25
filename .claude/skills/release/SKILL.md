@@ -35,7 +35,7 @@ Publica la versión `$ARGUMENTS`. Sin valor, preguntar `local|github` y parar. A
 7. `git push origin main`. Menor: el push publica (el CI solo publica si el push cambia `version.properties`). Parche: después del push, `gh workflow run android.yml --ref main -f publicar=true`.
 8. Vigilar el CI: `gh run list --limit 3`, luego `gh run view <id> --json conclusion` hasta `success`. Si falla, reportar el job y no reintentar a ciegas.
 9. Comprobar la release: `gh release view v<versionName> --json assets` debe listar `sous-chef-<v>.apk`, `sous-chef-<v>.aab` y `checksums.txt`.
-10. Play: el job `play` solo sube si existe el secreto `PLAY_SERVICE_ACCOUNT_JSON` (hoy no existe). Mientras no exista, subida manual en Play Console: Prueba interna > Crear versión > subir el `.aab` de la release > en «Novedades» pegar las notas envueltas en `<es-ES>…</es-ES>`. Ver `docs/play.md`.
+10. Play: con el secreto `PLAY_SERVICE_ACCOUNT_JSON`, el job `play` sube el AAB a la pista interna y promociona esa versión a la prueba cerrada (`scripts/play-promocionar.mjs`, variable `PLAY_PISTA_CERRADA`, por defecto `alpha`; `ninguna` la desactiva). Comprobar en Play Console que sale en las dos pistas. La cerrada pasa la revisión de Google. Sin secreto, subida manual: Prueba interna > Crear versión > `.aab` de la release > «Novedades» con `<es-ES>…</es-ES>`. Ver `docs/play.md`.
 11. Informar `modo | commit | versión | resultado | artefactos | SHA-256`. No pegar logs con valores sensibles.
 
 ## Validaciones / tests
@@ -46,7 +46,7 @@ Publica la versión `$ARGUMENTS`. Sin valor, preguntar `local|github` y parar. A
 ## Definition of Done
 - [ ] `release-preflight` en GO para el commit publicado.
 - [ ] `github`: run en `success`, release `v<versionName>` con APK, AAB y `checksums.txt`.
-- [ ] `github`: AAB subido a la pista interna (CI o manual) con las notas de `whatsnew-es-ES`.
+- [ ] `github`: AAB en la pista interna y en la prueba cerrada (CI o manual) con las notas de `whatsnew-es-ES`.
 - [ ] `local`: APK firmado generado con commit y SHA-256 registrados.
 - [ ] Ningún force-push, tag ni valor de secreto fuera de lo pedido; keystore y `release-signing.properties` fuera del repo y sin imprimir.
 
