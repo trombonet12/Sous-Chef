@@ -1,0 +1,37 @@
+{
+  "actualizada": "2026-10-25T00:00:00Z",
+  "categoria": "acabado",
+  "consejos": [
+    "Si una zona dora antes que el resto, gira la fuente media vuelta: casi ningún grill calienta igual de lado a lado.",
+    "Si el horno ya ha dorado el queso, sáltate el grill: dorado dos veces es seco y amargo.",
+    "Sin grill, horno fuerte (220-230 °C) en la parte alta: dora en 8-10 minutos, más despacio, más parejo y con menos riesgo.",
+    "Nada de papel de horno asomando por los bordes de la fuente: a 10 cm de la resistencia se quema antes que el queso.",
+    "Un queso muy graso suelta la grasa y la deja encharcada encima; el Grana Padano o un semicurado rallado fino doran secos y crujientes."
+  ],
+  "creada": "2026-10-25T00:00:00Z",
+  "pasos": [
+    {
+      "p": "El grill solo calienta los dos o tres milímetros de arriba: dora, pero no cocina lo de dentro. Si la fuente entra fría, el queso se dora antes de que el centro esté caliente. Por eso se gratina al final, tras el horneado, o sobre un relleno que sale caliente del fuego.",
+      "t": "Gratinar al final, con el plato ya caliente"
+    },
+    {
+      "p": "Lo que dora son las proteínas y los azúcares de la superficie (reacción de Maillard), fritos en su propia grasa. El queso rallado trae las dos cosas y dora solo; la bechamel dora a manchas, y mejor con queso encima; el pan rallado, seco y sin grasa, solo se tuesta pálido: mézclalo antes con aceite o mantequilla. Queso y pan rallado juntos dan una costra que cruje.",
+      "t": "Elegir la capa de arriba"
+    },
+    {
+      "p": "El grill calienta por radiación, y la radiación cae muy deprisa con la distancia. A 10-15 cm, que suele ser un piso por encima del centro, dora parejo en 3-5 minutos. Más cerca, lo que queda justo debajo de la resistencia se quema mientras las esquinas siguen pálidas; más lejos, el queso se funde y se seca sin dorar.",
+      "t": "La fuente, a 10-15 cm de la resistencia"
+    },
+    {
+      "p": "La resistencia tarda unos minutos en ponerse al rojo. Si la fuente entra con el grill frío, el queso se calienta despacio, suelta la grasa y se seca antes de dorar. Enciéndelo 3-5 minutos antes, con la puerta cerrada, y mira por el cristal en vez de abrir: cada vez que abres se escapa el calor.",
+      "t": "Grill fuerte y precalentado"
+    },
+    {
+      "p": "Mientras la superficie tiene agua, la evaporación la frena por debajo de los 100 °C. En cuanto se seca, la temperatura se dispara y del dorado se pasa al negro amargo en menos de un minuto. En el último tramo no te vayas: mira cada 20 segundos y saca la fuente en cuanto esté dorada.",
+      "t": "Por qué se quema: los últimos 40 segundos"
+    }
+  ],
+  "resumen": "Dorar por arriba un plato ya hecho con el calor directo del grill: el queso, la bechamel o el pan rallado tuestan en pocos minutos y en segundos pasan a quemarse.",
+  "slug": "gratinado",
+  "titulo": "Gratinado"
+}

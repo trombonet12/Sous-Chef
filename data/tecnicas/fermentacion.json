@@ -1,0 +1,37 @@
+{
+  "actualizada": "2026-10-25T00:00:00Z",
+  "categoria": "base",
+  "consejos": [
+    "La sal frena la levadura: va con la harina o con la masa, nunca disuelta en el agua donde despiertas la levadura.",
+    "Si en 10 minutos la levadura disuelta no hace espuma, está muerta o el agua estaba demasiado caliente: empieza otra vez. Una masa sin levadura viva no sube por mucho que esperes.",
+    "Masa pasada: huele a alcohol y se hunde al tocarla. Aún se puede hornear, pero sale plana y más ácida; mejor desgasificarla, formarla otra vez y darle una segunda subida corta.",
+    "Mucho azúcar, huevo o grasa (las masas dulces) frenan la levadura: tardan más en doblar que una masa de pan.",
+    "Masa pegajosa: mójate las manos en vez de añadir harina. La harina de más hace la miga seca y apretada."
+  ],
+  "creada": "2026-10-25T00:00:00Z",
+  "pasos": [
+    {
+      "p": "La levadura de panadería, fresca o seca, es un hongo vivo: come los azúcares de la harina y suelta dióxido de carbono y alcohol durante horas, y eso da el sabor y la miga del pan. La química (tipo Royal) es bicarbonato con un ácido: reacciona al mojarse y en el horno, hincha en minutos y no fermenta ni da sabor. Para pan, focaccia o buñuelos de masa levada, solo vale la de panadería.",
+      "t": "Levadura de panadería, no química"
+    },
+    {
+      "p": "La levadura trabaja a gusto entre 25 y 35 °C y por encima de unos 45 °C empieza a morir. Tibio es lo que en la muñeca no notas ni frío ni caliente. Disuelta con una pizca de azúcar, en 5-10 minutos hace espuma y confirma que está viva. Como referencia, unos 7 g de seca por cada 500 g de harina; de fresca, el triple de peso.",
+      "t": "Despertarla en líquido tibio"
+    },
+    {
+      "p": "A 24-28 °C una masa dobla en 1-2 horas; en una cocina fría, a unos 18 °C, tarda el doble, y en la nevera toda la noche, con más sabor. El horno apagado con la luz encendida da un sitio templado y sin corrientes. Tapada con un paño o con film, para que la superficie no se seque y haga costra.",
+      "t": "Sitio templado y masa tapada"
+    },
+    {
+      "p": "El tiempo de la receta es orientativo, porque depende de la temperatura de la cocina y de la levadura. Lo que manda es el volumen: doblado, abombado y con burbujas en la superficie y por los lados del bol. Un bol de paredes rectas, o una marca en el film al empezar, lo hacen evidente.",
+      "t": "Ha doblado: manda el volumen, no el reloj"
+    },
+    {
+      "p": "Hunde un dedo enharinado 1 cm en la masa. Si el hueco se rellena despacio y queda una marca leve, está lista. Si vuelve enseguida, el gluten aún está tenso y le falta tiempo. Si no vuelve nada y la masa se desinfla, se ha pasado: la levadura ha gastado el azúcar y el gluten ya no aguanta el gas.",
+      "t": "El pinchazo del dedo"
+    }
+  ],
+  "resumen": "La levadura de panadería se come el azúcar de la harina y suelta gas que hincha la masa durante horas; la química no fermenta: hace burbujas de golpe con la humedad y el calor del horno.",
+  "slug": "fermentacion",
+  "titulo": "Fermentación"
+}

@@ -1,0 +1,41 @@
+{
+  "actualizada": "2026-10-25T00:00:00Z",
+  "categoria": "cocción",
+  "consejos": [
+    "Templar el huevo: echa la leche caliente sobre los huevos batidos en hilo y batiendo, nunca los huevos sobre la leche. El huevo sube de temperatura poco a poco y no cuaja en hebras.",
+    "Si la crema empieza a granular, saca el cazo de la placa (la vitro apagada sigue calentando), vuélcala en un bol frío y bate fuerte con varillas. Si estaba justo en el borde se afina; si ya hay grumos claros, cuélala.",
+    "Con maicena o harina en la crema, el almidón protege al huevo y la crema sí tiene que romper a hervir un minuto para espesar. Sin almidón, nunca.",
+    "El azúcar retrasa el cuajado unos grados y lo hace más suave: unas natillas aguantan algo más de calor que un huevo revuelto, pero no un hervor.",
+    "La quiche se corta tibia, tras el reposo: recién sacada, el centro aún no ha terminado de cuajar y se desparrama."
+  ],
+  "creada": "2026-10-25T00:00:00Z",
+  "pasos": [
+    {
+      "p": "Con el calor, las proteínas del huevo se despliegan y se enlazan en una red que atrapa el agua. Cuanta más leche hay entre ellas, más separadas quedan y más calor necesitan para encontrarse: el huevo batido solo cuaja hacia los 65-70 °C (la clara empieza a los 62 °C); unas natillas o una crema con leche, hacia los 80-82 °C; el relleno de una quiche o un flan, hacia los 80 °C en el centro.",
+      "t": "Saber cuánto se diluye el huevo"
+    },
+    {
+      "p": "El fondo del cazo está mucho más caliente que la crema de arriba, y ahí el huevo cuaja primero en grumos. Al {4} y removiendo con una espátula que raspe el fondo y las esquinas, toda la crema sube a la vez. Espesa entre los 80 y los 82 °C; hacia los 85 °C se corta, y un hervor son ya 100 °C.",
+      "t": "Natillas o crema: al {4}, sin hervir y removiendo"
+    },
+    {
+      "p": "Moja el dorso de una cuchara y pasa un dedo por el medio: si la raya queda limpia y la crema no se cierra, está en su punto. Si escurre y se junta, falta. Las primeras burbujas pequeñas en el borde avisan de que el fondo se acerca al hervor: aparta el cazo de la placa.",
+      "t": "Sin termómetro: napa la cuchara"
+    },
+    {
+      "p": "En el horno el calor entra desde fuera. Con el horno fuerte, los bordes pasan de 90 °C mientras el centro sigue crudo: se hinchan, se agrietan y sueltan agua. A 160-180 °C el borde y el centro llegan a los 80 °C casi a la vez. El flan va además al baño maría, porque el agua no pasa de 100 °C y protege las paredes del molde.",
+      "t": "Quiche o flan: horno moderado, 160-180 °C"
+    },
+    {
+      "p": "Los bordes, firmes; el centro, al mover el molde, tiembla como una gelatina en un círculo de unos 5 cm. El calor que guarda la masa lo termina de cuajar fuera del horno en 10-15 minutos de reposo. Si sale firme del todo, llega pasado a la mesa.",
+      "t": "Sacarlo cuando el centro aún tiembla"
+    },
+    {
+      "p": "Pasado su punto, la red de proteínas se sigue apretando y exprime el agua que tenía atrapada. En la crema salen grumos sobre un suero aguado; en el horno, agujeros, grietas y un líquido en el fondo del molde. Es el mismo huevo revuelto que se seca en la sartén, y no se deshace volviendo atrás.",
+      "t": "Por qué se corta"
+    }
+  ],
+  "resumen": "El huevo cuaja a una temperatura que sube cuanto más se diluye: solo, hacia los 65-70 °C; con leche, en natillas o en un flan, hacia los 80-82 °C. Pasado ese punto se corta.",
+  "slug": "cuajado-de-huevo",
+  "titulo": "Cuajado de huevo"
+}
