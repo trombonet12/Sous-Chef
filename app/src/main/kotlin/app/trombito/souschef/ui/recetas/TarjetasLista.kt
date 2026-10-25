@@ -22,7 +22,6 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,18 +32,24 @@ import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Tags
+import app.trombito.souschef.ui.comun.BloqueLateral
+import app.trombito.souschef.ui.comun.CifraBloque
+import app.trombito.souschef.ui.comun.DatoBloque
 import app.trombito.souschef.ui.comun.Etiqueta
+import app.trombito.souschef.ui.comun.LINEAS_RESUMEN_CLASICA
 import app.trombito.souschef.ui.comun.MarcoTarjeta
+import app.trombito.souschef.ui.comun.ResumenTarjeta
+import app.trombito.souschef.ui.comun.RotuloBloque
+import app.trombito.souschef.ui.comun.SEPARADOR_META
+import app.trombito.souschef.ui.comun.TituloClasico
+import app.trombito.souschef.ui.comun.TituloCompacto
 import app.trombito.souschef.ui.comun.Tono
 import app.trombito.souschef.ui.ficha.Servir
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
-private const val SEPARADOR = " · "
 private const val SIN_PROTEINA = "ninguna"
-private const val LINEAS_TITULO = 2
 private const val LINEAS_PIE = 2
-private const val LINEAS_DESCRIPCION_CLASICA = 3
 
 /** Tarjeta de la lista de recetas en la disposición elegida en Ajustes. */
 @Composable
@@ -90,21 +95,9 @@ private fun BloqueTiempo(
     val minutos = Escalado.minutos(tarjeta.receta.totalEfectivo)
     val hora = Servir.formato(tarjeta.hora)
     val descripcion = stringResource(R.string.tarjeta_minutos, minutos) + ", " + textoHora(tarjeta)
-    Column(
-        modifier.padding(vertical = Espacio.m).clearAndSetSemantics { contentDescription = descripcion },
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            minutos,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-        )
-        Text(
-            stringResource(R.string.lista_min),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+    BloqueLateral(modifier, descripcion) {
+        CifraBloque(minutos)
+        RotuloBloque(stringResource(R.string.lista_min))
         val palabra =
             if (tarjeta.modoHora ==
                 HoraTarjeta.ACABAR
@@ -113,13 +106,8 @@ private fun BloqueTiempo(
             } else {
                 R.string.lista_empieza_corto
             }
-        Text(
-            stringResource(palabra),
-            modifier = Modifier.padding(top = Espacio.xs),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Text(hora, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        RotuloBloque(stringResource(palabra), modifier = Modifier.padding(top = Espacio.xs))
+        DatoBloque(hora)
     }
 }
 
@@ -131,7 +119,7 @@ private fun CuerpoTinte(
 ) {
     val baseProteina = baseYProteina(tarjeta.receta.tags)
     Column(modifier.padding(start = Espacio.m, bottom = Espacio.s)) {
-        TituloConEstrella(tarjeta, onFavorita, MaterialTheme.typography.titleMedium)
+        TituloConEstrella(tarjeta, onFavorita)
         Column(Modifier.padding(end = Espacio.m)) {
             Descripcion(tarjeta.receta.descripcion)
             if (baseProteina.isNotEmpty()) {
@@ -177,9 +165,9 @@ private fun CuerpoFranja(
 ) {
     val tiempo =
         stringResource(R.string.tarjeta_minutos, Escalado.minutos(tarjeta.receta.totalEfectivo)) +
-            SEPARADOR + textoHora(tarjeta)
+            SEPARADOR_META + textoHora(tarjeta)
     Column(modifier.padding(start = Espacio.m, bottom = Espacio.m)) {
-        TituloConEstrella(tarjeta, onFavorita, MaterialTheme.typography.titleMedium)
+        TituloConEstrella(tarjeta, onFavorita)
         Column(Modifier.padding(end = Espacio.m)) {
             Descripcion(tarjeta.receta.descripcion)
             Text(tiempo, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
@@ -209,24 +197,11 @@ private fun TarjetaClasica(
     MarcoTarjeta(DisposicionLista.CLASICA, colorBase(tarjeta.familia), onAbrir, modifier) {
         Column(Modifier.padding(start = Espacio.l, top = Espacio.s, end = Espacio.xs, bottom = Espacio.m)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    receta.titulo,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.weight(1f),
-                )
+                TituloClasico(receta.titulo, modifier = Modifier.weight(1f))
                 BotonFavorita(tarjeta.favorita, receta.titulo, onFavorita)
             }
             Column(Modifier.padding(end = Espacio.m), verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
-                if (receta.descripcion.isNotBlank()) {
-                    Text(
-                        receta.descripcion,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = LINEAS_DESCRIPCION_CLASICA,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
+                ResumenTarjeta(receta.descripcion, maxLines = LINEAS_RESUMEN_CLASICA)
                 Huella(receta)
                 PieTarjeta(tarjeta)
                 EtiquetasEquipo(tarjeta)
@@ -244,13 +219,13 @@ private fun PieTarjeta(tarjeta: TarjetaReceta) {
             stringResource(R.string.tarjeta_minutos, Escalado.minutos(tarjeta.receta.totalEfectivo)),
             textoHora(tarjeta),
             textoFuegos(tarjeta),
-        ).joinToString(SEPARADOR)
+        ).joinToString(SEPARADOR_META)
     val hace = tarjeta.hace.texto()
     val resalte = colorHace(tarjeta)
     val texto =
         buildAnnotatedString {
             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(inicio) }
-            append(SEPARADOR)
+            append(SEPARADOR_META)
             withStyle(SpanStyle(color = resalte)) { append(hace) }
         }
     Text(
@@ -317,34 +292,16 @@ private fun textoHora(tarjeta: TarjetaReceta): String =
 private fun TituloConEstrella(
     tarjeta: TarjetaReceta,
     onFavorita: () -> Unit,
-    estilo: TextStyle,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(
-            tarjeta.receta.titulo,
-            style = estilo,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = LINEAS_TITULO,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
-        )
+        TituloCompacto(tarjeta.receta.titulo, modifier = Modifier.weight(1f))
         BotonFavorita(tarjeta.favorita, tarjeta.receta.titulo, onFavorita)
     }
 }
 
 /** Descripción de la receta en una sola línea y en gris. */
 @Composable
-private fun Descripcion(texto: String) {
-    if (texto.isNotBlank()) {
-        Text(
-            texto,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
+private fun Descripcion(texto: String) = ResumenTarjeta(texto)
 
 @Composable
 private fun BotonFavorita(
@@ -388,7 +345,7 @@ private fun lineaDetalle(
     return buildAnnotatedString {
         partes.forEach {
             append(it)
-            append(SEPARADOR)
+            append(SEPARADOR_META)
         }
         withStyle(SpanStyle(color = resalte)) { append(hace) }
     }
@@ -405,6 +362,6 @@ internal fun baseYProteina(tags: Tags): String {
             .orEmpty()
     return listOf(base, proteina)
         .filter { it.isNotEmpty() }
-        .joinToString(SEPARADOR)
+        .joinToString(SEPARADOR_META)
         .replaceFirstChar { it.uppercase() }
 }

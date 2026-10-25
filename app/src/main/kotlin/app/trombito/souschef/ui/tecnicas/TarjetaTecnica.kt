@@ -20,14 +20,18 @@ import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.receta.Tecnica
+import app.trombito.souschef.ui.comun.BloqueLateral
 import app.trombito.souschef.ui.comun.Etiqueta
+import app.trombito.souschef.ui.comun.LINEAS_RESUMEN_CLASICA
 import app.trombito.souschef.ui.comun.MarcoTarjeta
+import app.trombito.souschef.ui.comun.ResumenTarjeta
+import app.trombito.souschef.ui.comun.RotuloBloque
+import app.trombito.souschef.ui.comun.SEPARADOR_META
+import app.trombito.souschef.ui.comun.TituloClasico
+import app.trombito.souschef.ui.comun.TituloCompacto
 import app.trombito.souschef.ui.comun.colorTono
 import app.trombito.souschef.ui.theme.Espacio
 
-private const val SEPARADOR = " · "
-private const val LINEAS_TITULO = 2
-private const val LINEAS_RESUMEN_CLASICA = 3
 private val TAMANO_ICONO = 28.dp
 
 /** Tarjeta de una técnica en la disposición elegida en Ajustes; el tono y el icono vienen de su categoría. */
@@ -48,21 +52,16 @@ fun TarjetaTecnica(
                 onClick = onAbrir,
                 modifier = modifier,
                 bloque = {
-                    Column(
-                        Modifier.padding(vertical = Espacio.m, horizontal = Espacio.xs),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
+                    BloqueLateral(Modifier.padding(horizontal = Espacio.xs)) {
                         Icon(
                             categoria.icono.vector,
                             contentDescription = null,
                             modifier = Modifier.size(TAMANO_ICONO),
                             tint = color.acento,
                         )
-                        Text(
+                        RotuloBloque(
                             textoPasos(tecnica),
                             modifier = Modifier.padding(top = Espacio.xs),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center,
                         )
                     }
@@ -77,7 +76,7 @@ fun TarjetaTecnica(
                 val linea =
                     listOf(tecnica.categoria.conInicialMayuscula(), textoPasos(tecnica))
                         .filter { it.isNotEmpty() }
-                        .joinToString(SEPARADOR)
+                        .joinToString(SEPARADOR_META)
                 CuerpoCompacto(tecnica, linea)
             }
         }
@@ -101,22 +100,8 @@ private fun CuerpoCompacto(
     linea: String,
 ) {
     Column(Modifier.padding(Espacio.m)) {
-        Text(
-            tecnica.titulo,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = LINEAS_TITULO,
-            overflow = TextOverflow.Ellipsis,
-        )
-        if (tecnica.resumen.isNotBlank()) {
-            Text(
-                tecnica.resumen,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
+        TituloCompacto(tecnica.titulo)
+        ResumenTarjeta(tecnica.resumen)
         if (linea.isNotEmpty()) {
             Text(
                 linea,
@@ -133,16 +118,8 @@ private fun CuerpoCompacto(
 @Composable
 private fun CuerpoClasico(tecnica: Tecnica) {
     Column(Modifier.padding(Espacio.l), verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
-        Text(tecnica.titulo, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Medium)
-        if (tecnica.resumen.isNotBlank()) {
-            Text(
-                tecnica.resumen,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = LINEAS_RESUMEN_CLASICA,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
+        TituloClasico(tecnica.titulo)
+        ResumenTarjeta(tecnica.resumen, maxLines = LINEAS_RESUMEN_CLASICA)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             if (tecnica.categoria.isNotBlank()) Etiqueta(tecnica.categoria)
             Etiqueta(textoPasos(tecnica))

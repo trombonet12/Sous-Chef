@@ -13,26 +13,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionLista
+import app.trombito.souschef.ui.comun.BloqueLateral
+import app.trombito.souschef.ui.comun.CifraBloque
+import app.trombito.souschef.ui.comun.DatoBloque
 import app.trombito.souschef.ui.comun.Etiqueta
 import app.trombito.souschef.ui.comun.MarcoTarjeta
+import app.trombito.souschef.ui.comun.RotuloBloque
+import app.trombito.souschef.ui.comun.SEPARADOR_META
+import app.trombito.souschef.ui.comun.TituloClasico
+import app.trombito.souschef.ui.comun.TituloCompacto
 import app.trombito.souschef.ui.comun.Tono
 import app.trombito.souschef.ui.comun.fechaCorta
 import app.trombito.souschef.ui.recetas.FamiliaBase
 import app.trombito.souschef.ui.recetas.colorBase
 import app.trombito.souschef.ui.theme.Espacio
 
-private const val SEPARADOR = " · "
-private const val LINEAS_TITULO = 2
 private const val MAX_TECNICAS = 3
 private val ALTO_BOTON = 48.dp
 
@@ -72,7 +75,7 @@ fun TarjetaHistorial(
 private fun textoFechaYMinutos(fila: FilaHistorial): String {
     val e = fila.entrada
     val minutos = e.minutosReales?.let { stringResource(R.string.historial_bloque_min, it) }
-    return listOfNotNull(fechaCorta(e.fecha), minutos).joinToString(SEPARADOR)
+    return listOfNotNull(fechaCorta(e.fecha), minutos).joinToString(SEPARADOR_META)
 }
 
 @Composable
@@ -81,37 +84,15 @@ private fun BloqueFecha(fila: FilaHistorial) {
     val diaMes = diaYMes(e.fecha)
     val minutosReales = e.minutosReales?.let { stringResource(R.string.historial_min_reales, it) }
     val descripcion = listOfNotNull(fechaCorta(e.fecha), minutosReales).joinToString(", ")
-    Column(
-        Modifier.padding(vertical = Espacio.m).clearAndSetSemantics { contentDescription = descripcion },
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+    BloqueLateral(descripcion = descripcion) {
         if (diaMes != null) {
-            Text(
-                diaMes.first,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                diaMes.second,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            CifraBloque(diaMes.first)
+            RotuloBloque(diaMes.second)
         } else {
-            Text(
-                e.fecha,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-            )
+            DatoBloque(e.fecha, textAlign = TextAlign.Center)
         }
         e.minutosReales?.let {
-            Text(
-                stringResource(R.string.historial_bloque_min, it),
-                modifier = Modifier.padding(top = Espacio.xs),
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            DatoBloque(stringResource(R.string.historial_bloque_min, it), modifier = Modifier.padding(top = Espacio.xs))
         }
     }
 }
@@ -126,7 +107,7 @@ private fun CuerpoHistorial(
     cabecera: String?,
 ) {
     val e = fila.entrada
-    val meta = (listOfNotNull(e.base) + e.tecnica.take(MAX_TECNICAS)).joinToString(SEPARADOR)
+    val meta = (listOfNotNull(e.base) + e.tecnica.take(MAX_TECNICAS)).joinToString(SEPARADOR_META)
     Column(
         Modifier.padding(start = Espacio.m, top = Espacio.m, end = Espacio.s, bottom = Espacio.xs),
         verticalArrangement = Arrangement.spacedBy(Espacio.xs),
@@ -134,13 +115,7 @@ private fun CuerpoHistorial(
         if (cabecera != null) {
             Text(cabecera, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
         }
-        Text(
-            e.titulo,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = LINEAS_TITULO,
-            overflow = TextOverflow.Ellipsis,
-        )
+        TituloCompacto(e.titulo)
         if (fila.repite) Etiqueta(stringResource(R.string.historial_dos_seguidas_corta), tono = Tono.Teja)
         if (meta.isNotEmpty()) {
             Text(
@@ -178,11 +153,11 @@ private fun CuerpoClasico(
                 Etiqueta(stringResource(R.string.historial_dos_seguidas, e.base), tono = Tono.Teja)
             }
         }
-        Text(e.titulo, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Medium)
+        TituloClasico(e.titulo)
         val minutos = e.minutosReales?.let { stringResource(R.string.historial_min_reales, it) }
         val meta =
             (listOfNotNull(e.base.takeUnless { fila.repite }) + e.tecnica.take(MAX_TECNICAS) + listOfNotNull(minutos))
-                .joinToString(SEPARADOR)
+                .joinToString(SEPARADOR_META)
         if (meta.isNotEmpty()) {
             Text(
                 meta,
