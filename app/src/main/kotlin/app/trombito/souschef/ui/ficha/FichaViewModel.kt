@@ -95,6 +95,7 @@ class FichaViewModel
                     servirMin = l.servirMin ?: usada.minutos,
                     paraCenar = l.servirMin == null && usada.cual == CualHora.CENAR,
                     favorita = pref?.favorito == true,
+                    quiereHacerla = pref?.quiereHacerla == true,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                     notas = notasDe(h, slug),
@@ -140,6 +141,11 @@ class FichaViewModel
         fun alternarFavorita() {
             val nueva = !estado.value.favorita
             viewModelScope.launch { preferencias.fijarFavorito(slug, nueva) }
+        }
+
+        fun alternarQuiereHacerla() {
+            val nueva = !estado.value.quiereHacerla
+            viewModelScope.launch { preferencias.fijarQuiereHacerla(slug, nueva) }
         }
 
         fun ajustarServir(delta: Int) {

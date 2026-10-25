@@ -44,6 +44,7 @@ fun textoOpcion(o: OpcionFiltro): String =
 private fun MostrarRecetas.texto(): Int =
     when (this) {
         MostrarRecetas.FAVORITAS -> R.string.filtro_mostrar_favoritas
+        MostrarRecetas.QUIERO_HACERLA -> R.string.filtro_mostrar_quiero_hacerla
         MostrarRecetas.NUEVAS -> R.string.filtro_mostrar_nuevas
         MostrarRecetas.SIN_ESTRENAR -> R.string.filtro_mostrar_sin_estrenar
         MostrarRecetas.HACE_TIEMPO -> R.string.filtro_mostrar_hace_tiempo

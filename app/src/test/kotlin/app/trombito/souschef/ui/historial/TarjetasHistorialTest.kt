@@ -5,6 +5,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.ui.crono.BancoCompose
 import app.trombito.souschef.ui.crono.LimpiezaCompose
 import org.junit.Assert.assertEquals
@@ -105,6 +106,25 @@ class TarjetasHistorialTest {
             banco.pulsar(banco.pulsableConTexto("Borrar"))
 
             assertEquals(d.toString(), listOf("repetir", "borrar"), llamadas)
+        }
+    }
+
+    @Test
+    fun laValoracionSeVeComoUnaEtiquetaEnTodasLasDisposicionesYSinValorarNoHayNada() {
+        val esperado =
+            mapOf(
+                Valoracion.REPETIR to "Para repetir",
+                Valoracion.AJUSTAR to "A ajustar",
+                Valoracion.NO_REPETIR to "No repetir",
+            )
+        for (d in DisposicionLista.entries) {
+            esperado.forEach { (v, texto) ->
+                val conValoracion = fila.copy(entrada = fila.entrada.copy(valoracion = v))
+                val textos = pintar(d, conValoracion).textos()
+                assertTrue("$d $v $textos", texto in textos)
+            }
+            val sin = pintar(d).textos()
+            assertTrue("$d $sin", esperado.values.none { it in sin })
         }
     }
 

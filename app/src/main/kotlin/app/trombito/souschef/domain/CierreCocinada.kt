@@ -7,9 +7,16 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.math.ceil
 
 /** Longitud máxima de la nota «para la próxima vez» de una cocinada. */
 const val MAX_NOTA = 160
+
+/**
+ * Total previsto de la receta en minutos enteros (`ceil` de `totalEfectivo`): el «previsto» del cierre y el
+ * `previstoMin` del historial. Las raciones solo escalan cantidades, no tiempos, así que no depende de ellas.
+ */
+fun previstoMinDe(receta: Receta): Int = ceil(receta.totalEfectivo).toInt()
 
 private val SELLO_ID = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT)
 

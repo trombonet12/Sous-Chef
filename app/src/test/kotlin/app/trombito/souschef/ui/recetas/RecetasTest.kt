@@ -275,6 +275,31 @@ class RecetasLogicaTest {
     }
 
     @Test
+    fun mostrarQuieroHacerlaFiltraLasMarcadasYCuentaCuantasSon() {
+        val prefs =
+            mapOf(
+                "pasta" to Preferencia("pasta", quiereHacerla = true),
+                "tarta" to Preferencia("tarta", favorito = true, quiereHacerla = true),
+                "pollo" to Preferencia("pollo", favorito = true),
+            )
+        val quiero = OpcionFiltro.Mostrar(MostrarRecetas.QUIERO_HACERLA)
+
+        val filtrado = estado(todas, activos = setOf(quiero), prefs = prefs)
+        assertEquals(setOf("pasta", "tarta"), filtrado.slugs().toSet())
+        assertEquals(2, filtrado.chip(quiero)?.n)
+        assertEquals(true, filtrado.chip(quiero)?.activo)
+
+        // Sin marcar ninguna, la opción sigue en la hoja con recuento 0.
+        assertEquals(0, estado(todas).chip(quiero)?.n)
+        // Se combina con otros filtros de «Mostrar» (O dentro de la sección).
+        val favoritas = OpcionFiltro.Mostrar(MostrarRecetas.FAVORITAS)
+        assertEquals(
+            setOf("pasta", "tarta", "pollo"),
+            estado(todas, activos = setOf(quiero, favoritas), prefs = prefs).slugs().toSet(),
+        )
+    }
+
+    @Test
     fun cadaChipCuentaLoQueQuedariaConElRestoDeFiltros() {
         val e = estado(todas, activos = setOf(OpcionFiltro.Equipo(EquipoReceta.CON_HORNO)))
         // Con horno: lasaña (pasta) y tarta (masas). La sección Base cuenta sobre esas dos.

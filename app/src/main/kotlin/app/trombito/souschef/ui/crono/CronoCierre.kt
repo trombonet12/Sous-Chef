@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.MAX_NOTA
+import app.trombito.souschef.domain.previstoMinDe
 import app.trombito.souschef.receta.PasoMedido
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.EstadoCrono
@@ -45,15 +46,16 @@ import app.trombito.souschef.receta.desvios
 import app.trombito.souschef.receta.textoInforme
 import app.trombito.souschef.ui.theme.CronoPalette
 import java.time.LocalDate
-import kotlin.math.ceil
 
-/** Cierre: resumen de la cocinada, nota opcional para la próxima vez y paso al historial. */
+/** Cierre: resumen de la cocinada, valoración y nota opcionales y paso al historial. */
+@Suppress("LongParameterList") // la receta, su estado y resumen, y lo opcional del cierre
 @Composable
 fun CronoCierre(
     receta: Receta,
     estado: EstadoCrono,
     resumen: ResumenCrono,
     notaAnterior: String? = null,
+    valoracion: ValoracionCierreUi? = null,
     onCerrar: (String) -> Unit,
 ) {
     val nota = rememberSaveable { mutableStateOf("") }
@@ -71,7 +73,9 @@ fun CronoCierre(
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            ContenidoCierre(receta, estado, resumen, notaAnterior, nota)
+            ContenidoCierre(receta, estado, resumen)
+            if (valoracion != null) ValoracionCierre(valoracion)
+            CampoNota(nota, notaAnterior)
         }
         Button(
             onClick = { onCerrar(nota.value) },
@@ -97,8 +101,6 @@ private fun ContenidoCierre(
     receta: Receta,
     estado: EstadoCrono,
     resumen: ResumenCrono,
-    notaAnterior: String?,
-    nota: MutableState<String>,
 ) {
     Text(stringResource(R.string.crono_todo_fuera), style = MaterialTheme.typography.headlineMedium)
     Text(stringResource(R.string.crono_listo_emplata, receta.titulo), color = CronoPalette.apagado)
@@ -109,7 +111,7 @@ private fun ContenidoCierre(
     }
     resumen.minutosReales?.let {
         Text(
-            textoRealPrevisto(it, ceil(receta.totalEfectivo).toInt()),
+            textoRealPrevisto(it, previstoMinDe(receta)),
             fontWeight = FontWeight.Bold,
             color = CronoPalette.ok,
         )
@@ -123,6 +125,13 @@ private fun ContenidoCierre(
         color = CronoPalette.apagado,
     )
     if (resumen.pasosReales.isNotEmpty()) BotonInforme(receta, estado.raciones, resumen)
+}
+
+@Composable
+private fun CampoNota(
+    nota: MutableState<String>,
+    notaAnterior: String?,
+) {
     val teclado = LocalSoftwareKeyboardController.current
     OutlinedTextField(
         value = nota.value,

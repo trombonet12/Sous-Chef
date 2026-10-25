@@ -11,12 +11,14 @@ import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.domain.ahoraMin
 import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.entradaDe
 import app.trombito.souschef.domain.horaServir
 import app.trombito.souschef.domain.notasDe
+import app.trombito.souschef.domain.previstoMinDe
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
 import app.trombito.souschef.receta.Cocina
@@ -99,6 +101,8 @@ data class CronoUi(
     val guiaVista: Boolean = true,
     /** Notas de las cocinadas anteriores de esta receta, de la más reciente a la más antigua. */
     val notas: List<NotaCocinada> = emptyList(),
+    /** Valoración elegida en el cierre (o durante la ventana de deshacer); null si no se ha valorado. */
+    val valoracion: Valoracion? = null,
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -139,6 +143,9 @@ class CronoViewModel
         private var jobReiniciar: Job? = null
         private var jobCierre: Job? = null
         private var cierre: (suspend () -> Unit)? = null
+
+        /** Id de la entrada ya insertada en el historial; con él, valorar después de confirmar no vuelve a insertar. */
+        private var idGuardada: String? = null
         private var otraSlug: String? = null
 
         private val control =
@@ -456,7 +463,7 @@ class CronoViewModel
                 val receta = _ui.value.receta ?: return@launch
                 val ahora = reloj.ahoraMs()
                 val nuevo = cadena.almacen.modificar(slug) { SesionCrono.reiniciar(it, receta, ahora) } ?: return@launch
-                _ui.update { it.copy(reiniciarArmado = false, banda = emptyList(), resumen = null) }
+                _ui.update { it.copy(reiniciarArmado = false, banda = emptyList(), resumen = null, valoracion = null) }
                 cadena.cerrado(slug)
                 aplicar(nuevo, ahora)
                 cadena.reprogramar()
@@ -481,9 +488,16 @@ class CronoViewModel
             val resumen = actual.resumen
             if (actual.cierrePendiente) return
             if (receta == null || estado == null || resumen == null) return
-            val entrada = entradaDe(receta, estado, resumen, nota, zona)
+            // La entrada se construye al confirmar, no aquí: una valoración elegida durante la ventana de deshacer
+            // tiene que llegar a lo que se inserta.
             cierre = {
+                val valorada = _ui.value.valoracion
+                val entrada = entradaDe(receta, estado, resumen, nota, zona, valorada, previstoMinDe(receta))
                 historial.agregar(entrada)
+                idGuardada = entrada.id
+                // Si se valoró mientras se insertaba, se corrige con valorar (nunca otra inserción).
+                val ultima = _ui.value.valoracion
+                if (ultima != valorada) historial.valorar(entrada.id, ultima)
                 cadena.almacen.borrar(slug)
                 cadena.reprogramar()
                 _ui.update { it.copy(salida = true) }
@@ -497,6 +511,16 @@ class CronoViewModel
                     delay(VENTANA_DESHACER_MS)
                     confirmarCierre()
                 }
+        }
+
+        /**
+         * Elige (o quita, con null) la valoración de la cocinada. Antes de confirmar el cierre solo cambia el estado y
+         * la entrada la lleva al insertarse; si la cocinada ya está en el historial se actualiza con `valorar`.
+         */
+        fun valorar(valoracion: Valoracion?) {
+            _ui.update { it.copy(valoracion = valoracion) }
+            val id = idGuardada ?: return
+            viewModelScope.launch { withContext(NonCancellable) { historial.valorar(id, valoracion) } }
         }
 
         fun deshacerCierre() {

@@ -1,6 +1,7 @@
 package app.trombito.souschef.ui.ficha
 
 /** Lo que se puede hacer desde la ficha. */
+@Suppress("LongParameterList") // un callback por acción de la ficha
 class AccionesFicha(
     val onAtras: () -> Unit,
     val onTecnica: (String) -> Unit,
@@ -8,4 +9,5 @@ class AccionesFicha(
     val onRaciones: (Int) -> Unit,
     val onServir: (delta: Int) -> Unit,
     val onFavorita: () -> Unit,
+    val onQuiereHacerla: () -> Unit = {},
 )

@@ -78,6 +78,7 @@ fun FichaScreen(
             onRaciones = viewModel::cambiarRaciones,
             onServir = viewModel::ajustarServir,
             onFavorita = viewModel::alternarFavorita,
+            onQuiereHacerla = viewModel::alternarQuiereHacerla,
         )
     when {
         estado.cargando -> {
@@ -178,6 +179,7 @@ private fun CabeceraFicha(
                     tint = if (estado.favorita) esquema.primary else esquema.onSurfaceVariant,
                 )
             }
+            BotonQuiereHacerla(estado.quiereHacerla, acciones.onQuiereHacerla)
             IconButton(
                 onClick = {
                     imprimirFicha(
@@ -193,6 +195,23 @@ private fun CabeceraFicha(
         FilaControles(estado, receta, acciones)
         BotonCocinar(estado, acciones)
         estado.cocinando?.let { BandaCocinando(it) }
+    }
+}
+
+/** Marcador conmutable «Quiero hacerla»: la receta queda marcada para cocinarla pronto. */
+@Composable
+private fun BotonQuiereHacerla(
+    marcada: Boolean,
+    onClick: () -> Unit,
+) {
+    val esquema = MaterialTheme.colorScheme
+    IconButton(onClick = onClick, modifier = Modifier.testTag("quiero-hacerla")) {
+        Icon(
+            if (marcada) Icono.MarcadorLleno.vector else Icono.Marcador.vector,
+            contentDescription =
+                stringResource(if (marcada) R.string.quiero_hacerla_quitar else R.string.quiero_hacerla_marcar),
+            tint = if (marcada) esquema.primary else esquema.onSurfaceVariant,
+        )
     }
 }
 

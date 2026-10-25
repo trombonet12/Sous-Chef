@@ -108,11 +108,23 @@ private fun Contenido(
         }
 
         ui.cierrePendiente -> {
-            CierreGuardado(segundosParaGuardar(ui), viewModel::deshacerCierre, viewModel::confirmarCierre)
+            CierreGuardado(
+                segundosParaGuardar(ui),
+                viewModel::deshacerCierre,
+                viewModel::confirmarCierre,
+                ValoracionCierreUi(ui.valoracion, viewModel::valorar),
+            )
         }
 
         resumen != null -> {
-            CronoCierre(receta, estado, resumen, ui.notas.firstOrNull()?.nota, viewModel::cerrar)
+            CronoCierre(
+                receta,
+                estado,
+                resumen,
+                ui.notas.firstOrNull()?.nota,
+                ValoracionCierreUi(ui.valoracion, viewModel::valorar),
+                viewModel::cerrar,
+            )
         }
 
         estado.inicioMs == null -> {

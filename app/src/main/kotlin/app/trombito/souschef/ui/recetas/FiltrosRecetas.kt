@@ -108,8 +108,11 @@ enum class TramoTiempo {
 
 enum class EquipoReceta { SIN_HORNO, CON_HORNO, UN_FUEGO }
 
-/** «Hace tiempo»: cocinada hace [Hace.DIAS_RESALTE] días o más (la que sale resaltada en la tarjeta). */
-enum class MostrarRecetas { FAVORITAS, NUEVAS, SIN_ESTRENAR, HACE_TIEMPO }
+/**
+ * «Quiero hacerla»: la marcada con el marcador de la ficha. «Hace tiempo»: cocinada hace [Hace.DIAS_RESALTE] días o más
+ * (la que sale resaltada en la tarjeta).
+ */
+enum class MostrarRecetas { FAVORITAS, QUIERO_HACERLA, NUEVAS, SIN_ESTRENAR, HACE_TIEMPO }
 
 /** Secciones de la hoja de filtros, en su orden: dentro de una se suman opciones (O) y entre ellas se restringe (Y). */
 enum class SeccionFiltro { MOSTRAR, TIEMPO, MOMENTO, BASE, PROTEINA, EQUIPO }
@@ -202,12 +205,14 @@ data class RasgosReceta(
             .all { opciones -> opciones.any(::cumple) }
 
     companion object {
+        @Suppress("LongParameterList") // un dato por cada opción de «Mostrar»
         fun de(
             receta: Receta,
             favorita: Boolean,
             fuegos: Int,
             hace: Hace,
             nueva: Boolean = false,
+            quiereHacerla: Boolean = false,
         ): RasgosReceta {
             val conHorno = receta.carriles.any { it.tipoCarril == TipoCarril.HORNO }
             val momentos = receta.tags.momento ?: emptyList()
@@ -224,6 +229,7 @@ data class RasgosReceta(
                 mostrar =
                     buildSet {
                         if (favorita) add(MostrarRecetas.FAVORITAS)
+                        if (quiereHacerla) add(MostrarRecetas.QUIERO_HACERLA)
                         if (nueva) add(MostrarRecetas.NUEVAS)
                         if (hace.unidad == UnidadHace.SIN_ESTRENAR) {
                             add(MostrarRecetas.SIN_ESTRENAR)

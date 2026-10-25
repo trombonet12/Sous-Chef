@@ -1,12 +1,18 @@
 package app.trombito.souschef.ui.crono
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.ResumenCrono
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -95,6 +101,64 @@ class CierreAccesibleTest {
 
         assertTrue("Real 18 min · previsto 15 (+3)" in textos)
         assertTrue("La última vez: Menos sal" in banco.textos(banco.conEtiqueta("nota-anterior")))
+    }
+
+    private fun valoracionUi(elegida: MutableState<Valoracion?>) =
+        ValoracionCierreUi(elegida.value) { elegida.value = it }
+
+    private fun SemanticsNode.seleccionado() = config.getOrNull(SemanticsProperties.Selected)
+
+    @Test
+    fun laValoracionSonTresBotonesDeRadioDe48dpConEstadoSeleccionado() {
+        val estado = EstadoCrono("r", 2, 0L, emptyMap(), actualizadoMs = 0L)
+        val resumen = ResumenCrono(null, null, 0L, 0L, emptyList(), emptyList(), emptyList())
+        val elegida = mutableStateOf<Valoracion?>(Valoracion.AJUSTAR)
+        banco.poner {
+            MaterialTheme { CronoCierre(recetaCrono(), estado, resumen, null, valoracionUi(elegida)) {} }
+        }
+
+        val textos = banco.textos(banco.raiz())
+        listOf("Repetir", "Ajustar", "No repetir").forEach { assertTrue("$it $textos", it in textos) }
+        val recursos = RuntimeEnvironment.getApplication().resources
+        val minimo = 48 * recursos.displayMetrics.density
+        Valoracion.entries.forEach {
+            val boton = banco.conEtiqueta("valoracion-${it.codigo}")
+            assertEquals(Role.RadioButton, boton.config.getOrNull(SemanticsProperties.Role))
+            assertEquals(it == Valoracion.AJUSTAR, boton.seleccionado())
+            assertTrue(boton.size.height >= minimo)
+        }
+    }
+
+    @Test
+    fun valorarEsDeSeleccionUnicaYSePuedeDeseleccionar() {
+        val estado = EstadoCrono("r", 2, 0L, emptyMap(), actualizadoMs = 0L)
+        val resumen = ResumenCrono(null, null, 0L, 0L, emptyList(), emptyList(), emptyList())
+        val elegida = mutableStateOf<Valoracion?>(null)
+        banco.poner {
+            MaterialTheme { CronoCierre(recetaCrono(), estado, resumen, null, valoracionUi(elegida)) {} }
+        }
+
+        banco.pulsar(banco.conEtiqueta("valoracion-repetir"))
+        assertEquals(Valoracion.REPETIR, elegida.value)
+        assertEquals(true, banco.conEtiqueta("valoracion-repetir").seleccionado())
+
+        banco.pulsar(banco.conEtiqueta("valoracion-no_repetir"))
+        assertEquals(Valoracion.NO_REPETIR, elegida.value)
+        assertEquals(false, banco.conEtiqueta("valoracion-repetir").seleccionado())
+
+        banco.pulsar(banco.conEtiqueta("valoracion-no_repetir"))
+        assertNull(elegida.value)
+        assertEquals(false, banco.conEtiqueta("valoracion-no_repetir").seleccionado())
+    }
+
+    @Test
+    fun duranteLaVentanaDeDeshacerSeSigueValorando() {
+        val elegida = mutableStateOf<Valoracion?>(null)
+        banco.poner { MaterialTheme { CierreGuardado(7, {}, {}, valoracionUi(elegida)) } }
+
+        banco.pulsar(banco.conEtiqueta("valoracion-ajustar"))
+
+        assertEquals(Valoracion.AJUSTAR, elegida.value)
     }
 
     @Test

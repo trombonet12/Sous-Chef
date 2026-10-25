@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Valoración de la cocinada (cierre e historial) y «Quiero hacerla» (ficha y filtro Mostrar). -->
+<resources>
+    <string name="valoracion_titulo">¿Cómo ha salido? (opcional)</string>
+    <string name="valoracion_grupo">Valoración de la cocinada</string>
+    <string name="valoracion_repetir">Repetir</string>
+    <string name="valoracion_ajustar">Ajustar</string>
+    <string name="valoracion_no_repetir">No repetir</string>
+
+    <string name="historial_valoracion_repetir">Para repetir</string>
+    <string name="historial_valoracion_ajustar">A ajustar</string>
+    <string name="historial_valoracion_no_repetir">No repetir</string>
+
+    <string name="quiero_hacerla_marcar">Quiero hacerla</string>
+    <string name="quiero_hacerla_quitar">Quitar de quiero hacerla</string>
+    <string name="filtro_mostrar_quiero_hacerla">Quiero hacerla</string>
+</resources>

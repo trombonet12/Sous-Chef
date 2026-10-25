@@ -11,6 +11,38 @@ class RitmoTest {
         slug: String = "sopa",
     ) = EntradaHistorial(id.toString(), slug, slug, "2026-01-%02d".format(id), minutosReales = minutos)
 
+    private fun conPrevisto(
+        id: Int,
+        minutos: Int,
+        previsto: Int?,
+    ) = e(id, minutos).copy(previstoMin = previsto)
+
+    @Test
+    fun siLaEntradaTienePrevistoElDesvioSeCuentaContraEl() {
+        // Hoy la receta dura 30, pero esas cocinadas se previeron en 40 y 50: desvíos +4 y +5 -> 4,5 -> 5.
+        val entradas = listOf(conPrevisto(1, 44, 40), conPrevisto(2, 55, 50))
+        assertEquals(5, desvioHabitualMin(entradas, "sopa", 30))
+    }
+
+    @Test
+    fun sinPrevistoSeCuentaContraElTotalActualYSePuedenMezclar() {
+        // Desvíos: +10 (contra el total actual, 30), +2 (contra su previsto, 40) y +8 (contra 30) -> mediana +8.
+        val entradas = listOf(e(1, 40), conPrevisto(2, 42, 40), e(3, 38))
+        assertEquals(8, desvioHabitualMin(entradas, "sopa", 30))
+    }
+
+    @Test
+    fun conPrevistoQueCoincideNoMerecePenaAvisar() {
+        val entradas = listOf(conPrevisto(1, 41, 40), conPrevisto(2, 42, 40))
+        assertNull(desvioHabitualMin(entradas, "sopa", 30))
+    }
+
+    @Test
+    fun unPrevistoNoPositivoSeIgnoraYSeUsaElTotalActual() {
+        val entradas = listOf(conPrevisto(1, 40, 0), conPrevisto(2, 40, null))
+        assertEquals(10, desvioHabitualMin(entradas, "sopa", 30))
+    }
+
     @Test
     fun conMenosDeDosCocinadasNoHayRitmo() {
         assertNull(desvioHabitualMin(emptyList(), "sopa", 30))

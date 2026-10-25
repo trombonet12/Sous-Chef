@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionLista
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.ui.comun.BloqueLateral
 import app.trombito.souschef.ui.comun.CifraBloque
 import app.trombito.souschef.ui.comun.DatoBloque
@@ -128,6 +129,7 @@ private fun CuerpoHistorial(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+        IndicadorValoracion(e.valoracion)
         Nota(e.nota)
         AccionesFila(fila, confirmando, onBorrar, onRepetir)
     }
@@ -169,9 +171,23 @@ private fun CuerpoClasico(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+        IndicadorValoracion(e.valoracion)
         Nota(e.nota)
         AccionesFila(fila, confirmando, onBorrar, onRepetir)
     }
+}
+
+/** Etiqueta pequeña con la valoración de la cocinada; nada si no se valoró. El color no va solo: lleva texto. */
+@Composable
+private fun IndicadorValoracion(valoracion: Valoracion?) {
+    if (valoracion == null) return
+    val (texto, tono) =
+        when (valoracion) {
+            Valoracion.REPETIR -> R.string.historial_valoracion_repetir to Tono.Oliva
+            Valoracion.AJUSTAR -> R.string.historial_valoracion_ajustar to Tono.Ambar
+            Valoracion.NO_REPETIR -> R.string.historial_valoracion_no_repetir to Tono.Neutro
+        }
+    Etiqueta(stringResource(texto), tono = tono)
 }
 
 @Composable

@@ -84,14 +84,33 @@ class FichaPestanasTest {
     private fun estado(permitidas: List<Int> = listOf(2, 4)) =
         FichaUiState(cargando = false, receta = receta, racionesPermitidas = permitidas)
 
-    private fun pintar(estado: FichaUiState = estado()): BancoFicha {
+    private fun pintar(
+        estado: FichaUiState = estado(),
+        quiereHacerla: () -> Unit = {},
+    ): BancoFicha {
         val banco = BancoFicha()
         banco.poner {
             MaterialTheme {
-                FichaContenido(estado, AccionesFicha({}, {}, { _, _ -> }, {}, {}, {}))
+                FichaContenido(estado, AccionesFicha({}, {}, { _, _ -> }, {}, {}, {}, quiereHacerla))
             }
         }
         return banco
+    }
+
+    @Test
+    fun `el marcador quiero hacerla avisa al pulsarlo`() {
+        var pulsado = 0
+        val banco = pintar(quiereHacerla = { pulsado++ })
+        assertTrue(banco.descripciones().toString(), "Quiero hacerla" in banco.descripciones())
+        banco.pulsar(banco.conEtiqueta("quiero-hacerla"))
+        assertEquals(1, pulsado)
+    }
+
+    @Test
+    fun `con la receta marcada el marcador ofrece quitarla`() {
+        val banco = pintar(estado().copy(quiereHacerla = true))
+        assertTrue(banco.descripciones().toString(), "Quitar de quiero hacerla" in banco.descripciones())
+        assertFalse("Quiero hacerla" in banco.descripciones())
     }
 
     private fun BancoFicha.cuerpo() = etiquetas("ficha-").filter { !it.startsWith("ficha-pestana-") }

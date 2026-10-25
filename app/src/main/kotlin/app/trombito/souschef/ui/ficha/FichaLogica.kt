@@ -48,6 +48,8 @@ data class FichaUiState(
     /** [servirMin] es la hora de cenar de Ajustes (receta de cena) y nadie la ha movido en esta ficha. */
     val paraCenar: Boolean = false,
     val favorita: Boolean = false,
+    /** «Quiero hacerla»: la receta está marcada para cocinarla pronto. */
+    val quiereHacerla: Boolean = false,
     val tecnicas: List<TecnicaEnlace> = emptyList(),
     /** Carriles aún en marcha si esta receta tiene una cocinada viva; null si no la tiene. */
     val cocinando: Int? = null,

@@ -250,7 +250,8 @@ private fun tarjetaYRasgos(
     val fuegos = Gantt.fuegos(r)
     val hace = Hace.de(fecha, contexto.hoy)
     val nueva = esNueva(r, fecha, contexto.hoy)
-    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace, nueva)
+    val quiereHacerla = preferencias[r.slug]?.quiereHacerla == true
+    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace, nueva, quiereHacerla)
     val conHorno = EquipoReceta.CON_HORNO in rasgos.equipo
     val tarjeta =
         TarjetaReceta(

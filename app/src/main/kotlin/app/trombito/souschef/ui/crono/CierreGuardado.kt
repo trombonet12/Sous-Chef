@@ -22,13 +22,15 @@ import app.trombito.souschef.ui.theme.CronoPalette
 
 /**
  * Ventana de deshacer: la cocinada aún no está en el historial. [segundos] es la cuenta atrás (null si todavía no hay
- * tic); «Guardar y salir ya» la confirma sin esperar y «Deshacer» vuelve al cronómetro.
+ * tic); «Guardar y salir ya» la confirma sin esperar y «Deshacer» vuelve al cronómetro. Con [valoracion] se sigue
+ * pudiendo valorar durante la ventana.
  */
 @Composable
 fun CierreGuardado(
     segundos: Int?,
     onDeshacer: () -> Unit,
     onGuardarYa: () -> Unit,
+    valoracion: ValoracionCierreUi? = null,
 ) {
     val descripcion = stringResource(R.string.crono_a11y_deshacer_cierre)
     val descripcionGuardar = stringResource(R.string.crono_a11y_guardar_ya)
@@ -45,6 +47,8 @@ fun CierreGuardado(
             },
             Modifier.testTag("cierre-cuenta-atras"),
         )
+        // Se puede valorar mientras corre la cuenta atrás: la entrada se inserta al vencer con la valoración actual.
+        if (valoracion != null) ValoracionCierre(valoracion)
         Button(
             onClick = onGuardarYa,
             modifier =
