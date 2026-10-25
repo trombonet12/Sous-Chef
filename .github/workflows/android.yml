@@ -303,7 +303,11 @@ jobs:
           if [ -f "dist/native-debug-symbols-${VERSION}.zip" ]; then
             assets+=("dist/native-debug-symbols-${VERSION}.zip")
           fi
-          gh release create "v${VERSION}" \n            "${assets[@]}" \n            --target "$GITHUB_SHA" \n            --title "Sous Chef ${VERSION}" \n            --generate-notes
+          gh release create "v${VERSION}" \
+            "${assets[@]}" \
+            --target "$GITHUB_SHA" \
+            --title "Sous Chef ${VERSION}" \
+            --generate-notes
 
   # Subida a Google Play (ADR-0010, docs/play.md). Job aparte y sin permisos: la acción de terceros no ve el keystore
   # ni un GITHUB_TOKEN con escritura. Espera a `github-release` (ademas de `release`, de donde salen version y code):
