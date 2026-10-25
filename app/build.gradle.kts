@@ -313,6 +313,7 @@ dependencies {
     implementation(libs.coil.svg)
 
     implementation(libs.play.app.update.ktx)
+    implementation(libs.play.review.ktx)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

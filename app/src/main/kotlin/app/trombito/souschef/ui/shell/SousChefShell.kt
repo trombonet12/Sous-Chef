@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.SousChefNavGraph
+import app.trombito.souschef.ui.resena.PedirResenaAlVolver
 
 /** Shell con tres pestañas abajo (Recetas, Técnicas, Historial) y menú superior (Buzón y Ajustes). */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +37,7 @@ fun SousChefShell(
     val entrada by navController.currentBackStackEntryAsState()
     val rutaActual = entrada?.destination?.route
     var menuAbierto by remember { mutableStateOf(false) }
+    PedirResenaAlVolver(rutaActual)
     Scaffold(
         topBar = {
             // Sin barras en el cronómetro ni en la intro (que pinta a pantalla completa).

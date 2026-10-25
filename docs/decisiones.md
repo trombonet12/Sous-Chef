@@ -427,4 +427,7 @@
   pendiente mantiene viva la cocinada (la regla sigue en `SesionCrono.vivo` y caduca a las 12 h). El recordatorio usa
   `setAlarmClock` con `USE_EXACT_ALARM` (es el «toca empezar» del temporizador de cocina); si Play no lo admite,
   `setAndAllowWhileIdle` 10 min antes. Tras un reinicio avisa si la hora pasó hace ≤ 10 min; si no, se borra.
+- **In-App Review** (`com.google.android.play:review-ktx:2.0.2`, Play Core SDK ToS como `app-update-ktx`, ADR-0013;
+  sin INTERNET en el manifest fusionado): se pide una sola vez tras la 3.ª cocinada con duración real, al salir del
+  cronómetro a Recetas o Ficha; no-op si la app no viene de Play.
 

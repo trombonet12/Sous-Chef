@@ -14,6 +14,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import app.trombito.souschef.data.actualizacion.ActualizacionPlay
+import app.trombito.souschef.data.resena.ActividadActual
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.ui.AppNavHost
@@ -28,6 +29,8 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var ajustesRepo: AjustesRepo
 
     @Inject lateinit var actualizacion: ActualizacionPlay
+
+    @Inject lateinit var actividadActual: ActividadActual
 
     /**
      * Resultado de la pantalla de Play. Si se cancela o falla (p. ej. sin red), no se vuelve a lanzar hasta el próximo
@@ -51,6 +54,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition { !listo }
         super.onCreate(savedInstanceState)
+        actividadActual.fijar(this)
         setContent {
             val ajustes: Ajustes? by ajustesRepo.observar().collectAsStateWithLifecycle(initialValue = null)
             val actuales = ajustes ?: return@setContent
@@ -72,6 +76,11 @@ class MainActivity : ComponentActivity() {
         // Actualización obligatoria desde Play (ADR-0013); nunca con una cocinada viva.
         if (rechazadaEnEsteProceso || comprobacion?.isActive == true) return
         comprobacion = lifecycleScope.launch { actualizacion.comprobar(pantallaActualizacion) }
+    }
+
+    override fun onDestroy() {
+        actividadActual.quitar(this)
+        super.onDestroy()
     }
 
     private companion object {
