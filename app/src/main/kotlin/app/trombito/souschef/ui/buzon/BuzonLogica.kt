@@ -2,6 +2,10 @@ package app.trombito.souschef.ui.buzon
 
 import androidx.annotation.StringRes
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.DisposicionCrono
+import app.trombito.souschef.domain.ResumenUso
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 
 /** Qué quiere contar el usuario. [etiqueta] es el texto del selector y del asunto del correo. */
 enum class TipoBuzon(
@@ -48,6 +52,8 @@ data class FormularioBuzon(
     val pantalla: SeccionApp? = null,
     // Sugerencia
     val texto: String = "",
+    /** Casilla «Adjuntar resumen de uso» (F6): desmarcada por defecto, vale para los tres tipos. */
+    val adjuntarResumen: Boolean = false,
 ) {
     /** Se puede enviar cuando el campo principal del tipo elegido tiene algo escrito. */
     val valido: Boolean
@@ -66,6 +72,8 @@ data class DatosApp(
     val androidRelease: String,
     val sdk: Int,
     val cocina: String,
+    /** Cifras de uso que se adjuntan si el usuario marca la casilla; null mientras se calculan. */
+    val resumen: ResumenUso? = null,
 )
 
 /** Asunto y cuerpo ya montados. */
@@ -121,8 +129,65 @@ fun construirCorreo(
             linea(texto(R.string.buzon_correo_android), "${datos.androidRelease} (SDK ${datos.sdk})"),
             linea(texto(R.string.buzon_correo_cocina), datos.cocina),
         )
-    val cuerpo = (rellenos + "" + pie).joinToString("\n")
+    val resumen =
+        datos.resumen
+            ?.takeIf { formulario.adjuntarResumen }
+            ?.let { listOf("") + textoResumen(it, texto).lines() }
+            .orEmpty()
+    val cuerpo = (rellenos + "" + pie + resumen).joinToString("\n")
     return Correo(asunto = asunto(formulario.tipo, texto), cuerpo = cuerpo)
+}
+
+/**
+ * El texto exacto del resumen de uso: el de la vista previa y el que viaja al pie del correo. Solo cifras y ajustes de
+ * [resumen], que no tiene notas, títulos ni slugs.
+ */
+fun textoResumen(
+    resumen: ResumenUso,
+    texto: (Int) -> String,
+): String {
+    val voz = if (resumen.vozActiva) R.string.buzon_resumen_si else R.string.buzon_resumen_no
+    return listOf(
+        texto(R.string.buzon_resumen_titulo),
+        texto(R.string.buzon_resumen_version).format(resumen.version),
+        texto(R.string.buzon_resumen_cocinadas).format(resumen.cocinadas, resumen.cocinadasUltimoMes),
+        texto(R.string.buzon_resumen_recetas).format(resumen.recetasDistintas),
+        texto(R.string.buzon_resumen_valoradas).format(resumen.repetir, resumen.ajustar, resumen.noRepetir),
+        texto(R.string.buzon_resumen_crono).format(texto(etiquetaDisposicion(resumen.disposicion))),
+        texto(R.string.buzon_resumen_cocina).format(escalaCocina(resumen, texto)),
+        texto(R.string.buzon_resumen_voz).format(texto(voz)),
+        texto(R.string.buzon_resumen_quiero).format(resumen.quieroHacerla),
+    ).joinToString("\n")
+}
+
+@StringRes
+private fun etiquetaDisposicion(d: DisposicionCrono): Int =
+    when (d) {
+        DisposicionCrono.APILADA -> R.string.ajustes_resumen_apilada
+        DisposicionCrono.FOCO -> R.string.ajustes_resumen_foco
+        DisposicionCrono.CLASICA -> R.string.ajustes_resumen_clasica
+    }
+
+/** «Vitro digital 1-9», «Gas · ruleta 1-8» o «Gas · sin números»: la escala de la cocina, sin fuegos ni horno. */
+private fun escalaCocina(
+    resumen: ResumenUso,
+    texto: (Int) -> String,
+): String {
+    val cocina = resumen.cocina
+    val tipo =
+        texto(
+            when (cocina.tipo) {
+                TipoCocina.VITRO -> R.string.ajustes_resumen_tipo_vitro
+                TipoCocina.INDUCCION -> R.string.ajustes_resumen_tipo_induccion
+                TipoCocina.GAS -> R.string.ajustes_resumen_tipo_gas
+            },
+        )
+    val max = cocina.max
+    return when {
+        max == null -> texto(R.string.ajustes_resumen_cocina_sin_numeros).format(tipo)
+        cocina.mando == Mando.DIGITAL -> texto(R.string.ajustes_resumen_cocina_digital).format(tipo, max)
+        else -> texto(R.string.ajustes_resumen_cocina_ruleta).format(tipo, max)
+    }
 }
 
 /** `[Sous Chef] Pedir una receta`: la marca es fija para poder filtrar el correo. */

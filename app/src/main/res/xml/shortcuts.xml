@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Accesos directos estáticos (F17). Intents explícitos a MainActivity con el extra "atajo" (ver ui/Atajos.kt): sin
+    intent-filter público ni BROWSABLE. El targetPackage lleva el applicationId de cada variante: la de depuración
+    (src/debug/res/xml/shortcuts.xml) usa el sufijo .dev.
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="volver_cocina"
+        android:enabled="true"
+        android:icon="@drawable/ic_atajo_cocina"
+        android:shortcutShortLabel="@string/atajo_cocina_corta"
+        android:shortcutLongLabel="@string/atajo_cocina_larga">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="app.trombito.souschef"
+            android:targetClass="app.trombito.souschef.MainActivity">
+            <extra
+                android:name="atajo"
+                android:value="volver_cocina" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="que_me_da_tiempo"
+        android:enabled="true"
+        android:icon="@drawable/ic_atajo_tiempo"
+        android:shortcutShortLabel="@string/atajo_tiempo_corta"
+        android:shortcutLongLabel="@string/atajo_tiempo_larga">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="app.trombito.souschef"
+            android:targetClass="app.trombito.souschef.MainActivity">
+            <extra
+                android:name="atajo"
+                android:value="que_me_da_tiempo" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="cenas_rapidas"
+        android:enabled="true"
+        android:icon="@drawable/ic_atajo_cenas"
+        android:shortcutShortLabel="@string/atajo_cenas_corta"
+        android:shortcutLongLabel="@string/atajo_cenas_larga">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="app.trombito.souschef"
+            android:targetClass="app.trombito.souschef.MainActivity">
+            <extra
+                android:name="atajo"
+                android:value="cenas_rapidas" />
+        </intent>
+    </shortcut>
+</shortcuts>

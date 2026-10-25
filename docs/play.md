@@ -32,6 +32,12 @@ a mano, en Play Console.
      - Buzón: el correo lo envía el usuario desde su app de correo, con modelo, versión de Android y del SDK, versión
        de la app y cocina configurada. VERIFICAR si el formulario obliga a declarar estos datos o si no cuentan como
        recogidos, porque la app no los envía al desarrollador.
+     - Buzón, resumen de uso: es opcional (casilla desmarcada por defecto), el usuario ve el texto antes y lo envía él
+       desde su correo. Solo lleva cifras agregadas (versión, cocinadas totales y del último mes, recetas distintas,
+       valoradas Repetir/Ajustar/No repetir, disposición del cronómetro, escala de cocina, si usa la voz y número de
+       «Quiero hacerla»): sin notas, sin títulos ni identificadores. VERIFICAR si hay que declararlo en el formulario
+       de Seguridad de los datos (como «Actividad de la app»); la app no lo envía al desarrollador, así que es probable
+       que no cuente como recogido.
      - In-App Updates: la consulta la hace Play Store. VERIFICAR si Play exige declarar algún metadato de esta
        consulta.
    - Permisos:

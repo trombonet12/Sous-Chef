@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono de un acceso directo (F17): el trazo del icono de la app sobre el círculo crema del lanzador. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="@color/ic_launcher_background"
+        android:pathData="M24,0A24,24 0 1,0 24,48A24,24 0 1,0 24,0Z" />
+    <group
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        android:translateX="9"
+        android:translateY="9">
+        <path
+            android:pathData="M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18z"
+            android:strokeColor="#FF8C5A04"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M12 7v5l3 2"
+            android:strokeColor="#FF8C5A04"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

@@ -3,6 +3,15 @@ package app.trombito.souschef.ui.buzon
 import android.content.ClipboardManager
 import android.content.Intent
 import androidx.activity.ComponentActivity
+import app.trombito.souschef.domain.Ajustes
+import app.trombito.souschef.domain.DisposicionCrono
+import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.ResumenUso
+import app.trombito.souschef.domain.Valoracion
+import app.trombito.souschef.domain.resumenDeUso
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.TipoCocina
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -12,6 +21,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
+import java.time.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 class BuzonLogicaTest {
@@ -21,6 +31,95 @@ class BuzonLogicaTest {
     private fun texto(id: Int): String = RuntimeEnvironment.getApplication().getString(id)
 
     private fun correo(f: FormularioBuzon) = construirCorreo(f, datos, ::texto)
+
+    private val resumen =
+        ResumenUso(
+            version = "1.7.0",
+            cocinadas = 12,
+            cocinadasUltimoMes = 4,
+            recetasDistintas = 7,
+            repetir = 5,
+            ajustar = 2,
+            noRepetir = 1,
+            disposicion = DisposicionCrono.APILADA,
+            cocina = Cocina(),
+            vozActiva = true,
+            quieroHacerla = 3,
+        )
+
+    private val textoEsperadoDelResumen =
+        listOf(
+            "— Resumen de uso —",
+            "Versión: 1.7.0",
+            "Cocinadas: 12 (4 en el último mes)",
+            "Recetas distintas: 7",
+            "Valoradas: Repetir 5 · Ajustar 2 · No repetir 1",
+            "Cronómetro: Apilada",
+            "Cocina: Vitro digital 1-9",
+            "Voz: activada",
+            "Quiero hacerla: 3",
+        ).joinToString("\n")
+
+    @Test
+    fun elResumenDeUsoSeEscribeConSusCifras() {
+        assertEquals(textoEsperadoDelResumen, textoResumen(resumen, ::texto))
+    }
+
+    @Test
+    fun elResumenReflejaLaCocinaDeGasLaVozApagadaYLaDisposicionClasica() {
+        val otro =
+            resumen.copy(
+                disposicion = DisposicionCrono.CLASICA,
+                cocina = Cocina(tipo = TipoCocina.GAS, mando = Mando.ANALOGICO, max = 8),
+                vozActiva = false,
+            )
+        val t = textoResumen(otro, ::texto)
+        assertTrue(t, t.contains("Cronómetro: Clásica"))
+        assertTrue(t, t.contains("Cocina: Gas · ruleta 1-8"))
+        assertTrue(t, t.contains("Voz: desactivada"))
+        val sinNumeros = textoResumen(resumen.copy(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)), ::texto)
+        assertTrue(sinNumeros, sinNumeros.contains("Cocina: Gas · sin números"))
+    }
+
+    @Test
+    fun elResumenSoloViajaSiSeMarcaLaCasillaYEsElMismoTextoDeLaVistaPrevia() {
+        val conResumen = datos.copy(resumen = resumen)
+        val f = FormularioBuzon(TipoBuzon.SUGERENCIA, texto = "Hola")
+
+        val sin = construirCorreo(f, conResumen, ::texto).cuerpo
+        assertFalse(sin, sin.contains("Resumen de uso"))
+
+        val con = construirCorreo(f.copy(adjuntarResumen = true), conResumen, ::texto).cuerpo
+        assertTrue(con, con.endsWith("Cocina: Vitro digital 1-9\n\n$textoEsperadoDelResumen"))
+
+        // Marcada pero sin cifras todavía: no se añade nada.
+        assertEquals(sin, construirCorreo(f.copy(adjuntarResumen = true), datos, ::texto).cuerpo)
+    }
+
+    @Test
+    fun elCorreoConResumenNoLlevaNotasNiTitulosNiSlugs() {
+        // El resumen se calcula desde un historial con datos privados; nada de eso puede salir en el correo.
+        val entradas =
+            listOf(
+                EntradaHistorial(
+                    id = "lasana-secreta-2026-10-20",
+                    slug = "lasana-secreta",
+                    titulo = "Lasaña de la suegra",
+                    fecha = "2026-10-20",
+                    nota = "NOTA-PRIVADA: le faltó sal",
+                    valoracion = Valoracion.AJUSTAR,
+                ),
+            )
+        val calculado = resumenDeUso(entradas, 1, Ajustes(), "1.7.0", LocalDate.of(2026, 10, 25))
+        val f = FormularioBuzon(TipoBuzon.FALLO, queOcurrio = "Se cierra", adjuntarResumen = true)
+        val cuerpo = construirCorreo(f, datos.copy(resumen = calculado), ::texto).cuerpo
+
+        assertTrue(cuerpo, cuerpo.contains("Cocinadas: 1 (1 en el último mes)"))
+        assertTrue(cuerpo, cuerpo.contains("Valoradas: Repetir 0 · Ajustar 1 · No repetir 0"))
+        listOf("NOTA-PRIVADA", "le faltó sal", "lasana-secreta", "Lasaña de la suegra", "2026-10-20").forEach {
+            assertFalse("$it no debe salir: $cuerpo", cuerpo.contains(it))
+        }
+    }
 
     @Test
     fun elAsuntoLlevaLaMarcaYElTipo() {

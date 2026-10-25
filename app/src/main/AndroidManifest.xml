@@ -43,6 +43,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Accesos directos del icono (F17): intents explícitos con el extra "atajo", sin intent-filter público. -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
             <!--
                 Sin intent-filter para souschef://crono/<slug>: la notificación y la alarma lo abren con un intent
                 explícito a esta actividad y Navigation lee el data del intent, no el manifest. Así ninguna web ni

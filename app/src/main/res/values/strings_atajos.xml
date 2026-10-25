@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Accesos directos del icono de la app (F17, res/xml/shortcuts.xml). -->
+<resources>
+    <string name="atajo_cenas_corta">Cenas rápidas</string>
+    <string name="atajo_cenas_larga">Cenas rápidas</string>
+    <string name="atajo_tiempo_corta">¿Qué me da tiempo?</string>
+    <string name="atajo_tiempo_larga">¿Qué me da tiempo?</string>
+    <string name="atajo_cocina_corta">Volver a la cocina</string>
+    <string name="atajo_cocina_larga">Volver a la cocina</string>
+</resources>

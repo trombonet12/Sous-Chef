@@ -21,6 +21,7 @@ import app.trombito.souschef.domain.SinPropuestas
 import app.trombito.souschef.domain.candidatas
 import app.trombito.souschef.domain.ventana
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.ui.CLAVE_ATAJO_TIEMPO
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -108,6 +109,18 @@ class RecetasViewModel
                     propuestasRepo.mostrar(dia, e.propuestas.map { it.receta.slug })
                 }
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
+
+        init {
+            // Atajo «¿Qué me da tiempo?» (F17): la navegación deja una marca de una vez en el estado de esta entrada.
+            viewModelScope.launch {
+                savedStateHandle.getStateFlow(CLAVE_ATAJO_TIEMPO, false).collect { pedido ->
+                    if (pedido) {
+                        savedStateHandle[CLAVE_ATAJO_TIEMPO] = false
+                        activarTiempo()
+                    }
+                }
+            }
+        }
 
         /**
          * Los ajustes con la hora actual. Solo en el modo «acabas» o con «¿Qué me da tiempo?» puesto hace falta que la

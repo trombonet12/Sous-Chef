@@ -1,6 +1,6 @@
 # Política de privacidad de Sous Chef
 
-> Propósito: política de privacidad pública de la app (enlazada desde Google Play) · Audiencia: usuarios de la app · Actualizado: 2026-10-24
+> Propósito: política de privacidad pública de la app (enlazada desde Google Play) · Audiencia: usuarios de la app · Actualizado: 2026-10-25
 
 ## Resumen
 Sous Chef no recoge, no envía y no comparte datos personales por su cuenta. Todo lo que guardas se queda en tu móvil.
@@ -30,6 +30,11 @@ Hay tres excepciones, y las tres dependen de ti o del sistema del móvil: el con
 - Si tienes una sugerencia, un fallo o una receta que comentar, el Buzón prepara un correo y abre tu app de correo.
 - El mensaje lleva el modelo del móvil, la versión de Android y del SDK, la versión de Sous Chef y la cocina que tienes
   configurada.
+- **Resumen de uso (opcional):** una casilla, desmarcada por defecto, añade al correo unas cifras de uso. Al marcarla
+  ves el texto exacto que se añade. Solo lleva cifras y ajustes: la versión de la app, cuántas recetas has cocinado (en
+  total y en el último mes), cuántas recetas distintas, cuántas has valorado como «Repetir», «Ajustar» y «No repetir», la
+  disposición del cronómetro, la escala de tu cocina, si usas la voz y cuántas recetas tienes en «Quiero hacerla». No
+  lleva notas, ni nombres de recetas o de cocinadas, ni fechas, ni identificadores.
 - Solo sale si lo envías tú, desde tu app de correo, y puedes revisar el texto antes. Sous Chef no lo envía ni lo guarda
   por su cuenta.
 - Destinatario del correo: VERIFICAR antes de publicar (debe coincidir con el contacto de este documento).

@@ -1,5 +1,7 @@
 package app.trombito.souschef.ui
 
+import java.net.URLEncoder
+
 /**
  * Rutas de navegación. Contrato del cronómetro: `crono/{slug}?raciones={n}&servir={HH:mm}`
  * (`raciones` 0 = usar las de la receta; `servir` vacío = la de comer o la de cenar de Ajustes, según la receta).
@@ -10,6 +12,12 @@ object Rutas {
     const val ARG_SERVIR = "servir"
     const val ARG_FAMILIA = "familia"
     const val ARG_CATEGORIA = "categoria"
+
+    /** Argumento opcional del Buzón: el plato que se pide (lo buscado en Recetas sin resultados). */
+    const val ARG_PLATO = "plato"
+
+    /** Largo máximo de [ARG_PLATO]: lo que sobra se corta. */
+    const val PLATO_MAX = 100
 
     /** Valor de [ARG_FAMILIA] que abre la lista de «Cenas rápidas» en vez de la de una familia. */
     const val CENAS_RAPIDAS = "cenas-rapidas"
@@ -23,6 +31,9 @@ object Rutas {
     const val FICHA = "receta/{$ARG_SLUG}"
     const val AJUSTES = "ajustes"
     const val BUZON = "buzon"
+
+    /** Patrón del destino del Buzón: `plato` opcional; se navega a [BUZON] o a [buzon]. */
+    const val BUZON_PATRON = "buzon?$ARG_PLATO={$ARG_PLATO}"
     const val AJUSTES_COCINA = "ajustes/cocina"
     const val AJUSTES_APARIENCIA = "ajustes/apariencia"
     const val AJUSTES_HORARIO = "ajustes/horario"
@@ -46,6 +57,16 @@ object Rutas {
     fun tecnicasCategoria(categoria: String) = "tecnicas/categoria/$categoria"
 
     fun tecnica(slug: String) = "tecnica/$slug"
+
+    /** El Buzón con el plato ya escrito (codificado: lleva espacios, tildes o signos). */
+    fun buzon(plato: String): String {
+        val limpio = plato.trim().take(PLATO_MAX)
+        if (limpio.isEmpty()) return BUZON
+        return "$BUZON?$ARG_PLATO=" + URLEncoder.encode(limpio, Charsets.UTF_8.name()).replace("+", "%20")
+    }
+
+    /** El cronómetro de una cocinada viva, sin argumentos: raciones y hora salen de lo guardado. */
+    fun cronoViva(slug: String) = "crono/$slug"
 
     fun crono(
         slug: String,

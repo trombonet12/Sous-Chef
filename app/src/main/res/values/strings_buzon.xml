@@ -33,6 +33,25 @@
     <string name="buzon_copiar">Copiar el texto</string>
     <string name="buzon_copiado">Texto copiado</string>
 
+    <!-- Búsqueda sin resultados en Recetas. -->
+    <string name="recetas_nada_pedir">Pedir esta receta</string>
+    <string name="recetas_nada_quitar_filtros">Quitar filtros</string>
+
+    <!-- Resumen de uso opcional (F6): solo cifras, sin notas ni nombres de recetas. -->
+    <string name="buzon_resumen_adjuntar">Adjuntar resumen de uso</string>
+    <string name="buzon_resumen_explica">Es opcional y solo lleva cifras: sin notas ni nombres de recetas. Esto es lo que se añadirá al correo:</string>
+    <string name="buzon_resumen_titulo">— Resumen de uso —</string>
+    <string name="buzon_resumen_version">Versión: %1$s</string>
+    <string name="buzon_resumen_cocinadas">Cocinadas: %1$d (%2$d en el último mes)</string>
+    <string name="buzon_resumen_recetas">Recetas distintas: %1$d</string>
+    <string name="buzon_resumen_valoradas">Valoradas: Repetir %1$d · Ajustar %2$d · No repetir %3$d</string>
+    <string name="buzon_resumen_crono">Cronómetro: %1$s</string>
+    <string name="buzon_resumen_cocina">Cocina: %1$s</string>
+    <string name="buzon_resumen_voz">Voz: %1$s</string>
+    <string name="buzon_resumen_si">activada</string>
+    <string name="buzon_resumen_no">desactivada</string>
+    <string name="buzon_resumen_quiero">Quiero hacerla: %1$d</string>
+
     <!-- Lo que lee quien recibe el correo. -->
     <string name="buzon_correo_plato">Plato</string>
     <string name="buzon_correo_ingredientes">Ingredientes (usar o evitar)</string>

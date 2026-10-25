@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,6 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.ResumenUso
 import app.trombito.souschef.ui.ajustes.PantallaAjustes
 import app.trombito.souschef.ui.ajustes.resumenCocina
 import app.trombito.souschef.ui.shell.Icono
@@ -68,12 +72,13 @@ fun BuzonScreen(
 ) {
     val formulario by viewModel.formulario.collectAsStateWithLifecycle()
     val ajustes by viewModel.ajustes.collectAsStateWithLifecycle()
+    val resumen by viewModel.resumen.collectAsStateWithLifecycle()
     val contexto = LocalContext.current
     val version = viewModel.version
     val cocina = resumenCocina(ajustes)
     val datos =
-        remember(version, cocina) {
-            DatosApp(version, Build.MODEL, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, cocina)
+        remember(version, cocina, resumen) {
+            DatosApp(version, Build.MODEL, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, cocina, resumen)
         }
     val acciones =
         remember(viewModel, contexto, onAtras) {
@@ -109,6 +114,9 @@ internal fun BuzonContenido(
             TipoBuzon.FALLO -> CamposFallo(formulario, acciones.editar)
             TipoBuzon.SUGERENCIA -> CamposSugerencia(formulario, acciones.editar)
         }
+        CasillaResumen(formulario.adjuntarResumen, datos.resumen) { marcada ->
+            acciones.editar { it.copy(adjuntarResumen = marcada) }
+        }
         Button(
             onClick = {
                 val correo = construirCorreo(formulario, datos) { recursos.getString(it) }
@@ -130,6 +138,56 @@ internal fun BuzonContenido(
             AvisoSinCorreo(copiado) {
                 acciones.copiar(construirCorreo(formulario, datos) { recursos.getString(it) })
                 copiado = true
+            }
+        }
+    }
+}
+
+/**
+ * «Adjuntar resumen de uso» (F6): desmarcada por defecto; marcada, enseña el texto exacto que se añade al correo. Sin
+ * cifras todavía ([resumen] nulo), la casilla se ve pero no hay vista previa.
+ */
+@Composable
+private fun CasillaResumen(
+    marcada: Boolean,
+    resumen: ResumenUso?,
+    onCambio: (Boolean) -> Unit,
+) {
+    val recursos = LocalResources.current
+    Column(verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .toggleable(value = marcada, role = Role.Checkbox, onValueChange = onCambio)
+                    .testTag("buzon-resumen-casilla"),
+        ) {
+            Checkbox(checked = marcada, onCheckedChange = null)
+            Text(
+                stringResource(R.string.buzon_resumen_adjuntar),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(start = Espacio.s),
+            )
+        }
+        if (marcada && resumen != null) {
+            Text(
+                stringResource(R.string.buzon_resumen_explica),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.fillMaxWidth().testTag("buzon-resumen-vista"),
+            ) {
+                Text(
+                    textoResumen(resumen) { recursos.getString(it) },
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(Espacio.m),
+                )
             }
         }
     }

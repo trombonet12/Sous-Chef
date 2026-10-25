@@ -6,13 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -42,6 +47,7 @@ fun RecetasScreen(
     onAbrir: (String) -> Unit,
     onCategoria: (String) -> Unit = {},
     onAtras: () -> Unit = {},
+    onPedir: (String) -> Unit = {},
     viewModel: RecetasViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
@@ -49,7 +55,15 @@ fun RecetasScreen(
         remember(viewModel) {
             AccionesFiltro(viewModel::alternarFiltro, viewModel::limpiarFiltros, viewModel::elegirOrden)
         }
-    val lista = AccionesLista(viewModel::alternarFavorita, onAbrir, onCategoria, onAtras, viewModel::otraPropuesta)
+    val lista =
+        AccionesLista(
+            viewModel::alternarFavorita,
+            onAbrir,
+            onCategoria,
+            onAtras,
+            viewModel::otraPropuesta,
+            onPedir,
+        )
     val tiempo =
         remember(viewModel) {
             AccionesTiempo(
@@ -62,13 +76,17 @@ fun RecetasScreen(
     RecetasContenido(estado, viewModel::buscar, acciones, lista, tiempo)
 }
 
-/** Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, volver y pedir «Otra». */
+/**
+ * Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, volver, pedir «Otra» y, con la
+ * búsqueda vacía, pedir al Buzón lo buscado.
+ */
 class AccionesLista(
     val favorita: (String, Boolean) -> Unit,
     val abrir: (String) -> Unit,
     val categoria: (String) -> Unit = {},
     val atras: () -> Unit = {},
     val otra: () -> Unit = {},
+    val pedir: (String) -> Unit = {},
 )
 
 @Composable
@@ -120,7 +138,7 @@ fun RecetasContenido(
                 item { CategoriasFamilia(estado.categorias, estado.cenasRapidas, lista.categoria) }
                 item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }
             }
-            cuerpo(estado, lista.favorita, lista.abrir)
+            cuerpo(estado, lista, acciones.limpiar)
         }
     }
 }
@@ -178,8 +196,8 @@ private fun FamiliaBase.icono(): Icono =
 
 private fun LazyListScope.cuerpo(
     estado: RecetasUiState,
-    onFavorita: (String, Boolean) -> Unit,
-    onAbrir: (String) -> Unit,
+    lista: AccionesLista,
+    onQuitarFiltros: () -> Unit,
 ) {
     when {
         estado.cargando -> {
@@ -187,7 +205,7 @@ private fun LazyListScope.cuerpo(
         }
 
         estado.tarjetas.isEmpty() -> {
-            item { RecetasVacio(estado) }
+            item { RecetasVacio(estado, lista.pedir, onQuitarFiltros) }
         }
 
         else -> {
@@ -195,16 +213,24 @@ private fun LazyListScope.cuerpo(
                 TarjetaLista(
                     t,
                     estado.disposicion,
-                    { onFavorita(t.receta.slug, !t.favorita) },
-                    { onAbrir(t.receta.slug) },
+                    { lista.favorita(t.receta.slug, !t.favorita) },
+                    { lista.abrir(t.receta.slug) },
                 )
             }
         }
     }
 }
 
+/**
+ * La lista sin nada que enseñar. En «Nada con eso» (búsqueda o filtros sin resultado): «Pedir esta receta» abre el
+ * Buzón con lo buscado, si se buscó algo, y «Quitar filtros» aparece si hay filtros activos.
+ */
 @Composable
-private fun RecetasVacio(estado: RecetasUiState) {
+private fun RecetasVacio(
+    estado: RecetasUiState,
+    onPedir: (String) -> Unit,
+    onQuitarFiltros: () -> Unit,
+) {
     if (estado.totalRecetas == 0) {
         EstadoVacio(stringResource(R.string.recetas_vacio_titulo), stringResource(R.string.recetas_vacio_detalle))
     } else if (estado.tiempo?.soloLlego == true && estado.activos.isEmpty() && estado.consulta.isBlank()) {
@@ -212,7 +238,25 @@ private fun RecetasVacio(estado: RecetasUiState) {
     } else {
         val detalle =
             if (estado.activos.isNotEmpty()) R.string.recetas_nada_detalle_filtro else R.string.recetas_nada_detalle
-        EstadoVacio(stringResource(R.string.recetas_nada_titulo), stringResource(detalle))
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            EstadoVacio(stringResource(R.string.recetas_nada_titulo), stringResource(detalle))
+            if (estado.consulta.isNotBlank()) {
+                Button(
+                    onClick = { onPedir(estado.consulta.trim()) },
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("recetas-pedir"),
+                ) {
+                    Text(stringResource(R.string.recetas_nada_pedir))
+                }
+            }
+            if (estado.activos.isNotEmpty()) {
+                OutlinedButton(
+                    onClick = onQuitarFiltros,
+                    modifier = Modifier.heightIn(min = 48.dp).testTag("recetas-quitar-filtros"),
+                ) {
+                    Text(stringResource(R.string.recetas_nada_quitar_filtros))
+                }
+            }
+        }
     }
 }
 

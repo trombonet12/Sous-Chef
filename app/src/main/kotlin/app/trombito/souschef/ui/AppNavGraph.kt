@@ -50,7 +50,12 @@ fun SousChefNavGraph(
     val destinoInicio = inicio ?: return
     NavHost(navController, startDestination = destinoInicio, modifier = modifier) {
         listas(navController, abrirFicha, abrirTecnica)
-        composable(Rutas.FICHA, arguments = listOf(ARG_SLUG)) { entrada ->
+        // Lo abre el aviso «Avísame para empezar» con un intent explícito (ADR-0016); el manifest no lo declara.
+        composable(
+            Rutas.FICHA,
+            arguments = listOf(ARG_SLUG),
+            deepLinks = listOf(navDeepLink { uriPattern = "souschef://ficha/{${Rutas.ARG_SLUG}}" }),
+        ) { entrada ->
             val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
             FichaScreen(
                 onAtras = { navController.popBackStack() },
@@ -107,7 +112,16 @@ private fun NavGraphBuilder.ajustes(navController: NavHostController) {
             onBuzon = { navController.navigate(Rutas.BUZON) },
         )
     }
-    composable(Rutas.BUZON) { BuzonScreen(onAtras = atras) }
+    composable(
+        Rutas.BUZON_PATRON,
+        arguments =
+            listOf(
+                navArgument(Rutas.ARG_PLATO) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+            ),
+    ) { BuzonScreen(onAtras = atras) }
     composable(Rutas.AJUSTES_COCINA) { AjustesCocinaScreen(onAtras = atras) }
     composable(Rutas.AJUSTES_APARIENCIA) { AjustesAparienciaScreen(onAtras = atras) }
     composable(Rutas.AJUSTES_HORARIO) { AjustesHorarioScreen(onAtras = atras) }
@@ -131,13 +145,20 @@ private fun NavGraphBuilder.listas(
     abrirFicha: (String) -> Unit,
     abrirTecnica: (String) -> Unit,
 ) {
+    val pedir: (String) -> Unit = { navController.navigate(Rutas.buzon(it)) }
     composable(Pestana.Recetas.ruta) {
-        RecetasScreen(onAbrir = abrirFicha, onCategoria = { navController.navigate(Rutas.recetasFamilia(it)) })
+        RecetasScreen(
+            onAbrir = abrirFicha,
+            onCategoria = { navController.navigate(Rutas.recetasFamilia(it)) },
+            onPedir = pedir,
+        )
         // Las novedades tras actualizar solo salen aquí, en el destino Recetas.
         PuertaNovedades(onReceta = abrirFicha)
     }
     composable(Rutas.RECETAS_FAMILIA, arguments = listOf(ARG_FAMILIA)) {
-        RecetasScreen(onAbrir = abrirFicha, onAtras = { navController.popBackStack() })
+        RecetasScreen(onAbrir = abrirFicha, onAtras = { navController.popBackStack() }, onPedir = pedir)
+        // Si se llegó con un atajo (Cenas rápidas), las novedades pendientes salen aquí, como en la pestaña.
+        PuertaNovedades(onReceta = abrirFicha)
     }
     composable(Pestana.Tecnicas.ruta) {
         TecnicasScreen(
