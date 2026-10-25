@@ -35,6 +35,7 @@ import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.receta.crono.TipoAviso
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.voz.ControlVoz
+import app.trombito.souschef.ui.crono.voz.FuenteIngredientes
 import app.trombito.souschef.ui.crono.voz.MandosVoz
 import app.trombito.souschef.ui.crono.voz.SesionVoz
 import app.trombito.souschef.ui.crono.voz.SituacionVoz
@@ -103,6 +104,8 @@ data class CronoUi(
     val notas: List<NotaCocinada> = emptyList(),
     /** Valoración elegida en el cierre (o durante la ventana de deshacer); null si no se ha valorado. */
     val valoracion: Valoracion? = null,
+    /** Casillas marcadas en la hoja «Ingredientes» (claves de [claveIngrediente]); duran lo que la cocinada. */
+    val ingredientesMarcados: Set<String> = emptySet(),
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -164,6 +167,7 @@ class CronoViewModel
                         silenciarAlarma = { viewModelScope.launch { cadena.silenciar(slug) } },
                     ),
                 registro = { Log.d(ETIQUETA_VOZ, "orden: $it") },
+                ingredientes = ::fuenteIngredientes,
             )
 
         // Voz (ADR-0008): la pantalla avisa de si se ve y de si hay permiso; el resto lo decide SesionVoz.
@@ -385,6 +389,15 @@ class CronoViewModel
             marcada: Boolean,
         ) = mutar { e, _, t -> idsCasilla.fold(e) { acc, id -> SesionCrono.marcar(acc, id, marcada, t) } }
 
+        /** Marca o desmarca una casilla de la hoja «Ingredientes»; solo vive en esta pantalla, no se guarda. */
+        fun marcarIngrediente(
+            clave: String,
+            marcada: Boolean,
+        ) = _ui.update {
+            val marcados = if (marcada) it.ingredientesMarcados + clave else it.ingredientesMarcados - clave
+            it.copy(ingredientesMarcados = marcados)
+        }
+
         fun enfocar(carril: String) = mutar { e, _, t -> SesionCrono.enfocar(e, carril, t) }
 
         /** La misma preferencia que en Ajustes: la cocina se repinta con la nueva disposición sin reiniciarse. */
@@ -463,7 +476,15 @@ class CronoViewModel
                 val receta = _ui.value.receta ?: return@launch
                 val ahora = reloj.ahoraMs()
                 val nuevo = cadena.almacen.modificar(slug) { SesionCrono.reiniciar(it, receta, ahora) } ?: return@launch
-                _ui.update { it.copy(reiniciarArmado = false, banda = emptyList(), resumen = null, valoracion = null) }
+                _ui.update {
+                    it.copy(
+                        reiniciarArmado = false,
+                        banda = emptyList(),
+                        resumen = null,
+                        valoracion = null,
+                        ingredientesMarcados = emptySet(),
+                    )
+                }
                 cadena.cerrado(slug)
                 aplicar(nuevo, ahora)
                 cadena.reprogramar()
@@ -568,6 +589,18 @@ class CronoViewModel
                 emptyList()
             } else {
                 vistasCarriles(DatosCrono(receta, estado, reloj.ahoraMs(), u.cocina, u.recetaUi ?: receta))
+            }
+        }
+
+        /** Receta, raciones y paso actual de cada carril para «cuánto de X» e «ingredientes de este paso». */
+        private fun fuenteIngredientes(): FuenteIngredientes? {
+            val u = _ui.value
+            val receta = u.receta
+            val estado = u.estado
+            return if (receta == null || estado == null) {
+                null
+            } else {
+                FuenteIngredientes(receta, estado.raciones) { carril -> pasoActual(receta, estado, carril) }
             }
         }
 

@@ -2,6 +2,8 @@ package app.trombito.souschef.ui.crono.voz
 
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
+import app.trombito.souschef.receta.Paso
+import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Texto
 import app.trombito.souschef.receta.voz.CarrilVoz
 import app.trombito.souschef.receta.voz.InterpreteVoz
@@ -26,11 +28,21 @@ class MandosVoz(
 )
 
 /**
+ * De dónde salen las respuestas sobre ingredientes: la [receta], las [raciones] de la cocinada y el paso actual de cada
+ * carril ([pasoDe]; null si el carril ya terminó).
+ */
+class FuenteIngredientes(
+    val receta: Receta,
+    val raciones: Int,
+    val pasoDe: (String) -> Paso?,
+)
+
+/**
  * Control por voz del cronómetro (ADR-0008): interpreta lo que oye la [Escucha], acciona los [mandos] y contesta con
  * el [Habla]. Sin Android: se prueba en JVM con falsos. No guarda ni registra audio ni transcripciones; al [registro]
  * solo llega el tipo de orden. Tiene una función por tipo de orden y de respuesta (es un despachador).
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "LongParameterList")
 class ControlVoz(
     private val escucha: Escucha,
     private val habla: Habla,
@@ -38,6 +50,8 @@ class ControlVoz(
     private val foco: () -> String?,
     private val mandos: MandosVoz,
     private val registro: (String) -> Unit = {},
+    /** La receta de la cocina; sin ella, «cuánto de X» y «ingredientes de este paso» no se entienden. */
+    private val ingredientes: () -> FuenteIngredientes? = { null },
 ) {
     /** Si es `false` no se dice nada (voz apagada, silenciada o pantalla fuera de vista). */
     var puedeHablar: Boolean = false
@@ -107,7 +121,7 @@ class ControlVoz(
                 }
 
                 is OrdenVoz.CuantoQueda, is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info,
-                is OrdenVoz.QueViene, is OrdenVoz.ProximosPasos,
+                is OrdenVoz.QueViene, is OrdenVoz.ProximosPasos, is OrdenVoz.Cantidad, is OrdenVoz.IngredientesPaso,
                 -> {
                     consulta(orden, actuales)
                 }
@@ -173,10 +187,33 @@ class ControlVoz(
                     ?: ProximosPasosVoz.general(actuales)
             }
 
+            is OrdenVoz.Cantidad -> {
+                ingredientes()?.let { IngredientesVoz.cantidad(it.receta, it.raciones, orden.consulta) }
+                    ?: RespuestasVoz.NO_ENTENDIDO
+            }
+
+            is OrdenVoz.IngredientesPaso -> {
+                ingredientesDelPaso(orden.carril, actuales)
+            }
+
             else -> {
                 null
             }
         }
+
+    /** Los ingredientes del paso actual del carril nombrado o del foco. */
+    private fun ingredientesDelPaso(
+        carril: String?,
+        actuales: List<VistaCarril>,
+    ): String {
+        val fuente = ingredientes()
+        val v = elegir(carril, actuales)
+        return if (fuente == null || v == null) {
+            RespuestasVoz.NO_ENTENDIDO
+        } else {
+            IngredientesVoz.delPaso(fuente.receta, fuente.raciones, fuente.pasoDe(v.id))
+        }
+    }
 
     /**
      * Ejecuta [orden] sobre el carril nombrado o, si no hay, el que está en foco. Si el carril no admite la orden en su

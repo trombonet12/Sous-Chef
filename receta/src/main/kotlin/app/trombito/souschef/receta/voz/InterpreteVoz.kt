@@ -65,6 +65,16 @@ sealed interface OrdenVoz {
         val carril: String?,
     ) : OrdenVoz
 
+    /** «cuánto de sal», «cuánta harina», «cantidad de aceite»: la cantidad escalada del ingrediente [consulta]. */
+    data class Cantidad(
+        val consulta: String,
+    ) : OrdenVoz
+
+    /** «ingredientes de este paso», «qué lleva este paso» (+ carril): lo que nombra el paso actual del carril. */
+    data class IngredientesPaso(
+        val carril: String?,
+    ) : OrdenVoz
+
     /** «para», «calla», «silencio», «apaga la alarma». */
     data object Para : OrdenVoz
 
@@ -92,6 +102,8 @@ val OrdenVoz.carril: String?
             is OrdenVoz.QueToca -> carril
             is OrdenVoz.ProximosPasos -> carril
             is OrdenVoz.Deshacer -> carril
+            is OrdenVoz.IngredientesPaso -> carril
+            is OrdenVoz.Cantidad -> null
             OrdenVoz.QueViene, OrdenVoz.Para, OrdenVoz.Repite -> null
         }
 
@@ -163,6 +175,11 @@ object InterpreteVoz {
                     "|ahora que) ",
             ) { OrdenVoz.QueToca(it.carril) },
             Regla(" cuanto (tiempo )?(queda|falta) ") { OrdenVoz.CuantoQueda(it.carril) },
+            // Antes que «cuánto de X»: «ingredientes de este paso» y «qué lleva…» nunca piden una cantidad.
+            Regla(" (ingredientes?|que lleva|que llevan) ") { OrdenVoz.IngredientesPaso(it.carril) },
+            Regla(" (cuanto|cuanta|cuantos|cuantas|cantidad) ") { c ->
+                consulta(c.frase)?.let { OrdenVoz.Cantidad(it) }
+            },
             Regla(" (info|informacion|detalle|detalles|como va) ") { OrdenVoz.Info(it.carril) },
             // Detrás de las preguntas: «por qué el paso anterior…» pregunta, no deshace.
             Regla(
@@ -190,6 +207,17 @@ object InterpreteVoz {
     private val enMinutos = Regex(" ([0-9]+) (?:minutos?|mins?) ")
     private val nMas = Regex(" ([0-9]+) mas ")
     private val unPoco = Regex(" 1 poco ")
+
+    // «cuánta sal lleva», «cantidad de aceite de oliva»: lo que sigue al cuantificador, sin la cola de cortesía.
+    private val cantidadDe =
+        Regex(
+            " (?:cuanto|cuanta|cuantos|cuantas|cantidad) (.+?)" +
+                "(?: (?:lleva|llevan|echo|pongo|necesito|tiene|se echa|va|hay que echar|hay que poner|por favor))? $",
+        )
+    private val articulos = setOf("de", "del", "la", "el", "los", "las", "un", "una", "unos", "unas")
+
+    // «cuánto tiempo lleva», «cuánto lleva»: preguntas por el tiempo, no por un ingrediente.
+    private val noIngrediente = setOf("tiempo", "rato", "falta", "queda", "lleva", "llevan", "paso")
 
     /** null si no hay «chef» o lo que sigue no es una orden. Analiza solo el texto tras la ÚLTIMA «chef». */
     fun interpretar(
@@ -221,6 +249,20 @@ object InterpreteVoz {
         val ordenes = alternativas.mapNotNull { interpretar(it, carriles) }
         val primera = ordenes.firstOrNull() ?: return null
         return ordenes.firstOrNull { it::class == primera::class && it.carril != null } ?: primera
+    }
+
+    /** Ingrediente por el que se pregunta («cuánto de la sal» -> «sal»), sin artículos ni cifras; null si no hay. */
+    private fun consulta(frase: String): String? {
+        val palabras =
+            cantidadDe
+                .find(frase)
+                ?.groupValues
+                ?.get(1)
+                ?.split(' ')
+                ?.filter { it.isNotEmpty() && !digitos.matches(it) }
+                ?.dropWhile { it in articulos }
+                .orEmpty()
+        return palabras.takeIf { it.isNotEmpty() && it.first() !in noIngrediente }?.joinToString(" ")
     }
 
     /** Segundos pedidos en la frase (1..[TOPE_S]) o null. */

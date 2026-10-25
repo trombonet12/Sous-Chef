@@ -71,6 +71,7 @@ fun CronoCocina(
     var diagrama by remember { mutableStateOf(false) }
     var interfaz by remember { mutableStateOf(false) }
     var ordenes by remember { mutableStateOf(false) }
+    var ingredientes by remember { mutableStateOf(false) }
     BackHandler { salidas.salir() }
     val acciones =
         AccionesCarril(
@@ -91,6 +92,7 @@ fun CronoCocina(
                 diagrama = { diagrama = true },
                 interfaz = { interfaz = true },
                 ordenesVoz = { ordenes = true },
+                ingredientes = { ingredientes = true },
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
         CuerpoCrono(
@@ -106,10 +108,9 @@ fun CronoCocina(
     }
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
-    if (interfaz) {
-        DialogoInterfaz(ui.disposicion, onElegir = viewModel::elegirDisposicion) { interfaz = false }
-    }
+    if (interfaz) DialogoInterfaz(ui.disposicion, viewModel::elegirDisposicion) { interfaz = false }
     if (ordenes) HojaOrdenesCocina { ordenes = false }
+    if (ingredientes) HojaIngredientesCocina(ui, viewModel) { ingredientes = false }
     if (abandonar) {
         DialogoAbandonar(
             onSi = {
@@ -252,11 +253,12 @@ internal class AccionesMenu(
     val diagrama: () -> Unit,
     val interfaz: () -> Unit,
     val ordenesVoz: () -> Unit = {},
+    val ingredientes: () -> Unit = {},
 )
 
 /**
- * Menú de tres puntos: diagrama de tiempos, órdenes de voz, reiniciar (doble toque, el primero pide confirmación) y
- * abandonar (con diálogo).
+ * Menú de tres puntos: diagrama de tiempos, ingredientes, interfaz, órdenes de voz, reiniciar (doble toque, el primero
+ * pide confirmación) y abandonar (con diálogo).
  */
 @Composable
 private fun MenuCocina(
@@ -270,27 +272,10 @@ private fun MenuCocina(
             Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
         }
         DropdownMenu(abierto, { abierto = false }, containerColor = CronoPalette.carta2) {
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.crono_diagrama), color = CronoPalette.texto) },
-                onClick = {
-                    abierto = false
-                    menu.diagrama()
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.ajustes_interfaz), color = CronoPalette.texto) },
-                onClick = {
-                    abierto = false
-                    menu.interfaz()
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.crono_ordenes_voz), color = CronoPalette.texto) },
-                onClick = {
-                    abierto = false
-                    menu.ordenesVoz()
-                },
-            )
+            ItemMenu(R.string.crono_diagrama, { abierto = false }, menu.diagrama)
+            ItemMenu(R.string.crono_ingredientes, { abierto = false }, menu.ingredientes)
+            ItemMenu(R.string.ajustes_interfaz, { abierto = false }, menu.interfaz)
+            ItemMenu(R.string.crono_ordenes_voz, { abierto = false }, menu.ordenesVoz)
             DropdownMenuItem(
                 text = {
                     Text(
@@ -306,13 +291,7 @@ private fun MenuCocina(
                     viewModel.reiniciar()
                 },
             )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.crono_abandonar), color = CronoPalette.texto) },
-                onClick = {
-                    abierto = false
-                    menu.abandonar()
-                },
-            )
+            ItemMenu(R.string.crono_abandonar, { abierto = false }, menu.abandonar)
         }
     }
 }

@@ -441,4 +441,91 @@ class InterpreteVozTest {
         assertEquals(OrdenVoz.Para, i("chef para 30"))
         assertEquals(OrdenVoz.Seguir("sp"), i("chef dale 2"))
     }
+
+    // --- Cantidades e ingredientes del paso (F12) ---
+
+    @Test
+    fun `cantidad de un ingrediente en sus variantes`() {
+        assertEquals(OrdenVoz.Cantidad("sal"), i("chef cuánto de sal"))
+        assertEquals(OrdenVoz.Cantidad("sal"), i("chef, ¿cuánta sal?"))
+        assertEquals(OrdenVoz.Cantidad("aceite de oliva"), i("chef cantidad de aceite de oliva"))
+        assertEquals(OrdenVoz.Cantidad("cebollas"), i("chef cuántas cebollas"))
+        assertEquals(OrdenVoz.Cantidad("mantequilla"), i("chef cuánto de la mantequilla"))
+        assertEquals(OrdenVoz.Cantidad("harina"), i("chef cuánta harina lleva"))
+        assertEquals(OrdenVoz.Cantidad("sal"), i("chef cuánta sal por favor"))
+    }
+
+    @Test
+    fun `cantidad sin ingrediente o sobre el tiempo no es cantidad`() {
+        assertNull(i("chef cuánto"))
+        assertNull(i("chef cuánto de"))
+        assertNull(i("chef cuánto tiempo"))
+        assertNull(i("chef cuánto tiempo lleva"))
+        assertNull(i("chef cantidad"))
+    }
+
+    @Test
+    fun `cuanto queda y cuanto falta siguen siendo del tiempo`() {
+        assertEquals(OrdenVoz.CuantoQueda(null), i("chef cuánto queda"))
+        assertEquals(OrdenVoz.CuantoQueda("olla"), i("chef cuánto tiempo falta en la olla"))
+    }
+
+    @Test
+    fun `cantidad no se confunde con otras ordenes`() {
+        assertEquals(OrdenVoz.Cantidad("pasta"), i("chef cuánta pasta"))
+        assertEquals(OrdenVoz.Cantidad("agua"), i("chef cuánta agua echo"))
+        assertEquals(OrdenVoz.QueToca(null), i("chef qué hago ahora"))
+        assertEquals(OrdenVoz.Info(null), i("chef info"))
+    }
+
+    @Test
+    fun `cantidad quita los numerales del ingrediente`() {
+        assertEquals(OrdenVoz.Cantidad("limon"), i("chef cuánto de un limón"))
+    }
+
+    @Test
+    fun `ingredientes del paso en sus variantes`() {
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef ingredientes de este paso"))
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef qué lleva este paso"))
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef, ¿qué ingredientes lleva?"))
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef ingredientes"))
+    }
+
+    @Test
+    fun `ingredientes del paso de un carril`() {
+        assertEquals(OrdenVoz.IngredientesPaso("sp"), i("chef ingredientes del paso del dos"))
+        assertEquals(OrdenVoz.IngredientesPaso("sp"), i("chef ingredientes de este paso del 2"))
+        assertEquals(OrdenVoz.IngredientesPaso("olla"), i("chef qué lleva la olla"))
+        assertEquals(OrdenVoz.IngredientesPaso("sp"), i("chef ingredientes de este paso de la sartén pequeña"))
+    }
+
+    @Test
+    fun `ingredientes del paso gana a paso anterior y a siguiente`() {
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef ingredientes del paso siguiente"))
+        assertEquals(OrdenVoz.IngredientesPaso(null), i("chef ingredientes del paso anterior"))
+    }
+
+    @Test
+    fun `los proximos pasos y el por que mantienen su prioridad`() {
+        assertEquals(OrdenVoz.ProximosPasos(null), i("chef próximos pasos"))
+        assertEquals(OrdenVoz.PorQue(null), i("chef por qué lleva este paso sal"))
+    }
+
+    @Test
+    fun `entre alternativas la cantidad y el carril del paso se conservan`() {
+        assertEquals(
+            OrdenVoz.IngredientesPaso("sp"),
+            InterpreteVoz.interpretar(listOf("chef qué lleva este paso", "chef qué lleva este paso del dos"), carriles),
+        )
+        assertEquals(
+            OrdenVoz.Cantidad("sal"),
+            InterpreteVoz.interpretar(listOf("chef cuánta sal", "chef cuánto de sal"), carriles),
+        )
+    }
+
+    @Test
+    fun `cantidad e ingredientes no llevan carril salvo el del paso`() {
+        assertNull(OrdenVoz.Cantidad("sal").carril)
+        assertEquals("olla", OrdenVoz.IngredientesPaso("olla").carril)
+    }
 }

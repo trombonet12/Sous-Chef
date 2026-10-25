@@ -131,6 +131,7 @@ internal fun OrdenVoz.descripcion(): Int =
         is OrdenVoz.Prorrogar -> R.string.intro_orden_prorrogar
 
         is OrdenVoz.CuantoQueda, is OrdenVoz.QueToca, is OrdenVoz.QueViene, is OrdenVoz.ProximosPasos,
+        is OrdenVoz.Cantidad, is OrdenVoz.IngredientesPaso,
         -> R.string.intro_orden_consulta
 
         is OrdenVoz.PorQue, is OrdenVoz.Info -> R.string.intro_orden_explica

@@ -71,7 +71,9 @@
 «Chef, qué viene»
 «Chef, próximos pasos»
 «Chef, por qué»
-«Chef, info»</string>
+«Chef, info»
+«Chef, cuánto de sal» (o cuánta harina, cantidad de aceite)
+«Chef, ingredientes de este paso» (o qué lleva este paso)</string>
     <string name="intro_voz_g_alarma">Alarma y repetición</string>
     <string name="intro_voz_g_alarma_texto">«Chef, para» (apaga la alarma)
 «Chef, repite»</string>

@@ -107,6 +107,7 @@ object RespuestasVoz {
             is OrdenVoz.Para -> "Silencio."
             is OrdenVoz.CuantoQueda -> v?.let(::cuantoQueda) ?: NO_ENTENDIDO
             is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info -> "Vale."
+            is OrdenVoz.Cantidad, is OrdenVoz.IngredientesPaso -> "Vale."
             is OrdenVoz.QueViene, is OrdenVoz.Repite, is OrdenVoz.ProximosPasos, is OrdenVoz.Deshacer -> "Vale."
         }
 
