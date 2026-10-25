@@ -10,6 +10,7 @@ import app.trombito.souschef.data.repo.AjustesRepoRoom
 import app.trombito.souschef.data.repo.CronoEstadoRepoRoom
 import app.trombito.souschef.data.repo.HistorialRepoRoom
 import app.trombito.souschef.data.repo.PreferenciasRepoRoom
+import app.trombito.souschef.data.repo.PropuestasRepoRoom
 import app.trombito.souschef.data.repo.RecetasRepoRoom
 import app.trombito.souschef.data.repo.TecnicasRepoRoom
 import app.trombito.souschef.data.seed.FuenteAssets
@@ -18,6 +19,7 @@ import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.CronoEstadoRepo
 import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.PreferenciasRepo
+import app.trombito.souschef.domain.PropuestasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
@@ -78,6 +80,8 @@ abstract class RepoModule {
     @Binds abstract fun historial(impl: HistorialRepoRoom): HistorialRepo
 
     @Binds abstract fun preferencias(impl: PreferenciasRepoRoom): PreferenciasRepo
+
+    @Binds abstract fun propuestas(impl: PropuestasRepoRoom): PropuestasRepo
 
     @Binds abstract fun cronoEstado(impl: CronoEstadoRepoRoom): CronoEstadoRepo
 

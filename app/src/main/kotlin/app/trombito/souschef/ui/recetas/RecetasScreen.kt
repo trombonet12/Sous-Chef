@@ -49,7 +49,7 @@ fun RecetasScreen(
         remember(viewModel) {
             AccionesFiltro(viewModel::alternarFiltro, viewModel::limpiarFiltros, viewModel::elegirOrden)
         }
-    val lista = AccionesLista(viewModel::alternarFavorita, onAbrir, onCategoria, onAtras)
+    val lista = AccionesLista(viewModel::alternarFavorita, onAbrir, onCategoria, onAtras, viewModel::otraPropuesta)
     val tiempo =
         remember(viewModel) {
             AccionesTiempo(
@@ -62,12 +62,13 @@ fun RecetasScreen(
     RecetasContenido(estado, viewModel::buscar, acciones, lista, tiempo)
 }
 
-/** Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, y volver. */
+/** Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, volver y pedir «Otra». */
 class AccionesLista(
     val favorita: (String, Boolean) -> Unit,
     val abrir: (String) -> Unit,
     val categoria: (String) -> Unit = {},
     val atras: () -> Unit = {},
+    val otra: () -> Unit = {},
 )
 
 @Composable
@@ -110,6 +111,11 @@ fun RecetasContenido(
             }
             val sinBusqueda = estado.consulta.isBlank() && estado.activos.isEmpty()
             val enPestana = familia == null && !estado.listaCenasRapidas
+            if (enPestana && sinBusqueda && estado.propuestas.isNotEmpty()) {
+                item(key = "propuestas") {
+                    TarjetaPropuestas(estado.propuestas, estado.hayOtraPropuesta, lista.abrir, lista.otra)
+                }
+            }
             if (enPestana && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
                 item { CategoriasFamilia(estado.categorias, estado.cenasRapidas, lista.categoria) }
                 item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }

@@ -9,6 +9,7 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.HoraUsada
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.Propuesta
 import app.trombito.souschef.domain.cabeConMiEquipo
 import app.trombito.souschef.domain.desvioHabitualMin
 import app.trombito.souschef.domain.esNueva
@@ -45,6 +46,9 @@ data class Hace(
             val fecha = ultimaFecha?.let { runCatching { LocalDate.parse(it.take(10)) }.getOrNull() }
             return fecha?.let { desde(ChronoUnit.DAYS.between(it, hoy).toInt()) } ?: SIN_ESTRENAR
         }
+
+        /** El chip de una receta cocinada hace [dias] días (para el motivo «Hace 3 semanas» de las propuestas). */
+        fun deDias(dias: Int): Hace = desde(dias)
 
         private fun desde(dias: Int): Hace {
             val resaltado = dias >= DIAS_RESALTE
@@ -174,6 +178,12 @@ data class RecetasUiState(
     val cenasRapidas: Int = 0,
     /** Si la lista es la de «Cenas rápidas» (se abre desde su cuadradito): lleva barra de título y atrás. */
     val listaCenasRapidas: Boolean = false,
+    /** «¿Qué cocino hoy?»: hasta 3 recetas del día; vacío al buscar, filtrar o en la lista de una familia. */
+    val propuestas: List<Propuesta> = emptyList(),
+    /** Hay más de 3 candidatas, así que «Otra» enseña otras. */
+    val hayOtraPropuesta: Boolean = false,
+    /** El día (local) de las [propuestas]; sirve para anotar qué se enseñó ese día. */
+    val diaPropuestas: LocalDate? = null,
 )
 
 /** Texto sobre el que busca: titulo, descripcion, base, ingredientes de los grupos y títulos de los pasos. */

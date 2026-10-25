@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="propuestas_titulo">¿Qué cocino hoy?</string>
+    <string name="propuestas_otra">Otra</string>
+    <string name="propuesta_quieres">Quieres hacerla</string>
+    <string name="propuesta_sin_estrenar">Sin estrenar</string>
+    <string name="propuesta_cenar">Llega para cenar</string>
+    <string name="propuesta_detalle">%1$s · %2$s</string>
+
+    <string name="ficha_compartir_hoy">Compartir «Hoy comemos»</string>
+    <string name="ficha_compartir_hoy_descripcion">Compartir «Hoy comemos» con el plato y la hora</string>
+    <string name="ficha_compartir_hoy_titulo">Compartir «Hoy comemos»</string>
+</resources>

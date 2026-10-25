@@ -75,6 +75,33 @@ class TextoCompartirTest {
     }
 
     @Test
+    fun hoyComemosLlevaPlatoHoraYRaciones() {
+        val texto = textoHoyComemos(receta, 15 * 60 + 30, 2, cenando = false, textoRaciones = raciones)
+        assertEquals("Hoy comemos: Arroz con pollo a las 15:30. 2 raciones.", texto)
+    }
+
+    @Test
+    fun hoyCenamosCuandoSeCena() {
+        val texto = textoHoyComemos(receta, 21 * 60, 1, cenando = true, textoRaciones = raciones)
+        assertEquals("Hoy cenamos: Arroz con pollo a las 21:00. 1 ración.", texto)
+    }
+
+    @Test
+    fun laHoraLlevaCeroALaIzquierda() {
+        val texto = textoHoyComemos(receta, 9 * 60 + 5, 4, cenando = false, textoRaciones = raciones)
+        assertEquals("Hoy comemos: Arroz con pollo a las 09:05. 4 raciones.", texto)
+    }
+
+    @Test
+    fun seCenaConLaHoraDeCenarOASirviendoDesdeLasCinco() {
+        assertEquals(true, esCena(21 * 60, paraCenar = true))
+        assertEquals(true, esCena(20 * 60, paraCenar = false))
+        assertEquals(true, esCena(17 * 60, paraCenar = false))
+        assertEquals(false, esCena(15 * 60 + 30, paraCenar = false))
+        assertEquals(true, esCena(15 * 60 + 30, paraCenar = true))
+    }
+
+    @Test
     fun sinCantidadNoDejaDobleEspacio() {
         val r = receta.copy(grupos = listOf(Grupo("Base", listOf(Ingrediente("agua")))))
         assertEquals("• agua", textoIngredientes(r, 2, porZona = false, textoRaciones = raciones).lines().last())

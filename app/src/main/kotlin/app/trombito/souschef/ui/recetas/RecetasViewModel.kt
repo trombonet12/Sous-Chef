@@ -5,12 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
+import app.trombito.souschef.domain.ContadorPropuestas
+import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
+import app.trombito.souschef.domain.OtraDelDia
+import app.trombito.souschef.domain.PROPUESTAS_MAX
+import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.PreferenciasRepo
+import app.trombito.souschef.domain.PropuestasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
+import app.trombito.souschef.domain.SinPropuestas
+import app.trombito.souschef.domain.candidatas
+import app.trombito.souschef.domain.ventana
+import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,10 +37,12 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import javax.inject.Inject
@@ -40,6 +52,7 @@ import javax.inject.Inject
  * tarjetas se guardan en Ajustes.
  */
 @HiltViewModel
+@Suppress("LongParameterList", "TooManyFunctions") // un repositorio por fuente y una función por gesto de la lista
 class RecetasViewModel
     @Inject
     constructor(
@@ -49,6 +62,7 @@ class RecetasViewModel
         historial: HistorialRepo,
         private val ajustes: AjustesRepo,
         private val reloj: Reloj,
+        private val propuestasRepo: PropuestasRepo = SinPropuestas,
     ) : ViewModel() {
         /**
          * La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. La
@@ -72,17 +86,27 @@ class RecetasViewModel
             combine(
                 recetas.observarTodas(),
                 preferencias.observarTodas(),
-                combine(historial.observarUltimaFechaPorSlug(), historial.observarTodo()) { u, t -> u to t },
+                combine(
+                    historial.observarUltimaFechaPorSlug(),
+                    historial.observarTodo(),
+                    propuestasRepo.observarOtra(),
+                ) { u, t, o -> Triple(u, t, o) },
                 filtro,
                 ajustesYHora(),
-            ) { r, p, (ultimas, entradas), f, (a, ahoraMs) ->
+            ) { r, p, (ultimas, entradas, otra), f, (a, ahoraMs) ->
                 construirEstadoRecetas(
                     r,
                     p,
                     ultimas,
                     f.copy(orden = a.orden),
                     contextoLista(a, ahoraMs, ritmosPorSlug(r, entradas)),
-                ).copy(disposicion = a.lista)
+                ).copy(disposicion = a.lista).conPropuestas(r, entradas, p, a, ahoraMs, otra, f)
+            }.onEach { e ->
+                // Lo que se enseña queda anotado para saber, al cocinar, si la receta estaba propuesta ese día.
+                val dia = e.diaPropuestas
+                if (dia != null && e.propuestas.isNotEmpty()) {
+                    propuestasRepo.mostrar(dia, e.propuestas.map { it.receta.slug })
+                }
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
 
         /**
@@ -146,6 +170,11 @@ class RecetasViewModel
             viewModelScope.launch { ajustes.fijarOrden(orden) }
         }
 
+        /** «Otra» en «¿Qué cocino hoy?»: pasa a las 3 propuestas siguientes (el contador se reinicia cada día). */
+        fun otraPropuesta() {
+            viewModelScope.launch { propuestasRepo.otra(diaLocal(reloj.ahoraMs())) }
+        }
+
         fun alternarFavorita(
             slug: String,
             favorita: Boolean,
@@ -159,6 +188,38 @@ class RecetasViewModel
     }
 
 private const val MIN_HORA = 60
+
+private fun diaLocal(ahoraMs: Long): LocalDate =
+    Instant
+        .ofEpochMilli(ahoraMs)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+
+/**
+ * Pone las propuestas del día en el estado. Solo en la pestaña sin buscar ni filtrar (donde sale la tarjeta); la
+ * semilla es la fecha local, así que no cambian durante el día salvo con «Otra».
+ */
+@Suppress("LongParameterList") // todo lo que mira la función pura, ya leído por el flujo
+private fun RecetasUiState.conPropuestas(
+    recetas: List<Receta>,
+    historial: List<EntradaHistorial>,
+    preferencias: Map<String, Preferencia>,
+    ajustes: Ajustes,
+    ahoraMs: Long,
+    otra: OtraDelDia?,
+    filtro: FiltroRecetas,
+): RecetasUiState {
+    val enPestana = filtro.familiaFija == null && !filtro.cenasRapidas
+    if (!enPestana || filtro.consulta.isNotBlank() || filtro.activos.isNotEmpty()) return this
+    val ahora = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault()).toLocalDateTime()
+    val dia = ahora.toLocalDate()
+    val todas = candidatas(recetas, historial, preferencias, ajustes, ahora, dia)
+    return copy(
+        propuestas = ventana(todas, ContadorPropuestas.vecesHoy(otra, dia)),
+        hayOtraPropuesta = todas.size > PROPUESTAS_MAX,
+        diaPropuestas = dia,
+    )
+}
 
 private fun contextoLista(
     a: Ajustes,

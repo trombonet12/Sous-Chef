@@ -82,6 +82,8 @@ class HistorialRepoRoom
                 val existente = dao.obtener(entrada.id)?.aDominio()
                 val guardada = entrada.copy(valoracion = entrada.valoracion ?: existente?.valoracion)
                 dao.insertar(guardada.aEntidad())
+                // Una cocinada nueva de una receta propuesta ese día suma al contador de «¿Qué cocino hoy?».
+                if (existente == null) db.metaDao().contarSiEraPropuesta(entrada.slug, entrada.fecha)
             }
 
         override suspend fun importar(
