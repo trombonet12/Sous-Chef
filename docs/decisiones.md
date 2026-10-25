@@ -405,6 +405,8 @@
   la de por defecto) con `scripts/play-promocionar.mjs` (Node sin dependencias, API de edits): el mismo AAB no se
   puede subir dos veces. El script viaja en el artifact para que el job `play` siga sin checkout ni permisos.
   `PLAY_PISTA_CERRADA=ninguna` lo desactiva.
+- **compileSdk 37, targetSdk 36**: lo exigen Compose 1.12 y lifecycle 2.11 (PR de Dependabot); el comportamiento en
+  ejecución no cambia. Subir el targetSdk es una decisión aparte (cambios de comportamiento de Android 17).
 - **La leche de casa es desnatada**: despensa al día; las recetas con leche se revisan con `receta-revisar`.
 - **zod en /video** forzado a 4.6.6 con `overrides` (alerta alta; Remotion 4.0.538 aún fija 4.5.4). El vídeo es solo
   herramienta local; renderiza igual.

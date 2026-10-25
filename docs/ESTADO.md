@@ -167,7 +167,7 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
 | Herramienta | Estado |
 |---|---|
 | JDK 21 (Gradle) | OK vía `~/.gradle/gradle.properties` |
-| Android SDK 36 / build-tools 36.0.0 | OK |
+| Android SDK 36 y 37 / build-tools 36.0.0 | OK (compileSdk 37, targetSdk 36) |
 | Emulador | AVD `trombito-36` |
 | Keystore release | `~/.souschef/` (`node scripts/android-release.mjs`) |
 

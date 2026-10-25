@@ -266,7 +266,7 @@ val comprobarNovedades =
 
 tasks.named("preBuild") { dependsOn(comprobarNovedades) }
 
-// Robolectric (SDK 36) necesita abrir internals del JDK 21.
+// Robolectric (corre con el targetSdk 36; se compila contra 37) necesita abrir internals del JDK 21.
 tasks.withType<Test>().configureEach {
     jvmArgs("--add-exports=java.base/jdk.internal.access=ALL-UNNAMED", "--add-opens=java.base/java.lang=ALL-UNNAMED")
 }
