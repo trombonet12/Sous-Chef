@@ -64,7 +64,7 @@ class FichaViewModel
                 recetas.observar(slug),
                 preferencias.observar(slug),
                 tecnicas.observarTodas(),
-                cadena.viva(slug),
+                cadena.vivas.viva(slug),
                 combine(
                     local,
                     ajustes.observar(),

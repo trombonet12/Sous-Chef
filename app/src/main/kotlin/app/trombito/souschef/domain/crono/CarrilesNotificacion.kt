@@ -87,8 +87,7 @@ object ConstructorCarriles {
         e: EstadoCrono,
         ahoraMs: Long,
     ): List<CarrilNotificacion> {
-        val abierta = e.inicioMs != null && !SesionCrono.caducado(e, ahoraMs) && !ConsultasCrono.todoTerminado(e)
-        if (!abierta) return emptyList()
+        if (!SesionCrono.vivo(e, ahoraMs)) return emptyList()
         return ConsultasCrono.carriles(receta).mapNotNull { c ->
             val ec = e.carriles[c.id]?.takeUnless { it.fin } ?: return@mapNotNull null
             val pasos = receta.pasos.filter { it.carril == c.id }

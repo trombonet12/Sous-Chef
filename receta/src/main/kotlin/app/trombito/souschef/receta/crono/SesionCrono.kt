@@ -113,6 +113,15 @@ object SesionCrono {
         ahoraMs: Long,
     ): Boolean = ahoraMs - e.actualizadoMs > CADUCIDAD_MS
 
+    /**
+     * Regla única de «cocinada viva»: abierta (`inicioMs` != null), sin caducar (hasta [CADUCIDAD_MS] inclusive) y con
+     * algún carril sin terminar. La pausa no la mata: una cocinada en pausa sigue viva.
+     */
+    fun vivo(
+        e: EstadoCrono,
+        ahoraMs: Long,
+    ): Boolean = e.inicioMs != null && !caducado(e, ahoraMs) && !ConsultasCrono.todoTerminado(e)
+
     /** El estado si sigue vigente (y es de esta receta); si no, null: no se restaura nada. */
     fun vigente(
         e: EstadoCrono?,

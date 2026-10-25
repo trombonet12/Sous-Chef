@@ -314,7 +314,7 @@ class CronoViewModel
         /** "Abrir la cocina": fija el inicio y arma la cadena de alarmas. */
         fun abrirCocina() {
             viewModelScope.launch {
-                val otra = cadena.otraViva(slug)
+                val otra = cadena.vivas.otraViva(slug)
                 if (otra == null) {
                     ejecutar { e, r, t -> SesionCrono.abrir(e, r, t) }
                 } else {

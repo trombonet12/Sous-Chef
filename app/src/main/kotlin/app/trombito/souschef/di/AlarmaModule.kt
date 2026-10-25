@@ -10,6 +10,7 @@ import app.trombito.souschef.domain.crono.AlarmaSistema
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.crono.CocinadasVivas
 import app.trombito.souschef.domain.crono.Notificador
 import dagger.Binds
 import dagger.Module
@@ -34,6 +35,10 @@ object CronoModule {
         sistema: AlarmaSistema,
         notificador: Notificador,
     ): CadenaAlarmas = CadenaAlarmas(almacen, recetas, reloj, sistema, notificador)
+
+    /** Las consultas de solo lectura de la cadena, para quien no necesita mutar nada (novedades, actualización). */
+    @Provides
+    fun vivas(cadena: CadenaAlarmas): CocinadasVivas = cadena.vivas
 }
 
 @Module

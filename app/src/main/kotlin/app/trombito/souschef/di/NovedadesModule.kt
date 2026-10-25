@@ -6,7 +6,7 @@ import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.domain.ComprobarNovedades
 import app.trombito.souschef.domain.FuenteNovedades
 import app.trombito.souschef.domain.VersionApp
-import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.crono.CocinadasVivas
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -29,6 +29,6 @@ object NovedadesModule {
         ajustes: AjustesRepo,
         fuente: FuenteNovedades,
         version: VersionApp,
-        cadena: CadenaAlarmas,
-    ): ComprobarNovedades = ComprobarNovedades(ajustes, fuente, version) { cadena.hayViva() }
+        vivas: CocinadasVivas,
+    ): ComprobarNovedades = ComprobarNovedades(ajustes, fuente, version) { vivas.hayViva() }
 }

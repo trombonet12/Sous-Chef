@@ -362,18 +362,18 @@ class CadenaAlarmasTest {
         runTest {
             cocinando("a", T0)
             almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
-            assertNull(cadena.otraViva("a"))
-            assertEquals("a", cadena.otraViva("b")?.slug)
+            assertNull(cadena.vivas.otraViva("a"))
+            assertEquals("a", cadena.vivas.otraViva("b")?.slug)
         }
 
     @Test
     fun hayVivaSoloConUnaCocinadaArrancada() =
         runTest {
-            assertFalse(cadena.hayViva())
+            assertFalse(cadena.vivas.hayViva())
             almacen.fijar(SesionCrono.inicial(recetaCrono("b"), T0, T0))
-            assertFalse(cadena.hayViva())
+            assertFalse(cadena.vivas.hayViva())
             cocinando("a", T0)
-            assertTrue(cadena.hayViva())
+            assertTrue(cadena.vivas.hayViva())
         }
 
     @Test

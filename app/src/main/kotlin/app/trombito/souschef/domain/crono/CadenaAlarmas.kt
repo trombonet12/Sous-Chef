@@ -11,8 +11,6 @@ import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.Evento
 import app.trombito.souschef.receta.crono.SesionCrono
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
@@ -89,6 +87,9 @@ class CadenaAlarmas(
     private val notificador: Notificador,
     val presencia: PresenciaCrono = PresenciaCrono(),
 ) {
+    /** Consultas de solo lectura de las cocinadas vivas; la cadena solo muta y programa. */
+    val vivas: CocinadasVivas = CocinadasVivas(almacen, reloj)
+
     /** Alarma que hay ahora en la bandeja por cocinada, para agrupar lo que coincide. Solo en memoria. */
     private val activas = ConcurrentHashMap<String, AlarmaPublicada>()
 
@@ -104,11 +105,10 @@ class CadenaAlarmas(
      * viendo no cuenta: la avisa la app y, al salir, se vuelve a armar.
      */
     suspend fun proximoEvento(): Evento? {
-        val ahora = reloj.ahoraMs()
         val visible = presencia.visible
-        return almacen
-            .todos()
-            .filter { it.slug != visible && vivo(it, ahora) }
+        return vivas
+            .todas()
+            .filter { it.slug != visible }
             .mapNotNull { e -> recetas.obtener(e.slug)?.let { AvisosCrono.siguienteEvento(e, it) } }
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
@@ -130,7 +130,7 @@ class CadenaAlarmas(
     private suspend fun repintarSl() {
         val ahora = reloj.ahoraMs()
         for (e in almacen.todos()) {
-            val receta = recetas.obtener(e.slug)?.takeIf { vivo(e, ahora) }
+            val receta = recetas.obtener(e.slug)?.takeIf { SesionCrono.vivo(e, ahora) }
             val resumen = if (receta == null || presencia.visible == e.slug) null else resumen(receta, e, ahora)
             if (resumen == null) notificador.quitarCocina(e.slug) else notificador.cocina(resumen)
             if (receta == null && activas.containsKey(e.slug)) quitarAlarmaDe(e.slug)
@@ -156,22 +156,6 @@ class CadenaAlarmas(
 
     private fun urgenteDe(carriles: List<CarrilNotificacion>): String? =
         carriles.firstOrNull { it.situacion == SituacionCarril.VENCIDO }?.carril
-
-    /** Otra cocinada viva distinta de [slug] (solo se cocina una a la vez), o null. */
-    suspend fun otraViva(slug: String): EstadoCrono? {
-        val ahora = reloj.ahoraMs()
-        return almacen.todos().firstOrNull { it.slug != slug && vivo(it, ahora) }
-    }
-
-    /** Hay alguna cocinada viva (abierta, sin caducar y sin terminar): no se debe interrumpir con nada ajeno. */
-    suspend fun hayViva(): Boolean {
-        val ahora = reloj.ahoraMs()
-        return almacen.todos().any { vivo(it, ahora) }
-    }
-
-    /** La cocinada de [slug] mientras está viva (abierta, sin caducar y sin terminar); null si no lo está. */
-    fun viva(slug: String): Flow<EstadoCrono?> =
-        almacen.observar(slug).map { e -> e?.takeIf { vivo(it, reloj.ahoraMs()) } }
 
     /** Abandona una cocinada: borra su estado, quita avisos y notificaciones y rearma la cadena. */
     suspend fun abandonar(slug: String) =
@@ -250,7 +234,7 @@ class CadenaAlarmas(
             val ahora = reloj.ahoraMs()
             val visible = presencia.visible
             // La cocina en pantalla no se toca: sus avisos los consume el tic del ViewModel y suenan dentro de la app.
-            for (e in almacen.todos().filter { it.slug != visible && vivo(it, ahora) }) {
+            for (e in vivas.todas().filter { it.slug != visible }) {
                 val receta = recetas.obtener(e.slug) ?: continue
                 avisarFuera(e, receta, ahora)
             }
@@ -283,9 +267,4 @@ class CadenaAlarmas(
         activas.remove(slug)
         notificador.quitarAlarma(slug)
     }
-
-    private fun vivo(
-        e: EstadoCrono,
-        ahora: Long,
-    ): Boolean = e.inicioMs != null && !SesionCrono.caducado(e, ahora) && !ConsultasCrono.todoTerminado(e)
 }
