@@ -17,6 +17,7 @@
 
     <string name="filtros_seccion_mostrar">Mostrar</string>
     <string name="filtros_seccion_tiempo">Tiempo</string>
+    <string name="filtros_seccion_momento">Momento</string>
     <string name="filtros_seccion_base">Base</string>
     <string name="filtros_seccion_proteina">Proteína</string>
     <string name="filtros_seccion_equipo">Equipo</string>
@@ -26,9 +27,19 @@
     <string name="filtro_mostrar_sin_estrenar">Sin estrenar</string>
     <string name="filtro_mostrar_hace_tiempo">Hace +2 meses</string>
 
-    <string name="filtro_tiempo_corta">Menos de 45 min</string>
+    <string name="filtro_tiempo_rapida">Hasta 30 min</string>
+    <string name="filtro_tiempo_corta">30–45 min</string>
+    <string name="filtro_tiempo_menos_45">Menos de 45 min</string>
     <string name="filtro_tiempo_media">45–90 min</string>
     <string name="filtro_tiempo_larga">Más de 90 min</string>
+
+    <string name="filtro_momento_comida">Comida</string>
+    <string name="filtro_momento_cena">Cena</string>
+    <string name="filtro_momento_desayuno">Desayuno</string>
+    <string name="filtro_momento_merienda">Merienda</string>
+    <string name="filtro_momento_postre">Postre</string>
+
+    <string name="cenas_rapidas">Cenas rápidas</string>
 
     <string name="filtro_base_pasta">Pasta</string>
     <string name="filtro_base_arroz">Arroz</string>

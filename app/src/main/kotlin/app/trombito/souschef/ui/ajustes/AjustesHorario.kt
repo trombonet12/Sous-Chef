@@ -40,10 +40,18 @@ fun AjustesHorarioScreen(
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
     val ahora = remember { LocalTime.now().let { it.hour * 60 + it.minute } }
-    AjustesHorario(ajustes, ahora, onAtras, viewModel::ajustarServir, viewModel::elegirHoraTarjeta)
+    AjustesHorario(
+        ajustes,
+        ahora,
+        onAtras,
+        viewModel::ajustarServir,
+        viewModel::elegirHoraTarjeta,
+        viewModel::ajustarCenar,
+    )
 }
 
 /** [ahoraMin]: hora actual en minutos del día, para el ejemplo de «Si empiezas ya». */
+@Suppress("LongParameterList") // un callback por ajuste de la pantalla
 @Composable
 internal fun AjustesHorario(
     ajustes: Ajustes,
@@ -51,25 +59,25 @@ internal fun AjustesHorario(
     onAtras: () -> Unit,
     onServir: (Int) -> Unit,
     onHoraTarjeta: (HoraTarjeta) -> Unit,
+    onCenar: (Int) -> Unit = {},
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_horario), onAtras) {
-        Text(
-            stringResource(R.string.ajustes_servir_titulo),
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary,
+        HoraPorDefecto(
+            titulo = R.string.ajustes_servir_titulo,
+            nota = R.string.ajustes_servir_nota,
+            minutos = ajustes.servirMin,
+            descripciones = R.string.ficha_servir_menos to R.string.ficha_servir_mas,
+            onMover = onServir,
         )
-        PasosMasMenos(
-            valor = Servir.formato(ajustes.servirMin),
-            descMenos = stringResource(R.string.ficha_servir_menos),
-            descMas = stringResource(R.string.ficha_servir_mas),
-            onMenos = { onServir(-Servir.PASO) },
-            onMas = { onServir(Servir.PASO) },
-        )
-        Text(
-            stringResource(R.string.ajustes_servir_nota),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        Column(Modifier.padding(top = 16.dp)) {
+            HoraPorDefecto(
+                titulo = R.string.ajustes_cenar_titulo,
+                nota = R.string.ajustes_cenar_nota,
+                minutos = ajustes.cenarMin,
+                descripciones = R.string.cenar_menos to R.string.cenar_mas,
+                onMover = onCenar,
+            )
+        }
         Text(
             stringResource(R.string.ajustes_tarjetas_titulo),
             modifier = Modifier.padding(top = 16.dp),
@@ -99,6 +107,34 @@ internal fun AjustesHorario(
             )
         }
     }
+}
+
+/** Una hora por defecto (comer o cenar): título, − y +, y una nota; [descripciones] = (antes, más tarde). */
+@Composable
+private fun HoraPorDefecto(
+    titulo: Int,
+    nota: Int,
+    minutos: Int,
+    descripciones: Pair<Int, Int>,
+    onMover: (Int) -> Unit,
+) {
+    Text(
+        stringResource(titulo),
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.primary,
+    )
+    PasosMasMenos(
+        valor = Servir.formato(minutos),
+        descMenos = stringResource(descripciones.first),
+        descMas = stringResource(descripciones.second),
+        onMenos = { onMover(-Servir.PASO) },
+        onMas = { onMover(Servir.PASO) },
+    )
+    Text(
+        stringResource(nota),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
 }
 
 @Composable

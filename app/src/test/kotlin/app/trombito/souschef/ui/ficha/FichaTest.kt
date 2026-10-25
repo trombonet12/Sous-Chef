@@ -11,6 +11,7 @@ import app.trombito.souschef.receta.Escala
 import app.trombito.souschef.receta.Grupo
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Mando
+import app.trombito.souschef.receta.Momento
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.receta.TipoCocina
@@ -83,6 +84,7 @@ class FichaViewModelTest {
                     "sopa",
                     tecnicas = listOf("plancha"),
                 ).copy(grupos = listOf(Grupo("Base", listOf(Ingrediente("pan", a = 100.0, u = "g"))))),
+                receta("cena").let { it.copy(tags = it.tags.copy(momento = listOf(Momento.CENA))) },
             ),
         )
 
@@ -99,16 +101,17 @@ class FichaViewModelTest {
     private val ajustes = FakeAjustesRepo()
     private val historial = FakeHistorialRepo()
 
-    private fun TestScope.crear(): FichaViewModel {
+    private fun TestScope.crear(slug: String = "sopa"): FichaViewModel {
         val vm =
             FichaViewModel(
-                SavedStateHandle(mapOf(Rutas.ARG_SLUG to "sopa")),
+                SavedStateHandle(mapOf(Rutas.ARG_SLUG to slug)),
                 recetas,
                 FakeTecnicasRepo(listOf(Tecnica("plancha", "A la plancha"))),
                 prefs,
                 cadena,
                 ajustes,
                 historial,
+                reloj,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -141,6 +144,20 @@ class FichaViewModelTest {
             vm.ajustarServir(Servir.PASO)
             assertEquals("13:15", Servir.formato(vm.estado.value.servirMin))
             assertEquals(13 * 60, ajustes.actual.value.servirMin)
+        }
+
+    @Test
+    fun unaRecetaDeCenaParteDeLaHoraDeCenarYLaMarca() =
+        runTest(UnconfinedTestDispatcher()) {
+            ajustes.actual.value = ajustes.actual.value.copy(cenarMin = 21 * 60 + 30)
+            val vm = crear("cena")
+            assertEquals("21:30", Servir.formato(vm.estado.value.servirMin))
+            assertTrue(vm.estado.value.paraCenar)
+            // Una vez movida a mano ya no es la de Ajustes.
+            vm.ajustarServir(Servir.PASO)
+            assertEquals("21:45", Servir.formato(vm.estado.value.servirMin))
+            assertFalse(vm.estado.value.paraCenar)
+            assertFalse(crear().estado.value.paraCenar)
         }
 
     @Test

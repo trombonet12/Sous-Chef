@@ -80,6 +80,20 @@ interface HistorialDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertarNuevas(entradas: List<HistorialEntity>): List<Long>
 
+    /** Fija (o quita, con null) la valoración de una cocinada ya guardada. */
+    @Query("UPDATE historial SET valoracion = :valoracion WHERE id = :id")
+    suspend fun valorar(
+        id: String,
+        valoracion: String?,
+    )
+
+    /** Importar una copia: rellena la valoración solo si la local no tiene (la local gana si ya hay). */
+    @Query("UPDATE historial SET valoracion = :valoracion WHERE id = :id AND valoracion IS NULL")
+    suspend fun valorarSiVacia(
+        id: String,
+        valoracion: String,
+    )
+
     @Query("DELETE FROM historial WHERE id = :id")
     suspend fun borrar(id: String)
 }
@@ -88,6 +102,9 @@ interface HistorialDao {
 interface PreferenciaDao {
     @Query("SELECT * FROM preferencia")
     fun observarTodas(): Flow<List<PreferenciaEntity>>
+
+    @Query("SELECT slug FROM preferencia WHERE quiereHacerla = 1 ORDER BY slug")
+    fun observarQuiereHacerla(): Flow<List<String>>
 
     @Query("SELECT * FROM preferencia WHERE slug = :slug")
     fun observar(slug: String): Flow<PreferenciaEntity?>

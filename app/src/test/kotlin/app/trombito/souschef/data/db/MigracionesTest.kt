@@ -13,6 +13,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -45,7 +46,7 @@ class MigracionesTest {
         val room =
             Room
                 .databaseBuilder(context, SousChefDatabase::class.java, NOMBRE)
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .allowMainThreadQueries()
                 .build()
         val db = room.openHelper.writableDatabase
@@ -64,6 +65,51 @@ class MigracionesTest {
         db.query("SELECT raciones FROM preferencia WHERE slug = 'sopa'").use { c ->
             c.moveToFirst()
             assertEquals(4, c.getInt(0))
+        }
+        room.close()
+    }
+
+    @Test
+    fun de2a3ConservaLosDatosYLasColumnasNuevasQuedanNulasOACero() {
+        crearVersion(2) { db ->
+            db.execSQL(
+                "INSERT INTO historial (id, slug, titulo, fecha, base, tecnicaJson, raciones, minutosReales, nota, " +
+                    "pasosRealesJson) VALUES ('sopa-2026-10-01', 'sopa', 'Sopa', '2026-10-01', 'caldo', " +
+                    "'[\"hervido\"]', 2, 35, 'más sal', NULL)",
+            )
+            db.execSQL("INSERT INTO preferencia (slug, favorito, raciones) VALUES ('sopa', 1, 4)")
+            db.execSQL("INSERT INTO meta (clave, valor) VALUES ('datos_hash', 'xyz')")
+        }
+
+        val room =
+            Room
+                .databaseBuilder(context, SousChefDatabase::class.java, NOMBRE)
+                .addMigrations(MIGRATION_2_3)
+                .allowMainThreadQueries()
+                .build()
+        val db = room.openHelper.writableDatabase
+
+        val columnas = "titulo, base, raciones, minutosReales, nota, valoracion, previstoMin"
+        db.query("SELECT $columnas FROM historial").use { c ->
+            assertEquals(1, c.count)
+            c.moveToFirst()
+            assertEquals("Sopa", c.getString(0))
+            assertEquals("caldo", c.getString(1))
+            assertEquals(2, c.getInt(2))
+            assertEquals(35, c.getInt(3))
+            assertEquals("más sal", c.getString(4))
+            assertTrue(c.isNull(5))
+            assertTrue(c.isNull(6))
+        }
+        db.query("SELECT favorito, raciones, quiereHacerla FROM preferencia WHERE slug = 'sopa'").use { c ->
+            c.moveToFirst()
+            assertEquals(1, c.getInt(0))
+            assertEquals(4, c.getInt(1))
+            assertEquals(0, c.getInt(2))
+        }
+        db.query("SELECT valor FROM meta WHERE clave = 'datos_hash'").use { c ->
+            c.moveToFirst()
+            assertEquals("xyz", c.getString(0))
         }
         room.close()
     }

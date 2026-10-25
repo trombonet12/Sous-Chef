@@ -18,6 +18,7 @@ import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.receta.leerReceta
@@ -58,6 +59,7 @@ class TecnicasRepoRoom
 class HistorialRepoRoom
     @Inject
     constructor(
+        private val db: SousChefDatabase,
         private val dao: HistorialDao,
     ) : HistorialRepo {
         override fun observarTodo(): Flow<List<EntradaHistorial>> =
@@ -70,8 +72,20 @@ class HistorialRepoRoom
 
         override suspend fun agregar(entrada: EntradaHistorial) = dao.insertar(entrada.aEntidad())
 
-        override suspend fun importar(entradas: List<EntradaHistorial>): Int =
-            dao.insertarNuevas(entradas.map { it.aEntidad() }).count { it != -1L }
+        override suspend fun importar(
+            entradas: List<EntradaHistorial>,
+            valoraciones: Map<String, Valoracion>,
+        ): Int =
+            db.withTransaction {
+                val nuevas = dao.insertarNuevas(entradas.map { it.aEntidad() }).count { it != -1L }
+                valoraciones.forEach { (id, v) -> dao.valorarSiVacia(id, v.codigo) }
+                nuevas
+            }
+
+        override suspend fun valorar(
+            id: String,
+            valoracion: Valoracion?,
+        ) = dao.valorar(id, valoracion?.codigo)
 
         override suspend fun borrar(id: String) = dao.borrar(id)
     }
@@ -83,10 +97,9 @@ class PreferenciasRepoRoom
         private val dao: PreferenciaDao,
     ) : PreferenciasRepo {
         override fun observarTodas(): Flow<Map<String, Preferencia>> =
-            dao.observarTodas().map { l -> l.associate { it.slug to Preferencia(it.slug, it.favorito, it.raciones) } }
+            dao.observarTodas().map { l -> l.associate { it.slug to it.aDominio() } }
 
-        override fun observar(slug: String): Flow<Preferencia?> =
-            dao.observar(slug).map { e -> e?.let { Preferencia(it.slug, it.favorito, it.raciones) } }
+        override fun observar(slug: String): Flow<Preferencia?> = dao.observar(slug).map { e -> e?.aDominio() }
 
         override suspend fun fijarFavorito(
             slug: String,
@@ -104,8 +117,18 @@ class PreferenciasRepoRoom
             dao.insertar(actual.copy(raciones = raciones))
         }
 
+        override suspend fun fijarQuiereHacerla(
+            slug: String,
+            quiere: Boolean,
+        ) = db.withTransaction {
+            val actual = dao.obtener(slug) ?: PreferenciaEntity(slug, false, null)
+            dao.insertar(actual.copy(quiereHacerla = quiere))
+        }
+
+        override fun observarQuiereHacerla(): Flow<Set<String>> = dao.observarQuiereHacerla().map { it.toSet() }
+
         override suspend fun importar(preferencias: List<Preferencia>) =
-            dao.importar(preferencias.map { PreferenciaEntity(it.slug, it.favorito, it.raciones) })
+            dao.importar(preferencias.map { it.aEntidad() })
     }
 
 class CronoEstadoRepoRoom

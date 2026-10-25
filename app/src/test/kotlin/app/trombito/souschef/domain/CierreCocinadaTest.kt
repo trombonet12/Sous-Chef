@@ -74,6 +74,31 @@ class CierreCocinadaTest {
     }
 
     @Test
+    fun laValoracionYElPrevistoVanEnLaPropiaEntrada() {
+        val e = entradaDe(receta, estado, resumen(), "", zona, Valoracion.AJUSTAR, previstoMin = 48)
+        assertEquals(Valoracion.AJUSTAR, e.valoracion)
+        assertEquals(48, e.previstoMin)
+    }
+
+    @Test
+    fun sinValoracionNiPrevistoQuedanNulos() {
+        val e = entrada("")
+        assertNull(e.valoracion)
+        assertNull(e.previstoMin)
+    }
+
+    @Test
+    fun losCodigosDeValoracionSonEstablesYLosDesconocidosSonNulos() {
+        assertEquals(
+            listOf("repetir", "ajustar", "no_repetir"),
+            Valoracion.entries.map { it.codigo },
+        )
+        Valoracion.entries.forEach { assertEquals(it, Valoracion.deCodigo(it.codigo)) }
+        assertNull(Valoracion.deCodigo("otra"))
+        assertNull(Valoracion.deCodigo(null))
+    }
+
+    @Test
     fun losPasosRealesSeGuardanCanonicosConLaPotenciaEnLlaves() {
         val r = resumen(PasoReal("p1", "Sofreír a fuego {5}", 300), PasoReal("p2", "Reposar", 60))
         val e = entrada("", r)

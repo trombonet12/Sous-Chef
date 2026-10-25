@@ -3,6 +3,7 @@ package app.trombito.souschef.domain.copia
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
@@ -96,6 +97,25 @@ class GestorCopiaTest {
 
             assertEquals(Preferencia("curry", favorito = true, raciones = 3), prefs.datos.value["curry"])
             assertEquals(emptyList<Pair<String, Int>>(), prefs.racionesGuardadas)
+        }
+
+    @Test
+    fun cargarRellenaLaValoracionQueFaltaYNoPisaLaLocal() =
+        runTest {
+            val sinValorar = curry.copy(valoracion = null)
+            val copia =
+                listOf(
+                    sinValorar.copy(valoracion = Valoracion.REPETIR, previstoMin = 40),
+                    tacos.copy(valoracion = Valoracion.NO_REPETIR),
+                )
+            archivos.archivos["content://v2"] = CopiaHistorial.exportar(copia, emptyList(), "2026-10-24")
+
+            val destino = FakeHistorialRepo(listOf(sinValorar, tacos.copy(valoracion = Valoracion.AJUSTAR)))
+            assertEquals(ResultadoCopia.Cargada(0, 0), gestor(destino).importar("content://v2"))
+            assertEquals(
+                mapOf("curry-2026-10-01" to Valoracion.REPETIR, "tacos-2026-10-05" to Valoracion.AJUSTAR),
+                destino.datos.value.associate { it.id to it.valoracion },
+            )
         }
 
     @Test

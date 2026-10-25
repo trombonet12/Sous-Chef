@@ -1,13 +1,17 @@
 package app.trombito.souschef.ui.recetas
 
+import app.trombito.souschef.domain.CENAR_DEFECTO_MIN
+import app.trombito.souschef.domain.CualHora
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.FUEGOS_DEFECTO
 import app.trombito.souschef.domain.HoraTarjeta
+import app.trombito.souschef.domain.HoraUsada
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.desvioHabitualMin
 import app.trombito.souschef.domain.esNueva
+import app.trombito.souschef.domain.horaServir
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.normalizado
@@ -75,6 +79,8 @@ data class TarjetaReceta(
     val nueva: Boolean = false,
     /** La [hora] ya cuenta el ritmo de Joan en esta receta (`desvioHabitualMin`); la tarjeta lo marca. */
     val conRitmo: Boolean = false,
+    /** Hora de servir en que se basa la [hora] (con EMPEZAR) y si es la de comer o la de cenar; la tarjeta lo dice. */
+    val usada: HoraUsada = HoraUsada(Servir.DEFECTO, CualHora.COMER),
 )
 
 /** Cuándo se mira la lista, qué hora enseña cada tarjeta y qué equipo tiene el usuario. */
@@ -90,12 +96,17 @@ data class ContextoLista(
     val horno: Boolean = true,
     /** Desvío habitual en minutos por slug (positivo = suele tardar más); solo las recetas con ritmo. */
     val ritmos: Map<String, Int> = emptyMap(),
+    /** Hora de cenar de Ajustes, para las recetas de cena. */
+    val cenarMin: Int = CENAR_DEFECTO_MIN,
 ) {
+    /** Cuál de las horas de servir (comer o cenar) le toca a [r] ahora. */
+    fun servirDe(r: Receta) = horaServir(r.tags.momento, ahoraMin, servirMin, cenarMin)
+
     /** Hora de la tarjeta: con ritmo, empezar antes (o después) lo que Joan suele tardar de más (o de menos). */
     fun hora(r: Receta): Int {
         val ritmo = ritmos[r.slug] ?: 0
         return when (modo) {
-            HoraTarjeta.EMPEZAR -> Servir.ajustar(Servir.inicio(servirMin, r), -ritmo)
+            HoraTarjeta.EMPEZAR -> Servir.ajustar(Servir.inicio(servirDe(r).minutos, r), -ritmo)
             HoraTarjeta.ACABAR -> Servir.ajustar(ahoraMin, ceil(r.totalEfectivo).toInt() + ritmo)
         }
     }
@@ -155,6 +166,10 @@ data class RecetasUiState(
     val tiempo: ModoTiempo? = null,
     /** Con el modo puesto, la hora de servir ya pasó y no hay margen: no llega ninguna. */
     val tiempoVencido: Boolean = false,
+    /** Cuántas recetas son cenas rápidas (sobre todas las recetas): el cuadradito de arriba se oculta con 0. */
+    val cenasRapidas: Int = 0,
+    /** Si la lista es la de «Cenas rápidas» (se abre desde su cuadradito): lleva barra de título y atrás. */
+    val listaCenasRapidas: Boolean = false,
 )
 
 /** Texto sobre el que busca: titulo, descripcion, base, ingredientes de los grupos y títulos de los pasos. */
@@ -207,6 +222,8 @@ data class FiltroRecetas(
     val familiaFija: FamiliaBase? = null,
     /** Modo «¿Qué me da tiempo?»; null = apagado. No se guarda. */
     val tiempo: ModoTiempo? = null,
+    /** La lista se abrió desde el cuadradito «Cenas rápidas» (los filtros de cena y rápida ya vienen puestos). */
+    val cenasRapidas: Boolean = false,
 )
 
 /** Las familias con al menos una receta y cuántas tiene cada una, en el orden del enum. */
@@ -250,6 +267,7 @@ private fun tarjetaYRasgos(
             pideHorno = conHorno && !contexto.horno,
             nueva = nueva,
             conRitmo = r.slug in contexto.ritmos,
+            usada = contexto.servirDe(r),
         )
     return tarjeta to rasgos
 }
@@ -312,6 +330,8 @@ fun construirEstadoRecetas(
         horno = contexto.horno,
         categorias = categoriasDe(todasLasRecetas),
         familiaFija = familiaFija,
+        cenasRapidas = todasLasRecetas.count(::esCenaRapida),
+        listaCenasRapidas = filtro.cenasRapidas,
         tiempo = filtro.tiempo,
         tiempoVencido = filtro.tiempo?.let { QueMeDaTiempo.margen(contexto.ahoraMin, it.servirMin) == null } == true,
     )

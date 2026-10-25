@@ -47,6 +47,7 @@ class AjustesRepoRoom
                 orden = enumDe(v[I_ORDEN], defecto.orden),
                 tema = enumDe(v[I_TEMA], defecto.tema),
                 servirMin = minutosDe(v[I_SERVIR]) ?: defecto.servirMin,
+                cenarMin = minutosDe(v[I_CENAR]) ?: defecto.cenarMin,
                 horaTarjeta = enumDe(v[I_HORA], defecto.horaTarjeta),
                 cocina = cocinaDe(v[I_COCINA_TIPO], v[I_COCINA_MANDO], v[I_COCINA_MAX]),
                 fuegos = enteroDe(v[I_FUEGOS], FUEGOS_MIN..FUEGOS_MAX, defecto.fuegos),
@@ -68,10 +69,9 @@ class AjustesRepoRoom
 
         override suspend fun fijarTema(t: TemaApp) = dao.fijar(MetaEntity(CLAVE_TEMA, t.name))
 
-        override suspend fun fijarServir(minutos: Int) {
-            val m = minutos.mod(MINUTOS_DIA)
-            dao.fijar(MetaEntity(CLAVE_SERVIR, String.format(Locale.ROOT, "%02d:%02d", m / 60, m % 60)))
-        }
+        override suspend fun fijarServir(minutos: Int) = dao.fijar(MetaEntity(CLAVE_SERVIR, horaTexto(minutos)))
+
+        override suspend fun fijarCenar(minutos: Int) = dao.fijar(MetaEntity(CLAVE_CENAR, horaTexto(minutos)))
 
         override suspend fun fijarHoraTarjeta(h: HoraTarjeta) = dao.fijar(MetaEntity(CLAVE_HORA, h.name))
 
@@ -117,6 +117,7 @@ class AjustesRepoRoom
             const val CLAVE_ORDEN = "ajustes.recetas.orden"
             const val CLAVE_TEMA = "ajustes.tema"
             const val CLAVE_SERVIR = "ajustes.servir"
+            const val CLAVE_CENAR = "ajustes.hora.cenar"
             const val CLAVE_HORA = "ajustes.recetas.hora"
             const val CLAVE_COCINA_TIPO = "ajustes.cocina.tipo"
             const val CLAVE_COCINA_MANDO = "ajustes.cocina.mando"
@@ -152,6 +153,7 @@ class AjustesRepoRoom
                     CLAVE_INTRO,
                     CLAVE_GUIA,
                     CLAVE_NOVEDADES,
+                    CLAVE_CENAR,
                 )
             private const val I_DISPOSICION = 0
             private const val I_VOZ = 1
@@ -169,6 +171,7 @@ class AjustesRepoRoom
             private const val I_INTRO = 13
             private const val I_GUIA = 14
             private const val I_NOVEDADES = 15
+            private const val I_CENAR = 16
 
             private fun booleanoDe(
                 valor: String?,
@@ -205,6 +208,12 @@ class AjustesRepoRoom
                 valor: String?,
                 defecto: E,
             ): E = enumValues<E>().firstOrNull { it.name == valor } ?: defecto
+
+            /** Minutos del día (se dan la vuelta a las 24 h) a «HH:mm». */
+            private fun horaTexto(minutos: Int): String {
+                val m = minutos.mod(MINUTOS_DIA)
+                return String.format(Locale.ROOT, "%02d:%02d", m / 60, m % 60)
+            }
 
             /** «HH:mm» a minutos del día; null si no se entiende. */
             private fun minutosDe(valor: String?): Int? =

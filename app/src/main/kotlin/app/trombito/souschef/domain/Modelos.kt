@@ -21,12 +21,33 @@ data class EntradaHistorial(
     val minutosReales: Int? = null,
     val nota: String? = null,
     val pasosReales: List<PasoReal> = emptyList(),
+    /** Cómo salió, para decidir si repetirla; null si no se valoró. */
+    val valoracion: Valoracion? = null,
+    /** Total previsto (min) de la receta escalada en esa cocinada; null en las anteriores a la v1.7. */
+    val previstoMin: Int? = null,
 )
+
+/** Valoración de una cocinada. `codigo` es lo que se guarda en Room y en la copia; no cambiarlo. */
+enum class Valoracion(
+    val codigo: String,
+) {
+    REPETIR("repetir"),
+    AJUSTAR("ajustar"),
+    NO_REPETIR("no_repetir"),
+    ;
+
+    companion object {
+        /** La valoración de [codigo], o null si es null o no se conoce (un código futuro no tumba la lectura). */
+        fun deCodigo(codigo: String?): Valoracion? = entries.firstOrNull { it.codigo == codigo }
+    }
+}
 
 data class Preferencia(
     val slug: String,
     val favorito: Boolean = false,
     val raciones: Int? = null,
+    /** «Quiero hacerla»: la receta queda marcada para cocinarla pronto. */
+    val quiereHacerla: Boolean = false,
 )
 
 /**
@@ -74,6 +95,8 @@ data class Ajustes(
     val tema: TemaApp = TemaApp.AUTOMATICO,
     /** Punto de partida de la ficha y del cronómetro, en minutos del día. */
     val servirMin: Int = SERVIR_DEFECTO_MIN,
+    /** Hora de cenar (por defecto 21:00): la de las recetas que son de cena (`horaServir`). */
+    val cenarMin: Int = CENAR_DEFECTO_MIN,
     val horaTarjeta: HoraTarjeta = HoraTarjeta.EMPEZAR,
     /** Cocina del usuario (ADR-0014); las recetas se traducen a ella al mostrarse. */
     val cocina: Cocina = Cocina.VITRO_9,

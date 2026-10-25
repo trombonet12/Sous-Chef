@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import app.trombito.souschef.data.copia.ArchivoCopiaAndroid
 import app.trombito.souschef.data.db.MIGRATION_1_2
+import app.trombito.souschef.data.db.MIGRATION_2_3
 import app.trombito.souschef.data.db.SousChefDatabase
 import app.trombito.souschef.data.repo.AjustesRepoRoom
 import app.trombito.souschef.data.repo.CronoEstadoRepoRoom
@@ -40,7 +41,7 @@ object DatabaseModule {
     ): SousChefDatabase =
         Room
             .databaseBuilder(context, SousChefDatabase::class.java, "souschef.db")
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
 
     @Provides fun recetaDao(db: SousChefDatabase) = db.recetaDao()

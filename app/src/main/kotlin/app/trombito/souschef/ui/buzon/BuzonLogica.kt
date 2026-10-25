@@ -16,7 +16,7 @@ enum class TipoBuzon(
 enum class TiempoMaximo(
     @param:StringRes val etiqueta: Int,
 ) {
-    MENOS_45(R.string.filtro_tiempo_corta),
+    MENOS_45(R.string.filtro_tiempo_menos_45),
     DE_45_A_90(R.string.filtro_tiempo_media),
     MAS_90(R.string.filtro_tiempo_larga),
 }

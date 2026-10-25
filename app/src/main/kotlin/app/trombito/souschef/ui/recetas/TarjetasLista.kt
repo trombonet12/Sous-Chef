@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.CualHora
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.receta.Escalado
@@ -139,6 +140,7 @@ private fun CuerpoTinte(
                 overflow = TextOverflow.Ellipsis,
             )
             EtiquetasEquipo(tarjeta)
+            ParaCenar(tarjeta)
             EtiquetaLlegada(tarjeta)
         }
     }
@@ -180,6 +182,7 @@ private fun CuerpoFranja(
                 overflow = TextOverflow.Ellipsis,
             )
             EtiquetasEquipo(tarjeta)
+            ParaCenar(tarjeta)
             EtiquetaLlegada(tarjeta)
         }
     }
@@ -206,6 +209,7 @@ private fun TarjetaClasica(
                 Huella(receta)
                 PieTarjeta(tarjeta)
                 EtiquetasEquipo(tarjeta)
+                ParaCenar(tarjeta)
                 EtiquetaLlegada(tarjeta)
             }
         }
@@ -262,6 +266,19 @@ private fun EtiquetasEquipo(tarjeta: TarjetaReceta) {
         }
         if (tarjeta.pideHorno) Etiqueta(stringResource(R.string.lista_pide_horno), tono = Tono.Teja)
     }
+}
+
+/** «para cenar a las 21:00»: si la hora de la tarjeta (modo «empieza») cuenta la cena y no hay «¿Qué me da tiempo?». */
+@Composable
+private fun ParaCenar(tarjeta: TarjetaReceta) {
+    val cenando = tarjeta.usada.cual == CualHora.CENAR
+    if (!cenando || tarjeta.modoHora != HoraTarjeta.EMPEZAR || tarjeta.llegada != null) return
+    Text(
+        stringResource(R.string.para_cenar, Servir.formato(tarjeta.usada.minutos)),
+        modifier = Modifier.padding(top = Espacio.xs).testTag("para-cenar"),
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
 }
 
 /** «Llegas · empieza 14:43» o «No llegas · acabarías 16:02», solo con «¿Qué me da tiempo?» puesto. */

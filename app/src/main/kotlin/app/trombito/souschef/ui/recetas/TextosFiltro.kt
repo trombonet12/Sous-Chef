@@ -4,12 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.OrdenRecetas
+import app.trombito.souschef.receta.Momento
 
 /** Textos de las secciones, opciones y órdenes de la hoja de filtros. */
 fun SeccionFiltro.titulo(): Int =
     when (this) {
         SeccionFiltro.MOSTRAR -> R.string.filtros_seccion_mostrar
         SeccionFiltro.TIEMPO -> R.string.filtros_seccion_tiempo
+        SeccionFiltro.MOMENTO -> R.string.filtros_seccion_momento
         SeccionFiltro.BASE -> R.string.filtros_seccion_base
         SeccionFiltro.PROTEINA -> R.string.filtros_seccion_proteina
         SeccionFiltro.EQUIPO -> R.string.filtros_seccion_equipo
@@ -32,6 +34,7 @@ fun textoOpcion(o: OpcionFiltro): String =
         when (o) {
             is OpcionFiltro.Mostrar -> o.valor.texto()
             is OpcionFiltro.Tiempo -> o.valor.texto()
+            is OpcionFiltro.MomentoDia -> o.valor.texto()
             is OpcionFiltro.Base -> o.valor.texto()
             is OpcionFiltro.Proteina -> o.valor.texto()
             is OpcionFiltro.Equipo -> o.valor.texto()
@@ -48,9 +51,19 @@ private fun MostrarRecetas.texto(): Int =
 
 private fun TramoTiempo.texto(): Int =
     when (this) {
+        TramoTiempo.RAPIDA -> R.string.filtro_tiempo_rapida
         TramoTiempo.CORTA -> R.string.filtro_tiempo_corta
         TramoTiempo.MEDIA -> R.string.filtro_tiempo_media
         TramoTiempo.LARGA -> R.string.filtro_tiempo_larga
+    }
+
+private fun Momento.texto(): Int =
+    when (this) {
+        Momento.COMIDA -> R.string.filtro_momento_comida
+        Momento.CENA -> R.string.filtro_momento_cena
+        Momento.DESAYUNO -> R.string.filtro_momento_desayuno
+        Momento.MERIENDA -> R.string.filtro_momento_merienda
+        Momento.POSTRE -> R.string.filtro_momento_postre
     }
 
 private fun FamiliaBase.texto(): Int =

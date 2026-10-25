@@ -45,6 +45,8 @@ data class FichaUiState(
     /** El defecto global de Ajustes no cabía en el rango de la receta y se ajustó a la más cercana. */
     val ajustadoAlRango: Boolean = false,
     val servirMin: Int = Servir.DEFECTO,
+    /** [servirMin] es la hora de cenar de Ajustes (receta de cena) y nadie la ha movido en esta ficha. */
+    val paraCenar: Boolean = false,
     val favorita: Boolean = false,
     val tecnicas: List<TecnicaEnlace> = emptyList(),
     /** Carriles aún en marcha si esta receta tiene una cocinada viva; null si no la tiene. */

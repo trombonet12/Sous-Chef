@@ -5,6 +5,7 @@ import app.trombito.souschef.domain.MAX_NOTA
 import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.SlugReceta
+import app.trombito.souschef.domain.Valoracion
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -15,7 +16,11 @@ import java.time.LocalDate
  * para recuperarlo tras borrar datos o reinstalar. Puro: sin Android ni disco.
  */
 object CopiaHistorial {
-    const val VERSION = 1
+    /**
+     * 2 (v1.7): las entradas llevan `valoracion` y `previstoMin`, y las preferencias `quiereHacerla`. [leer] sigue
+     * aceptando la 1 (esos campos quedan a null/false).
+     */
+    const val VERSION = 2
     private const val FORMATO = "sous-chef-historial"
 
     /** Entradas (y preferencias) que admite una copia; más es un archivo sospechoso y se rechaza entero. */
@@ -44,7 +49,7 @@ object CopiaHistorial {
                 version = VERSION,
                 fecha = fecha,
                 historial = historial.map { it.aDto() },
-                preferencias = preferencias.map { PreferenciaDto(it.slug, it.favorito, it.raciones) },
+                preferencias = preferencias.map { PreferenciaDto(it.slug, it.favorito, it.raciones, it.quiereHacerla) },
             ),
         )
 
@@ -66,7 +71,7 @@ object CopiaHistorial {
                 val prefs = dto.preferencias.filter { it.valida(slugsValidos) }
                 Copia(
                     historial = entradas.filterNotNull(),
-                    preferencias = prefs.map { Preferencia(it.slug, it.favorito, it.raciones) },
+                    preferencias = prefs.map { Preferencia(it.slug, it.favorito, it.raciones, it.quiereHacerla) },
                     descartadas = entradas.count { it == null } + (dto.preferencias.size - prefs.size),
                 )
             }
@@ -81,8 +86,26 @@ object CopiaHistorial {
     }
 
     /**
-     * Preferencias a aplicar: un favorito de la copia se suma (nunca quita uno actual) y las raciones solo se toman si
-     * aún no hay. Devuelve únicamente las que cambian algo.
+     * Valoraciones de la copia que hay que rellenar en cocinadas que ya están (mismo id). Regla de fusión: si la
+     * cocinada local no tiene valoración y la copia sí, se rellena; si las dos tienen, gana la local (nunca se pisa);
+     * si la copia no tiene, no hay nada que hacer. Las cocinadas que no existen en local no salen aquí: entran enteras
+     * por [nuevas]. Con ids repetidos en la copia vale el primero. El `UPDATE ... WHERE valoracion IS NULL` del
+     * repositorio vuelve a imponer la misma regla dentro de la transacción de importar.
+     */
+    fun valoracionesNuevas(
+        actual: List<EntradaHistorial>,
+        copia: Copia,
+    ): Map<String, Valoracion> {
+        val sinValorar = actual.filter { it.valoracion == null }.mapTo(HashSet()) { it.id }
+        return copia.historial
+            .filter { it.valoracion != null && it.id in sinValorar }
+            .distinctBy { it.id }
+            .associate { it.id to checkNotNull(it.valoracion) }
+    }
+
+    /**
+     * Preferencias a aplicar: un favorito o un «quiero hacerla» de la copia se suma (nunca quita el actual) y las
+     * raciones solo se toman si aún no hay. Devuelve únicamente las que cambian algo.
      */
     fun preferenciasNuevas(
         actual: Map<String, Preferencia>,
@@ -95,6 +118,7 @@ object CopiaHistorial {
                     slug = p.slug,
                     favorito = (ya?.favorito ?: false) || p.favorito,
                     raciones = ya?.raciones ?: p.raciones,
+                    quiereHacerla = (ya?.quiereHacerla ?: false) || p.quiereHacerla,
                 )
             fusion.takeIf { it != (ya ?: Preferencia(p.slug)) }
         }
@@ -128,6 +152,9 @@ private data class EntradaDto(
     val minutosReales: Int? = null,
     val nota: String? = null,
     val pasosReales: List<PasoDto> = emptyList(),
+    // v2: ausentes en una copia v1.
+    val valoracion: String? = null,
+    val previstoMin: Int? = null,
 )
 
 @Serializable
@@ -142,6 +169,7 @@ private data class PreferenciaDto(
     val slug: String,
     val favorito: Boolean = false,
     val raciones: Int? = null,
+    val quiereHacerla: Boolean = false, // v2
 )
 
 private fun EntradaHistorial.aDto() =
@@ -156,6 +184,8 @@ private fun EntradaHistorial.aDto() =
         minutosReales,
         nota,
         pasosReales.map { PasoDto(it.id, it.t, it.segundos) },
+        valoracion?.codigo,
+        previstoMin,
     )
 
 private fun slugValido(
@@ -179,6 +209,7 @@ private fun EntradaDto.validar(slugsValidos: Set<String>): EntradaHistorial? {
             fechaValida(fecha) &&
             racionesValidas(raciones) &&
             (minutosReales ?: 0) >= 0 &&
+            (previstoMin ?: 0) >= 0 &&
             pasosReales.size <= CopiaHistorial.MAX_PASOS &&
             pasosReales.all { it.segundos >= 0 }
     return if (valida) {
@@ -193,6 +224,8 @@ private fun EntradaDto.validar(slugsValidos: Set<String>): EntradaHistorial? {
             minutosReales,
             nota?.trim()?.take(MAX_NOTA)?.ifBlank { null },
             pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
+            Valoracion.deCodigo(valoracion), // un código que no se conoce se queda sin valorar, no tumba la entrada
+            previstoMin,
         )
     } else {
         null

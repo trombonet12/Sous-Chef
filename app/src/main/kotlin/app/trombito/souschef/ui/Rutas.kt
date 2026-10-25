@@ -2,7 +2,7 @@ package app.trombito.souschef.ui
 
 /**
  * Rutas de navegación. Contrato del cronómetro: `crono/{slug}?raciones={n}&servir={HH:mm}`
- * (`raciones` 0 = usar las de la receta; `servir` vacío = la hora de servir de Ajustes).
+ * (`raciones` 0 = usar las de la receta; `servir` vacío = la de comer o la de cenar de Ajustes, según la receta).
  */
 object Rutas {
     const val ARG_SLUG = "slug"
@@ -10,6 +10,9 @@ object Rutas {
     const val ARG_SERVIR = "servir"
     const val ARG_FAMILIA = "familia"
     const val ARG_CATEGORIA = "categoria"
+
+    /** Valor de [ARG_FAMILIA] que abre la lista de «Cenas rápidas» en vez de la de una familia. */
+    const val CENAS_RAPIDAS = "cenas-rapidas"
 
     /** Intro de primer arranque: sin barras, y al acabar limpia la pila y va a Recetas. */
     const val BIENVENIDA = "bienvenida"

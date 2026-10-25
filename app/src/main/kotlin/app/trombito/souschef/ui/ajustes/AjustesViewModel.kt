@@ -71,6 +71,11 @@ class AjustesViewModel
             viewModelScope.launch { ajustes.fijarServir(Servir.ajustar(estado.value.servirMin, delta)) }
         }
 
+        /** Mueve la hora de cenar [delta] minutos (con vuelta a medianoche). */
+        fun ajustarCenar(delta: Int) {
+            viewModelScope.launch { ajustes.fijarCenar(Servir.ajustar(estado.value.cenarMin, delta)) }
+        }
+
         fun elegirHoraTarjeta(h: HoraTarjeta) {
             viewModelScope.launch { ajustes.fijarHoraTarjeta(h) }
         }

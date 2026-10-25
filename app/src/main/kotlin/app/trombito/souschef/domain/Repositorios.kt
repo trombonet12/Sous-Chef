@@ -33,10 +33,21 @@ interface HistorialRepo {
     suspend fun agregar(entrada: EntradaHistorial)
 
     /**
-     * Importación de una copia: añade en una sola transacción las entradas cuyo id no existe y devuelve cuántas
-     * entraron. Nunca pisa una cocinada que ya está.
+     * Importación de una copia, todo en una sola transacción: añade las [entradas] cuyo id no existe y devuelve
+     * cuántas entraron; nunca pisa una cocinada que ya está. [valoraciones] (id -> valoración, ya fusionadas con
+     * `CopiaHistorial.valoracionesNuevas`) solo rellena las cocinadas locales que no tienen valoración: si la local ya
+     * la tiene, gana la local.
      */
-    suspend fun importar(entradas: List<EntradaHistorial>): Int
+    suspend fun importar(
+        entradas: List<EntradaHistorial>,
+        valoraciones: Map<String, Valoracion> = emptyMap(),
+    ): Int
+
+    /** Fija (o quita, con null) la valoración de una cocinada ya guardada. */
+    suspend fun valorar(
+        id: String,
+        valoracion: Valoracion?,
+    )
 
     suspend fun borrar(id: String)
 }
@@ -55,6 +66,14 @@ interface PreferenciasRepo {
         slug: String,
         raciones: Int,
     )
+
+    suspend fun fijarQuiereHacerla(
+        slug: String,
+        quiere: Boolean,
+    )
+
+    /** Slugs marcados con «quiero hacerla» (vacío si ninguno); se emite al cambiar la marca de cualquiera. */
+    fun observarQuiereHacerla(): Flow<Set<String>>
 
     /**
      * Importación de una copia: guarda [preferencias] tal cual (cada una sustituye a la de su slug) en una sola
@@ -79,6 +98,9 @@ interface AjustesRepo {
 
     /** [minutos] del día, 0..1439. */
     suspend fun fijarServir(minutos: Int)
+
+    /** Hora de cenar, [minutos] del día, 0..1439. */
+    suspend fun fijarCenar(minutos: Int)
 
     suspend fun fijarHoraTarjeta(h: HoraTarjeta)
 

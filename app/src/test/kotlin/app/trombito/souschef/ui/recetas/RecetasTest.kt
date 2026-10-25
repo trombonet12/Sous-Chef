@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.recetas
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import app.trombito.souschef.domain.CualHora
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
@@ -10,6 +11,7 @@ import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Grupo
 import app.trombito.souschef.receta.Ingrediente
+import app.trombito.souschef.receta.Momento
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tags
 import app.trombito.souschef.ui.FakeHistorialRepo
@@ -130,6 +132,8 @@ class FamiliasTest {
 
     @Test
     fun tramosDeTiempo() {
+        assertEquals(TramoTiempo.RAPIDA, TramoTiempo.de(30.0))
+        assertEquals(TramoTiempo.CORTA, TramoTiempo.de(30.5))
         assertEquals(TramoTiempo.CORTA, TramoTiempo.de(44.5))
         assertEquals(TramoTiempo.MEDIA, TramoTiempo.de(45.0))
         assertEquals(TramoTiempo.MEDIA, TramoTiempo.de(90.0))
@@ -145,6 +149,15 @@ class ContextoListaTest {
     fun empezarRestaDeLaHoraDeServirDeAjustes() {
         assertEquals(14 * 60 + 43, ContextoLista(hoy).hora(r))
         assertEquals(13 * 60 + 13, ContextoLista(hoy, servirMin = 14 * 60).hora(r))
+    }
+
+    @Test
+    fun unaRecetaDeCenaEmpiezaRestandoDeLaHoraDeCenar() {
+        val cena = r.copy(tags = r.tags.copy(momento = listOf(Momento.CENA)))
+        assertEquals(20 * 60 + 13, ContextoLista(hoy).hora(cena))
+        assertEquals(CualHora.CENAR, ContextoLista(hoy).servirDe(cena).cual)
+        assertEquals(22 * 60 + 13, ContextoLista(hoy, cenarMin = 23 * 60).hora(cena))
+        assertEquals(CualHora.COMER, ContextoLista(hoy).servirDe(r).cual)
     }
 
     @Test
@@ -211,6 +224,27 @@ class RecetasLogicaTest {
         assertEquals(setOf("pollo", "pasta", "lasana"), estado(todas, activos = base).slugs().toSet())
         val conHorno = base + OpcionFiltro.Equipo(EquipoReceta.CON_HORNO)
         assertEquals(listOf("lasana"), estado(todas, activos = conHorno).slugs())
+    }
+
+    @Test
+    fun filtroDeMomentoCuentaSoloLasQueLoDeclaranYLasCenasRapidasSeCuentan() {
+        fun Receta.en(vararg m: Momento) = copy(tags = tags.copy(momento = m.toList()))
+        val cenaRapida = r("tortilla", min = 20.0).en(Momento.CENA)
+        val cenaLarga = r("guiso", min = 60.0).en(Momento.CENA, Momento.COMIDA)
+        val comida = r("arroz", min = 25.0).en(Momento.COMIDA)
+        val sinMomento = r("pan", min = 20.0)
+        val lista = listOf(cenaRapida, cenaLarga, comida, sinMomento)
+
+        val cenas = estado(lista, activos = setOf(OpcionFiltro.MomentoDia(Momento.CENA)))
+        assertEquals(setOf("tortilla", "guiso"), cenas.slugs().toSet())
+        assertEquals(2, cenas.chip(OpcionFiltro.MomentoDia(Momento.CENA))?.n)
+        assertEquals(2, cenas.chip(OpcionFiltro.MomentoDia(Momento.COMIDA))?.n)
+        assertEquals(null, cenas.chip(OpcionFiltro.MomentoDia(Momento.POSTRE)))
+        assertEquals(1, cenas.cenasRapidas)
+
+        val rapidas = estado(lista, activos = FILTROS_CENAS_RAPIDAS)
+        assertEquals(listOf("tortilla"), rapidas.slugs())
+        assertEquals(1, rapidas.chip(OpcionFiltro.Tiempo(TramoTiempo.RAPIDA))?.n)
     }
 
     @Test
@@ -474,6 +508,32 @@ class RecetasViewModelTest {
 
             assertEquals(null, vm.estado.value.familiaFija)
             assertEquals(1, vm.estado.value.tarjetas.size)
+        }
+
+    @Test
+    fun laClaveCenasRapidasAbreLaListaConLosFiltrosPuestos() =
+        runTest(UnconfinedTestDispatcher()) {
+            fun cena(
+                slug: String,
+                min: Double,
+            ) = receta(slug).let { it.copy(totalMin = min, tags = it.tags.copy(momento = listOf(Momento.CENA))) }
+
+            val recetas = FakeRecetasRepo(listOf(cena("tortilla", 20.0), cena("guiso", 90.0), receta("pan")))
+            val args = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to Rutas.CENAS_RAPIDAS))
+            val vm =
+                RecetasViewModel(args, recetas, FakePreferenciasRepo(), FakeHistorialRepo(), FakeAjustesRepo(), { 0L })
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            assertTrue(vm.estado.value.listaCenasRapidas)
+            assertEquals(null, vm.estado.value.familiaFija)
+            assertEquals(
+                listOf("tortilla"),
+                vm.estado.value.tarjetas
+                    .map { it.receta.slug },
+            )
+            assertEquals(1, vm.estado.value.cenasRapidas)
+            vm.limpiarFiltros()
+            assertEquals(3, vm.estado.value.tarjetas.size)
         }
 
     @Test

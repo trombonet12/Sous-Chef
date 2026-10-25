@@ -1,5 +1,6 @@
 package app.trombito.souschef.data.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -30,6 +31,10 @@ data class HistorialEntity(
     val minutosReales: Int?,
     val nota: String?,
     val pasosRealesJson: String?,
+    /** Código de `Valoracion` (`repetir`, `ajustar`, `no_repetir`); null si no se valoró (v3). */
+    val valoracion: String? = null,
+    /** Total previsto (min, `ceil`) de la receta escalada en esa cocinada; null en las anteriores a v3. */
+    val previstoMin: Int? = null,
 )
 
 @Entity(tableName = "preferencia")
@@ -37,6 +42,8 @@ data class PreferenciaEntity(
     @PrimaryKey val slug: String,
     val favorito: Boolean,
     val raciones: Int?,
+    /** «Quiero hacerla» (v3). NOT NULL con 0 por defecto: no hay un «sin decidir» distinto de «no». */
+    @ColumnInfo(defaultValue = "0") val quiereHacerla: Boolean = false,
 )
 
 @Entity(tableName = "crono_estado")

@@ -50,12 +50,23 @@ class RecetasViewModel
         private val ajustes: AjustesRepo,
         private val reloj: Reloj,
     ) : ViewModel() {
-        /** La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. */
+        /**
+         * La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. La
+         * clave [Rutas.CENAS_RAPIDAS] abre la misma lista con los filtros de cena y rápida puestos.
+         */
         private val familiaFija: FamiliaBase? =
             savedStateHandle.get<String>(Rutas.ARG_FAMILIA)?.let { nombre ->
                 FamiliaBase.entries.firstOrNull { it.name.equals(nombre, ignoreCase = true) }
             }
-        private val filtro = MutableStateFlow(FiltroRecetas(familiaFija = familiaFija))
+        private val cenasRapidas: Boolean = savedStateHandle.get<String>(Rutas.ARG_FAMILIA) == Rutas.CENAS_RAPIDAS
+        private val filtro =
+            MutableStateFlow(
+                FiltroRecetas(
+                    activos = if (cenasRapidas) FILTROS_CENAS_RAPIDAS else emptySet(),
+                    familiaFija = familiaFija,
+                    cenasRapidas = cenasRapidas,
+                ),
+            )
 
         val estado: StateFlow<RecetasUiState> =
             combine(
@@ -159,6 +170,7 @@ private fun contextoLista(
         hoy = Instant.ofEpochMilli(ahoraMs).atZone(ZoneOffset.UTC).toLocalDate(),
         ahoraMin = local.hour * MIN_HORA + local.minute,
         servirMin = a.servirMin,
+        cenarMin = a.cenarMin,
         modo = a.horaTarjeta,
         fuegos = a.fuegos,
         horno = a.horno,

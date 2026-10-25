@@ -114,10 +114,15 @@ class GestorCopia(
         }
     }
 
-    /** Añade lo que falta (en lote, sin pisar ninguna cocinada) y devuelve cuántas cocinadas nuevas hay. */
+    /** Añade lo que falta (en lote, sin pisar cocinadas ni valoraciones) y devuelve cuántas cocinadas nuevas hay. */
     private suspend fun aplicar(copia: Copia): Int {
-        val nuevas = CopiaHistorial.nuevas(historial.observarTodo().first(), copia)
-        val insertadas = historial.importar(nuevas)
+        val actual = historial.observarTodo().first()
+        // Las nuevas entran con IGNORE y a las que ya están se les rellena la valoración si falta: una transacción.
+        val insertadas =
+            historial.importar(
+                CopiaHistorial.nuevas(actual, copia),
+                CopiaHistorial.valoracionesNuevas(actual, copia),
+            )
         val actuales = preferencias.observarTodas().first()
         // Ya fusionadas con las actuales (favorito suma, raciones no pisa): se guardan todas o ninguna.
         val prefs = CopiaHistorial.preferenciasNuevas(actuales, copia)

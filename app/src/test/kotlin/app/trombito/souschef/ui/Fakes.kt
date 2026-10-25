@@ -6,6 +6,7 @@ import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
@@ -69,11 +70,27 @@ class FakeHistorialRepo(
         datos.value = listOf(entrada) + datos.value
     }
 
-    override suspend fun importar(entradas: List<EntradaHistorial>): Int {
+    override suspend fun importar(
+        entradas: List<EntradaHistorial>,
+        valoraciones: Map<String, Valoracion>,
+    ): Int {
         val ids = datos.value.map { it.id }.toSet()
         val nuevas = entradas.filter { it.id !in ids }.distinctBy { it.id }
-        datos.value = nuevas.reversed() + datos.value
+        // Como el repo real: la valoración solo se rellena en las locales que no tienen (si hay, gana la local).
+        val rellenadas =
+            datos.value.map { e ->
+                val v = valoraciones[e.id]
+                if (e.valoracion == null && v != null) e.copy(valoracion = v) else e
+            }
+        datos.value = nuevas.reversed() + rellenadas
         return nuevas.size
+    }
+
+    override suspend fun valorar(
+        id: String,
+        valoracion: Valoracion?,
+    ) {
+        datos.value = datos.value.map { if (it.id == id) it.copy(valoracion = valoracion) else it }
     }
 
     override suspend fun borrar(id: String) {
@@ -105,6 +122,17 @@ class FakePreferenciasRepo : PreferenciasRepo {
         val actual = datos.value[slug] ?: Preferencia(slug)
         datos.value = datos.value + (slug to actual.copy(raciones = raciones))
     }
+
+    override suspend fun fijarQuiereHacerla(
+        slug: String,
+        quiere: Boolean,
+    ) {
+        val actual = datos.value[slug] ?: Preferencia(slug)
+        datos.value = datos.value + (slug to actual.copy(quiereHacerla = quiere))
+    }
+
+    override fun observarQuiereHacerla(): Flow<Set<String>> =
+        datos.map { m -> m.values.filter { it.quiereHacerla }.mapTo(HashSet()) { it.slug } }
 
     override suspend fun importar(preferencias: List<Preferencia>) {
         datos.value = datos.value + preferencias.associateBy { it.slug }

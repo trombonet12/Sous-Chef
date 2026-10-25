@@ -99,6 +99,10 @@ class FakeAjustesRepo : AjustesRepo {
         actual.value = actual.value.copy(servirMin = minutos)
     }
 
+    override suspend fun fijarCenar(minutos: Int) {
+        actual.value = actual.value.copy(cenarMin = minutos)
+    }
+
     override suspend fun fijarHoraTarjeta(h: HoraTarjeta) {
         actual.value = actual.value.copy(horaTarjeta = h)
     }

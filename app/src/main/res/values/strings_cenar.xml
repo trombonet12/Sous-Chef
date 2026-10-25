@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hora de cenar (v1.7 F2): Ajustes → Horario, ficha y tarjetas. -->
+<resources>
+    <string name="ajustes_cenar_titulo">Hora de cenar</string>
+    <string name="ajustes_cenar_nota">Las recetas de cena se sirven a esta hora; las que valen para comer y cenar, a partir de las 17:00.</string>
+    <string name="cenar_menos">Cenar 15 minutos antes</string>
+    <string name="cenar_mas">Cenar 15 minutos más tarde</string>
+    <string name="para_cenar">para cenar a las %1$s</string>
+</resources>

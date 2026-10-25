@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.di.ApplicationScope
 import app.trombito.souschef.domain.AjustesRepo
+import app.trombito.souschef.domain.CualHora
 import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
+import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.ahoraMin
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.desvioHabitualMin
+import app.trombito.souschef.domain.horaServir
 import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.conCocina
@@ -36,7 +40,7 @@ const val DEBOUNCE_RACIONES_MS = 600L
 /** Lo que el usuario ha tocado en esta ficha y aún no vive en la base de datos. */
 private data class Local(
     val raciones: Int? = null,
-    /** Hora de servir solo para esta vez; null = la de Ajustes. */
+    /** Hora de servir solo para esta vez; null = la de Ajustes que toque (comer o cenar). */
     val servirMin: Int? = null,
 )
 
@@ -52,6 +56,7 @@ class FichaViewModel
         private val cadena: CadenaAlarmas,
         ajustes: AjustesRepo,
         historial: HistorialRepo,
+        private val reloj: Reloj,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
         private var pendiente: Int? = null
@@ -78,6 +83,7 @@ class FichaViewModel
                         ?: receta?.let { Escalado.racionesIniciales(it, guardada, a.racionesDefecto) }
                         ?: guardada
                         ?: a.racionesDefecto
+                val usada = horaServir(receta?.tags?.momento, reloj.ahoraMin(), a)
                 FichaUiState(
                     cargando = false,
                     receta = receta?.conCocina(a.cocina),
@@ -86,7 +92,8 @@ class FichaViewModel
                     racionesPermitidas = permitidas,
                     ajustadoAlRango =
                         receta != null && guardada !in permitidas && a.racionesDefecto !in permitidas,
-                    servirMin = l.servirMin ?: a.servirMin,
+                    servirMin = l.servirMin ?: usada.minutos,
+                    paraCenar = l.servirMin == null && usada.cual == CualHora.CENAR,
                     favorita = pref?.favorito == true,
                     tecnicas = receta?.let { enlacesTecnicas(it, existentes) }.orEmpty(),
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },

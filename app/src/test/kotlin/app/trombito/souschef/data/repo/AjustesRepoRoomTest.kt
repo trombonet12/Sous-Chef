@@ -308,6 +308,18 @@ class AjustesRepoRoomTest {
             assertEquals("14:15", db.metaDao().valor(AjustesRepoRoom.CLAVE_SERVIR))
         }
 
+    @Test
+    fun horaDeCenarPorDefectoLas2100SeGuardaYUnValorRotoVuelveAlDefecto() =
+        runBlocking {
+            assertEquals(21 * 60, repo.observar().first().cenarMin)
+            repo.fijarCenar(22 * 60 + 30)
+            assertEquals(22 * 60 + 30, repo.observar().first().cenarMin)
+            assertEquals("22:30", db.metaDao().valor(AjustesRepoRoom.CLAVE_CENAR))
+            assertEquals(15 * 60 + 30, repo.observar().first().servirMin)
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_CENAR, "25:99"))
+            assertEquals(21 * 60, repo.observar().first().cenarMin)
+        }
+
     private companion object {
         const val RONDAS = 40
         const val ESPERA_MS = 5_000L

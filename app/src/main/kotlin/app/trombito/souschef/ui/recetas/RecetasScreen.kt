@@ -27,10 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.CategoriaVista
 import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.RejillaCategorias
+import app.trombito.souschef.ui.comun.TonoPaleta
+import app.trombito.souschef.ui.comun.colorTono
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
@@ -90,6 +93,7 @@ fun RecetasContenido(
     val familia = estado.familiaFija
     Column(Modifier.fillMaxSize()) {
         if (familia != null) BarraTitulo(textoOpcion(OpcionFiltro.Base(familia)), lista.atras)
+        if (estado.listaCenasRapidas) BarraTitulo(stringResource(R.string.cenas_rapidas), lista.atras)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
@@ -105,8 +109,9 @@ fun RecetasContenido(
                 )
             }
             val sinBusqueda = estado.consulta.isBlank() && estado.activos.isEmpty()
-            if (familia == null && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
-                item { CategoriasFamilia(estado.categorias, lista.categoria) }
+            val enPestana = familia == null && !estado.listaCenasRapidas
+            if (enPestana && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
+                item { CategoriasFamilia(estado.categorias, estado.cenasRapidas, lista.categoria) }
                 item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }
             }
             cuerpo(estado, lista.favorita, lista.abrir)
@@ -116,13 +121,17 @@ fun RecetasContenido(
 
 private const val MIN_CATEGORIAS = 2
 
-/** Los cuadraditos de familia de la pestaña: tocar uno abre la lista de esa familia (clave = nombre en minúsculas). */
+/**
+ * Los cuadraditos de la pestaña, «Cenas rápidas» el primero (si hay alguna) y luego uno por familia: tocar uno abre su
+ * lista (clave = nombre de la familia en minúsculas, o [Rutas.CENAS_RAPIDAS]).
+ */
 @Composable
 private fun CategoriasFamilia(
     categorias: List<Pair<FamiliaBase, Int>>,
+    cenasRapidas: Int,
     onCategoria: (String) -> Unit,
 ) {
-    val vistas =
+    val familias =
         categorias.map { (familia, n) ->
             CategoriaVista(
                 clave = familia.name.lowercase(),
@@ -132,7 +141,19 @@ private fun CategoriasFamilia(
                 recuento = pluralStringResource(R.plurals.recetas_conteo, n, n),
             )
         }
-    RejillaCategorias(vistas, onCategoria)
+    val rapidas =
+        if (cenasRapidas > 0) {
+            CategoriaVista(
+                clave = Rutas.CENAS_RAPIDAS,
+                nombre = stringResource(R.string.cenas_rapidas),
+                icono = Icono.Crono,
+                color = colorTono(TonoPaleta.AMBAR),
+                recuento = pluralStringResource(R.plurals.recetas_conteo, cenasRapidas, cenasRapidas),
+            )
+        } else {
+            null
+        }
+    RejillaCategorias(listOfNotNull(rapidas) + familias, onCategoria)
 }
 
 private fun FamiliaBase.icono(): Icono =

@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
         CronoEstadoEntity::class,
         MetaEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class SousChefDatabase : RoomDatabase() {

@@ -11,9 +11,11 @@ import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.ahoraMin
 import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.entradaDe
+import app.trombito.souschef.domain.horaServir
 import app.trombito.souschef.domain.notasDe
 import app.trombito.souschef.domain.voz.Escucha
 import app.trombito.souschef.domain.voz.Habla
@@ -203,8 +205,12 @@ class CronoViewModel
             val ahora = reloj.ahoraMs()
             val guardado = cadena.almacen.leer(slug)
             val raciones = if (racionesRuta > 0) racionesRuta else receta.raciones
-            // Sin hora en la ruta (p. ej. desde la notificación), la de Ajustes.
-            val servir = servirRuta.ifBlank { Servir.formato(ajustes.observar().first().servirMin) }
+            // Sin hora en la ruta (p. ej. desde la notificación), la de Ajustes que toque: comer o cenar.
+            val servir =
+                servirRuta.ifBlank {
+                    val usada = horaServir(receta.tags.momento, reloj.ahoraMin(), ajustes.observar().first())
+                    Servir.formato(usada.minutos)
+                }
             val estado = SesionCrono.reanudar(guardado, receta, raciones, servirDeHoy(servir, ahora, zona), ahora)
             cadena.almacen.fijar(estado)
             val enlaces =

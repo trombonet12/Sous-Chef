@@ -17,13 +17,19 @@ private val SELLO_ID = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.R
  * La entrada de historial de una cocinada cerrada. El id es `slug-yyyy-MM-dd-HHmmss` y la fecha sale del instante de
  * servir ([ResumenCrono.servidoMs]) en [zona]; la [nota] se recorta y se descarta si queda vacía. Los pasos reales se
  * guardan canónicos (con `{N}`, ADR-0014): se traducen al mostrarlos, no al guardarlos.
+ *
+ * La [valoracion] y el [previstoMin] (total previsto de la receta escalada, `ceil`) van en la propia entrada porque el
+ * historial se inserta con REPLACE: un UPDATE posterior a ese insert se perdería si se vuelve a guardar la cocinada.
  */
+@Suppress("LongParameterList") // un dato por cada cosa que guarda la cocinada
 fun entradaDe(
     receta: Receta,
     estado: EstadoCrono,
     resumen: ResumenCrono,
     nota: String,
     zona: ZoneId,
+    valoracion: Valoracion? = null,
+    previstoMin: Int? = null,
 ): EntradaHistorial {
     val momento = Instant.ofEpochMilli(resumen.servidoMs).atZone(zona)
     return EntradaHistorial(
@@ -37,5 +43,7 @@ fun entradaDe(
         minutosReales = resumen.minutosReales,
         nota = nota.trim().take(MAX_NOTA).ifBlank { null },
         pasosReales = resumen.pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
+        valoracion = valoracion,
+        previstoMin = previstoMin,
     )
 }

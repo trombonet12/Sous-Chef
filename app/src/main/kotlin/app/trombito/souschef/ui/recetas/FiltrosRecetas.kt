@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.recetas
 
+import app.trombito.souschef.receta.Momento
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.ui.comun.normalizado
@@ -81,19 +82,23 @@ enum class FamiliaProteina {
     }
 }
 
-/** Tramos de duración total: menos de 45 min, de 45 a 90 y más de 90. */
+/** Tramos de duración total: 30 min o menos, de 30 a 45 (sin llegar), de 45 a 90 y más de 90. */
 enum class TramoTiempo {
+    RAPIDA,
     CORTA,
     MEDIA,
     LARGA,
     ;
 
     companion object {
+        /** Hasta aquí (incluido) una receta es rápida; también el límite de las «Cenas rápidas». */
+        const val RAPIDA_HASTA = 30.0
         private const val CORTA_HASTA = 45.0
         private const val MEDIA_HASTA = 90.0
 
         fun de(minutos: Double): TramoTiempo =
             when {
+                minutos <= RAPIDA_HASTA -> RAPIDA
                 minutos < CORTA_HASTA -> CORTA
                 minutos <= MEDIA_HASTA -> MEDIA
                 else -> LARGA
@@ -107,7 +112,7 @@ enum class EquipoReceta { SIN_HORNO, CON_HORNO, UN_FUEGO }
 enum class MostrarRecetas { FAVORITAS, NUEVAS, SIN_ESTRENAR, HACE_TIEMPO }
 
 /** Secciones de la hoja de filtros, en su orden: dentro de una se suman opciones (O) y entre ellas se restringe (Y). */
-enum class SeccionFiltro { MOSTRAR, TIEMPO, BASE, PROTEINA, EQUIPO }
+enum class SeccionFiltro { MOSTRAR, TIEMPO, MOMENTO, BASE, PROTEINA, EQUIPO }
 
 /** Un chip de la hoja de filtros. */
 sealed interface OpcionFiltro {
@@ -124,6 +129,13 @@ sealed interface OpcionFiltro {
         override val valor: TramoTiempo,
     ) : OpcionFiltro {
         override val seccion get() = SeccionFiltro.TIEMPO
+    }
+
+    /** `tags.momento` de la receta; las que no lo tienen no cumplen ninguno. */
+    data class MomentoDia(
+        override val valor: Momento,
+    ) : OpcionFiltro {
+        override val seccion get() = SeccionFiltro.MOMENTO
     }
 
     data class Base(
@@ -149,6 +161,7 @@ sealed interface OpcionFiltro {
         val TODAS: List<OpcionFiltro> =
             MostrarRecetas.entries.map(::Mostrar) +
                 TramoTiempo.entries.map(::Tiempo) +
+                Momento.entries.map(::MomentoDia) +
                 FamiliaBase.entries.map(::Base) +
                 FamiliaProteina.entries.map(::Proteina) +
                 EquipoReceta.entries.map(::Equipo)
@@ -162,6 +175,8 @@ data class RasgosReceta(
     val familia: FamiliaBase,
     val proteinas: Set<FamiliaProteina>,
     val tramo: TramoTiempo,
+    /** `tags.momento` tal cual; vacío si la receta no lo declara. */
+    val momentos: Set<Momento>,
     val equipo: Set<EquipoReceta>,
     val mostrar: Set<MostrarRecetas>,
 ) {
@@ -169,6 +184,7 @@ data class RasgosReceta(
         when (o) {
             is OpcionFiltro.Mostrar -> o.valor in mostrar
             is OpcionFiltro.Tiempo -> o.valor == tramo
+            is OpcionFiltro.MomentoDia -> o.valor in momentos
             is OpcionFiltro.Base -> o.valor == familia
             is OpcionFiltro.Proteina -> o.valor in proteinas
             is OpcionFiltro.Equipo -> o.valor in equipo
@@ -194,10 +210,12 @@ data class RasgosReceta(
             nueva: Boolean = false,
         ): RasgosReceta {
             val conHorno = receta.carriles.any { it.tipoCarril == TipoCarril.HORNO }
+            val momentos = receta.tags.momento ?: emptyList()
             return RasgosReceta(
                 familia = FamiliaBase.de(receta.tags.base),
                 proteinas = FamiliaProteina.de(receta.tags.proteina),
                 tramo = TramoTiempo.de(receta.totalEfectivo),
+                momentos = momentos.toSet(),
                 equipo =
                     buildSet {
                         add(if (conHorno) EquipoReceta.CON_HORNO else EquipoReceta.SIN_HORNO)
@@ -217,3 +235,11 @@ data class RasgosReceta(
         }
     }
 }
+
+/** Una «cena rápida»: de cena y de [TramoTiempo.RAPIDA_HASTA] minutos o menos. */
+fun esCenaRapida(receta: Receta): Boolean =
+    Momento.CENA in receta.tags.momento.orEmpty() && TramoTiempo.de(receta.totalEfectivo) == TramoTiempo.RAPIDA
+
+/** Las opciones que dejan solo las cenas rápidas: momento Cena y tramo rápido. */
+val FILTROS_CENAS_RAPIDAS: Set<OpcionFiltro> =
+    setOf(OpcionFiltro.MomentoDia(Momento.CENA), OpcionFiltro.Tiempo(TramoTiempo.RAPIDA))

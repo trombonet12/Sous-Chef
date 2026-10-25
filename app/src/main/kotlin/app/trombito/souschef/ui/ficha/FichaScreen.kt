@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -231,6 +232,14 @@ private fun FilaControles(
                 onMenos = { acciones.onServir(-Servir.PASO) },
                 onMas = { acciones.onServir(Servir.PASO) },
             )
+            if (estado.paraCenar) {
+                Text(
+                    stringResource(R.string.para_cenar, Servir.formato(estado.servirMin)),
+                    modifier = Modifier.testTag("para-cenar"),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
         val inicio = Servir.inicio(estado.servirMin, receta)
         HoraDeEmpezar(inicio, estado.ritmoMin)
