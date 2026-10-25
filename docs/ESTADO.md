@@ -13,8 +13,9 @@
 | Ronda 12 · Paquete, listas coherentes y sin red | **completada**: v1.3.0 a v1.3.3 |
 | Ronda 13 · Vídeo promocional con Remotion | **completada** |
 | Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
-| Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **en curso**: commits locales, sin push; falta la prueba en el emulador |
-| Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **publicada** (push con OK de Joan); revisión con `docs/revision-v1.6.md` |
+| Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **completada**: publicada dentro de la v1.6 |
+| Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
+| Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **en curso** |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -143,7 +144,7 @@ ADR-0013 y ADR-0014. Gate completo en verde (545 tests en app). Commits locales 
 - Con el OK de Joan: `gh variable set PLAY_ESTADO --body completed`, push a main y vigilar el CI (release v1.4.0 en GitHub y Play).
 - Revisión de arquitectura: aplicados en la ronda 15 todos los nombrados salvo `CuerpoCrono` compartido.
 
-## Ronda 15 · v1.5.0 (2026-10-24, sin publicar)
+## Ronda 15 · v1.5.0 (2026-10-24, publicada dentro de la v1.6.4 el 2026-10-24)
 Plan: `~/.claude/plans/buenos-d-as-vamos-a-modular-quasar.md`. 15 commits locales sobre `4cf059c`; **sin push hasta que
 Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la portada del cronómetro`.
 - Hecho:
@@ -203,8 +204,11 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.6 publicada en main (el CI crea la release v1.6.N y la sube a la pista interna). Comprobar el workflow
-(`gh run list --limit 3`) y la release. Joan termina el playbook `docs/revision-v1.6.md` en el móvil; los KO van a la
-1.6.N+1 (parche: `gh workflow run android.yml -f publicar=true`). Pendientes: `pastel-de-patata-gratinado` pide leche
-entera y la despensa es semidesnatada (revisar con `receta-revisar`); placas de la lasaña; fuera de alcance S4, A5-A8,
-F4-F10, U5 y S6 (`docs/analisis/v1.6.md`).
+Ronda 17 (plan `~/.claude/plans/buenos-d-as-vamos-a-modular-quasar.md`):
+1. Cabos sueltos: los PRs de Dependabot #4 y #5 y zod en /video. La leche de casa es desnatada: despensa y `receta-revisar`
+   de arroz con leche, pastel de patata, lasaña y bechamel.
+2. CI: subir a la pista interna y promocionar a la prueba cerrada (`alpha`).
+3. Análisis v1.7 con los 5 agentes (énfasis en recetas, sobre todo cenas rápidas, y en funciones) → `docs/analisis/v1.7.md`
+   y elegir el alcance con Joan.
+
+Siguen pendientes: las placas de la lasaña y, fuera de alcance, S4, A5-A8, F4-F10, U5 y S6 (`docs/analisis/v1.6.md`).
