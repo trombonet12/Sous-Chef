@@ -10,9 +10,10 @@ import kotlinx.coroutines.flow.map
  * Consultas de solo lectura sobre las cocinadas vivas (abiertas, sin caducar y sin terminar; la regla es
  * [SesionCrono.vivo]). Decide las novedades, la entrada al cronómetro y qué alarmas se arman.
  *
- * Sin cerrojo propio ni el de [CadenaAlarmas]: ese protege `activas` y la presencia, que aquí no se tocan. Cada lectura
- * pasa por el cerrojo del [AlmacenCrono], que entrega documentos completos; más coherencia no hace falta y pedir el de
- * la cadena bloquearía una consulta de arranque detrás de un `procesar` en curso.
+ * Sin cerrojo propio ni el de [CadenaAlarmas]: ese protege solo `activas` (la presencia es un `@Volatile` sin
+ * cerrojo), que aquí no se toca. Cada lectura pasa por el cerrojo del [AlmacenCrono], que entrega documentos
+ * completos; más coherencia no hace falta y pedir el de la cadena bloquearía una consulta de arranque detrás de un
+ * `procesar` en curso.
  */
 class CocinadasVivas(
     private val almacen: AlmacenCrono,

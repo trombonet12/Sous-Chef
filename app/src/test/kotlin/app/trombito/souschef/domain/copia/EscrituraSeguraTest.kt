@@ -100,6 +100,14 @@ class EscrituraSeguraTest {
     }
 
     @Test
+    fun uriRechazadoOModoNoSoportadoEsFalloTipadoNoExcepcion() {
+        val malUri = SalidaCopia { throw IllegalArgumentException("uri mal formado") }
+        val sinModo = SalidaCopia { throw UnsupportedOperationException("modo wt no soportado") }
+        assertEquals(ResultadoEscritura.Fallo, EscrituraSegura.escribir(nueva, { true }, malUri))
+        assertEquals(ResultadoEscritura.Fallo, EscrituraSegura.escribir(nueva, { true }, sinModo))
+    }
+
+    @Test
     fun permisoRetiradoEsSinPermiso() {
         val sinPermiso = SalidaCopia { throw SecurityException("permiso retirado") }
         assertEquals(ResultadoEscritura.SinPermiso, EscrituraSegura.escribir(nueva, { true }, sinPermiso))

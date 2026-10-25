@@ -76,9 +76,22 @@ class CopiaHistorialTest {
     fun `la copia v2 mantiene los limites de siempre`() {
         val demasiadas = List(5001) { curry.copy(id = "curry-$it", valoracion = Valoracion.REPETIR) }
         assertNull(CopiaHistorial.leer(CopiaHistorial.exportar(demasiadas, emptyList(), "2026-10-18"), slugs))
-        val fantasma = curry.copy(id = "f", slug = "fantasma", valoracion = Valoracion.REPETIR)
-        val texto = CopiaHistorial.exportar(listOf(fantasma), emptyList(), "2026-10-18")
+        val rara = curry.copy(id = "f", slug = "../etc", valoracion = Valoracion.REPETIR)
+        val texto = CopiaHistorial.exportar(listOf(rara), emptyList(), "2026-10-18")
         assertEquals(1, checkNotNull(CopiaHistorial.leer(texto, slugs)).descartadas)
+    }
+
+    @Test
+    fun `una cocinada de una receta retirada del catalogo se conserva pero su preferencia no`() {
+        val retirada = curry.copy(id = "retirada-2026-09-01", slug = "retirada", titulo = "Receta retirada")
+        val prefs = listOf(Preferencia("retirada", favorito = true), Preferencia("curry", favorito = true))
+        val texto = CopiaHistorial.exportar(listOf(retirada, curry), prefs, "2026-10-18")
+
+        val copia = checkNotNull(CopiaHistorial.leer(texto, slugs))
+
+        assertEquals(listOf(retirada, curry), copia.historial)
+        assertEquals(listOf(Preferencia("curry", favorito = true)), copia.preferencias)
+        assertEquals(1, copia.descartadas)
     }
 
     @Test

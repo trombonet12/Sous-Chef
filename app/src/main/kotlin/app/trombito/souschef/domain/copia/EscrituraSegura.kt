@@ -66,5 +66,11 @@ object EscrituraSegura {
             ResultadoEscritura.Fallo
         } catch (_: SecurityException) {
             ResultadoEscritura.SinPermiso
+        } catch (_: IllegalArgumentException) {
+            // El proveedor SAF rechaza un URI mal formado o ya revocado.
+            ResultadoEscritura.Fallo
+        } catch (_: UnsupportedOperationException) {
+            // El proveedor no admite abrir el documento en modo escritura.
+            ResultadoEscritura.Fallo
         }
 }

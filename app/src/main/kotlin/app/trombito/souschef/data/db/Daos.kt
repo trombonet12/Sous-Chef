@@ -66,6 +66,9 @@ interface HistorialDao {
     @Query("SELECT COUNT(*) FROM historial")
     suspend fun contar(): Int
 
+    @Query("SELECT * FROM historial WHERE id = :id")
+    suspend fun obtener(id: String): HistorialEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertar(entrada: HistorialEntity)
 
@@ -111,6 +114,9 @@ interface PreferenciaDao {
 
     @Query("SELECT * FROM preferencia WHERE slug = :slug")
     suspend fun obtener(slug: String): PreferenciaEntity?
+
+    @Query("SELECT * FROM preferencia")
+    suspend fun todas(): List<PreferenciaEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertar(preferencia: PreferenciaEntity)

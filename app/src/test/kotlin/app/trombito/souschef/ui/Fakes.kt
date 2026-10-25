@@ -7,6 +7,8 @@ import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.Valoracion
+import app.trombito.souschef.domain.copia.Copia
+import app.trombito.souschef.domain.copia.CopiaHistorial
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
@@ -134,7 +136,8 @@ class FakePreferenciasRepo : PreferenciasRepo {
     override fun observarQuiereHacerla(): Flow<Set<String>> =
         datos.map { m -> m.values.filter { it.quiereHacerla }.mapTo(HashSet()) { it.slug } }
 
-    override suspend fun importar(preferencias: List<Preferencia>) {
-        datos.value = datos.value + preferencias.associateBy { it.slug }
+    override suspend fun importar(copia: Copia) {
+        // Como el repo real: se fusiona con lo que haya en ese momento (favorito suma, raciones no pisa).
+        datos.value = datos.value + CopiaHistorial.preferenciasNuevas(datos.value, copia).associateBy { it.slug }
     }
 }

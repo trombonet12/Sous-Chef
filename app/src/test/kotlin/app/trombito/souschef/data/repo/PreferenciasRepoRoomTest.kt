@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import app.trombito.souschef.data.db.SousChefDatabase
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.copia.Copia
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -32,13 +33,15 @@ class PreferenciasRepoRoomTest {
     @After
     fun cerrar() = db.close()
 
+    private fun copia(vararg prefs: Preferencia) = Copia(historial = emptyList(), preferencias = prefs.toList())
+
     @Test
     fun importarGuardaTodasLasPreferencias() =
         runBlocking {
             repo.fijarRaciones("curry", 3)
 
             repo.importar(
-                listOf(
+                copia(
                     Preferencia("curry", favorito = true, raciones = 3),
                     Preferencia("tacos", favorito = true, raciones = 4),
                 ),
@@ -48,6 +51,29 @@ class PreferenciasRepoRoomTest {
                 mapOf(
                     "curry" to Preferencia("curry", favorito = true, raciones = 3),
                     "tacos" to Preferencia("tacos", favorito = true, raciones = 4),
+                ),
+                repo.observarTodas().first(),
+            )
+        }
+
+    @Test
+    fun importarFusionaConLoQueHayEnLaBaseNoConUnaFotoVieja() =
+        runBlocking {
+            // Un cambio hecho justo antes de importar (el caso de un fijarFavorito concurrente) no se revierte.
+            repo.fijarFavorito("curry", true)
+            repo.fijarQuiereHacerla("tacos", true)
+
+            repo.importar(
+                copia(
+                    Preferencia("curry", favorito = false, raciones = 5),
+                    Preferencia("tacos", favorito = false, raciones = 2),
+                ),
+            )
+
+            assertEquals(
+                mapOf(
+                    "curry" to Preferencia("curry", favorito = true, raciones = 5),
+                    "tacos" to Preferencia("tacos", favorito = false, raciones = 2, quiereHacerla = true),
                 ),
                 repo.observarTodas().first(),
             )
@@ -67,7 +93,7 @@ class PreferenciasRepoRoomTest {
             assertThrows(Exception::class.java) {
                 runBlocking {
                     repo.importar(
-                        listOf(
+                        copia(
                             Preferencia("curry", favorito = true, raciones = 3),
                             Preferencia("tacos", favorito = true),
                             Preferencia("malo", favorito = true),

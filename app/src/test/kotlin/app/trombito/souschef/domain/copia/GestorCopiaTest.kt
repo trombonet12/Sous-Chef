@@ -3,12 +3,14 @@ package app.trombito.souschef.domain.copia
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.crono.RelojFalso
 import app.trombito.souschef.ui.receta
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -100,6 +102,25 @@ class GestorCopiaTest {
         }
 
     @Test
+    fun cargarNoLeeLasPreferenciasFueraDeLaTransaccionDelRepo() =
+        runTest {
+            val origen = FakePreferenciasRepo()
+            origen.datos.value = mapOf("curry" to Preferencia("curry", favorito = true))
+            gestor(FakeHistorialRepo(), origen).exportar("content://copia")
+            val respaldo = FakePreferenciasRepo()
+            // Si el gestor leyera las actuales él mismo (foto vieja) esto fallaría: la fusión es del repositorio.
+            val soloImportar =
+                object : PreferenciasRepo by respaldo {
+                    override fun observarTodas(): Flow<Map<String, Preferencia>> =
+                        error("el gestor no debe leer las preferencias al importar")
+                }
+
+            val g = GestorCopia(FakeHistorialRepo(), recetas, soloImportar, archivos, RelojFalso())
+            assertEquals(ResultadoCopia.Cargada(0), g.importar("content://copia"))
+            assertEquals(Preferencia("curry", favorito = true), respaldo.datos.value["curry"])
+        }
+
+    @Test
     fun cargarRellenaLaValoracionQueFaltaYNoPisaLaLocal() =
         runTest {
             val sinValorar = curry.copy(valoracion = null)
@@ -131,16 +152,16 @@ class GestorCopiaTest {
         }
 
     @Test
-    fun slugInexistenteSeDescartaYNoCreaPreferencias() =
+    fun cocinadaDeRecetaRetiradaSeConservaPeroSuPreferenciaNoSeCrea() =
         runTest {
             val destino = FakeHistorialRepo()
-            val fantasma = curry.copy(id = "fantasma-2026-10-01", slug = "fantasma")
+            val fantasma = curry.copy(id = "fantasma-2026-10-01", slug = "fantasma", titulo = "Fantasma")
             val prefs =
                 listOf(Preferencia("fantasma", favorito = true, raciones = 4), Preferencia("curry", favorito = true))
             archivos.archivos["content://malo"] = CopiaHistorial.exportar(listOf(curry, fantasma), prefs, "2026-10-24")
             val prefsDestino = FakePreferenciasRepo()
-            assertEquals(ResultadoCopia.Cargada(1, 2), gestor(destino, prefsDestino).importar("content://malo"))
-            assertEquals(listOf(curry), destino.datos.value)
+            assertEquals(ResultadoCopia.Cargada(2, 1), gestor(destino, prefsDestino).importar("content://malo"))
+            assertEquals(setOf(curry, fantasma), destino.datos.value.toSet())
             assertEquals(setOf("curry"), prefsDestino.datos.value.keys)
         }
 

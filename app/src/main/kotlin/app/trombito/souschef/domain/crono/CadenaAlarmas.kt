@@ -76,7 +76,9 @@ interface Notificador {
  * coincide (< 60 s).
  *
  * Los receptores (hilo IO) y el ViewModel (Main) la usan a la vez: los métodos públicos que leen y escriben [activas]
- * o la presencia toman un [Mutex] (no reentrante), así que por dentro se llaman las variantes `...Sl` sin cerrojo.
+ * toman un [Mutex] (no reentrante), así que por dentro se llaman las variantes `...Sl` sin cerrojo. La presencia NO
+ * va bajo ese cerrojo: [PresenciaCrono.visible] es un `@Volatile` que el ViewModel cambia sin tomarlo, así que se lee
+ * cuando hace falta y, antes de consumir avisos, se vuelve a comprobar dentro de `almacen.modificar`.
  */
 @Suppress("TooManyFunctions")
 class CadenaAlarmas(
@@ -249,16 +251,23 @@ class CadenaAlarmas(
     ) {
         val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
         var avisos = emptyList<Aviso>()
-        almacen.modificar(e.slug) { actual ->
-            val v = AvisosCrono.vencidos(actual, receta, ahora)
-            avisos = v.avisos
-            v.estado
-        }
+        val actualizado =
+            almacen.modificar(e.slug) { actual ->
+                // `procesar` leyó la presencia al empezar y `e` es una foto: si entre tanto se abrió esta cocina o la
+                // cocinada dejó de estar viva, no se consume nada (los avisos los daría el tic o ya no tocan).
+                if (presencia.visible == e.slug || !SesionCrono.vivo(actual, ahora)) {
+                    actual
+                } else {
+                    val v = AvisosCrono.vencidos(actual, receta, ahora)
+                    avisos = v.avisos
+                    v.estado
+                }
+            }
         val lineas = AgrupadorAlarmas.lineasDe(avisos, nombres)
-        if (lineas.isNotEmpty()) {
+        if (actualizado != null && lineas.isNotEmpty()) {
             val agrupado = AgrupadorAlarmas.combinar(activas[e.slug]?.alarma, lineas, ahora)
             activas[e.slug] = AlarmaPublicada(receta.titulo, agrupado.alarma)
-            val urgente = urgenteDe(ConstructorCarriles.construir(receta, e, ahora))
+            val urgente = urgenteDe(ConstructorCarriles.construir(receta, actualizado, ahora))
             notificador.alarma(e.slug, receta.titulo, agrupado.alarma, agrupado.sonar, urgente)
         }
     }

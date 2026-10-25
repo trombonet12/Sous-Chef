@@ -55,8 +55,10 @@ object CopiaHistorial {
 
     /**
      * La copia leída, o null si el texto no es una copia de Sous Chef, es de una versión futura o trae más de
-     * [MAX_ENTRADAS] entradas. Las entradas y preferencias inválidas (slug que no está en [slugsValidos], fecha,
-     * raciones, pasos...) se descartan y se cuentan en [Copia.descartadas]; título y nota se recortan a su máximo.
+     * [MAX_ENTRADAS] entradas. Las entradas y preferencias inválidas se descartan y se cuentan en
+     * [Copia.descartadas]; título y nota se recortan a su máximo. Una entrada de historial solo exige un slug bien
+     * formado (una receta retirada del catálogo sigue teniendo cocinadas, con su título guardado); una preferencia
+     * además exige que el slug esté en [slugsValidos], para no crear preferencias de recetas que no existen.
      */
     fun leer(
         texto: String,
@@ -67,7 +69,7 @@ object CopiaHistorial {
             ?.takeIf { it.formato == FORMATO && it.version <= VERSION }
             ?.takeIf { it.historial.size <= MAX_ENTRADAS && it.preferencias.size <= MAX_ENTRADAS }
             ?.let { dto ->
-                val entradas = dto.historial.map { it.validar(slugsValidos) }
+                val entradas = dto.historial.map { it.validar() }
                 val prefs = dto.preferencias.filter { it.valida(slugsValidos) }
                 Copia(
                     historial = entradas.filterNotNull(),
@@ -202,10 +204,10 @@ private fun PreferenciaDto.valida(slugsValidos: Set<String>) =
     slugValido(slug, slugsValidos) && racionesValidas(raciones)
 
 /** La entrada ya saneada, o null si no es válida. */
-private fun EntradaDto.validar(slugsValidos: Set<String>): EntradaHistorial? {
+private fun EntradaDto.validar(): EntradaHistorial? {
     val valida =
         id.length in 1..MAX_ID_ENTRADA &&
-            slugValido(slug, slugsValidos) &&
+            SlugReceta.valido(slug) &&
             fechaValida(fecha) &&
             racionesValidas(raciones) &&
             (minutosReales ?: 0) >= 0 &&

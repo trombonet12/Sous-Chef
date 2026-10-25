@@ -19,6 +19,8 @@ import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.Valoracion
+import app.trombito.souschef.domain.copia.Copia
+import app.trombito.souschef.domain.copia.CopiaHistorial
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.receta.leerReceta
@@ -70,7 +72,16 @@ class HistorialRepoRoom
         override fun observarUltimaFechaPorSlug(): Flow<Map<String, String>> =
             dao.observarUltimaFecha().map { l -> l.associate { it.slug to it.fecha } }
 
-        override suspend fun agregar(entrada: EntradaHistorial) = dao.insertar(entrada.aEntidad())
+        /**
+         * REPLACE si el id ya existe, pero sin borrar una valoración puesta con [valorar]: si la entrada llega sin
+         * valoración se conserva la que hay.
+         */
+        override suspend fun agregar(entrada: EntradaHistorial) =
+            db.withTransaction {
+                val existente = dao.obtener(entrada.id)?.aDominio()
+                val guardada = entrada.copy(valoracion = entrada.valoracion ?: existente?.valoracion)
+                dao.insertar(guardada.aEntidad())
+            }
 
         override suspend fun importar(
             entradas: List<EntradaHistorial>,
@@ -127,8 +138,13 @@ class PreferenciasRepoRoom
 
         override fun observarQuiereHacerla(): Flow<Set<String>> = dao.observarQuiereHacerla().map { it.toSet() }
 
-        override suspend fun importar(preferencias: List<Preferencia>) =
-            dao.importar(preferencias.map { it.aEntidad() })
+        override suspend fun importar(copia: Copia) =
+            db.withTransaction {
+                // Leer, fusionar y escribir en la misma transacción: un fijarFavorito concurrente no se revierte.
+                val actuales = dao.todas().associate { it.slug to it.aDominio() }
+                val prefs = CopiaHistorial.preferenciasNuevas(actuales, copia)
+                if (prefs.isNotEmpty()) dao.importar(prefs.map { it.aEntidad() })
+            }
     }
 
 class CronoEstadoRepoRoom

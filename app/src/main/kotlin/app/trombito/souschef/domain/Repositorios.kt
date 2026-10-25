@@ -1,5 +1,6 @@
 package app.trombito.souschef.domain
 
+import app.trombito.souschef.domain.copia.Copia
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
@@ -76,10 +77,12 @@ interface PreferenciasRepo {
     fun observarQuiereHacerla(): Flow<Set<String>>
 
     /**
-     * Importación de una copia: guarda [preferencias] tal cual (cada una sustituye a la de su slug) en una sola
-     * transacción: o entran todas o ninguna.
+     * Importación de las preferencias de [copia]. La lectura de las actuales, la fusión
+     * (`CopiaHistorial.preferenciasNuevas`: favorito y «quiero hacerla» suman, raciones no pisa) y el guardado van en
+     * una misma transacción de este repositorio: un cambio concurrente (p. ej. `fijarFavorito`) no se pierde y las
+     * preferencias entran todas o ninguna. No comparte transacción con `HistorialRepo.importar`.
      */
-    suspend fun importar(preferencias: List<Preferencia>)
+    suspend fun importar(copia: Copia)
 }
 
 @Suppress("TooManyFunctions") // un setter por ajuste

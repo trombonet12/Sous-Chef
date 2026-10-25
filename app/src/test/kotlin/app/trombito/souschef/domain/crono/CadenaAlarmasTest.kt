@@ -1,5 +1,7 @@
 package app.trombito.souschef.domain.crono
 
+import app.trombito.souschef.domain.RecetasRepo
+import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.AgrupadorAlarmas
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.MotorCrono
@@ -143,6 +145,51 @@ class CadenaAlarmasTest {
             val guardado = Json.decodeFromString(EstadoCrono.serializer(), repo.obtener("a")!!.json)
             assertFalse(guardado.carriles.getValue("f0").aFin)
             assertNull(sistema.programada)
+        }
+
+    /** Como [FakeRecetasRepo], pero ejecuta [gancho] una vez en la primera lectura: algo que ocurre «en medio». */
+    private class RecetasConGancho(
+        private val base: RecetasRepo,
+        var gancho: suspend () -> Unit = {},
+    ) : RecetasRepo by base {
+        override suspend fun obtener(slug: String): Receta? {
+            val g = gancho
+            gancho = {}
+            g()
+            return base.obtener(slug)
+        }
+    }
+
+    @Test
+    fun siLaCocinaSeAbreEnMedioDeProcesarNoSeConsumenLosAvisosNiSePublicaNada() =
+        runTest {
+            cocinando("a", T0)
+            val conGancho = RecetasConGancho(recetas)
+            // `procesar` ya leyó que no había nada en pantalla; el usuario abre la cocina antes de consumir avisos.
+            conGancho.gancho = { presencia.visible = "a" }
+            val cadenaGancho = CadenaAlarmas(almacen, conGancho, reloj, sistema, notificador, presencia)
+            reloj.ms = T0 + 301_000L
+
+            cadenaGancho.procesar()
+
+            assertTrue(notificador.alarmas.isEmpty())
+            val guardado = Json.decodeFromString(EstadoCrono.serializer(), repo.obtener("a")!!.json)
+            assertFalse(guardado.carriles.getValue("f0").aFin)
+        }
+
+    @Test
+    fun laAccionUrgenteSaleDelEstadoYaModificadoNoDeLaFotoVieja() =
+        runTest {
+            cocinandoConDosCarriles()
+            val conGancho = RecetasConGancho(recetas)
+            // Entre la foto y el consumo de avisos llega un «Hecho» al fuego, que dejaba de ser el vencido.
+            conGancho.gancho = { almacen.modificar("a") { MotorCrono.hecho(it, recetaCrono("a"), "f0", reloj.ms) } }
+            val cadenaGancho = CadenaAlarmas(almacen, conGancho, reloj, sistema, notificador, presencia)
+            reloj.ms = T0 + 330_000L
+
+            cadenaGancho.procesar()
+
+            assertEquals("m", notificador.alarmas.last().urgente)
         }
 
     @Test
