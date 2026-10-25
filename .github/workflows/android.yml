@@ -142,6 +142,16 @@ jobs:
           [ "$candidato" = "true" ] || echo "version.properties no cambia en este push: sin release"
           echo "candidato=$candidato" >> "$GITHUB_OUTPUT"
 
+      # El script que usa la clave de Play se guarda antes de Gradle: ninguna tarea del build puede reescribirlo.
+      - name: Guardar el script de Play
+        if: steps.gate.outputs.candidato == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: play-script
+          path: scripts/play-promocionar.mjs
+          if-no-files-found: error
+          retention-days: 7
+
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         if: steps.gate.outputs.candidato == 'true'
         with:
@@ -263,7 +273,6 @@ jobs:
             dist/sous-chef-${{ steps.ver.outputs.version }}.aab
             dist/native-debug-symbols-*.zip
             distribution/whatsnew/
-            scripts/play-promocionar.mjs
           if-no-files-found: error
           retention-days: 7
 
@@ -275,7 +284,7 @@ jobs:
   # ni un GITHUB_TOKEN con escritura. Si falla, la release de GitHub ya está hecha y el AAB va adjunto para subirlo a
   # mano. Sin el secreto PLAY_SERVICE_ACCOUNT_JSON se omite con un aviso. Tras subir a la interna, promociona esa misma
   # versión a la prueba cerrada (PLAY_PISTA_CERRADA, por defecto alpha; `ninguna` la desactiva). El script viaja en el
-  # artifact para no necesitar checkout (y por tanto permisos) en este job.
+  # artifact `play-script` (subido antes de Gradle) para no necesitar checkout ni permisos en este job.
   play:
     name: Google Play (interna y prueba cerrada)
     needs: release
@@ -307,6 +316,12 @@ jobs:
         with:
           name: play-${{ needs.release.outputs.version }}
           path: play
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        if: steps.play.outputs.subir == 'true' && vars.PLAY_PISTA_CERRADA != 'ninguna'
+        with:
+          name: play-script
+          path: play-script
 
       - name: Localizar simbolos nativos
         id: sym
@@ -347,7 +362,7 @@ jobs:
           VERSION_CODE: ${{ needs.release.outputs.code }}
           ESTADO: ${{ steps.play.outputs.estado }}
         run: >-
-          node play/scripts/play-promocionar.mjs
+          node play-script/play-promocionar.mjs
           --paquete app.trombito.souschef
           --version-code "$VERSION_CODE"
           --de internal

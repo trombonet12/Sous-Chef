@@ -75,8 +75,10 @@ a mano, en Play Console.
 - Para pedir producción hacen falta 12 testers durante 14 días en la cerrada.
 - Variable `PLAY_PISTA_CERRADA`: vacía = `alpha`; otro nombre = esa pista; `ninguna` desactiva la promoción.
 - A la cuenta de servicio le hace falta el permiso **Publicar en pistas de prueba** en Play Console.
-- Probar sin cambiar nada en Play: `PLAY_SERVICE_ACCOUNT_JSON=... node scripts/play-promocionar.mjs --paquete
-  app.trombito.souschef --version-code <n> --seco` (crea la edición y la borra sin hacer commit).
+- Probar sin cambiar nada en Play: `PLAY_SERVICE_ACCOUNT_JSON="$(cat <ruta-de-la-cuenta-de-servicio>)" node
+  scripts/play-promocionar.mjs --paquete app.trombito.souschef --version-code <n> --seco` (crea la edición y la borra
+  sin hacer commit). La clave se lee del archivo: nunca pegada en la línea de comandos, que queda en el historial.
+- El script solo promociona a pistas de prueba: rechaza `production`.
 
 ## Actualización obligatoria
 - La app fuerza la actualización con la pantalla de Play (In-App Updates, [ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md))

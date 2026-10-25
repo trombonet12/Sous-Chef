@@ -93,6 +93,7 @@ test('leerArgs aplica valores por defecto y valida', () => {
   assert.throws(() => leerArgs(['--paquete', 'a', '--version-code', 'x']), /entero/);
   assert.throws(() => leerArgs([...ARGS, '--estado', 'otro']), /draft o completed/);
   assert.throws(() => leerArgs([...ARGS, '--a', 'internal']), /misma pista/);
+  assert.throws(() => leerArgs([...ARGS, '--a', 'production']), /solo pistas de prueba/);
 });
 
 test('firmarJwt devuelve tres partes con la cabecera RS256', () => {

@@ -49,6 +49,8 @@ export function leerArgs(argv) {
     if (!/^[A-Za-z0-9_.-]+$/.test(pista)) throw new ErrorPromocion(`nombre de pista inválido: ${pista}`);
   }
   if (opciones.de === opciones.a) throw new ErrorPromocion('--de y --a son la misma pista');
+  // Producción se promociona a mano en Play Console: el CI solo mueve versiones entre pistas de prueba.
+  if (opciones.a === 'production') throw new ErrorPromocion('--a production no está permitido: solo pistas de prueba');
   return opciones;
 }
 
