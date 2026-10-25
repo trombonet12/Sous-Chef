@@ -633,7 +633,7 @@ class MotorCronoTest {
         assertEquals(servir, res.previstoMs)
         assertEquals(listOf(90, 100), res.pasosReales.map { it.segundos })
         assertEquals(listOf("uno", "dos"), res.desvios.map { it.id })
-        assertEquals(listOf(30, -20), res.desvios.map { it.difS })
+        assertEquals(listOf(30, -20), res.desvios.map { it.deltaS })
         val c = res.carriles.single()
         assertEquals(2, c.pasos)
         assertEquals(3, c.minutos)

@@ -1,5 +1,6 @@
 package app.trombito.souschef.receta.crono
 
+import app.trombito.souschef.receta.DesvioPaso
 import kotlinx.serialization.Serializable
 
 /**
@@ -131,15 +132,6 @@ data class PasoReal(
     val segundos: Int,
 )
 
-data class Desvio(
-    val id: String,
-    val t: String,
-    val previstoS: Int,
-    val realS: Int,
-) {
-    val difS: Int get() = realS - previstoS
-}
-
 data class ResumenCarril(
     val carril: String,
     val pasos: Int,
@@ -154,6 +146,6 @@ data class ResumenCrono(
     val servidoMs: Long,
     val previstoMs: Long,
     val pasosReales: List<PasoReal>,
-    val desvios: List<Desvio>,
+    val desvios: List<DesvioPaso>,
     val carriles: List<ResumenCarril>,
 )

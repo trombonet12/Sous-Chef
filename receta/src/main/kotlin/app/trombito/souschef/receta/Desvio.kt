@@ -1,6 +1,7 @@
 package app.trombito.souschef.receta
 
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 private const val SEG_MIN = 60
@@ -55,7 +56,7 @@ fun textoInforme(
     minutosReales: Int?,
     desvios: List<DesvioPaso>,
 ): String {
-    val previsto = receta.totalEfectivo.roundToInt()
+    val previsto = ceil(receta.totalEfectivo).toInt()
     val total =
         if (minutosReales == null) {
             "Total: previsto $previsto min"

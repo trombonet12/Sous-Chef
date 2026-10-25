@@ -1,6 +1,8 @@
 package app.trombito.souschef.receta.crono
 
+import app.trombito.souschef.receta.PasoMedido
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.receta.desvios
 import kotlin.math.abs
 
 /**
@@ -152,17 +154,16 @@ object SesionCrono {
             receta.pasos
                 .filter { it.id in e.pasosReales }
                 .map { PasoReal(it.id, it.t, e.pasosReales.getValue(it.id)) }
-        val desvios =
-            reales
-                .map { r -> Desvio(r.id, r.t, receta.paso(r.id)?.segundos ?: r.segundos, r.segundos) }
-                .filter { it.difS != 0 }
-                .sortedByDescending { abs(it.difS) }
+        val porPaso =
+            desvios(receta, reales.map { PasoMedido(it.id, it.segundos) })
+                .filter { it.deltaS != 0 }
+                .sortedByDescending { abs(it.deltaS) }
         val carriles =
             plano.carriles.map { c ->
                 val ps = plano.colas.getValue(c.id)
                 val s = ps.sumOf { e.pasosReales[it.id] ?: 0 }
                 ResumenCarril(c.nombre, ps.size, Math.floorDiv(s + 30, 60), c.tipo == "fuego")
             }
-        return ResumenCrono(dur, minutos, ahoraMs, e.servirMs, reales, desvios, carriles)
+        return ResumenCrono(dur, minutos, ahoraMs, e.servirMs, reales, porPaso, carriles)
     }
 }

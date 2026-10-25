@@ -4,8 +4,11 @@ import app.trombito.souschef.data.seed.FuenteSemilla
 import app.trombito.souschef.domain.LineaNovedad
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 import java.io.IOException
 
 class FuenteNovedadesAssetsTest {
@@ -95,4 +98,16 @@ class FuenteNovedadesAssetsTest {
 
             assertEquals(listOf("1.10", "1.9", "1.5"), r.map { it.version })
         }
+
+    // Los tests de JVM corren con `app/` como directorio de trabajo; `comprobarNovedades` aplica las mismas reglas.
+    @Test
+    fun `las novedades empaquetadas en distribution pasan el parseo de la app`() {
+        val carpeta = listOf("../distribution/novedades", "distribution/novedades").map(::File).first { it.isDirectory }
+        val jsons = carpeta.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
+        assertTrue("No hay JSON de novedades en ${carpeta.absolutePath}", jsons.isNotEmpty())
+        jsons.forEach { f ->
+            val n = FuenteNovedadesAssets.parsear(f.readText(Charsets.UTF_8), f.nameWithoutExtension)
+            assertNotNull("${f.name} lo rechaza la app (versión, título, 3 a 5 líneas de 90 como mucho)", n)
+        }
+    }
 }

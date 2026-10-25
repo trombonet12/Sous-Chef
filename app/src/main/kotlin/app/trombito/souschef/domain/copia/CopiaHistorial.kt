@@ -1,8 +1,10 @@
 package app.trombito.souschef.domain.copia
 
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.MAX_NOTA
 import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.SlugReceta
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -18,7 +20,6 @@ object CopiaHistorial {
 
     /** Entradas (y preferencias) que admite una copia; más es un archivo sospechoso y se rechaza entero. */
     const val MAX_ENTRADAS = 5000
-    const val MAX_NOTA = 160
     const val MAX_TITULO = 120
     const val MAX_PASOS = 200
     const val RACIONES_MIN = 1
@@ -157,12 +158,10 @@ private fun EntradaHistorial.aDto() =
         pasosReales.map { PasoDto(it.id, it.t, it.segundos) },
     )
 
-private val SLUG_VALIDO = Regex("^[a-z0-9-]{1,64}$")
-
 private fun slugValido(
     slug: String,
     slugsValidos: Set<String>,
-) = SLUG_VALIDO.matches(slug) && slug in slugsValidos
+) = SlugReceta.valido(slug) && slug in slugsValidos
 
 private fun fechaValida(fecha: String) = runCatching { LocalDate.parse(fecha) }.isSuccess
 
@@ -192,7 +191,7 @@ private fun EntradaDto.validar(slugsValidos: Set<String>): EntradaHistorial? {
             tecnica,
             raciones,
             minutosReales,
-            nota?.trim()?.take(CopiaHistorial.MAX_NOTA)?.ifBlank { null },
+            nota?.trim()?.take(MAX_NOTA)?.ifBlank { null },
             pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
         )
     } else {
