@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.voz.OrdenVoz
+import app.trombito.souschef.ui.crono.voz.GruposOrdenesVoz
 
 /** 10. Interruptor de la voz y botón «Probar»: el chef habla, se escucha una vez y se enseña lo entendido. */
 @Composable
@@ -62,15 +63,6 @@ internal fun PaginaVoz(
     }
 }
 
-private val GRUPOS_ORDENES =
-    listOf(
-        R.string.intro_voz_g_avanzar to R.string.intro_voz_g_avanzar_texto,
-        R.string.intro_voz_g_tiempo to R.string.intro_voz_g_tiempo_texto,
-        R.string.intro_voz_g_preguntar to R.string.intro_voz_g_preguntar_texto,
-        R.string.intro_voz_g_alarma to R.string.intro_voz_g_alarma_texto,
-        R.string.intro_voz_g_carril to R.string.intro_voz_g_carril_texto,
-    )
-
 /** Las órdenes que entiende el intérprete, agrupadas y con un ejemplo dicho de cada una. */
 @Composable
 private fun OrdenesDisponibles() {
@@ -80,16 +72,7 @@ private fun OrdenesDisponibles() {
             Modifier.semantics { heading() },
             style = MaterialTheme.typography.titleLarge,
         )
-        GRUPOS_ORDENES.forEach { (titulo, texto) ->
-            Column {
-                Text(
-                    stringResource(titulo),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Text(stringResource(texto), style = MaterialTheme.typography.bodyMedium)
-            }
-        }
+        GruposOrdenesVoz(MaterialTheme.colorScheme.primary)
     }
 }
 

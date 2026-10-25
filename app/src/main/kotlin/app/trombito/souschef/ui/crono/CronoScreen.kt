@@ -7,14 +7,9 @@ import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -57,15 +52,6 @@ fun CronoScreen(
     MantenerPantallaEncendida()
     BarraDeEstadoDelCrono()
     EncenderPantallaConAvisos()
-    val snackbar = remember { SnackbarHostState() }
-    val mensajeGuardado = stringResource(R.string.crono_guardado)
-    val accionDeshacer = stringResource(R.string.crono_deshacer)
-    LaunchedEffect(ui.cierrePendiente) {
-        if (ui.cierrePendiente) {
-            val r = snackbar.showSnackbar(mensajeGuardado, accionDeshacer, duration = SnackbarDuration.Indefinite)
-            if (r == SnackbarResult.ActionPerformed) viewModel.deshacerCierre()
-        }
-    }
     AvisarAlSalirDeLaVista(viewModel)
     val pedirMicrofono = permisoDeMicrofono(ui.voz, viewModel)
     LaunchedEffect(ui.salida) { if (ui.salida) onSalir() }
@@ -79,7 +65,6 @@ fun CronoScreen(
                 val contenido = if (guiaActiva) Modifier.clearAndSetSemantics {} else Modifier
                 Box(contenido.fillMaxSize()) { Contenido(ui, viewModel, onSalir, onTecnica, pedirMicrofono) }
                 if (mostrarGuia(ui)) GuiaCocina(guia, viewModel::marcarGuiaVista)
-                SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
                 ui.conflicto?.let { DialogoOtraCocinada(it, viewModel) }
             }
         }
@@ -123,11 +108,11 @@ private fun Contenido(
         }
 
         ui.cierrePendiente -> {
-            CierreGuardado(viewModel::deshacerCierre)
+            CierreGuardado(segundosParaGuardar(ui), viewModel::deshacerCierre, viewModel::confirmarCierre)
         }
 
         resumen != null -> {
-            CronoCierre(receta, estado, resumen, viewModel::cerrar)
+            CronoCierre(receta, estado, resumen, ui.notas.firstOrNull()?.nota, viewModel::cerrar)
         }
 
         estado.inicioMs == null -> {

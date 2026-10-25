@@ -36,6 +36,8 @@ import app.trombito.souschef.ui.ajustes.SelectorDisposicion
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.crono.guia.GuiaIds
 import app.trombito.souschef.ui.crono.guia.guia
+import app.trombito.souschef.ui.crono.voz.ColoresOrdenesVoz
+import app.trombito.souschef.ui.crono.voz.HojaOrdenesVoz
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 
@@ -68,6 +70,7 @@ fun CronoCocina(
     var abandonar by remember { mutableStateOf(false) }
     var diagrama by remember { mutableStateOf(false) }
     var interfaz by remember { mutableStateOf(false) }
+    var ordenes by remember { mutableStateOf(false) }
     BackHandler { salidas.salir() }
     val acciones =
         AccionesCarril(
@@ -87,6 +90,7 @@ fun CronoCocina(
                 abandonar = { abandonar = true },
                 diagrama = { diagrama = true },
                 interfaz = { interfaz = true },
+                ordenesVoz = { ordenes = true },
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
         CuerpoCrono(
@@ -105,6 +109,7 @@ fun CronoCocina(
     if (interfaz) {
         DialogoInterfaz(ui.disposicion, onElegir = viewModel::elegirDisposicion) { interfaz = false }
     }
+    if (ordenes) HojaOrdenesCocina { ordenes = false }
     if (abandonar) {
         DialogoAbandonar(
             onSi = {
@@ -114,6 +119,12 @@ fun CronoCocina(
             onNo = { abandonar = false },
         )
     }
+}
+
+/** La hoja de órdenes de voz con los colores (siempre oscuros) de la cocina. */
+@Composable
+private fun HojaOrdenesCocina(onCerrar: () -> Unit) {
+    HojaOrdenesVoz(onCerrar, ColoresOrdenesVoz(CronoPalette.carta, CronoPalette.texto, CronoPalette.acento))
 }
 
 /** La hoja del porqué se cierra sola cuando el carril cambia de paso. */
@@ -240,11 +251,12 @@ internal class AccionesMenu(
     val abandonar: () -> Unit,
     val diagrama: () -> Unit,
     val interfaz: () -> Unit,
+    val ordenesVoz: () -> Unit = {},
 )
 
 /**
- * Menú de tres puntos: diagrama de tiempos, reiniciar (doble toque, el primero pide confirmación) y abandonar (con
- * diálogo).
+ * Menú de tres puntos: diagrama de tiempos, órdenes de voz, reiniciar (doble toque, el primero pide confirmación) y
+ * abandonar (con diálogo).
  */
 @Composable
 private fun MenuCocina(
@@ -270,6 +282,13 @@ private fun MenuCocina(
                 onClick = {
                     abierto = false
                     menu.interfaz()
+                },
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.crono_ordenes_voz), color = CronoPalette.texto) },
+                onClick = {
+                    abierto = false
+                    menu.ordenesVoz()
                 },
             )
             DropdownMenuItem(

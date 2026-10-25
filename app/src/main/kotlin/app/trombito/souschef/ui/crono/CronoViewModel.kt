@@ -75,6 +75,8 @@ data class CronoUi(
     val resumen: ResumenCrono? = null,
     /** El cierre está hecho pero sin confirmar: ventana de [VENTANA_DESHACER_MS] para deshacer. */
     val cierrePendiente: Boolean = false,
+    /** Instante en que vence la ventana de deshacer (para la cuenta atrás); null si no hay cierre pendiente. */
+    val cierreHastaMs: Long? = null,
     /** La pantalla debe cerrarse (cierre guardado). */
     val salida: Boolean = false,
     /** Técnicas de la receta que existen: slug a título (enlaces de "Ver el porqué"). */
@@ -480,7 +482,8 @@ class CronoViewModel
                 cadena.reprogramar()
                 _ui.update { it.copy(salida = true) }
             }
-            _ui.update { it.copy(cierrePendiente = true) }
+            val ahora = reloj.ahoraMs()
+            _ui.update { it.copy(cierrePendiente = true, cierreHastaMs = ahora + VENTANA_DESHACER_MS, ahoraMs = ahora) }
             voz.reevaluar()
             cadena.cerrado(slug)
             jobCierre =
@@ -495,7 +498,7 @@ class CronoViewModel
             jobCierre?.cancel()
             jobCierre = null
             cierre = null
-            _ui.update { it.copy(cierrePendiente = false) }
+            _ui.update { it.copy(cierrePendiente = false, cierreHastaMs = null) }
             voz.reevaluar()
         }
 

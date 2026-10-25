@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cierre de la cocinada: ventana para deshacer -->
+    <string name="crono_se_guarda_en">Se guarda en %1$d s</string>
+    <string name="crono_se_guarda_pronto">Se guarda en unos segundos</string>
+    <string name="crono_guardar_ya">Guardar y salir ya</string>
+    <string name="crono_a11y_guardar_ya">Guardar la cocinada ahora y salir</string>
+
+    <!-- Cierre: tiempo real frente al previsto -->
+    <string name="crono_real_previsto_mas">Real %1$d min · previsto %2$d (+%3$d)</string>
+    <string name="crono_real_previsto_menos">Real %1$d min · previsto %2$d (−%3$d)</string>
+    <string name="crono_real_previsto_igual">Real %1$d min · previsto %2$d</string>
+    <string name="crono_nota_anterior">La última vez: %1$s</string>
+
+    <!-- Órdenes de voz -->
+    <string name="voz_ordenes_titulo">Qué puedes decirle al Chef</string>
+    <string name="voz_ordenes_ajustes_detalle">Las órdenes que entiende la cocina.</string>
+    <string name="crono_ordenes_voz">Órdenes de voz</string>
+</resources>

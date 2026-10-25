@@ -230,7 +230,6 @@
     <string name="crono_listo_emplata">%1$s, listo. Emplata y llévalo antes de que pierda temperatura.</string>
     <string name="crono_resumen_carril">%1$s · %2$d pasos · %3$d min</string>
     <string name="crono_de_fuego">" de fuego"</string>
-    <string name="crono_has_tardado">Has tardado %1$d min desde que abriste la cocina</string>
     <string name="crono_servido_previsto">SERVIDO %1$s, previsto %2$s</string>
     <string name="crono_proxima_vez">Para la próxima vez (opcional)</string>
     <string name="crono_ya_esta">Ya está, a la mesa</string>
@@ -255,7 +254,6 @@
     <string name="crono_ya_cocinando">Ya estás cocinando %1$s. ¿Abandonarla?</string>
     <string name="crono_pantalla_aviso">Los avisos no pueden encender la pantalla bloqueada.</string>
     <string name="crono_pantalla_ajustes">Permitir</string>
-    <string name="crono_guardado">Cocinada guardada en el historial</string>
     <string name="crono_deshacer">Deshacer</string>
     <string name="crono_tecnica_enlace">Técnica: %1$s →</string>
     <string name="crono_porque_hitos">Hitos</string>

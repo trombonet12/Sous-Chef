@@ -13,6 +13,9 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -24,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.DisposicionCrono
+import app.trombito.souschef.ui.crono.voz.HojaOrdenesVoz
 
 @Composable
 fun AjustesCronoScreen(
@@ -68,7 +72,30 @@ internal fun AjustesCrono(
             }
             Switch(checked = ajustes.vozActiva, onCheckedChange = null)
         }
+        var ordenes by remember { mutableStateOf(false) }
+        FilaOrdenesVoz { ordenes = true }
         FilaRepetirGuia(ajustes.guiaCronoVista, onRepetirGuia)
+        if (ordenes) HojaOrdenesVoz(onCerrar = { ordenes = false })
+    }
+}
+
+/** «Qué puedes decirle al Chef»: abre la hoja con las órdenes de voz. */
+@Composable
+internal fun FilaOrdenesVoz(onAbrir: () -> Unit) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .testTag("ajustes-ordenes-voz")
+            .clickable(role = Role.Button, onClick = onAbrir)
+            .padding(vertical = 8.dp),
+    ) {
+        Text(stringResource(R.string.voz_ordenes_titulo), style = MaterialTheme.typography.titleMedium)
+        Text(
+            stringResource(R.string.voz_ordenes_ajustes_detalle),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
