@@ -122,6 +122,9 @@ a mano, en Play Console.
   Historial). La copia de seguridad de Android no sirve: `allowBackup` está desactivado y no guarda nada de la app.
 
 ## Problemas típicos
+- Jobs del CI al publicar: `release` compila y firma con `contents: read` (es el único que ve el keystore);
+  `github-release` crea el tag y la release con `contents: write`, sin checkout ni keystore, a partir de un artifact;
+  `play` espera a ambos. Si falla `github-release`, no se sube nada a Play y se puede relanzar el workflow.
 - Si falla la subida a Play, la release de GitHub ya está hecha. En la ejecución de Actions, «Re-run failed jobs»
   repite solo el job `play` (el AAB se guarda 7 días como artefacto). Si no, sube a mano el AAB adjunto a la release.
 - `Only releases with status draft may be created on draft app`: falta poner `PLAY_ESTADO=draft`, o la app sigue en
