@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.buzon
 
+import app.trombito.souschef.domain.VersionFija
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
@@ -27,7 +28,7 @@ class BuzonViewModelTest {
     fun editarCambiaElFormularioYLosAjustesLlegan() =
         runTest(UnconfinedTestDispatcher()) {
             val repo = FakeAjustesRepo()
-            val vm = BuzonViewModel(repo)
+            val vm = BuzonViewModel(repo, VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.ajustes.collect {} }
             assertEquals(FormularioBuzon(), vm.formulario.value)
 

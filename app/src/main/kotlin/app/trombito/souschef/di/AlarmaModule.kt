@@ -2,11 +2,13 @@ package app.trombito.souschef.di
 
 import app.trombito.souschef.data.alarma.AlarmaSistemaAndroid
 import app.trombito.souschef.data.alarma.NotificadorAndroid
+import app.trombito.souschef.data.aviso.AvisadorAndroid
 import app.trombito.souschef.domain.CronoEstadoRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.crono.AlarmaSistema
 import app.trombito.souschef.domain.crono.AlmacenCrono
+import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.crono.Notificador
 import dagger.Binds
@@ -40,4 +42,6 @@ abstract class AlarmaBindingsModule {
     @Binds abstract fun alarmaSistema(impl: AlarmaSistemaAndroid): AlarmaSistema
 
     @Binds abstract fun notificador(impl: NotificadorAndroid): Notificador
+
+    @Binds abstract fun avisador(impl: AvisadorAndroid): Avisador
 }

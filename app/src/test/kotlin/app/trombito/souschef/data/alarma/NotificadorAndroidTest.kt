@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.PowerManager
 import androidx.test.core.app.ApplicationProvider
 import app.trombito.souschef.domain.Ajustes
+import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.crono.ConstructorCarriles
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.ResumenCocina
@@ -51,7 +52,7 @@ class NotificadorAndroidTest {
     fun preparar() {
         contexto = ApplicationProvider.getApplicationContext<Context>()
         gestor = contexto.getSystemService(NotificationManager::class.java)
-        notificador = NotificadorAndroid(contexto, ajustes).apply { puedePantallaCompleta = { true } }
+        notificador = NotificadorAndroid(contexto, ajustes, Reloj.Sistema).apply { puedePantallaCompleta = { true } }
     }
 
     private fun resumen(urgente: String? = null) =
@@ -151,7 +152,7 @@ class NotificadorAndroidTest {
         runTest {
             // Proceso recién arrancado (alarma con el proceso muerto): sin caché previa, lee la cocina real de Ajustes.
             ajustes.actual.value = Ajustes(cocina = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))
-            val frio = NotificadorAndroid(contexto, ajustes)
+            val frio = NotificadorAndroid(contexto, ajustes, Reloj.Sistema)
             val lineas = AlarmaActiva(System.currentTimeMillis(), listOf(LineaAlarma("f0", "F0: Baja al {3}: hecho")))
             frio.alarma("r", "Receta r", lineas, sonar = true, urgente = null)
             assertEquals(

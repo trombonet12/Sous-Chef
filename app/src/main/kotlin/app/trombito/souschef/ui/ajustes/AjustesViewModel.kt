@@ -8,6 +8,7 @@ import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.domain.VersionApp
 import app.trombito.souschef.domain.copia.GestorCopia
 import app.trombito.souschef.domain.copia.ResultadoCopia
 import app.trombito.souschef.receta.Cocina
@@ -27,9 +28,13 @@ class AjustesViewModel
     constructor(
         private val ajustes: AjustesRepo,
         private val copias: GestorCopia,
+        versionApp: VersionApp,
     ) : ViewModel() {
         val estado: StateFlow<Ajustes> =
             ajustes.observar().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), Ajustes())
+
+        /** Versión instalada, para el menú de Ajustes y Acerca de. */
+        val version: String = versionApp.nombre
 
         private val _copia = MutableStateFlow<ResultadoCopia?>(null)
 

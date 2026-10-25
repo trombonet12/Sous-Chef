@@ -46,7 +46,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.ajustes.PantallaAjustes
 import app.trombito.souschef.ui.ajustes.resumenCocina
-import app.trombito.souschef.ui.ajustes.versionApp
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
@@ -70,7 +69,7 @@ fun BuzonScreen(
     val formulario by viewModel.formulario.collectAsStateWithLifecycle()
     val ajustes by viewModel.ajustes.collectAsStateWithLifecycle()
     val contexto = LocalContext.current
-    val version = versionApp()
+    val version = viewModel.version
     val cocina = resumenCocina(ajustes)
     val datos =
         remember(version, cocina) {

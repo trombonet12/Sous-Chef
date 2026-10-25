@@ -16,6 +16,7 @@ import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.domain.claveNovedades
 import app.trombito.souschef.domain.crono.AlarmaSistema
+import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.Notificador
 import app.trombito.souschef.domain.crono.ResumenCocina

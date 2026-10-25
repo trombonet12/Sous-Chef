@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
+import app.trombito.souschef.domain.VersionApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +20,11 @@ class BuzonViewModel
     @Inject
     constructor(
         ajustes: AjustesRepo,
+        versionApp: VersionApp,
     ) : ViewModel() {
+        /** Versión instalada, para el pie del correo. */
+        val version: String = versionApp.nombre
+
         private val _formulario = MutableStateFlow(FormularioBuzon())
         val formulario: StateFlow<FormularioBuzon> = _formulario.asStateFlow()
 

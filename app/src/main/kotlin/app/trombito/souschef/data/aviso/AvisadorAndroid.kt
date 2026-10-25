@@ -1,4 +1,4 @@
-package app.trombito.souschef.ui.crono
+package app.trombito.souschef.data.aviso
 
 import android.content.Context
 import android.media.AudioManager
@@ -7,25 +7,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.receta.crono.TipoAviso
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 /** Sonido y vibración con la app en primer plano (docs/spec/app-legado.md §4.11). */
-interface Avisador {
-    fun sonar(tipo: TipoAviso)
-
-    /** Triple pitido al volver de segundo plano con avisos perdidos. */
-    fun resumen()
-
-    /** Triple pitido de "todo listo". */
-    fun cierre()
-}
-
 class AvisadorAndroid
     @Inject
     constructor(
@@ -87,9 +74,3 @@ class AvisadorAndroid
             const val LIBERAR_MS = 800L
         }
     }
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class AvisadorModule {
-    @Binds abstract fun avisador(impl: AvisadorAndroid): Avisador
-}

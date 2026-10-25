@@ -17,6 +17,7 @@ import androidx.core.net.toUri
 import app.trombito.souschef.MainActivity
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.AjustesRepo
+import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.crono.CarrilNotificacion
 import app.trombito.souschef.domain.crono.IdsNotificacion
 import app.trombito.souschef.domain.crono.Notificador
@@ -48,6 +49,7 @@ class NotificadorAndroid
     constructor(
         @ApplicationContext private val context: Context,
         private val ajustes: AjustesRepo,
+        private val reloj: Reloj,
     ) : Notificador {
         private val gestor = context.getSystemService(NotificationManager::class.java)
         private var canalesListos = false
@@ -82,7 +84,7 @@ class NotificadorAndroid
                 return
             }
             crearCanales()
-            val ahora = System.currentTimeMillis()
+            val ahora = reloj.ahoraMs()
             // El tope es el de la alarma entera: una actualización en silencio no alarga lo que queda de sonido.
             val restante = (AgrupadorAlarmas.VENTANA_MS - (ahora - alarma.inicioMs)).coerceAtLeast(TIMEOUT_MINIMO_MS)
             val cocina = cocinaDelUsuario()

@@ -16,10 +16,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -28,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
-import app.trombito.souschef.data.novedades.VersionAppAndroid
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
@@ -68,7 +65,7 @@ fun AjustesScreen(
     viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    AjustesMenu(ajustes, versionApp(), onAtras, onAbrir, onBuzon)
+    AjustesMenu(ajustes, viewModel.version, onAtras, onAbrir, onBuzon)
 }
 
 /** Menú sin ViewModel: estado y versión llegan hechos. */
@@ -216,10 +213,3 @@ private fun nombreDisposicion(d: DisposicionCrono): String =
             DisposicionCrono.CLASICA -> R.string.ajustes_resumen_clasica
         },
     )
-
-/** Versión instalada (el proyecto no genera BuildConfig, así que se lee del paquete). */
-@Composable
-internal fun versionApp(): String {
-    val contexto = LocalContext.current
-    return remember(contexto) { VersionAppAndroid.leer(contexto) }
-}

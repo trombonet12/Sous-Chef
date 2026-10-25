@@ -5,6 +5,7 @@ import app.trombito.souschef.domain.DisposicionCrono
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.TemaApp
+import app.trombito.souschef.domain.VersionFija
 import app.trombito.souschef.domain.copia.ArchivoCopia
 import app.trombito.souschef.domain.copia.GestorCopia
 import app.trombito.souschef.receta.Cocina
@@ -38,7 +39,7 @@ class AjustesViewModelTest {
     @Test
     fun reflejaLosCambiosDelRepositorio() =
         runTest(UnconfinedTestDispatcher()) {
-            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos(), VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
             assertEquals(Ajustes(), vm.estado.value)
 
@@ -54,7 +55,7 @@ class AjustesViewModelTest {
     @Test
     fun elegirTemaYHoraTarjetaSeGuardan() =
         runTest(UnconfinedTestDispatcher()) {
-            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos(), VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             vm.elegirTema(TemaApp.OSCURO)
@@ -67,7 +68,7 @@ class AjustesViewModelTest {
     @Test
     fun cocinaFuegosHornoYRacionesSeGuardan() =
         runTest(UnconfinedTestDispatcher()) {
-            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos(), VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
             val gas = Cocina(TipoCocina.GAS, Mando.ANALOGICO, null)
 
@@ -86,7 +87,7 @@ class AjustesViewModelTest {
     @Test
     fun marcarIntroYGuiaVistasYRepetirlas() =
         runTest(UnconfinedTestDispatcher()) {
-            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos(), VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
             vm.marcarIntroVista(true)
@@ -103,7 +104,7 @@ class AjustesViewModelTest {
     @Test
     fun ajustarServirMueveDeQuinceEnQuinceYDaLaVueltaAMedianoche() =
         runTest(UnconfinedTestDispatcher()) {
-            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos())
+            val vm = AjustesViewModel(FakeAjustesRepo(), copiasSinArchivos(), VersionFija("1.7.0"))
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
             assertEquals(15 * 60 + 30, vm.estado.value.servirMin)
 

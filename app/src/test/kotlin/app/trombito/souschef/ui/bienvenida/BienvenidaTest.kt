@@ -76,6 +76,7 @@ class BienvenidaTest {
                 },
                 RelojFalso(),
             ),
+            VersionFija("1.7.0"),
         )
 
     private fun demoVm() =

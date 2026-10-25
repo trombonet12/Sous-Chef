@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.shell.Icono
 
@@ -42,9 +43,10 @@ fun AjustesAcercaScreen(
     onAtras: () -> Unit,
     onIntro: () -> Unit = {},
     onNovedades: () -> Unit = {},
+    viewModel: AjustesViewModel = hiltViewModel(),
 ) {
     val contexto = LocalContext.current
-    val version = versionApp()
+    val version = viewModel.version
     val asunto = stringResource(R.string.ajustes_contacto_asunto, version)
     AjustesAcerca(
         version = version,

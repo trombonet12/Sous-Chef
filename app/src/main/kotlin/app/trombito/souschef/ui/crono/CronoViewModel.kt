@@ -11,6 +11,7 @@ import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
+import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.entradaDe
 import app.trombito.souschef.domain.notasDe
