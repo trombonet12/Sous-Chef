@@ -2,7 +2,7 @@
 
 - Estado: aceptado
 - Fecha: 2026-10-17
-- Relacionado: `docs/decisiones.md` § 2026-10-17 · Ronda 6, sustituye a [ADR-0002](0002-supabase-compartido-esquema-sous-chef.md) y [ADR-0004](0004-sync-outbox-lww.md), revisa [ADR-0003](0003-el-repo-manda-en-las-recetas.md), [arquitectura](../arquitectura.md)
+- Relacionado: `docs/decisiones.md` § 2026-10-17 · Ronda 6, sustituye a [ADR-0002](0002-supabase-compartido-esquema-sous-chef.md) y [ADR-0004](0004-sync-outbox-lww.md), revisa [ADR-0003](0003-el-repo-manda-en-las-recetas.md), ampliado por [ADR-0015](0015-copia-automatica-del-historial-en-carpeta-saf.md) (copia automática en una carpeta SAF), [arquitectura](../arquitectura.md)
 
 ## Contexto
 - El MVP local-first (2026-10-14) funciona entero sin backend. Las recetas y técnicas van empaquetadas en el APK desde

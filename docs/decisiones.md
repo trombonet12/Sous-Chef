@@ -421,4 +421,10 @@
 - **Equipo** (R29): el horno se deriva de los carriles; batidora, microondas y plancha se declaran en `tags.equipo`.
 - **Desvío**: un solo tipo (`DesvioPaso`) y el total previsto se redondea con `ceil` en todas partes.
 - **Gate**: sin `maxParallelForks`, porque con forks tardaba más (`docs/testing.md`).
+- **ADR-0015 (copia automática)** sustituye al «sin carpeta automática» de la ronda 9: carpeta SAF elegida una vez,
+  un archivo nuevo por cocinada cerrada en firme, se conservan los 5 últimos (las copias manuales no rotan).
+- **ADR-0016 (temporizador libre y «Avísame para empezar»)**: libres de 1 a 180 min, como mucho 3 a la vez; un libre
+  pendiente mantiene viva la cocinada (la regla sigue en `SesionCrono.vivo` y caduca a las 12 h). El recordatorio usa
+  `setAlarmClock` con `USE_EXACT_ALARM` (es el «toca empezar» del temporizador de cocina); si Play no lo admite,
+  `setAndAllowWhileIdle` 10 min antes. Tras un reinicio avisa si la hora pasó hace ≤ 10 min; si no, se borra.
 

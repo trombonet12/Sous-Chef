@@ -1,6 +1,6 @@
 # Arquitectura
 
-> Propósito: describir la arquitectura de Sous Chef, sus componentes y fronteras · Audiencia: desarrolladores y agentes · Actualizado: 2026-10-24 · Relacionado: docs/adr/, docs/herramientas.md, docs/spec/app-legado.md
+> Propósito: describir la arquitectura de Sous Chef, sus componentes y fronteras · Audiencia: desarrolladores y agentes · Actualizado: 2026-10-25 · Relacionado: docs/adr/, docs/herramientas.md, docs/spec/app-legado.md
 
 ## Resumen
 Sous Chef es una app Android personal de recetas cronometradas que funciona solo en local ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)). Las recetas se escriben y validan en este repo con Claude Code, y viajan empaquetadas en el APK desde `data/`. La app lee recetas y técnicas, guarda historial, preferencias y ajustes en Room, y ejecuta el cronómetro con alarmas del sistema. No hay backend, sync ni login, y la app no usa la red: no pide permisos de Internet ([ADR-0011](adr/0011-sin-aviso-de-version-nueva.md)). Las actualizaciones obligatorias las fuerza Play con la API In-App Updates, sin permiso de red ([ADR-0013](adr/0013-actualizacion-obligatoria-desde-play.md)). **Estado:** descripción de la arquitectura actual; se implementa por fases (`docs/fases/`).
@@ -56,20 +56,43 @@ sequenceDiagram
 
 ### Historial y preferencias
 1. La UI escribe directamente en Room. No hay red, cola ni sincronización.
-2. Si se pierde el móvil sin copia de seguridad, se pierde el historial. El historial solo se conserva con la copia manual de Ajustes → Historial ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md)).
+2. El historial se conserva fuera de la app con la copia de Ajustes → Historial: manual («Guardar copia») o automática en una carpeta elegida con SAF ([ADR-0007](adr/0007-app-solo-local-sin-supabase.md), ampliado por [ADR-0015](adr/0015-copia-automatica-del-historial-en-carpeta-saf.md)). Sin carpeta elegida ni copia manual, si se pierde el móvil se pierde el historial.
+
+### Copia automática del historial
+1. La carpeta se elige una vez (`OpenDocumentTree` + permiso persistente). Sin permisos de almacenamiento ni red. La URI se guarda en `meta` y no va al log.
+2. Cuando una cocinada queda cerrada en firme, pasado el «Deshacer», una corrutina en `@ApplicationScope` escribe un archivo nuevo `souschef-historial-AAAAMMDD-HHmm.json` (copia v2) con `EscrituraSegura`, lo relee y solo entonces borra los más viejos. Quedan los 5 últimos.
+3. Si la carpeta deja de valer, la app enseña un aviso. Ajustes dice «Última copia: hace N días». Restaurar sigue siendo manual con «Cargar copia» ([ADR-0015](adr/0015-copia-automatica-del-historial-en-carpeta-saf.md)).
+
+```mermaid
+sequenceDiagram
+  participant C as Cierre de la cocinada
+  participant G as Copia automática (ApplicationScope)
+  participant D as Carpeta SAF
+  C->>G: cerrada en firme (pasado el «Deshacer»)
+  G->>G: copia v2 y validación con el lector de «Cargar»
+  G->>D: crea un archivo nuevo y escribe
+  G->>D: relee el archivo nuevo
+  alt se lee bien
+    G->>D: borra los más viejos (quedan 5)
+  else falla
+    G->>D: borra el nuevo y no rota
+  end
+```
 
 ### Cocinar con alarmas
 1. "Abrir la cocina" pide `POST_NOTIFICATIONS` y crea el estado del crono en Room (`finAt` en reloj de pared).
 2. El motor calcula el próximo evento y se programa **una** alarma `setAlarmClock`.
 3. Al saltar, el receiver recarga Room, emite lo vencido (hitos con más de 90 s de retraso se marcan sin sonar) y programa la siguiente.
 4. Si el proceso muere o el móvil reinicia, `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `TIME_SET` o `TIMEZONE_CHANGED` reprograman la cadena ([ADR-0005](adr/0005-cronometro-alarmas-sin-fgs.md)).
+5. Los temporizadores libres («+ Temporizador» o «Chef, pon N minutos») van en `EstadoCrono.libres`, fuera de `Plano`, de los fuegos y de `pasosReales`. Avisan por la misma cadena y la misma alarma agrupada. Un libre sin avisar mantiene viva la cocinada ([ADR-0016](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md)).
+6. «Avísame para empezar» arma una alarma propia (requestCode 4102) a la hora de empezar de la receta. Su estado está en `meta` y lo reprograman los mismos receivers. Avisa con una notificación normal que abre la ficha, no cuenta como cocinada viva y se cancela al abrir la cocina ([ADR-0016](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md)).
 
 La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las casillas y lo guardado usan la receta canónica ([ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)).
 
 ### Cocinado a historial
 1. Al terminar, el motor produce el resumen con `pasosReales`; la persona añade una nota.
 2. Se escribe una fila de `historial` en Room con id `slug-fecha-HHMMSS`.
-3. Se muestra "Deshacer" durante 8 s. El estado del crono se borra (solo local).
+3. Se muestra "Deshacer" durante 12 s. El estado del crono se borra (solo local).
 4. La nota vuelve a salir como «La última vez» en la ficha de esa receta y en la portada del cronómetro (`notasDe` en `domain/NotaCocinada.kt`, leída del historial; sin tabla nueva). Los títulos de `pasosReales` se guardan canónicos, con `{N}`.
 
 ## Límites de componentes
@@ -104,9 +127,9 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0002 Supabase compartido, esquema `sous_chef`](adr/0002-supabase-compartido-esquema-sous-chef.md) (sustituido por ADR-0007)
 - [ADR-0003 El repo manda en las recetas](adr/0003-el-repo-manda-en-las-recetas.md) (revisado por ADR-0007)
 - [ADR-0004 Sync outbox y LWW](adr/0004-sync-outbox-lww.md) (sustituido por ADR-0007)
-- [ADR-0005 Cronómetro con alarmas, sin FGS](adr/0005-cronometro-alarmas-sin-fgs.md)
+- [ADR-0005 Cronómetro con alarmas, sin FGS](adr/0005-cronometro-alarmas-sin-fgs.md) (anexo: ADR-0016)
 - [ADR-0006 Ficha nativa e impresión HTML](adr/0006-ficha-nativa-e-impresion-html.md)
-- [ADR-0007 Solo local, sin Supabase](adr/0007-app-solo-local-sin-supabase.md) (matizado por ADR-0009 y retirado por ADR-0011)
+- [ADR-0007 Solo local, sin Supabase](adr/0007-app-solo-local-sin-supabase.md) (matizado por ADR-0009 y retirado por ADR-0011; ampliado por ADR-0015)
 - [ADR-0008 Voz en el cronómetro](adr/0008-voz-en-el-cronometro.md)
 - [ADR-0009 Aviso de versión nueva](adr/0009-aviso-de-version-nueva.md) (sustituido por ADR-0011)
 - [ADR-0010 Distribución por Google Play](adr/0010-distribucion-por-google-play.md)
@@ -114,8 +137,11 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0012 Vídeo promocional con Remotion](adr/0012-video-promocional-con-remotion.md)
 - [ADR-0013 Actualización obligatoria desde Play](adr/0013-actualizacion-obligatoria-desde-play.md) (complementa ADR-0011)
 - [ADR-0014 Cocina configurable y potencia marcada](adr/0014-cocina-configurable-y-potencia-marcada.md)
+- [ADR-0015 Copia automática del historial en una carpeta SAF](adr/0015-copia-automatica-del-historial-en-carpeta-saf.md) (amplía ADR-0007)
+- [ADR-0016 Temporizador libre y «Avísame para empezar»](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md) (anexo de ADR-0005)
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente
 - Spike de alarmas (F1) retirado: las alarmas ya están probadas en el móvil; el código de debug se ha borrado.
+- VERIFICAR (ADR-0015 y ADR-0016): ver el Seguimiento de cada ADR (nombres repetidos y `sync()` en SAF; política de Play de `USE_EXACT_ALARM` para el recordatorio).
 - VERIFICAR (ADR-0013): que el manifest fusionado del release no contiene `INTERNET`, y que la pantalla de Play sale al publicar una versión nueva en la pista interna.
