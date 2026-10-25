@@ -523,7 +523,8 @@ class ValidadorTest {
 
     @Test
     fun r29MencionarBatidoraTurmixOMicroondasSinDeclararEsAviso() {
-        val textos = listOf("Tritura con la batidora de mano.", "Pasa el túrmix 2 minutos.", "Derrite en el microondas.")
+        val textos =
+            listOf("Tritura con la batidora de mano.", "Pasa el túrmix 2 minutos.", "Derrite en el microondas.")
         for (t in textos) {
             assertEquals(listOf(Nivel.AVISO), r29(null, t).map { it.nivel }, t)
         }
