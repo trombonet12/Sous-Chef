@@ -57,11 +57,14 @@ fun SousChefNavGraph(
             deepLinks = listOf(navDeepLink { uriPattern = "souschef://ficha/{${Rutas.ARG_SLUG}}" }),
         ) { entrada ->
             val slug = entrada.arguments?.getString(Rutas.ARG_SLUG).orEmpty()
-            FichaScreen(
-                onAtras = { navController.popBackStack() },
-                onTecnica = { navController.navigate(Rutas.tecnica(it)) },
-                onCocinar = { raciones, servir -> navController.navigate(Rutas.crono(slug, raciones, servir)) },
-            )
+            // Solo la entrada desde fuera (deep link o intent) pasa por la puerta; la navegación interna no espera.
+            EntradaReceta(slug, navController, Rutas.FICHA, aplicar = llegadaPorEnlace(entrada.arguments)) {
+                FichaScreen(
+                    onAtras = { navController.popBackStack() },
+                    onTecnica = { navController.navigate(Rutas.tecnica(it)) },
+                    onCocinar = { raciones, servir -> navController.navigate(Rutas.crono(slug, raciones, servir)) },
+                )
+            }
         }
         ajustes(navController)
         bienvenida(navController)

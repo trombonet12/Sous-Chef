@@ -1,5 +1,6 @@
 package app.trombito.souschef
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -18,6 +19,7 @@ import app.trombito.souschef.data.resena.ActividadActual
 import app.trombito.souschef.domain.Ajustes
 import app.trombito.souschef.domain.AjustesRepo
 import app.trombito.souschef.ui.AppNavHost
+import app.trombito.souschef.ui.sanearIntent
 import app.trombito.souschef.ui.theme.SousChefTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -53,6 +55,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition { !listo }
+        // Antes de que Navigation lea el intent de la actividad: sin extras de navegación ni enlaces ajenos.
+        sanearIntent(intent)
         super.onCreate(savedInstanceState)
         actividadActual.fijar(this)
         setContent {
@@ -69,6 +73,11 @@ class MainActivity : ComponentActivity() {
                 Surface { AppNavHost() }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        // Antes del super: es ahí donde Navigation recibe el intent.
+        super.onNewIntent(sanearIntent(intent))
     }
 
     override fun onResume() {

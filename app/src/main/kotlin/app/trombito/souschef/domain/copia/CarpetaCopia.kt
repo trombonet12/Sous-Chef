@@ -4,10 +4,14 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-/** Un archivo dentro de la carpeta elegida: [id] es el documento SAF (opaco) y [nombre] el que ve el usuario. */
+/**
+ * Un archivo dentro de la carpeta elegida: [id] es el documento SAF (opaco) y [nombre] el que ve el usuario. [esCarpeta]
+ * es una subcarpeta, que nunca entra en la rotación aunque se llame como una copia.
+ */
 data class ArchivoEnCarpeta(
     val id: String,
     val nombre: String,
+    val esCarpeta: Boolean = false,
 )
 
 /** Resultado de crear y escribir la copia nueva dentro de la carpeta. */
@@ -87,7 +91,7 @@ object RotacionCopias {
     /**
      * Las copias automáticas de [existentes] que hay que borrar para dejar [conservar] (la nueva, [nuevoId], siempre
      * entre ellas, aunque el reloj hubiera retrocedido), de la más vieja a la más reciente. Se ordena por el sello del
-     * nombre y, a igual sello, por el « (n)». Lo que no tiene nombre automático nunca se toca.
+     * nombre y, a igual sello, por el « (n)». Lo que no tiene nombre automático, o es una subcarpeta, nunca se toca.
      */
     fun aBorrar(
         existentes: List<ArchivoEnCarpeta>,
@@ -96,7 +100,7 @@ object RotacionCopias {
     ): List<ArchivoEnCarpeta> {
         val otras =
             existentes
-                .filter { it.id != nuevoId }
+                .filter { it.id != nuevoId && !it.esCarpeta }
                 .mapNotNull { archivo -> NombresCopiaAuto.orden(archivo.nombre)?.let { archivo to it } }
                 .sortedWith(compareBy({ it.second.first }, { it.second.second }))
                 .map { it.first }

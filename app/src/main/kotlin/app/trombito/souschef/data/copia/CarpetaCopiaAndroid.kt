@@ -100,6 +100,13 @@ class CarpetaCopiaAndroid
                 } catch (e: SecurityException) {
                     Log.w(TAG, "Sin permiso para releer la copia: ${e.javaClass.simpleName}")
                     null
+                } catch (e: IllegalArgumentException) {
+                    // Un proveedor que no entiende la URI: igual que no poder leer, la copia nueva se descarta.
+                    Log.w(TAG, "No se pudo releer la copia: ${e.javaClass.simpleName}")
+                    null
+                } catch (e: UnsupportedOperationException) {
+                    Log.w(TAG, "No se pudo releer la copia: ${e.javaClass.simpleName}")
+                    null
                 }
             }
 
@@ -113,13 +120,15 @@ class CarpetaCopiaAndroid
                         arrayOf(
                             DocumentsContract.Document.COLUMN_DOCUMENT_ID,
                             DocumentsContract.Document.COLUMN_DISPLAY_NAME,
+                            DocumentsContract.Document.COLUMN_MIME_TYPE,
                         )
                     resolver.query(hijos, columnas, null, null, null)?.use { cursor ->
                         buildList {
                             while (cursor.moveToNext()) {
                                 val id = cursor.getString(0) ?: continue
                                 val uri = DocumentsContract.buildDocumentUriUsingTree(arbol, id)
-                                add(ArchivoEnCarpeta(uri.toString(), cursor.getString(1).orEmpty()))
+                                val carpeta = cursor.getString(2) == DocumentsContract.Document.MIME_TYPE_DIR
+                                add(ArchivoEnCarpeta(uri.toString(), cursor.getString(1).orEmpty(), carpeta))
                             }
                         }
                     }

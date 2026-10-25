@@ -109,6 +109,16 @@ class RotacionCopiasTest {
     }
 
     @Test
+    fun unaSubcarpetaConNombreDeCopiaNuncaEntraEnLaRotacion() {
+        val subcarpeta = ArchivoEnCarpeta("dir", "souschef-historial-20200101-0000.json", esCarpeta = true)
+        val autos = (10..15).map { auto("202610$it-0900") }
+        val borrar = RotacionCopias.aBorrar(listOf(subcarpeta) + autos, "nuevo")
+        // Solo compiten las 6 copias de verdad: sobran 2 y la subcarpeta, la más vieja por nombre, no se toca.
+        assertEquals(listOf("20261010-0900.json", "20261011-0900.json"), nombres(borrar))
+        assertTrue(borrar.none { it.esCarpeta })
+    }
+
+    @Test
     fun laNuevaNuncaSeBorraAunqueElRelojHayaRetrocedido() {
         val nueva = auto("20200101-0000")
         val existentes = (10..14).map { auto("202610$it-0900") } + nueva
