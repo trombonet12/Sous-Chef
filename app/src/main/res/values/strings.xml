@@ -255,7 +255,7 @@
     <string name="crono_pantalla_aviso">Los avisos no pueden encender la pantalla bloqueada.</string>
     <string name="crono_pantalla_ajustes">Permitir</string>
     <string name="crono_deshacer">Deshacer</string>
-    <string name="crono_tecnica_enlace">Técnica: %1$s →</string>
+    <string name="crono_tecnica_enlace">Técnica: %1$s</string>
     <string name="crono_porque_hitos">Hitos</string>
     <string name="crono_canal_alarma">Alarma del cronómetro</string>
     <string name="crono_canal_cocina">Cocina en marcha</string>
