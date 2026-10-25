@@ -61,16 +61,16 @@ class RecetasViewModel
             combine(
                 recetas.observarTodas(),
                 preferencias.observarTodas(),
-                historial.observarUltimaFechaPorSlug(),
+                combine(historial.observarUltimaFechaPorSlug(), historial.observarTodo()) { u, t -> u to t },
                 filtro,
                 ajustesYHora(),
-            ) { r, p, h, f, (a, ahoraMs) ->
+            ) { r, p, (ultimas, entradas), f, (a, ahoraMs) ->
                 construirEstadoRecetas(
                     r,
                     p,
-                    h,
+                    ultimas,
                     f.copy(orden = a.orden),
-                    contextoLista(a, ahoraMs),
+                    contextoLista(a, ahoraMs, ritmosPorSlug(r, entradas)),
                 ).copy(disposicion = a.lista)
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
 
@@ -152,6 +152,7 @@ private const val MIN_HORA = 60
 private fun contextoLista(
     a: Ajustes,
     ahoraMs: Long,
+    ritmos: Map<String, Int>,
 ): ContextoLista {
     val local = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault())
     return ContextoLista(
@@ -161,5 +162,6 @@ private fun contextoLista(
         modo = a.horaTarjeta,
         fuegos = a.fuegos,
         horno = a.horno,
+        ritmos = ritmos,
     )
 }

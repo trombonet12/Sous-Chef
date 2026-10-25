@@ -98,6 +98,8 @@ internal fun aplicarTiempo(
                 llegada = l,
                 hora = l.acabariaMin ?: l.empiezaMin,
                 modoHora = if (l.llega) HoraTarjeta.EMPEZAR else HoraTarjeta.ACABAR,
+                // La hora es la del plan: el ritmo no cuenta aquí.
+                conRitmo = false,
             )
         }
     // sortedWith es estable: dentro de cada grupo se respeta el orden elegido en Ajustes.

@@ -30,9 +30,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.NotaCocinada
+import app.trombito.souschef.ui.recetas.Hace
+import app.trombito.souschef.ui.recetas.texto
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.FichaPalette
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.format.DateTimeParseException
 
 /** Colores de la tarjeta «La última vez»: se pasan de fuera para usarla en la ficha (papel) y en el cronómetro. */
@@ -75,6 +78,7 @@ fun UltimaVez(
     notas: List<NotaCocinada>,
     colores: ColoresUltimaVez,
     modifier: Modifier = Modifier,
+    hoy: LocalDate = LocalDate.now(ZoneOffset.UTC),
 ) {
     if (notas.isEmpty()) return
     var abierta by rememberSaveable { mutableStateOf(false) }
@@ -102,7 +106,7 @@ fun UltimaVez(
             visibles.forEachIndexed { i, n ->
                 Column(Modifier.testTag("ultima-vez-nota-$i")) {
                     Text(n.nota, style = MaterialTheme.typography.bodyMedium, color = colores.texto)
-                    Text(fechaNota(n.fecha), style = MaterialTheme.typography.labelMedium, color = colores.apagado)
+                    Text(fechaNota(n.fecha, hoy), style = MaterialTheme.typography.labelMedium, color = colores.apagado)
                 }
             }
         }
@@ -124,9 +128,12 @@ fun UltimaVez(
     }
 }
 
-/** «12 oct» a partir de una fecha ISO; si no se entiende, la deja tal cual. */
+/** «hace 3 semanas · 12 oct» a partir de una fecha ISO; si no se entiende, la deja tal cual. */
 @Composable
-private fun fechaNota(iso: String): String {
+private fun fechaNota(
+    iso: String,
+    hoy: LocalDate,
+): String {
     val meses = stringArrayResource(R.array.ultima_vez_meses)
     val fecha =
         try {
@@ -134,5 +141,6 @@ private fun fechaNota(iso: String): String {
         } catch (_: DateTimeParseException) {
             return iso
         }
-    return stringResource(R.string.ultima_vez_fecha, fecha.dayOfMonth, meses[fecha.monthValue - 1])
+    val corta = stringResource(R.string.ultima_vez_fecha, fecha.dayOfMonth, meses[fecha.monthValue - 1])
+    return Hace.de(iso, hoy).texto() + SEPARADOR_META + corta
 }

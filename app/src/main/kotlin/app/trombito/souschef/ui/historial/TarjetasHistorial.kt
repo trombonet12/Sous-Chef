@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -34,10 +36,12 @@ import app.trombito.souschef.ui.comun.Tono
 import app.trombito.souschef.ui.comun.fechaCorta
 import app.trombito.souschef.ui.recetas.FamiliaBase
 import app.trombito.souschef.ui.recetas.colorBase
+import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
 private const val MAX_TECNICAS = 3
 private val ALTO_BOTON = 48.dp
+private val ICONO_REPETIR = 18.dp
 
 /** Tarjeta del historial en la disposición elegida en Ajustes, teñida por la familia de la base. */
 @Composable
@@ -197,7 +201,10 @@ private fun AccionesFila(
             TextButton(
                 onClick = onRepetir,
                 modifier = Modifier.heightIn(min = ALTO_BOTON).semantics { contentDescription = descripcionRepetir },
-            ) { Text(stringResource(R.string.historial_repetir)) }
+            ) {
+                Text(stringResource(R.string.historial_repetir))
+                Icon(Icono.Chevron.vector, contentDescription = null, modifier = Modifier.size(ICONO_REPETIR))
+            }
         }
         TextButton(
             onClick = onBorrar,

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Ficha: tu ritmo (v1.6) -->
-    <string name="ficha_ritmo_mas">Tu ritmo: sueles tardar +%1$d min → empieza a las %2$s</string>
-    <string name="ficha_ritmo_menos">Tu ritmo: sueles tardar −%1$d min → empieza a las %2$s</string>
+    <!-- Ficha: tu ritmo (v1.6, redactado de nuevo en v1.7) -->
+    <string name="ficha_ritmo_mas">Sueles tardar %1$d min más: empieza a las %2$s</string>
+    <string name="ficha_ritmo_menos">Sueles tardar %1$d min menos: empieza a las %2$s</string>
+    <string name="ficha_segun_receta">según la receta, %1$s</string>
+    <!-- Tarjeta de la lista: la hora usa el ritmo de la receta -->
+    <string name="lista_con_tu_ritmo">con tu ritmo</string>
 </resources>

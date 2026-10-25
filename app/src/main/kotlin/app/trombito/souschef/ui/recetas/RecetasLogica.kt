@@ -1,10 +1,12 @@
 package app.trombito.souschef.ui.recetas
 
 import app.trombito.souschef.domain.DisposicionLista
+import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.FUEGOS_DEFECTO
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.desvioHabitualMin
 import app.trombito.souschef.domain.esNueva
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Receta
@@ -71,6 +73,8 @@ data class TarjetaReceta(
     val llegada: Llegada? = null,
     /** Sin cocinar y creada hace menos de 30 días (`esNueva`). */
     val nueva: Boolean = false,
+    /** La [hora] ya cuenta el ritmo de Joan en esta receta (`desvioHabitualMin`); la tarjeta lo marca. */
+    val conRitmo: Boolean = false,
 )
 
 /** Cuándo se mira la lista, qué hora enseña cada tarjeta y qué equipo tiene el usuario. */
@@ -84,12 +88,35 @@ data class ContextoLista(
     val fuegos: Int = FUEGOS_DEFECTO,
     /** El usuario tiene horno (Ajustes). */
     val horno: Boolean = true,
+    /** Desvío habitual en minutos por slug (positivo = suele tardar más); solo las recetas con ritmo. */
+    val ritmos: Map<String, Int> = emptyMap(),
 ) {
-    fun hora(r: Receta): Int =
-        when (modo) {
-            HoraTarjeta.EMPEZAR -> Servir.inicio(servirMin, r)
-            HoraTarjeta.ACABAR -> Servir.ajustar(ahoraMin, ceil(r.totalEfectivo).toInt())
+    /** Hora de la tarjeta: con ritmo, empezar antes (o después) lo que Joan suele tardar de más (o de menos). */
+    fun hora(r: Receta): Int {
+        val ritmo = ritmos[r.slug] ?: 0
+        return when (modo) {
+            HoraTarjeta.EMPEZAR -> Servir.ajustar(Servir.inicio(servirMin, r), -ritmo)
+            HoraTarjeta.ACABAR -> Servir.ajustar(ahoraMin, ceil(r.totalEfectivo).toInt() + ritmo)
         }
+    }
+}
+
+/**
+ * Desvío habitual de cada receta con ritmo, en una sola pasada por el historial (sin consultas por tarjeta). Las
+ * recetas sin ritmo (pocas cocinadas o desvío pequeño) no salen en el mapa.
+ */
+fun ritmosPorSlug(
+    recetas: List<Receta>,
+    historial: List<EntradaHistorial>,
+): Map<String, Int> {
+    if (historial.isEmpty()) return emptyMap()
+    val porSlug = historial.groupBy { it.slug }
+    return buildMap {
+        recetas.forEach { r ->
+            val entradas = porSlug[r.slug] ?: return@forEach
+            desvioHabitualMin(entradas, r.slug, ceil(r.totalEfectivo).toInt())?.let { put(r.slug, it) }
+        }
+    }
 }
 
 /** Un chip de la hoja con cuántas recetas quedarían si se marcara (con el resto de filtros puestos). */
@@ -222,6 +249,7 @@ private fun tarjetaYRasgos(
             pideFuegos = fuegos.takeIf { it > contexto.fuegos } ?: 0,
             pideHorno = conHorno && !contexto.horno,
             nueva = nueva,
+            conRitmo = r.slug in contexto.ritmos,
         )
     return tarjeta to rasgos
 }

@@ -170,7 +170,7 @@
     <string name="historial_dos_seguidas">%1$s · dos seguidas</string>
     <string name="historial_min_reales">%1$d min reales</string>
     <string name="historial_nota">«%1$s»</string>
-    <string name="historial_repetir">Repetir →</string>
+    <string name="historial_repetir">Repetir</string>
     <string name="historial_borrar">Borrar</string>
     <string name="historial_seguro">¿Seguro?</string>
     <string name="historial_borrar_desc">Borrar %1$s del historial</string>

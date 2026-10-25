@@ -108,6 +108,7 @@ private fun BloqueTiempo(
             }
         RotuloBloque(stringResource(palabra), modifier = Modifier.padding(top = Espacio.xs))
         DatoBloque(hora)
+        if (tarjeta.conRitmo) RotuloBloque(stringResource(R.string.lista_con_tu_ritmo), textAlign = TextAlign.Center)
     }
 }
 
@@ -280,13 +281,16 @@ private fun EtiquetaLlegada(tarjeta: TarjetaReceta) {
     )
 }
 
-/** «empieza 14:43» o «acabas 16:02», según el modo elegido en Ajustes. */
+/** «empieza 14:43» o «acabas 16:02», según el modo elegido en Ajustes; con ritmo, «empieza 14:35 con tu ritmo». */
 @Composable
-private fun textoHora(tarjeta: TarjetaReceta): String =
-    stringResource(
-        if (tarjeta.modoHora == HoraTarjeta.ACABAR) R.string.lista_acabas else R.string.lista_empieza,
-        Servir.formato(tarjeta.hora),
-    )
+private fun textoHora(tarjeta: TarjetaReceta): String {
+    val hora =
+        stringResource(
+            if (tarjeta.modoHora == HoraTarjeta.ACABAR) R.string.lista_acabas else R.string.lista_empieza,
+            Servir.formato(tarjeta.hora),
+        )
+    return if (tarjeta.conRitmo) hora + " " + stringResource(R.string.lista_con_tu_ritmo) else hora
+}
 
 @Composable
 private fun TituloConEstrella(

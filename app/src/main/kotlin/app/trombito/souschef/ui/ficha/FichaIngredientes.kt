@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -21,17 +22,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Escalado
@@ -40,6 +45,10 @@ import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.FichaPalette
+
+private val ANCHO_CANTIDAD_MIN = 84.dp
+private val ANCHO_CANTIDAD_MAX = 132.dp
+private val SEPARACION_CANTIDAD = 12.dp
 
 /** Ingredientes: «Todo junto» o «Por zona», avisos de raciones y la nota de escalado detrás de un chip ⓘ. */
 @Composable
@@ -54,10 +63,10 @@ fun PestanaIngredientes(
     if (porZona) {
         receta.grupos.forEach { g ->
             Text(g.n, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 4.dp))
-            g.items.forEach { FilaIngrediente(it, f) }
+            ListaIngredientes(g.items, f)
         }
     } else {
-        Escalado.listaGeneral(receta).forEach { FilaIngrediente(it, f) }
+        ListaIngredientes(Escalado.listaGeneral(receta), f)
     }
     BotonCompartir(receta, estado.raciones, porZona)
     receta.notaEscala?.takeIf { it.isNotBlank() }?.let { NotaEscala(it) }
@@ -157,15 +166,40 @@ private fun SelectorIngredientes(
     }
 }
 
+/**
+ * Las filas de un bloque con la columna de cantidades del mismo ancho: el del texto más largo, entre 84 y 132 dp, para
+ * que «1 1/2 cucharadas» quepa sin descolocar los nombres. Más allá de 132 dp la cantidad pasa a dos líneas.
+ */
+@Composable
+private fun ListaIngredientes(
+    items: List<Ingrediente>,
+    f: Double,
+) {
+    val medidor = rememberTextMeasurer()
+    val densidad = LocalDensity.current
+    val base = MaterialTheme.typography.bodyMedium
+    val estilo = base.merge(Tabular).copy(fontWeight = FontWeight.SemiBold)
+    val ancho =
+        remember(items, f, estilo, densidad) {
+            val maxPx = items.maxOfOrNull { medidor.measure(Escalado.cantidad(it, f), estilo).size.width } ?: 0
+            (with(densidad) { maxPx.toDp() } + SEPARACION_CANTIDAD).coerceIn(ANCHO_CANTIDAD_MIN, ANCHO_CANTIDAD_MAX)
+        }
+    items.forEach { FilaIngrediente(it, f, ancho) }
+}
+
 @Composable
 private fun FilaIngrediente(
     item: Ingrediente,
     f: Double,
+    anchoCantidad: Dp,
 ) {
     Row(Modifier.fillMaxWidth().padding(vertical = 2.dp)) {
         Text(
             Escalado.cantidad(item, f),
-            Modifier.width(84.dp).padding(end = 12.dp),
+            Modifier
+                .widthIn(min = ANCHO_CANTIDAD_MIN, max = ANCHO_CANTIDAD_MAX)
+                .width(anchoCantidad)
+                .padding(end = SEPARACION_CANTIDAD),
             style = MaterialTheme.typography.bodyMedium.merge(Tabular),
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.End,

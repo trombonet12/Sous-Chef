@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -232,25 +233,43 @@ private fun FilaControles(
             )
         }
         val inicio = Servir.inicio(estado.servirMin, receta)
-        Column {
+        HoraDeEmpezar(inicio, estado.ritmoMin)
+    }
+}
+
+/**
+ * Una sola hora destacada: sin ritmo, la del plan; con ritmo, la ajustada («Sueles tardar 8 min más: empieza a las
+ * 14:35») y la del plan debajo, en secundario («según la receta, 14:43»).
+ */
+@Composable
+private fun HoraDeEmpezar(
+    inicio: Int,
+    ritmoMin: Int?,
+) {
+    Column {
+        if (ritmoMin == null) {
             Text(
                 stringResource(R.string.ficha_empezar_a, Servir.formato(inicio)),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            estado.ritmoMin?.let { ritmo ->
-                val conRitmo = Servir.formato(Servir.ajustar(inicio, -ritmo))
-                Text(
-                    if (ritmo > 0) {
-                        stringResource(R.string.ficha_ritmo_mas, ritmo, conRitmo)
-                    } else {
-                        stringResource(R.string.ficha_ritmo_menos, -ritmo, conRitmo)
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+            return@Column
         }
+        val conRitmo = Servir.formato(Servir.ajustar(inicio, -ritmoMin))
+        Text(
+            if (ritmoMin > 0) {
+                stringResource(R.string.ficha_ritmo_mas, ritmoMin, conRitmo)
+            } else {
+                stringResource(R.string.ficha_ritmo_menos, -ritmoMin, conRitmo)
+            },
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            stringResource(R.string.ficha_segun_receta, Servir.formato(inicio)),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

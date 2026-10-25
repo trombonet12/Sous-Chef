@@ -63,7 +63,7 @@ class TarjetasHistorialTest {
         for (d in DisposicionLista.entries) {
             val textos = pintar(d).textos()
             assertTrue("$d $textos", "Macarrones al horno" in textos)
-            assertTrue("$d $textos", "Repetir →" in textos)
+            assertTrue("$d $textos", "Repetir" in textos)
             assertTrue("$d $textos", "Borrar" in textos)
         }
     }
@@ -101,7 +101,7 @@ class TarjetasHistorialTest {
             val llamadas = mutableListOf<String>()
             val banco = pintar(d, repetir = { llamadas += "repetir" }, borrar = { llamadas += "borrar" })
 
-            banco.pulsar(banco.pulsableConTexto("Repetir →"))
+            banco.pulsar(banco.pulsableConTexto("Repetir"))
             banco.pulsar(banco.pulsableConTexto("Borrar"))
 
             assertEquals(d.toString(), listOf("repetir", "borrar"), llamadas)
@@ -112,7 +112,7 @@ class TarjetasHistorialTest {
     fun sinRecetaNoHayRepetirYLasAccionesTienenDescripcion() {
         val banco = pintar(DisposicionLista.TINTE, fila.copy(recetaExiste = false))
         val textos = banco.textos()
-        assertTrue(textos.toString(), "Repetir →" !in textos)
+        assertTrue(textos.toString(), "Repetir" !in textos)
         assertTrue(
             banco.descripciones().toString(),
             "Borrar Macarrones al horno del historial" in banco.descripciones(),

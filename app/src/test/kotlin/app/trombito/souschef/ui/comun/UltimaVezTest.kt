@@ -11,6 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import java.time.LocalDate
 
 /** La tarjeta «La última vez» en la JVM: vacía, con una nota y con varias. */
 @RunWith(RobolectricTestRunner::class)
@@ -26,9 +27,11 @@ class UltimaVezTest {
             NotaCocinada("2026-08-03", "Cebolla más fina"),
         )
 
+    private val hoy = LocalDate.of(2026, 11, 2)
+
     private fun pintar(notas: List<NotaCocinada>): BancoCompose {
         val banco = BancoCompose()
-        banco.poner { MaterialTheme { UltimaVez(notas, ColoresUltimaVez.Papel) } }
+        banco.poner { MaterialTheme { UltimaVez(notas, ColoresUltimaVez.Papel, hoy = hoy) } }
         return banco
     }
 
@@ -47,7 +50,7 @@ class UltimaVezTest {
         val textos = banco.todosLosTextos()
         assertTrue(textos.toString(), textos.contains("La última vez"))
         assertTrue(textos.toString(), textos.contains("Menos sal"))
-        assertTrue(textos.toString(), textos.contains("12 oct"))
+        assertTrue(textos.toString(), textos.contains("hace 3 semanas · 12 oct"))
         assertTrue("ultima-vez" in banco.etiquetas("ultima-vez"))
         assertTrue(banco.etiquetas("ultima-vez-mas").isEmpty())
     }
@@ -63,9 +66,9 @@ class UltimaVezTest {
 
         val textos = banco.todosLosTextos()
         assertTrue(textos.toString(), textos.contains("Más tiempo de horno"))
-        assertTrue(textos.toString(), textos.contains("30 sep"))
+        assertTrue(textos.toString(), textos.contains("hace 1 mes · 30 sep"))
         assertTrue(textos.toString(), textos.contains("Cebolla más fina"))
-        assertTrue(textos.toString(), textos.contains("3 ago"))
+        assertTrue(textos.toString(), textos.contains("hace 3 meses · 3 ago"))
         assertTrue(textos.toString(), textos.contains("Ver menos"))
 
         banco.pulsar(banco.conEtiqueta("ultima-vez-mas"))
