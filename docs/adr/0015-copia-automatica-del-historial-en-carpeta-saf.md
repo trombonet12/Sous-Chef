@@ -1,6 +1,6 @@
 # ADR-0015: Copiar el historial en una carpeta elegida (SAF) al cerrar cada cocinada
 
-- Estado: propuesto
+- Estado: aceptado (2026-10-25)
 - Fecha: 2026-10-25
 - Relacionado: `docs/decisiones.md` § 2026-10-18 · Ronda 9 → v1.0.0 (copia manual), `docs/decisiones.md` § Ronda 18 · v1.7, `docs/analisis/v1.7.md` (F5, A2), amplía [ADR-0007](0007-app-solo-local-sin-supabase.md), [arquitectura](../arquitectura.md)
 

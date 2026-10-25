@@ -1,6 +1,6 @@
 # ADR-0016: Añadir al cronómetro el temporizador libre y el recordatorio «Avísame para empezar»
 
-- Estado: propuesto
+- Estado: aceptado (2026-10-25)
 - Fecha: 2026-10-25
 - Relacionado: anexo de [ADR-0005](0005-cronometro-alarmas-sin-fgs.md), [ADR-0008](0008-voz-en-el-cronometro.md) (orden de voz nueva), `docs/decisiones.md` § Ronda 18 · v1.7, `docs/analisis/v1.7.md` (F9, F11, A8), `docs/play.md` (declaración de permisos), [arquitectura](../arquitectura.md)
 

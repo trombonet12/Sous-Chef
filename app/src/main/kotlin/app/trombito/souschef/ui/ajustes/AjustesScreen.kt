@@ -63,12 +63,15 @@ fun AjustesScreen(
     onAbrir: (String) -> Unit,
     onBuzon: () -> Unit = {},
     viewModel: AjustesViewModel = hiltViewModel(),
+    copiaViewModel: CopiaAutoViewModel = hiltViewModel(),
 ) {
     val ajustes by viewModel.estado.collectAsStateWithLifecycle()
-    AjustesMenu(ajustes, viewModel.version, onAtras, onAbrir, onBuzon)
+    val avisoCopia by copiaViewModel.aviso.collectAsStateWithLifecycle()
+    AjustesMenu(ajustes, viewModel.version, onAtras, onAbrir, onBuzon, copiaFalla = avisoCopia != null)
 }
 
 /** Menú sin ViewModel: estado y versión llegan hechos. */
+@Suppress("LongParameterList") // pantalla presentacional: cada parámetro es una pieza que se ve
 @Composable
 internal fun AjustesMenu(
     ajustes: Ajustes,
@@ -76,6 +79,7 @@ internal fun AjustesMenu(
     onAtras: () -> Unit,
     onAbrir: (String) -> Unit,
     onBuzon: () -> Unit = {},
+    copiaFalla: Boolean = false,
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_titulo), onAtras) {
         FilaApartado(Icono.Base, R.string.ajustes_cocina, Rutas.AJUSTES_COCINA, onAbrir) { resumenCocina(ajustes) }
@@ -102,7 +106,9 @@ internal fun AjustesMenu(
             stringResource(R.string.ajustes_resumen_crono, nombreDisposicion(ajustes.disposicion), voz)
         }
         FilaApartado(Icono.Libreta, R.string.ajustes_historial, Rutas.AJUSTES_HISTORIAL, onAbrir) {
-            stringResource(R.string.ajustes_resumen_historial)
+            stringResource(
+                if (copiaFalla) R.string.ajustes_resumen_historial_aviso else R.string.ajustes_resumen_historial,
+            )
         }
         FilaAjuste(
             icono = Icono.Correo,

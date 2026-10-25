@@ -3,12 +3,13 @@ package app.trombito.souschef.di
 import android.content.Context
 import androidx.room.Room
 import app.trombito.souschef.data.copia.ArchivoCopiaAndroid
+import app.trombito.souschef.data.copia.CarpetaCopiaAndroid
 import app.trombito.souschef.data.db.MIGRATION_1_2
 import app.trombito.souschef.data.db.MIGRATION_2_3
 import app.trombito.souschef.data.db.SousChefDatabase
 import app.trombito.souschef.data.repo.AjustesRepoRoom
+import app.trombito.souschef.data.repo.CopiaAutoRepoRoom
 import app.trombito.souschef.data.repo.CronoEstadoRepoRoom
-import app.trombito.souschef.data.repo.HistorialRepoRoom
 import app.trombito.souschef.data.repo.PreferenciasRepoRoom
 import app.trombito.souschef.data.repo.PropuestasRepoRoom
 import app.trombito.souschef.data.repo.RecetasRepoRoom
@@ -24,6 +25,8 @@ import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
 import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.copia.ArchivoCopia
+import app.trombito.souschef.domain.copia.CarpetaCopia
+import app.trombito.souschef.domain.copia.CopiaAutoRepo
 import app.trombito.souschef.domain.copia.GestorCopia
 import dagger.Binds
 import dagger.Module
@@ -61,13 +64,15 @@ object DatabaseModule {
     @Provides fun reloj(): Reloj = Reloj.Sistema
 
     @Provides
+    @Suppress("LongParameterList") // cada colaborador del gestor es una dependencia distinta
     fun gestorCopia(
         historial: HistorialRepo,
         recetas: RecetasRepo,
         preferencias: PreferenciasRepo,
         archivo: ArchivoCopia,
         reloj: Reloj,
-    ): GestorCopia = GestorCopia(historial, recetas, preferencias, archivo, reloj)
+        estado: CopiaAutoRepo,
+    ): GestorCopia = GestorCopia(historial, recetas, preferencias, archivo, reloj, estado)
 }
 
 @Module
@@ -76,8 +81,6 @@ abstract class RepoModule {
     @Binds abstract fun recetas(impl: RecetasRepoRoom): RecetasRepo
 
     @Binds abstract fun tecnicas(impl: TecnicasRepoRoom): TecnicasRepo
-
-    @Binds abstract fun historial(impl: HistorialRepoRoom): HistorialRepo
 
     @Binds abstract fun preferencias(impl: PreferenciasRepoRoom): PreferenciasRepo
 
@@ -90,4 +93,8 @@ abstract class RepoModule {
     @Binds abstract fun fuenteSemilla(impl: FuenteAssets): FuenteSemilla
 
     @Binds abstract fun archivoCopia(impl: ArchivoCopiaAndroid): ArchivoCopia
+
+    @Binds abstract fun carpetaCopia(impl: CarpetaCopiaAndroid): CarpetaCopia
+
+    @Binds abstract fun copiaAutoRepo(impl: CopiaAutoRepoRoom): CopiaAutoRepo
 }

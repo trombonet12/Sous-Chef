@@ -65,15 +65,30 @@ sealed interface ResultadoCopia {
     data object Fallo : ResultadoCopia
 }
 
-/** Exporta el historial (y favoritos/raciones) a un archivo del móvil, y lo vuelve a cargar sin pisar nada. */
+/**
+ * La copia v2 completa ya serializada, con el lector que la da por buena (el mismo de «Cargar copia»). Sirve igual
+ * para la copia manual y para la automática (ADR-0015).
+ */
+class CopiaPreparada(
+    val bytes: ByteArray,
+    val cocinadas: Int,
+    val valida: (ByteArray) -> Boolean,
+)
+
+/**
+ * Exporta el historial (y favoritos/raciones) a un archivo del móvil, y lo vuelve a cargar sin pisar nada.
+ * [estado] (opcional) recibe el instante de cada copia manual guardada, para el «Última copia» de Ajustes.
+ */
 class GestorCopia(
     private val historial: HistorialRepo,
     private val recetas: RecetasRepo,
     private val preferencias: PreferenciasRepo,
     private val archivo: ArchivoCopia,
     private val reloj: Reloj,
+    private val estado: CopiaAutoRepo? = null,
 ) {
-    suspend fun exportar(destino: String): ResultadoCopia {
+    /** El historial de ahora mismo, serializado y listo para escribir (ver [CopiaPreparada]). */
+    suspend fun preparar(): CopiaPreparada {
         val entradas = historial.observarTodo().first()
         val prefs =
             preferencias
@@ -90,11 +105,26 @@ class GestorCopia(
         val slugs = recetas.observarTodas().first().mapTo(HashSet()) { it.slug }
         val bytes = CopiaHistorial.exportar(entradas, prefs, fecha).toByteArray(Charsets.UTF_8)
         // Se valida con el mismo lector de «Cargar»: lo que no se puede volver a leer no se escribe.
-        val resultado = archivo.escribirSeguro(destino, bytes) { validaCopia(it, slugs) }
+        return CopiaPreparada(bytes, entradas.size) { validaCopia(it, slugs) }
+    }
+
+    suspend fun exportar(destino: String): ResultadoCopia {
+        val copia = preparar()
+        val resultado = archivo.escribirSeguro(destino, copia.bytes, copia.valida)
         return when (resultado) {
-            ResultadoEscritura.Escrita -> ResultadoCopia.Guardada(entradas.size)
-            ResultadoEscritura.Grande -> ResultadoCopia.Grande
-            else -> ResultadoCopia.Fallo // Invalida, SinPermiso o Fallo: la UI solo distingue «no se pudo guardar»
+            ResultadoEscritura.Escrita -> {
+                estado?.registrarManual(reloj.ahoraMs())
+                ResultadoCopia.Guardada(copia.cocinadas)
+            }
+
+            ResultadoEscritura.Grande -> {
+                ResultadoCopia.Grande
+            }
+
+            // Invalida, SinPermiso o Fallo: la UI solo distingue «no se pudo guardar»
+            else -> {
+                ResultadoCopia.Fallo
+            }
         }
     }
 

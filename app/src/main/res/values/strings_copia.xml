@@ -2,4 +2,25 @@
 <resources>
     <string name="ajustes_copia_descartadas">(%1$d descartadas)</string>
     <string name="ajustes_copia_grande">Ese archivo es demasiado grande para ser una copia del historial (máximo 2 MB).</string>
+
+    <!-- Copia automática en una carpeta (ADR-0015) -->
+    <string name="copia_auto_titulo">Copia automática</string>
+    <string name="copia_auto_detalle">Elige una carpeta del móvil y la app guardará en ella una copia del historial cada vez que cierres una cocinada. Se quedan las 5 últimas; las copias que guardes a mano no se tocan. Si esa carpeta se sincroniza con una nube (Drive, Nextcloud…), tus notas y valoraciones irán con ella.</string>
+    <string name="copia_auto_activa">Activada: se guarda al cerrar cada cocinada.</string>
+    <string name="copia_auto_desactivada">Desactivada.</string>
+    <string name="copia_auto_elegir">Elegir carpeta</string>
+    <string name="copia_auto_cambiar">Cambiar carpeta</string>
+    <string name="copia_auto_desactivar">Desactivar</string>
+    <string name="copia_auto_ultima_nunca">Última copia: nunca</string>
+    <string name="copia_auto_ultima_hoy">Última copia: hoy</string>
+    <string name="copia_auto_ultima_ayer">Última copia: ayer</string>
+    <plurals name="copia_auto_ultima_dias">
+        <item quantity="one">Última copia: hace %1$d día</item>
+        <item quantity="many">Última copia: hace %1$d días</item>
+        <item quantity="other">Última copia: hace %1$d días</item>
+    </plurals>
+    <string name="copia_auto_aviso_carpeta">La copia automática no puede guardar en tu carpeta: ya no está o la app perdió el permiso. Mientras tanto, tu historial no se está copiando.</string>
+    <string name="copia_auto_aviso_escritura">La copia automática no se ha podido guardar desde hace días. Comprueba que la carpeta existe y tiene espacio, o elige otra.</string>
+    <string name="copia_auto_aviso_accion">Elegir otra carpeta</string>
+    <string name="ajustes_resumen_historial_aviso">La copia automática no funciona: elige otra carpeta</string>
 </resources>

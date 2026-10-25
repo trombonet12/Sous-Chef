@@ -126,9 +126,12 @@ internal fun FilaRepetirGuia(
 fun AjustesHistorialScreen(
     onAtras: () -> Unit,
     viewModel: AjustesViewModel = hiltViewModel(),
+    copiaViewModel: CopiaAutoViewModel = hiltViewModel(),
 ) {
     val copia by viewModel.copia.collectAsStateWithLifecycle()
+    val auto by copiaViewModel.estado.collectAsStateWithLifecycle()
     PantallaAjustes(stringResource(R.string.ajustes_historial), onAtras) {
+        SeccionCopiaAuto(auto, copiaViewModel.ahoraMs(), copiaViewModel::elegirCarpeta, copiaViewModel::desactivar)
         SeccionCopia(copia, viewModel::guardarCopia, viewModel::cargarCopia)
     }
 }

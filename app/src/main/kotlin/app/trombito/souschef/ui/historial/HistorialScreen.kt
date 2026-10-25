@@ -33,6 +33,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.ResumenMes
+import app.trombito.souschef.ui.ajustes.AvisoCopiaFallida
+import app.trombito.souschef.ui.ajustes.CopiaAutoViewModel
 import app.trombito.souschef.ui.comun.CampoBusqueda
 import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.SEPARADOR_META
@@ -43,8 +45,10 @@ import kotlinx.coroutines.withTimeoutOrNull
 fun HistorialScreen(
     onRepetir: (String) -> Unit,
     viewModel: HistorialViewModel = hiltViewModel(),
+    copiaViewModel: CopiaAutoViewModel = hiltViewModel(),
 ) {
     val estado by viewModel.estado.collectAsStateWithLifecycle()
+    val falloCopia by copiaViewModel.aviso.collectAsStateWithLifecycle()
     val avisos = remember { SnackbarHostState() }
     var editando by remember { mutableStateOf<EntradaHistorial?>(null) }
     AvisoDeshacer(
@@ -59,6 +63,8 @@ fun HistorialScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(Espacio.m),
         ) {
+            // La copia automática no funciona (ADR-0015): aviso visible con «Elegir otra carpeta».
+            falloCopia?.let { fallo -> item { AvisoCopiaFallida(fallo, copiaViewModel::elegirCarpeta) } }
             if (estado.total > 0) {
                 item { ResumenDelMes(estado.mes) }
                 item { CampoBusqueda(estado.consulta, stringResource(R.string.historial_buscar), viewModel::buscar) }
