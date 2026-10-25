@@ -465,6 +465,10 @@
   "slug": "bunyols-de-les-verges",
   "tags": {
     "base": "buñuelo",
+    "momento": [
+      "postre",
+      "merienda"
+    ],
     "proteina": "huevo",
     "tecnica": [
       "punto-del-aceite"

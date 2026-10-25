@@ -504,6 +504,9 @@
   "slug": "huevos-rotos",
   "tags": {
     "base": "patata",
+    "momento": [
+      "comida"
+    ],
     "proteina": "huevo y jamón",
     "tecnica": [
       "punto-del-aceite",

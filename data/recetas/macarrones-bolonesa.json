@@ -511,6 +511,9 @@
   "slug": "macarrones-bolonesa",
   "tags": {
     "base": "pasta",
+    "momento": [
+      "comida"
+    ],
     "proteina": "carne picada",
     "tecnica": [
       "sofrito",

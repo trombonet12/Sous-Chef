@@ -1,5 +1,6 @@
 package app.trombito.souschef.receta
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -54,7 +55,28 @@ data class Tags(
     val base: String? = null,
     val tecnica: List<String> = emptyList(),
     val proteina: String? = null,
+    /** Cuándo encaja el plato; null o ausente = cualquier momento (regla 28). */
+    val momento: List<Momento>? = null,
 )
+
+/** Momento del día en que encaja una receta; en el JSON va en minúsculas (`"comida"`, `"cena"`…). */
+@Serializable
+enum class Momento {
+    @SerialName("comida")
+    COMIDA,
+
+    @SerialName("cena")
+    CENA,
+
+    @SerialName("desayuno")
+    DESAYUNO,
+
+    @SerialName("merienda")
+    MERIENDA,
+
+    @SerialName("postre")
+    POSTRE,
+}
 
 /** Ingrediente de `grupos`:cantidad numérica (`a` + `u`) o textual (`txt`). */
 @Serializable

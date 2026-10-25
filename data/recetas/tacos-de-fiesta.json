@@ -935,6 +935,9 @@
   "slug": "tacos-de-fiesta",
   "tags": {
     "base": "taco",
+    "momento": [
+      "comida"
+    ],
     "proteina": "carne picada mixta, bacon y pollo",
     "tecnica": [
       "sofrito",

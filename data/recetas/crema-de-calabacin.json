@@ -394,6 +394,10 @@
   "slug": "crema-de-calabacin",
   "tags": {
     "base": "crema",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "ninguna",
     "tecnica": [
       "sofrito",

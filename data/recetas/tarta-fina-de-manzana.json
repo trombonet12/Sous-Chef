@@ -357,6 +357,10 @@
   "slug": "tarta-fina-de-manzana",
   "tags": {
     "base": "hojaldre",
+    "momento": [
+      "postre",
+      "merienda"
+    ],
     "proteina": "ninguna",
     "tecnica": [
       "glaseado"

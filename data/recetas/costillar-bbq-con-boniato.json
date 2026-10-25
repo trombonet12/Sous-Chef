@@ -576,6 +576,9 @@
   "slug": "costillar-bbq-con-boniato",
   "tags": {
     "base": "asado",
+    "momento": [
+      "comida"
+    ],
     "proteina": "cerdo",
     "tecnica": [
       "glaseado",

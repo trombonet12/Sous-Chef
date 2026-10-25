@@ -503,6 +503,10 @@
   "slug": "hamburguesa-smash",
   "tags": {
     "base": "hamburguesa",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "carne picada",
     "tecnica": [
       "plancha",

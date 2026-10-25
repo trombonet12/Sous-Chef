@@ -474,6 +474,10 @@
   "slug": "tacos-de-carne",
   "tags": {
     "base": "taco",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "carne picada",
     "tecnica": [
       "sofrito",

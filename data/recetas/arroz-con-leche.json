@@ -374,6 +374,10 @@
   "slug": "arroz-con-leche",
   "tags": {
     "base": "postre",
+    "momento": [
+      "postre",
+      "merienda"
+    ],
     "proteina": "ninguna",
     "tecnica": [
       "coccion-lenta-en-leche"

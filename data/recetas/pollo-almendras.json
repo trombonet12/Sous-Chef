@@ -774,6 +774,9 @@
   "slug": "pollo-almendras",
   "tags": {
     "base": "salteado",
+    "momento": [
+      "comida"
+    ],
     "proteina": "pollo",
     "tecnica": [
       "marinada",

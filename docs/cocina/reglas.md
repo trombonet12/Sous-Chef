@@ -28,6 +28,7 @@ No sustituyas un veto por un primo cercano sin decirlo: si una receta clásica l
 - Cantidades en gramos y mililitros. Nada de «un chorrito» ni «al gusto».
 - **Cortes con medida y dirección de fibra.** Un ingrediente, una forma de corte y una medida: «láminas finas y picado» son dos cortes y cocinando hay que elegir sin información.
 - **Potencia siempre en la escala canónica de vitro 0-9**, escrita como `{N}` en el texto («baja al {3}»); la app la traduce a la cocina de cada usuario (ADR-0014). Nunca solo «fuego medio». Cada cambio de potencia se dice también en el texto del paso. `scripts/sc potencias --marcar` marca lo que falte y la regla 27 lo exige.
+- **Momento (`tags.momento`, regla 28).** Cuándo encaja el plato: `comida`, `cena`, `desayuno`, `merienda`, `postre`; ausente = cualquiera. Sin duplicados ni lista vacía. Una receta de más de 60 min con `cena` y sin `comida` da AVISO (cena larga, poco probable entre semana). Por defecto, `cena` solo en platos de 45 min o menos; los dulces van como `postre`/`merienda`.
 - **Estado de la tapa en cada paso.** Si la tapa cambia a mitad de un paso, son dos pasos.
 - Los tiempos parciales suman el total. Si no cuadran, se dice.
 - Nunca metas un ingrediente solo porque está en la despensa. Si dejas fuera algo esperable, justifícalo en una línea (va en `porque`).

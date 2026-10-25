@@ -650,6 +650,9 @@
   "slug": "pastel-de-patata-gratinado",
   "tags": {
     "base": "patata",
+    "momento": [
+      "comida"
+    ],
     "proteina": "carne picada",
     "tecnica": [
       "sellado"

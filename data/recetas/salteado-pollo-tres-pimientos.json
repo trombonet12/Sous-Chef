@@ -586,6 +586,9 @@
   "slug": "salteado-pollo-tres-pimientos",
   "tags": {
     "base": "salteado",
+    "momento": [
+      "comida"
+    ],
     "proteina": "pollo",
     "tecnica": [
       "salteado",

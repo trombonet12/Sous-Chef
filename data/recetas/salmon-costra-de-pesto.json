@@ -351,6 +351,9 @@
   "slug": "salmon-costra-de-pesto",
   "tags": {
     "base": "pescado",
+    "momento": [
+      "comida"
+    ],
     "proteina": "salmón",
     "tecnica": [
       "costra-al-horno"

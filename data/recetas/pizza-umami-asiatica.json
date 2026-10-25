@@ -387,6 +387,10 @@
   "slug": "pizza-umami-asiatica",
   "tags": {
     "base": "masa de pizza",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "bacon",
     "tecnica": [
       "salteado",

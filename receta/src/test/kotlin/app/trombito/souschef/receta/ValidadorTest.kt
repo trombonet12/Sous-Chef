@@ -441,6 +441,43 @@ class ValidadorTest {
         assertEquals(emptyList(), r26(conEscala(Escala(1, 4), 3, Ingrediente("huevos", 2.0, "uds", esc = "fijo"))))
     }
 
+    private fun r28(
+        momento: List<Momento>?,
+        totalMin: Double = 10.0,
+    ) = Validador
+        .receta(base().copy(totalMin = totalMin, tags = base().tags.copy(momento = momento)))
+        .filter { it.regla == 28 }
+
+    @Test
+    fun r28SinMomentoOCoherenteNoDaHallazgos() {
+        assertEquals(emptyList(), r28(null))
+        assertEquals(emptyList(), r28(listOf(Momento.COMIDA, Momento.CENA), totalMin = 90.0))
+        assertEquals(emptyList(), r28(listOf(Momento.CENA), totalMin = 10.0))
+        assertEquals(emptyList(), r28(listOf(Momento.POSTRE, Momento.MERIENDA), totalMin = 137.0))
+    }
+
+    @Test
+    fun r28MomentoVacioEsError() {
+        assertEquals(listOf(Nivel.ERROR), r28(emptyList()).map { it.nivel })
+    }
+
+    @Test
+    fun r28MomentoRepetidoEsError() {
+        val h = r28(listOf(Momento.COMIDA, Momento.CENA, Momento.COMIDA))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertTrue("comida" in h.single().texto)
+    }
+
+    @Test
+    fun r28CenaLargaSinComidaEsAviso() {
+        val h = r28(listOf(Momento.CENA), totalMin = 61.0)
+        assertEquals(listOf(Nivel.AVISO), h.map { it.nivel })
+        assertEquals(listOf(Nivel.AVISO), r28(listOf(Momento.CENA, Momento.POSTRE), totalMin = 120.0).map { it.nivel })
+    }
+
+    @Test
+    fun r28CenaDeSesentaMinutosNoAvisa() = assertEquals(emptyList(), r28(listOf(Momento.CENA), totalMin = 60.0))
+
     private fun r27(r: Receta) = Validador.receta(r).filter { it.regla == 27 }
 
     @Test

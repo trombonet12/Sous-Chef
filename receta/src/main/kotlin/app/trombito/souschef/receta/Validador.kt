@@ -19,7 +19,7 @@ private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
 /**
- * Validador (reglas 1-8, 10, 11, 13-21 y 23-27 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Validador (reglas 1-8, 10, 11, 13-21 y 23-28 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
  * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
  *
  * La potencia del texto libre va marcada como `{N}` (ADR-0014): las reglas 20 y 25 la leen sin llaves, la 26 mira
@@ -52,6 +52,7 @@ object Validador {
         ctx.regla25()
         ctx.regla26()
         ctx.regla27()
+        ctx.regla28()
         return h
     }
 
@@ -398,6 +399,20 @@ private class Ctx(
         potenciaSinMarcar(r.slug, textosLibres(r)).forEach { h += it }
     }
 
+    /**
+     * Regla 28. `tags.momento`, si está, no va vacío (ERROR) ni repite valores (ERROR); una receta de más de
+     * [CENA_LARGA_MIN] min con CENA y sin COMIDA es una cena larga y da AVISO.
+     */
+    fun regla28() {
+        val m = r.tags.momento ?: return
+        if (m.isEmpty()) return err(28, "tags.momento vacío (omítelo para «cualquier momento»)")
+        val repetidos = m.groupBy { it }.filterValues { it.size > 1 }.keys
+        if (repetidos.isNotEmpty()) err(28, "tags.momento repite ${repetidos.joinToString { it.name.lowercase() }}")
+        if (Momento.CENA in m && Momento.COMIDA !in m && r.totalEfectivo > CENA_LARGA_MIN) {
+            aviso(28, "cena de ${Escalado.numero(r.totalEfectivo)} min sin comida: cena larga, poco probable")
+        }
+    }
+
     fun regla24() {
         for (i in r.grupos.flatMap { it.items }) {
             val n = Texto.normalizar(i.n)
@@ -408,6 +423,7 @@ private class Ctx(
     }
 }
 
+private const val CENA_LARGA_MIN = 60.0
 private val UNIDADES_CONTABLES = setOf("u", "ud", "uds", "unidad", "unidades")
 private val LLAVE_SUELTA = Regex("\\{(?!\\d\\})")
 

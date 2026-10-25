@@ -532,6 +532,9 @@
   "slug": "curry-de-pollo-con-arroz-blanco",
   "tags": {
     "base": "arroz",
+    "momento": [
+      "comida"
+    ],
     "proteina": "pollo",
     "tecnica": [
       "sellado",

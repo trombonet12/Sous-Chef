@@ -338,6 +338,9 @@
   "slug": "aros-de-cebolla",
   "tags": {
     "base": "verdura",
+    "momento": [
+      "comida"
+    ],
     "proteina": "huevo",
     "tecnica": [
       "punto-del-aceite",

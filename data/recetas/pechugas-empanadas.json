@@ -393,6 +393,10 @@
   "slug": "pechugas-empanadas",
   "tags": {
     "base": "fritura",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "pollo",
     "tecnica": [
       "empanado",

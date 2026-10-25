@@ -371,6 +371,10 @@
   "slug": "ensalada-de-noquis-con-atun-y-feta",
   "tags": {
     "base": "ensalada",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "atún y feta",
     "tecnica": [
       "salteado",

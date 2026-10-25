@@ -438,6 +438,9 @@
   "slug": "tortilla-de-patatas",
   "tags": {
     "base": "patata",
+    "momento": [
+      "comida"
+    ],
     "proteina": "huevo",
     "tecnica": [
       "confitado"

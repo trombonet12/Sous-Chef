@@ -782,6 +782,9 @@
   "slug": "lasana-carne-berenjena",
   "tags": {
     "base": "pasta",
+    "momento": [
+      "comida"
+    ],
     "proteina": "carne picada",
     "tecnica": [
       "sofrito",

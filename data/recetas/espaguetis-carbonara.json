@@ -390,6 +390,10 @@
   "slug": "espaguetis-carbonara",
   "tags": {
     "base": "pasta",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "bacon y huevo",
     "tecnica": [
       "ligado-con-huevo"

@@ -432,6 +432,10 @@
   "slug": "emperador-plancha-salmoriglio",
   "tags": {
     "base": "pescado",
+    "momento": [
+      "comida",
+      "cena"
+    ],
     "proteina": "emperador",
     "tecnica": [
       "plancha"
