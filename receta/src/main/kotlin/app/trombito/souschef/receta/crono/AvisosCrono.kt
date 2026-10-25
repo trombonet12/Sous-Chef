@@ -20,9 +20,8 @@ object AvisosCrono {
         receta: Receta,
     ): Evento? {
         val plano = Plano(receta)
-        return plano.carriles
-            .flatMap { pendientes(plano, e, it.id) }
-            .map { it.evento }
+        val deCarriles = plano.carriles.flatMap { pendientes(plano, e, it.id) }
+        return (deCarriles.map { it.evento } + TemporizadoresLibres.eventos(e))
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
 
@@ -33,10 +32,8 @@ object AvisosCrono {
         excepto: String?,
     ): Evento? {
         val plano = Plano(receta)
-        return plano.carriles
-            .filter { it.id != excepto }
-            .flatMap { pendientes(plano, e, it.id) }
-            .map { it.evento }
+        val deCarriles = plano.carriles.filter { it.id != excepto }.flatMap { pendientes(plano, e, it.id) }
+        return (deCarriles.map { it.evento } + TemporizadoresLibres.eventos(e))
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
 
@@ -57,9 +54,12 @@ object AvisosCrono {
             avisos += nuevos
             carriles = carriles + (c.id to ec)
         }
+        val delCarriles = if (carriles != e.carriles) e.copy(carriles = carriles, actualizadoMs = ahoraMs) else e
+        val libres = TemporizadoresLibres.vencidos(delCarriles, ahoraMs)
+        val estado = libres.fold(delCarriles) { acc, l -> TemporizadoresLibres.marcarAvisado(acc, l.id, ahoraMs) }
         return Vencidos(
-            avisos.sortedBy { it.instanteMs },
-            if (carriles != e.carriles) e.copy(carriles = carriles, actualizadoMs = ahoraMs) else e,
+            (avisos + libres.map { TemporizadoresLibres.aviso(it, ahoraMs) }).sortedBy { it.instanteMs },
+            estado,
         )
     }
 
@@ -124,6 +124,7 @@ object AvisosCrono {
             TipoAviso.DIEZ_S -> ec
             TipoAviso.FIN -> ec.copy(aFin = true)
             TipoAviso.TOCA_EMPEZAR -> ec.copy(avisado = true)
+            TipoAviso.TEMPORIZADOR -> ec // los libres no son carriles: se marcan aparte
         }
 
     /** Eventos del paso actual del carril que aún no se han avisado, con su instante. */

@@ -71,6 +71,7 @@ class ControlVozTest {
     private val ordenes = mutableListOf<String>()
     private var vistas = listOf(sarten(), mesa())
     private var foco: String? = null
+    private var admiteTemporizador = true
 
     private val control =
         ControlVoz(
@@ -86,6 +87,10 @@ class ControlVozTest {
                     empezarIgual = { mandos += "igual:$it" },
                     silenciarAlarma = { mandos += "silenciar" },
                     deshacer = { mandos += "deshacer:$it" },
+                    temporizador = {
+                        mandos += "temporizador:$it"
+                        admiteTemporizador
+                    },
                 ),
             registro = { ordenes += it },
         ).also {
@@ -361,6 +366,35 @@ class ControlVozTest {
     fun sinAvisosNoAnuncia() {
         control.anunciar(emptyList())
         assertTrue(habla.dichas.isEmpty())
+    }
+
+    // ---- temporizador libre
+
+    @Test
+    fun ponMinutosPoneUnTemporizadorYConfirma() {
+        escucha.oir("chef pon 5 minutos")
+        assertEquals(listOf("temporizador:5"), mandos)
+        assertEquals("Temporizador de 5 minutos en marcha.", habla.dichas.single())
+    }
+
+    @Test
+    fun siNoSePuedePonerLoDice() {
+        admiteTemporizador = false
+        escucha.oir("chef avísame en 10 minutos")
+        assertEquals(listOf("temporizador:10"), mandos)
+        assertEquals(RespuestasVoz.SIN_TEMPORIZADOR, habla.dichas.single())
+    }
+
+    @Test
+    fun ponMinutosMasSigueSiendoProrrogar() {
+        escucha.oir("chef pon dos minutos más")
+        assertEquals(listOf("prorrogar:f0:120"), mandos)
+    }
+
+    @Test
+    fun cuantoQuedaNoSeConfundeConElTemporizador() {
+        escucha.oir("chef cuánto queda")
+        assertTrue(mandos.isEmpty())
     }
 
     // ---- registro y ciclo de vida

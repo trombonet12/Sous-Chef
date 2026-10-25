@@ -42,6 +42,7 @@ import app.trombito.souschef.receta.PasoMedido
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.ResumenCrono
+import app.trombito.souschef.receta.crono.TemporizadoresLibres
 import app.trombito.souschef.receta.desvios
 import app.trombito.souschef.receta.textoInforme
 import app.trombito.souschef.ui.theme.CronoPalette
@@ -124,6 +125,14 @@ private fun ContenidoCierre(
         ),
         color = CronoPalette.apagado,
     )
+    val libres = TemporizadoresLibres.pendientes(estado)
+    if (libres.isNotEmpty()) {
+        Text(
+            stringResource(R.string.crono_cierre_temporizadores, libres.joinToString(", ") { "${it.minutos} min" }),
+            Modifier.testTag("cierre-temporizadores"),
+            color = CronoPalette.apagado,
+        )
+    }
     if (resumen.pasosReales.isNotEmpty()) BotonInforme(receta, estado.raciones, resumen)
 }
 

@@ -459,4 +459,23 @@ class RespuestasVozTest {
             ProximosPasosVoz.general(listOf(sarten, olla, mesa)),
         )
     }
+
+    @Test
+    fun `confirmacion del temporizador`() {
+        assertEquals(
+            "Temporizador de 10 minutos en marcha.",
+            RespuestasVoz.confirmacion(OrdenVoz.Temporizador(10), null),
+        )
+        assertEquals(
+            "Temporizador de 1 minuto en marcha.",
+            RespuestasVoz.confirmacion(OrdenVoz.Temporizador(1), null),
+        )
+    }
+
+    @Test
+    fun `el aviso del temporizador se dice con minutos`() {
+        assertEquals("Temporizador: 10 minutos", textoHabladoLibre("Temporizador: 10 min"))
+        assertEquals("Temporizador: 1 minuto", textoHabladoLibre("Temporizador: 1 min"))
+        assertEquals("Temporizador huevos: 3 minutos", textoHabladoLibre("Temporizador huevos: 3 min"))
+    }
 }

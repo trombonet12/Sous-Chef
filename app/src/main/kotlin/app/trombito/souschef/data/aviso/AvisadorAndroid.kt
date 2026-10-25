@@ -29,7 +29,7 @@ class AvisadorAndroid
                     vibrar(longArrayOf(0, 90, 70, 90))
                 }
 
-                TipoAviso.FIN -> {
+                TipoAviso.FIN, TipoAviso.TEMPORIZADOR -> {
                     triple()
                     vibrar(longArrayOf(0, 150, 100, 150, 100, 300))
                 }

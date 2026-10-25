@@ -163,7 +163,7 @@ class InterpreteVozTest {
         assertEquals(OrdenVoz.Prorrogar(60, null), n("chef añade un minuto"))
         assertEquals(OrdenVoz.Prorrogar(60, null), n("chef anade un minuto"))
         assertEquals(OrdenVoz.Prorrogar(120, null), n("chef suma dos minutos"))
-        assertEquals(OrdenVoz.Prorrogar(300, null), n("chef pon cinco min"))
+        assertEquals(OrdenVoz.Prorrogar(300, null), n("chef suma cinco min"))
         assertEquals(OrdenVoz.Prorrogar(45, null), n("chef más 45 segundos"))
     }
 
@@ -284,7 +284,7 @@ class InterpreteVozTest {
     @Test
     fun `numero de carril seguido de unidad de tiempo no es carril`() {
         // «al 2» es carril, pero «el 2 minutos» no: es la cantidad.
-        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef pon el 2 minutos"))
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef suma el 2 minutos"))
     }
 
     // --- Palabra clave y errores del reconocedor ---
@@ -527,5 +527,80 @@ class InterpreteVozTest {
     fun `cantidad e ingredientes no llevan carril salvo el del paso`() {
         assertNull(OrdenVoz.Cantidad("sal").carril)
         assertEquals("olla", OrdenVoz.IngredientesPaso("olla").carril)
+    }
+
+    // --- Temporizador libre (ADR-0016) ---
+
+    @Test
+    fun `pon N minutos es un temporizador`() {
+        assertEquals(OrdenVoz.Temporizador(10), n("chef pon 10 minutos"))
+        assertEquals(OrdenVoz.Temporizador(5), n("Chef, pon cinco minutos"))
+        assertEquals(OrdenVoz.Temporizador(5), n("chef pon cinco min"))
+        assertEquals(OrdenVoz.Temporizador(1), n("chef pon un minuto"))
+        assertEquals(OrdenVoz.Temporizador(15), n("chef ponme quince minutos"))
+        assertEquals(OrdenVoz.Temporizador(20), n("chef pon veinte minutos por favor"))
+    }
+
+    @Test
+    fun `temporizador de N minutos`() {
+        assertEquals(OrdenVoz.Temporizador(10), n("chef temporizador de 10 minutos"))
+        assertEquals(OrdenVoz.Temporizador(3), n("chef temporizador de tres minutos"))
+        assertEquals(OrdenVoz.Temporizador(7), n("chef pon un temporizador de siete minutos"))
+        assertEquals(OrdenVoz.Temporizador(7), n("chef pon el temporizador de 7 minutos"))
+        assertEquals(OrdenVoz.Temporizador(12), n("chef ponme un temporizador de doce minutos"))
+    }
+
+    @Test
+    fun `avisame en N minutos`() {
+        assertEquals(OrdenVoz.Temporizador(10), n("chef avísame en 10 minutos"))
+        assertEquals(OrdenVoz.Temporizador(5), n("chef avisame en cinco minutos"))
+        assertEquals(OrdenVoz.Temporizador(8), n("chef avísame dentro de ocho minutos"))
+    }
+
+    @Test
+    fun `el temporizador no tiene carril y topa en 180 minutos`() {
+        assertNull(OrdenVoz.Temporizador(10).carril)
+        assertEquals(OrdenVoz.Temporizador(180), n("chef pon 500 minutos"))
+    }
+
+    @Test
+    fun `cero minutos no es un temporizador`() {
+        assertNull(n("chef pon 0 minutos"))
+    }
+
+    @Test
+    fun `pon N minutos mas sigue siendo prorrogar`() {
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef pon dos minutos más"))
+        assertEquals(OrdenVoz.Prorrogar(300, null), n("chef pon cinco minutos más"))
+    }
+
+    @Test
+    fun `con carril nombrado sigue siendo prorrogar`() {
+        assertEquals(OrdenVoz.Prorrogar(300, "sarten"), n("chef pon 5 minutos al 2"))
+        assertEquals(OrdenVoz.Prorrogar(300, "olla"), n("chef pon cinco minutos a la olla"))
+    }
+
+    @Test
+    fun `las demas ordenes de tiempo no cambian`() {
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef dos minutos más"))
+        assertEquals(OrdenVoz.Prorrogar(60, null), n("chef añade un minuto"))
+        assertEquals(OrdenVoz.Prorrogar(120, null), n("chef suma dos minutos"))
+        assertEquals(OrdenVoz.Prorrogar(120, "olla"), n("chef dos minutos más al tres"))
+        assertEquals(OrdenVoz.Pausa("mesa"), n("chef para el 1"))
+    }
+
+    @Test
+    fun `cuanto queda gana a un temporizador nombrado`() {
+        assertEquals(OrdenVoz.CuantoQueda(null), n("chef cuánto queda"))
+        assertEquals(OrdenVoz.CuantoQueda(null), n("chef cuánto queda del temporizador de 5 minutos"))
+        assertEquals(OrdenVoz.CuantoQueda("olla"), n("chef cuánto falta de la olla"))
+    }
+
+    @Test
+    fun `entre alternativas el temporizador se conserva`() {
+        assertEquals(
+            OrdenVoz.Temporizador(5),
+            InterpreteVoz.interpretar(listOf("chef pon 5 minutos", "chef pon cinco minutos"), numerados),
+        )
     }
 }

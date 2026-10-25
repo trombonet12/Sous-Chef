@@ -152,7 +152,8 @@ class CadenaAlarmas(
             carriles = carriles,
             urgente = urgenteDe(carriles),
             finProximoMs = carriles.mapNotNull { it.finAtMs }.minOrNull(),
-            llegadaMs = ConsultasCrono.plan(e, receta, ahora).llegadaMs,
+            // Con todos los carriles terminados (solo quedan libres) no hay hora de llegada que enseñar.
+            llegadaMs = ConsultasCrono.plan(e, receta, ahora).llegadaMs.takeUnless { ConsultasCrono.todoTerminado(e) },
         )
     }
 

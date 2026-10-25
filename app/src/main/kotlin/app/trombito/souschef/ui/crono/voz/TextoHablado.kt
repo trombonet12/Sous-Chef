@@ -8,6 +8,7 @@ private const val MAX_MINUTOS_EN_LETRA = 30
 private const val MAX_SEGUNDOS_EN_LETRA = 59
 private val etiquetas = Regex("<[^>]*>")
 private val espacios = Regex("""\s+""")
+private val minutosLibre = Regex("""(\d+) min$""")
 
 // El índice es el valor; «un» y «veintiún» porque siempre acompañan a minutos o segundos.
 private val unidadesEnLetra =
@@ -20,6 +21,13 @@ private val decenasEnLetra = listOf("treinta", "cuarenta", "cincuenta")
 
 /** Quita las etiquetas (`<b>`) y los espacios sobrantes: la voz lee solo texto. */
 internal fun sinMarcas(texto: String): String = etiquetas.replace(texto, "").replace(espacios, " ").trim()
+
+/** «10 minutos», «1 minuto»: cifra y unidad en singular o plural. */
+internal fun minutosHablados(minutos: Int): String = "$minutos ${if (minutos == 1) "minuto" else "minutos"}"
+
+/** «Temporizador: 10 min» dicho: «Temporizador: 10 minutos» (y «1 minuto»); la voz no lee «min». */
+internal fun textoHabladoLibre(texto: String): String =
+    minutosLibre.replace(texto) { "${it.groupValues[1]} ${if (it.groupValues[1] == "1") "minuto" else "minutos"}" }
 
 /** «Treinta segundos», «Dos minutos», «Un minuto y medio»: números en letra hasta 30 minutos. */
 internal fun duracionHablada(segundos: Int): String {

@@ -75,6 +75,11 @@ sealed interface OrdenVoz {
         val carril: String?,
     ) : OrdenVoz
 
+    /** «pon 10 minutos», «temporizador de 10 minutos», «avísame en 10 minutos»: un temporizador libre (1 a 180). */
+    data class Temporizador(
+        val minutos: Int,
+    ) : OrdenVoz
+
     /** «para», «calla», «silencio», «apaga la alarma». */
     data object Para : OrdenVoz
 
@@ -104,6 +109,7 @@ val OrdenVoz.carril: String?
             is OrdenVoz.Deshacer -> carril
             is OrdenVoz.IngredientesPaso -> carril
             is OrdenVoz.Cantidad -> null
+            is OrdenVoz.Temporizador -> null
             OrdenVoz.QueViene, OrdenVoz.Para, OrdenVoz.Repite -> null
         }
 
@@ -111,6 +117,7 @@ val OrdenVoz.carril: String?
  * Intérprete puro de órdenes de voz del cronómetro: sin Android, sin reloj, sin estado. Solo reconoce frases
  * dichas tras la palabra de activación «chef» (y sus errores típicos de reconocimiento).
  */
+@Suppress("TooManyFunctions") // un analizador por familia de órdenes: partirlo esparciría la gramática
 object InterpreteVoz {
     /** Palabras de activación (con los errores típicos del reconocedor). */
     val ACTIVADORES: Set<String> = setOf("chef", "jef", "shef", "jefe", "chefs", "sheff")
@@ -146,6 +153,7 @@ object InterpreteVoz {
     // «dos» tras «de/del» al final de la frase suele llegar del reconocedor como «los».
     private val antesDeLos = setOf("del", "de")
     private const val DOS = 2
+    private const val MAX_TEMPORIZADOR_MIN = 180
     private val palabrasTiempo = setOf("segundo", "segundos", "seg", "segs", "minuto", "minutos", "min", "mins")
 
     private class Ctx(
@@ -186,6 +194,8 @@ object InterpreteVoz {
                 " (deshaz|deshazlo|deshacer|atras|paso anterior|me he equivocado|me equivoque|no era eso) ",
             ) { OrdenVoz.Deshacer(it.carril) },
             Regla(" (repite|repetir|otra vez|que has dicho|que dijiste) ") { OrdenVoz.Repite },
+            // Antes que la prórroga: «pon 5 minutos» es un temporizador; «pon 5 minutos más» o con carril, no.
+            Regla(" ") { c -> temporizador(c) },
             Regla(" ") { c -> c.cantidad?.let { OrdenVoz.Prorrogar(it, c.carril) } },
             Regla(" quita (la )?pausa ") { OrdenVoz.Seguir(it.carril) },
             Regla("^ para el tiempo | (pausa|pausar|espera|detente) ") { OrdenVoz.Pausa(it.carril) },
@@ -206,7 +216,16 @@ object InterpreteVoz {
     private val enSegundos = Regex(" ([0-9]+) (?:segundos?|segs?) ")
     private val enMinutos = Regex(" ([0-9]+) (?:minutos?|mins?) ")
     private val nMas = Regex(" ([0-9]+) mas ")
+    private val mas = Regex(" mas ")
     private val unPoco = Regex(" 1 poco ")
+
+    // «pon (un temporizador de) 10 minutos», «temporizador de 10 minutos», «avísame en/dentro de 10 minutos».
+    private val temporizadorDe =
+        Regex(
+            " pon(?:me)? (?:(?:1|el) )?(?:temporizador (?:de )?)?([0-9]+) (?:minutos?|mins?) " +
+                "| temporizador (?:de |para )?([0-9]+) (?:minutos?|mins?) " +
+                "| avisame (?:en|dentro de) ([0-9]+) (?:minutos?|mins?) ",
+        )
 
     // «cuánta sal lleva», «cantidad de aceite de oliva»: lo que sigue al cuantificador, sin la cola de cortesía.
     private val cantidadDe =
@@ -263,6 +282,22 @@ object InterpreteVoz {
                 ?.dropWhile { it in articulos }
                 .orEmpty()
         return palabras.takeIf { it.isNotEmpty() && it.first() !in noIngrediente }?.joinToString(" ")
+    }
+
+    /**
+     * Temporizador libre. Si la frase nombra un carril o dice «más» es una prórroga ([cantidad]), no un temporizador;
+     * una duración de 0 no es nada y una de más de 180 minutos se queda en 180.
+     */
+    private fun temporizador(c: Ctx): OrdenVoz? {
+        if (c.carril != null || mas.containsMatchIn(c.frase)) return null
+        val minutos =
+            temporizadorDe
+                .find(c.frase)
+                ?.groupValues
+                ?.drop(1)
+                ?.firstOrNull { it.isNotEmpty() }
+                ?.toIntOrNull()
+        return minutos?.takeIf { it > 0 }?.let { OrdenVoz.Temporizador(it.coerceAtMost(MAX_TEMPORIZADOR_MIN)) }
     }
 
     /** Segundos pedidos en la frase (1..[TOPE_S]) o null. */

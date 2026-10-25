@@ -14,6 +14,7 @@ object RespuestasVoz {
     const val NO_ENTENDIDO = "No te he entendido."
     const val SIN_PORQUE = "Este paso no tiene explicación."
     const val NADA_QUE_DESHACER = "No hay nada que deshacer."
+    const val SIN_TEMPORIZADOR = "Ya hay tres temporizadores en marcha."
 
     /** Tiempo que queda de un carril, o el estado en que está si no corre. */
     fun cuantoQueda(v: VistaCarril): String {
@@ -104,6 +105,7 @@ object RespuestasVoz {
             is OrdenVoz.Seguir -> "Sigo."
             is OrdenVoz.Empezar -> "Vamos."
             is OrdenVoz.Prorrogar -> "${duracionHablada(orden.segundos)} más."
+            is OrdenVoz.Temporizador -> "Temporizador de ${minutosHablados(orden.minutos)} en marcha."
             is OrdenVoz.Para -> "Silencio."
             is OrdenVoz.CuantoQueda -> v?.let(::cuantoQueda) ?: NO_ENTENDIDO
             is OrdenVoz.QueToca, is OrdenVoz.PorQue, is OrdenVoz.Info -> "Vale."

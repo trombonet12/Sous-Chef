@@ -65,7 +65,8 @@
     <string name="intro_voz_g_tiempo_texto">«Chef, pausa» (o espera)
 «Chef, sigue» (o continúa, dale)
 «Chef, dos minutos más» (o medio minuto, un poco más)
-«Chef, cuánto queda»</string>
+«Chef, cuánto queda»
+«Chef, pon 10 minutos» (o temporizador de 10 minutos, avísame en 10 minutos)</string>
     <string name="intro_voz_g_preguntar">Preguntar</string>
     <string name="intro_voz_g_preguntar_texto">«Chef, qué toca» (o qué tengo que hacer)
 «Chef, qué viene»
@@ -104,6 +105,7 @@
     <string name="intro_orden_para">silenciar la alarma</string>
     <string name="intro_orden_repite">repetir lo último</string>
     <string name="intro_orden_deshacer">deshacer el último hecho</string>
+    <string name="intro_orden_temporizador">poner un temporizador</string>
 
     <!-- 11. Permisos -->
     <string name="intro_p11_titulo">Permisos</string>

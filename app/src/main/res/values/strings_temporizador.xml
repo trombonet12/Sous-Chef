@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Temporizador libre (ADR-0016) -->
+    <string name="crono_temporizador_menu">+ Temporizador</string>
+    <string name="crono_temporizador_titulo">Temporizador</string>
+    <string name="crono_temporizador_rapido">%1$d min</string>
+    <string name="crono_temporizador_campo">Minutos (1 a 180)</string>
+    <string name="crono_temporizador_poner">Poner</string>
+    <string name="crono_temporizador_cancelar">Cancelar</string>
+    <string name="crono_temporizador_lleno">Ya hay tres temporizadores en marcha. Quita alguno para poner otro.</string>
+    <string name="crono_temporizador_fila">Temporizador · %1$d min</string>
+    <string name="crono_temporizador_listo">¡Listo!</string>
+    <string name="crono_temporizador_quitar">Quitar el temporizador de %1$d min</string>
+    <string name="crono_cierre_temporizadores">Temporizadores sin acabar: %1$s. Al terminar se quitan.</string>
+</resources>

@@ -115,12 +115,16 @@ object SesionCrono {
 
     /**
      * Regla única de «cocinada viva»: abierta (`inicioMs` != null), sin caducar (hasta [CADUCIDAD_MS] inclusive) y con
-     * algún carril sin terminar. La pausa no la mata: una cocinada en pausa sigue viva.
+     * algún carril sin terminar o algún temporizador libre sin avisar (ADR-0016: si no, un libre puesto con todo
+     * terminado no sonaría con el móvil bloqueado). La pausa no la mata: una cocinada en pausa sigue viva.
      */
     fun vivo(
         e: EstadoCrono,
         ahoraMs: Long,
-    ): Boolean = e.inicioMs != null && !caducado(e, ahoraMs) && !ConsultasCrono.todoTerminado(e)
+    ): Boolean =
+        e.inicioMs != null &&
+            !caducado(e, ahoraMs) &&
+            (!ConsultasCrono.todoTerminado(e) || e.libres.any { !it.avisado })
 
     /** El estado si sigue vigente (y es de esta receta); si no, null: no se restaura nada. */
     fun vigente(

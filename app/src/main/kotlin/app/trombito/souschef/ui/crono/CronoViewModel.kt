@@ -32,6 +32,7 @@ import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.MotorCrono
 import app.trombito.souschef.receta.crono.ResumenCrono
 import app.trombito.souschef.receta.crono.SesionCrono
+import app.trombito.souschef.receta.crono.TemporizadoresLibres
 import app.trombito.souschef.receta.crono.TipoAviso
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.voz.ControlVoz
@@ -39,6 +40,7 @@ import app.trombito.souschef.ui.crono.voz.FuenteIngredientes
 import app.trombito.souschef.ui.crono.voz.MandosVoz
 import app.trombito.souschef.ui.crono.voz.SesionVoz
 import app.trombito.souschef.ui.crono.voz.SituacionVoz
+import app.trombito.souschef.ui.crono.voz.textoHabladoLibre
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -164,6 +166,7 @@ class CronoViewModel
                         prorrogar = ::prorrogar,
                         empezarIgual = ::empezarIgual,
                         deshacer = ::deshacer,
+                        temporizador = ::temporizador,
                         silenciarAlarma = { viewModelScope.launch { cadena.silenciar(slug) } },
                     ),
                 registro = { Log.d(ETIQUETA_VOZ, "orden: $it") },
@@ -287,9 +290,16 @@ class CronoViewModel
             val nombres = ConsultasCrono.carriles(receta).associate { it.id to it.nombre }
             val cocina = _ui.value.cocina
             if (suenan.isNotEmpty()) {
-                // El texto del aviso sale de la receta canónica: se traduce a la cocina antes de oírlo.
+                // El texto del aviso sale de la receta canónica: se traduce a la cocina antes de oírlo. Un temporizador
+                // libre no es de ningún carril: se dice sin nombre de carril.
                 voz.anunciar(
-                    suenan.map { "${nombres[it.carril] ?: it.carril}: ${Potencia.reescribir(it.texto, cocina)}" },
+                    suenan.map {
+                        if (it.tipo == TipoAviso.TEMPORIZADOR) {
+                            textoHabladoLibre(it.texto)
+                        } else {
+                            "${nombres[it.carril] ?: it.carril}: ${Potencia.reescribir(it.texto, cocina)}"
+                        }
+                    },
                 )
             }
             val perdidos = avisos.filter { it.silencioso }
@@ -297,9 +307,10 @@ class CronoViewModel
             avisador.resumen()
             val lineas =
                 perdidos.map {
+                    val libre = it.tipo == TipoAviso.TEMPORIZADOR
                     LineaBanda(
-                        nombres[it.carril] ?: it.carril,
-                        Potencia.reescribir(it.texto, cocina),
+                        if (libre) TemporizadoresLibres.NOMBRE else nombres[it.carril] ?: it.carril,
+                        if (libre) it.paso else Potencia.reescribir(it.texto, cocina),
                         ((ahora - it.instanteMs) / MS_MINUTO).toInt(),
                     )
                 }
@@ -308,7 +319,7 @@ class CronoViewModel
 
         private fun prioridad(tipo: TipoAviso): Int =
             when (tipo) {
-                TipoAviso.FIN -> 0
+                TipoAviso.FIN, TipoAviso.TEMPORIZADOR -> 0
                 TipoAviso.HITO -> 1
                 else -> 2
             }
@@ -456,6 +467,22 @@ class CronoViewModel
                     else -> MotorCrono.empezar(e, r, carril, t)
                 }
             }
+
+        /**
+         * Pone un temporizador libre de [minutos] (ADR-0016; «+ Temporizador» y la voz). false si no se puede: duración
+         * fuera de 1 a 180, cocina sin abrir o ya hay tres sin avisar.
+         */
+        fun temporizador(minutos: Int): Boolean {
+            val estado = _ui.value.estado ?: return false
+            val posible =
+                minutos in TemporizadoresLibres.MIN_MINUTOS..TemporizadoresLibres.MAX_MINUTOS &&
+                    TemporizadoresLibres.puedeAnadir(estado, reloj.ahoraMs())
+            if (posible) mutar { e, _, t -> TemporizadoresLibres.anadir(e, minutos, t) }
+            return posible
+        }
+
+        /** Quita un temporizador libre (a mano, o uno ya avisado). */
+        fun quitarTemporizador(id: String) = mutar { e, _, t -> TemporizadoresLibres.quitar(e, id, t) }
 
         fun cerrarBanda() = _ui.update { it.copy(banda = emptyList()) }
 

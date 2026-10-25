@@ -224,6 +224,6 @@ class AgrupadorAlarmasTest {
     }
 
     private companion object {
-        val sonoros = setOf(TipoAviso.FIN, TipoAviso.HITO, TipoAviso.TOCA_EMPEZAR)
+        val sonoros = setOf(TipoAviso.FIN, TipoAviso.HITO, TipoAviso.TOCA_EMPEZAR, TipoAviso.TEMPORIZADOR)
     }
 }

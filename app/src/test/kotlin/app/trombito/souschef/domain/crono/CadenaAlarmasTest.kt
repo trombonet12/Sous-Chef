@@ -6,6 +6,7 @@ import app.trombito.souschef.receta.crono.AgrupadorAlarmas
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.MotorCrono
 import app.trombito.souschef.receta.crono.SesionCrono
+import app.trombito.souschef.receta.crono.TemporizadoresLibres
 import app.trombito.souschef.receta.crono.TipoAviso
 import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.crono.FakeAlarmaSistema
@@ -433,5 +434,126 @@ class CadenaAlarmasTest {
             assertEquals(listOf("a"), notificador.limpiados)
             assertTrue(notificador.carrilesPorSlug.isEmpty())
             assertNull(sistema.programada)
+        }
+
+    // ---- temporizadores libres (ADR-0016)
+
+    private suspend fun conLibre(
+        slug: String,
+        minutos: Int,
+    ) {
+        almacen.modificar(slug) { TemporizadoresLibres.anadir(it, minutos, T0) }
+    }
+
+    /** Cocinada "a" abierta con todos los carriles terminados y un libre de [minutos]. */
+    private suspend fun todoTerminadoConLibre(minutos: Int) {
+        val receta = recetaCrono("a")
+        var e = SesionCrono.abrir(SesionCrono.inicial(receta, T0 + 15 * 60_000L, T0), receta, T0)
+        e = e.copy(carriles = e.carriles.mapValues { it.value.copy(fin = true) })
+        almacen.fijar(TemporizadoresLibres.anadir(e, minutos, T0))
+    }
+
+    @Test
+    fun elLibreEsUnEventoDeLaCadena() =
+        runTest {
+            cocinando("a", T0)
+            conLibre("a", 1)
+            cadena.reprogramar()
+            assertEquals(T0 + 60_000L, sistema.programada)
+            assertEquals(TipoAviso.TEMPORIZADOR, cadena.proximoEvento()?.tipo)
+        }
+
+    @Test
+    fun alVencerElLibreSuenaEnLaAlarmaAgrupadaConSuTexto() =
+        runTest {
+            cocinando("a", T0)
+            conLibre("a", 1)
+            reloj.ms = T0 + 61_000L
+            cadena.procesar()
+            val alarma = notificador.alarmas.single()
+            assertTrue(alarma.sonar)
+            assertEquals(listOf("Temporizador: 1 min"), alarma.alarma.lineas.map { it.texto })
+            val guardado = Json.decodeFromString(EstadoCrono.serializer(), repo.obtener("a")!!.json)
+            assertTrue(guardado.libres.single().avisado)
+            assertEquals(T0 + 300_000L, sistema.programada)
+        }
+
+    @Test
+    fun elLibreYUnCarrilQueVencenJuntosVanEnLaMismaAlarma() =
+        runTest {
+            cocinando("a", T0)
+            conLibre("a", 5)
+            reloj.ms = T0 + 301_000L
+            cadena.procesar()
+            val alarma = notificador.alarmas.single()
+            assertEquals(
+                setOf("F0: Sofrito: hecho", "Temporizador: 5 min"),
+                alarma.alarma.lineas
+                    .map { it.texto }
+                    .toSet(),
+            )
+        }
+
+    @Test
+    fun conTodoTerminadoUnLibreSinAvisarSigueVivaYSuena() =
+        runTest {
+            todoTerminadoConLibre(5)
+            assertTrue(cadena.vivas.hayViva())
+            cadena.reprogramar()
+            assertEquals(T0 + 300_000L, sistema.programada)
+            reloj.ms = T0 + 301_000L
+            cadena.procesar()
+            val alarma = notificador.alarmas.single()
+            assertEquals(listOf("Temporizador: 5 min"), alarma.alarma.lineas.map { it.texto })
+            // Ya avisado: la cocinada deja de estar viva y no queda nada armado.
+            assertFalse(cadena.vivas.hayViva())
+            assertNull(sistema.programada)
+        }
+
+    @Test
+    fun laNotificacionFijaDaUnaLineaAlLibre() =
+        runTest {
+            cocinando("a", T0)
+            conLibre("a", 10)
+            cadena.reprogramar()
+            val libre = notificador.carrilesPorSlug.getValue("a").single { it.nombre == "Temporizador" }
+            assertEquals("10 min", libre.texto)
+            assertEquals(T0 + 10 * 60_000L, libre.finAtMs)
+            assertTrue(TemporizadoresLibres.esCarrilLibre(libre.carril))
+            // Un libre nunca ofrece «Hecho y siguiente».
+            assertNull(notificador.cocinas.getValue("a").urgente)
+        }
+
+    @Test
+    fun conSoloLibresLaFijaNoEnseniaHoraDeLlegada() =
+        runTest {
+            todoTerminadoConLibre(5)
+            cadena.reprogramar()
+            val resumen = notificador.cocinas.getValue("a")
+            assertEquals(listOf("Temporizador"), resumen.carriles.map { it.nombre })
+            assertNull(resumen.llegadaMs)
+        }
+
+    @Test
+    fun conLaCocinaEnPantallaElLibreNoSeConsumeFuera() =
+        runTest {
+            cocinando("a", T0)
+            conLibre("a", 1)
+            presencia.visible = "a"
+            reloj.ms = T0 + 61_000L
+            cadena.procesar()
+            assertTrue(notificador.alarmas.isEmpty())
+            val guardado = Json.decodeFromString(EstadoCrono.serializer(), repo.obtener("a")!!.json)
+            assertFalse(guardado.libres.single().avisado)
+        }
+
+    @Test
+    fun unLibreNoMantieneVivaUnaCocinadaCaducada() =
+        runTest {
+            todoTerminadoConLibre(180)
+            reloj.ms = T0 + SesionCrono.CADUCIDAD_MS + 1
+            cadena.reprogramar()
+            assertNull(sistema.programada)
+            assertFalse(cadena.vivas.hayViva())
         }
 }

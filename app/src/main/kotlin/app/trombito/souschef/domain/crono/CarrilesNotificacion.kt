@@ -4,6 +4,7 @@ import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.receta.crono.SesionCrono
+import app.trombito.souschef.receta.crono.TemporizadoresLibres
 
 enum class SituacionCarril { CORRIENDO, VENCIDO, PAUSA, SIN_ARRANCAR }
 
@@ -81,14 +82,51 @@ data class CarrilNotificacion(
 }
 
 object ConstructorCarriles {
-    /** Un modelo por carril sin terminar; vacío si la cocinada no está abierta, caducó o ya terminó. */
+    /** Color neutro de la línea de un temporizador libre (ADR-0016). */
+    private const val COLOR_LIBRE = "#78909C"
+
+    /**
+     * Un modelo por carril sin terminar y uno por temporizador libre sin avisar; vacío si la cocinada no está abierta,
+     * caducó o ya terminó (carriles y libres).
+     */
     fun construir(
         receta: Receta,
         e: EstadoCrono,
         ahoraMs: Long,
     ): List<CarrilNotificacion> {
         if (!SesionCrono.vivo(e, ahoraMs)) return emptyList()
-        return ConsultasCrono.carriles(receta).mapNotNull { c ->
+        return deLaReceta(receta, e, ahoraMs) + deLibres(receta, e, ahoraMs)
+    }
+
+    /** Una línea por libre sin avisar, el que acaba antes primero; nunca «vencido» (no hay Hecho que pulsar). */
+    private fun deLibres(
+        receta: Receta,
+        e: EstadoCrono,
+        ahoraMs: Long,
+    ): List<CarrilNotificacion> =
+        TemporizadoresLibres.pendientes(e).sortedBy { it.finMs }.map { l ->
+            val quedan = l.quedanS(ahoraMs)
+            CarrilNotificacion(
+                slug = e.slug,
+                tituloReceta = receta.titulo,
+                carril = TemporizadoresLibres.carrilDe(l.id),
+                nombre = TemporizadoresLibres.NOMBRE,
+                color = COLOR_LIBRE,
+                indice = 1,
+                total = 1,
+                texto = listOfNotNull(l.etiqueta, "${l.minutos} min").joinToString(" · "),
+                situacion = SituacionCarril.CORRIENDO,
+                finAtMs = l.finMs.takeIf { quedan > 0 },
+                quedanS = maxOf(0, quedan),
+            )
+        }
+
+    private fun deLaReceta(
+        receta: Receta,
+        e: EstadoCrono,
+        ahoraMs: Long,
+    ): List<CarrilNotificacion> =
+        ConsultasCrono.carriles(receta).mapNotNull { c ->
             val ec = e.carriles[c.id]?.takeUnless { it.fin } ?: return@mapNotNull null
             val pasos = receta.pasos.filter { it.carril == c.id }
             val paso = pasos.getOrNull(ec.i) ?: return@mapNotNull null
@@ -115,5 +153,4 @@ object ConstructorCarriles {
                 fuego = paso.f,
             )
         }
-    }
 }

@@ -141,4 +141,6 @@ internal fun OrdenVoz.descripcion(): Int =
         OrdenVoz.Repite -> R.string.intro_orden_repite
 
         is OrdenVoz.Deshacer -> R.string.intro_orden_deshacer
+
+        is OrdenVoz.Temporizador -> R.string.intro_orden_temporizador
     }

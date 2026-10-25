@@ -14,6 +14,7 @@ import app.trombito.souschef.ui.crono.VistaCarril
 import app.trombito.souschef.ui.crono.elegirFoco
 
 /** Los mandos del cronómetro que la voz puede accionar; los pone el ViewModel. */
+@Suppress("LongParameterList") // un mando por orden de voz
 class MandosVoz(
     val hecho: (String) -> Unit,
     /** Pausa o sigue según el estado del carril (igual que el botón de la pantalla). */
@@ -25,6 +26,8 @@ class MandosVoz(
     val silenciarAlarma: () -> Unit,
     /** Deshace el último Hecho del carril (null: el último de la cocina). */
     val deshacer: (String?) -> Unit = {},
+    /** Pone un temporizador libre de N minutos (ADR-0016); false si no se ha podido (ya hay tres, o no hay cocina). */
+    val temporizador: (Int) -> Boolean = { false },
 )
 
 /**
@@ -137,6 +140,14 @@ class ControlVoz(
 
                 is OrdenVoz.Deshacer -> {
                     deshacer(orden.carril, actuales)
+                }
+
+                is OrdenVoz.Temporizador -> {
+                    if (mandos.temporizador(orden.minutos)) {
+                        RespuestasVoz.confirmacion(orden, null)
+                    } else {
+                        RespuestasVoz.SIN_TEMPORIZADOR
+                    }
                 }
             }
         if (frase != null) decir(frase)

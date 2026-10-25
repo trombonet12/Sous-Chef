@@ -24,12 +24,13 @@ object AgrupadorAlarmas {
     private const val SEPARADOR = " · "
 
     /** Tipos de aviso que piden hacer algo y, por tanto, suenan. */
-    private val SONOROS = setOf(TipoAviso.FIN, TipoAviso.HITO, TipoAviso.TOCA_EMPEZAR)
+    private val SONOROS = setOf(TipoAviso.FIN, TipoAviso.HITO, TipoAviso.TOCA_EMPEZAR, TipoAviso.TEMPORIZADOR)
 
     /**
      * Una línea por carril, en el orden en que cada carril aparece en [avisos]. Texto «NOMBRE: aviso»; si el carril
      * tiene varios avisos se unen con « · » en orden temporal. Ignora los silenciosos y los tipos que no suenan.
-     * Si [nombres] no conoce el carril se usa su id.
+     * Si [nombres] no conoce el carril se usa su id. Un temporizador libre ([TemporizadoresLibres.esCarrilLibre]) lleva
+     * su propio texto («Temporizador: 10 min») sin nombre de carril delante.
      */
     fun lineasDe(
         avisos: List<Aviso>,
@@ -40,7 +41,8 @@ object AgrupadorAlarmas {
             .groupBy { it.carril }
             .map { (carril, delCarril) ->
                 val texto = delCarril.sortedBy { it.instanteMs }.joinToString(SEPARADOR) { it.texto }
-                LineaAlarma(carril, "${nombres[carril] ?: carril}: $texto")
+                val nombre = if (TemporizadoresLibres.esCarrilLibre(carril)) null else nombres[carril] ?: carril
+                LineaAlarma(carril, if (nombre == null) texto else "$nombre: $texto")
             }
 
     /**

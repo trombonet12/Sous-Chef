@@ -25,6 +25,12 @@ data class EstadoCrono(
     val deshacer: Map<String, EstadoCarril> = emptyMap(),
     /** Carril del último Hecho: el que deshace «deshaz» sin nombrar carril. */
     val ultimoHecho: String? = null,
+    /**
+     * Temporizadores libres (ADR-0016): fuera del plano, de los fuegos, de `pasosReales` y del deshacer. Se leen con
+     * tolerancia: si el campo viene mal formado se pierden los libres, no la cocinada.
+     */
+    @Serializable(with = LibresTolerantes::class)
+    val libres: List<TemporizadorLibre> = emptyList(),
 )
 
 /** Estado del paso actual de un carril; al pasar al siguiente paso se reinicia. */
@@ -57,6 +63,9 @@ enum class TipoAviso {
     DIEZ_S,
     FIN,
     TOCA_EMPEZAR,
+
+    /** Un temporizador libre ([TemporizadorLibre]) llegó a cero. */
+    TEMPORIZADOR,
 }
 
 /** Un aviso que toca dar. `silencioso`: lleva más de 90 s vencido, solo informa (banda "mientras no mirabas"). */

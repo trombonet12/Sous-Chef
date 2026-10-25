@@ -70,7 +70,6 @@ fun CronoCocina(
     var abandonar by remember { mutableStateOf(false) }
     var diagrama by remember { mutableStateOf(false) }
     var interfaz by remember { mutableStateOf(false) }
-    var ordenes by remember { mutableStateOf(false) }
     var ingredientes by remember { mutableStateOf(false) }
     BackHandler { salidas.salir() }
     val acciones =
@@ -91,10 +90,10 @@ fun CronoCocina(
                 abandonar = { abandonar = true },
                 diagrama = { diagrama = true },
                 interfaz = { interfaz = true },
-                ordenesVoz = { ordenes = true },
                 ingredientes = { ingredientes = true },
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
+        BandaTemporizadores(estado, ui.ahoraMs, viewModel::quitarTemporizador)
         CuerpoCrono(
             datos,
             ui.disposicion,
@@ -109,7 +108,6 @@ fun CronoCocina(
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
     if (interfaz) DialogoInterfaz(ui.disposicion, viewModel::elegirDisposicion) { interfaz = false }
-    if (ordenes) HojaOrdenesCocina { ordenes = false }
     if (ingredientes) HojaIngredientesCocina(ui, viewModel) { ingredientes = false }
     if (abandonar) {
         DialogoAbandonar(
@@ -223,7 +221,7 @@ private fun Cabecera(
             rotuloColor = if (plan.tarde) CronoPalette.alerta else CronoPalette.tenue,
         )
         slotMicrofono()
-        MenuCocina(reiniciarArmado, viewModel, menu)
+        MenuCocina(reiniciarArmado, datos.estado.libresLlenos(), viewModel, menu)
     }
 }
 
@@ -252,21 +250,23 @@ internal class AccionesMenu(
     val abandonar: () -> Unit,
     val diagrama: () -> Unit,
     val interfaz: () -> Unit,
-    val ordenesVoz: () -> Unit = {},
     val ingredientes: () -> Unit = {},
 )
 
 /**
- * Menú de tres puntos: diagrama de tiempos, ingredientes, interfaz, órdenes de voz, reiniciar (doble toque, el primero
- * pide confirmación) y abandonar (con diálogo).
+ * Menú de tres puntos: diagrama de tiempos, ingredientes, interfaz, temporizador, órdenes de voz, reiniciar (doble
+ * toque, el primero pide confirmación) y abandonar (con diálogo).
  */
 @Composable
 private fun MenuCocina(
     reiniciarArmado: Boolean,
+    libresLlenos: Boolean,
     viewModel: CronoViewModel,
     menu: AccionesMenu,
 ) {
     var abierto by remember { mutableStateOf(false) }
+    var temporizador by remember { mutableStateOf(false) }
+    var ordenes by remember { mutableStateOf(false) }
     Box {
         IconButton({ abierto = true }, Modifier.size(BOTON_CABECERA).guia(GuiaIds.MENU)) {
             Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
@@ -275,7 +275,8 @@ private fun MenuCocina(
             ItemMenu(R.string.crono_diagrama, { abierto = false }, menu.diagrama)
             ItemMenu(R.string.crono_ingredientes, { abierto = false }, menu.ingredientes)
             ItemMenu(R.string.ajustes_interfaz, { abierto = false }, menu.interfaz)
-            ItemMenu(R.string.crono_ordenes_voz, { abierto = false }, menu.ordenesVoz)
+            ItemMenu(R.string.crono_temporizador_menu, { abierto = false }) { temporizador = true }
+            ItemMenu(R.string.crono_ordenes_voz, { abierto = false }) { ordenes = true }
             DropdownMenuItem(
                 text = {
                     Text(
@@ -292,6 +293,10 @@ private fun MenuCocina(
                 },
             )
             ItemMenu(R.string.crono_abandonar, { abierto = false }, menu.abandonar)
+        }
+        if (ordenes) HojaOrdenesCocina { ordenes = false }
+        if (temporizador) {
+            DialogoTemporizador(libresLlenos, { viewModel.temporizador(it) }) { temporizador = false }
         }
     }
 }
