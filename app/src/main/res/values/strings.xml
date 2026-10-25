@@ -172,7 +172,6 @@
     <string name="historial_nota">«%1$s»</string>
     <string name="historial_repetir">Repetir</string>
     <string name="historial_borrar">Borrar</string>
-    <string name="historial_seguro">¿Seguro?</string>
     <string name="historial_borrar_desc">Borrar %1$s del historial</string>
     <string name="historial_repetir_desc">Repetir %1$s</string>
 

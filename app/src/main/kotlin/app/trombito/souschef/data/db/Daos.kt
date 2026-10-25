@@ -55,6 +55,7 @@ data class UltimaFecha(
     val fecha: String,
 )
 
+@Suppress("TooManyFunctions") // una consulta o actualización por cada cosa que se hace con el historial
 @Dao
 interface HistorialDao {
     @Query("SELECT * FROM historial ORDER BY fecha DESC, id DESC")
@@ -95,6 +96,13 @@ interface HistorialDao {
     suspend fun valorarSiVacia(
         id: String,
         valoracion: String,
+    )
+
+    /** Cambia solo la nota de una cocinada ya guardada; nunca un insert/REPLACE, que pisaría el resto de columnas. */
+    @Query("UPDATE historial SET nota = :nota WHERE id = :id")
+    suspend fun editarNota(
+        id: String,
+        nota: String?,
     )
 
     @Query("DELETE FROM historial WHERE id = :id")

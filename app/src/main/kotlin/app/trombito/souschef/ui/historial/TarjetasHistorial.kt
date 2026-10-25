@@ -2,6 +2,8 @@ package app.trombito.souschef.ui.historial
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -49,27 +51,27 @@ private val ICONO_REPETIR = 18.dp
 fun TarjetaHistorial(
     fila: FilaHistorial,
     disposicion: DisposicionLista,
-    confirmando: Boolean,
     onBorrar: () -> Unit,
     onRepetir: () -> Unit,
+    onEditarNota: () -> Unit,
 ) {
     val color = colorBase(FamiliaBase.de(fila.entrada.base))
     when (disposicion) {
         DisposicionLista.TINTE -> {
             MarcoTarjeta(disposicion, color, onClick = null, bloque = { BloqueFecha(fila) }) {
-                CuerpoHistorial(fila, confirmando, onBorrar, onRepetir, cabecera = null)
+                CuerpoHistorial(fila, onBorrar, onRepetir, onEditarNota, cabecera = null)
             }
         }
 
         DisposicionLista.FRANJA -> {
             MarcoTarjeta(disposicion, color, onClick = null) {
-                CuerpoHistorial(fila, confirmando, onBorrar, onRepetir, cabecera = textoFechaYMinutos(fila))
+                CuerpoHistorial(fila, onBorrar, onRepetir, onEditarNota, cabecera = textoFechaYMinutos(fila))
             }
         }
 
         DisposicionLista.CLASICA -> {
             MarcoTarjeta(disposicion, color, onClick = null) {
-                CuerpoClasico(fila, confirmando, onBorrar, onRepetir)
+                CuerpoClasico(fila, onBorrar, onRepetir, onEditarNota)
             }
         }
     }
@@ -106,9 +108,9 @@ private fun BloqueFecha(fila: FilaHistorial) {
 @Composable
 private fun CuerpoHistorial(
     fila: FilaHistorial,
-    confirmando: Boolean,
     onBorrar: () -> Unit,
     onRepetir: () -> Unit,
+    onEditarNota: () -> Unit,
     cabecera: String?,
 ) {
     val e = fila.entrada
@@ -131,7 +133,7 @@ private fun CuerpoHistorial(
         }
         IndicadorValoracion(e.valoracion)
         Nota(e.nota)
-        AccionesFila(fila, confirmando, onBorrar, onRepetir)
+        AccionesFila(fila, onBorrar, onRepetir, onEditarNota)
     }
 }
 
@@ -139,9 +141,9 @@ private fun CuerpoHistorial(
 @Composable
 private fun CuerpoClasico(
     fila: FilaHistorial,
-    confirmando: Boolean,
     onBorrar: () -> Unit,
     onRepetir: () -> Unit,
+    onEditarNota: () -> Unit,
 ) {
     val e = fila.entrada
     Column(
@@ -173,7 +175,7 @@ private fun CuerpoClasico(
         }
         IndicadorValoracion(e.valoracion)
         Nota(e.nota)
-        AccionesFila(fila, confirmando, onBorrar, onRepetir)
+        AccionesFila(fila, onBorrar, onRepetir, onEditarNota)
     }
 }
 
@@ -202,17 +204,22 @@ private fun Nota(nota: String?) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AccionesFila(
     fila: FilaHistorial,
-    confirmando: Boolean,
     onBorrar: () -> Unit,
     onRepetir: () -> Unit,
+    onEditarNota: () -> Unit,
 ) {
     val titulo = fila.entrada.titulo
     val descripcionBorrar = stringResource(R.string.historial_borrar_desc, titulo)
     val descripcionRepetir = stringResource(R.string.historial_repetir_desc, titulo)
-    Row(horizontalArrangement = Arrangement.spacedBy(Espacio.s), verticalAlignment = Alignment.CenterVertically) {
+    val descripcionNota = stringResource(R.string.historial_editar_nota_desc, titulo)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(Espacio.s),
+        itemVerticalAlignment = Alignment.CenterVertically,
+    ) {
         if (fila.recetaExiste) {
             TextButton(
                 onClick = onRepetir,
@@ -223,11 +230,17 @@ private fun AccionesFila(
             }
         }
         TextButton(
+            onClick = onEditarNota,
+            modifier = Modifier.heightIn(min = ALTO_BOTON).semantics { contentDescription = descripcionNota },
+        ) {
+            Text(stringResource(R.string.historial_editar_nota))
+        }
+        TextButton(
             onClick = onBorrar,
             modifier = Modifier.heightIn(min = ALTO_BOTON).semantics { contentDescription = descripcionBorrar },
             colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
         ) {
-            Text(stringResource(if (confirmando) R.string.historial_seguro else R.string.historial_borrar))
+            Text(stringResource(R.string.historial_borrar))
         }
     }
 }

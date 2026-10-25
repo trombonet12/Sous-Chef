@@ -2,6 +2,8 @@ package app.trombito.souschef.ui.historial
 
 import app.trombito.souschef.domain.DisposicionLista
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.ResumenMes
+import app.trombito.souschef.domain.resumenDelMes
 import app.trombito.souschef.ui.comun.fechaCorta
 import app.trombito.souschef.ui.comun.normalizado
 import java.time.LocalDate
@@ -18,10 +20,12 @@ data class HistorialUiState(
     val consulta: String = "",
     val total: Int = 0,
     val filas: List<FilaHistorial> = emptyList(),
-    /** Id de la entrada que espera el segundo toque para borrarse. */
-    val pendienteBorrar: String? = null,
+    /** La última cocinada borrada, mientras se puede deshacer; null si no hay nada que deshacer. */
+    val borrada: EntradaHistorial? = null,
     /** Diseño de tarjeta elegido en Ajustes. */
     val disposicion: DisposicionLista = DisposicionLista.TINTE,
+    /** Resumen del mes en curso, sobre todo el historial (no sobre el filtrado). */
+    val mes: ResumenMes = ResumenMes(0, 0, 0, 0),
 )
 
 /** "2026-10-14" -> ("14", "oct"); null si la fecha no se entiende. */
@@ -58,11 +62,13 @@ fun coincideHistorial(
             .contains(q)
 }
 
+@Suppress("LongParameterList") // un dato por cada cosa que mira la pantalla
 fun construirEstadoHistorial(
     entradas: List<EntradaHistorial>,
     slugsExistentes: Set<String>,
     consulta: String,
-    pendienteBorrar: String?,
+    borrada: EntradaHistorial?,
+    hoy: LocalDate,
     disposicion: DisposicionLista = DisposicionLista.TINTE,
 ): HistorialUiState =
     HistorialUiState(
@@ -70,6 +76,7 @@ fun construirEstadoHistorial(
         consulta = consulta,
         total = entradas.size,
         filas = marcarRepeticiones(entradas, slugsExistentes).filter { coincideHistorial(it.entrada, consulta) },
-        pendienteBorrar = pendienteBorrar,
+        borrada = borrada,
         disposicion = disposicion,
+        mes = resumenDelMes(entradas, slugsExistentes, hoy),
     )

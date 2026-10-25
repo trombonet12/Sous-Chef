@@ -3,4 +3,47 @@
     <!-- Tarjetas del historial según la disposición de lista -->
     <string name="historial_bloque_min">%1$d min</string>
     <string name="historial_dos_seguidas_corta">Dos seguidas</string>
+
+    <!-- F15: editar la nota y borrar con Deshacer -->
+    <string name="historial_editar_nota">Editar nota</string>
+    <string name="historial_editar_nota_desc">Editar la nota de %1$s</string>
+    <string name="historial_nota_titulo">Nota de la cocinada</string>
+    <string name="historial_nota_guardar">Guardar</string>
+    <string name="historial_nota_cancelar">Cancelar</string>
+    <string name="historial_borrada">Cocinada borrada</string>
+    <string name="historial_deshacer">Deshacer</string>
+
+    <!-- F10: resumen del mes en Historial -->
+    <string name="historial_mes">Este mes: %1$s</string>
+    <plurals name="historial_mes_cocinadas">
+        <item quantity="one">%d cocinada</item>
+        <item quantity="other">%d cocinadas</item>
+    </plurals>
+    <plurals name="historial_mes_distintas">
+        <item quantity="one">%d receta distinta</item>
+        <item quantity="other">%d recetas distintas</item>
+    </plurals>
+    <string name="historial_mes_sin_estrenar">sin estrenar %1$d de %2$d</string>
+
+    <!-- F10: tu historial con una receta, en la ficha -->
+    <plurals name="historial_receta_veces">
+        <item quantity="one">La has cocinado %d vez</item>
+        <item quantity="other">La has cocinado %d veces</item>
+    </plurals>
+    <string name="historial_receta_ultima">última %1$s</string>
+    <string name="historial_receta_tarda">sueles tardar %1$d min (plan %2$d)</string>
+    <string name="historial_receta_valoracion">valoración: %1$s</string>
+
+    <!-- F16: anotar una cocinada sin cronómetro -->
+    <string name="ficha_anotar_boton">Anotar que la he cocinado</string>
+    <string name="ficha_anotar_titulo">Anotar cocinada</string>
+    <string name="ficha_anotar_fecha">Fecha</string>
+    <string name="ficha_anotar_hora">Hora</string>
+    <string name="ficha_anotar_dia_menos">Un día antes</string>
+    <string name="ficha_anotar_dia_mas">Un día después</string>
+    <string name="ficha_anotar_hora_menos">15 minutos antes</string>
+    <string name="ficha_anotar_hora_mas">15 minutos después</string>
+    <string name="ficha_anotar_nota">Nota (opcional)</string>
+    <string name="ficha_anotar_guardar">Anotar</string>
+    <string name="ficha_anotar_cancelar">Cancelar</string>
 </resources>

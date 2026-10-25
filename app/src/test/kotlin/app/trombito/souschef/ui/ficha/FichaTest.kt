@@ -3,7 +3,9 @@ package app.trombito.souschef.ui.ficha
 import androidx.lifecycle.SavedStateHandle
 import app.trombito.souschef.domain.EntradaHistorial
 import app.trombito.souschef.domain.NotaCocinada
+import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.receta.Cocina
@@ -44,6 +46,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDateTime
 
 class FichaLogicaTest {
     @Test
@@ -355,5 +358,54 @@ class FichaViewModelTest {
 
             assertNull(almacen.leer("sopa"))
             assertNull(vm.estado.value.cocinando)
+        }
+
+    @Test
+    fun laFichaTraeSuHistorialSoloSiSeHaCocinadoYNoElDeOtraReceta() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            assertNull(vm.estado.value.historial)
+            historial.datos.value =
+                listOf(
+                    EntradaHistorial("1", "arroz", "Arroz", "2026-02-01", minutosReales = 90),
+                    EntradaHistorial("2", "sopa", "Sopa", "2026-03-01", minutosReales = 38, previstoMin = 32),
+                    EntradaHistorial(
+                        "3",
+                        "sopa",
+                        "Sopa",
+                        "2026-04-01",
+                        minutosReales = 40,
+                        valoracion = Valoracion.REPETIR,
+                    ),
+                )
+            val h = vm.estado.value.historial
+            assertEquals(2, h?.veces)
+            assertEquals("2026-04-01", h?.ultimaFecha)
+            assertEquals(39, h?.tardaMin)
+            assertEquals(32, h?.planMin)
+            assertEquals(Valoracion.REPETIR, h?.valoracion)
+        }
+
+    @Test
+    fun anotarUnaCocinadaGuardaUnaEntradaSinCronometroYAparecenEnElHistorialDeLaFicha() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+
+            vm.anotarCocinada(LocalDateTime.of(2026, 10, 12, 21, 5, 9), 4, "  sin sal ")
+            runCurrent()
+
+            val e = historial.datos.value.single()
+            assertEquals("sopa-2026-10-12-210509", e.id)
+            assertEquals("2026-10-12", e.fecha)
+            assertEquals(4, e.raciones)
+            assertEquals("sin sal", e.nota)
+            assertNull(e.minutosReales)
+            assertEquals(emptyList<PasoReal>(), e.pasosReales)
+            assertEquals(30, e.previstoMin)
+            val h = vm.estado.value.historial
+            assertEquals(1, h?.veces)
+            assertEquals("2026-10-12", h?.ultimaFecha)
+            assertNull(h?.tardaMin)
+            assertNull(vm.estado.value.ritmoMin)
         }
 }

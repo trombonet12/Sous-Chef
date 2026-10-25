@@ -9,6 +9,7 @@ import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.domain.copia.Copia
 import app.trombito.souschef.domain.copia.CopiaHistorial
+import app.trombito.souschef.domain.normalizarNota
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
@@ -93,6 +94,13 @@ class FakeHistorialRepo(
         valoracion: Valoracion?,
     ) {
         datos.value = datos.value.map { if (it.id == id) it.copy(valoracion = valoracion) else it }
+    }
+
+    override suspend fun editarNota(
+        id: String,
+        nota: String?,
+    ) {
+        datos.value = datos.value.map { if (it.id == id) it.copy(nota = normalizarNota(nota)) else it }
     }
 
     override suspend fun borrar(id: String) {

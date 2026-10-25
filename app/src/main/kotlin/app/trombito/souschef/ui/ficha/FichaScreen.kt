@@ -79,6 +79,7 @@ fun FichaScreen(
             onServir = viewModel::ajustarServir,
             onFavorita = viewModel::alternarFavorita,
             onQuiereHacerla = viewModel::alternarQuiereHacerla,
+            onAnotar = viewModel::anotarCocinada,
         )
     when {
         estado.cargando -> {
@@ -120,7 +121,7 @@ fun FichaContenido(
                 color = FichaPalette.papel,
                 contentColor = FichaPalette.tinta,
             ) {
-                ContenidoPestana(PestanaFicha.entries[elegida], receta, estado, acciones.onTecnica)
+                ContenidoPestana(PestanaFicha.entries[elegida], receta, estado, acciones.onTecnica, acciones.onAnotar)
             }
         }
     }

@@ -21,6 +21,7 @@ import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.domain.copia.Copia
 import app.trombito.souschef.domain.copia.CopiaHistorial
+import app.trombito.souschef.domain.normalizarNota
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import app.trombito.souschef.receta.leerReceta
@@ -97,6 +98,11 @@ class HistorialRepoRoom
             id: String,
             valoracion: Valoracion?,
         ) = dao.valorar(id, valoracion?.codigo)
+
+        override suspend fun editarNota(
+            id: String,
+            nota: String?,
+        ) = dao.editarNota(id, normalizarNota(nota))
 
         override suspend fun borrar(id: String) = dao.borrar(id)
     }

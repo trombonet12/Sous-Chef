@@ -51,6 +51,15 @@ interface HistorialRepo {
         valoracion: Valoracion?,
     )
 
+    /**
+     * Cambia solo la nota de una cocinada ya guardada (un UPDATE puntual: no toca la valoración ni el resto). La nota
+     * se guarda con `normalizarNota`: recortada y null si queda vacía. Si el id no existe, no hace nada.
+     */
+    suspend fun editarNota(
+        id: String,
+        nota: String?,
+    )
+
     suspend fun borrar(id: String)
 }
 

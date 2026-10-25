@@ -22,6 +22,7 @@ import app.trombito.souschef.R
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.theme.Espacio
 import app.trombito.souschef.ui.theme.FichaPalette
+import java.time.LocalDateTime
 
 /** Fila de pestañas con scroll horizontal: a 360 dp no caben cinco con su texto. */
 @Composable
@@ -50,6 +51,7 @@ fun ContenidoPestana(
     receta: Receta,
     estado: FichaUiState,
     onTecnica: (String) -> Unit,
+    onAnotar: (LocalDateTime, Int, String) -> Unit = { _, _, _ -> },
 ) {
     val guardado = rememberSaveableStateHolder()
     val scrolls = List(PestanaFicha.entries.size) { rememberScrollState() }
@@ -58,7 +60,7 @@ fun ContenidoPestana(
         if (elegida == PestanaFicha.PASOS && receta.pasos.isNotEmpty()) {
             PestanaPasos(receta, scroll)
         } else {
-            CuerpoPestana(scroll, elegida) { CuerpoDe(elegida, receta, estado, onTecnica) }
+            CuerpoPestana(scroll, elegida) { CuerpoDe(elegida, receta, estado, onTecnica, onAnotar) }
         }
     }
 }
@@ -69,9 +71,10 @@ private fun CuerpoDe(
     receta: Receta,
     estado: FichaUiState,
     onTecnica: (String) -> Unit,
+    onAnotar: (LocalDateTime, Int, String) -> Unit,
 ) {
     when (pestana) {
-        PestanaFicha.RESUMEN -> PestanaResumen(receta, estado, onTecnica)
+        PestanaFicha.RESUMEN -> PestanaResumen(receta, estado, onTecnica, onAnotar)
         PestanaFicha.INGREDIENTES -> SiHay(receta.grupos.isNotEmpty()) { PestanaIngredientes(receta, estado) }
         PestanaFicha.PREPARACION -> SiHay(receta.mep.isNotEmpty()) { PestanaPreparacion(receta) }
         PestanaFicha.PASOS -> SiHay(false) {}

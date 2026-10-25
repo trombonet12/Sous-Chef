@@ -18,7 +18,15 @@ const val MAX_NOTA = 160
  */
 fun previstoMinDe(receta: Receta): Int = ceil(receta.totalEfectivo).toInt()
 
-private val SELLO_ID = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT)
+internal val SELLO_ID = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss", Locale.ROOT)
+
+/** La nota tal como se guarda: sin espacios en los extremos, recortada a [MAX_NOTA] y null si queda vacía. */
+fun normalizarNota(nota: String?): String? =
+    nota
+        .orEmpty()
+        .trim()
+        .take(MAX_NOTA)
+        .ifBlank { null }
 
 /**
  * La entrada de historial de una cocinada cerrada. El id es `slug-yyyy-MM-dd-HHmmss` y la fecha sale del instante de
@@ -48,7 +56,7 @@ fun entradaDe(
         tecnica = receta.tags.tecnica,
         raciones = estado.raciones,
         minutosReales = resumen.minutosReales,
-        nota = nota.trim().take(MAX_NOTA).ifBlank { null },
+        nota = normalizarNota(nota),
         pasosReales = resumen.pasosReales.map { PasoReal(it.id, it.t, it.segundos) },
         valoracion = valoracion,
         previstoMin = previstoMin,

@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -28,6 +29,7 @@ import app.trombito.souschef.ui.comun.ColoresUltimaVez
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.UltimaVez
 import app.trombito.souschef.ui.theme.FichaPalette
+import java.time.LocalDateTime
 
 /** Resumen: lo que se lee de un vistazo. Lo largo queda en las demás pestañas o plegado. */
 @OptIn(ExperimentalLayoutApi::class)
@@ -36,7 +38,9 @@ fun PestanaResumen(
     receta: Receta,
     estado: FichaUiState,
     onTecnica: (String) -> Unit,
+    onAnotar: (LocalDateTime, Int, String) -> Unit = { _, _, _ -> },
 ) {
+    TuHistorial(estado.historial)
     UltimaVez(estado.notas, ColoresUltimaVez.Papel)
     if (receta.descripcion.isNotBlank()) {
         Text(
@@ -54,6 +58,33 @@ fun PestanaResumen(
     EtiquetasEquipoFicha(receta, estado.equipo)
     ResumenTiempo(receta)
     NotaCocina(estado.cocina)
+    AnotarSinCronometro(estado, onAnotar)
+}
+
+/** Botón secundario «Anotar que la he cocinado»: abre el diálogo con fecha, raciones y nota. */
+@Composable
+private fun AnotarSinCronometro(
+    estado: FichaUiState,
+    onAnotar: (LocalDateTime, Int, String) -> Unit,
+) {
+    var abierto by rememberSaveable { mutableStateOf(false) }
+    OutlinedButton(
+        onClick = { abierto = true },
+        modifier = Modifier.heightIn(min = 48.dp).testTag("anotar-cocinada"),
+    ) {
+        Text(stringResource(R.string.ficha_anotar_boton))
+    }
+    if (abierto) {
+        DialogoAnotar(
+            racionesPermitidas = estado.racionesPermitidas,
+            racionesIniciales = estado.raciones,
+            onAnotar = { momento, raciones, nota ->
+                abierto = false
+                onAnotar(momento, raciones, nota)
+            },
+            onCancelar = { abierto = false },
+        )
+    }
 }
 
 @OptIn(ExperimentalLayoutApi::class)

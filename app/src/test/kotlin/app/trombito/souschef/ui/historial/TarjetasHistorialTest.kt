@@ -44,11 +44,12 @@ class TarjetasHistorialTest {
         fila: FilaHistorial = this.fila,
         repetir: () -> Unit = {},
         borrar: () -> Unit = {},
+        editarNota: () -> Unit = {},
     ): BancoCompose {
         val banco = BancoCompose()
         banco.poner {
             MaterialTheme {
-                TarjetaHistorial(fila, disposicion, confirmando = false, onBorrar = borrar, onRepetir = repetir)
+                TarjetaHistorial(fila, disposicion, onBorrar = borrar, onRepetir = repetir, onEditarNota = editarNota)
             }
         }
         return banco
@@ -65,6 +66,7 @@ class TarjetasHistorialTest {
             val textos = pintar(d).textos()
             assertTrue("$d $textos", "Macarrones al horno" in textos)
             assertTrue("$d $textos", "Repetir" in textos)
+            assertTrue("$d $textos", "Editar nota" in textos)
             assertTrue("$d $textos", "Borrar" in textos)
         }
     }
@@ -100,12 +102,19 @@ class TarjetasHistorialTest {
     fun repetirYBorrarLlamanASusCallbacksEnTodasLasDisposiciones() {
         for (d in DisposicionLista.entries) {
             val llamadas = mutableListOf<String>()
-            val banco = pintar(d, repetir = { llamadas += "repetir" }, borrar = { llamadas += "borrar" })
+            val banco =
+                pintar(
+                    d,
+                    repetir = { llamadas += "repetir" },
+                    borrar = { llamadas += "borrar" },
+                    editarNota = { llamadas += "nota" },
+                )
 
             banco.pulsar(banco.pulsableConTexto("Repetir"))
+            banco.pulsar(banco.pulsableConTexto("Editar nota"))
             banco.pulsar(banco.pulsableConTexto("Borrar"))
 
-            assertEquals(d.toString(), listOf("repetir", "borrar"), llamadas)
+            assertEquals(d.toString(), listOf("repetir", "nota", "borrar"), llamadas)
         }
     }
 
@@ -136,6 +145,10 @@ class TarjetasHistorialTest {
         assertTrue(
             banco.descripciones().toString(),
             "Borrar Macarrones al horno del historial" in banco.descripciones(),
+        )
+        assertTrue(
+            banco.descripciones().toString(),
+            "Editar la nota de Macarrones al horno" in banco.descripciones(),
         )
     }
 }

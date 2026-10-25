@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import app.trombito.souschef.data.db.SousChefDatabase
 import app.trombito.souschef.domain.EntradaHistorial
+import app.trombito.souschef.domain.PasoReal
 import app.trombito.souschef.domain.Valoracion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -63,5 +64,48 @@ class HistorialRepoRoomTest {
             repo.agregar(curry)
 
             assertEquals(curry, repo.observarTodo().first().single())
+        }
+
+    @Test
+    fun editarNotaEsUnUpdatePuntualQueNoTocaElRestoDeLaCocinada() =
+        runBlocking {
+            val completa =
+                curry.copy(
+                    raciones = 3,
+                    minutosReales = 52,
+                    nota = "antes",
+                    previstoMin = 48,
+                    valoracion = Valoracion.AJUSTAR,
+                    pasosReales = listOf(PasoReal("p1", "Sofrito", 480)),
+                )
+            repo.agregar(completa)
+
+            repo.editarNota(completa.id, "  más pimentón ")
+
+            assertEquals(completa.copy(nota = "más pimentón"), repo.observarTodo().first().single())
+        }
+
+    @Test
+    fun editarNotaVaciaLaQuitaYUnIdQueNoExisteNoCreaNada() =
+        runBlocking {
+            repo.agregar(curry.copy(nota = "antes"))
+
+            repo.editarNota(curry.id, "   ")
+            repo.editarNota("no-existe", "fantasma")
+
+            val todas = repo.observarTodo().first()
+            assertEquals(listOf(curry), todas)
+        }
+
+    @Test
+    fun borrarYVolverAAgregarDejaLaMismaEntradaConSuValoracion() =
+        runBlocking {
+            val valorada = curry.copy(valoracion = Valoracion.REPETIR, nota = "con limón")
+            repo.agregar(valorada)
+
+            repo.borrar(valorada.id)
+            repo.agregar(valorada)
+
+            assertEquals(valorada, repo.observarTodo().first().single())
         }
 }

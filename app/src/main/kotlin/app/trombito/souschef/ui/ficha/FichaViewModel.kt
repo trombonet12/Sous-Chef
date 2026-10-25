@@ -14,8 +14,10 @@ import app.trombito.souschef.domain.TecnicasRepo
 import app.trombito.souschef.domain.ahoraMin
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.desvioHabitualMin
+import app.trombito.souschef.domain.entradaAnotada
 import app.trombito.souschef.domain.horaServir
 import app.trombito.souschef.domain.notasDe
+import app.trombito.souschef.domain.resumenDeReceta
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.conCocina
 import app.trombito.souschef.ui.Rutas
@@ -30,6 +32,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -55,7 +58,7 @@ class FichaViewModel
         private val preferencias: PreferenciasRepo,
         private val cadena: CadenaAlarmas,
         ajustes: AjustesRepo,
-        historial: HistorialRepo,
+        private val historialRepo: HistorialRepo,
         private val reloj: Reloj,
         @ApplicationScope private val ambito: CoroutineScope,
     ) : ViewModel() {
@@ -73,7 +76,7 @@ class FichaViewModel
                 combine(
                     local,
                     ajustes.observar(),
-                    historial.observarTodo(),
+                    historialRepo.observarTodo(),
                 ) { l, a, h -> Triple(l, a, h) },
             ) { receta, pref, existentes, viva, (l, a, h) ->
                 val permitidas = receta?.let { Escalado.racionesPermitidas(it) } ?: FichaUiState().racionesPermitidas
@@ -101,6 +104,7 @@ class FichaViewModel
                     notas = notasDe(h, slug),
                     ritmoMin = receta?.let { desvioHabitualMin(h, slug, ceil(it.totalEfectivo).toInt()) },
                     equipo = a.equipo,
+                    historial = receta?.let { resumenDeReceta(h, slug, it.totalEfectivo) },
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 
@@ -147,6 +151,20 @@ class FichaViewModel
         fun alternarQuiereHacerla() {
             val nueva = !estado.value.quiereHacerla
             viewModelScope.launch { preferencias.fijarQuiereHacerla(slug, nueva) }
+        }
+
+        /**
+         * «Anótala sin cronómetro»: guarda una cocinada hecha sin la app en [momento] (hora local), con [raciones] y
+         * una [nota] opcional. Sin pasos ni duración real: cuenta para «hace…» y «Nueva», no para «Tu ritmo». Va en
+         * el scope de la aplicación para no perderse si se sale de la ficha justo después.
+         */
+        fun anotarCocinada(
+            momento: LocalDateTime,
+            raciones: Int,
+            nota: String,
+        ) {
+            val receta = estado.value.receta ?: return
+            ambito.launch { historialRepo.agregar(entradaAnotada(receta, raciones, momento, nota)) }
         }
 
         fun ajustarServir(delta: Int) {
