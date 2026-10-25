@@ -57,7 +57,37 @@ data class Tags(
     val proteina: String? = null,
     /** Cuándo encaja el plato; null o ausente = cualquier momento (regla 28). */
     val momento: List<Momento>? = null,
+    /**
+     * Aparatos que pide la receta aparte de los fuegos, **solo los que no se derivan de los carriles** (regla 29);
+     * lo que sí se deriva (el horno) sale de [equipoDe]. null o ausente = ninguno extra.
+     */
+    val equipo: List<Equipo>? = null,
 )
+
+/** Aparato de cocina; en el JSON va en minúsculas (`"batidora"`, `"microondas"`…). */
+@Serializable
+enum class Equipo {
+    /** Se deriva de los carriles de tipo horno; declararlo es redundante (regla 29). */
+    @SerialName("horno")
+    HORNO,
+
+    @SerialName("batidora")
+    BATIDORA,
+
+    @SerialName("microondas")
+    MICROONDAS,
+
+    /** La plancha ocupa un carril de fuego, así que no se deriva: se declara. */
+    @SerialName("plancha")
+    PLANCHA,
+}
+
+/** Todo el equipo que pide [r]: el HORNO derivado de sus carriles más lo declarado en `tags.equipo`. */
+fun equipoDe(r: Receta): Set<Equipo> =
+    buildSet {
+        r.tags.equipo?.let { addAll(it) }
+        if (r.carriles.any { it.tipoCarril == TipoCarril.HORNO }) add(Equipo.HORNO)
+    }
 
 /** Momento del día en que encaja una receta; en el JSON va en minúsculas (`"comida"`, `"cena"`…). */
 @Serializable

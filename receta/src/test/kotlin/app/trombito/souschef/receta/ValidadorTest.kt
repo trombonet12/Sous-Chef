@@ -478,6 +478,70 @@ class ValidadorTest {
     @Test
     fun r28CenaDeSesentaMinutosNoAvisa() = assertEquals(emptyList(), r28(listOf(Momento.CENA), totalMin = 60.0))
 
+    private fun r29(
+        equipo: List<Equipo>?,
+        texto: String? = null,
+        conHorno: Boolean = false,
+    ): List<Hallazgo> {
+        val b = base()
+        val pasos = if (texto == null) b.pasos else listOf(b.pasos[0].copy(nota = texto), b.pasos[1])
+        val carriles = if (conHorno) b.carriles + Carril("h", tipo = "horno") else b.carriles
+        return Validador
+            .receta(b.copy(carriles = carriles, pasos = pasos, tags = b.tags.copy(equipo = equipo)))
+            .filter { it.regla == 29 }
+    }
+
+    @Test
+    fun r29SinEquipoNiMencionesNoDaHallazgos() {
+        assertEquals(emptyList(), r29(null))
+        assertEquals(emptyList(), r29(listOf(Equipo.BATIDORA, Equipo.PLANCHA), "Tritura con la batidora."))
+        assertEquals(emptyList(), r29(null, "Sirve con una salsa batida a mano."))
+    }
+
+    @Test
+    fun r29EquipoVacioEsError() {
+        assertEquals(listOf(Nivel.ERROR), r29(emptyList()).map { it.nivel })
+    }
+
+    @Test
+    fun r29EquipoRepetidoEsError() {
+        val h = r29(listOf(Equipo.BATIDORA, Equipo.MICROONDAS, Equipo.BATIDORA))
+        assertEquals(listOf(Nivel.ERROR), h.map { it.nivel })
+        assertTrue("batidora" in h.single().texto)
+    }
+
+    @Test
+    fun r29HornoDeclaradoSinCarrilDeHornoEsError() {
+        assertEquals(listOf(Nivel.ERROR), r29(listOf(Equipo.HORNO)).map { it.nivel })
+    }
+
+    @Test
+    fun r29HornoDeclaradoConCarrilDeHornoEsAvisoPorRedundante() {
+        assertEquals(listOf(Nivel.AVISO), r29(listOf(Equipo.HORNO), conHorno = true).map { it.nivel })
+        assertEquals(emptyList(), r29(null, conHorno = true))
+    }
+
+    @Test
+    fun r29MencionarBatidoraTurmixOMicroondasSinDeclararEsAviso() {
+        for (t in listOf("Tritura con la batidora de mano.", "Pasa el túrmix 2 minutos.", "Derrite en el microondas.")) {
+            assertEquals(listOf(Nivel.AVISO), r29(null, t).map { it.nivel }, t)
+        }
+    }
+
+    @Test
+    fun r29TurmixSeCubreConBatidoraYMicroondasPorSeparado() {
+        assertEquals(emptyList(), r29(listOf(Equipo.BATIDORA), "Pasa el túrmix."))
+        assertEquals(listOf(Nivel.AVISO), r29(listOf(Equipo.BATIDORA), "Derrite en el microondas.").map { it.nivel })
+    }
+
+    @Test
+    fun r29LaMencionEnUnHitoCuenta() {
+        val b = base()
+        val paso = b.pasos[0].copy(hitos = listOf(Hito(30.0, "Enchufa la batidora")))
+        val h = Validador.receta(b.copy(pasos = listOf(paso, b.pasos[1]))).filter { it.regla == 29 }
+        assertEquals(listOf(Nivel.AVISO), h.map { it.nivel })
+    }
+
     private fun r27(r: Receta) = Validador.receta(r).filter { it.regla == 27 }
 
     @Test

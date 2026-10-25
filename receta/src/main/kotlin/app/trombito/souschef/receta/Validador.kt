@@ -19,7 +19,7 @@ private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
 /**
- * Validador (reglas 1-8, 10, 11, 13-21 y 23-28 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Validador (reglas 1-8, 10, 11, 13-21 y 23-29 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
  * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
  *
  * La potencia del texto libre va marcada como `{N}` (ADR-0014): las reglas 20 y 25 la leen sin llaves, la 26 mira
@@ -53,6 +53,7 @@ object Validador {
         ctx.regla26()
         ctx.regla27()
         ctx.regla28()
+        ctx.regla29()
         return h
     }
 
@@ -413,6 +414,38 @@ private class Ctx(
         }
     }
 
+    /**
+     * Regla 29. `tags.equipo`, si está, no va vacío (ERROR) ni repite valores (ERROR); HORNO declarado sin carril de
+     * horno es ERROR y con él es AVISO (redundante, se deriva). AVISO si un paso nombra la batidora/túrmix o el
+     * microondas y [equipoDe] no lo incluye.
+     */
+    fun regla29() {
+        val e = r.tags.equipo
+        if (e != null) {
+            if (e.isEmpty()) return err(29, "tags.equipo vacío (omítelo si no pide aparatos extra)")
+            val repetidos = e.groupBy { it }.filterValues { it.size > 1 }.keys
+            if (repetidos.isNotEmpty()) err(29, "tags.equipo repite ${repetidos.joinToString { it.name.lowercase() }}")
+            if (Equipo.HORNO in e) {
+                if (r.carriles.any { it.tipoCarril == TipoCarril.HORNO }) {
+                    aviso(29, "tags.equipo declara horno, pero ya se deriva del carril de horno: quítalo")
+                } else {
+                    err(29, "tags.equipo declara horno y la receta no tiene carril de tipo horno")
+                }
+            }
+        }
+        val pide = equipoDe(r)
+        val textos =
+            r.pasos.flatMap { p ->
+                listOfNotNull(p.t, p.nota, p.p, p.meto, p.saco, p.sinHitos) + p.hitos.map { it.t }
+            }
+        for ((equipo, palabras) in MENCIONES_EQUIPO) {
+            if (equipo in pide) continue
+            if (textos.any { t -> palabras.any { Texto.contienePalabra(t, it) } }) {
+                aviso(29, "un paso nombra ${palabras.first()} y tags.equipo no declara ${equipo.name.lowercase()}")
+            }
+        }
+    }
+
     fun regla24() {
         for (i in r.grupos.flatMap { it.items }) {
             val n = Texto.normalizar(i.n)
@@ -424,6 +457,11 @@ private class Ctx(
 }
 
 private const val CENA_LARGA_MIN = 60.0
+private val MENCIONES_EQUIPO =
+    listOf(
+        Equipo.BATIDORA to listOf("batidora", "turmix"),
+        Equipo.MICROONDAS to listOf("microondas"),
+    )
 private val UNIDADES_CONTABLES = setOf("u", "ud", "uds", "unidad", "unidades")
 private val LLAVE_SUELTA = Regex("\\{(?!\\d\\})")
 

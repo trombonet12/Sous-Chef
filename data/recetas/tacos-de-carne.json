@@ -474,6 +474,9 @@
   "slug": "tacos-de-carne",
   "tags": {
     "base": "taco",
+    "equipo": [
+      "plancha"
+    ],
     "momento": [
       "comida",
       "cena"

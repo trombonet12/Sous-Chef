@@ -503,6 +503,10 @@
   "slug": "hamburguesa-smash",
   "tags": {
     "base": "hamburguesa",
+    "equipo": [
+      "batidora",
+      "plancha"
+    ],
     "momento": [
       "comida",
       "cena"

@@ -394,6 +394,9 @@
   "slug": "crema-de-calabacin",
   "tags": {
     "base": "crema",
+    "equipo": [
+      "batidora"
+    ],
     "momento": [
       "comida",
       "cena"

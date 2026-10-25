@@ -432,6 +432,10 @@
   "slug": "emperador-plancha-salmoriglio",
   "tags": {
     "base": "pescado",
+    "equipo": [
+      "microondas",
+      "plancha"
+    ],
     "momento": [
       "comida",
       "cena"
