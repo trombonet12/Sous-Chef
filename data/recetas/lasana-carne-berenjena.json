@@ -1,5 +1,5 @@
 {
-  "actualizada": "2026-10-19T00:00:00Z",
+  "actualizada": "2026-10-25T00:00:00Z",
   "carriles": [
     {
       "color": "#C0B7A6",
@@ -170,7 +170,7 @@
         },
         {
           "a": 1,
-          "n": "leche (1 brik)",
+          "n": "leche desnatada (1 brik)",
           "u": "l"
         },
         {
@@ -255,7 +255,7 @@
         "<b>500 g de carne picada mixta</b> (1 bandeja) · en su bandeja hasta el minuto 28. Sin salpimentar: la sal saca agua justo cuando quieres dorar.",
         "<b>400 g de tomate triturado</b> (1 lata de 400 g o medio bote de 800 g) · en su lata hasta el minuto 47.",
         "<b>60 g de mantequilla</b> (¼ de pastilla de 250 g, algo menos) · en dados de 2 cm, sobre su papel, hasta el minuto 67.",
-        "<b>1 l de leche</b> (1 brik) · en la nevera hasta el minuto 71.",
+        "<b>1 l de leche desnatada</b> (1 brik) · en la nevera hasta el minuto 71.",
         "<b>Olla, en frío</b> · 2 l de agua. Se enciende en el minuto 63.",
         "<b>14 láminas de lasaña precocidas</b> (placas El Pavo) · en su caja hasta el minuto 73.",
         "<b>150 g de queso rallado</b> (unas 15 cucharadas soperas colmadas) · en su bolsa hasta el minuto 89.",
@@ -541,7 +541,7 @@
       "min": 12,
       "nota": "Sube al {6} y echa un tercio de la leche, removiendo hasta que no queden grumos. Tiene que quedar como natillas ligeras, no espesa.",
       "off": 71,
-      "p": "Sube al {6} y echa un tercio de la leche fría, removiendo hasta que se integre sin grumos antes del siguiente tercio: el roux caliente y la leche fría se mezclan sin apelmazarse porque el almidón se hincha despacio. Con 60 g por litro sale una bechamel fluida, como unas natillas ligeras, y es a propósito: la placa precocida termina de hidratarse en el horno bebiendo de ella, y una bechamel espesa dejaría las esquinas secas. Espesa del todo al romper el hervor.",
+      "p": "Sube al {6} y echa un tercio de la leche fría, removiendo hasta que se integre sin grumos antes del siguiente tercio: el roux caliente y la leche fría se mezclan sin apelmazarse porque el almidón se hincha despacio. Con 60 g por litro sale una bechamel fluida, como unas natillas ligeras, y es a propósito: la placa precocida termina de hidratarse en el horno bebiendo de ella, y una bechamel espesa dejaría las esquinas secas. Espesa del todo al romper el hervor. Con leche desnatada espesa igual, porque lo hace el almidón de la harina y no la grasa de la leche; la grasa ya la ponen los 60 g de mantequilla.",
       "s": 720,
       "saco": "nada: apaga y la bechamel espera en la sartén",
       "t": "La leche, en tres veces",

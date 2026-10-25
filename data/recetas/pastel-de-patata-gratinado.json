@@ -1,5 +1,5 @@
 {
-  "actualizada": "2026-10-06T10:00:00Z",
+  "actualizada": "2026-10-25T00:00:00Z",
   "carriles": [
     {
       "color": "#C0B7A6",
@@ -87,7 +87,7 @@
         },
         {
           "a": 600,
-          "n": "leche entera (2½ tazas)",
+          "n": "leche desnatada (2½ tazas)",
           "u": "ml"
         },
         {
@@ -636,6 +636,10 @@
     [
       "La crema no llega a cubrir la última capa",
       "Es lo que separa un gratén de un guiso: la parte de las rodajas que sobresale se seca al aire del horno y se tuesta, mientras el resto se cuece sumergido. Si el líquido las tapa, arriba solo hay queso flotando."
+    ],
+    [
+      "Leche desnatada, y la misma mantequilla",
+      "La grasa de la crema la pone la nata: los 400 ml de nata para cocinar llevan unos 70 g, y 600 ml de leche entera solo sumarían otros 20. Con desnatada la crema sale algo más ligera pero igual de ligada, porque la liga el almidón de la patata y no la grasa, y la nuez moscada y el ajo viajan en la grasa de la nata. Más mantequilla no arreglaría nada: los 15 g solo untan la fuente."
     ],
     [
       "Sin bacon, aunque pegaría",
