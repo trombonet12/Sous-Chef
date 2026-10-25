@@ -15,7 +15,8 @@
 | Ronda 14 · v1.4.0 cocina configurable, intro, ficha y checklist | **completada**: v1.4.0 (GitHub y pista interna de Play) |
 | Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **completada**: publicada dentro de la v1.6 |
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
-| Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **en curso** |
+| Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
+| Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **en curso**: por lotes, sin push hasta el OK de Joan |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
