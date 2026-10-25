@@ -410,3 +410,15 @@
 - **La leche de casa es desnatada**: despensa al día; las recetas con leche se revisan con `receta-revisar`.
 - **zod en /video** forzado a 4.6.6 con `overrides` (alerta alta; Remotion 4.0.538 aún fija 4.5.4). El vídeo es solo
   herramienta local; renderiza igual.
+
+## Ronda 18 · v1.7 (2026-10-25)
+- **Momento** (R28): `tags.momento` opcional. Una receta sin momento no cuenta en el filtro «Momento» ni como cena
+  rápida; todas las empaquetadas lo llevan. Cena rápida = momento con `cena` y 30 min o menos (tramo RAPIDA; CORTA
+  pasa a 30-45 min).
+- **Hora de cenar** 21:00 por defecto (clave `ajustes.hora.cenar`). `horaServir`: solo cena → cenar; comida y cena →
+  cenar desde las 17:00; el resto → comer. El desayuno usa la hora de comer (no hay modo «sin hora» en el cronómetro).
+  «¿Qué me da tiempo?» sigue con una sola hora global.
+- **Equipo** (R29): el horno se deriva de los carriles; batidora, microondas y plancha se declaran en `tags.equipo`.
+- **Desvío**: un solo tipo (`DesvioPaso`) y el total previsto se redondea con `ceil` en todas partes.
+- **Gate**: sin `maxParallelForks`, porque con forks tardaba más (`docs/testing.md`).
+
