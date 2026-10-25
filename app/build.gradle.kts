@@ -86,7 +86,7 @@ tasks.register("imprimirVersion") {
 
 android {
     namespace = "app.trombito.souschef"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "app.trombito.souschef"
