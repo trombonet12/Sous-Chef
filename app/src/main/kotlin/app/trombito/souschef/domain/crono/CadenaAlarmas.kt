@@ -80,7 +80,7 @@ interface Notificador {
  * va bajo ese cerrojo: [PresenciaCrono.visible] es un `@Volatile` que el ViewModel cambia sin tomarlo, así que se lee
  * cuando hace falta y, antes de consumir avisos, se vuelve a comprobar dentro de `almacen.modificar`.
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "LongParameterList")
 class CadenaAlarmas(
     val almacen: AlmacenCrono,
     private val recetas: RecetasRepo,
@@ -88,6 +88,7 @@ class CadenaAlarmas(
     private val sistema: AlarmaSistema,
     private val notificador: Notificador,
     val presencia: PresenciaCrono = PresenciaCrono(),
+    private val recordatorio: GestorRecordatorio? = null,
 ) {
     /** Consultas de solo lectura de las cocinadas vivas; la cadena solo muta y programa. */
     val vivas: CocinadasVivas = CocinadasVivas(almacen, reloj)
@@ -120,6 +121,8 @@ class CadenaAlarmas(
     private suspend fun reprogramarSl() {
         val evento = proximoEvento()
         if (evento == null) sistema.cancelar() else sistema.programar(evento.ms)
+        // Abrir cualquier cocina cancela el recordatorio «Avísame para empezar» (ADR-0016).
+        recordatorio?.quitarSiCocinando(vivas)
         repintarSl()
     }
 

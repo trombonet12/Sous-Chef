@@ -13,6 +13,11 @@ object IdsNotificacion {
     /** Tope del sonido insistente de la alarma (el sistema la quita al caducar). */
     const val CADUCIDAD_ALARMA_MS = 60_000L
 
+    /** El aviso «Avísame para empezar» (ADR-0016): una notificación normal, aparte de la cocina y la alarma. */
+    const val ID_RECORDATORIO = 5
+
+    fun tagRecordatorio(slug: String): String = "recordatorio:$slug"
+
     fun tagCocina(slug: String): String = "cocina:$slug"
 
     fun tagAlarma(slug: String): String = "alarma:$slug"

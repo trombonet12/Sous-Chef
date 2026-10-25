@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
+import app.trombito.souschef.domain.crono.ChipAviso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.EstadoVacio
@@ -70,6 +71,7 @@ fun FichaScreen(
             onNo = { confirmarSalida = false },
         )
     }
+    val avisar = rememberAvisarParaEmpezar(viewModel::avisarParaEmpezar)
     val acciones =
         AccionesFicha(
             onAtras = salir,
@@ -80,6 +82,8 @@ fun FichaScreen(
             onFavorita = viewModel::alternarFavorita,
             onQuiereHacerla = viewModel::alternarQuiereHacerla,
             onAnotar = viewModel::anotarCocinada,
+            onAvisar = avisar,
+            onQuitarAviso = viewModel::quitarAviso,
         )
     when {
         estado.cargando -> {
@@ -262,7 +266,7 @@ private fun FilaControles(
             }
         }
         val inicio = Servir.inicio(estado.servirMin, receta)
-        HoraDeEmpezar(inicio, estado.ritmoMin)
+        HoraDeEmpezar(inicio, estado.ritmoMin, estado.aviso, acciones)
     }
 }
 
@@ -272,6 +276,19 @@ private fun FilaControles(
  */
 @Composable
 private fun HoraDeEmpezar(
+    inicio: Int,
+    ritmoMin: Int?,
+    aviso: ChipAviso?,
+    acciones: AccionesFicha,
+) {
+    Column {
+        TextosHoraDeEmpezar(inicio, ritmoMin)
+        aviso?.let { ChipAvisoEmpezar(it, acciones) }
+    }
+}
+
+@Composable
+private fun TextosHoraDeEmpezar(
     inicio: Int,
     ritmoMin: Int?,
 ) {

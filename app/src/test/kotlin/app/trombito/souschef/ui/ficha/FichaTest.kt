@@ -8,6 +8,8 @@ import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.Valoracion
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.CadenaAlarmas
+import app.trombito.souschef.domain.crono.ChipAviso
+import app.trombito.souschef.domain.crono.GestorRecordatorio
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Escala
 import app.trombito.souschef.receta.Grupo
@@ -24,10 +26,14 @@ import app.trombito.souschef.ui.FakeRecetasRepo
 import app.trombito.souschef.ui.FakeTecnicasRepo
 import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
+import app.trombito.souschef.ui.crono.FakeAlarmaRecordatorio
 import app.trombito.souschef.ui.crono.FakeAlarmaSistema
 import app.trombito.souschef.ui.crono.FakeCronoEstadoRepo
 import app.trombito.souschef.ui.crono.FakeNotificador
+import app.trombito.souschef.ui.crono.FakeNotificadorRecordatorio
+import app.trombito.souschef.ui.crono.FakeRecordatorioRepo
 import app.trombito.souschef.ui.crono.RelojFalso
+import app.trombito.souschef.ui.crono.T0
 import app.trombito.souschef.ui.receta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -103,6 +109,9 @@ class FichaViewModelTest {
     private val cadena = CadenaAlarmas(almacen, recetas, reloj, FakeAlarmaSistema(), FakeNotificador())
     private val ajustes = FakeAjustesRepo()
     private val historial = FakeHistorialRepo()
+    private val alarmaRecordatorio = FakeAlarmaRecordatorio()
+    private val recordatorio =
+        GestorRecordatorio(FakeRecordatorioRepo(), recetas, reloj, alarmaRecordatorio, FakeNotificadorRecordatorio())
 
     private fun TestScope.crear(slug: String = "sopa"): FichaViewModel {
         val vm =
@@ -115,6 +124,7 @@ class FichaViewModelTest {
                 ajustes,
                 historial,
                 reloj,
+                recordatorio,
                 backgroundScope,
             )
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
@@ -407,5 +417,54 @@ class FichaViewModelTest {
             assertEquals("2026-10-12", h?.ultimaFecha)
             assertNull(h?.tardaMin)
             assertNull(vm.estado.value.ritmoMin)
+        }
+
+    @Test
+    fun laFichaOfreceAvisarConLaHoraDeEmpezarQueEnseniaYConElRitmoAplicado() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            // Se sirve a las 15:30 y la receta dura 30 min: empieza a las 15:00.
+            assertEquals(ChipAviso(15 * 60, puesto = false), vm.estado.value.aviso)
+            // Con un ritmo de +9 min la ficha enseña las 14:51, y esa es la hora del aviso.
+            historial.datos.value =
+                listOf(
+                    EntradaHistorial("1", "sopa", "Sopa", "2026-01-01", minutosReales = 38),
+                    EntradaHistorial("2", "sopa", "Sopa", "2026-02-01", minutosReales = 40),
+                )
+            assertEquals(ChipAviso(14 * 60 + 51, puesto = false), vm.estado.value.aviso)
+        }
+
+    @Test
+    fun sinChipDeAvisoSiLaHoraDeEmpezarYaPaso() =
+        runTest(UnconfinedTestDispatcher()) {
+            reloj.ms = T0 + 4 * 60 * 60_000L
+            val vm = crear()
+            assertNull(vm.estado.value.aviso)
+        }
+
+    @Test
+    fun avisarArmaElRecordatorioYElChipPasaAPuestoHastaQuitarlo() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm = crear()
+            vm.avisarParaEmpezar()
+            runCurrent()
+
+            assertEquals(T0 + 3 * 60 * 60_000L, alarmaRecordatorio.programada)
+            assertEquals(ChipAviso(15 * 60, puesto = true), vm.estado.value.aviso)
+
+            vm.quitarAviso()
+            runCurrent()
+
+            assertNull(alarmaRecordatorio.programada)
+            assertEquals(ChipAviso(15 * 60, puesto = false), vm.estado.value.aviso)
+        }
+
+    @Test
+    fun conUnaCocinadaVivaNoSeOfreceAvisar() =
+        runTest(UnconfinedTestDispatcher()) {
+            val sopa = recetas.datos.value.first()
+            almacen.fijar(SesionCrono.abrir(SesionCrono.inicial(sopa, reloj.ms + 3_600_000L, reloj.ms), sopa, reloj.ms))
+            val vm = crear("cena")
+            assertNull(vm.estado.value.aviso)
         }
 }

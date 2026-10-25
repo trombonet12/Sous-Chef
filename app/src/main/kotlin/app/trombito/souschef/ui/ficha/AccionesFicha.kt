@@ -14,4 +14,7 @@ class AccionesFicha(
     val onQuiereHacerla: () -> Unit = {},
     /** Anota una cocinada hecha sin cronómetro: momento, raciones y nota. */
     val onAnotar: (momento: LocalDateTime, raciones: Int, nota: String) -> Unit = { _, _, _ -> },
+    /** Arma el recordatorio «Avísame para empezar» (la ficha ya pidió el permiso de notificaciones). */
+    val onAvisar: () -> Unit = {},
+    val onQuitarAviso: () -> Unit = {},
 )

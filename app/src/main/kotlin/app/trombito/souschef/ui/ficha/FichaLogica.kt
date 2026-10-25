@@ -3,6 +3,7 @@ package app.trombito.souschef.ui.ficha
 import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.ResumenReceta
 import app.trombito.souschef.domain.SERVIR_DEFECTO_MIN
+import app.trombito.souschef.domain.crono.ChipAviso
 import app.trombito.souschef.receta.Cocina
 import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Escalado
@@ -27,6 +28,12 @@ object Servir {
         servirMin: Int,
         receta: Receta,
     ): Int = ajustar(servirMin, -ceil(receta.totalEfectivo).toInt())
+
+    /** La hora de empezar que enseña la ficha: la del plan, adelantada [ritmoMin] min si Joan suele tardar más. */
+    fun inicioConRitmo(
+        inicio: Int,
+        ritmoMin: Int?,
+    ): Int = ajustar(inicio, -(ritmoMin ?: 0))
 
     fun formato(minutos: Int): String = String.format(Locale.ROOT, "%02d:%02d", minutos / 60, minutos % 60)
 }
@@ -63,6 +70,8 @@ data class FichaUiState(
     val equipo: Set<Equipo> = Equipo.entries.toSet(),
     /** Lo que el historial cuenta de esta receta (veces, última vez, ritmo y valoración); null si nunca se cocinó. */
     val historial: ResumenReceta? = null,
+    /** El chip «Avísame a las HH:mm» (o «Aviso a las HH:mm · Quitar»); null si no se ofrece. */
+    val aviso: ChipAviso? = null,
 ) {
     /** Las raciones no son las de la receta: los gramos de pasos y preparación siguen siendo los de la base. */
     val fueraDeBase: Boolean get() = receta != null && raciones != receta.raciones

@@ -1,17 +1,24 @@
 package app.trombito.souschef.di
 
+import app.trombito.souschef.data.alarma.AlarmaRecordatorioAndroid
 import app.trombito.souschef.data.alarma.AlarmaSistemaAndroid
 import app.trombito.souschef.data.alarma.NotificadorAndroid
+import app.trombito.souschef.data.alarma.NotificadorRecordatorioAndroid
 import app.trombito.souschef.data.aviso.AvisadorAndroid
+import app.trombito.souschef.data.repo.RecordatorioRepoRoom
 import app.trombito.souschef.domain.CronoEstadoRepo
 import app.trombito.souschef.domain.RecetasRepo
 import app.trombito.souschef.domain.Reloj
+import app.trombito.souschef.domain.crono.AlarmaRecordatorio
 import app.trombito.souschef.domain.crono.AlarmaSistema
 import app.trombito.souschef.domain.crono.AlmacenCrono
 import app.trombito.souschef.domain.crono.Avisador
 import app.trombito.souschef.domain.crono.CadenaAlarmas
 import app.trombito.souschef.domain.crono.CocinadasVivas
+import app.trombito.souschef.domain.crono.GestorRecordatorio
 import app.trombito.souschef.domain.crono.Notificador
+import app.trombito.souschef.domain.crono.NotificadorRecordatorio
+import app.trombito.souschef.domain.crono.RecordatorioRepo
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,6 +33,7 @@ object CronoModule {
     @Singleton
     fun almacen(repo: CronoEstadoRepo): AlmacenCrono = AlmacenCrono(repo)
 
+    @Suppress("LongParameterList") // dependencias de la cadena: una por colaborador
     @Provides
     @Singleton
     fun cadena(
@@ -34,7 +42,19 @@ object CronoModule {
         reloj: Reloj,
         sistema: AlarmaSistema,
         notificador: Notificador,
-    ): CadenaAlarmas = CadenaAlarmas(almacen, recetas, reloj, sistema, notificador)
+        recordatorio: GestorRecordatorio,
+    ): CadenaAlarmas = CadenaAlarmas(almacen, recetas, reloj, sistema, notificador, recordatorio = recordatorio)
+
+    /** «Avísame para empezar» (ADR-0016): un recordatorio con su propia alarma y su propio aviso. */
+    @Provides
+    @Singleton
+    fun recordatorio(
+        repo: RecordatorioRepo,
+        recetas: RecetasRepo,
+        reloj: Reloj,
+        alarma: AlarmaRecordatorio,
+        notificador: NotificadorRecordatorio,
+    ): GestorRecordatorio = GestorRecordatorio(repo, recetas, reloj, alarma, notificador)
 
     /** Las consultas de solo lectura de la cadena, para quien no necesita mutar nada (novedades, actualización). */
     @Provides
@@ -49,4 +69,10 @@ abstract class AlarmaBindingsModule {
     @Binds abstract fun notificador(impl: NotificadorAndroid): Notificador
 
     @Binds abstract fun avisador(impl: AvisadorAndroid): Avisador
+
+    @Binds abstract fun alarmaRecordatorio(impl: AlarmaRecordatorioAndroid): AlarmaRecordatorio
+
+    @Binds abstract fun notificadorRecordatorio(impl: NotificadorRecordatorioAndroid): NotificadorRecordatorio
+
+    @Binds abstract fun recordatorioRepo(impl: RecordatorioRepoRoom): RecordatorioRepo
 }

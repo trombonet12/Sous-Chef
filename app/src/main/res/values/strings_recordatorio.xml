@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Avísame para empezar» (ADR-0016) -->
+    <string name="recordatorio_canal">Recordatorio de empezar</string>
+    <string name="recordatorio_notif_titulo">Toca empezar: %1$s</string>
+    <string name="recordatorio_notif_texto">Para servir a las %1$s</string>
+    <string name="recordatorio_avisame">Avísame a las %1$s</string>
+    <string name="recordatorio_puesto">Aviso a las %1$s · Quitar</string>
+    <string name="recordatorio_quitar_descripcion">Quitar el aviso de las %1$s</string>
+</resources>
