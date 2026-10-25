@@ -1,0 +1,436 @@
+{
+  "actualizada": "2026-10-25T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "En el filete fino la fibra corre a lo largo de la pieza. Corta en perpendicular a ella tiras de 1 cm de ancho y parte por la mitad las que pasen de 5 cm. Cruzando la fibra, cada hebra mide 1 cm y el bocado se rompe con los dientes en vez de arrastrar el relleno fuera de la quesadilla al morder; a 1 cm se hace entero en cuatro minutos sin secarse por fuera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Filete fino de pechuga con la fibra en horizontal y cortes verticales que la cruzan en tiras\"><path d=\"M8 34c8-14 46-20 80-14 16 3 24 12 22 24-2 15-20 28-52 30-26 2-44-8-48-20-2-7-3-13-2-20z\" fill=\"#E9B8A6\" fill-opacity=\".18\" stroke=\"#B9826E\"/><g stroke=\"#B9826E\" stroke-width=\".7\" opacity=\".65\"><path d=\"M14 34h94M12 44h98M14 54h94M22 64h76\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"4 3\"><line x1=\"22\" y1=\"14\" x2=\"22\" y2=\"78\"/><line x1=\"34\" y1=\"14\" x2=\"34\" y2=\"78\"/><line x1=\"46\" y1=\"14\" x2=\"46\" y2=\"78\"/><line x1=\"58\" y1=\"14\" x2=\"58\" y2=\"78\"/><line x1=\"70\" y1=\"14\" x2=\"70\" y2=\"78\"/><line x1=\"82\" y1=\"14\" x2=\"82\" y2=\"78\"/><line x1=\"94\" y1=\"14\" x2=\"94\" y2=\"78\"/></g></svg>",
+      "t": "Pollo · tiras de 1 cm, cruzando la fibra"
+    },
+    {
+      "p": "Sin pedúnculo, semillas ni nervios blancos, que amargan. La fibra del pimiento va de la punta al tallo: siguiéndola, la tira aguanta entera nueve minutos de fuego y conserva algo de mordida. A 5 mm se ablanda en ese tiempo y queda plana dentro de la tortilla; más gruesa, haría bulto y abriría la media luna. Las tiras largas, partidas por la mitad.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Pimiento abierto con la fibra vertical y cortes finos que la siguen\"><rect x=\"12\" y=\"9\" width=\"96\" height=\"70\" rx=\"9\" fill=\"#B5372A\" fill-opacity=\".16\" stroke=\"#B5372A\"/><g stroke=\"#B5372A\" stroke-width=\".8\" opacity=\".75\"><line x1=\"24\" y1=\"13\" x2=\"24\" y2=\"75\"/><line x1=\"42\" y1=\"13\" x2=\"42\" y2=\"75\"/><line x1=\"60\" y1=\"13\" x2=\"60\" y2=\"75\"/><line x1=\"78\" y1=\"13\" x2=\"78\" y2=\"75\"/><line x1=\"96\" y1=\"13\" x2=\"96\" y2=\"75\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"21\" y1=\"4\" x2=\"21\" y2=\"84\"/><line x1=\"30\" y1=\"4\" x2=\"30\" y2=\"84\"/><line x1=\"39\" y1=\"4\" x2=\"39\" y2=\"84\"/><line x1=\"48\" y1=\"4\" x2=\"48\" y2=\"84\"/><line x1=\"57\" y1=\"4\" x2=\"57\" y2=\"84\"/><line x1=\"66\" y1=\"4\" x2=\"66\" y2=\"84\"/><line x1=\"75\" y1=\"4\" x2=\"75\" y2=\"84\"/><line x1=\"84\" y1=\"4\" x2=\"84\" y2=\"84\"/><line x1=\"93\" y1=\"4\" x2=\"93\" y2=\"84\"/><line x1=\"102\" y1=\"4\" x2=\"102\" y2=\"84\"/></g></svg>",
+      "t": "Pimiento rojo · tiras de 5 mm, siguiendo la fibra"
+    },
+    {
+      "p": "Sin corteza, por la cara gruesa del rallador, la de agujeros de 5 mm. Rallado grueso funde parejo en los dos minutos por cara; en lonchas el centro llegaría entero al plato, y rallado fino se apelmaza en una pasta que suelta la grasa antes de fundirse.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Taco de queso semicurado sin corteza junto a la cara gruesa del rallador\"><rect x=\"8\" y=\"28\" width=\"54\" height=\"34\" rx=\"3\" fill=\"#E8C872\" fill-opacity=\".35\" stroke=\"#B8963E\"/><rect x=\"80\" y=\"8\" width=\"30\" height=\"72\" rx=\"3\" fill=\"none\" stroke=\"#17150F\"/><g fill=\"none\" stroke=\"#17150F\" stroke-width=\"1\"><circle cx=\"89\" cy=\"18\" r=\"2.5\"/><circle cx=\"101\" cy=\"18\" r=\"2.5\"/><circle cx=\"89\" cy=\"30\" r=\"2.5\"/><circle cx=\"101\" cy=\"30\" r=\"2.5\"/><circle cx=\"89\" cy=\"42\" r=\"2.5\"/><circle cx=\"101\" cy=\"42\" r=\"2.5\"/><circle cx=\"89\" cy=\"54\" r=\"2.5\"/><circle cx=\"101\" cy=\"54\" r=\"2.5\"/><circle cx=\"89\" cy=\"66\" r=\"2.5\"/><circle cx=\"101\" cy=\"66\" r=\"2.5\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"62\" y1=\"45\" x2=\"78\" y2=\"45\"/></g></svg>",
+      "t": "Queso semicurado · rallado grueso de 5 mm"
+    }
+  ],
+  "creada": "2026-10-25T00:00:00Z",
+  "datos": [
+    [
+      "30 min",
+      "de principio a fin"
+    ],
+    [
+      "8 + 20 + 2",
+      "mise en place + fuego + servir"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "11",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Tortillas de trigo grandes dobladas en media luna con pollo salteado con pimiento rojo y queso semicurado, doradas en la misma sartén del relleno. La dificultad está en el dorado: fuego medio para que el queso funda antes de que la tortilla se queme, y un relleno seco que no la ablande.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 15,
+          "n": "aceite de oliva (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 150,
+          "n": "pimiento rojo (1 mediano)",
+          "u": "g"
+        },
+        {
+          "a": 250,
+          "n": "pechugas finas de pollo (3 filetes finos)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (½ cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "comino molido (½ cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimentón picante (1 vuelta corta del bote)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · EL RELLENO"
+    },
+    {
+      "items": [
+        {
+          "a": 4,
+          "n": "tortillas de trigo grandes",
+          "u": "uds"
+        },
+        {
+          "a": 120,
+          "n": "queso semicurado (un taco de 6 × 6 × 3 cm)",
+          "u": "g"
+        }
+      ],
+      "n": "MONTAJE"
+    }
+  ],
+  "lectura": "La suma: 8 de mise en place + 4 de pimiento + 5 de pollo + 1 de especias + 2 de montar mientras la sartén se asienta al {5} + 4 de la primera tanda + 4 de la segunda + 2 de cortar y servir = 30 minutos. Solo hay un fuego, así que los solapes son de manos, no de fuegos: la sartén con el aceite se enciende en el minuto 6 con la mise en place acabando; del 18 al 20 se monta la primera tanda mientras la sartén se limpia y se calienta; y del 20 al 22 se montan las otras dos mientras la primera se dora.",
+  "mep": [
+    {
+      "l": [
+        "<b>Pechugas finas de pollo · 250 g (3 filetes finos)</b> · tiras de 1 cm cruzando la fibra, a un plato. Entran en el minuto 12. Después, tabla y cuchillo al grifo y secos.",
+        "<b>Pimiento rojo · 150 g (1 mediano)</b> · tiras de 5 mm siguiendo la fibra, sin semillas ni nervios. Se quedan en la tabla y entran en el minuto 8."
+      ],
+      "orden": true,
+      "porq": "Con carne cruda, la carne va primero y la tabla se lava una sola vez. El pimiento, después, sobre la tabla limpia y seca, y se queda en ella hasta que entra: es lo primero que va al fuego. El queso no pasa por la tabla.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol mediano</b> · 120 g de queso semicurado (un taco de 6 × 6 × 3 cm), sin corteza, por la cara gruesa del rallador, la de 5 mm. Sale la mitad en el minuto 18 y la otra mitad en el 20.",
+        "<b>Platito</b> · 3 g de sal (½ cucharadita rasa), 1 g de comino molido (½ cucharadita rasa) y 1 g de pimentón picante (1 vuelta corta del bote), ya mezclados. Entran juntos en el minuto 17. El pimentón sale de un bote de agujeros: el gramo es una referencia, no una pesada.",
+        "<b>Plato llano limpio</b> · vacío hasta el minuto 18, cuando recibe el relleno; la mitad sale al montaje en el 18 y la otra mitad en el 20."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un momento distinto. Las tres especias entran juntas y comparten platito; el queso entra en dos veces, pero desde el mismo bol. El plato del pollo crudo va al fregadero en cuanto el pollo entra en la sartén: el relleno cocinado sale a un plato limpio.",
+      "t": "UN BOL, UN PLATITO Y EL PLATO DEL RELLENO"
+    },
+    {
+      "l": [
+        "<b>Aceite de oliva · 15 ml (1 cucharada sopera)</b> · directo a la sartén grande en frío, en el minuto 6.",
+        "<b>Tortillas de trigo grandes · 4 unidades</b> · en su paquete hasta el montaje: 2 en el minuto 18 y 2 en el 20."
+      ],
+      "orden": false,
+      "porq": "Lo que va directo a la sartén o ya viene en su envase no se trasvasa.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Va de 1 a 2 raciones: con 1, la mitad de todo y cada tanda lleva una sola media luna. Por encima de 2, los 400 g de pollo y pimiento ya no caben en una capa en la sartén y se cuecen en su jugo, y harían falta tres tandas de dorado. La sal, el comino y el pimentón suben menos que el resto: corrige probando.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "mise-en-place",
+      "junto": null,
+      "meto": "",
+      "min": 8,
+      "nota": "El pollo primero; lava y seca la tabla, y después el pimiento. El queso, por el rallador directo a su bol.",
+      "off": 0,
+      "p": "Tres cortes y una sola tabla. El pollo crudo va primero: 250 g de pechugas finas en tiras de 1 cm cruzando la fibra, a un plato; después lavas la tabla y el cuchillo una vez, los secas y cortas los 150 g de pimiento rojo en tiras de 5 mm siguiendo la fibra, que se quedan en la tabla hasta que entran a la sartén. El queso no toca la tabla: 120 g de semicurado sin corteza por la cara gruesa del rallador, directo a su bol. Por último, el platito con la sal, el comino y el pimentón ya mezclados, que entran juntos.",
+      "s": 480,
+      "saco": "el pollo en su plato, el pimiento en la tabla, el queso rallado en su bol y las especias en el platito",
+      "t": "Mise en place",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-aceite",
+      "junto": null,
+      "meto": "15 ml de aceite de oliva (1 cucharada sopera), en la sartén grande en frío",
+      "min": 2,
+      "nota": "Sartén grande en el fuego grande, con el aceite dentro. Enciende al {7}: está listo cuando brilla y corre suelto al inclinarla.",
+      "off": 6,
+      "p": "La sartén grande, la de 28 cm, en el fuego grande y con los 15 ml de aceite de oliva dentro desde frío, al {7}. Dos minutos es lo que tarda la vitro en llegar: si el pimiento entra con el aceite tibio, suelta su agua antes de que la piel se selle, se cuece en vez de saltearse y no coge las manchas tostadas que le dan el dulzor.",
+      "s": 120,
+      "saco": "",
+      "t": "Calentar la sartén con el aceite",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve y extiende las tiras en una capa"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "pimiento",
+      "junto": null,
+      "meto": "150 g de pimiento rojo (1 mediano) en tiras de 5 mm, de la tabla a la sartén",
+      "min": 4,
+      "nota": "Al {7}, sin tapa. Busca los bordes con manchas tostadas y la tira ya flexible pero con mordida.",
+      "off": 8,
+      "p": "El pimiento entra antes que el pollo porque necesita más fuego: en tiras de 5 mm tarda unos nueve minutos en ablandarse y endulzar, y el pollo en tiras de 1 cm se seca si pasa de cinco. Cuatro minutos solo, al {7} y sin tapa, para que el agua que suelta se evapore y el azúcar de la piel tueste en vez de cocerse; luego sigue con el pollo los cinco que faltan. Tapado, el vapor lo ablandaría y mojaría el relleno, y el agua del relleno es justo lo que reblandece la tortilla.",
+      "s": 240,
+      "saco": "",
+      "t": "Saltear el pimiento",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve, mezclando con el pimiento"
+        },
+        {
+          "en": 240,
+          "t": "Abre la tira más gruesa: blanca por dentro, sin rosa"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "pollo",
+      "junto": null,
+      "meto": "250 g de pechugas finas de pollo (3 filetes finos) en tiras de 1 cm, del plato al centro de la sartén",
+      "min": 5,
+      "nota": "Sube al {8}, aparta el pimiento al borde y el pollo al centro, en una capa. Quieto los dos primeros minutos.",
+      "off": 12,
+      "p": "Sube al {8} antes de echarlo y aparta el pimiento al borde, para que el pollo toque el metal y no se apoye sobre la verdura húmeda. En una sola capa y quieto dos minutos: el Maillard necesita superficie seca y contacto sin interrupciones, y si lo remueves antes suelta su jugo y se cuece blanco. Después, removiendo junto al pimiento. En tiras de 1 cm el centro se hace en unos cuatro minutos; el quinto es el margen, y pasarse lo deja seco y fibroso dentro de la tortilla. Sin sal todavía.",
+      "s": 300,
+      "saco": "",
+      "t": "Saltear el pollo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "ajustado",
+      "id": "especias",
+      "junto": null,
+      "meto": "el platito: 3 g de sal (½ cucharadita rasa) + 1 g de comino molido (½ cucharadita rasa) + 1 g de pimentón picante (1 vuelta corta del bote)",
+      "min": 1,
+      "nota": "Apaga la vitro, echa el platito por encima y da unas vueltas. Al plato, extendido para que suelte el vapor.",
+      "off": 17,
+      "p": "Apaga antes de echar las especias: con la sartén al {8} el pimentón picante se quema en segundos, y quemado el pique se vuelve áspero y amargo. Con la placa apagada, el calor que queda en el metal basta para freír el comino y el pimentón en la grasa del salteado y que suelten su aroma. La sal entra ahora y no antes porque sobre el pollo crudo habría sacado agua. Al plato extendido y no amontonado: el vapor que se escapa ahora es agua que no acaba dentro de la tortilla.",
+      "s": 60,
+      "saco": "el relleno, a un plato llano limpio y extendido",
+      "t": "Especias, con el fuego apagado",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 5,
+      "holgura": "flexible",
+      "id": "sarten-lista",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Pasa papel de cocina por la sartén: que quede brillo, no gotas. Enciende al {5}.",
+      "off": 18,
+      "p": "La misma sartén, sin fregar: un papel de cocina se lleva los restos que se quemarían bajo la tortilla y deja una película de grasa con el comino que la dora pareja. Enciende al {5} y no más: el metal viene caliente del salteado y en dos minutos se asienta en un calor medio. A esa potencia la tortilla tarda en dorarse lo mismo que el queso en fundirse; más fuerte, se quema por fuera con el queso aún entero dentro.",
+      "s": 120,
+      "saco": "",
+      "t": "Limpiar la sartén y encenderla al {5}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "especias"
+      ],
+      "f": null,
+      "holgura": "flexible",
+      "id": "montar-1",
+      "junto": null,
+      "meto": "2 tortillas de trigo grandes + 60 g de queso semicurado rallado (media taza larga) + la mitad del relleno",
+      "min": 2,
+      "nota": "Sobre media tortilla: un puñado de queso, un cuarto del relleno y otro puñado de queso. Dobla y aprieta con la palma.",
+      "off": 18,
+      "p": "Cada quesadilla lleva 30 g de queso y un cuarto del relleno, todo sobre una sola mitad de la tortilla y a un dedo del borde. Queso debajo y encima: al fundirse pega el relleno a las dos caras y la media luna se voltea entera, sin que el pollo se salga. El relleno, cogido con la cuchara y sin el jugo del plato, porque ese líquido es lo que ablanda la tortilla. Dobla y aprieta con la palma para sacar el aire, que la hincha y no deja que la cara toque el metal.",
+      "s": 120,
+      "saco": "dos medias lunas, sobre la tabla",
+      "t": "Montar las dos primeras quesadillas",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "montar-1"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Vuelta: espátula debajo y un tenedor sujetando arriba"
+        }
+      ],
+      "holgura": "critico",
+      "id": "tanda-1",
+      "junto": null,
+      "meto": "las dos primeras medias lunas, con el lado recto hacia el centro",
+      "min": 4,
+      "nota": "Al {5}, sin tapa. Dos minutos por cara: dorada a manchas y el queso asomando fundido por el borde.",
+      "off": 20,
+      "p": "Las dos medias lunas con el lado recto hacia el centro: juntas forman un círculo y caben enteras en la sartén de 28 cm. Al {5} y sin tapa, dos minutos por cara; a esa potencia el calor tiene tiempo de atravesar la tortilla y fundir el queso antes de que la cara se queme. Sin tapa porque el vapor del relleno quedaría atrapado y ablandaría la tortilla que estás tostando. La vuelta, de un golpe: el queso aún no ha pegado del todo y, si la giras despacio, la media luna se abre.",
+      "s": 240,
+      "saco": "a la tabla, sin apilar",
+      "t": "Dorar la primera tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "montar-2",
+      "junto": null,
+      "meto": "2 tortillas de trigo grandes + 60 g de queso semicurado rallado (media taza larga) + el resto del relleno",
+      "min": 2,
+      "nota": "Igual que las primeras: queso, relleno, queso, doblar y apretar.",
+      "off": 20,
+      "p": "Las mismas medidas que las primeras: 30 g de queso y un cuarto del relleno en cada una, queso abajo y arriba y a un dedo del borde. Se montan ahora y no antes de la primera tanda: montadas con antelación, el relleno tibio humedece la tortilla cruda por dentro y después no se tuesta igual.",
+      "s": 120,
+      "saco": "dos medias lunas, sobre un plato",
+      "t": "Montar las otras dos",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "montar-2"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Vuelta: espátula debajo y un tenedor sujetando arriba"
+        }
+      ],
+      "holgura": "critico",
+      "id": "tanda-2",
+      "junto": null,
+      "meto": "las otras dos medias lunas, con el lado recto hacia el centro",
+      "min": 4,
+      "nota": "Igual que la primera, al {5} y sin tapa. Al sacarlas, apaga la vitro.",
+      "off": 24,
+      "p": "Mismo montaje y mismos tiempos que la primera tanda: al {5}, sin tapa y dos minutos por cara. Antes de meterlas, pasa otra vez el papel si ha caído queso, que se quemaría bajo la tortilla nueva. Si la primera tanda salió pálida y con el queso entero, esta pide el {6}; si salió con manchas negras, el {4}: la vitro tarda un minuto en notar el cambio, así que decídelo nada más sacar la primera.",
+      "s": 240,
+      "saco": "a la tabla, junto a las primeras",
+      "t": "Dorar la segunda tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "tanda-2"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "junto": null,
+      "meto": "las cuatro medias lunas",
+      "min": 2,
+      "nota": "Empieza por la primera tanda, que ya ha reposado: cada media luna en tres triángulos. Después, la segunda.",
+      "off": 28,
+      "p": "Cada media luna en tres triángulos con el cuchillo grande, apretando de una vez en vez de serrar, que arrastra el relleno. Empieza por la primera tanda: lleva cuatro minutos fuera y el queso ha cuajado lo justo para que el corte salga limpio. Mientras la cortas, la segunda reposa su minuto; recién salida, el queso fundido se escaparía por el corte. Una de cada tanda en cada plato, para que nadie se quede solo con las que han esperado.",
+      "s": 120,
+      "saco": "a los platos, dos medias lunas por persona: una de cada tanda",
+      "t": "Cortar y servir",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "pechugas finas de pollo",
+    "pimiento rojo"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj, las vueltas de cada tanda y el paso a paso están en el cronómetro.",
+  "porque": [
+    [
+      "Pimiento primero y pollo después, en la misma sartén",
+      "El pimiento en tiras de 5 mm necesita unos nueve minutos para ablandarse y el pollo en tiras de 1 cm se seca si pasa de cinco. Escalonados, los dos acaban a la vez y el pollo se dora en la grasa que ya ha cogido el dulzor del pimiento."
+    ],
+    [
+      "Especias y sal con el fuego apagado",
+      "El pimentón picante se quema en segundos a fuego fuerte y amarga; el calor que queda en el metal basta para freírlo con el comino. La sal al final porque sobre el pollo crudo sacaría agua y lo cocería en vez de dorarlo."
+    ],
+    [
+      "Medias lunas y no dos tortillas en sándwich",
+      "La media luna se cierra sola por el pliegue y se voltea con una espátula; el sándwich de dos tortillas hay que girarlo con un plato y se desliza. Además, dos medias lunas con el lado recto hacia el centro llenan la sartén de 28 cm y doran a la vez."
+    ],
+    [
+      "Al {5} y sin tapa",
+      "A fuego medio la tortilla tarda en dorarse lo mismo que el queso en fundirse. La tapa fundiría antes el queso, pero el vapor del relleno ablandaría la tortilla, que es lo que tiene que crujir."
+    ],
+    [
+      "Una sartén y un solo fuego, sin plancha",
+      "La plancha y la sartén grande comparten el fuego grande, así que no ganan tiempo juntas; y la sartén del relleno, solo limpiada con papel, deja una película de grasa con comino que dora la tortilla mejor que una plancha seca."
+    ],
+    [
+      "Sin cebolla",
+      "Suelta agua y pide siete u ocho minutos de pochado que no caben en una cena de media hora; el dulzor ya lo pone el pimiento salteado."
+    ],
+    [
+      "Sin jalapeños ni guacamole",
+      "Los jalapeños de bote traen vinagre que moja la tortilla por dentro, y el pique ya lo da el pimentón. El guacamole sobra en un plato que ya lleva la grasa del queso fundido."
+    ],
+    [
+      "Queso semicurado y no el rallado de bolsa",
+      "El semicurado funde cremoso y tiene sabor propio; el rallado de bolsa lleva antiapelmazante y funde en hebras secas."
+    ],
+    [
+      "La primera tanda espera cuatro minutos",
+      "Es el precio de una sola sartén. Esperar fuera, sin apilar, no la ablanda, y deja cuajar el queso lo justo para cortarla limpia; por eso se corta primero y cada plato lleva una de cada tanda."
+    ],
+    [
+      "El pollo fresco manda",
+      "El plato se apoya en las pechugas finas: si no hay, sirve la pechuga familiar abierta en filetes de 1 cm de grosor antes de cortar las tiras."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "quesadillas-pollo-pimiento",
+  "tags": {
+    "base": "quesadilla",
+    "momento": [
+      "cena",
+      "comida"
+    ],
+    "proteina": "pollo",
+    "tecnica": [
+      "salteado",
+      "tostado"
+    ]
+  },
+  "titulo": "Quesadillas de pollo y pimiento",
+  "totalMin": 30
+}

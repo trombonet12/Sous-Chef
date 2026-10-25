@@ -32,12 +32,16 @@ enum class FamiliaBase {
                 "masa de pizza" to MASAS,
                 "hojaldre" to MASAS,
                 "taco" to MASAS,
+                "quesadilla" to MASAS,
+                "wrap" to MASAS,
+                "pan" to MASAS,
                 // Las claves van sin acentos: `de` normaliza la base ("buñuelo" -> "bunuelo").
                 "bunuelo" to MASAS,
                 "salteado" to SALTEADO,
                 "asado" to CARNES,
                 "hamburguesa" to CARNES,
                 "fritura" to CARNES,
+                "guiso" to CARNES,
                 "postre" to POSTRES,
             )
 
