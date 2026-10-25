@@ -105,4 +105,8 @@ class FakePreferenciasRepo : PreferenciasRepo {
         val actual = datos.value[slug] ?: Preferencia(slug)
         datos.value = datos.value + (slug to actual.copy(raciones = raciones))
     }
+
+    override suspend fun importar(preferencias: List<Preferencia>) {
+        datos.value = datos.value + preferencias.associateBy { it.slug }
+    }
 }

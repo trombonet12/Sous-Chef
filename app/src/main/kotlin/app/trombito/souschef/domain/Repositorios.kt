@@ -55,6 +55,12 @@ interface PreferenciasRepo {
         slug: String,
         raciones: Int,
     )
+
+    /**
+     * Importación de una copia: guarda [preferencias] tal cual (cada una sustituye a la de su slug) en una sola
+     * transacción: o entran todas o ninguna.
+     */
+    suspend fun importar(preferencias: List<Preferencia>)
 }
 
 @Suppress("TooManyFunctions") // un setter por ajuste

@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.core.net.toUri
 import app.trombito.souschef.domain.copia.ArchivoCopia
 import app.trombito.souschef.domain.copia.ArchivoDemasiadoGrande
+import app.trombito.souschef.domain.copia.EscrituraSegura
+import app.trombito.souschef.domain.copia.ResultadoEscritura
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,20 +27,21 @@ class ArchivoCopiaAndroid
         override suspend fun escribir(
             destino: String,
             texto: String,
-        ): Boolean =
+        ): Boolean = escribirSeguro(destino, texto.toByteArray(Charsets.UTF_8)) { true } == ResultadoEscritura.Escrita
+
+        /**
+         * El modo `"wt"` vacía el archivo al abrirlo, así que antes se valida el contenido entero en memoria
+         * ([EscrituraSegura]): un contenido inválido deja intacta la copia buena anterior.
+         */
+        override suspend fun escribirSeguro(
+            destino: String,
+            bytes: ByteArray,
+            valida: (ByteArray) -> Boolean,
+        ): ResultadoEscritura =
             withContext(Dispatchers.IO) {
-                try {
-                    val salida = context.contentResolver.openOutputStream(destino.toUri(), "wt")
-                    salida?.bufferedWriter(Charsets.UTF_8)?.use { it.write(texto) }
-                    salida != null
-                } catch (e: IOException) {
-                    Log.w(TAG, "No se pudo guardar la copia: ${e.javaClass.simpleName}")
-                    false
-                } catch (e: SecurityException) {
-                    // Permiso del archivo retirado entre elegirlo y escribirlo.
-                    Log.w(TAG, "Sin permiso para guardar la copia: ${e.javaClass.simpleName}")
-                    false
-                }
+                EscrituraSegura
+                    .escribir(bytes, valida) { context.contentResolver.openOutputStream(destino.toUri(), "wt") }
+                    .also { if (it != ResultadoEscritura.Escrita) Log.w(TAG, "Copia no guardada: $it") }
             }
 
         override suspend fun leer(origen: String): String? =

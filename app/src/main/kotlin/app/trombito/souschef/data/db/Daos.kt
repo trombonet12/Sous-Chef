@@ -100,6 +100,11 @@ interface PreferenciaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarTodas(preferencias: List<PreferenciaEntity>)
+
+    /** Importar una copia: todas las filas en una sola transacción (si una falla, no entra ninguna). */
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun importar(preferencias: List<PreferenciaEntity>)
 }
 
 @Dao

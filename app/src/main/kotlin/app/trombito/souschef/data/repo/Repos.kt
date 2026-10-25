@@ -103,6 +103,9 @@ class PreferenciasRepoRoom
             val actual = dao.obtener(slug) ?: PreferenciaEntity(slug, false, null)
             dao.insertar(actual.copy(raciones = raciones))
         }
+
+        override suspend fun importar(preferencias: List<Preferencia>) =
+            dao.importar(preferencias.map { PreferenciaEntity(it.slug, it.favorito, it.raciones) })
     }
 
 class CronoEstadoRepoRoom

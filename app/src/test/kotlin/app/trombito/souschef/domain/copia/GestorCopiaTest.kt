@@ -10,11 +10,16 @@ import app.trombito.souschef.ui.crono.RelojFalso
 import app.trombito.souschef.ui.receta
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 private class ArchivosEnMemoria : ArchivoCopia {
     val archivos = mutableMapOf<String, String>()
     var fallar = false
+
+    /** La validación con la que el gestor pidió la última escritura segura. */
+    var validacion: ((ByteArray) -> Boolean)? = null
 
     override suspend fun escribir(
         destino: String,
@@ -25,6 +30,15 @@ private class ArchivosEnMemoria : ArchivoCopia {
     }
 
     override suspend fun leer(origen: String): String? = archivos[origen]
+
+    override suspend fun escribirSeguro(
+        destino: String,
+        bytes: ByteArray,
+        valida: (ByteArray) -> Boolean,
+    ): ResultadoEscritura {
+        validacion = valida
+        return super.escribirSeguro(destino, bytes, valida)
+    }
 }
 
 class GestorCopiaTest {
@@ -197,6 +211,31 @@ class GestorCopiaTest {
             assertEquals(ResultadoCopia.Cargada(0, 0), gestor(destino).importar("content://malo"))
             assertEquals(setOf(original, tacos), destino.datos.value.toSet())
             assertEquals(2, destino.datos.value.size)
+        }
+
+    @Test
+    fun guardarValidaConElMismoLectorQueCargarAntesDeEscribir() =
+        runTest {
+            gestor(FakeHistorialRepo(listOf(curry))).exportar("content://copia")
+            val valida = checkNotNull(archivos.validacion)
+
+            assertTrue(valida(checkNotNull(archivos.archivos["content://copia"]).toByteArray()))
+            assertFalse(valida("{}".toByteArray()))
+            assertFalse(valida("no es json".toByteArray()))
+            assertFalse(valida(ByteArray(0)))
+        }
+
+    @Test
+    fun contenidoQueNoPasaLaValidacionNoSeEscribeYLaCopiaBuenaQueda() =
+        runTest {
+            archivos.archivos["content://copia"] = "copia buena anterior"
+            val r = archivos.escribirSeguro("content://copia", "basura".toByteArray()) { false }
+            assertEquals(ResultadoEscritura.Invalida, r)
+            assertEquals("copia buena anterior", archivos.archivos["content://copia"])
+
+            val ok = archivos.escribirSeguro("content://copia", "nueva".toByteArray()) { true }
+            assertEquals(ResultadoEscritura.Escrita, ok)
+            assertEquals("nueva", archivos.archivos["content://copia"])
         }
 
     @Test

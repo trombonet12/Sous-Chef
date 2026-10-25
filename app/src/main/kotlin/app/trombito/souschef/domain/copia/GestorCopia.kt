@@ -10,11 +10,27 @@ import java.time.ZoneId
 
 /** Leer y escribir el texto de la copia en un archivo elegido por el usuario (`destino`/`origen`: su URI). */
 interface ArchivoCopia {
-    /** false si no se pudo escribir. */
+    /** Bajo nivel, sin validar: false si no se pudo escribir. Para copias, usar [escribirSeguro]. */
     suspend fun escribir(
         destino: String,
         texto: String,
     ): Boolean
+
+    /**
+     * Escribe [bytes] solo si [valida] los da por buenos (una copia que se vuelve a leer) y no pasan de [MAX_BYTES]:
+     * si no, el destino no se toca. La implementación real nunca deja un archivo a medias sin avisar.
+     */
+    suspend fun escribirSeguro(
+        destino: String,
+        bytes: ByteArray,
+        valida: (ByteArray) -> Boolean,
+    ): ResultadoEscritura =
+        when {
+            bytes.size > MAX_BYTES -> ResultadoEscritura.Grande
+            !valida(bytes) -> ResultadoEscritura.Invalida
+            escribir(destino, String(bytes, Charsets.UTF_8)) -> ResultadoEscritura.Escrita
+            else -> ResultadoEscritura.Fallo
+        }
 
     /** null si no se puede leer. Lanza [ArchivoDemasiadoGrande] si pasa de [MAX_BYTES]. */
     suspend fun leer(origen: String): String?
@@ -71,8 +87,15 @@ class GestorCopia(
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
                 .toString()
-        val ok = archivo.escribir(destino, CopiaHistorial.exportar(entradas, prefs, fecha))
-        return if (ok) ResultadoCopia.Guardada(entradas.size) else ResultadoCopia.Fallo
+        val slugs = recetas.observarTodas().first().mapTo(HashSet()) { it.slug }
+        val bytes = CopiaHistorial.exportar(entradas, prefs, fecha).toByteArray(Charsets.UTF_8)
+        // Se valida con el mismo lector de «Cargar»: lo que no se puede volver a leer no se escribe.
+        val resultado = archivo.escribirSeguro(destino, bytes) { validaCopia(it, slugs) }
+        return when (resultado) {
+            ResultadoEscritura.Escrita -> ResultadoCopia.Guardada(entradas.size)
+            ResultadoEscritura.Grande -> ResultadoCopia.Grande
+            else -> ResultadoCopia.Fallo // Invalida, SinPermiso o Fallo: la UI solo distingue «no se pudo guardar»
+        }
     }
 
     suspend fun importar(origen: String): ResultadoCopia {
@@ -96,11 +119,15 @@ class GestorCopia(
         val nuevas = CopiaHistorial.nuevas(historial.observarTodo().first(), copia)
         val insertadas = historial.importar(nuevas)
         val actuales = preferencias.observarTodas().first()
-        CopiaHistorial.preferenciasNuevas(actuales, copia).forEach { p ->
-            val ya = actuales[p.slug]
-            if (p.favorito && ya?.favorito != true) preferencias.fijarFavorito(p.slug, true)
-            p.raciones?.takeIf { it != ya?.raciones }?.let { preferencias.fijarRaciones(p.slug, it) }
-        }
+        // Ya fusionadas con las actuales (favorito suma, raciones no pisa): se guardan todas o ninguna.
+        val prefs = CopiaHistorial.preferenciasNuevas(actuales, copia)
+        if (prefs.isNotEmpty()) preferencias.importar(prefs)
         return insertadas
     }
 }
+
+/** true si [bytes] es una copia de Sous Chef que `CopiaHistorial.leer` entiende. */
+internal fun validaCopia(
+    bytes: ByteArray,
+    slugs: Set<String>,
+): Boolean = CopiaHistorial.leer(String(bytes, Charsets.UTF_8), slugs) != null
