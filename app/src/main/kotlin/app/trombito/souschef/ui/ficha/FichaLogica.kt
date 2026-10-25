@@ -3,6 +3,7 @@ package app.trombito.souschef.ui.ficha
 import app.trombito.souschef.domain.NotaCocinada
 import app.trombito.souschef.domain.SERVIR_DEFECTO_MIN
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
@@ -57,6 +58,8 @@ data class FichaUiState(
     val notas: List<NotaCocinada> = emptyList(),
     /** Minutos que Joan suele desviarse del plan en esta receta (+ tarda más); null si no hay ritmo claro. */
     val ritmoMin: Int? = null,
+    /** Aparatos que tiene el usuario (Ajustes → Tu equipo); la ficha avisa de los que la receta pide y no tiene. */
+    val equipo: Set<Equipo> = Equipo.entries.toSet(),
 ) {
     /** Las raciones no son las de la receta: los gramos de pasos y preparación siguen siendo los de la base. */
     val fueraDeBase: Boolean get() = receta != null && raciones != receta.raciones

@@ -2,6 +2,7 @@ package app.trombito.souschef.domain
 
 import app.trombito.souschef.domain.copia.Copia
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.Tecnica
 import kotlinx.coroutines.flow.Flow
@@ -114,6 +115,17 @@ interface AjustesRepo {
     suspend fun fijarFuegos(n: Int)
 
     suspend fun fijarHorno(tiene: Boolean)
+
+    /**
+     * Marca si el usuario tiene [aparato] (batidora, microondas, plancha; el horno es [fijarHorno]). Por defecto solo
+     * entiende el horno; la implementación con base de datos lo sobrescribe.
+     */
+    suspend fun fijarEquipo(
+        aparato: Equipo,
+        tiene: Boolean,
+    ) {
+        if (aparato == Equipo.HORNO) fijarHorno(tiene)
+    }
 
     /** [n] se ajusta a [RACIONES_MIN]..[RACIONES_MAX]. */
     suspend fun fijarRacionesDefecto(n: Int)

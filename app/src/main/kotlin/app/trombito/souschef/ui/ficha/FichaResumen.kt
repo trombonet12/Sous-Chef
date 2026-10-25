@@ -51,6 +51,7 @@ fun PestanaResumen(
         receta.datos.filter { it.isNotEmpty() }.forEach { CeldaDato(it[0], it.getOrElse(1) { "" }) }
     }
     EnlacesTecnicas(estado.tecnicas, onTecnica)
+    EtiquetasEquipoFicha(receta, estado.equipo)
     ResumenTiempo(receta)
     NotaCocina(estado.cocina)
 }

@@ -11,6 +11,7 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.TipoCocina
 import io.mockk.coVerify
@@ -198,6 +199,49 @@ class AjustesRepoRoomTest {
             assertEquals(5, a.racionesDefecto)
             assertEquals("4", db.metaDao().valor(AjustesRepoRoom.CLAVE_FUEGOS))
             assertEquals("5", db.metaDao().valor(AjustesRepoRoom.CLAVE_RACIONES))
+        }
+
+    @Test
+    fun equipoPorDefectoEsTodo() =
+        runBlocking {
+            assertEquals(Equipo.entries.toSet(), repo.observar().first().equipo)
+        }
+
+    @Test
+    fun equipoIdaYVueltaSinTocarElHorno() =
+        runBlocking {
+            repo.fijarEquipo(Equipo.BATIDORA, false)
+            repo.fijarEquipo(Equipo.PLANCHA, false)
+            val a = repo.observar().first()
+            assertEquals(setOf(Equipo.HORNO, Equipo.MICROONDAS), a.equipo)
+            assertEquals("MICROONDAS", db.metaDao().valor(AjustesRepoRoom.CLAVE_EQUIPO))
+            assertEquals("ajustes.equipo", AjustesRepoRoom.CLAVE_EQUIPO)
+
+            repo.fijarEquipo(Equipo.PLANCHA, true)
+            assertEquals(setOf(Equipo.HORNO, Equipo.MICROONDAS, Equipo.PLANCHA), repo.observar().first().equipo)
+        }
+
+    @Test
+    fun elHornoDelEquipoEsElDeHorno() =
+        runBlocking {
+            repo.fijarEquipo(Equipo.HORNO, false)
+            val a = repo.observar().first()
+            assertEquals(false, a.horno)
+            assertEquals(Equipo.entries.toSet() - Equipo.HORNO, a.equipo)
+            assertEquals("false", db.metaDao().valor(AjustesRepoRoom.CLAVE_HORNO))
+
+            repo.fijarHorno(true)
+            assertEquals(Equipo.entries.toSet(), repo.observar().first().equipo)
+        }
+
+    @Test
+    fun equipoVacioEsNingunoYUnValorCorruptoSeIgnora() =
+        runBlocking {
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_EQUIPO, ""))
+            assertEquals(setOf(Equipo.HORNO), repo.observar().first().equipo)
+
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_EQUIPO, "BATIDORA, tostadora,HORNO"))
+            assertEquals(setOf(Equipo.HORNO, Equipo.BATIDORA), repo.observar().first().equipo)
         }
 
     @Test

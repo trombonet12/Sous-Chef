@@ -12,6 +12,7 @@ import app.trombito.souschef.domain.VersionApp
 import app.trombito.souschef.domain.copia.GestorCopia
 import app.trombito.souschef.domain.copia.ResultadoCopia
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.ui.ficha.Servir
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -90,6 +91,14 @@ class AjustesViewModel
 
         fun activarHorno(tiene: Boolean) {
             viewModelScope.launch { ajustes.fijarHorno(tiene) }
+        }
+
+        /** Marca si el usuario tiene [aparato] (Tu equipo). */
+        fun tenerAparato(
+            aparato: Equipo,
+            tiene: Boolean,
+        ) {
+            viewModelScope.launch { ajustes.fijarEquipo(aparato, tiene) }
         }
 
         fun ajustarRacionesDefecto(n: Int) {

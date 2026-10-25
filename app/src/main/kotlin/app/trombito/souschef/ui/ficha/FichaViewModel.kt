@@ -100,6 +100,7 @@ class FichaViewModel
                     cocinando = viva?.let { e -> e.carriles.values.count { !it.fin } },
                     notas = notasDe(h, slug),
                     ritmoMin = receta?.let { desvioHabitualMin(h, slug, ceil(it.totalEfectivo).toInt()) },
+                    equipo = a.equipo,
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FichaUiState())
 

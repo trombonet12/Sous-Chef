@@ -1,6 +1,7 @@
 package app.trombito.souschef.domain
 
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 
 /** Paso realmente cronometrado al cocinar (segundos desde que se abrió el paso hasta Hecho). */
 data class PasoReal(
@@ -103,6 +104,11 @@ data class Ajustes(
     /** Fuegos de la cocina, 1..[FUEGOS_MAX]. */
     val fuegos: Int = FUEGOS_DEFECTO,
     val horno: Boolean = true,
+    /**
+     * Aparatos que tiene el usuario («Tu equipo»); por defecto todos, para no esconder nada a quien no lo configura.
+     * El horno refleja [horno], que sigue siendo su fuente.
+     */
+    val equipo: Set<Equipo> = Equipo.entries.toSet(),
     /** Raciones con las que se abre una receta sin elección previa, 1..[RACIONES_MAX]. */
     val racionesDefecto: Int = RACIONES_DEFECTO,
     /** La intro de primer uso ya se vio. */

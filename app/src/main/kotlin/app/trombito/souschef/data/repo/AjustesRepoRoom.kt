@@ -15,6 +15,7 @@ import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.domain.TemaApp
 import app.trombito.souschef.domain.claveNovedades
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -52,6 +53,7 @@ class AjustesRepoRoom
                 cocina = cocinaDe(v[I_COCINA_TIPO], v[I_COCINA_MANDO], v[I_COCINA_MAX]),
                 fuegos = enteroDe(v[I_FUEGOS], FUEGOS_MIN..FUEGOS_MAX, defecto.fuegos),
                 horno = booleanoDe(v[I_HORNO], defecto.horno),
+                equipo = equipoGuardado(v[I_EQUIPO], booleanoDe(v[I_HORNO], defecto.horno)),
                 racionesDefecto = enteroDe(v[I_RACIONES], RACIONES_MIN..RACIONES_MAX, defecto.racionesDefecto),
                 introVista = booleanoDe(v[I_INTRO], defecto.introVista),
                 guiaCronoVista = booleanoDe(v[I_GUIA], defecto.guiaCronoVista),
@@ -92,6 +94,16 @@ class AjustesRepoRoom
 
         override suspend fun fijarHorno(tiene: Boolean) = dao.fijar(MetaEntity(CLAVE_HORNO, tiene.toString()))
 
+        override suspend fun fijarEquipo(
+            aparato: Equipo,
+            tiene: Boolean,
+        ) {
+            if (aparato == Equipo.HORNO) return fijarHorno(tiene)
+            val actuales = aparatosDe(dao.valor(CLAVE_EQUIPO))
+            val nuevos = if (tiene) actuales + aparato else actuales - aparato
+            dao.fijar(MetaEntity(CLAVE_EQUIPO, nuevos.joinToString(",") { it.name }))
+        }
+
         override suspend fun fijarRacionesDefecto(n: Int) =
             dao.fijar(MetaEntity(CLAVE_RACIONES, n.coerceIn(RACIONES_MIN, RACIONES_MAX).toString()))
 
@@ -126,6 +138,9 @@ class AjustesRepoRoom
             const val CLAVE_COCINA_MAX = "ajustes.cocina.max"
             const val CLAVE_FUEGOS = "ajustes.cocina.fuegos"
             const val CLAVE_HORNO = "ajustes.cocina.horno"
+
+            /** Aparatos que tiene, con comas y sin el horno (es [CLAVE_HORNO]); ausente = todos, "" = ninguno. */
+            const val CLAVE_EQUIPO = "ajustes.equipo"
             const val CLAVE_RACIONES = "ajustes.raciones.defecto"
             const val CLAVE_INTRO = "ajustes.intro.vista"
             const val CLAVE_GUIA = "ajustes.guia.crono.vista"
@@ -154,6 +169,7 @@ class AjustesRepoRoom
                     CLAVE_GUIA,
                     CLAVE_NOVEDADES,
                     CLAVE_CENAR,
+                    CLAVE_EQUIPO,
                 )
             private const val I_DISPOSICION = 0
             private const val I_VOZ = 1
@@ -172,6 +188,7 @@ class AjustesRepoRoom
             private const val I_GUIA = 14
             private const val I_NOVEDADES = 15
             private const val I_CENAR = 16
+            private const val I_EQUIPO = 17
 
             private fun booleanoDe(
                 valor: String?,
@@ -189,6 +206,21 @@ class AjustesRepoRoom
                 rango: IntRange,
                 defecto: Int,
             ): Int = valor?.toIntOrNull()?.coerceIn(rango.first, rango.last) ?: defecto
+
+            /** Aparatos de la lista guardada, sin el horno; ausente = todos, nombres desconocidos se ignoran. */
+            private fun aparatosDe(valor: String?): Set<Equipo> =
+                if (valor == null) {
+                    Equipo.entries.toSet() - Equipo.HORNO
+                } else {
+                    valor.split(",").mapNotNull { n -> Equipo.entries.firstOrNull { it.name == n.trim() } }.toSet() -
+                        Equipo.HORNO
+                }
+
+            /** Lo que tiene el usuario: los aparatos guardados más el horno si [horno]. */
+            private fun equipoGuardado(
+                valor: String?,
+                horno: Boolean,
+            ): Set<Equipo> = aparatosDe(valor) + if (horno) setOf(Equipo.HORNO) else emptySet()
 
             /** Siempre pasa por `valida()`. `max` "" = sin números; ausente o no numérico, el defecto (9). */
             private fun cocinaDe(

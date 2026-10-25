@@ -62,6 +62,7 @@
     <string name="filtro_equipo_sin_horno">Sin horno</string>
     <string name="filtro_equipo_con_horno">Con horno</string>
     <string name="filtro_equipo_un_fuego">1 fuego</string>
+    <string name="filtro_equipo_con_lo_que_tengo">Con lo que tengo</string>
 
     <string name="orden_favoritas">Favoritas y recientes</string>
     <string name="orden_olvidadas">Hace más que no la hago</string>

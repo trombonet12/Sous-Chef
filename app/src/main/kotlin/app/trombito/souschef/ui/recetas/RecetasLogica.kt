@@ -9,9 +9,11 @@ import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.HoraUsada
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.Preferencia
+import app.trombito.souschef.domain.cabeConMiEquipo
 import app.trombito.souschef.domain.desvioHabitualMin
 import app.trombito.souschef.domain.esNueva
 import app.trombito.souschef.domain.horaServir
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.normalizado
@@ -96,6 +98,8 @@ data class ContextoLista(
     val horno: Boolean = true,
     /** Desvío habitual en minutos por slug (positivo = suele tardar más); solo las recetas con ritmo. */
     val ritmos: Map<String, Int> = emptyMap(),
+    /** Aparatos que tiene el usuario (Ajustes → Tu equipo), para «Con lo que tengo». */
+    val equipo: Set<Equipo> = Equipo.entries.toSet(),
     /** Hora de cenar de Ajustes, para las recetas de cena. */
     val cenarMin: Int = CENAR_DEFECTO_MIN,
 ) {
@@ -251,7 +255,8 @@ private fun tarjetaYRasgos(
     val hace = Hace.de(fecha, contexto.hoy)
     val nueva = esNueva(r, fecha, contexto.hoy)
     val quiereHacerla = preferencias[r.slug]?.quiereHacerla == true
-    val rasgos = RasgosReceta.de(r, favorita, fuegos, hace, nueva, quiereHacerla)
+    val rasgos =
+        RasgosReceta.de(r, favorita, fuegos, hace, nueva, quiereHacerla, cabeConMiEquipo(r, contexto.equipo))
     val conHorno = EquipoReceta.CON_HORNO in rasgos.equipo
     val tarjeta =
         TarjetaReceta(

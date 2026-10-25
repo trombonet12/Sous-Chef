@@ -106,7 +106,8 @@ enum class TramoTiempo {
     }
 }
 
-enum class EquipoReceta { SIN_HORNO, CON_HORNO, UN_FUEGO }
+/** «Con lo que tengo»: la receta no pide ningún aparato que el usuario no tenga (Ajustes → Tu equipo). */
+enum class EquipoReceta { SIN_HORNO, CON_HORNO, UN_FUEGO, CON_LO_QUE_TENGO }
 
 /**
  * «Quiero hacerla»: la marcada con el marcador de la ficha. «Hace tiempo»: cocinada hace [Hace.DIAS_RESALTE] días o más
@@ -213,6 +214,7 @@ data class RasgosReceta(
             hace: Hace,
             nueva: Boolean = false,
             quiereHacerla: Boolean = false,
+            cabeEnMiEquipo: Boolean = true,
         ): RasgosReceta {
             val conHorno = receta.carriles.any { it.tipoCarril == TipoCarril.HORNO }
             val momentos = receta.tags.momento ?: emptyList()
@@ -225,6 +227,7 @@ data class RasgosReceta(
                     buildSet {
                         add(if (conHorno) EquipoReceta.CON_HORNO else EquipoReceta.SIN_HORNO)
                         if (fuegos == 1) add(EquipoReceta.UN_FUEGO)
+                        if (cabeEnMiEquipo) add(EquipoReceta.CON_LO_QUE_TENGO)
                     },
                 mostrar =
                     buildSet {

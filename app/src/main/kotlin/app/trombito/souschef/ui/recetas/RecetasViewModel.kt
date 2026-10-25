@@ -174,6 +174,7 @@ private fun contextoLista(
         modo = a.horaTarjeta,
         fuegos = a.fuegos,
         horno = a.horno,
+        equipo = a.equipo,
         ritmos = ritmos,
     )
 }

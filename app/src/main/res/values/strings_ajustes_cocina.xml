@@ -40,6 +40,9 @@
     <string name="equipo_fuegos_menos">Un fuego menos</string>
     <string name="equipo_horno">Tengo horno</string>
     <string name="equipo_horno_detalle">Las recetas que piden más fuegos u horno de los que tienes llevan una etiqueta en la lista.</string>
+    <string name="equipo_batidora">Tengo batidora</string>
+    <string name="equipo_microondas">Tengo microondas</string>
+    <string name="equipo_plancha">Tengo plancha</string>
 
     <!-- Raciones por defecto -->
     <string name="raciones_titulo">Raciones por defecto</string>
@@ -52,4 +55,11 @@
     <!-- Etiquetas de la lista de recetas -->
     <string name="lista_pide_fuegos">Pide %1$d fuegos</string>
     <string name="lista_pide_horno">Pide horno</string>
+    <string name="ficha_pide_batidora">Pide batidora</string>
+    <string name="ficha_pide_microondas">Pide microondas</string>
+    <string name="ficha_pide_plancha">Pide plancha</string>
+    <string name="ficha_no_tienes_horno">No tienes horno</string>
+    <string name="ficha_no_tienes_batidora">No tienes batidora</string>
+    <string name="ficha_no_tienes_microondas">No tienes microondas</string>
+    <string name="ficha_no_tienes_plancha">No tienes plancha</string>
 </resources>

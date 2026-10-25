@@ -96,4 +96,5 @@ private fun EquipoReceta.texto(): Int =
         EquipoReceta.SIN_HORNO -> R.string.filtro_equipo_sin_horno
         EquipoReceta.CON_HORNO -> R.string.filtro_equipo_con_horno
         EquipoReceta.UN_FUEGO -> R.string.filtro_equipo_un_fuego
+        EquipoReceta.CON_LO_QUE_TENGO -> R.string.filtro_equipo_con_lo_que_tengo
     }

@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.ajustes
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import app.trombito.souschef.domain.FUEGOS_MIN
 import app.trombito.souschef.domain.RACIONES_MAX
 import app.trombito.souschef.domain.RACIONES_MIN
 import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Equipo
 import app.trombito.souschef.receta.Mando
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.PasosMasMenos
@@ -46,6 +48,7 @@ fun AjustesCocinaScreen(
         viewModel::ajustarFuegos,
         viewModel::activarHorno,
         viewModel::ajustarRacionesDefecto,
+        viewModel::tenerAparato,
     )
 }
 
@@ -59,6 +62,7 @@ internal fun AjustesCocina(
     onFuegos: (Int) -> Unit,
     onHorno: (Boolean) -> Unit,
     onRaciones: (Int) -> Unit,
+    onAparato: (Equipo, Boolean) -> Unit = { _, _ -> },
 ) {
     PantallaAjustes(stringResource(R.string.ajustes_cocina), onAtras) {
         Text(
@@ -68,6 +72,7 @@ internal fun AjustesCocina(
         )
         SelectorCocina(ajustes.cocina, onCocina)
         SelectorEquipo(ajustes.fuegos, ajustes.horno, onFuegos, onHorno, Modifier.padding(top = 16.dp))
+        SelectorAparatos(ajustes.equipo, onAparato)
         SelectorRaciones(ajustes.racionesDefecto, onRaciones, Modifier.padding(top = 16.dp))
     }
 }
@@ -110,6 +115,47 @@ fun SelectorEquipo(
             }
             Switch(checked = horno, onCheckedChange = null)
         }
+    }
+}
+
+/** Batidora, microondas y plancha, bajo el horno de [SelectorEquipo]; [onAparato] recibe el aparato y si lo tiene. */
+@Composable
+fun SelectorAparatos(
+    equipo: Set<Equipo>,
+    onAparato: (Equipo, Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier.fillMaxWidth()) {
+        FilaAparato(R.string.equipo_batidora, "equipo-batidora", Equipo.BATIDORA in equipo) {
+            onAparato(Equipo.BATIDORA, it)
+        }
+        FilaAparato(R.string.equipo_microondas, "equipo-microondas", Equipo.MICROONDAS in equipo) {
+            onAparato(Equipo.MICROONDAS, it)
+        }
+        FilaAparato(R.string.equipo_plancha, "equipo-plancha", Equipo.PLANCHA in equipo) {
+            onAparato(Equipo.PLANCHA, it)
+        }
+    }
+}
+
+@Composable
+private fun FilaAparato(
+    @StringRes texto: Int,
+    etiqueta: String,
+    tiene: Boolean,
+    onCambio: (Boolean) -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .testTag(etiqueta)
+            .toggleable(tiene, role = Role.Switch, onValueChange = onCambio)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(stringResource(texto), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+        Switch(checked = tiene, onCheckedChange = null)
     }
 }
 
