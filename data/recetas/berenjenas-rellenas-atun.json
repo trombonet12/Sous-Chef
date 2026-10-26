@@ -1,0 +1,497 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "La carne de la berenjena es una esponja de fibras que van del rabo a la punta. Los cortes en rejilla de 1,5 cm la cruzan y abren camino al calor y al vapor: la mitad se asa en treinta minutos y, al vaciarla, la carne sale ya en dados, sin pasar otra vez por la tabla. Hondos pero sin tocar la piel, y con 1 cm sin cortar junto al borde: esa franja es la pared de la barquita, y si la cortas el relleno se sale.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media berenjena vista desde el corte, con una rejilla de cortes de 1,5 cm y un margen sin cortar junto a la piel\"><path d=\"M8 44 Q10 16 50 15 Q96 13 106 30 Q112 44 106 58 Q96 75 50 73 Q10 72 8 44 Z\" fill=\"#5B3A6E\" fill-opacity=\".16\" stroke=\"#5B3A6E\"/><rect x=\"106\" y=\"38\" width=\"12\" height=\"12\" rx=\"3\" fill=\"#6F7F3E\" fill-opacity=\".5\" stroke=\"#6F7F3E\"/><g stroke=\"#5B3A6E\" stroke-width=\".7\" opacity=\".6\"><path d=\"M16 34 Q60 24 100 32\"/><path d=\"M16 54 Q60 64 100 56\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"28\" y1=\"28\" x2=\"28\" y2=\"60\"/><line x1=\"40\" y1=\"26\" x2=\"40\" y2=\"62\"/><line x1=\"52\" y1=\"26\" x2=\"52\" y2=\"62\"/><line x1=\"64\" y1=\"26\" x2=\"64\" y2=\"62\"/><line x1=\"76\" y1=\"26\" x2=\"76\" y2=\"62\"/><line x1=\"88\" y1=\"28\" x2=\"88\" y2=\"60\"/><line x1=\"22\" y1=\"36\" x2=\"96\" y2=\"36\"/><line x1=\"20\" y1=\"44\" x2=\"98\" y2=\"44\"/><line x1=\"22\" y1=\"52\" x2=\"96\" y2=\"52\"/></g></svg>",
+      "t": "Berenjena · mitades a lo largo, en rejilla de 1,5 cm"
+    },
+    {
+      "p": "Las vetas van de la raíz al tallo. Córtalas en perpendicular: al romper las fibras la cebolla suelta su agua y se deshace en diez minutos tapada, y dentro del relleno no se nota como trozo. A favor de la fibra aguantaría en tiras y se quedaría entera entre la berenjena.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con las vetas verticales y tres cortes horizontales\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#77558A\" fill-opacity=\".16\" stroke=\"#77558A\"/><g stroke=\"#77558A\" stroke-width=\".8\" opacity=\".7\"><line x1=\"19\" y1=\"11\" x2=\"19\" y2=\"77\"/><line x1=\"33\" y1=\"11\" x2=\"33\" y2=\"77\"/><line x1=\"47\" y1=\"11\" x2=\"47\" y2=\"77\"/><line x1=\"61\" y1=\"11\" x2=\"61\" y2=\"77\"/><line x1=\"75\" y1=\"11\" x2=\"75\" y2=\"77\"/><line x1=\"89\" y1=\"11\" x2=\"89\" y2=\"77\"/><line x1=\"103\" y1=\"11\" x2=\"103\" y2=\"77\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"1\" y1=\"25\" x2=\"119\" y2=\"25\"/><line x1=\"1\" y1=\"44\" x2=\"119\" y2=\"44\"/><line x1=\"1\" y1=\"63\" x2=\"119\" y2=\"63\"/></g></svg>",
+      "t": "Cebolla · dados de 4 mm"
+    },
+    {
+      "p": "Un milímetro, para que se reparta por todo el relleno y se ablande en los diez minutos tapado con la cebolla sin dejar trozos que se noten al morder. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadrícula muy fina de cortes para picarlo a 1 mm\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".55\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"5\" x2=\"48\" y2=\"83\"/><line x1=\"56\" y1=\"4\" x2=\"56\" y2=\"84\"/><line x1=\"64\" y1=\"4\" x2=\"64\" y2=\"84\"/><line x1=\"72\" y1=\"5\" x2=\"72\" y2=\"83\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"33\" y1=\"26\" x2=\"87\" y2=\"26\"/><line x1=\"30\" y1=\"40\" x2=\"90\" y2=\"40\"/><line x1=\"30\" y1=\"54\" x2=\"90\" y2=\"54\"/><line x1=\"35\" y1=\"68\" x2=\"85\" y2=\"68\"/></g></svg>",
+      "t": "Ajo · picado de 1 mm"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "60 min",
+      "de principio a fin"
+    ],
+    [
+      "12 + 25 + 50",
+      "cortar + sartén + horno"
+    ],
+    [
+      "1",
+      "fuego, más el horno"
+    ],
+    [
+      "200 °C",
+      "horno, y grill al final"
+    ],
+    [
+      "12",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Berenjenas partidas a lo largo, asadas al horno con la carne marcada en rejilla y vaciadas; su carne vuelve a ellas mezclada con cebolla, tomate y atún, y se gratinan con queso. La dificultad está en que el relleno no suelte agua: la berenjena es casi toda agua, y hay que evaporarla dos veces, en el horno y en la sartén. El plato se apoya entero en las berenjenas: si no hay, no hay plato.",
+  "escala": {
+    "max": 3,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 700,
+          "n": "berenjenas grandes, partidas a lo largo y marcadas en rejilla de 1,5 cm (2, de unos 350 g)",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "aceite de oliva, para el corte (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal, para el corte (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "BANDEJA · BERENJENAS"
+    },
+    {
+      "items": [
+        {
+          "a": 20,
+          "n": "aceite de oliva (1 cucharada sopera y 1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 150,
+          "n": "cebolla, en dados de 4 mm (1 mediana)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "n": "ajo, picado de 1 mm (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 200,
+          "n": "tomate triturado (¼ del bote de 800 g)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "orégano (1 cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 156,
+          "n": "atún en lata, escurrido (3 latas de 80 g)",
+          "u": "g"
+        },
+        {
+          "a": 0.5,
+          "esc": "sub",
+          "n": "pimienta negra (¼ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · RELLENO"
+    },
+    {
+      "items": [
+        {
+          "a": 50,
+          "n": "queso rallado (5 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 20,
+          "n": "Grana Padano, rallado fino (4 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "GRATINADO"
+    }
+  ],
+  "lectura": "El camino largo va por el horno: 12 de precalentar + 30 de asar + 4 de vaciar + 5 de secar la carne en la sartén + 2 del atún + 3 de rellenar + 4 de gratinar = 60. La tabla trabaja mientras el horno sube (del 0 al 12), y la sartén cabe entera dentro del asado: la cebolla del 28 al 38 y el tomate del 38 al 46, así que está reducido justo cuando llega la carne vaciada. El horno no se apaga entre el asado y el grill: se queda a 200 °C del 42 al 52 y pasa a grill fuerte en el 52, con cuatro minutos para ponerse al rojo antes de que entre la bandeja. Un solo fuego en todo el plan.",
+  "mep": [
+    {
+      "l": [
+        "<b>Berenjenas · 700 g (2 grandes)</b> · partidas a lo largo y marcadas en rejilla de 1,5 cm, a la bandeja con 15 ml de aceite de oliva (1 cucharada sopera) y 2 g de sal (⅓ de cucharadita). Entran en el horno en el minuto 12.",
+        "<b>Cebolla · 150 g (1 mediana)</b> · dados de 4 mm, en perpendicular a las vetas, a la sartén en frío. Se enciende en el minuto 28.",
+        "<b>Ajo · 8 g (2 dientes)</b> · picado de 1 mm, a la sartén con la cebolla. Se enciende en el minuto 28."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad: la berenjena va primero, con la tabla seca y porque es la que tiene que entrar en el horno; la cebolla la moja después, y el ajo al final por el olor.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Vaso medidor</b> · 200 g de tomate triturado (¼ del bote de 800 g) + 1 g de orégano (1 cucharadita) + 2 g de sal (⅓ de cucharadita). Entra en el minuto 38.",
+        "<b>Plato hondo</b> · 156 g de atún escurrido (3 latas de 80 g), desmigado, + 0,5 g de pimienta negra (¼ de cucharadita). Entra en el minuto 51.",
+        "<b>Bol pequeño</b> · 50 g de queso rallado (5 cucharadas soperas) + 20 g de Grana Padano rallado fino (4 cucharadas soperas), mezclados. Entran en el minuto 53.",
+        "<b>Bol mediano</b>, vacío · recibe la carne de la berenjena en el minuto 42 y la vacía en la sartén en el 46."
+      ],
+      "orden": false,
+      "porq": "Cada uno guarda lo que entra en un minuto distinto: el tomate en el 38, la carne de la berenjena en el 46, el atún en el 51 y los quesos en el 53. El vaso medidor hace de bol para el tomate, que entra con el orégano y la sal.",
+      "t": "CUATRO RECIPIENTES"
+    },
+    {
+      "l": [
+        "<b>Sartén grande de 28 cm, en frío</b> · 20 ml de aceite de oliva (1 cucharada sopera y 1 cucharadita) + la cebolla y el ajo. Se enciende en el minuto 28.",
+        "<b>Bandeja del horno</b> · fuera desde el minuto 0, con papel de horno recortado a su medida y sin que asome: recibe las berenjenas y no se cambia hasta el plato."
+      ],
+      "orden": false,
+      "porq": "Lo que entra desde el principio se deja ya en su destino. El papel no asoma por los bordes porque, bajo el grill, se quemaría antes que el queso.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "De 1 a 3 raciones con el mismo plan: una berenjena grande por persona, y hasta tres (seis mitades) caben en la única bandeja sin tocarse. Con 3, la sartén lleva más de medio kilo de carne y tomate y tarda un par de minutos más en quedar sin charco: guíate por el fondo seco, no por el reloj. Con 4, las ocho mitades ya no caben sueltas y se asarían en su propio vapor. La sal, el orégano y la pimienta no suben en línea recta.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "berenjenas",
+      "meto": "",
+      "min": 5,
+      "nota": "Pártelas a lo largo con el rabo y marca la carne en rejilla de 1,5 cm, sin llegar a la piel y dejando 1 cm de margen. Aceite y sal en el corte, y a la bandeja boca arriba.",
+      "off": 0,
+      "p": "Lava las dos berenjenas y pártelas a lo largo por la mitad, rabo incluido: el rabo sostiene la forma de la barquita al vaciarla. Con la punta del cuchillo marca la carne en rejilla de 1,5 cm, hondo pero sin atravesar la piel, y deja 1 cm sin cortar junto al borde: es la pared que luego sujetará el relleno. Los cortes dejan entrar el calor hasta el centro y salir el vapor, así que la carne se asa en media hora y sale ya en dados. Reparte por encima los 15 ml de aceite de oliva con los dedos, metiéndolo en los cortes, y los 2 g de sal, y colócalas boca arriba en la bandeja, sobre papel de horno recortado a su medida.",
+      "s": 300,
+      "saco": "las 4 mitades, boca arriba, en la bandeja con papel",
+      "t": "Partir y marcar las berenjenas",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "f": null,
+      "holgura": "flexible",
+      "id": "precalentar",
+      "meto": "",
+      "min": 12,
+      "nota": "Saca la bandeja y enciende el horno a 200 °C, calor arriba y abajo, sin ventilador.",
+      "off": 0,
+      "p": "Nada más empezar, saca la bandeja y enciende el horno a 200 °C, calor arriba y abajo, sin ventilador. Doce minutos es lo que tarda en llegar, y caben enteros en el corte. Sin ventilador porque el aire forzado seca la piel de la berenjena antes de que la carne se haga, y la barquita sale acartonada y se quiebra al vaciarla.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar, y el trabajo está en la tabla.",
+      "t": "Precalentar a 200 °C",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "150 g de cebolla en dados de 4 mm y 8 g de ajo picado de 1 mm, a la sartén en frío",
+      "min": 7,
+      "nota": "Cebolla en dados de 4 mm y ajo picado de 1 mm, directos a la sartén en frío con el aceite. Tomate, orégano y sal al vaso; atún escurrido al plato; los quesos, al bol.",
+      "off": 5,
+      "p": "La cebolla en dados de 4 mm, cortando en perpendicular a las vetas, y el ajo picado de 1 mm: los dos directos a la sartén grande en frío, sobre los 20 ml de aceite de oliva, porque entran a la vez y la sartén es su recipiente. Mide el tomate triturado en el vaso medidor y echa encima el orégano y la sal. Escurre bien las latas de atún apretando la tapa y desmígalo en un plato hondo con la pimienta: el aceite de la lata no entra, que el relleno ya tiene su grasa. Ralla el Grana fino y mézclalo en un bol pequeño con el queso rallado.",
+      "s": 420,
+      "saco": "",
+      "t": "Picar la cebolla y el ajo, y pesar el resto",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "berenjenas"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 900,
+          "t": "Mira por el cristal, sin abrir: los bordes de la rejilla empiezan a dorar"
+        },
+        {
+          "en": 1560,
+          "t": "Abre y pincha el centro de una mitad: el cuchillo entra hasta la piel como en mantequilla"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "asar",
+      "meto": "la bandeja con las 4 mitades boca arriba, a media altura",
+      "min": 30,
+      "nota": "Bandeja a media altura y cierra. Están cuando el cuchillo entra hasta la piel sin resistencia.",
+      "off": 12,
+      "p": "A media altura, boca arriba y sin tapar. La berenjena es más del 90 % agua: a 200 °C esa agua sale como vapor por los cortes, la carne se concentra y los bordes de la rejilla se doran por Maillard, que es de donde sale el sabor tostado que cocida en agua nunca tendría. Treinta minutos para berenjenas de 350 g; si son más pequeñas, a los veinticinco ya ceden. Están cuando el cuchillo entra hasta la piel sin resistencia: a medio hacer, la carne no se suelta de la piel y la barquita se rompe al vaciarla.",
+      "s": 1800,
+      "saco": "la bandeja, a la encimera. El horno se queda encendido a 200 °C con la puerta cerrada",
+      "t": "Asar las berenjenas a 200 °C",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 360,
+          "t": "Destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 540,
+          "t": "Remueve: translúcida y blanda, sin bordes dorados"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sofrito",
+      "meto": "la sartén cargada en frío: 20 ml de aceite de oliva + 150 g de cebolla + 8 g de ajo",
+      "min": 10,
+      "nota": "Enciende al {5} con la tapa puesta. Tiene que quedar translúcida y blanda, sin bordes dorados.",
+      "off": 28,
+      "p": "Enciende la sartén grande al {5} con la tapa puesta: el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla, y así suelta el dulzor que va a templar el ácido del tomate. El ajo entra desde el principio a propósito: mientras la cebolla tenga agua, el fondo no pasa de unos 100 °C y el ajo se ablanda sin quemarse ni amargar. Destapa solo para remover.",
+      "s": 600,
+      "saco": "",
+      "t": "Sudar la cebolla y el ajo",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "f": 4,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve raspando el fondo"
+        },
+        {
+          "en": 420,
+          "t": "Pasa la cuchara por el fondo: el surco tarda en cerrarse"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "tomate",
+      "meto": "el vaso medidor: 200 g de tomate triturado + 1 g de orégano + 2 g de sal",
+      "min": 8,
+      "nota": "Quita la tapa, echa el vaso y baja al {4}. Tiene que espesar hasta que la cuchara deje surco.",
+      "off": 38,
+      "p": "Quita la tapa, echa el tomate con el orégano y la sal y baja al {4}. Sin tapa, porque aquí se trata de evaporar: el tomate triturado es casi todo agua, y cada gota que no se vaya ahora saldría en el grill por el fondo de la barquita y la dejaría blanda. El orégano seco entra aquí y no al final: necesita calor y grasa para soltar su aroma. Está cuando la cuchara deja en el fondo un surco que tarda en cerrarse.",
+      "s": 480,
+      "saco": "",
+      "t": "Reducir el tomate",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "asar"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "vaciar",
+      "meto": "",
+      "min": 4,
+      "nota": "Sujeta cada mitad con un paño y saca la carne con una cuchara al bol mediano, dejando una pared de 5 mm pegada a la piel.",
+      "off": 42,
+      "p": "Sujeta cada mitad con un paño, que quema, y saca la carne con una cuchara sopera, dejando una pared de unos 5 mm pegada a la piel: más fina, la barquita se rompe al rellenarla; más gruesa, te quedas sin relleno y queda un fondo soso. Gracias a la rejilla la carne sale ya en dados y no hace falta volver a la tabla. Las barquitas vacías se quedan boca arriba en la bandeja, que no se lava: es la misma que irá al grill.",
+      "s": 240,
+      "saco": "la carne, en dados, al bol mediano; las 4 barquitas vacías, boca arriba en la bandeja",
+      "t": "Vaciar las berenjenas",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "vaciar"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 150,
+          "t": "Remueve desde el fondo y chafa los dados más grandes"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "carne-berenjena",
+      "meto": "el bol mediano: la carne de la berenjena asada",
+      "min": 5,
+      "nota": "Sube al {6} y chafa los dados con la cuchara de madera. Al final, el fondo tiene que quedar sin charco.",
+      "off": 46,
+      "p": "Sube al {6} y echa la carne de la berenjena sobre el tomate. Chafa los dados con la cuchara de madera hasta deshacer más o menos la mitad: la parte deshecha liga el relleno como una crema y la que queda en trozos le da textura. Es la segunda evaporación del plato: la carne asada todavía suelta agua al aplastarla, y tiene que irse aquí. Está cuando, al pasar la cuchara, el fondo queda seco y sin charco.",
+      "s": 300,
+      "saco": "",
+      "t": "Secar la carne de la berenjena en el tomate",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "f": 2,
+      "holgura": "critico",
+      "id": "atun",
+      "meto": "el plato hondo: 156 g de atún escurrido + 0,5 g de pimienta negra",
+      "min": 2,
+      "nota": "Baja al {2} y mezcla el atún sin deshacerlo del todo. Apaga al acabar.",
+      "off": 51,
+      "p": "Baja al {2} y mezcla el atún con la pimienta sin deshacerlo del todo: que se vean las lascas. Entra al final porque ya viene cocido de la lata; dos minutos bastan para calentarlo, y más tiempo de fuego le apretaría la proteína, soltaría el aceite que le queda y lo dejaría seco y en hebras. No le añadas sal: el atún y los quesos de encima ponen la que falta.",
+      "s": 120,
+      "saco": "el relleno, listo en la sartén. Apaga el fuego",
+      "t": "El atún, al final",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "horno",
+      "f": null,
+      "holgura": "flexible",
+      "id": "grill",
+      "meto": "",
+      "min": 4,
+      "nota": "Cambia el horno a grill fuerte, con la puerta cerrada.",
+      "off": 52,
+      "p": "Cambia el horno a grill fuerte con la puerta cerrada. La resistencia de arriba tarda unos minutos en ponerse al rojo, y como el horno ya está caliente le bastan cuatro. Si la bandeja entrara con el grill frío, el queso se calentaría despacio, soltaría la grasa y se secaría antes de dorar.",
+      "s": 240,
+      "saco": "",
+      "t": "Grill fuerte",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "atun"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "rellenar",
+      "meto": "el relleno de la sartén + el bol pequeño: 50 g de queso rallado y 20 g de Grana Padano",
+      "min": 3,
+      "nota": "Reparte el relleno caliente en las 4 barquitas, apretado y abombado. Encima, los quesos hasta los bordes.",
+      "off": 53,
+      "p": "Reparte el relleno caliente entre las cuatro barquitas con la cuchara, apretando para que no queden huecos y abombado en el centro: un hueco de aire bajo el queso es un punto que se quema. Cubre con la mezcla de queso rallado y Grana hasta los bordes, también sobre la pared de berenjena, que así no se reseca bajo el grill. El relleno tiene que entrar caliente: el grill solo calienta los milímetros de arriba, y lo de dentro llega a la mesa a la temperatura con la que entró.",
+      "s": 180,
+      "saco": "",
+      "t": "Rellenar y cubrir de queso",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "rellenar"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 150,
+          "t": "Mira por el cristal cada 20 segundos: sácala en cuanto esté dorado"
+        }
+      ],
+      "holgura": "critico",
+      "id": "gratinar",
+      "meto": "la bandeja, un piso por encima del centro",
+      "min": 4,
+      "nota": "Bandeja un piso por encima del centro y puerta cerrada. No te vayas: entre dorado y quemado hay 40 segundos.",
+      "off": 56,
+      "p": "Un piso por encima del centro, a 10-15 cm de la resistencia: más cerca, lo que queda justo debajo se quema mientras las puntas de la barquita siguen pálidas. El queso rallado funde y el Grana, más seco, se dora y hace la costra. Cuatro minutos sin salir de la cocina: en cuanto la superficie se seca, pasa de dorado a negro en menos de un minuto. Si tu horno no tiene grill, 230 °C en la parte alta y unos ocho minutos.",
+      "s": 240,
+      "saco": "las 4 mitades a los platos, dos por persona. Apaga el horno",
+      "t": "Gratinar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "berenjenas"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Una berenjena por persona",
+      "Dos mitades por plato: con atún y queso es un plato único, y media berenjena se queda en entrante. Una berenjena de 350 g da unos 150 g de carne asada, y con la cebolla, el tomate y el atún salen unos 300 g de relleno por persona, justo lo que cabe abombado en sus dos barquitas."
+    ],
+    [
+      "Asadas al horno, ni fritas ni cocidas",
+      "Frita, la berenjena bebe el aceite como una esponja y el relleno sale grasiento; cocida en agua, se encharca y suelta ese agua en el grill. A 200 °C el agua se va como vapor, la carne se concentra y los bordes se tuestan. Además el horno trabaja solo mientras la sartén hace el sofrito, así que no cuesta tiempo."
+    ],
+    [
+      "Tres evaporaciones",
+      "El enemigo del plato es el agua: una barquita que suelta líquido en el plato deja el fondo blando y el queso flotando. Se evapora en el horno, otra vez al reducir el tomate destapado y una tercera al secar la carne en la sartén hasta que el fondo no deja charco."
+    ],
+    [
+      "El atún entra al final",
+      "Ya viene cocido de la lata. Dos minutos al {2} lo calientan; más tiempo lo dejaría seco y en hebras. Por eso tampoco va al horno antes de rellenar: solo pasa los cuatro minutos del grill, protegido por el queso."
+    ],
+    [
+      "Tomate triturado y no tomate fresco",
+      "El fresco habría que pelarlo y rallarlo, y suelta más agua. El triturado de bote reduce en ocho minutos y su sabor es constante."
+    ],
+    [
+      "Queso rallado y Grana Padano juntos",
+      "El rallado funde y hace de tapa; el Grana, seco y con poca agua, se dora encima y pone la costra que cruje y el umami. Solo con Grana quedaría salado y no fundiría; solo con rallado, la grasa se encharca encima sin dorar del todo."
+    ],
+    [
+      "Grill y no horno fuerte",
+      "El relleno entra caliente de la sartén, así que solo falta dorar arriba, que es justo lo que hace el grill en cuatro minutos. Volver a hornear a 200 °C para calentar no hace falta y secaría las paredes de la barquita."
+    ],
+    [
+      "Sin bechamel ni huevo",
+      "La carne asada y chafada ya liga el relleno como una crema. La bechamel pediría otro cazo y diez minutos más, y con la leche desnatada de casa saldría más aguada; el huevo cuajaría el relleno como una tortilla y le quitaría la jugosidad."
+    ],
+    [
+      "Sin pimiento, sin olivas y sin pimentón",
+      "El pimiento sería otro corte y más agua que evaporar; las olivas, con el atún y dos quesos, pasarían el plato de sal; el pimentón picante taparía el atún, que es el sabor que se busca junto al tostado de la berenjena."
+    ],
+    [
+      "Solo comida",
+      "Son 60 minutos, una hora de reloj con el horno encendido: por defecto, la cena se queda para platos de 45 minutos o menos."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "berenjenas-rellenas-atun",
+  "tags": {
+    "base": "verdura",
+    "momento": [
+      "comida"
+    ],
+    "proteina": "atún",
+    "tecnica": [
+      "sofrito",
+      "gratinado"
+    ]
+  },
+  "titulo": "Berenjenas rellenas de atún",
+  "totalMin": 60
+}
