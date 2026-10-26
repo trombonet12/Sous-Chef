@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.ficha
 
+import androidx.compose.ui.graphics.toArgb
 import app.trombito.souschef.receta.BloqueMep
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Corte
@@ -8,6 +9,7 @@ import app.trombito.souschef.receta.Hito
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.ui.theme.FichaOscuro
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -100,5 +102,14 @@ class FichaHtmlTest {
         assertTrue(html.contains("background:#B0A899"))
         assertTrue(html.contains("+0:30 Remover"))
         assertTrue(html.contains("@page{size:A4;margin:13mm}"))
+    }
+
+    @Test
+    fun laImpresionSaleSiempreEnClaro() {
+        assertTrue(html.contains("html,body{margin:0;background:#fff;color:#191A14}"))
+        val mayusculas = html.uppercase()
+        listOf(FichaOscuro.papel, FichaOscuro.papel2, FichaOscuro.tinta).forEach {
+            assertFalse(mayusculas.contains("#%06X".format(it.toArgb() and 0xFFFFFF)))
+        }
     }
 }

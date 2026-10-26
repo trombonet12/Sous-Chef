@@ -1,5 +1,6 @@
 package app.trombito.souschef.ui.comun
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -27,10 +29,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.ui.shell.Icono
+import app.trombito.souschef.ui.theme.FichaClaro
 import app.trombito.souschef.ui.theme.FichaPalette
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.svg.SvgDecoder
+
+private const val LUMINANCIA_CLARA = 0.5f
 
 /** Números tabulares para relojes, cantidades y contadores. */
 val Tabular = TextStyle(fontFeatureSettings = "tnum")
@@ -102,7 +107,10 @@ fun textoRico(texto: String): AnnotatedString =
         }
     }
 
-/** Dibuja el SVG (texto) de un corte con coil-svg. */
+/**
+ * Dibuja el SVG (texto) de un corte con coil-svg. Los dibujos están pensados para papel claro (trazo oscuro), así que
+ * con la ficha en oscuro van sobre una pieza de papel claro.
+ */
 @Composable
 fun CorteSvg(
     svg: String,
@@ -119,5 +127,10 @@ fun CorteSvg(
                 .decoderFactory(SvgDecoder.Factory())
                 .build()
         }
-    AsyncImage(model = peticion, contentDescription = descripcion, modifier = modifier)
+    val sobreOscuro = FichaPalette.papel.luminance() < LUMINANCIA_CLARA
+    AsyncImage(
+        model = peticion,
+        contentDescription = descripcion,
+        modifier = if (sobreOscuro) modifier.background(FichaClaro.papel, MaterialTheme.shapes.small) else modifier,
+    )
 }

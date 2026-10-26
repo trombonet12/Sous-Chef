@@ -81,16 +81,48 @@ val DarkColors =
         inversePrimary = Color(0xFF8C5A04),
     )
 
-/** La ficha es papel siempre, también en tema oscuro (se lee e imprime igual). */
-object FichaPalette {
-    val papel = Color(0xFFF3EFE4)
-    val papel2 = Color(0xFFEAE3D2)
-    val tinta = Color(0xFF17150F)
-    val tinta2 = Color(0xFF4E483C)
-    val tinta3 = Color(0xFF857C6A)
-    val meta = Color(0xFF6E6656)
-    val linea = Color(0xFFD5CDB9)
-}
+/** Colores de la ficha de la receta: siguen el tema de la app (claro u oscuro). Se leen con [FichaPalette]. */
+data class ColoresFicha(
+    val papel: Color,
+    val papel2: Color,
+    val tinta: Color,
+    val tinta2: Color,
+    val tinta3: Color,
+    val meta: Color,
+    val linea: Color,
+)
+
+/** Papel crema con tinta oscura; es también lo único que sale al imprimir o generar el PDF. */
+val FichaClaro =
+    ColoresFicha(
+        papel = Color(0xFFF3EFE4),
+        papel2 = Color(0xFFEAE3D2),
+        tinta = Color(0xFF17150F),
+        tinta2 = Color(0xFF4E483C),
+        tinta3 = Color(0xFF857C6A),
+        meta = Color(0xFF6E6656),
+        linea = Color(0xFFD5CDB9),
+    )
+
+/** Papel oscuro cálido, de la familia del cronómetro; `tinta`, `tinta2` y `meta` pasan de 4,5:1 sobre ambos papeles. */
+val FichaOscuro =
+    ColoresFicha(
+        papel = Color(0xFF1C1915),
+        papel2 = Color(0xFF272219),
+        tinta = Color(0xFFF1EDE2),
+        tinta2 = Color(0xFFCFC8B8),
+        tinta3 = Color(0xFF8F8675),
+        meta = Color(0xFFADA594),
+        linea = Color(0xFF3A342C),
+    )
+
+val LocalColoresFicha = staticCompositionLocalOf { FichaClaro }
+
+/** Paleta de la ficha según el tema en uso; las llamadas `FichaPalette.x` en código composable no cambian. */
+val FichaPalette: ColoresFicha
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColoresFicha.current
 
 /** Colores del cronómetro: siguen el tema de la app (claro u oscuro). Se leen con [CronoPalette]. */
 data class ColoresCrono(

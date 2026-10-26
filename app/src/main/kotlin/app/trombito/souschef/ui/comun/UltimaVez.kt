@@ -46,14 +46,17 @@ data class ColoresUltimaVez(
     val apagado: Color,
 ) {
     companion object {
-        /** Papel de la ficha. */
-        val Papel =
-            ColoresUltimaVez(
-                fondo = FichaPalette.papel2,
-                texto = FichaPalette.tinta,
-                acento = FichaPalette.tinta2,
-                apagado = FichaPalette.meta,
-            )
+        /** Papel de la ficha, claro u oscuro según el tema. */
+        val Papel: ColoresUltimaVez
+            @Composable
+            @ReadOnlyComposable
+            get() =
+                ColoresUltimaVez(
+                    fondo = FichaPalette.papel2,
+                    texto = FichaPalette.tinta,
+                    acento = FichaPalette.tinta2,
+                    apagado = FichaPalette.meta,
+                )
 
         /** Paleta del cronómetro en uso (clara u oscura): carta, texto, acento y apagado ya cumplen contraste. */
         val Crono: ColoresUltimaVez

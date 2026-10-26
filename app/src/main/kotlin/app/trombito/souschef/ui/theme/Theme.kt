@@ -32,6 +32,7 @@ fun SousChefTheme(
     CompositionLocalProvider(
         LocalFonts provides fonts,
         LocalColoresCrono provides if (darkTheme) CronoOscuro else CronoClaro,
+        LocalColoresFicha provides if (darkTheme) FichaOscuro else FichaClaro,
     ) {
         MaterialTheme(
             colorScheme = if (darkTheme) DarkColors else LightColors,

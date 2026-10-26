@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.drawText
@@ -40,6 +43,7 @@ import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.colorCarril
 import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.theme.FichaPalette
+import app.trombito.souschef.ui.theme.contraste
 
 private const val CADA_REJILLA_MIN = 10
 
@@ -54,16 +58,44 @@ data class PaletaDiagrama(
     val colorDe: (Carril?) -> Color,
 )
 
-val PaletaPapel =
-    PaletaDiagrama(
-        meta = FichaPalette.meta,
-        leyenda = FichaPalette.tinta2,
-        fondoBarra = FichaPalette.papel2,
-        rejilla = FichaPalette.linea,
-        borde = FichaPalette.tinta2,
-        ahora = FichaPalette.tinta,
-        colorDe = { colorCarril(it?.color ?: "") },
-    )
+/** Diagrama sobre la ficha: claro u oscuro según el tema, con las barras aclaradas si el papel es oscuro. */
+val PaletaPapel: PaletaDiagrama
+    @Composable
+    @ReadOnlyComposable
+    get() {
+        val ficha = FichaPalette
+        return PaletaDiagrama(
+            meta = ficha.meta,
+            leyenda = ficha.tinta2,
+            fondoBarra = ficha.papel2,
+            rejilla = ficha.linea,
+            borde = ficha.tinta2,
+            ahora = ficha.tinta,
+            colorDe = { colorBarraSobre(colorCarril(it?.color ?: ""), ficha.papel2) },
+        )
+    }
+
+private const val CONTRASTE_BARRA = 3f
+private const val PASOS_ACLARADO = 20
+private val CLARO_BARRA = Color(0xFFF4F1E8)
+
+/**
+ * Color de la barra de un carril sobre [fondo]: en papel claro es el del carril; en papel oscuro se aclara hasta llegar
+ * a 3:1 (elemento gráfico) para que los carriles oscuros (violeta, marrón) no se pierdan.
+ */
+fun colorBarraSobre(
+    color: Color,
+    fondo: Color,
+): Color =
+    if (fondo.luminance() >= LUMINANCIA_CLARA) {
+        color
+    } else {
+        (0..PASOS_ACLARADO)
+            .map { lerp(color, CLARO_BARRA, it / PASOS_ACLARADO.toFloat()) }
+            .firstOrNull { contraste(it, fondo) >= CONTRASTE_BARRA } ?: CLARO_BARRA
+    }
+
+private const val LUMINANCIA_CLARA = 0.5f
 
 /**
  * Eje, una fila por paso con su barra sobre el carril y leyenda. Con [ahoraMin] (minuto del plan, 0..total) pinta una
