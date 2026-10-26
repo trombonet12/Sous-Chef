@@ -16,7 +16,7 @@
 | Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **completada**: publicada dentro de la v1.6 |
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
 | Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
-| Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **en curso**: por lotes, sin push hasta el OK de Joan |
+| Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **lista para revisar**: gate en verde, probada en el emulador; playbook `docs/revision-v1.7.md`; sin push |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -203,11 +203,8 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 17 (plan `~/.claude/plans/buenos-d-as-vamos-a-modular-quasar.md`):
-1. Cabos sueltos: los PRs de Dependabot #4 y #5 y zod en /video. La leche de casa es desnatada: despensa y `receta-revisar`
-   de arroz con leche, pastel de patata, lasaña y bechamel.
-2. CI: subir a la pista interna y promocionar a la prueba cerrada (`alpha`).
-3. Análisis v1.7 con los 5 agentes (énfasis en recetas, sobre todo cenas rápidas, y en funciones) → `docs/analisis/v1.7.md`
-   y elegir el alcance con Joan.
-
-Siguen pendientes: las placas de la lasaña y, fuera de alcance, S4, A5-A8, F4-F10, U5 y S6 (`docs/analisis/v1.6.md`).
+v1.7 implementada (ronda 18): gate en verde (app 1033, receta 365, tools 6 tests; 33 recetas y 25 técnicas validadas) y
+probada en el emulador (1.4 → 1.7 con historial). Joan revisa con `docs/revision-v1.7.md` en el emulador abierto. Con
+su OK: push a main → CI publica v1.7.N en GitHub, pista interna y prueba cerrada (primera promoción real; comprobar en
+Play Console) → rebase del PR #5 de Dependabot. Observaciones abiertas O1-O3 del playbook. Pendiente fuera de alcance:
+S4 y el plan semanal.
