@@ -1,0 +1,455 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Las vetas de carne y grasa de la loncha van a lo largo. Apila tres o cuatro lonchas y córtalas a lo ancho cada 1 cm: el corte cruza la fibra, y la tira queda tierna en el bocado en vez de tirar en una hebra larga al cortar la porción. Más estrecha, se seca y se pierde en la crema; más ancha, se arrastra con el cuchillo y saca el relleno de su sitio.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Loncha de bacon con las vetas a lo largo y cortes a lo ancho cada centímetro\"><rect x=\"6\" y=\"26\" width=\"108\" height=\"36\" rx=\"4\" fill=\"#C4624E\" fill-opacity=\".16\" stroke=\"#C4624E\"/><g stroke=\"#C4624E\" stroke-width=\".8\" opacity=\".7\"><path d=\"M10 34 Q60 30 110 35\"/><path d=\"M10 44 Q60 48 110 43\"/><path d=\"M10 54 Q60 51 110 55\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"22\" y1=\"20\" x2=\"22\" y2=\"68\"/><line x1=\"38\" y1=\"20\" x2=\"38\" y2=\"68\"/><line x1=\"54\" y1=\"20\" x2=\"54\" y2=\"68\"/><line x1=\"70\" y1=\"20\" x2=\"70\" y2=\"68\"/><line x1=\"86\" y1=\"20\" x2=\"86\" y2=\"68\"/><line x1=\"102\" y1=\"20\" x2=\"102\" y2=\"68\"/></g></svg>",
+      "t": "Bacon · tiras de 1 cm a lo ancho"
+    },
+    {
+      "p": "Las vetas van de la raíz al tallo. Media cebolla apoyada en su cara plana: cortes a lo largo cada 5 mm sin llegar a la raíz, que la sujeta, y luego a lo ancho, en perpendicular a las vetas, cada 5 mm. En dados se reparte por toda la crema y el cuchillo de servir la atraviesa; en tiras largas arrastraría el relleno al cortar la porción.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla con las vetas verticales y una cuadrícula de cortes de 5 mm\"><path d=\"M8 78 Q8 10 60 10 Q112 10 112 78 Z\" fill=\"#77558A\" fill-opacity=\".16\" stroke=\"#77558A\"/><g stroke=\"#77558A\" stroke-width=\".8\" opacity=\".7\"><path d=\"M24 78 Q26 30 60 16\"/><path d=\"M42 78 Q44 34 60 16\"/><path d=\"M78 78 Q76 34 60 16\"/><path d=\"M96 78 Q94 30 60 16\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"30\" y1=\"22\" x2=\"30\" y2=\"78\"/><line x1=\"45\" y1=\"14\" x2=\"45\" y2=\"78\"/><line x1=\"60\" y1=\"12\" x2=\"60\" y2=\"78\"/><line x1=\"75\" y1=\"14\" x2=\"75\" y2=\"78\"/><line x1=\"90\" y1=\"22\" x2=\"90\" y2=\"78\"/><line x1=\"12\" y1=\"40\" x2=\"108\" y2=\"40\"/><line x1=\"10\" y1=\"55\" x2=\"110\" y2=\"55\"/><line x1=\"9\" y1=\"70\" x2=\"111\" y2=\"70\"/></g></svg>",
+      "t": "Cebolla · dados de 5 mm"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "62 min",
+      "de principio a fin"
+    ],
+    [
+      "10 + 42 + 10",
+      "precalentar + horno + reposo"
+    ],
+    [
+      "1",
+      "fuego, más el horno"
+    ],
+    [
+      "200 → 170 °C",
+      "horno"
+    ],
+    [
+      "11",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Quiche de bacon, cebolla y queso sobre una lámina de hojaldre, en un molde de tarta de 24 cm: la base se hornea antes a ciegas y la crema de huevo, nata y leche cuaja después a 170 °C. La dificultad está en dos puntos: que el fondo no se empape y sacarla del horno cuando el centro todavía tiembla.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 230,
+          "n": "hojaldre, lámina refrigerada, peso estimado (1 lámina, mejor redonda)",
+          "u": "g"
+        }
+      ],
+      "n": "MOLDE · LA BASE"
+    },
+    {
+      "items": [
+        {
+          "a": 5,
+          "n": "aceite de oliva (1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 150,
+          "n": "bacon en lonchas, en tiras de 1 cm (unas 12 lonchas finas)",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "cebolla, en dados de 5 mm (1 mediana)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · BACON Y CEBOLLA"
+    },
+    {
+      "items": [
+        {
+          "a": 4,
+          "n": "huevos (medianos, unos 240 g)",
+          "u": "uds"
+        },
+        {
+          "a": 200,
+          "n": "nata para cocinar (½ brik de 400 ml)",
+          "u": "ml"
+        },
+        {
+          "a": 200,
+          "n": "leche desnatada (1 vaso)",
+          "u": "ml"
+        },
+        {
+          "a": 100,
+          "n": "queso rallado (10 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal (una pizca de tres dedos)",
+          "u": "g"
+        },
+        {
+          "a": 0.5,
+          "esc": "sub",
+          "n": "pimienta negra (¼ de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 0.3,
+          "esc": "sub",
+          "n": "nuez moscada (⅛ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL · LA CREMA"
+    }
+  ],
+  "lectura": "El camino largo es el horno: 10 de precalentar + 12 de base a ciegas con peso + 4 de secar el fondo + 2 de rellenar + 24 de cuajar + 10 de reposo = 62. La tabla trabaja mientras el horno sube (del 0 al 10), y la sartén cabe entera dentro de la base a ciegas: el bacon del 11 al 17 y la cebolla del 17 al 25, así que llega al plato un minuto antes de rellenar. La crema se bate del 12 al 16, con el bacon ya en marcha. El horno cambia de mando una sola vez, de 200 a 170 °C en el minuto 22, y acaba de bajar con la puerta abierta del relleno. Un solo fuego en todo el plan.",
+  "mep": [
+    {
+      "l": [
+        "<b>Bacon · 150 g (unas 12 lonchas finas)</b> · tiras de 1 cm cortadas a lo ancho de las lonchas, a la sartén en frío. Se enciende en el minuto 11.",
+        "<b>Cebolla · 150 g (1 mediana)</b> · dados de 5 mm, en perpendicular a las vetas, al bol pequeño. Entra en la sartén en el minuto 17."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad: el bacon primero, con la tabla seca, porque la grasa fría se corta limpia y no resbala; la cebolla la moja después. El bacon va directo a la sartén porque es lo primero que se enciende.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol pequeño</b> · la cebolla en dados, del minuto 10 al 17.",
+        "<b>Bol grande</b> · 4 huevos (medianos, unos 240 g) + 200 ml de nata para cocinar (½ brik de 400 ml) + 200 ml de leche desnatada (1 vaso) + 1 g de sal (una pizca de tres dedos) + 0,5 g de pimienta negra (¼ de cucharadita) + 0,3 g de nuez moscada (⅛ de cucharadita), batidos en el minuto 12, y 100 g de queso rallado (10 cucharadas soperas) mezclados al final. Entra en el molde en el minuto 26.",
+        "<b>Plato con papel de cocina</b>, vacío · recibe el bacon y la cebolla en el minuto 25 y los vacía en el molde en el 26."
+      ],
+      "orden": false,
+      "porq": "Cada uno guarda lo que entra en un minuto distinto: la cebolla en el 17, y el bacon con la cebolla y la crema juntos en el 26. La crema lleva el queso dentro porque entran a la vez, y la leche se mide en el vaso medidor y se vacía en el bol.",
+      "t": "TRES RECIPIENTES"
+    },
+    {
+      "l": [
+        "<b>Molde de tarta de 24 cm</b> · la lámina de hojaldre (230 g, peso estimado: 1 lámina refrigerada) sale de la nevera en el minuto 0 y va directa al molde con su papel. Con papel de horno arrugado y 300 g de arroz crudo como peso (no se come: se guarda para otra vez), a la nevera hasta el minuto 10.",
+        "<b>Sartén grande, en frío</b> · 5 ml de aceite de oliva (1 cucharadita) + el bacon. Se enciende en el minuto 11.",
+        "<b>Horno</b> · la rejilla en el segundo nivel desde abajo, puesta antes de encender a 200 °C en el minuto 0."
+      ],
+      "orden": false,
+      "porq": "Lo que entra desde el principio se deja ya en su destino. El molde se forra en frío y espera en la nevera con el peso puesto, listo para pasar al horno en un gesto.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "El molde fija la quiche: 4 raciones generosas de un molde de 24 cm, con una lámina entera de hojaldre que no se divide. Con menos raciones no se hace media quiche; se hace la entera y lo que sobra aguanta dos días en la nevera. Con un molde de 26 cm la misma crema queda unos 3 mm más baja y cuaja unos 3 minutos antes; con uno de 28, la lámina no llega a las paredes y la crema no alcanza. Para más de 4, dos quiches y dos hornadas seguidas: el plan no cambia, se repite. La sal, la pimienta y la nuez moscada no suben en línea recta.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "forrar",
+      "meto": "la lámina de hojaldre, recién sacada de la nevera",
+      "min": 6,
+      "nota": "Hojaldre frío al molde con su papel, apretado contra el fondo y las paredes; lo que sobre, doblado hacia dentro. Pincha el fondo, papel arrugado encima, los 300 g de arroz como peso y a la nevera.",
+      "off": 0,
+      "p": "La lámina sale de la nevera en el último momento y entra en el molde con su propio papel debajo: fría, la mantequilla de entre capas sigue dura y la masa se deja apretar contra el fondo y las esquinas sin romperse ni pegarse a los dedos. Aprieta bien el ángulo entre el fondo y la pared, que es donde queda una bolsa de aire si no, y lo que sobresalga dóblalo hacia dentro contra la pared, con el borde 5 mm por encima del molde: el hojaldre encoge en el horno, y ese margen es el que evita que la crema rebose. Pincha el fondo entero con un tenedor cada 2 cm, para que el vapor salga por abajo en vez de levantarlo. Encima, una hoja de papel de horno arrugada y vuelta a estirar, que así se adapta a las esquinas, y los 300 g de arroz crudo repartidos hasta arriba de las paredes. Los minutos de nevera mientras cortas relajan la masa estirada, y encoge menos.",
+      "s": 360,
+      "saco": "el molde forrado, con el papel y el arroz encima, a la nevera",
+      "t": "Forrar el molde con el hojaldre",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "f": null,
+      "holgura": "flexible",
+      "id": "precalentar",
+      "meto": "",
+      "min": 10,
+      "nota": "Rejilla en el segundo nivel desde abajo antes de encender. 200 °C, calor arriba y abajo, sin ventilador.",
+      "off": 0,
+      "p": "Coloca la rejilla en el segundo nivel desde abajo antes de encender, que luego quema: el fondo es lo que más le cuesta hacerse a una quiche, y cerca de la resistencia de abajo recibe más calor que el borde. 200 °C con calor arriba y abajo y sin ventilador: el aire forzado dora y seca el borde del hojaldre mucho antes de que el fondo, tapado por el papel y el peso, termine de cocerse. Son diez minutos que caben enteros en el forrado y el corte.",
+      "s": 600,
+      "saco": "",
+      "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar, y el trabajo está en la tabla.",
+      "t": "Precalentar a 200 °C",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "",
+      "min": 4,
+      "nota": "Bacon en tiras de 1 cm a lo ancho de las lonchas, directo a la sartén en frío con el aceite. Después, la cebolla en dados de 5 mm al bol pequeño.",
+      "off": 6,
+      "p": "El bacon primero, con la tabla seca: tres o cuatro lonchas apiladas y cortadas a lo ancho en tiras de 1 cm, que cruzan la fibra y quedan tiernas en el bocado en vez de tirar en hebras. Van directas a la sartén grande en frío, sobre los 5 ml de aceite de oliva, porque la sartén es su recipiente. Después la cebolla en dados de 5 mm, cortando en perpendicular a las vetas, al bol pequeño: entra seis minutos después que el bacon, cuando ya ha soltado su grasa, y por eso no espera en la sartén con él.",
+      "s": 240,
+      "saco": "el bacon, en la sartén en frío con el aceite; la cebolla, en el bol pequeño",
+      "t": "Cortar el bacon y la cebolla",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "forrar"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 480,
+          "t": "Mira por el cristal, sin abrir: el borde ha subido y empieza a tomar color"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "ciegas",
+      "meto": "el molde forrado, de la nevera a la rejilla, con el papel y el arroz",
+      "min": 12,
+      "nota": "De la nevera al horno, en la rejilla baja. Doce minutos sin abrir la puerta.",
+      "off": 10,
+      "p": "La base entra fría en el horno caliente, y ese choque es lo que hace subir el hojaldre: el agua de la mantequilla de entre capas se convierte en vapor de golpe y las separa. El peso del arroz aplasta el fondo para que no se levante en cúpula y empuja las paredes contra el molde para que no se escurran hacia abajo. Hornear la base antes de rellenarla es la única forma de que el fondo quede crujiente: el hojaldre crudo bajo más de medio litro de crema líquida se empapa antes de cocerse y sale pastoso, aunque el borde esté dorado.",
+      "s": 720,
+      "saco": "",
+      "t": "Hornear la base a ciegas, con peso",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "cortar"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve y separa las tiras que se hayan pegado"
+        },
+        {
+          "en": 300,
+          "t": "Remueve: grasa transparente y bordes dorados"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "bacon",
+      "meto": "la sartén cargada en frío: 5 ml de aceite de oliva + 150 g de bacon en tiras",
+      "min": 6,
+      "nota": "Enciende al {6}, sin tapa. Tiene que soltar la grasa y dorarse por los bordes, pero seguir flexible.",
+      "off": 11,
+      "p": "Arranca en frío y al {6}: la grasa del bacon se va fundiendo a medida que la sartén se calienta, y las tiras se fríen en ella en vez de sellarse por fuera con la grasa todavía dentro. La cucharadita de aceite de oliva solo cubre los primeros minutos, hasta que el bacon pone la suya. Sin tapa, porque el vapor que suelta tiene que irse para que dore. Para en dorado por los bordes y aún flexible: después pasa veinticuatro minutos en el horno, y si sale crujiente de aquí llega a la mesa duro y salado.",
+      "s": 360,
+      "saco": "",
+      "t": "Dorar el bacon al {6}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "batir",
+      "meto": "",
+      "min": 4,
+      "nota": "Huevos batidos con varillas hasta que no se vea clara; luego nata, leche, sal, pimienta y nuez moscada, y el queso al final. Sin hacer espuma.",
+      "off": 12,
+      "p": "En el bol grande, los cuatro huevos batidos con varillas hasta que no se vean hebras de clara: una clara sin romper cuaja aparte, en una mancha blanca y gomosa. Después los 200 ml de nata para cocinar, los 200 ml de leche desnatada medidos en el vaso medidor, la sal, la pimienta y la nuez moscada, y al final los 100 g de queso rallado. Bate despacio y sin levantar espuma: las burbujas suben durante el horneado y dejan la superficie llena de cráteres. La sal es poca a propósito, porque el bacon y el queso ponen la mayor parte.",
+      "s": 240,
+      "saco": "la crema con el queso, en el bol grande",
+      "t": "Batir la crema",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "f": 5,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve raspando el fondo"
+        },
+        {
+          "en": 360,
+          "t": "Remueve: blanda, translúcida y sin jugo en el fondo"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "cebolla",
+      "meto": "el bol pequeño: 150 g de cebolla en dados de 5 mm",
+      "min": 8,
+      "nota": "Echa la cebolla sobre el bacon y baja al {5}, sin tapa. Está cuando queda blanda y translúcida y en el fondo no hay jugo.",
+      "off": 17,
+      "p": "Baja al {5} y echa la cebolla sobre el bacon: se hace en su grasa, que ya sabe a bacon, y toma ese sabor sin pedir más aceite. Sin tapa todo el rato, porque cada gota de agua que suelte la cebolla y no se vaya aquí saldrá dentro de la crema y la dejará aguada alrededor de cada dado. Ocho minutos la dejan blanda y dulce, con algún borde dorado, y ese dulzor es lo que equilibra la sal del bacon y del queso. Al acabar, con la espumadera al plato con papel de cocina: la grasa se queda en la sartén y no flota luego en la superficie de la quiche.",
+      "s": 480,
+      "saco": "el bacon y la cebolla, con la espumadera, al plato con papel de cocina; la grasa se queda en la sartén. Apaga el fuego",
+      "t": "La cebolla en la grasa del bacon",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "horno",
+      "f": null,
+      "holgura": "ajustado",
+      "id": "secar",
+      "meto": "",
+      "min": 4,
+      "nota": "Saca el papel con el arroz tirando de las cuatro puntas, a la tabla. Si el fondo se ha inflado, aplástalo con el dorso de una cuchara. Cierra y baja el horno a 170 °C.",
+      "off": 22,
+      "p": "Abre, saca el papel con el arroz tirando de las cuatro puntas a la vez, sin volcarlo, y déjalo enfriar sobre la tabla: el arroz no se come, se guarda en un bote para la próxima base. El fondo sale todavía pálido y húmedo, porque bajo el papel no le llegaba el calor seco; estos cuatro minutos al aire lo secan y le dan el primer color, y es esa capa ya cocida la que luego aguanta la crema sin empaparse. Si alguna zona se ha hinchado, aplástala con el dorso de una cuchara antes de cerrar. En cuanto cierres, baja el horno a 170 °C: estos minutos y la puerta abierta del relleno lo dejan a punto para el cuajado sin esperar.",
+      "s": 240,
+      "saco": "",
+      "t": "Quitar el peso y secar el fondo",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "secar",
+        "cebolla"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "rellenar",
+      "meto": "el plato: el bacon y la cebolla + el bol grande: la crema con el queso",
+      "min": 2,
+      "nota": "Tira de la rejilla hasta medio camino, con el molde encima. Bacon y cebolla por el fondo, la crema removida encima hasta 5 mm del borde. Mete la rejilla despacio y cierra.",
+      "off": 26,
+      "p": "Tira de la rejilla hasta sacarla a medio camino con el molde encima: rellenar en la encimera y llevar después al horno un molde lleno de crema líquida acaba con la mitad por el suelo. Reparte el bacon y la cebolla por todo el fondo, remueve la crema con una cuchara, porque el queso se ha ido al fondo del bol, y viértela despacio hasta 5 mm del borde. Si sobra, no la fuerces: la crema que rebosa se pega entre el hojaldre y el molde y no deja desmoldar. Empuja la rejilla despacio, para que la crema no se mueva en ola por encima del borde, y cierra. Estos dos minutos con la puerta abierta son también los que acaban de bajar el horno a 170 °C.",
+      "s": 120,
+      "saco": "",
+      "t": "Rellenar sobre la rejilla",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "rellenar"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 900,
+          "t": "Mira por el cristal: el borde, cuajado y empezando a dorar; el centro, brillante"
+        },
+        {
+          "en": 1260,
+          "t": "Abre y mueve el molde con un paño: si ya solo tiembla un círculo de 5 cm, sácala ahora"
+        }
+      ],
+      "holgura": "critico",
+      "id": "cuajar",
+      "meto": "la quiche rellena, en la rejilla baja",
+      "min": 24,
+      "nota": "Sácala cuando el borde esté firme y el centro tiemble como una gelatina en un círculo de unos 5 cm. Con termómetro, 80 °C en el centro.",
+      "off": 28,
+      "p": "A 170 °C el calor entra despacio desde el borde hacia el centro, y así el borde y el centro llegan a los 80 °C casi a la vez. Más fuerte, el borde pasa de 90 °C mientras el centro sigue líquido: se hincha, se agrieta y suelta agua en el fondo del molde, sobre la base que tanto ha costado secar. Está cuando, al mover el molde, el borde no se mueve y el centro tiembla como una gelatina en un círculo de unos 5 cm; con termómetro, 80 °C en el centro. Sácala así, todavía temblando: el calor que guardan la masa y el molde la termina de cuajar en el reposo, y si sale firme del todo llega a la mesa con la textura de una tortilla pasada. Con un molde de 26 cm la crema queda más baja y cuaja unos 3 minutos antes: mira el centro, no el reloj.",
+      "s": 1440,
+      "saco": "la quiche, en su molde, a un salvamanteles. Apaga el horno",
+      "t": "Cuajar a 170 °C",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "cuajar"
+      ],
+      "f": null,
+      "holgura": "flexible",
+      "id": "reposar",
+      "meto": "la quiche, en su molde",
+      "min": 10,
+      "nota": "Diez minutos en el molde, sin tocarla. Después, 4 porciones con cuchillo de sierra.",
+      "off": 52,
+      "p": "Diez minutos en el molde, sobre un salvamanteles. El centro, que salió temblando, termina de cuajar con el calor que le queda, y la crema se asienta: cortada recién sacada, el centro se desparrama sobre la tabla y el corte sale sucio. Si el molde es desmontable, desmolda pasados los diez minutos; si no, corta dentro. Cuchillo de sierra, con vaivén y sin apretar, para que el hojaldre del borde no se aplaste. Lo que sobre aguanta dos días en la nevera, tapado.",
+      "s": 600,
+      "saco": "la quiche, en 4 porciones, a los platos",
+      "t": "Reposar antes de cortar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "bacon",
+    "huevos",
+    "nata para cocinar"
+  ],
+  "pie": "Minutos contados desde que sacas el hojaldre de la nevera. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "La base, horneada a ciegas",
+      "Sí, y con peso. El hojaldre crudo bajo más de medio litro de crema líquida se empapa antes de que el calor llegue a cocerlo, y el fondo sale pastoso aunque el borde esté dorado. Doce minutos a 200 °C con papel y arroz encima lo hacen subir sin que se levante en cúpula ni se escurra por las paredes, y cuatro más sin peso secan el fondo, que bajo el papel se quedaba pálido y húmedo. Esa capa ya cocida es la que aguanta la crema."
+    ],
+    [
+      "Mitad nata, mitad leche desnatada",
+      "La desnatada sola apenas tiene grasa: la red de huevo se aprieta sin nada en medio, sale gomosa y suelta suero en el fondo del molde. La nata para cocinar sola (un brik entero) da una crema pesada que, con sus espesantes, cuaja densa, casi como un flan. Medio brik y un vaso de leche quedan hacia el 9 % de grasa, cerca de la crema ligera de una quiche clásica: tierna, que tiembla y no llora. Y el otro medio brik queda entero para otra receta."
+    ],
+    [
+      "Cuatro huevos para 400 ml",
+      "Un huevo por cada 100 ml de lácteo es la proporción de una quiche que se corta limpia y sigue siendo cremosa. Con menos huevo no cuaja bien en el centro y el corte se desparrama; con más, sale tortilla."
+    ],
+    [
+      "200 °C para la base y 170 °C para la crema",
+      "El hojaldre necesita el golpe de calor para subir; la crema, lo contrario. A 170 °C el borde y el centro llegan a los 80 °C casi a la vez; a 200, el borde se pasa, se agrieta y suelta agua mientras el centro sigue líquido. El horno baja en el minuto 22 y termina de bajar con la puerta abierta del relleno, así que no hay que esperarlo."
+    ],
+    [
+      "Fuera del horno temblando, y diez minutos de reposo",
+      "El centro sale todavía tembloroso a propósito: el calor que guardan la masa y el molde lo termina de cuajar fuera. Si sale firme, llega a la mesa pasado. Y cortada en caliente se desparrama: el reposo es parte de la cocción."
+    ],
+    [
+      "El bacon dorado pero no crujiente, y sin su grasa",
+      "Pasa veinticuatro minutos más en el horno dentro de la crema: crujiente de la sartén, llega duro y salado. La grasa que suelta se queda en la sartén; dentro de la quiche subiría y quedaría flotando en la superficie."
+    ],
+    [
+      "Con cebolla",
+      "La quiche lorraine clásica no la lleva, pero aquí equilibra la sal del bacon y del queso con su dulzor, y se hace en la misma sartén y en la grasa del bacon, sin un fuego más. Va bien seca: el agua que no se evapore en la sartén sale en la crema."
+    ],
+    [
+      "El molde, de 24 cm",
+      "Es la medida que se da por hecha para el molde de tarta de casa: una lámina refrigerada de hojaldre lo forra con paredes, y 400 ml de crema con el relleno lo llenan hasta 5 mm del borde. Si la lámina es rectangular, recorta lo que sobra de los lados largos y úsalo para completar la pared donde no llegue, apretando bien las uniones con un dedo mojado."
+    ],
+    [
+      "Sin Grana, sin ajo, sin hierbas ni pimentón",
+      "El Grana sumaría más sal a la del bacon y el queso rallado. El ajo y el pimentón picante taparían el bacon, que es el sabor que se busca; el tomillo seco no le hace falta a una crema que ya lleva nuez moscada, la especia de la quiche, que es la que redondea el huevo y la nata. Sin mantequilla: el hojaldre ya lleva la suya."
+    ],
+    [
+      "Comida y cena",
+      "Son 62 minutos con el horno encendido, así que de entrada es una comida: la cena se queda para platos de 45 minutos o menos. Pero salen 4 raciones de un molde que no se divide, y las que sobran son una cena de cero minutos: aguantan dos días en la nevera y se comen templadas, 10 minutos en el horno a 160 °C, o frías. No es merienda: es un plato salado y contundente."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "quiche-bacon-hojaldre",
+  "tags": {
+    "base": "hojaldre",
+    "momento": [
+      "comida",
+      "cena"
+    ],
+    "proteina": "bacon y huevo",
+    "tecnica": [
+      "cuajado-de-huevo"
+    ]
+  },
+  "titulo": "Quiche de bacon y queso",
+  "totalMin": 62
+}
