@@ -175,8 +175,6 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
 ## Pendiente del usuario
 - Subir `build/promo/sous-chef-promo-1920x1080.mp4` a YouTube como oculto y cambiar la URL del vídeo en Play
   Console (`https://www.youtube.com/watch?v=<id>`).
-- Al cocinar la lasaña: contar cuántas placas El Pavo caben por capa en la fuente de 28×20 y decírmelo para
-  ajustar las 14 de la receta.
 - Google Play: los pasos manuales de `docs/play.md`:
   - cuenta y ficha;
   - primera subida del AAB adjunto a la release v1.0.0;
