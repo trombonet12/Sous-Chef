@@ -1,0 +1,451 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "La raíz de jengibre tiene fibras duras que corren a lo largo del trozo. Pelado con el canto de una cucharilla, que rasca la piel fina sin llevarse la pulpa de debajo, y rallado por la cara fina, la de agujeros de 1 mm, pasando el trozo de través: las fibras se quedan enganchadas en el rallador y al glaseado cae solo la pulpa con su jugo, que se reparte en la laca sin hebras que mastiquen.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Trozo de jengibre con la fibra a lo largo y la pasada por el rallador fino cruzándola\"><path d=\"M10 40c4-10 18-14 30-10 6-8 18-10 26-4 10-4 24-2 30 6 8 4 10 14 4 20-6 8-22 10-34 6-12 6-30 6-40 0-10 2-20-6-16-18z\" fill=\"#D9B26F\" fill-opacity=\".2\" stroke=\"#B08A45\"/><g stroke=\"#B08A45\" stroke-width=\".7\" opacity=\".7\"><path d=\"M16 40h86M14 48h90M22 56h72\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"40\" y1=\"18\" x2=\"40\" y2=\"72\"/><line x1=\"64\" y1=\"18\" x2=\"64\" y2=\"72\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">rallado fino de 1 mm, de través</text></svg>",
+      "t": "Jengibre · rallado fino de 1 mm, cruzando la fibra"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "27 min",
+      "de principio a fin"
+    ],
+    [
+      "2 + 23 + 2",
+      "arrancar + olla + servir"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "11",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Dos lomos de salmón sin espinas marcados con la piel abajo y lacados en la misma sartén con soja, miel y jengibre, sobre arroz blanco largo suelto. La dificultad está en los dos últimos minutos: el glaseado tiene que espesar hasta cubrir la cuchara justo cuando el centro del salmón llega a su punto, sin que la miel se queme.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 150,
+          "n": "arroz blanco largo, sin enjuagar (¾ de taza)",
+          "u": "g"
+        },
+        {
+          "a": 300,
+          "n": "agua (el vaso medidor hasta 300)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "OLLA · EL ARROZ"
+    },
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "salsa de soja (2 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 20,
+          "n": "miel (1 cucharada sopera)",
+          "u": "g"
+        },
+        {
+          "a": 6,
+          "esc": "sub",
+          "n": "jengibre fresco, rallado fino (un trozo de 2,5 cm)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "agua (2 cucharadas soperas)",
+          "u": "ml"
+        }
+      ],
+      "n": "BOL PEQUEÑO · EL GLASEADO"
+    },
+    {
+      "items": [
+        {
+          "a": 300,
+          "n": "salmón (2 lomos de unos 150 g, con piel y sin espinas)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "aceite de girasol (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "n": "semillas de sésamo (1 cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN · EL SALMÓN"
+    }
+  ],
+  "lectura": "Dos fuegos y uno manda: la olla. Su cadena, 6 minutos hasta hervir + 12 de arroz + 5 de reposo, va del minuto 2 al 25, y la sartén se cuadra hacia atrás desde ahí: 2 de sésamo + 1 de aceite + 4 de piel + 1 de vuelta + 2 de glaseado, del 15 al 25. Los dos fuegos coinciden del 15 al 25, con la olla tapada y sin nada que hacer en ella. El glaseado y el salmón se preparan entre el minuto 2 y el 7, mientras el agua sube. La suma: 2 de arrancar + 23 de olla + 2 de servir = 27 minutos.",
+  "mep": [
+    {
+      "l": [
+        "<b>Agua · 300 ml (el vaso medidor hasta 300)</b> → directa a la olla, con <b>2 g de sal (⅓ de cucharadita)</b>. Al fuego en el minuto 2.",
+        "<b>Arroz blanco largo · 150 g (¾ de taza)</b> · pesado en una taza, sin enjuagar. A la olla en el minuto 8."
+      ],
+      "orden": true,
+      "porq": "El agua primero, porque no deja residuo y va directa a su destino. El arroz se pesa aparte en una taza seca: en el vaso mojado se pegaría a las paredes.",
+      "t": "VASO MEDIDOR Y BÁSCULA, AL ARRANCAR"
+    },
+    {
+      "l": [
+        "<b>Jengibre fresco · 6 g (un trozo de 2,5 cm)</b> · pelado con una cucharilla y rallado fino, de 1 mm, cruzando la fibra, directo al bol pequeño en el minuto 2. Entra en la sartén con el glaseado en el 23."
+      ],
+      "orden": true,
+      "porq": "Solo el jengibre necesita cuchillo o rallador, y se ralla directo al bol del glaseado. El salmón entra entero.",
+      "t": "UNA TABLA, UN CORTE"
+    },
+    {
+      "l": [
+        "<b>Bol pequeño</b> · el glaseado: 30 ml de salsa de soja (2 cucharadas soperas) + 20 g de miel (1 cucharada sopera) + 30 ml de agua (2 cucharadas soperas) + los 6 g de jengibre rallado. Se mezcla en el minuto 2 y entra en la sartén en el 23.",
+        "<b>Plato con papel</b> · el salmón, 300 g (2 lomos de unos 150 g, con piel y sin espinas), fuera de la nevera desde el minuto 0 y secado en el 2. A la sartén en el 18.",
+        "<b>Platito</b> · vacío hasta el minuto 17, cuando recibe los 4 g de semillas de sésamo (1 cucharadita) ya tostadas. Van por encima al servir, en el 25."
+      ],
+      "orden": false,
+      "porq": "Cada uno guarda algo que entra en un minuto distinto: el salmón en el 18, el glaseado en el 23 y el sésamo, ya tostado, en el plato del 25. Lo del glaseado entra todo junto y comparte bol.",
+      "t": "DOS RECIPIENTES Y UN PLATITO"
+    },
+    {
+      "l": [
+        "<b>Semillas de sésamo · 4 g (1 cucharadita)</b> · del bote a la sartén seca en el minuto 15.",
+        "<b>Aceite de girasol · 10 ml (2 cucharaditas)</b> · directo a la sartén en el minuto 17, con el sésamo ya fuera."
+      ],
+      "orden": false,
+      "porq": "Lo que va directo a la sartén se mide en ella.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Va de 1 a 2 raciones, en los mismos recipientes. El lomo tarda lo que marca su grosor y no su peso, así que con 1 los tiempos del salmón no cambian; el medio glaseado espesa algo antes, así que manda la señal del dorso de la cuchara y no el reloj, y los 150 ml del arroz rompen a hervir un poco antes: échalo en cuanto hierva. Con 3 o más, el doble de glaseado no reduce en dos minutos en la sartén de 24 cm y los lomos se cocerían en la salsa en vez de lacarse.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "arrancar",
+      "junto": null,
+      "meto": "300 ml de agua + 2 g de sal (⅓ de cucharadita), a la olla en frío · 150 g de arroz blanco largo, a una taza · el salmón, de la nevera al plato con papel",
+      "min": 2,
+      "nota": "El agua medida y la sal a la olla, en el fuego mediano. Pesa el arroz en una taza y saca el salmón a un plato con papel.",
+      "off": 0,
+      "p": "El agua va a la olla en frío y medida en el vaso, porque el arroz se cuece por absorción y cada mililitro cuenta: no hay escurridor que corrija. El arroz se pesa ahora en una taza seca para que en el minuto 8 solo haya que volcarlo. El salmón sale ya de la nevera: dieciséis minutos en la encimera templan el centro, y un centro menos frío se hace en el tiempo justo en que la piel se dora.",
+      "s": 120,
+      "saco": "la olla con el agua y la sal, al fuego mediano",
+      "t": "Agua a la olla, arroz pesado y salmón fuera",
+      "tapa": null
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "arrancar"
+      ],
+      "f": 9,
+      "hitos": [
+        {
+          "en": 210,
+          "t": "Vapor por el borde de la tapa: el hervor viene. No la levantes"
+        },
+        {
+          "en": 330,
+          "t": "Tapa vibrando y vapor seguido: ya hierve. Ten la taza del arroz a mano"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "agua",
+      "junto": null,
+      "meto": "la olla con los 300 ml de agua y los 2 g de sal",
+      "min": 6,
+      "nota": "Al {9} y con la tapa puesta. Cuando hierva a borbotones, entra el arroz.",
+      "off": 2,
+      "p": "Al {9} y tapada, 300 ml rompen a hervir en unos seis minutos, un par menos que destapada, y sin perder por evaporación agua que el arroz necesita medida. La sal va ya en el agua porque se reparte por todo el grano mientras lo absorbe; echada al final se quedaría en la superficie.",
+      "s": 360,
+      "saco": "",
+      "t": "Agua a hervir, tapada",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "glaseado",
+      "junto": null,
+      "meto": "bol pequeño: 6 g de jengibre fresco rallado + 30 ml de salsa de soja + 20 g de miel + 30 ml de agua",
+      "min": 5,
+      "nota": "Jengibre pelado y rallado fino directo al bol pequeño, con la soja, la miel y el agua; remueve hasta que no quede miel en el fondo. Seca el salmón y busca espinas con el dedo.",
+      "off": 2,
+      "p": "El jengibre se pela rascando con una cucharilla, que solo se lleva la piel fina, y se ralla por la cara fina cruzando la fibra: las hebras duras se quedan en el rallador y al bol cae pulpa con su jugo. La miel se disuelve ahora, en frío y con un tenedor; si llega en grumo a la sartén caliente, ese grumo se carameliza y se quema antes que el resto. El salmón se seca con papel por las dos caras, sobre todo la piel, porque el agua de la superficie tiene que evaporarse antes de que empiece a dorar. Pasa el dedo a contrapelo por el centro de cada lomo: si notas una espina, sácala con pinzas.",
+      "s": 300,
+      "saco": "el glaseado en su bol y el salmón seco en su plato",
+      "t": "Rallar el jengibre, mezclar el glaseado y secar el salmón",
+      "tapa": null
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "arrancar"
+      ],
+      "f": 2,
+      "holgura": "critico",
+      "id": "arroz",
+      "junto": null,
+      "meto": "150 g de arroz blanco largo, de la taza a la olla",
+      "min": 12,
+      "nota": "Échalo, una sola vuelta de cuchara, tapa y baja al {2}. No levantes la tapa.",
+      "off": 8,
+      "p": "Los 150 g al agua hirviendo, una vuelta de cuchara y solo una: remover rompe la superficie del grano, suelta almidón y el largo deja de salir suelto. Baja al {2} nada más tapar: la placa guarda el calor del {9} y en un minuto el hervor se vuelve perezoso, lo justo para que no se salga por el borde. Doce minutos sin abrir, porque los granos de arriba no tocan el agua y se cuecen con el vapor que retiene la tapa.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "Doce minutos tapados y en silencio a propósito: cualquier aviso te haría levantar la tapa, y con ella se va el vapor que cuece los granos de arriba, los que no tocan el agua.",
+      "t": "El arroz, tapado y sin tocar",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "glaseado"
+      ],
+      "f": 5,
+      "holgura": "ajustado",
+      "id": "sesamo",
+      "junto": null,
+      "meto": "4 g de semillas de sésamo (1 cucharadita), del bote a la sartén de 24 cm, seca",
+      "min": 2,
+      "nota": "Sartén de 24 cm en el fuego grande, sin aceite, al {5}. Muévela sin parar y, cuando el sésamo esté dorado claro y huela a tostado, al platito.",
+      "off": 15,
+      "p": "En seco y al {5}, porque la semilla de sésamo es casi toda grasa y se tuesta con su propio aceite: dos minutos moviendo la sartén la llevan de cruda a dorada y despiertan el aroma a fruto seco. Más fuerte, la cáscara se quema antes de que el interior se tueste y amarga. Mientras tanto la sartén se calienta y llega templada al sellado. Fuera al platito en cuanto dore, porque en el metal caliente seguiría tostándose.",
+      "s": 120,
+      "saco": "el sésamo tostado, al platito",
+      "t": "Tostar el sésamo en la sartén seca",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "aceite",
+      "junto": null,
+      "meto": "10 ml de aceite de girasol (2 cucharaditas), directo a la sartén",
+      "min": 1,
+      "nota": "Echa el aceite y sube al {7}. Listo cuando corre suelto al inclinar la sartén y riela.",
+      "off": 17,
+      "p": "Girasol y no oliva: al {7} hay que dorar una piel, y el girasol aguanta unos cuarenta grados más antes de humear. La sartén ya viene caliente del sésamo, así que basta un minuto para que el aceite riele. Si el salmón entra con el aceite tibio, la piel se pega y suelta agua en vez de dorarse.",
+      "s": 60,
+      "saco": "",
+      "t": "Aceite a la sartén y sube al {7}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 150,
+          "t": "Mira el lateral: lo opaco tiene que ir por la mitad del lomo"
+        }
+      ],
+      "holgura": "critico",
+      "id": "piel",
+      "junto": null,
+      "meto": "300 g de salmón (2 lomos de unos 150 g), del plato a la sartén, con la piel abajo",
+      "min": 4,
+      "nota": "Al {7}, piel abajo, y aprieta cada lomo con la espátula 15 segundos para que no se curve. Después, quieto.",
+      "off": 18,
+      "p": "La piel hace de escudo: con ella abajo, el calor fuerte la dora y la vuelve crujiente mientras la carne se cuece de abajo arriba sin secarse. Al tocar el aceite la piel se contrae y curva el lomo; quince segundos apretando con la espátula la mantienen plana contra el metal. Después no se mueve: la piel se suelta sola cuando está dorada, y si tiras antes se rompe y se queda pegada. A los cuatro minutos lo opaco del lateral ha subido algo más de la mitad del grosor.",
+      "s": 240,
+      "saco": "",
+      "t": "El salmón con la piel abajo, 4 minutos",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "dep": [],
+      "f": 0,
+      "holgura": "flexible",
+      "id": "reposo",
+      "junto": null,
+      "meto": "",
+      "min": 5,
+      "nota": "Apaga y deja la tapa puesta. No lo toques hasta servir.",
+      "off": 20,
+      "p": "Al apagar, el grano del fondo tiene más agua que el de arriba; cinco minutos con la tapa puesta igualan esa diferencia con el vapor que queda dentro, y el arroz termina de secarse por fuera sin más fuego. Destapado ahora, el fondo saldría pastoso y la superficie seca. Aguanta tapado unos minutos más sin estropearse, y por eso es el colchón del plan si el salmón se retrasa.",
+      "s": 300,
+      "saco": "",
+      "t": "Reposo del arroz, con el fuego apagado",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "holgura": "critico",
+      "id": "vuelta",
+      "junto": null,
+      "meto": "",
+      "min": 1,
+      "nota": "Dales la vuelta, baja al {4} y pasa un papel de cocina doblado, sujeto con pinzas, por el fondo para llevarte la grasa.",
+      "off": 22,
+      "p": "La vuelta marca la cara de carne mientras la placa baja: la vitro tarda un par de minutos en notar el {4}, y el calor que le queda dora la carne sin que el glaseado, que entra después, se queme. El papel se lleva la grasa que han soltado la piel y el aceite; si se queda, el glaseado no se agarra al salmón y sale una salsa grasienta que se separa en el plato.",
+      "s": 60,
+      "saco": "la grasa del fondo, con un papel de cocina",
+      "t": "Vuelta, baja al {4} y quita la grasa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 60,
+          "t": "Aprieta el centro de un lomo: tiene que ceder y empezar a separarse en láminas"
+        }
+      ],
+      "holgura": "critico",
+      "id": "glasear",
+      "junto": null,
+      "meto": "el bol pequeño: todo el glaseado, alrededor de los lomos",
+      "min": 2,
+      "nota": "Sigue al {4}. Lomos con la piel abajo, el glaseado alrededor, y báñalos con la cuchara sin parar hasta que la salsa cubra su dorso.",
+      "off": 23,
+      "p": "Los lomos vuelven con la piel abajo para que la carne, que es la cara que se ve en el plato, quede arriba y se lacre. Al {4} el glaseado hierve a burbuja gorda y reduce en dos minutos: el agua se evapora, la miel se concentra y la salsa acaba cubriendo el dorso de la cuchara. Bañando sin parar, cada pasada deja una capa fina que se seca sobre el salmón caliente, y así se forma la laca brillante. Más fuerte, la miel pasa de caramelo a quemado en segundos; si la ves oscurecer de golpe, aparta la sartén. El calor del glaseado termina el centro a unos 50 °C: jugoso y en láminas.",
+      "s": 120,
+      "saco": "la sartén, fuera del fuego. Apaga la vitro",
+      "t": "Glasear: piel abajo otra vez y bañar",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "glasear",
+        "reposo"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "junto": null,
+      "meto": "la olla del arroz + la sartén con el salmón y el glaseado + el platito del sésamo",
+      "min": 2,
+      "nota": "Suelta el arroz con un tenedor y haz un lecho en cada plato. Encima el salmón, el glaseado de la sartén por encima y el sésamo al final.",
+      "off": 25,
+      "p": "El arroz se suelta con un tenedor y nunca con una cuchara, que aplasta el grano cocido y lo convierte en pasta. El salmón va sobre el arroz y el glaseado que queda en la sartén se reparte por encima de los dos: el arroz, con poca sal, es lo que equilibra la soja y la miel. El sésamo, al final y por encima, para que siga crujiente; mezclado con la salsa se ablanda. El glaseado espesa más al enfriarse, así que sirve ya: en un minuto deja de correr.",
+      "s": 120,
+      "saco": "2 platos: un lecho de arroz suelto, un lomo de salmón glaseado encima, la salsa de la sartén y el sésamo por encima",
+      "t": "Soltar el arroz y emplatar",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "salmón"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "La olla manda el plan",
+      "El arroz pide 6 minutos para hervir el agua, 12 de cocción y 5 de reposo: 23 minutos que no se pueden acortar. El salmón solo necesita 7, así que se cuadra hacia atrás para acabar a la vez que el reposo, y la sartén no se enciende hasta el minuto 15."
+    ],
+    [
+      "Piel abajo casi todo el tiempo",
+      "Cuatro minutos al {7} con la piel contra el metal la vuelven crujiente y protegen la carne. La cara de carne solo pasa un minuto abajo, lo justo para marcarse; más tiempo y el exterior se secaría antes de que el centro llegue a punto."
+    ],
+    [
+      "El glaseado, al final y al {4}",
+      "La miel es azúcar y se quema a la temperatura a la que se dora una piel. Entra cuando la placa ya ha bajado y solo dos minutos: lo justo para reducir a laca mientras el calor de la salsa termina el centro del salmón."
+    ],
+    [
+      "Agua en el glaseado",
+      "Soja y miel solas espesan en segundos sobre el metal caliente y se agarran al fondo antes de que el salmón esté hecho. Los 30 ml de agua dan los dos minutos de margen: primero se evapora el agua y después espesa el azúcar."
+    ],
+    [
+      "Sin sal en el salmón",
+      "Los 30 ml de soja llevan unos 5 g de sal, y la laca cubre toda la carne. Salado además, el plato pasaría de punto; por eso el arroz lleva también algo menos de sal de la habitual."
+    ],
+    [
+      "Arroz por absorción y sin enjuagar",
+      "El largo con el doble de agua sale suelto y con un final predecible, sin escurridor ni un cacharro más. Así lo fija la técnica del arroz blanco suelto: sin enjuagar, directo al agua hirviendo y sin remover."
+    ],
+    [
+      "Sin ajo",
+      "El jengibre ya da el picante aromático. El ajo rallado dentro de una laca de dos minutos no llega a cocerse y queda áspero, y si se doraba antes se quemaría en el fondo con la miel."
+    ],
+    [
+      "Sin maicena",
+      "La miel espesa sola al reducir y da brillo; la maicena haría una salsa opaca y gelatinosa en vez de una laca."
+    ],
+    [
+      "Sin limón",
+      "El jengibre ya corta el dulzor de la miel. El limón cocido en la laca pierde el perfume y deja solo un ácido que pelea con la soja."
+    ],
+    [
+      "Sin verdura caliente",
+      "Los dos fuegos están ocupados del minuto 15 al 25 y un tercero rompería la cena de media hora. El plato es salmón, laca y arroz, y así se queda."
+    ],
+    [
+      "El salmón fresco manda",
+      "El plato se apoya entero en él: confirma que hay lomos frescos antes de empezar. Todo el plan se apoya en su piel, que protege la carne del calor fuerte, y en su grasa, que la mantiene jugosa bajo la laca."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "salmon-glaseado-soja-miel",
+  "tags": {
+    "base": "pescado",
+    "momento": [
+      "cena",
+      "comida"
+    ],
+    "proteina": "salmón",
+    "tecnica": [
+      "glaseado",
+      "arroz-blanco-suelto"
+    ]
+  },
+  "titulo": "Salmón glaseado con soja y miel",
+  "totalMin": 27
+}
