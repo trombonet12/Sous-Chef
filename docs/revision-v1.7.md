@@ -33,15 +33,18 @@
 - [x] Logcat sin errores de la app.
 - Capturas: `docs/capturas/v1.7-*.png`.
 
-## Observaciones para que decidas
-- **O1. Horario.** El resumen de Ajustes dice «Servir a las 15:30 · si empiezas ya» y no menciona la hora de cenar (21:00). ¿La añado? Por ejemplo: «Comer 15:30 · cenar 21:00».
-- **O2. Temporizador.** Al tocar «1 min» en el diálogo, el temporizador se pone directamente, sin pulsar «Poner». ¿Te vale así?
-- **O3. «Pon N minutos» por voz** crea ahora un temporizador libre. Para alargar un paso se dice «N minutos más» o «suma N».
+## Cambios tras la revisión (2026-10-26)
+- «¿Qué cocino hoy?» pasa a ser un chip junto a «¿Qué me da tiempo?», con un panel flotante y ↻.
+- «Cenas rápidas» queda como filtro: la rejilla vuelve a ser 3×3 y ya no hay acceso directo de cenas.
+- La hora de cenar sale en el tutorial (página Horario) y en el resumen de Ajustes.
+- La ficha sigue el modo oscuro.
+- Los menús ⋮ llevan icono y el mismo estilo. «Ingredientes» se ha quitado de la cocina.
+- O2 y O3 aceptadas tal cual.
 
 ## Recetas y cocina
-1. [ ] ★ **Cenas rápidas.** El cuadradito abre las 7 cenas de 30 min o menos. Quita el filtro «Cena» con la ✕ y salen más.
+1. [x] **Cenas rápidas:** Filtros → «Hasta 30 min» + «Cena».
 2. [ ] **Hora de cenar.** Ajustes → Horario → «Hora de cenar», a las 21:00. Después de las 17:00, la ficha de una receta de cena dice «para cenar a las 21:00».
-3. [ ] ★ **¿Qué cocino hoy?** Arriba en Recetas. «Otra» cambia las propuestas, y las 3 se mantienen todo el día.
+3. [x] **¿Qué cocino hoy?** El chip abre un panel flotante, y ↻ cambia las propuestas.
 4. [ ] **Filtros:**
    - sección «Momento» (Comida, Cena, Desayuno, Merienda, Postre);
    - «Hasta 30 min»;
@@ -68,7 +71,7 @@
     - «Guardar y salir ya»;
     - «Deshacer»;
     - el botón «Ya está, a la mesa», siempre visible abajo.
-14. [ ] **Ingredientes en la cocina** (⋮ → Ingredientes): lista por zona con casillas, escalada a las raciones.
+14. [x] ~~Ingredientes en la cocina~~: retirado a petición de Joan.
 15. [ ] **Voz:**
     - «Chef, cuánto de sal»;
     - «Chef, ingredientes de este paso»;
@@ -90,7 +93,6 @@
 
 ## Accesos directos
 22. [ ] Mantén pulsado el icono:
-    - «Cenas rápidas»;
     - «¿Qué me da tiempo?»;
     - «Volver a la cocina», con una cocinada en marcha.
 

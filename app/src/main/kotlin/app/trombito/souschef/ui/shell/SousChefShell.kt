@@ -36,7 +36,6 @@ fun SousChefShell(
 ) {
     val entrada by navController.currentBackStackEntryAsState()
     val rutaActual = entrada?.destination?.route
-    var menuAbierto by remember { mutableStateOf(false) }
     PedirResenaAlVolver(rutaActual)
     Scaffold(
         topBar = {
@@ -46,25 +45,7 @@ fun SousChefShell(
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineSmall) },
                 actions = {
-                    IconButton(onClick = { menuAbierto = true }) {
-                        Icon(Icono.Mas.vector, contentDescription = stringResource(R.string.menu_mas))
-                    }
-                    DropdownMenu(expanded = menuAbierto, onDismissRequest = { menuAbierto = false }) {
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.buzon_titulo)) },
-                            onClick = {
-                                menuAbierto = false
-                                onBuzon()
-                            },
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.menu_ajustes)) },
-                            onClick = {
-                                menuAbierto = false
-                                navController.navigate(Rutas.AJUSTES) { launchSingleTop = true }
-                            },
-                        )
-                    }
+                    MenuPrincipal(onBuzon) { navController.navigate(Rutas.AJUSTES) { launchSingleTop = true } }
                 },
             )
         },
@@ -90,5 +71,35 @@ fun SousChefShell(
         },
     ) { padding ->
         SousChefNavGraph(navController, Modifier.padding(padding))
+    }
+}
+
+/** Menú ⋮ de la barra: Buzón y Ajustes, con icono de línea como el menú de la cocina. */
+@Composable
+private fun MenuPrincipal(
+    onBuzon: () -> Unit,
+    onAjustes: () -> Unit,
+) {
+    var abierto by remember { mutableStateOf(false) }
+    IconButton(onClick = { abierto = true }) {
+        Icon(Icono.Mas.vector, contentDescription = stringResource(R.string.menu_mas))
+    }
+    DropdownMenu(expanded = abierto, onDismissRequest = { abierto = false }) {
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.buzon_titulo)) },
+            leadingIcon = { Icon(Icono.Correo.vector, contentDescription = null) },
+            onClick = {
+                abierto = false
+                onBuzon()
+            },
+        )
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.menu_ajustes)) },
+            leadingIcon = { Icon(Icono.Engranaje.vector, contentDescription = null) },
+            onClick = {
+                abierto = false
+                onAjustes()
+            },
+        )
     }
 }

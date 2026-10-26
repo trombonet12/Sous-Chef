@@ -16,7 +16,7 @@
 | Ronda 15 · v1.5.0 costillar, notas de la última vez, compartir ingredientes | **completada**: publicada dentro de la v1.6 |
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
 | Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
-| Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **lista para revisar**: gate en verde, probada en el emulador; playbook `docs/revision-v1.7.md`; sin push |
+| Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **publicada** (push con el OK de Joan tras su revisión) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -203,8 +203,8 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-v1.7 implementada (ronda 18): gate en verde (app 1033, receta 365, tools 6 tests; 33 recetas y 25 técnicas validadas) y
-probada en el emulador (1.4 → 1.7 con historial). Joan revisa con `docs/revision-v1.7.md` en el emulador abierto. Con
-su OK: push a main → CI publica v1.7.N en GitHub, pista interna y prueba cerrada (primera promoción real; comprobar en
-Play Console) → rebase del PR #5 de Dependabot. Observaciones abiertas O1-O3 del playbook. Pendiente fuera de alcance:
-S4 y el plan semanal.
+v1.7 en main con el OK de Joan (revisión en el emulador y ajustes: chip y panel de «¿Qué cocino hoy?», «Cenas rápidas»
+como filtro, hora de cenar en el tutorial y en Ajustes, ficha en modo oscuro, menús ⋮ con icono, F8 retirada). Vigilar
+el CI: release v1.7.N en GitHub, pista interna y **promoción a prueba cerrada (Alpha)**, la primera real. Después,
+`@dependabot recreate` en el PR #5 (compileSdk 37 ya en main) y relanzar #4. Pendiente: la duda de la anchoa de la
+salsa César (wrap y ensalada de ñoquis), S4 y el plan semanal (fuera de alcance).

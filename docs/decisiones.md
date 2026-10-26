@@ -430,4 +430,13 @@
 - **In-App Review** (`com.google.android.play:review-ktx:2.0.2`, Play Core SDK ToS como `app-update-ktx`, ADR-0013;
   sin INTERNET en el manifest fusionado): se pide una sola vez tras la 3.ª cocinada con duración real, al salir del
   cronómetro a Recetas o Ficha; no-op si la app no viene de Play.
-
+- **Revisión de Joan antes del push** (2026-10-26):
+  - «¿Qué cocino hoy?» pasa a ser un chip junto a «¿Qué me da tiempo?» y abre un panel flotante (Dialog, por TalkBack
+    y la rotación) con ↻ para recargar.
+  - «Cenas rápidas» deja de ser un cuadradito: queda como filtro («Hasta 30 min» + «Cena»). La rejilla vuelve a 3×3 y
+    se quita su acceso directo.
+  - La hora de cenar sale en la página Horario del tutorial y en el resumen de Ajustes.
+  - La ficha sigue el modo oscuro (`ColoresFicha` claro/oscuro); la impresión sigue en claro (HTML fijo).
+  - Los menús ⋮ (cocina y barra) llevan icono de línea y el mismo estilo; fuera la hoja «Ingredientes» de la cocina
+    (F8 retirada). La voz «cuánto de X» se queda.
+  - O2 y O3 aceptadas: el temporizador se pone al tocar «N min», y «pon N minutos» crea un temporizador libre.
