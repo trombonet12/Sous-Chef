@@ -177,7 +177,9 @@ class PropuestasTest {
 
     @Test
     fun `el motivo de una cocinada hace tiempo es cuantos dias`() {
-        val p = propuestas(listOf(receta("a", "x")), listOf(cocinada("a", 21)), emptyMap(), ajustes, manana, hoy)
+        // Con otra base en las dos últimas: si no, su propia base (la de la receta) bloquearía la propuesta.
+        val historial = listOf(cocinada("a", 21, base = "otra"))
+        val p = propuestas(listOf(receta("a", "x")), historial, emptyMap(), ajustes, manana, hoy)
         assertEquals(MotivoPropuesta.HaceTiempo(21), p.single().motivo)
     }
 

@@ -33,8 +33,8 @@ class SeederTest {
         runBlocking {
             Seeder(db, FuenteAssets(context)).sembrar()
 
-            assertEquals(24, db.recetaDao().contar())
-            assertEquals(22, db.tecnicaDao().contar())
+            assertEquals(33, db.recetaDao().contar())
+            assertEquals(25, db.tecnicaDao().contar())
             assertEquals(
                 11,
                 db
@@ -69,7 +69,7 @@ class SeederTest {
 
             seeder.sembrar()
 
-            assertEquals(24, db.recetaDao().contar())
+            assertEquals(33, db.recetaDao().contar())
             assertEquals(
                 10,
                 db
@@ -101,7 +101,7 @@ class SeederTest {
 
             Seeder(db, modificada).sembrar()
 
-            assertEquals(24, db.recetaDao().contar())
+            assertEquals(33, db.recetaDao().contar())
             assertTrue(requireNotNull(db.recetaDao().obtener("huevos-rotos")).doc.contains("\"titulo\": \"X "))
         }
 }

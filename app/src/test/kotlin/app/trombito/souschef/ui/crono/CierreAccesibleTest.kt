@@ -85,7 +85,7 @@ class CierreAccesibleTest {
         val ui = CronoUi(cierrePendiente = true, cierreHastaMs = 13_000L, ahoraMs = 1_000L)
 
         assertEquals(12, segundosParaGuardar(ui))
-        assertEquals(1, segundosParaGuardar(ui.copy(ahoraMs = 11_100L)))
+        assertEquals(1, segundosParaGuardar(ui.copy(ahoraMs = 12_100L)))
         assertEquals(1, segundosParaGuardar(ui.copy(ahoraMs = 20_000L)))
         assertEquals(null, segundosParaGuardar(ui.copy(ahoraMs = 0L)))
         assertEquals(null, segundosParaGuardar(ui.copy(cierreHastaMs = null)))

@@ -108,7 +108,7 @@ fun candidatas(
             val cual = horaServir(r.tags.momento, ahoraMin, ajustes).cual
             val motivo = motivoDe(quiere, ultima, cual, hoy)
             val propuesta = Propuesta(r, motivo, empiezaMin(r, ajustes, ahoraMin))
-            Triple(prioridad, propuesta, "${r.slug}|$semilla".hashCode())
+            Triple(prioridad, propuesta, desempate(r.slug, semilla))
         }.sortedWith(compareBy({ it.first }, { it.third }, { it.second.receta.slug }))
         .map { it.second }
 }

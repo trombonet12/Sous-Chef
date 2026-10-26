@@ -9,9 +9,10 @@ private val HOSTS_APP = setOf("crono", "ficha")
 /** Extras con los que Navigation abriría cualquier destino con cualquier argumento (los trae `handleDeepLink`). */
 private val EXTRAS_DE_NAVEGACION =
     listOf(
-        NavController.KEY_DEEP_LINK_IDS,
-        NavController.KEY_DEEP_LINK_ARGS,
-        NavController.KEY_DEEP_LINK_EXTRAS,
+        // Literales: las constantes de NavController son @RestrictTo (lint RestrictedApi). Valen lo mismo.
+        "android-support-nav:controller:deepLinkIds",
+        "android-support-nav:controller:deepLinkArgs",
+        "android-support-nav:controller:deepLinkExtras",
         NavController.KEY_DEEP_LINK_INTENT,
     )
 
