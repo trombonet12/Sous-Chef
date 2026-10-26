@@ -34,7 +34,7 @@ class AjustesPantallasTest {
 
         val textos = banco.textos(banco.raiz())
         assertTrue(textos.toString(), "Tema automático · lista Tinte" in textos)
-        assertTrue(textos.toString(), "Servir a las 15:30 · cuándo empezar" in textos)
+        assertTrue(textos.toString(), "Comer 15:30 · cenar 21:00 · cuándo empezar" in textos)
         assertTrue(textos.toString(), "Apilada · voz activada" in textos)
         assertTrue(textos.toString(), "Guardar o cargar una copia" in textos)
         assertTrue(textos.toString(), "Sous Chef 1.2.3" in textos)
@@ -96,11 +96,12 @@ class AjustesPantallasTest {
 
     @Test
     fun `el resumen del horario cambia con la hora de las tarjetas`() {
-        val ajustes = Ajustes(horaTarjeta = HoraTarjeta.ACABAR, servirMin = 14 * 60, vozActiva = false)
+        val ajustes =
+            Ajustes(horaTarjeta = HoraTarjeta.ACABAR, servirMin = 14 * 60, cenarMin = 22 * 60 + 30, vozActiva = false)
         banco.poner { MaterialTheme { AjustesMenu(ajustes, "1", {}, {}) } }
 
         val textos = banco.textos(banco.raiz())
-        assertTrue(textos.toString(), "Servir a las 14:00 · si empiezas ya" in textos)
+        assertTrue(textos.toString(), "Comer 14:00 · cenar 22:30 · si empiezas ya" in textos)
         assertTrue(textos.toString(), "Apilada · voz desactivada" in textos)
     }
 

@@ -5,8 +5,8 @@
     <string name="ajustes_horario">Horario</string>
     <string name="ajustes_version">Sous Chef %1$s</string>
     <string name="ajustes_resumen_apariencia">Tema %1$s · lista %2$s</string>
-    <string name="ajustes_resumen_horario_empezar">Servir a las %1$s · cuándo empezar</string>
-    <string name="ajustes_resumen_horario_acabar">Servir a las %1$s · si empiezas ya</string>
+    <string name="ajustes_resumen_horario_empezar">Comer %1$s · cenar %2$s · cuándo empezar</string>
+    <string name="ajustes_resumen_horario_acabar">Comer %1$s · cenar %2$s · si empiezas ya</string>
     <string name="ajustes_resumen_crono">%1$s · voz %2$s</string>
     <string name="ajustes_resumen_historial">Guardar o cargar una copia</string>
     <string name="ajustes_resumen_apilada">Apilada</string>

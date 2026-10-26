@@ -42,7 +42,9 @@
 
     <!-- 7. Horario -->
     <string name="intro_p7_titulo">Horario</string>
-    <string name="intro_p7_texto">A qué hora quieres comer normalmente y qué hora enseñan las tarjetas de la lista.</string>
+    <string name="intro_p7_comer">Comer</string>
+    <string name="intro_p7_cenar">Cenar</string>
+    <string name="intro_p7_texto">A qué hora sueles comer y cenar, y qué hora enseñan las tarjetas de la lista.</string>
 
     <!-- 8. Apariencia -->
     <string name="intro_p8_titulo">Apariencia</string>

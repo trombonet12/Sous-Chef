@@ -30,7 +30,7 @@ import app.trombito.souschef.ui.recetas.TarjetaLista
 /** Duración de ejemplo de los detalles de «Hora en las tarjetas». */
 private const val DURACION_EJEMPLO_MIN = 47
 
-/** 7. Hora de servir por defecto, qué hora enseñan las tarjetas y una tarjeta real que cambia en vivo. */
+/** 7. Hora de comer y de cenar por defecto, qué hora enseñan las tarjetas y una tarjeta real que cambia en vivo. */
 @Composable
 internal fun PaginaHorario(
     estado: EstadoIntro,
@@ -38,7 +38,7 @@ internal fun PaginaHorario(
 ) {
     val ajustes = estado.ajustes
     PaginaMarco(PaginaIntro.HORARIO) {
-        TituloApartado(stringResource(R.string.ajustes_servir_titulo))
+        TituloApartado(stringResource(R.string.intro_p7_comer))
         PasosMasMenos(
             valor = Servir.formato(ajustes.servirMin),
             descMenos = stringResource(R.string.ficha_servir_menos),
@@ -48,6 +48,19 @@ internal fun PaginaHorario(
         )
         Text(
             stringResource(R.string.ajustes_servir_nota),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        TituloApartado(stringResource(R.string.intro_p7_cenar))
+        PasosMasMenos(
+            valor = Servir.formato(ajustes.cenarMin),
+            descMenos = stringResource(R.string.cenar_menos),
+            descMas = stringResource(R.string.cenar_mas),
+            onMenos = { acciones.cenar(-Servir.PASO) },
+            onMas = { acciones.cenar(Servir.PASO) },
+        )
+        Text(
+            stringResource(R.string.ajustes_cenar_nota),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

@@ -88,10 +88,11 @@ internal fun AjustesMenu(
             stringResource(R.string.ajustes_resumen_apariencia, tema, nombreLista(ajustes.lista))
         }
         FilaApartado(Icono.Reloj, R.string.ajustes_horario, Rutas.AJUSTES_HORARIO, onAbrir) {
-            val servir = Servir.formato(ajustes.servirMin)
+            val comer = Servir.formato(ajustes.servirMin)
+            val cenar = Servir.formato(ajustes.cenarMin)
             when (ajustes.horaTarjeta) {
-                HoraTarjeta.EMPEZAR -> stringResource(R.string.ajustes_resumen_horario_empezar, servir)
-                HoraTarjeta.ACABAR -> stringResource(R.string.ajustes_resumen_horario_acabar, servir)
+                HoraTarjeta.EMPEZAR -> stringResource(R.string.ajustes_resumen_horario_empezar, comer, cenar)
+                HoraTarjeta.ACABAR -> stringResource(R.string.ajustes_resumen_horario_acabar, comer, cenar)
             }
         }
         FilaApartado(Icono.Crono, R.string.ajustes_crono, Rutas.AJUSTES_CRONO, onAbrir) {

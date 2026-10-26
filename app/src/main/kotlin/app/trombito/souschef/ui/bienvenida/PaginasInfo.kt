@@ -123,10 +123,11 @@ private fun FilaResumen(
 
 @Composable
 private fun resumenHorario(ajustes: Ajustes): String {
-    val servir = Servir.formato(ajustes.servirMin)
+    val comer = Servir.formato(ajustes.servirMin)
+    val cenar = Servir.formato(ajustes.cenarMin)
     return when (ajustes.horaTarjeta) {
-        HoraTarjeta.EMPEZAR -> stringResource(R.string.ajustes_resumen_horario_empezar, servir)
-        HoraTarjeta.ACABAR -> stringResource(R.string.ajustes_resumen_horario_acabar, servir)
+        HoraTarjeta.EMPEZAR -> stringResource(R.string.ajustes_resumen_horario_empezar, comer, cenar)
+        HoraTarjeta.ACABAR -> stringResource(R.string.ajustes_resumen_horario_acabar, comer, cenar)
     }
 }
 

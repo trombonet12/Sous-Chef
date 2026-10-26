@@ -352,6 +352,20 @@ class BienvenidaTest {
     }
 
     @Test
+    fun `la fila de cenar del horario se guarda al momento`() {
+        poner(PaginaIntro.HORARIO)
+
+        assertTrue(todoElTexto().toString(), "Cenar" in todoElTexto() && "21:00" in todoElTexto())
+        banco.pulsar(banco.botonConDescripcion("Cenar 15 minutos más tarde"))
+        assertEquals(21 * 60 + 15, repo.actual.value.cenarMin)
+
+        banco.pulsar(banco.botonConDescripcion("Cenar 15 minutos antes"))
+        banco.pulsar(banco.botonConDescripcion("Cenar 15 minutos antes"))
+        assertEquals(20 * 60 + 45, repo.actual.value.cenarMin)
+        assertEquals(15 * 60 + 30, repo.actual.value.servirMin)
+    }
+
+    @Test
     fun `la pagina de apariencia deja elegir tema y diseno y pinta tarjetas reales`() {
         poner(PaginaIntro.APARIENCIA)
 
@@ -425,7 +439,7 @@ class BienvenidaTest {
 
         val textos = banco.textos(banco.conEtiqueta("intro-resumen"))
         assertTrue(textos.toString(), "4 raciones" in textos)
-        assertTrue(textos.toString(), "Servir a las 15:30 · cuándo empezar" in textos)
+        assertTrue(textos.toString(), "Comer 15:30 · cenar 21:00 · cuándo empezar" in textos)
     }
 
     @Test
