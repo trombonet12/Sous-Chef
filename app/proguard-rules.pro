@@ -13,3 +13,7 @@
     public static int d(...);
     public static int i(...);
 }
+
+# review-ktx (Play In-App Review) hace referencia a una anotación de Play Services que no se empaqueta; R8 la pide
+# y es solo una anotación (sin efecto en ejecución). Regla generada por AGP en missing_rules.txt.
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
