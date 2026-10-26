@@ -1,0 +1,628 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "honda",
+      "nombre": "SARTÉN HONDA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Las vetas van de la raíz al tallo. Córtalas en perpendicular: al romper las fibras la cebolla suelta su agua y se deshace en la salsa en doce minutos tapada. A favor de la fibra aguantaría en tiras y la encontrarías entre las albóndigas.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cebolla con las vetas verticales y tres cortes horizontales\"><rect x=\"5\" y=\"5\" width=\"110\" height=\"78\" rx=\"8\" fill=\"#77558A\" fill-opacity=\".16\" stroke=\"#77558A\"/><g stroke=\"#77558A\" stroke-width=\".8\" opacity=\".7\"><line x1=\"19\" y1=\"11\" x2=\"19\" y2=\"77\"/><line x1=\"33\" y1=\"11\" x2=\"33\" y2=\"77\"/><line x1=\"47\" y1=\"11\" x2=\"47\" y2=\"77\"/><line x1=\"61\" y1=\"11\" x2=\"61\" y2=\"77\"/><line x1=\"75\" y1=\"11\" x2=\"75\" y2=\"77\"/><line x1=\"89\" y1=\"11\" x2=\"89\" y2=\"77\"/><line x1=\"103\" y1=\"11\" x2=\"103\" y2=\"77\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"1\" y1=\"25\" x2=\"119\" y2=\"25\"/><line x1=\"1\" y1=\"44\" x2=\"119\" y2=\"44\"/><line x1=\"1\" y1=\"63\" x2=\"119\" y2=\"63\"/></g></svg>",
+      "t": "Cebolla · dados de 4 mm"
+    },
+    {
+      "p": "Un milímetro, y un solo corte para los dos destinos. En la masa, un trozo más grande se notaría crudo dentro de una albóndiga que solo pasa veinte minutos en la salsa; a 1 mm se reparte y se hace con la carne. En la salsa se deshace con la cebolla. Aplasta el diente con la hoja plana antes de picar: se abre solo y la piel sale entera.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Diente de ajo con una cuadrícula muy fina de cortes para picarlo a 1 mm\"><path d=\"M60 8c16 0 30 16 30 34s-13 38-30 38-30-20-30-38S44 8 60 8z\" fill=\"#C9B98F\" fill-opacity=\".18\" stroke=\"#8A6C4A\"/><g stroke=\"#8A6C4A\" stroke-width=\".8\" opacity=\".55\"><path d=\"M60 10v70\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"3 2\"><line x1=\"40\" y1=\"8\" x2=\"40\" y2=\"80\"/><line x1=\"48\" y1=\"5\" x2=\"48\" y2=\"83\"/><line x1=\"56\" y1=\"4\" x2=\"56\" y2=\"84\"/><line x1=\"64\" y1=\"4\" x2=\"64\" y2=\"84\"/><line x1=\"72\" y1=\"5\" x2=\"72\" y2=\"83\"/><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"80\"/><line x1=\"33\" y1=\"26\" x2=\"87\" y2=\"26\"/><line x1=\"30\" y1=\"40\" x2=\"90\" y2=\"40\"/><line x1=\"30\" y1=\"54\" x2=\"90\" y2=\"54\"/><line x1=\"35\" y1=\"68\" x2=\"85\" y2=\"68\"/></g></svg>",
+      "t": "Ajo · picado de 1 mm"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "60 min",
+      "de principio a fin"
+    ],
+    [
+      "8 + 50 + 2",
+      "cortar + fuegos + repartir"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "32",
+      "albóndigas de 30 g"
+    ],
+    [
+      "16",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Albóndigas de carne picada mixta con pan mojado en leche, enharinadas, doradas en sartén y guisadas en salsa de tomate con cebolla. Tanda de cuatro raciones: dos se comen y dos van al congelador con su salsa. La dificultad está en formar treinta y dos bolas iguales mientras la salsa se hace sola, y en que lleguen enteras al plato.",
+  "escala": {
+    "max": 4,
+    "min": 4,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 750,
+          "n": "carne picada mixta (bandeja y media: tres mitades de 250 g)",
+          "u": "g"
+        },
+        {
+          "a": 60,
+          "n": "pan, solo la miga (un trozo de barra de un palmo)",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "leche desnatada (medio vaso)",
+          "u": "ml"
+        },
+        {
+          "a": 1,
+          "n": "huevo, talla L",
+          "u": "uds"
+        },
+        {
+          "a": 8,
+          "n": "ajo, picado de 1 mm (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "perejil seco (1 cucharada sopera)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "esc": "sub",
+          "n": "sal (1½ cucharaditas)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimienta negra (½ cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 0.3,
+          "esc": "sub",
+          "n": "nuez moscada (2 pizcas)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA MASA"
+    },
+    {
+      "items": [
+        {
+          "a": 60,
+          "esc": "fijo",
+          "n": "aceite de oliva, para freír (4 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 40,
+          "esc": "fijo",
+          "n": "harina, para enharinar (4 cucharadas soperas; se usa la mitad)",
+          "u": "g"
+        },
+        {
+          "a": 100,
+          "n": "vino blanco (medio vaso)",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN · DORAR Y DESGLASAR"
+    },
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "aceite de oliva (2 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 200,
+          "n": "cebolla, en dados de 4 mm (1 grande)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "n": "ajo, picado de 1 mm (2 dientes)",
+          "u": "g"
+        },
+        {
+          "a": 800,
+          "n": "tomate triturado (1 bote de 800 g)",
+          "u": "g"
+        },
+        {
+          "a": 250,
+          "n": "caldo de pollo (1 vaso)",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "esc": "sub",
+          "n": "azúcar blanco (1 cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "n": "laurel",
+          "txt": "1 hoja"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (½ cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN HONDA · SALSA"
+    }
+  ],
+  "lectura": "El camino largo va por la sartén honda: 8 de cortar + 1 de aceite + 12 de sofrito + 5 de tomate + 6 de chup-chup + 6 con la primera tanda + 2 con la segunda + 18 de guiso + 2 de repartir = 60 minutos. La mesa trabaja mientras la salsa se hace sola: la masa del 8 al 12, las 32 albóndigas del 12 al 24 y la harina del 24 al 26. La sartén grande va del 24 al 40, 2 de aceite + 6 + 6 de tandas + 2 de desglasar = 16, entera dentro de la salsa. Dos fuegos a la vez del minuto 24 al 40; nunca tres. La salsa ya hierve cuando entra la primera tanda, en el 32, y el vino del desglasado entra en el 40 con dieciocho minutos por delante.",
+  "mep": [
+    {
+      "l": [
+        "<b>Pan · 60 g de miga</b> (un trozo de barra de un palmo) · quita la corteza y desmiga con los dedos al bol grande. Entra en la masa en el minuto 8.",
+        "<b>Cebolla · 200 g (1 grande)</b> · dados de 4 mm, en perpendicular a las vetas, al bol mediano. Entra en el minuto 9.",
+        "<b>Ajo · 16 g (4 dientes)</b> · picado de 1 mm: 8 g (2 dientes) al bol grande, minuto 8; 8 g (2 dientes) al bol mediano con la cebolla, minuto 9."
+      ],
+      "orden": true,
+      "porq": "Con una sola tabla manda la humedad: el pan va primero, con la tabla seca; luego la cebolla, que la moja, y el ajo al final por el olor y porque es el corte más fino.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>100 ml de leche desnatada</b> (medio vaso) → al bol grande, en el minuto 0, antes que nada.",
+        "<b>250 ml de caldo de pollo</b> (1 vaso) → se queda en el vaso hasta el minuto 21.",
+        "<b>100 ml de vino blanco</b> (medio vaso) → se mide en el minuto 24, con el vaso ya libre de caldo. Entra en el minuto 38.",
+        "<b>Aceite de oliva, con la cuchara</b> · 30 ml (2 cucharadas soperas) a la sartén honda y 60 ml (4 cucharadas soperas) a la sartén grande, las dos en frío. Se encienden en el minuto 8 y en el 24."
+      ],
+      "orden": true,
+      "porq": "Con un solo vaso el orden lo decide el residuo: la leche no estorba al caldo, el caldo no estorba al vino y todo acaba en la misma salsa. El aceite no pasa por el vaso: es lo único que deja película.",
+      "t": "VASO MEDIDOR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol grande</b> · 100 ml de leche desnatada (medio vaso) batida con 1 huevo talla L, 60 g de miga de pan (un trozo de barra de un palmo), 8 g de ajo (2 dientes), 2 g de perejil seco (1 cucharada sopera), 8 g de sal (1½ cucharaditas), 1 g de pimienta negra (½ cucharadita) y 0,3 g de nuez moscada (2 pizcas). La carne se le une en el minuto 8.",
+        "<b>Bol mediano</b> · 200 g de cebolla (1 grande) y 8 g de ajo (2 dientes), juntos. Entran en el minuto 9.",
+        "<b>Taza</b> · 4 g de azúcar blanco (1 cucharadita rasa) + 1 hoja de laurel. Entran en el minuto 21 con el tomate; vacía, recoge el aceite sobrante en el minuto 38.",
+        "<b>Plato hondo</b> · 40 g de harina (4 cucharadas soperas). Se usa en el minuto 24; sobra la mitad.",
+        "<b>Platito</b> · 3 g de sal (½ cucharadita), la de la salsa. Entra en el minuto 50, después de probar.",
+        "<b>Táper de 1 l con tapa</b>, limpio, junto a los fuegos. Se llena en el minuto 58 con la mitad para congelar."
+      ],
+      "orden": false,
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto: la masa en el 8, la verdura en el 9, el azúcar y el laurel en el 21, la harina en el 24, la sal de la salsa en el 50 y el táper en el 58. La taza del azúcar se reutiliza para el aceite sobrante en el 38.",
+      "t": "SEIS RECIPIENTES, SEIS MOMENTOS"
+    },
+    {
+      "l": [
+        "<b>750 g de carne picada mixta</b> (bandeja y media: tres mitades de 250 g) · en sus bandejas, en la nevera, hasta el minuto 8. La cuarta mitad, cerrada, a la nevera o al congelador.",
+        "<b>800 g de tomate triturado</b> (1 bote de 800 g) · en su bote hasta el minuto 21.",
+        "<b>Bandeja del horno</b> · en la encimera desde el minuto 0: recibe las albóndigas formadas en el 12 y enharinadas en el 24."
+      ],
+      "orden": false,
+      "porq": "Lo que viene en su envase se queda en él, y cada sartén en frío ya es el recipiente de su aceite. La bandeja del horno no va al horno: es la única superficie donde caben 32 albóndigas sin tocarse.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Se queda en 4 raciones a propósito: es una tanda para comer dos y congelar dos. Bandeja y media de carne da 32 albóndigas de 30 g, que son dos tandas de 16 en la sartén de 28 cm, y una salsa que llena la sartén honda sin salirse. Con 2 raciones sería una sola tanda y la misma salsa en la misma superficie se reduciría de más; con 6 serían tres tandas, el plan se alargaría y las albóndigas no cabrían en una capa en la honda. La sal, la pimienta, el perejil, la nuez moscada y el azúcar no subirían en línea recta.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "",
+      "min": 8,
+      "nota": "Primero la miga en la leche con el huevo; luego cebolla en dados de 4 mm y ajo picado de 1 mm. Todo pesado antes de encender.",
+      "off": 0,
+      "p": "Lo primero, la miga: los 100 ml de leche desnatada y el huevo en el bol grande, batidos con un tenedor, y los 60 g de miga desmigada encima, aplastada para que se empape. Tiene ocho minutos para hidratarse mientras cortas, y es lo que mantiene jugosa la albóndiga: el almidón del pan retiene el agua que la carne suelta al encogerse con el calor. Después la cebolla en dados de 4 mm, en perpendicular a las vetas, y los 16 g de ajo picado de 1 mm: la mitad al bol grande y la mitad con la cebolla. Pesa el resto, deja el aceite ya en cada sartén en frío y saca la bandeja del horno a la encimera: ahí van las albóndigas.",
+      "s": 480,
+      "saco": "los recipientes llenos, la tabla libre y la bandeja del horno en la encimera",
+      "t": "Cortar, pesar y remojar el pan",
+      "tapa": null
+    },
+    {
+      "carril": "honda",
+      "dep": [
+        "cortar"
+      ],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "aceite-salsa",
+      "meto": "los 30 ml de aceite de oliva, que ya están en la sartén honda en frío",
+      "min": 1,
+      "nota": "Enciende la sartén honda al {6}, en el fuego mediano.",
+      "off": 8,
+      "p": "Los 30 ml de aceite de oliva ya están en la sartén honda desde la preparación: solo giras el mando al {6} y esperas un minuto. Va en el fuego mediano porque el grande es para la sartén de las albóndigas, que necesita toda la superficie caliente, y porque la honda es la única que admite la salsa y las 32 albóndigas sin que se salga nada al moverlas.",
+      "s": 60,
+      "saco": "",
+      "t": "Calentar el aceite de la salsa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "masa",
+      "meto": "750 g de carne picada mixta, de sus bandejas al bol grande",
+      "min": 4,
+      "nota": "Mezcla con la mano unos dos minutos, hasta que no queden vetas de pan y la masa se pegue a los dedos. No más.",
+      "off": 8,
+      "p": "La carne entra sobre lo que ya espera en el bol: el pan empapado con el huevo, el ajo, el perejil, la sal, la pimienta y la nuez moscada. Mezcla con la mano, apretando entre los dedos, unos dos minutos: la sal disuelve parte de la proteína de la carne y la vuelve pegajosa, y eso es lo que mantiene la albóndiga entera en la salsa. Si amasas de más, esa misma proteína se aprieta y la albóndiga sale dura y elástica. Está cuando no ves vetas de pan y un pellizco se queda pegado a la palma.",
+      "s": 240,
+      "saco": "",
+      "t": "Mezclar la masa",
+      "tapa": null
+    },
+    {
+      "carril": "honda",
+      "f": 4,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Enjuágate las manos, destapa, remueve y vuelve a tapar"
+        },
+        {
+          "en": 600,
+          "t": "Remueve otra vez: la cebolla tiene que estar translúcida y blanda"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sofrito",
+      "meto": "el bol mediano: 200 g de cebolla en dados de 4 mm + 8 g de ajo picado de 1 mm",
+      "min": 12,
+      "nota": "Baja al {4} y tapa: suda en su vapor, sin dorarse. Para remover, enjuágate antes las manos.",
+      "off": 9,
+      "p": "Cebolla y ajo juntos. Baja al {4} y tapa: la tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, y de ahí sale el dulzor que va a templar la acidez del tomate. El ajo entra desde el principio a propósito: a esta potencia y tapado no se quema, se ablanda y se vuelve dulce, que es lo que pide una salsa de guiso; el ajo con filo ya va dentro de la masa. Son doce minutos tranquilos porque tienes las manos en la carne y solo vas a poder remover dos veces.",
+      "s": 720,
+      "saco": "",
+      "t": "Sudar la cebolla y el ajo",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "formar",
+      "meto": "",
+      "min": 12,
+      "nota": "Con las manos mojadas, bolas de 3,5 cm, como una nuez grande. Pesa la primera en 30 g y sigue a ojo.",
+      "off": 12,
+      "p": "Moja las manos en agua fría cada tres o cuatro bolas: la carne no se pega y la superficie sale lisa, sin grietas por donde se abriría en la sartén. Pesa la primera en 30 g, que da una bola de 3,5 cm, y haz las demás a ojo con esa delante. Todas iguales: en la sartén se doran a la vez y en la salsa se hacen al mismo ritmo, y una más gorda seguiría cruda por dentro cuando las demás ya estén. Déjalas en la bandeja del horno sin que se toquen. Salen unas 32: ocho por ración.",
+      "s": 720,
+      "saco": "32 albóndigas sobre la bandeja del horno, sin tocarse",
+      "t": "Formar 32 albóndigas de 30 g",
+      "tapa": null
+    },
+    {
+      "carril": "honda",
+      "f": 7,
+      "holgura": "flexible",
+      "id": "tomate",
+      "meto": "800 g de tomate triturado + el vaso medidor: 250 ml de caldo de pollo + la taza: 4 g de azúcar blanco y 1 hoja de laurel",
+      "min": 5,
+      "nota": "Quita la tapa y sube al {7}. Espera a que hierva en toda la superficie, no solo en el centro.",
+      "off": 21,
+      "p": "Quita la tapa y echa el tomate, el caldo y la taza del azúcar y el laurel, todo de golpe. Sube al {7} hasta que hierva en toda la superficie, no solo en el centro: con más de un kilo frío encima tarda cinco minutos, y esa es la señal de que toda la masa está a temperatura. El caldo está para que haya líquido de sobra en el que guisar 32 albóndigas sin que la salsa se agarre; el azúcar compensa la acidez del tomate de bote, que en media hora de fuego no tiene tiempo de suavizarse sola.",
+      "s": 300,
+      "saco": "",
+      "t": "Tomate, caldo y laurel",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "ajustado",
+      "id": "enharinar",
+      "meto": "el plato hondo: 40 g de harina",
+      "min": 2,
+      "nota": "Rueda cada albóndiga en la harina y sacude el sobrante entre las manos. Después, 100 ml de vino blanco al vaso medidor.",
+      "off": 24,
+      "p": "Rueda cada albóndiga en el plato de harina y sacúdela entre las manos: tiene que quedar un velo fino, no una costra. Esa harina hace dos cosas: es una superficie seca que dora antes que la carne húmeda, y luego se suelta en la salsa y la espesa sin añadir nada más. Se enharinan ahora y no al formarlas porque con más de un cuarto de hora la harina bebe el jugo de la carne, se vuelve pasta y se pega al metal. Mide el vino en el vaso, que ya está libre de caldo.",
+      "s": 120,
+      "saco": "las 32 albóndigas enharinadas, de vuelta a la bandeja",
+      "t": "Enharinar y medir el vino",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "formar"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "aceite-freir",
+      "meto": "los 60 ml de aceite de oliva, que ya están en la sartén en frío",
+      "min": 2,
+      "nota": "Enciende la sartén grande al {7}, en el fuego grande. Está lista cuando el aceite ondula al inclinarla.",
+      "off": 24,
+      "p": "Los 60 ml de aceite de oliva, en la sartén grande al {7} durante dos minutos, lo que tardas en enharinar. Una albóndiga que entra en aceite frío se pega, chupa grasa y se rompe al girarla; en aceite caliente la harina se fríe al momento y forma una costra que la suelta sola del metal. La señal es que el aceite ondule al inclinar la sartén y una pizca de harina chisporrotee al caer.",
+      "s": 120,
+      "saco": "",
+      "t": "Calentar el aceite de freír",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "honda",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Remueve raspando el fondo, que es donde se agarra"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "chup-salsa",
+      "meto": "",
+      "min": 6,
+      "nota": "Baja al {3} y apoya la tapa dejando un dedo de hueco. La salsa espera aquí a las albóndigas.",
+      "off": 26,
+      "p": "Baja al {3} y apoya la tapa con un dedo de hueco: sale el vapor justo para que la salsa empiece a concentrar sin salpicar la cocina. Estos seis minutos son margen: la salsa no se estropea por esperar, y aquí recuperas tiempo si las albóndigas van tarde. Lo que importa es que siga borboteando cuando entre la primera tanda: en líquido caliente la costra recién hecha aguanta; en salsa tibia se reblandece y se suelta antes de cuajar.",
+      "s": 360,
+      "saco": "vapor",
+      "t": "Chup-chup de la salsa",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "enharinar"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 90,
+          "t": "Ya tienen una cara dorada: gíralas un cuarto con dos cucharas"
+        },
+        {
+          "en": 180,
+          "t": "Otro cuarto de vuelta"
+        },
+        {
+          "en": 270,
+          "t": "Otro cuarto, y mira que no quede ninguna cara pálida"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "tanda1",
+      "meto": "16 albóndigas enharinadas, de la bandeja",
+      "min": 6,
+      "nota": "Sigue al {7}. Dieciséis en una capa y separadas; quietas el primer minuto y medio, luego un cuarto de vuelta en cada aviso.",
+      "off": 26,
+      "p": "Sigue al {7} y coloca dieciséis albóndigas separadas un dedo, en una sola capa. No las toques el primer minuto y medio: la costra necesita contacto con el metal caliente, y si las mueves antes se pegan y se rompen. Luego gíralas un cuarto en cada aviso con dos cucharas, rodándolas, hasta que estén doradas por todas partes. Por dentro quedan crudas, y es a propósito: terminan en la salsa, que es donde se hacen sin secarse.",
+      "s": 360,
+      "saco": "las 16, con la espumadera, directas a la salsa",
+      "t": "Dorar la primera tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "honda",
+      "dep": [
+        "tanda1"
+      ],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Riégalas con salsa por encima con la cuchara, sin moverlas"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "tanda1-salsa",
+      "meto": "16 albóndigas doradas, con la espumadera desde la sartén",
+      "min": 6,
+      "nota": "Sigue al {3}. Húndelas a medias en una capa y vuelve a apoyar la tapa con su hueco.",
+      "off": 32,
+      "p": "Sigue al {3}. Las dieciséis de la primera tanda pasan directas de la sartén a la salsa, sin plato intermedio: entran calientes y el hervor no se corta. Húndelas a medias en una capa y vuelve a apoyar la tapa con su hueco; el vapor que se queda dentro cuece la parte que asoma. No las muevas con la cuchara todavía: la costra recién hecha es frágil hasta que lleva unos minutos en el líquido caliente.",
+      "s": 360,
+      "saco": "",
+      "t": "La primera tanda, a la salsa",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarten",
+      "f": 7,
+      "hitos": [
+        {
+          "en": 90,
+          "t": "Ya tienen una cara dorada: gíralas un cuarto con dos cucharas"
+        },
+        {
+          "en": 180,
+          "t": "Otro cuarto de vuelta"
+        },
+        {
+          "en": 270,
+          "t": "Otro cuarto, y mira que no quede ninguna cara pálida"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "tanda2",
+      "meto": "las otras 16 albóndigas enharinadas, de la bandeja",
+      "min": 6,
+      "nota": "Sigue al {7}. Igual que la primera: una capa, quietas minuto y medio y un cuarto de vuelta en cada aviso.",
+      "off": 32,
+      "p": "Sigue al {7} con las otras dieciséis, igual que la primera tanda: una capa, separadas un dedo, quietas el primer minuto y medio y luego un cuarto de vuelta en cada aviso. El aceite ya viene caliente, así que entran sin esperar. La harina que se suelta se va quedando en el fondo y tiene que ponerse marrón, no negra: es lo que vas a recuperar con el vino. Al sacarlas, retira con la cuchara el aceite que sobre a la taza vacía y deja solo una cucharada: el resto engrasaría la salsa.",
+      "s": 360,
+      "saco": "las 16, con la espumadera, a la salsa; después, con una cuchara, el aceite sobrante a la taza, dejando una cucharada en la sartén",
+      "t": "Dorar la segunda tanda",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "honda",
+      "dep": [
+        "tanda2"
+      ],
+      "f": 3,
+      "holgura": "ajustado",
+      "id": "tanda2-salsa",
+      "meto": "las otras 16 albóndigas, con la espumadera desde la sartén",
+      "min": 2,
+      "nota": "Sigue al {3}. Colócalas en los huecos, sin apilarlas sobre las primeras, y vuelve a apoyar la tapa.",
+      "off": 38,
+      "p": "Sigue al {3}. Las otras dieciséis entran en los huecos que dejan las primeras, en una sola capa si cabe y nunca apiladas encima: las de abajo se aplastarían y se romperían. Deja la tapa apoyada con su hueco mientras desglasas la sartén grande, que son dos minutos: el jugo de ese desglasado es lo siguiente que entra aquí.",
+      "s": 120,
+      "saco": "",
+      "t": "La segunda tanda, a la salsa",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "sarten",
+      "f": 7,
+      "holgura": "critico",
+      "id": "desglase",
+      "meto": "el vaso medidor: 100 ml de vino blanco",
+      "min": 2,
+      "nota": "Sigue al {7}. Vino de golpe y rasca el fondo hasta que quede la mitad. Si el fondo está negro, tíralo y echa el vino directo a la salsa.",
+      "off": 38,
+      "p": "Sigue al {7} y echa los 100 ml de vino de golpe sobre la cucharada de aceite y el fondo que han dejado las dos tandas. Rasca con la cuchara mientras hierve: lo pegado es harina y jugo de carne dorados, y el agua y el alcohol del vino lo disuelven. Dos minutos lo dejan en la mitad y se llevan buena parte del alcohol; el resto se va en los dieciocho minutos de guiso. Si el fondo se ha puesto negro, ese jugo amargaría la salsa: tíralo y echa el vino directo a la sartén honda.",
+      "s": 120,
+      "saco": "el jugo, a la sartén honda. Apaga la sartén grande",
+      "t": "Desglasar con el vino blanco",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "honda",
+      "dep": [
+        "desglase"
+      ],
+      "f": 3,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Dales la vuelta por debajo con la cuchara, sin pincharlas"
+        },
+        {
+          "en": 600,
+          "t": "Prueba la salsa y echa los 3 g de sal del platito"
+        },
+        {
+          "en": 840,
+          "t": "Dales la vuelta otra vez y riégalas por encima"
+        },
+        {
+          "en": 1020,
+          "t": "Abre una: sin rosa en el centro y jugosa. La salsa napa la cuchara"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "guisar",
+      "meto": "el jugo del desglasado, desde la sartén grande + a mitad, el platito: 3 g de sal",
+      "min": 18,
+      "nota": "Sigue al {3} con la tapa a medias. Mueve las albóndigas solo en los avisos, por debajo y sin pincharlas.",
+      "off": 40,
+      "p": "Vierte el jugo del desglasado por encima y sigue al {3} con la tapa a medias. Dieciocho minutos: una albóndiga de 3,5 cm ya sellada necesita unos diez para hacerse en el centro, y los otros ocho son para que intercambie sabor con la salsa y para que la harina de su costra se suelte y la espese. La sal de la salsa entra a mitad y después de probar, porque la masa y el caldo ya llevan la suya. Muévelas por debajo con la cuchara, nunca pinchadas: por el agujero se escapa el jugo.",
+      "s": 1080,
+      "saco": "",
+      "t": "Guisar las albóndigas",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "guisar"
+      ],
+      "f": null,
+      "holgura": "flexible",
+      "id": "repartir",
+      "meto": "la sartén honda, apagada + el táper de 1 l",
+      "min": 2,
+      "nota": "Apaga y saca el laurel. Primero el táper: dieciséis albóndigas y la mitad de la salsa, destapado. El resto, a los platos.",
+      "off": 58,
+      "p": "Apaga el fuego y saca la hoja de laurel. Llena primero el táper, que así no se te va la mano: dieciséis albóndigas y la mitad justa de la salsa, que las cubre y las protege del aire seco del congelador. Déjalo destapado en la encimera como mucho una hora, hasta que deje de humear, y entonces tápalo y al congelador: cerrado en caliente, el vapor se condensa en la tapa y acaba en escarcha. Las otras dieciséis, con su salsa, a los platos.",
+      "s": 120,
+      "saco": "2 raciones (16 albóndigas y la mitad de la salsa) a los platos; las otras 2, al táper, a enfriar destapado",
+      "t": "Repartir y apartar la mitad",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "carne picada mixta",
+    "pan"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro. La mitad va al congelador: cómo enfriarla, guardarla y recalentarla está en el último paso y en el último porqué.",
+  "porque": [
+    [
+      "Sartén y no horno",
+      "En el horno las 32 cabrían en la bandeja de una vez, pero se doran menos y peor: el aire caliente seca la superficie antes de que coja color, la harina no llega a freírse y no queda fondo que recuperar con el vino. En la sartén son dos tandas de seis minutos que caben enteras mientras la salsa hace su chup-chup, así que el horno no ahorraría ni un minuto del total y sí encendería un tercer aparato."
+    ],
+    [
+      "Pan mojado en leche y un huevo",
+      "La miga empapada es la que hace la albóndiga tierna: su almidón retiene el agua que la carne suelta al encogerse, y sin ella saldría compacta como una hamburguesa. El huevo la liga para que no se abra en la salsa. La leche es la desnatada de casa: aquí solo hidrata el pan, y la grasa ya la pone la carne mixta. Si no hay pan del día, 45 g de pan rallado con la misma leche hacen el mismo trabajo."
+    ],
+    [
+      "Enharinadas antes de dorar",
+      "La harina es una capa seca que dora antes que la carne húmeda, protege la albóndiga al girarla y luego se suelta en la salsa y la espesa. Por eso la salsa no lleva maicena ni harina aparte."
+    ],
+    [
+      "Doradas fuera, hechas dentro de la salsa",
+      "Seis minutos al {7} solo sellan la superficie. El centro se hace en los veinte minutos de guiso a fuego suave, donde el calor le llega despacio y parejo a través del líquido, sin el contacto directo con el metal que la secaría, y la salsa le pasa el sabor."
+    ],
+    [
+      "El ajo en dos sitios, con un solo corte",
+      "En la masa da el ajo con filo, el que se reconoce al morder. En la salsa entra con la cebolla desde el principio, tapado al {4}, y se vuelve dulce. Picado de 1 mm en los dos casos para que haya un solo corte en la tabla."
+    ],
+    [
+      "Vino blanco sobre el fondo de freír",
+      "Lo que se pega en la sartén de las albóndigas es harina y jugo de carne dorados: el sabor más hondo del plato. El vino lo despega y lo lleva a la salsa. Blanco y no tinto porque el tinto oscurece la salsa y su tanino se nota en un guiso de veinte minutos; el blanco solo pone acidez limpia. El aceite sobrante se retira antes, salvo una cucharada: con los 60 ml enteros la salsa quedaría con una capa de grasa encima."
+    ],
+    [
+      "Sal de la salsa a mitad de guiso",
+      "La masa lleva 8 g y el caldo de pollo trae la suya. Si se sala la salsa al principio, después de reducir puede quedar salada; a mitad del guiso y probando se acierta."
+    ],
+    [
+      "Sin zanahoria, sin pimentón, sin orégano y sin cebolla en la masa",
+      "La zanahoria endulzaría la salsa, pero es otro corte y tres minutos más de tabla, y una cucharadita de azúcar hace ese trabajo. El pimentón picante se comería la nuez moscada y el perejil, y el orégano llevaría la salsa hacia una pizza. La cebolla en la masa suelta agua en la sartén y abre las bolas: va toda a la salsa."
+    ],
+    [
+      "Congelar y descongelar la mitad",
+      "Dieciséis albóndigas cubiertas con su salsa en el táper: la salsa hace de barrera y la carne no se seca ni coge sabor a congelador. Se enfría destapada como mucho una hora y aguanta tres meses congelada. Para comerla, la noche antes pasa del congelador a la nevera. Recalienta en la sartén honda con 30 ml de agua (2 cucharadas soperas), tapada, al {4}, unos doce minutos, moviendo la sartén en vaivén a mitad, hasta que la salsa borbotee y una albóndiga abierta queme en el centro. Si la salsa sale algo cortada, se liga sola al hervir."
+    ]
+  ],
+  "raciones": 4,
+  "slug": "albondigas-en-salsa",
+  "tags": {
+    "base": "guiso",
+    "momento": [
+      "comida",
+      "cena"
+    ],
+    "proteina": "carne picada",
+    "tecnica": [
+      "sofrito",
+      "sellado",
+      "desglasado",
+      "chup-chup"
+    ]
+  },
+  "titulo": "Albóndigas en salsa de tomate",
+  "totalMin": 60
+}
