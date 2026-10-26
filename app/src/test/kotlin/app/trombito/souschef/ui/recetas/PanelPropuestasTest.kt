@@ -117,9 +117,9 @@ class PanelPropuestasTest {
 
     private fun etiqueta(nodo: SemanticsNode) = nodo.config.getOrNull(SemanticsProperties.TestTag)
 
-    private fun conEtiqueta(nombre: String) = todos().firstOrNull { etiqueta(it) == nombre }
+    private fun nodoConEtiqueta(nombre: String) = todos().firstOrNull { etiqueta(it) == nombre }
 
-    private fun hayPanel() = conEtiqueta("panel-propuestas") != null
+    private fun hayPanel() = nodoConEtiqueta("panel-propuestas") != null
 
     private fun textos(): List<String> = todos().flatMap { n -> textosDe(n) }
 
@@ -131,7 +131,7 @@ class PanelPropuestasTest {
     private fun descripciones(): List<String> =
         todos().flatMap { n -> n.config.getOrNull(SemanticsProperties.ContentDescription).orEmpty() }
 
-    private fun BancoCompose.pulsarEtiqueta(nombre: String) = pulsar(checkNotNull(conEtiqueta(nombre)) { nombre })
+    private fun BancoCompose.pulsarEtiqueta(nombre: String) = pulsar(checkNotNull(nodoConEtiqueta(nombre)) { nombre })
 
     // Tests
 
@@ -148,15 +148,15 @@ class PanelPropuestasTest {
         assertTrue(hayPanel())
         assertTrue(textos().containsAll(listOf("Macarrones", "Risotto", "Tortilla")))
         assertTrue(textos().any { it.contains("empieza 14:30") })
-        val titulo = checkNotNull(conEtiqueta("panel-propuestas"))
+        val titulo = checkNotNull(nodoConEtiqueta("panel-propuestas"))
         assertEquals("¿Qué cocino hoy?", titulo.config.getOrNull(SemanticsProperties.PaneTitle))
     }
 
     @Test
     fun `el chip sale junto al de que me da tiempo y solo en la pestana`() {
         val pestana = pintar(estado())
-        assertNotNull(conEtiqueta("chip-propuestas"))
-        assertNotNull(conEtiqueta("chip-tiempo"))
+        assertNotNull(nodoConEtiqueta("chip-propuestas"))
+        assertNotNull(nodoConEtiqueta("chip-tiempo"))
         assertEquals(1, pestana.etiquetas("chip-propuestas").size)
 
         val familia = pintar(estado().copy(familiaFija = FamiliaBase.PASTA))
@@ -222,7 +222,7 @@ class PanelPropuestasTest {
 
         assertTrue(hayPanel())
         assertTrue(textos().contains("Hoy no hay nada que llegue a tiempo"))
-        assertNotNull(conEtiqueta("propuestas-otra"))
+        assertNotNull(nodoConEtiqueta("propuestas-otra"))
     }
 
     @Test
