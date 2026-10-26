@@ -1,0 +1,422 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "plancha",
+      "nombre": "PLANCHA · FUEGO GRANDE",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "La hoja de lechuga tiene un nervio central duro que corre de la base a la punta. Apilada y cortada en tiras de 1 cm en perpendicular a él, cada tira se lleva solo un trocito de nervio y la lechuga se enrolla compacta; en los trozos de bolsa tal cual, el nervio entero hace palanca dentro del wrap, abre el rollo y llega a rasgar la tortilla.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Hoja de lechuga con el nervio central en vertical y cortes horizontales que lo cruzan en tiras de 1 cm\"><path d=\"M60 6c26 6 40 24 38 44-2 18-18 32-38 32S24 68 22 50C20 30 34 12 60 6z\" fill=\"#6FA84B\" fill-opacity=\".18\" stroke=\"#5E8F3E\"/><line x1=\"60\" y1=\"8\" x2=\"60\" y2=\"80\" stroke=\"#5E8F3E\" stroke-width=\"1.6\"/><g stroke=\"#5E8F3E\" stroke-width=\".7\" opacity=\".7\" fill=\"none\"><path d=\"M60 24l-22 10M60 24l22 10M60 42l-30 10M60 42l30 10M60 60l-26 10M60 60l26 10\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"><line x1=\"14\" y1=\"18\" x2=\"106\" y2=\"18\"/><line x1=\"14\" y1=\"28\" x2=\"106\" y2=\"28\"/><line x1=\"14\" y1=\"38\" x2=\"106\" y2=\"38\"/><line x1=\"14\" y1=\"48\" x2=\"106\" y2=\"48\"/><line x1=\"14\" y1=\"58\" x2=\"106\" y2=\"58\"/><line x1=\"14\" y1=\"68\" x2=\"106\" y2=\"68\"/></g></svg>",
+      "t": "Ensalada de bolsa · tiras de 1 cm, cruzando el nervio"
+    },
+    {
+      "p": "La cuña, sujeta por la corteza, por la cara de agujeros más pequeños del rallador, en hebras de 1 mm. Así de fino, el queso se pega a la lechuga en cuanto la salsa la moja y cada bocado lleva su parte; en lascas o rallado grueso, los trozos se quedan sueltos y se concentran en un extremo del wrap.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cuña de Grana Padano pasada por la cara fina del rallador, en hebras de 1 mm\"><path d=\"M14 62 L106 62 L94 22 Z\" fill=\"#E9C46A\" fill-opacity=\".22\" stroke=\"#C9A13E\"/><line x1=\"14\" y1=\"62\" x2=\"106\" y2=\"62\" stroke=\"#A8853A\" stroke-width=\"3\"/><g stroke=\"#C9A13E\" stroke-width=\".8\" opacity=\".75\"><line x1=\"40\" y1=\"54\" x2=\"98\" y2=\"54\"/><line x1=\"64\" y1=\"44\" x2=\"96\" y2=\"44\"/><line x1=\"84\" y1=\"34\" x2=\"95\" y2=\"34\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"2 2\"><line x1=\"94\" y1=\"22\" x2=\"108\" y2=\"8\"/><line x1=\"98\" y1=\"34\" x2=\"112\" y2=\"20\"/><line x1=\"101\" y1=\"46\" x2=\"115\" y2=\"32\"/><line x1=\"104\" y1=\"56\" x2=\"117\" y2=\"43\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">rallado fino, hebras de 1 mm</text></svg>",
+      "t": "Grana Padano · de la cuña, rallado fino de 1 mm"
+    },
+    {
+      "p": "En el filete fino la fibra corre a lo largo de la pieza. Ya hecho y reposado, se corta en perpendicular a ella en tiras de 1 cm: cada hebra mide un centímetro y el bocado se rompe con los dientes, sin tirar del resto del relleno. Siguiendo la fibra, saldrían tiras largas y elásticas que se escapan del wrap al primer mordisco.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Filete de pechuga a la plancha con la fibra en horizontal, marcas doradas y cortes verticales que la cruzan cada centímetro\"><path d=\"M8 34c8-14 46-20 80-14 16 3 24 12 22 24-2 15-20 28-52 30-26 2-44-8-48-20-2-7-3-13-2-20z\" fill=\"#D9A86C\" fill-opacity=\".22\" stroke=\"#A97B45\"/><g stroke=\"#A97B45\" stroke-width=\".7\" opacity=\".65\"><path d=\"M14 34h94M12 44h98M14 54h94M22 64h76\"/></g><g stroke=\"#8A5A2B\" stroke-width=\"2\" opacity=\".35\"><line x1=\"20\" y1=\"60\" x2=\"44\" y2=\"26\"/><line x1=\"48\" y1=\"68\" x2=\"72\" y2=\"24\"/><line x1=\"76\" y1=\"66\" x2=\"98\" y2=\"28\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"4 3\"><line x1=\"22\" y1=\"14\" x2=\"22\" y2=\"78\"/><line x1=\"34\" y1=\"14\" x2=\"34\" y2=\"78\"/><line x1=\"46\" y1=\"14\" x2=\"46\" y2=\"78\"/><line x1=\"58\" y1=\"14\" x2=\"58\" y2=\"78\"/><line x1=\"70\" y1=\"14\" x2=\"70\" y2=\"78\"/><line x1=\"82\" y1=\"14\" x2=\"82\" y2=\"78\"/><line x1=\"94\" y1=\"14\" x2=\"94\" y2=\"78\"/></g></svg>",
+      "t": "Pollo hecho · tiras de 1 cm, cruzando la fibra"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "24 min",
+      "de principio a fin"
+    ],
+    [
+      "6 + 14 + 4",
+      "calentar + plancha + montar"
+    ],
+    [
+      "1",
+      "fuego"
+    ],
+    [
+      "9",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Tortillas de trigo grandes enrolladas con pechuga fina a la plancha en tiras, lechuga aliñada con salsa César de bote, Grana Padano y cebollita crujiente, todo en un solo fuego. La dificultad está en el orden de la plancha: fuerte para dorar el pollo, media para calentar las tortillas, y la lechuga aliñada en el último minuto para que llegue crujiente.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 320,
+          "n": "pechugas finas de pollo (4 filetes finos)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "aceite de girasol (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal (⅓ de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "pimienta negra (⅓ de cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "PLANCHA · EL POLLO"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "ensalada de bolsa (4 puñados generosos)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "Grana Padano de cuña (3 cucharadas soperas, rallado)",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "salsa césar de bote (5 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA LECHUGA"
+    },
+    {
+      "items": [
+        {
+          "a": 4,
+          "n": "tortillas de trigo grandes (de 25 cm)",
+          "u": "uds"
+        },
+        {
+          "a": 20,
+          "n": "cebollita crujiente (4 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "MONTAJE"
+    }
+  ],
+  "lectura": "Un solo fuego: la plancha, en el fuego grande, desde el minuto 0 hasta el 20. Mientras se calienta, la mise en place, en los 6 primeros minutos; mientras se asienta al {6}, se corta el pollo, entre el minuto 14 y el 16. La suma: 6 de calentar la plancha con la mise en place a la vez + 4 de la primera tanda + 4 de la segunda + 2 de bajar al {6} cortando el pollo + 4 de tortillas + 1 de aliñar + 3 de montar = 24 minutos.",
+  "mep": [
+    {
+      "l": [
+        "<b>Ensalada de bolsa · 100 g (4 puñados generosos)</b> · apilada, en tiras de 1 cm cruzando el nervio, directa al bol grande en el minuto 0. Se aliña en el minuto 20.",
+        "<b>Pechugas finas de pollo · 320 g (4 filetes finos)</b> · ya hechas y reposadas, en tiras de 1 cm cruzando la fibra en el minuto 14. Entran en los wraps en el 21."
+      ],
+      "orden": true,
+      "porq": "La tabla nunca ve carne cruda: los filetes van enteros del plato a la plancha. Primero la lechuga, que está seca; el pollo llega a ella ya cocinado, en el minuto 10, para reposar y cortarse.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol grande</b> · las tiras de ensalada + 30 g de Grana Padano de cuña (3 cucharadas soperas), rallado fino de 1 mm directo encima en el minuto 3. Recibe la salsa en el minuto 20.",
+        "<b>Plato con papel</b> · los 320 g de pechugas finas, secos y pintados por las dos caras con 10 ml de aceite de girasol (2 cucharaditas) en el minuto 4. A la plancha 2 filetes en el minuto 6 y 2 en el 10.",
+        "<b>Platito</b> · 2 g de sal (⅓ de cucharadita): la mitad sobre los 2 primeros filetes en el minuto 6 y la otra mitad sobre los otros en el 10.",
+        "<b>Paño de cocina limpio</b> · vacío hasta el minuto 16, cuando recibe las tortillas calientes, apiladas y tapadas. Salen al montaje en el 21."
+      ],
+      "orden": false,
+      "porq": "Cada uno guarda algo que entra en un minuto distinto. El Grana va encima de la lechuga porque los dos se mezclan a la vez con la salsa; el aceite se pinta en el plato de los filetes, donde ya están.",
+      "t": "UN BOL GRANDE, UN PLATO, UN PLATITO Y UN PAÑO"
+    },
+    {
+      "l": [
+        "<b>Tortillas de trigo grandes · 4 unidades (de 25 cm)</b> · en su paquete hasta el minuto 16; a la plancha de una en una.",
+        "<b>Pimienta negra · 1 g (⅓ de cucharadita)</b> · del bote sobre el pollo cortado, en el minuto 15.",
+        "<b>Salsa césar de bote · 80 g (5 cucharadas soperas)</b> · del bote al bol grande en el minuto 20.",
+        "<b>Cebollita crujiente · 20 g (4 cucharadas soperas)</b> · del bote, una cucharada encima del relleno de cada wrap en el minuto 21, sin mezclar."
+      ],
+      "orden": false,
+      "porq": "Lo que ya viene en su envase se queda en él hasta que entra.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Va de 1 a 2 raciones: con 1, la mitad de todo, cada tanda de la plancha lleva un solo filete y solo se calientan dos tortillas. Por encima de 2, seis filetes son tres tandas en la zona caliente de la plancha y el primer pollo esperaría un cuarto de hora antes de llegar al wrap. La sal y la pimienta suben menos que el resto: el Grana y la salsa ya salan.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "mise-en-place",
+      "junto": null,
+      "meto": "",
+      "min": 6,
+      "nota": "Lechuga en tiras de 1 cm al bol grande y el Grana rallado encima. Seca los filetes y píntalos por las dos caras con el aceite de girasol.",
+      "off": 0,
+      "p": "La tabla solo ve cosas secas o ya cocinadas. Primero los 100 g de ensalada de bolsa, apilada y en tiras de 1 cm cruzando el nervio, directa al bol grande; encima, los 30 g de Grana rallado fino de 1 mm, que se quedan arriba sin tocar la lechuga hasta el aliño. Después, los 320 g de pechugas finas, secas con papel por las dos caras, porque el agua de la superficie tiene que evaporarse antes de que empiece el dorado, y pintadas con los 10 ml de aceite de girasol en el mismo plato: la grasa va en la carne y no en la plancha. Sin sal todavía: en pocos minutos sacaría agua a la superficie.",
+      "s": 360,
+      "saco": "la lechuga con el Grana encima en el bol grande, los filetes pintados en su plato y la sal pesada en el platito",
+      "t": "Mise en place",
+      "tapa": null
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Prueba con una gota de agua: tiene que bailar y desaparecer"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "calentar",
+      "junto": null,
+      "meto": "la plancha, vacía y seca, en el fuego grande",
+      "min": 6,
+      "nota": "Plancha en el fuego grande, sin aceite, al {8}. Está lista cuando una gota de agua baila y desaparece en segundos.",
+      "off": 0,
+      "p": "Una plancha gruesa tarda en acumular calor en toda la superficie, y la vitro algo más: seis minutos al {8} y vacía. Sin aceite, porque una película de grasa sobre metal vacío a esa potencia pasa el punto de humo antes de que llegue el pollo; la grasa ya va pintada en los filetes. Si la gota hierve y se queda, falta calor: un filete fino sobre una plancha tibia suelta su jugo y se cuece blanco en vez de dorarse.",
+      "s": 360,
+      "saco": "",
+      "t": "Calentar la plancha vacía al {8}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Vuelta: el filete se suelta solo si ya está dorado"
+        }
+      ],
+      "holgura": "critico",
+      "id": "tanda-1",
+      "junto": null,
+      "meto": "2 filetes de pechuga fina, salados por las dos caras con la mitad del platito (1 g de sal) justo antes de apoyarlos",
+      "min": 4,
+      "nota": "Al {8}. Sala y apóyalos separados en el centro, y no los toques hasta la vuelta.",
+      "off": 6,
+      "p": "Dos filetes es lo que cabe en la zona caliente sin que se toquen; cuatro a la vez llevarían los de fuera a la parte tibia y bajarían la temperatura del metal. Al {8} y quietos: la proteína se pega al principio y se suelta sola cuando la cara está dorada, a los dos minutos; si la fuerzas antes, se rompe. Una sola vuelta y dos minutos más: en un filete fino el calor de la primera cara ya ha llegado a la mitad y la segunda solo tiene que cerrar. Al sacarlos, abre el más grueso: blanco por dentro y sin rosa.",
+      "s": 240,
+      "saco": "los 2 filetes, enteros, a la tabla a reposar",
+      "t": "Primera tanda: 2 filetes",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 8,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Vuelta: el filete se suelta solo si ya está dorado"
+        }
+      ],
+      "holgura": "critico",
+      "id": "tanda-2",
+      "junto": null,
+      "meto": "los otros 2 filetes, salados por las dos caras con el resto del platito (1 g de sal) justo antes",
+      "min": 4,
+      "nota": "Igual que la primera, al {8}. Antes de apoyarlos, rasca con la espátula lo que se haya quedado pegado.",
+      "off": 10,
+      "p": "Mismo calor y mismos tiempos: una plancha gruesa no pierde temperatura con dos filetes finos. Rasca antes los restos de la primera tanda, porque al {8} se queman en un minuto y amargan la costra nueva. Mientras tanto los primeros reposan en la tabla: el jugo que el calor ha empujado hacia el centro vuelve a repartirse por la carne, y al cortarlos se queda dentro en vez de mojar la tabla y, después, la tortilla.",
+      "s": 240,
+      "saco": "los 2 filetes, a la tabla, junto a los primeros",
+      "t": "Segunda tanda: los otros 2",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "asentar",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Baja al {6} y rasca los restos con la espátula; pasa un papel. La plancha tiene que quedar seca para las tortillas.",
+      "off": 14,
+      "p": "Las tortillas no quieren el calor del {8}: en treinta segundos se quemarían a manchas antes de ablandarse. La vitro y la plancha gruesa guardan calor, así que se baja ahora al {6} y no en el último momento: en dos minutos la plancha deja de humear y se asienta en un calor medio. Los restos de pollo y aceite se quitan ahora porque bajo la tortilla se pegarían y la mancharían de grasa quemada.",
+      "s": 120,
+      "saco": "los restos de pollo y aceite, con la espátula y un papel de cocina",
+      "t": "Baja al {6} y rasca la plancha",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "tanda-2"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "cortar-pollo",
+      "junto": null,
+      "meto": "los 4 filetes de la tabla + 1 g de pimienta negra (⅓ de cucharadita), del bote",
+      "min": 2,
+      "nota": "Empieza por los de la primera tanda. Tiras de 1 cm cruzando la fibra y la pimienta por encima.",
+      "off": 14,
+      "p": "Los filetes de la primera tanda llevan cuatro minutos de reposo y se cortan primero; los de la segunda, al final, ganan el par de minutos que les faltan. En tiras de 1 cm cruzando la fibra, cada hebra queda corta y el bocado se rompe con los dientes, en vez de arrastrar el relleno fuera del wrap al morder. La pimienta va ahora, sobre el pollo ya hecho, porque en la plancha al {8} se habría tostado hasta amargar.",
+      "s": 120,
+      "saco": "las tiras de pollo, a un lado de la tabla",
+      "t": "Cortar el pollo en tiras de 1 cm",
+      "tapa": null
+    },
+    {
+      "carril": "plancha",
+      "dep": [
+        "cortar-pollo"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 60,
+          "t": "Segunda tortilla"
+        },
+        {
+          "en": 120,
+          "t": "Tercera tortilla"
+        },
+        {
+          "en": 180,
+          "t": "Cuarta tortilla"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "tortillas",
+      "junto": null,
+      "meto": "4 tortillas de trigo grandes (de 25 cm), de una en una, sobre la plancha seca",
+      "min": 4,
+      "nota": "Al {6}, treinta segundos por cara, hasta que abombe y salgan manchas claras. Al paño, apiladas y tapadas.",
+      "off": 16,
+      "p": "Una tortilla de trigo fría se agrieta al enrollarla: el almidón de la masa se ha endurecido en el paquete y solo con calor vuelve a ablandarse. Treinta segundos por cara al {6} y en seco la dejan flexible y con alguna mancha tostada, sin secarla hasta que cruja y no se doble. De una en una, porque a 25 cm ocupa toda la zona caliente. Apiladas en el paño y tapadas se dan vapor unas a otras y llegan blandas al montaje; sueltas en un plato se resecan por el borde.",
+      "s": 240,
+      "saco": "las tortillas, apiladas en el paño y tapadas. Apaga el fuego grande y aparta la plancha",
+      "t": "Calentar las 4 tortillas, de una en una",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "tortillas"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "alinar",
+      "junto": null,
+      "meto": "80 g de salsa césar de bote (5 cucharadas soperas), del bote al bol grande",
+      "min": 1,
+      "nota": "La salsa al bol y mezcla con dos cucharas hasta que cada tira brille y el Grana se pegue. Monta ya.",
+      "off": 20,
+      "p": "La salsa se mezcla con la lechuga en el bol y no se unta en la tortilla: así cubre cada tira y el Grana se agarra a ella, en vez de quedarse suelto en un rincón del wrap. Se hace ahora y no antes porque la lechuga cortada pierde agua en contacto con la sal y la grasa de la salsa: en cinco minutos pasaría de crujiente a lacia y mojaría la tortilla por dentro.",
+      "s": 60,
+      "saco": "el bol aliñado, junto a la tabla",
+      "t": "Aliñar la lechuga con la salsa César",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "critico",
+      "id": "montar",
+      "junto": null,
+      "meto": "las 4 tortillas del paño + la lechuga aliñada + las tiras de pollo + 20 g de cebollita crujiente (4 cucharadas soperas), del bote",
+      "min": 3,
+      "nota": "En cada tortilla, un cuarto de la lechuga en franja, un cuarto del pollo y una cucharada de cebollita encima. Dobla los lados, enrolla apretando y corta en diagonal.",
+      "off": 21,
+      "p": "Cada wrap lleva un cuarto de la lechuga aliñada en una franja a un tercio del borde de tu lado, con 4 cm libres a cada lado; encima, un cuarto del pollo, y arriba del todo una cucharada de cebollita crujiente, sin mezclar, para que no toque la salsa y siga crujiendo. Dobla los dos lados hacia dentro, levanta el borde de tu lado por encima del relleno y enrolla apretando con los dedos: apretado, el relleno no se escurre al morder. Con el cierre abajo, el propio peso lo sella. Corta en diagonal con el cuchillo grande, de un solo golpe y sin serrar.",
+      "s": 180,
+      "saco": "a los 2 platos: 2 wraps por persona, cortados en diagonal y con el cierre abajo",
+      "t": "Montar los 4 wraps y servir",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "pechugas finas de pollo",
+    "ensalada de bolsa"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj, las vueltas de cada tanda y el paso a paso están en el cronómetro.",
+  "porque": [
+    [
+      "Plancha y no sartén",
+      "Es pollo a la plancha de verdad: la plancha gruesa guarda tanto calor que no se enfría al apoyar el filete frío, y la cara se dora en dos minutos sin soltar jugo. Después, en seco y al {6}, calienta las tortillas sin cambiar de cacharro. No hay salsa ni relleno salteado que pida una sartén, y las dos solo caben en el fuego grande."
+    ],
+    [
+      "Filetes enteros y cortados después",
+      "Enteros pierden menos jugo en la plancha que en tiras, y el reposo en la tabla deja que ese jugo vuelva a repartirse. Cortados en crudo se secarían en el tiempo de dorarlos y mojarían la tortilla."
+    ],
+    [
+      "Salsa César de bote, tal cual",
+      "Ya trae su emulsión, su ajo, su ácido y su queso. No hay mayonesa en la despensa para hacerla, y añadir ajo o limón encima solo taparía la que hay."
+    ],
+    [
+      "Cebollita crujiente y no picatostes",
+      "Los picatostes pedirían pan en dados, aceite y cinco minutos más de fuego, y dentro de un rollo los dados ruedan, se clavan en la tortilla y se escapan al morder. La cebollita da el mismo crujido tostado en escamas que se quedan en su sitio; va al final y encima, nunca mezclada con la salsa, que la ablandaría."
+    ],
+    [
+      "El aliño en el último minuto",
+      "La sal y la grasa de la salsa sacan agua a la lechuga cortada: aliñada al principio, llegaría lacia y mojaría la tortilla. Mezclada en el bol justo antes de montar, cubre cada tira y lleva pegado el Grana."
+    ],
+    [
+      "Las tortillas, calientes y en el paño",
+      "El almidón de una tortilla fría está duro y se agrieta al enrollar. Calientes y apiladas en un paño se mantienen flexibles los cuatro o cinco minutos que esperan al montaje."
+    ],
+    [
+      "Sin bacon",
+      "El César de restaurante a veces lo lleva, pero pide otro fuego o diez minutos más de plancha, y el umami ya lo ponen el Grana y la salsa."
+    ],
+    [
+      "Sin tomate",
+      "El agua del tomate moja la tortilla por dentro, y el César no lo lleva."
+    ],
+    [
+      "Girasol y no oliva en el pollo",
+      "La plancha trabaja al {8} y el girasol aguanta unos cuarenta grados más que el oliva antes de humear. Pintado en el filete es una capa fina que no aporta sabor: lo que se nota es el dorado, no el aceite."
+    ],
+    [
+      "El pollo llega tibio",
+      "Es lo que tiene que pasar: caliente de la plancha, ablandaría la lechuga aliñada. El reposo y el corte lo dejan templado justo cuando se monta."
+    ],
+    [
+      "El pollo y la lechuga frescos mandan",
+      "El plato se apoya en las pechugas finas y en la ensalada de bolsa: confírmalas antes de empezar. Si no hay pechugas finas, sirve la pechuga familiar abierta en filetes de 1 cm de grosor."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "wrap-cesar-pollo",
+  "tags": {
+    "base": "wrap",
+    "equipo": [
+      "plancha"
+    ],
+    "momento": [
+      "cena",
+      "comida"
+    ],
+    "proteina": "pollo",
+    "tecnica": [
+      "plancha"
+    ]
+  },
+  "titulo": "Wrap César de pollo",
+  "totalMin": 24
+}
