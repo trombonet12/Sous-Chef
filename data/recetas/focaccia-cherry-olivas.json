@@ -1,0 +1,489 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#A8C686",
+      "id": "bol",
+      "nombre": "BOL DE LA MASA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "fuente",
+      "nombre": "FUENTE 28×20",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#B58CD0",
+      "id": "horno",
+      "nombre": "HORNO",
+      "tipo": "horno"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Cortado de polo a polo, pasando por el rabito, cada mitad conserva cerradas sus celdas de semillas y suelta menos jugo; por el ecuador se abrirían todas y mojarían la masa. Boca arriba en el hoyo, el corte se seca y se concentra en el horno.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Tomate cherry redondo con el rabito arriba y un corte vertical que lo parte en dos mitades por el rabito\"><circle cx=\"60\" cy=\"48\" r=\"32\" fill=\"#D9412B\" fill-opacity=\".18\" stroke=\"#B5321F\"/><path d=\"M60 16c-6-6-12-6-16-4M60 16c6-6 12-6 16-4M60 16v-8\" fill=\"none\" stroke=\"#5E8C3A\" stroke-width=\"1.4\"/><g stroke=\"#B5321F\" stroke-width=\".8\" opacity=\".6\"><path d=\"M44 30c-8 10-8 26 0 36M76 30c8 10 8 26 0 36\"/></g><line x1=\"60\" y1=\"4\" x2=\"60\" y2=\"86\" stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"/></svg>",
+      "t": "Tomate cherry · mitades de 1,5 cm, de arriba abajo"
+    },
+    {
+      "p": "A lo largo, cada mitad queda plana por un lado y se asienta en el hoyo sin rodar; entera, se hundiría o saltaría al subir la masa. Si tiene hueso, aplastada con la hoja plana se abre en dos sola y el hueso sale limpio.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Oliva verde ovalada tumbada con un corte horizontal a lo largo que la parte en dos mitades\"><ellipse cx=\"60\" cy=\"44\" rx=\"40\" ry=\"26\" fill=\"#8A9A3B\" fill-opacity=\".2\" stroke=\"#6B7A2A\"/><g stroke=\"#6B7A2A\" stroke-width=\".8\" opacity=\".6\"><path d=\"M28 34c20-8 44-8 64 0M28 54c20 8 44 8 64 0\"/></g><line x1=\"8\" y1=\"44\" x2=\"112\" y2=\"44\" stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"/></svg>",
+      "t": "Oliva verde · mitades de 1 cm, a lo largo"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "180 min",
+      "de principio a fin"
+    ],
+    [
+      "90 + 35",
+      "levado en bloque + en la fuente"
+    ],
+    [
+      "0",
+      "fuegos: solo horno a 220 °C"
+    ],
+    [
+      "12",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Focaccia al 80 % de hidratación en la fuente de 28×20, sin amasar: la masa se hace sola con tres pliegues durante el levado y se hornea con cherry, olivas verdes y una salmuera de aceite de oliva, agua, sal y orégano por encima. La dificultad es que la levadura no lee el reloj: los tiempos de levado son orientativos y lo que manda es el volumen. Salen 6 trozos.",
+  "escala": {
+    "max": 6,
+    "min": 6,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 320,
+          "n": "agua tibia (1 vaso y ⅓)",
+          "u": "ml"
+        },
+        {
+          "a": 6,
+          "esc": "sub",
+          "n": "levadura seca de panadería (2 cucharaditas rasas)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "azúcar blanco (½ cucharadita rasa)",
+          "u": "g"
+        }
+      ],
+      "n": "VASO MEDIDOR · LA LEVADURA"
+    },
+    {
+      "items": [
+        {
+          "a": 400,
+          "n": "harina de fuerza (2⅔ vasos de agua bien llenos)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "esc": "sub",
+          "n": "sal (1⅓ cucharaditas rasas)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA MASA"
+    },
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "aceite de oliva (2 cucharadas soperas)",
+          "u": "ml"
+        }
+      ],
+      "n": "FUENTE · EL FONDO"
+    },
+    {
+      "items": [
+        {
+          "a": 200,
+          "n": "tomates cherry (unos 15), por la mitad de arriba abajo",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "olivas verdes (unas 20), por la mitad a lo largo",
+          "u": "g"
+        },
+        {
+          "a": 20,
+          "n": "agua de la salmuera (1⅓ cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "sal de la salmuera (⅓ de cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "orégano (1 cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "aceite de oliva de la salmuera (2 cucharadas soperas)",
+          "u": "ml"
+        }
+      ],
+      "n": "FUENTE · LA CORONA"
+    }
+  ],
+  "lectura": "Sin fuegos: el único calor es el horno. 5 de levadura + 5 de mezclar + 90 de levado en bloque + 4 de pasar a la fuente + 35 de segundo levado + 4 de coronar + 24 de horno + 3 de desmoldar + 8 de reposo + 2 de cortar = 180 minutos. El corte de olivas y cherry (110-118) y el precalentado (123-143) caben dentro del segundo levado. Los dos levados son la parte elástica del plan: si la masa va lenta, alarga el levado que toque hasta que doble o hasta el pinchazo, y enciende el horno 16 minutos antes de lo que calcules que acaba el segundo levado. El bol sale del horno en el 100, antes de encenderlo.",
+  "mep": [
+    {
+      "l": [
+        "<b>Vaso medidor</b> · 320 ml de agua tibia (1 vaso y ⅓) + 3 g de azúcar blanco (½ cucharadita rasa) + 6 g de levadura seca de panadería (2 cucharaditas rasas). Se prepara en el minuto 0 y entra al bol en el minuto 5.",
+        "<b>Vaso medidor, enjuagado</b> · la salmuera: 20 ml de agua (1⅓ cucharadas soperas) + 2 g de sal (⅓ de cucharadita) + 1 g de orégano (1 cucharadita) + 30 ml de aceite de oliva (2 cucharadas soperas), el aceite al final. Se prepara en el minuto 110 y entra a la fuente en el minuto 139."
+      ],
+      "orden": true,
+      "porq": "Primero el agua de la levadura, que no deja residuo; enjuagado, la salmuera, con el aceite al final porque es lo único que obliga a lavarlo.",
+      "t": "UN VASO MEDIDOR, DOS VECES"
+    },
+    {
+      "l": [
+        "<b>Bol grande, de paredes rectas si lo hay</b> · 400 g de harina de fuerza (2⅔ vasos de agua bien llenos) + 8 g de sal (1⅓ cucharaditas rasas), pesadas en el minuto 0 mientras la levadura despierta. El agua entra en el minuto 5.",
+        "<b>Un paño limpio y una tira de cinta adhesiva</b> · el paño tapa el bol y luego la fuente; la cinta marca en el bol el nivel de la masa recién mezclada. Desde el minuto 10.",
+        "<b>Fuente de 28×20 cm</b> · 30 ml de aceite de oliva (2 cucharadas soperas) en el fondo, en el minuto 100."
+      ],
+      "orden": false,
+      "porq": "La masa se mezcla y leva en el mismo bol, sin cambiar de recipiente, y hornea en la fuente: dos recipientes en todo el plato.",
+      "t": "EL BOL Y LA FUENTE"
+    },
+    {
+      "l": [
+        "<b>Olivas verdes · 80 g (unas 20)</b> · por la mitad a lo largo, de 1 cm (si tienen hueso, sácalo al partirlas). Al plato; entran en el minuto 139.",
+        "<b>Tomates cherry · 200 g (unos 15)</b> · por la mitad de arriba abajo, pasando por el rabito, de 1,5 cm. Al mismo plato; entran en el minuto 139."
+      ],
+      "orden": true,
+      "porq": "Lo seco primero: las olivas escurridas apenas mojan la tabla y los cherry sí. Los dos entran a la vez, así que comparten plato.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    }
+  ],
+  "notaEscala": "Se queda en 6 raciones a propósito: el tamaño lo marca la fuente de 28×20 cm. Unos 750 g de masa dan 2,5 cm de grosor en crudo y unos 4 cm horneada; con menos masa saldría fina y seca en los mismos 24 minutos, y con más subiría por encima del borde. La levadura y la sal, además, no escalan en línea recta.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "levadura",
+      "meto": "320 ml de agua tibia + 3 g de azúcar blanco + 6 g de levadura seca de panadería, en el vaso medidor",
+      "min": 5,
+      "nota": "Agua tibia del grifo: en la muñeca, ni fría ni caliente. Remueve y espera la espuma; mientras, pesa la harina y la sal en el bol grande.",
+      "off": 0,
+      "p": "La levadura seca está deshidratada y dormida: en agua a unos 30 °C se rehidrata y empieza a comerse el azúcar, y la espuma es la prueba de que está viva. Por encima de 45 °C muere, por eso el agua va tibia y no caliente. Si a los 5 minutos no ha hecho nada, tírala y empieza otra vez: una masa sin levadura viva no sube por mucho que esperes. La sal no entra aquí, porque frena la levadura: va con la harina.",
+      "s": 300,
+      "saco": "",
+      "t": "Despertar la levadura en el agua tibia",
+      "tapa": null
+    },
+    {
+      "carril": "bol",
+      "dep": [
+        "levadura"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "mezclar",
+      "meto": "el vaso medidor con la levadura, sobre los 400 g de harina de fuerza y los 8 g de sal del bol",
+      "min": 5,
+      "nota": "Mezcla con una cuchara o la mano hasta que no quede harina seca: queda pegajosa y sin forma, y así está bien. Tapa con el paño, marca el nivel con la cinta y al horno apagado con la luz encendida.",
+      "off": 5,
+      "p": "Sin amasar: con un 80 % de agua el gluten se forma solo, porque las proteínas de la harina se encuentran y se enlazan en el agua sin que nadie las trabaje, y los pliegues de después ordenan esa red. Amasar a mano una masa así es pelearse con algo que se pega a todo, y añadirle harina para que no se pegue es lo que da una miga seca y apretada. La marca en el bol al empezar es la que luego dice, sin dudas, cuándo ha doblado.",
+      "s": 300,
+      "saco": "el bol tapado, al horno apagado con la luz encendida",
+      "t": "Mezclar sin amasar: el agua con la levadura sobre la harina y la sal",
+      "tapa": null
+    },
+    {
+      "carril": "bol",
+      "dep": [],
+      "f": null,
+      "hitos": [
+        {
+          "en": 600,
+          "t": "Pliegue 1: mano mojada, estira y dobla por los cuatro lados. Tapa y vuelve al horno"
+        },
+        {
+          "en": 2400,
+          "t": "Pliegue 2, por los cuatro lados. Ya cuesta más estirarla"
+        },
+        {
+          "en": 4200,
+          "t": "Pliegue 3, el último: la masa ya está lisa y elástica"
+        },
+        {
+          "en": 4800,
+          "t": "Mira la marca: tiene que ir cerca del doble. Si apenas ha subido, cuenta 15-30 minutos más"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "levar",
+      "meto": "",
+      "min": 90,
+      "nota": "En el horno apagado con la luz encendida. Cada pliegue, con la mano mojada: estira un lado hacia arriba y dóblalo encima, gira el bol un cuarto y repite hasta dar la vuelta.",
+      "off": 10,
+      "p": "La levadura come el azúcar de la harina y suelta gas, y la red de gluten lo atrapa: la masa dobla. Cada pliegue estira esa red y la ordena en capas, y en tres rondas la masa pasa de pasta pegajosa a algo liso que aguanta su forma: es el amasado, hecho por el tiempo. La luz del horno da unos 28 °C, donde la levadura trabaja rápido. Los 90 minutos son orientativos y manda el volumen: doblado, abombado y con burbujas por los lados. En una cocina fría puede pedir 30 minutos más; si huele a alcohol y se hunde al tocarla, se ha pasado y saldrá plana.",
+      "s": 5400,
+      "saco": "el bol con la masa doblada, fuera del horno",
+      "t": "Levar en bloque con tres pliegues, hasta que doble",
+      "tapa": null
+    },
+    {
+      "carril": "fuente",
+      "dep": [
+        "levar"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "a-la-fuente",
+      "meto": "30 ml de aceite de oliva en el fondo de la fuente de 28×20 + la masa doblada del bol",
+      "min": 4,
+      "nota": "Aceite al fondo y la masa encima, resbalando del bol con la mano mojada y sin aplastarla; dale la vuelta para que quede aceitada por los dos lados. Estírala hacia las esquinas sin forzar: si se encoge, déjala.",
+      "off": 100,
+      "p": "Los 30 ml de aceite de oliva son media focaccia: en el horno el fondo se fríe en ellos y sale una base dorada y crujiente que no se pega. Volteada, la masa queda aceitada también por arriba, y la superficie no se seca ni hace costra durante el segundo levado. No hay que forzarla a llegar a las esquinas: recién volcada el gluten está tenso y vuelve atrás, y en un cuarto de hora se relaja y cede sola.",
+      "s": 240,
+      "saco": "",
+      "t": "Pasar la masa a la fuente con el aceite de oliva",
+      "tapa": null
+    },
+    {
+      "carril": "fuente",
+      "dep": [],
+      "f": null,
+      "hitos": [
+        {
+          "en": 900,
+          "t": "Dedos aceitados: estira la masa hacia las esquinas, ahora cede"
+        },
+        {
+          "en": 1800,
+          "t": "Pinchazo: hunde un dedo aceitado 1 cm. Si el hueco vuelve enseguida, le faltan 10 minutos"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "apresto",
+      "meto": "",
+      "min": 35,
+      "nota": "Tapada con el paño, encima o al lado del horno. Está lista con el pinchazo: el hueco del dedo vuelve despacio y deja marca.",
+      "off": 104,
+      "p": "En la fuente la masa vuelve a hincharse con el gas que la levadura sigue soltando, y es esta subida la que da la miga alta y con agujeros. El pinchazo dice cuándo: si el hueco se rellena despacio y queda una marca leve, el gluten está relajado y lleno de gas; si vuelve enseguida, aún está tenso y le falta; si no vuelve nada, se ha pasado. Entre 30 y 45 minutos según la cocina: el horno se enciende a mitad y templa la encimera de al lado.",
+      "s": 2100,
+      "saco": "",
+      "t": "Segundo levado en la fuente, tapada con el paño",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "cortar",
+      "meto": "80 g de olivas verdes + 200 g de tomates cherry; en el vaso medidor enjuagado, 20 ml de agua + 2 g de sal + 1 g de orégano + 30 ml de aceite de oliva",
+      "min": 8,
+      "nota": "Olivas por la mitad a lo largo y cherry por la mitad de arriba abajo, juntos en un plato. En el vaso medidor, agua, sal y orégano, y el aceite al final.",
+      "off": 110,
+      "p": "Las olivas primero, que son lo más seco, y los cherry después, que mojan la tabla. El cherry se corta de arriba abajo, pasando por el rabito: así cada mitad conserva cerradas sus celdas de semillas y suelta menos jugo sobre la masa. La salmuera es agua con la sal disuelta y aceite por encima: batida con un tenedor se emulsiona un momento y, al echarla, llena los hoyos y reparte la sal sin manchas, que es lo que haría la sal en escamas si la hubiera.",
+      "s": 480,
+      "saco": "",
+      "t": "Cortar las olivas y los cherry y preparar la salmuera",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "precalentar",
+      "meto": "",
+      "min": 20,
+      "nota": "Rejilla en la segunda posición desde abajo antes de encender; calor arriba y abajo, sin ventilador, a 220 °C. El horno tiene que estar vacío: el bol salió en el minuto 100.",
+      "off": 123,
+      "p": "Veinte minutos es lo que tarda en llegar de verdad a 220 °C con las paredes calientes, no solo el aire. La rejilla va baja porque la fuente es honda y aísla: el calor de abajo tiene que atravesarla para freír la base en el aceite, y la superficie, a 4 cm del fondo, queda lejos de la resistencia de arriba y dora sin quemarse. Sin ventilador, porque el aire forzado secaría los cherry y la superficie antes de que la miga se haga.",
+      "s": 1200,
+      "saco": "",
+      "sinHitos": "El horno sube solo y abrir la puerta solo le quita calor: la señal es el piloto que se apaga, no la vista.",
+      "t": "Precalentar el horno a 220 °C con la rejilla baja",
+      "tapa": null
+    },
+    {
+      "carril": "fuente",
+      "dep": [
+        "cortar"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "coronar",
+      "meto": "la salmuera del vaso medidor, batida con un tenedor + el plato de cherry y olivas",
+      "min": 4,
+      "nota": "Echa media salmuera y hunde los dedos rectos hasta tocar el fondo, por toda la masa. Cherry boca arriba y olivas en los hoyos, y el resto de la salmuera por encima.",
+      "off": 139,
+      "p": "Los dedos hasta el fondo hacen los hoyos que definen la focaccia: rompen las burbujas grandes de la superficie, para que no se infle como un globo, y dejan pozos donde se quedan el aceite y la sal. Los cherry van boca arriba para que el corte se seque y se concentre en el horno en vez de soltar su agua dentro de la miga. La salmuera encima evita que la superficie se seque y da el brillo salado de la focaccia genovesa. Al horno sin esperar: hundida, la masa ya no aguanta mucho.",
+      "s": 240,
+      "saco": "la fuente coronada, al horno",
+      "t": "Hundir los dedos, la salmuera y la corona de cherry y olivas",
+      "tapa": null
+    },
+    {
+      "carril": "horno",
+      "dep": [
+        "coronar"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 720,
+          "t": "Si dora más por un lado, gira la fuente media vuelta"
+        },
+        {
+          "en": 1200,
+          "t": "Mira: superficie dorada y bordes que se despegan de la fuente"
+        },
+        {
+          "en": 1380,
+          "t": "Levanta una esquina con la espátula: la base tiene que estar dorada"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "hornear",
+      "meto": "la fuente coronada, en la rejilla baja",
+      "min": 24,
+      "nota": "Lista con la superficie dorada, los cherry arrugados y la base dorada al levantar una esquina. Si la base sale pálida, 4 minutos más.",
+      "off": 143,
+      "p": "A 220 °C el agua de una masa al 80 % se convierte en vapor de golpe y empuja la miga hacia arriba antes de que la corteza cuaje: eso abre los alveolos. El aceite del fondo llega a freír la base, y el de la superficie dora la parte de arriba y los bordes de los hoyos. Si la fuente es de cristal o de cerámica calienta más despacio que una de metal: por eso va en la rejilla baja y por eso se mira la base, no solo el color de arriba.",
+      "s": 1440,
+      "saco": "la fuente, fuera del horno. Apaga el horno",
+      "t": "Hornear 24 minutos a 220 °C",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "hornear"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "desmoldar",
+      "meto": "la fuente recién salida + la espátula",
+      "min": 3,
+      "nota": "Saca la fuente y después la rejilla, con manoplas, a la encimera. A los 2 minutos despega los bordes con la espátula y pasa la focaccia a la rejilla, base abajo.",
+      "off": 167,
+      "p": "En la fuente la base queda apoyada en su propio vapor y en el aceite caliente, y en cinco minutos el crujiente que han costado 24 minutos de horno se ablanda. Los dos minutos de espera son para que la miga cuaje un poco y la focaccia salga entera; en la rejilla el vapor escapa por abajo y la base se queda seca.",
+      "s": 180,
+      "saco": "",
+      "t": "Desmoldar a la rejilla",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "reposar",
+      "meto": "",
+      "min": 8,
+      "nota": "Sin tapar y sin cortar: la miga todavía se está haciendo con su propio calor.",
+      "off": 170,
+      "p": "Recién salida, la miga todavía tiene el almidón blando y lleno de vapor: cortada ahora se aplasta bajo el cuchillo y sale gomosa. Ocho minutos en la rejilla dejan que el vapor escape y el almidón cuaje, y la focaccia se corta limpia y todavía templada, que es como mejor sabe. Tapada, el vapor volvería a la corteza y la ablandaría.",
+      "s": 480,
+      "saco": "",
+      "t": "Reposar en la rejilla, sin tapar",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "servir",
+      "meto": "la focaccia reposada, a la tabla",
+      "min": 2,
+      "nota": "Con el cuchillo de sierra, en vaivén y sin apretar: un corte a lo largo y dos a lo ancho.",
+      "off": 178,
+      "p": "El cuchillo de sierra corta la corteza crujiente en vaivén, sin apretar; uno liso tendría que presionar y aplastaría los alveolos que han costado tres horas. Un corte a lo largo y dos a lo ancho dan 6 trozos de unos 9 × 10 cm, cada uno con su borde crujiente. Templada acompaña la comida; para la merienda aguanta el día tapada con un paño.",
+      "s": 120,
+      "saco": "6 trozos de focaccia, templados, a la mesa",
+      "t": "Cortar en 6 trozos y servir",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "tomates cherry"
+  ],
+  "pie": "Minutos contados desde que coges el vaso medidor. Los levados son orientativos: manda el volumen. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "La fuente de 28×20, no la bandeja",
+      "Una masa al 80 % no se sostiene sola: en la bandeja, con el doble de superficie, los 750 g se extenderían a 1 cm y saldría una galleta seca, o habría que doblar la masa y el levado. Las paredes de 7 cm la obligan a subir en vez de desparramarse, y el aceite se queda en el fondo friendo la base."
+    ],
+    [
+      "80 % de hidratación y pliegues en vez de amasar",
+      "Con mucha agua el gluten se forma solo con el tiempo, y cada pliegue estira y ordena la red sin amasar. Sale una miga abierta, con alveolos grandes, que es la focaccia; al 65 % saldría un pan de molde aplanado."
+    ],
+    [
+      "Harina de fuerza",
+      "Tiene más proteína que la normal y forma una red que aguanta un 80 % de agua y el gas de dos levados; con la de todo uso la masa se desparrama en la fuente y no retiene el gas."
+    ],
+    [
+      "Levadura al 1,5 % y sitio templado",
+      "Es lo que hace caber los dos levados en dos horas. Con menos levadura y una noche en la nevera gana sabor, pero el plato pasa a ser de un día para otro."
+    ],
+    [
+      "Una pizca de azúcar en el agua",
+      "Da a la levadura algo que comer nada más despertar: la espuma sale en 5 minutos y confirma que está viva antes de jugarse tres horas."
+    ],
+    [
+      "La salmuera, porque no hay sal en escamas",
+      "En la despensa solo hay sal fina: echada en seco se disolvería en manchas saladas. Disuelta en agua y batida con el aceite se reparte por los hoyos, y el agua se evapora en el horno sin secar la superficie."
+    ],
+    [
+      "Orégano, no romero",
+      "No hay romero. El orégano seco va dentro de la salmuera, hidratado y bajo el aceite, para que no se queme en 24 minutos a 220 °C; es además la hierba del tomate. El tomillo pegaría menos con el cherry."
+    ],
+    [
+      "Sin aceite dentro de la masa ni ajo",
+      "El aceite va donde se nota: debajo fríe la base y encima dora; dentro solo ablandaría una miga que ya es tierna por el agua. El ajo laminado encima se quemaría y amargaría en 24 minutos a 220 °C."
+    ],
+    [
+      "Sin fuegos",
+      "El agua tibia sale del grifo, así que la vitro no hace falta: todo el calor es el horno, y la luz del horno apagado hace de cámara de levado."
+    ]
+  ],
+  "raciones": 6,
+  "slug": "focaccia-cherry-olivas",
+  "tags": {
+    "base": "pan",
+    "momento": [
+      "merienda",
+      "comida"
+    ],
+    "proteina": "ninguna",
+    "tecnica": [
+      "fermentacion"
+    ]
+  },
+  "titulo": "Focaccia de cherry y olivas",
+  "totalMin": 180
+}
