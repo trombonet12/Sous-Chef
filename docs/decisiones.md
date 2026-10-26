@@ -440,3 +440,5 @@
   - Los menús ⋮ (cocina y barra) llevan icono de línea y el mismo estilo; fuera la hoja «Ingredientes» de la cocina
     (F8 retirada). La voz «cuánto de X» se queda.
   - O2 y O3 aceptadas: el temporizador se pone al tocar «N min», y «pon N minutos» crea un temporizador libre.
+- **R8 y review-ktx**: `-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite` (solo una anotación;
+  regla de `missing_rules.txt`). El gate local no minimiza la release: se recomienda sumar `:app:minifyReleaseWithR8`.
