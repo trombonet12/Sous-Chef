@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="propuestas_titulo">¿Qué cocino hoy?</string>
-    <string name="propuestas_otra">Otra</string>
+    <string name="propuestas_otras">Otras propuestas</string>
+    <string name="propuestas_vacio">Hoy no hay nada que llegue a tiempo</string>
     <string name="propuesta_quieres">Quieres hacerla</string>
     <string name="propuesta_sin_estrenar">Sin estrenar</string>
     <string name="propuesta_cenar">Llega para cenar</string>

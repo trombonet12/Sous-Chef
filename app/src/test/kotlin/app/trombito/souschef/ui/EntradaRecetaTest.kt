@@ -81,10 +81,10 @@ class EntradaRecetaTest {
     fun sanearConservaElAtajoAunqueVengaConLosExtrasAjenos() {
         val intent =
             Intent(Intent.ACTION_VIEW, "https://evil.example/".toUri())
-                .putExtra(EXTRA_ATAJO, Atajo.CENAS_RAPIDAS.clave)
+                .putExtra(EXTRA_ATAJO, Atajo.QUE_ME_DA_TIEMPO.clave)
                 .putExtra(NavController.KEY_DEEP_LINK_IDS, intArrayOf(7))
         val saneado = sanearIntent(intent)
-        assertEquals(Atajo.CENAS_RAPIDAS, atajoDe(saneado))
+        assertEquals(Atajo.QUE_ME_DA_TIEMPO, atajoDe(saneado))
         assertNull(saneado.data)
         assertFalse(saneado.hasExtra(NavController.KEY_DEEP_LINK_IDS))
     }

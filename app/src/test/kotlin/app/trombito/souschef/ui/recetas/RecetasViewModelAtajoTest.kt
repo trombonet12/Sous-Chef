@@ -6,6 +6,7 @@ import app.trombito.souschef.ui.CLAVE_ATAJO_TIEMPO
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
+import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -52,6 +53,18 @@ class RecetasViewModelAtajoTest {
 
             assertNotNull(vm.estado.value.tiempo)
             assertEquals(false, estado.get<Boolean>(CLAVE_ATAJO_TIEMPO))
+        }
+
+    @Test
+    fun `la clave antigua de cenas rapidas ya no abre una lista especial ni pone filtros`() =
+        runTest(UnconfinedTestDispatcher()) {
+            val estado = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to "cenas-rapidas"))
+            val vm = viewModel(estado)
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
+            assertNull(vm.estado.value.familiaFija)
+            assertEquals(emptyList<OpcionFiltro>(), vm.estado.value.activos)
+            assertNull(vm.estado.value.tiempo)
         }
 
     @Test

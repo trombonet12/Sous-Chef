@@ -30,7 +30,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-/** Temporizador libre en la cocina (ADR-0016): «+ Temporizador» y la voz llegan aquí. */
+/** Temporizador libre en la cocina (ADR-0016): «Temporizador» y la voz llegan aquí. */
 @OptIn(ExperimentalCoroutinesApi::class)
 class CronoViewModelTemporizadorTest {
     private val creados = mutableListOf<CronoViewModel>()

@@ -10,6 +10,7 @@ import app.trombito.souschef.receta.Tags
 import app.trombito.souschef.ui.FakeHistorialRepo
 import app.trombito.souschef.ui.FakePreferenciasRepo
 import app.trombito.souschef.ui.FakeRecetasRepo
+import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.crono.FakeAjustesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +24,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -74,23 +75,25 @@ class RecetasViewModelPropuestasTest {
     private val recetas =
         (1..7).map { Receta(slug = "r$it", titulo = "R$it", totalMin = 60.0, tags = Tags(base = "b$it")) }
 
-    private fun viewModel(repo: PropuestasFalso) =
-        RecetasViewModel(
-            SavedStateHandle(),
-            FakeRecetasRepo(recetas),
-            FakePreferenciasRepo(),
-            FakeHistorialRepo(),
-            FakeAjustesRepo(),
-            reloj,
-            repo,
-        )
+    private fun viewModel(
+        repo: PropuestasFalso,
+        lista: List<Receta> = recetas,
+    ) = RecetasViewModel(
+        SavedStateHandle(),
+        FakeRecetasRepo(lista),
+        FakePreferenciasRepo(),
+        FakeHistorialRepo(),
+        FakeAjustesRepo(),
+        reloj,
+        repo,
+    )
 
     private fun RecetasViewModel.propuestos(): List<String> =
         estado.value.propuestas
             .map { it.receta.slug }
 
     @Test
-    fun ensenaTresPropuestasLasAnotaYOtraEnsenaLasSiguientes() =
+    fun ensenaTresPropuestasYSoloLasAnotaAlAbrirElPanelYTrasCadaOtra() =
         runTest(UnconfinedTestDispatcher()) {
             val repo = PropuestasFalso()
             val vm = viewModel(repo)
@@ -98,32 +101,82 @@ class RecetasViewModelPropuestasTest {
 
             val primeras = vm.propuestos()
             assertEquals(3, primeras.size)
-            assertTrue(vm.estado.value.hayOtraPropuesta)
             assertEquals(hoy, vm.estado.value.diaPropuestas)
+            // Pintar la lista no anota nada: solo cuenta lo que enseña el panel.
+            assertNull(repo.mostradas)
+
+            vm.propuestasVistas()
             assertEquals(primeras.toSet(), ContadorPropuestas.mostradasDe(repo.mostradas, hoy))
 
             vm.otraPropuesta()
-
             val siguientes = vm.propuestos()
             assertEquals(3, siguientes.size)
             assertTrue(primeras.intersect(siguientes.toSet()).isEmpty())
+            assertEquals(primeras.toSet(), ContadorPropuestas.mostradasDe(repo.mostradas, hoy))
+
+            vm.propuestasVistas()
             assertEquals((primeras + siguientes).toSet(), ContadorPropuestas.mostradasDe(repo.mostradas, hoy))
         }
 
     @Test
-    fun alBuscarOFiltrarLaTarjetaDesaparece() =
+    fun conTresCandidatasOMenosOtraDejaLasMismas() =
+        runTest(UnconfinedTestDispatcher()) {
+            val repo = PropuestasFalso()
+            val vm = viewModel(repo, recetas.take(3))
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+            val primeras = vm.propuestos()
+            assertEquals(3, primeras.size)
+
+            vm.otraPropuesta()
+
+            assertEquals(primeras, vm.propuestos())
+            assertEquals(1, repo.otra.value?.veces)
+        }
+
+    @Test
+    fun sinPropuestasNoAnotaNadaAlAbrirElPanel() =
+        runTest(UnconfinedTestDispatcher()) {
+            val repo = PropuestasFalso()
+            val vm = viewModel(repo, emptyList())
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+            assertTrue(vm.propuestos().isEmpty())
+
+            vm.propuestasVistas()
+
+            assertNull(repo.mostradas)
+        }
+
+    @Test
+    fun alBuscarOFiltrarLasPropuestasSiguenPorqueElPanelNoDependeDeLaLista() =
         runTest(UnconfinedTestDispatcher()) {
             val vm = viewModel(PropuestasFalso())
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
-            assertFalse(vm.propuestos().isEmpty())
+            val propuestas = vm.propuestos()
+            assertFalse(propuestas.isEmpty())
 
             vm.buscar("r1")
-            assertTrue(vm.propuestos().isEmpty())
+            assertEquals(propuestas, vm.propuestos())
 
             vm.buscar("")
-            assertNotEquals(0, vm.propuestos().size)
-
             vm.alternarFiltro(OpcionFiltro.Base(FamiliaBase.PASTA))
+            assertEquals(propuestas, vm.propuestos())
+        }
+
+    @Test
+    fun enLaListaDeUnaFamiliaNoHayPropuestas() =
+        runTest(UnconfinedTestDispatcher()) {
+            val vm =
+                RecetasViewModel(
+                    SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to "pasta")),
+                    FakeRecetasRepo(recetas.map { it.copy(tags = Tags(base = "pasta")) }),
+                    FakePreferenciasRepo(),
+                    FakeHistorialRepo(),
+                    FakeAjustesRepo(),
+                    reloj,
+                    PropuestasFalso(),
+                )
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
+
             assertTrue(vm.propuestos().isEmpty())
         }
 }

@@ -227,7 +227,7 @@ class RecetasLogicaTest {
     }
 
     @Test
-    fun filtroDeMomentoCuentaSoloLasQueLoDeclaranYLasCenasRapidasSeCuentan() {
+    fun filtroDeMomentoCuentaSoloLasQueLoDeclaranYSeCombinaConElTramoRapido() {
         fun Receta.en(vararg m: Momento) = copy(tags = tags.copy(momento = m.toList()))
         val cenaRapida = r("tortilla", min = 20.0).en(Momento.CENA)
         val cenaLarga = r("guiso", min = 60.0).en(Momento.CENA, Momento.COMIDA)
@@ -240,9 +240,13 @@ class RecetasLogicaTest {
         assertEquals(2, cenas.chip(OpcionFiltro.MomentoDia(Momento.CENA))?.n)
         assertEquals(2, cenas.chip(OpcionFiltro.MomentoDia(Momento.COMIDA))?.n)
         assertEquals(null, cenas.chip(OpcionFiltro.MomentoDia(Momento.POSTRE)))
-        assertEquals(1, cenas.cenasRapidas)
 
-        val rapidas = estado(lista, activos = FILTROS_CENAS_RAPIDAS)
+        // Cena y «Hasta 30 min» siguen filtrando juntos aunque ya no haya cuadradito ni atajo de «Cenas rápidas».
+        val rapidas =
+            estado(
+                lista,
+                activos = setOf(OpcionFiltro.MomentoDia(Momento.CENA), OpcionFiltro.Tiempo(TramoTiempo.RAPIDA)),
+            )
         assertEquals(listOf("tortilla"), rapidas.slugs())
         assertEquals(1, rapidas.chip(OpcionFiltro.Tiempo(TramoTiempo.RAPIDA))?.n)
     }
@@ -536,7 +540,7 @@ class RecetasViewModelTest {
         }
 
     @Test
-    fun laClaveCenasRapidasAbreLaListaConLosFiltrosPuestos() =
+    fun laClaveAntiguaCenasRapidasYaNoPoneFiltrosNiFamilia() =
         runTest(UnconfinedTestDispatcher()) {
             fun cena(
                 slug: String,
@@ -544,20 +548,16 @@ class RecetasViewModelTest {
             ) = receta(slug).let { it.copy(totalMin = min, tags = it.tags.copy(momento = listOf(Momento.CENA))) }
 
             val recetas = FakeRecetasRepo(listOf(cena("tortilla", 20.0), cena("guiso", 90.0), receta("pan")))
-            val args = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to Rutas.CENAS_RAPIDAS))
+            val args = SavedStateHandle(mapOf(Rutas.ARG_FAMILIA to "cenas-rapidas"))
             val vm =
                 RecetasViewModel(args, recetas, FakePreferenciasRepo(), FakeHistorialRepo(), FakeAjustesRepo(), { 0L })
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
 
-            assertTrue(vm.estado.value.listaCenasRapidas)
             assertEquals(null, vm.estado.value.familiaFija)
-            assertEquals(
-                listOf("tortilla"),
-                vm.estado.value.tarjetas
-                    .map { it.receta.slug },
+            assertTrue(
+                vm.estado.value.activos
+                    .isEmpty(),
             )
-            assertEquals(1, vm.estado.value.cenasRapidas)
-            vm.limpiarFiltros()
             assertEquals(3, vm.estado.value.tarjetas.size)
         }
 

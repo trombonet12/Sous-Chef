@@ -27,7 +27,6 @@ const val CLAVE_ATAJO_TIEMPO = "atajo_que_me_da_tiempo"
 enum class Atajo(
     val clave: String,
 ) {
-    CENAS_RAPIDAS("cenas_rapidas"),
     QUE_ME_DA_TIEMPO("que_me_da_tiempo"),
     VOLVER_COCINA("volver_cocina"),
     ;
@@ -48,18 +47,14 @@ data class DestinoAtajo(
 )
 
 /**
- * Destino de [atajo]. Los dos de Recetas son una entrada normal a Recetas (pestaña o lista de Cenas rápidas); «Volver a
- * la cocina» entra al cronómetro de la cocinada viva [slugViva] y, si no hay ninguna, a Recetas.
+ * Destino de [atajo]. «¿Qué me da tiempo?» es una entrada normal a Recetas; «Volver a la cocina» entra al
+ * cronómetro de la cocinada viva [slugViva] y, si no hay ninguna, a Recetas.
  */
 fun destinoDeAtajo(
     atajo: Atajo,
     slugViva: String?,
 ): DestinoAtajo =
     when (atajo) {
-        Atajo.CENAS_RAPIDAS -> {
-            DestinoAtajo(Rutas.recetasFamilia(Rutas.CENAS_RAPIDAS))
-        }
-
         Atajo.QUE_ME_DA_TIEMPO -> {
             DestinoAtajo(Pestana.Recetas.ruta, modoTiempo = true)
         }

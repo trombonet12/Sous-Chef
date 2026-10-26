@@ -11,7 +11,6 @@ import app.trombito.souschef.domain.HistorialRepo
 import app.trombito.souschef.domain.HoraTarjeta
 import app.trombito.souschef.domain.OrdenRecetas
 import app.trombito.souschef.domain.OtraDelDia
-import app.trombito.souschef.domain.PROPUESTAS_MAX
 import app.trombito.souschef.domain.Preferencia
 import app.trombito.souschef.domain.PreferenciasRepo
 import app.trombito.souschef.domain.PropuestasRepo
@@ -38,7 +37,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -65,23 +63,15 @@ class RecetasViewModel
         private val reloj: Reloj,
         private val propuestasRepo: PropuestasRepo = SinPropuestas,
     ) : ViewModel() {
-        /**
-         * La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. La
-         * clave [Rutas.CENAS_RAPIDAS] abre la misma lista con los filtros de cena y rápida puestos.
-         */
+        /** La familia de la ruta `recetas/familia/{familia}` (nombre del enum en minúsculas), o null en la pestaña. */
         private val familiaFija: FamiliaBase? =
             savedStateHandle.get<String>(Rutas.ARG_FAMILIA)?.let { nombre ->
                 FamiliaBase.entries.firstOrNull { it.name.equals(nombre, ignoreCase = true) }
             }
-        private val cenasRapidas: Boolean = savedStateHandle.get<String>(Rutas.ARG_FAMILIA) == Rutas.CENAS_RAPIDAS
-        private val filtro =
-            MutableStateFlow(
-                FiltroRecetas(
-                    activos = if (cenasRapidas) FILTROS_CENAS_RAPIDAS else emptySet(),
-                    familiaFija = familiaFija,
-                    cenasRapidas = cenasRapidas,
-                ),
-            )
+        private val filtro = MutableStateFlow(FiltroRecetas(familiaFija = familiaFija))
+
+        /** Lo último que se anotó como enseñado, para no repetir la misma anotación. */
+        private var ultimaAnotada: Pair<LocalDate, List<String>>? = null
 
         val estado: StateFlow<RecetasUiState> =
             combine(
@@ -102,12 +92,6 @@ class RecetasViewModel
                     f.copy(orden = a.orden),
                     contextoLista(a, ahoraMs, ritmosPorSlug(r, entradas)),
                 ).copy(disposicion = a.lista).conPropuestas(r, entradas, p, a, ahoraMs, otra, f)
-            }.onEach { e ->
-                // Lo que se enseña queda anotado para saber, al cocinar, si la receta estaba propuesta ese día.
-                val dia = e.diaPropuestas
-                if (dia != null && e.propuestas.isNotEmpty()) {
-                    propuestasRepo.mostrar(dia, e.propuestas.map { it.receta.slug })
-                }
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RecetasUiState())
 
         init {
@@ -183,9 +167,25 @@ class RecetasViewModel
             viewModelScope.launch { ajustes.fijarOrden(orden) }
         }
 
-        /** «Otra» en «¿Qué cocino hoy?»: pasa a las 3 propuestas siguientes (el contador se reinicia cada día). */
+        /**
+         * El ↻ del panel «¿Qué cocino hoy?»: pasa a las 3 propuestas siguientes (el contador se reinicia cada día).
+         * Si no hay más candidatas que las 3 de ahora, se quedan las mismas.
+         */
         fun otraPropuesta() {
             viewModelScope.launch { propuestasRepo.otra(diaLocal(reloj.ahoraMs())) }
+        }
+
+        /**
+         * El panel «¿Qué cocino hoy?» enseña las propuestas de ahora (al abrirse y tras cada ↻): quedan anotadas para
+         * saber, al cocinar, si la receta estaba propuesta ese día. Pintar la lista sin abrir el panel no anota nada.
+         */
+        fun propuestasVistas() {
+            val e = estado.value
+            val dia = e.diaPropuestas ?: return
+            val slugs = e.propuestas.map { it.receta.slug }
+            if (slugs.isEmpty() || ultimaAnotada == dia to slugs) return
+            ultimaAnotada = dia to slugs
+            viewModelScope.launch { propuestasRepo.mostrar(dia, slugs) }
         }
 
         fun alternarFavorita(
@@ -209,8 +209,8 @@ private fun diaLocal(ahoraMs: Long): LocalDate =
         .toLocalDate()
 
 /**
- * Pone las propuestas del día en el estado. Solo en la pestaña sin buscar ni filtrar (donde sale la tarjeta); la
- * semilla es la fecha local, así que no cambian durante el día salvo con «Otra».
+ * Pone las propuestas del día en el estado. Solo en la pestaña (donde sale el chip), con o sin búsqueda y filtros: el
+ * panel no depende de la lista. La semilla es la fecha local, así que no cambian durante el día salvo con el ↻.
  */
 @Suppress("LongParameterList") // todo lo que mira la función pura, ya leído por el flujo
 private fun RecetasUiState.conPropuestas(
@@ -222,14 +222,12 @@ private fun RecetasUiState.conPropuestas(
     otra: OtraDelDia?,
     filtro: FiltroRecetas,
 ): RecetasUiState {
-    val enPestana = filtro.familiaFija == null && !filtro.cenasRapidas
-    if (!enPestana || filtro.consulta.isNotBlank() || filtro.activos.isNotEmpty()) return this
+    if (filtro.familiaFija != null) return this
     val ahora = Instant.ofEpochMilli(ahoraMs).atZone(ZoneId.systemDefault()).toLocalDateTime()
     val dia = ahora.toLocalDate()
     val todas = candidatas(recetas, historial, preferencias, ajustes, ahora, dia)
     return copy(
         propuestas = ventana(todas, ContadorPropuestas.vecesHoy(otra, dia)),
-        hayOtraPropuesta = todas.size > PROPUESTAS_MAX,
         diaPropuestas = dia,
     )
 }

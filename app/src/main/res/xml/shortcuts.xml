@@ -35,19 +35,4 @@
                 android:value="que_me_da_tiempo" />
         </intent>
     </shortcut>
-    <shortcut
-        android:shortcutId="cenas_rapidas"
-        android:enabled="true"
-        android:icon="@drawable/ic_atajo_cenas"
-        android:shortcutShortLabel="@string/atajo_cenas_corta"
-        android:shortcutLongLabel="@string/atajo_cenas_larga">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="app.trombito.souschef"
-            android:targetClass="app.trombito.souschef.MainActivity">
-            <extra
-                android:name="atajo"
-                android:value="cenas_rapidas" />
-        </intent>
-    </shortcut>
 </shortcuts>

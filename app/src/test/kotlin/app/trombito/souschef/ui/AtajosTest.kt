@@ -43,20 +43,16 @@ class AtajosTest {
     fun `el extra atajo se lee del intent y uno desconocido o ausente no es ningun atajo`() {
         fun intent(valor: String?) = Intent().apply { if (valor != null) putExtra(EXTRA_ATAJO, valor) }
 
-        assertEquals(Atajo.CENAS_RAPIDAS, atajoDe(intent("cenas_rapidas")))
         assertEquals(Atajo.QUE_ME_DA_TIEMPO, atajoDe(intent("que_me_da_tiempo")))
         assertEquals(Atajo.VOLVER_COCINA, atajoDe(intent("volver_cocina")))
         assertNull(atajoDe(intent("otra_cosa")))
+        assertNull("«Cenas rápidas» ya no es un atajo", atajoDe(intent("cenas_rapidas")))
         assertNull(atajoDe(intent(null)))
         assertNull(atajoDe(null))
     }
 
     @Test
-    fun `cenas rapidas abre la lista de cenas rapidas y que me da tiempo abre Recetas con el modo`() {
-        assertEquals(
-            DestinoAtajo("recetas/familia/cenas-rapidas"),
-            destinoDeAtajo(Atajo.CENAS_RAPIDAS, slugViva = "lasana"),
-        )
+    fun `que me da tiempo abre Recetas con el modo`() {
         assertEquals(DestinoAtajo("recetas", modoTiempo = true), destinoDeAtajo(Atajo.QUE_ME_DA_TIEMPO, null))
     }
 
@@ -105,10 +101,12 @@ class AtajosTest {
     }
 
     @Test
-    fun `shortcuts xml tiene los tres atajos con intent explicito a MainActivity y el extra de cada Atajo`() {
+    fun `shortcuts xml tiene los dos atajos con intent explicito a MainActivity y el extra de cada Atajo`() {
         val atajos = leerShortcuts()
 
+        assertEquals(2, Atajo.entries.size)
         assertEquals(Atajo.entries.size, atajos.size)
+        assertTrue(atajos.none { it.id == "cenas_rapidas" })
         assertEquals(Atajo.entries.map { it.clave }.toSet(), atajos.mapNotNull { it.extra }.toSet())
         atajos.forEach {
             assertEquals(it.extra, it.id)
@@ -150,10 +148,6 @@ class AtajosTest {
                 NavHost(controlador, startDestination = inicio) {
                     composable(Pestana.Recetas.ruta) { Text("recetas") }
                     composable(
-                        Rutas.RECETAS_FAMILIA,
-                        arguments = listOf(navArgument(Rutas.ARG_FAMILIA) { type = NavType.StringType }),
-                    ) { Text("familia") }
-                    composable(
                         Rutas.CRONO,
                         arguments =
                             listOf(
@@ -182,11 +176,10 @@ class AtajosTest {
     }
 
     @Test
-    fun `cenas rapidas lleva a la lista de cenas rapidas con Recetas debajo`() {
+    fun `el atajo retirado de cenas rapidas se descarta sin navegar`() {
         val m = Montaje("cenas_rapidas", viva = null)
-        assertEquals(Rutas.RECETAS_FAMILIA, m.ruta)
-        assertEquals("cenas-rapidas", m.argumento(Rutas.ARG_FAMILIA))
-        assertEquals(Pestana.Recetas.ruta, m.debajo)
+        assertEquals(Pestana.Recetas.ruta, m.ruta)
+        assertNull(m.debajo)
         assertEquals(1, m.aplicados)
     }
 
@@ -229,7 +222,7 @@ class AtajosTest {
 
     @Test
     fun `con la intro sin ver el atajo se descarta y se queda la intro`() {
-        val m = Montaje("cenas_rapidas", viva = null, inicio = Rutas.BIENVENIDA)
+        val m = Montaje("que_me_da_tiempo", viva = null, inicio = Rutas.BIENVENIDA)
         assertEquals(Rutas.BIENVENIDA, m.ruta)
         assertEquals(1, m.aplicados)
     }

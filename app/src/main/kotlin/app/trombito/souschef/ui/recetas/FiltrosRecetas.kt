@@ -248,11 +248,3 @@ data class RasgosReceta(
         }
     }
 }
-
-/** Una «cena rápida»: de cena y de [TramoTiempo.RAPIDA_HASTA] minutos o menos. */
-fun esCenaRapida(receta: Receta): Boolean =
-    Momento.CENA in receta.tags.momento.orEmpty() && TramoTiempo.de(receta.totalEfectivo) == TramoTiempo.RAPIDA
-
-/** Las opciones que dejan solo las cenas rápidas: momento Cena y tramo rápido. */
-val FILTROS_CENAS_RAPIDAS: Set<OpcionFiltro> =
-    setOf(OpcionFiltro.MomentoDia(Momento.CENA), OpcionFiltro.Tiempo(TramoTiempo.RAPIDA))

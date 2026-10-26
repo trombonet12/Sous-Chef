@@ -174,14 +174,8 @@ data class RecetasUiState(
     val tiempo: ModoTiempo? = null,
     /** Con el modo puesto, la hora de servir ya pasó y no hay margen: no llega ninguna. */
     val tiempoVencido: Boolean = false,
-    /** Cuántas recetas son cenas rápidas (sobre todas las recetas): el cuadradito de arriba se oculta con 0. */
-    val cenasRapidas: Int = 0,
-    /** Si la lista es la de «Cenas rápidas» (se abre desde su cuadradito): lleva barra de título y atrás. */
-    val listaCenasRapidas: Boolean = false,
-    /** «¿Qué cocino hoy?»: hasta 3 recetas del día; vacío al buscar, filtrar o en la lista de una familia. */
+    /** «¿Qué cocino hoy?»: hasta 3 recetas del día; vacío en la lista de una familia (el chip no sale). */
     val propuestas: List<Propuesta> = emptyList(),
-    /** Hay más de 3 candidatas, así que «Otra» enseña otras. */
-    val hayOtraPropuesta: Boolean = false,
     /** El día (local) de las [propuestas]; sirve para anotar qué se enseñó ese día. */
     val diaPropuestas: LocalDate? = null,
 )
@@ -236,8 +230,6 @@ data class FiltroRecetas(
     val familiaFija: FamiliaBase? = null,
     /** Modo «¿Qué me da tiempo?»; null = apagado. No se guarda. */
     val tiempo: ModoTiempo? = null,
-    /** La lista se abrió desde el cuadradito «Cenas rápidas» (los filtros de cena y rápida ya vienen puestos). */
-    val cenasRapidas: Boolean = false,
 )
 
 /** Las familias con al menos una receta y cuántas tiene cada una, en el orden del enum. */
@@ -346,8 +338,6 @@ fun construirEstadoRecetas(
         horno = contexto.horno,
         categorias = categoriasDe(todasLasRecetas),
         familiaFija = familiaFija,
-        cenasRapidas = todasLasRecetas.count(::esCenaRapida),
-        listaCenasRapidas = filtro.cenasRapidas,
         tiempo = filtro.tiempo,
         tiempoVencido = filtro.tiempo?.let { QueMeDaTiempo.margen(contexto.ahoraMin, it.servirMin) == null } == true,
     )

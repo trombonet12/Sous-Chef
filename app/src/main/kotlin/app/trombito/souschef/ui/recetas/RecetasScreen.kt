@@ -32,13 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.trombito.souschef.R
-import app.trombito.souschef.ui.Rutas
 import app.trombito.souschef.ui.comun.BarraTitulo
 import app.trombito.souschef.ui.comun.CategoriaVista
 import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.RejillaCategorias
-import app.trombito.souschef.ui.comun.TonoPaleta
-import app.trombito.souschef.ui.comun.colorTono
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
 
@@ -63,6 +60,7 @@ fun RecetasScreen(
             onAtras,
             viewModel::otraPropuesta,
             onPedir,
+            viewModel::propuestasVistas,
         )
     val tiempo =
         remember(viewModel) {
@@ -77,9 +75,10 @@ fun RecetasScreen(
 }
 
 /**
- * Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, volver, pedir «Otra» y, con la
- * búsqueda vacía, pedir al Buzón lo buscado.
+ * Lo que se puede hacer desde la lista: marcar favorita, abrir una receta o una familia, volver, pedir otras propuestas
+ * (↻), anotar las que enseña el panel y, con la búsqueda vacía, pedir al Buzón lo buscado.
  */
+@Suppress("LongParameterList") // un callback por gesto de la lista
 class AccionesLista(
     val favorita: (String, Boolean) -> Unit,
     val abrir: (String) -> Unit,
@@ -87,6 +86,7 @@ class AccionesLista(
     val atras: () -> Unit = {},
     val otra: () -> Unit = {},
     val pedir: (String) -> Unit = {},
+    val vistas: () -> Unit = {},
 )
 
 @Composable
@@ -110,9 +110,22 @@ fun RecetasContenido(
         tiempo.salir()
     }
     val familia = estado.familiaFija
+    val enPestana = familia == null
+    var panelAbierto by rememberSaveable { mutableStateOf(false) }
+    if (panelAbierto && enPestana) {
+        PanelPropuestas(
+            propuestas = estado.propuestas,
+            onAbrir = {
+                panelAbierto = false
+                lista.abrir(it)
+            },
+            onOtra = lista.otra,
+            onVistas = lista.vistas,
+            onCerrar = { panelAbierto = false },
+        )
+    }
     Column(Modifier.fillMaxSize()) {
         if (familia != null) BarraTitulo(textoOpcion(OpcionFiltro.Base(familia)), lista.atras)
-        if (estado.listaCenasRapidas) BarraTitulo(stringResource(R.string.cenas_rapidas), lista.atras)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
@@ -124,18 +137,15 @@ fun RecetasContenido(
                     onBuscar,
                     acciones.alternar,
                     { hojaAbierta = true },
-                    { ChipTiempo(estado, abrirTiempo, salirTiempo) },
+                    {
+                        if (enPestana) ChipPropuestas { panelAbierto = true }
+                        ChipTiempo(estado, abrirTiempo, salirTiempo)
+                    },
                 )
             }
             val sinBusqueda = estado.consulta.isBlank() && estado.activos.isEmpty()
-            val enPestana = familia == null && !estado.listaCenasRapidas
-            if (enPestana && sinBusqueda && estado.propuestas.isNotEmpty()) {
-                item(key = "propuestas") {
-                    TarjetaPropuestas(estado.propuestas, estado.hayOtraPropuesta, lista.abrir, lista.otra)
-                }
-            }
             if (enPestana && sinBusqueda && estado.categorias.size >= MIN_CATEGORIAS) {
-                item { CategoriasFamilia(estado.categorias, estado.cenasRapidas, lista.categoria) }
+                item { CategoriasFamilia(estado.categorias, lista.categoria) }
                 item { HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant) }
             }
             cuerpo(estado, lista, acciones.limpiar)
@@ -145,14 +155,10 @@ fun RecetasContenido(
 
 private const val MIN_CATEGORIAS = 2
 
-/**
- * Los cuadraditos de la pestaña, «Cenas rápidas» el primero (si hay alguna) y luego uno por familia: tocar uno abre su
- * lista (clave = nombre de la familia en minúsculas, o [Rutas.CENAS_RAPIDAS]).
- */
+/** Los cuadraditos de la pestaña, uno por familia: tocar uno abre su lista (clave = la familia en minúsculas). */
 @Composable
 private fun CategoriasFamilia(
     categorias: List<Pair<FamiliaBase, Int>>,
-    cenasRapidas: Int,
     onCategoria: (String) -> Unit,
 ) {
     val familias =
@@ -165,19 +171,7 @@ private fun CategoriasFamilia(
                 recuento = pluralStringResource(R.plurals.recetas_conteo, n, n),
             )
         }
-    val rapidas =
-        if (cenasRapidas > 0) {
-            CategoriaVista(
-                clave = Rutas.CENAS_RAPIDAS,
-                nombre = stringResource(R.string.cenas_rapidas),
-                icono = Icono.Crono,
-                color = colorTono(TonoPaleta.AMBAR),
-                recuento = pluralStringResource(R.plurals.recetas_conteo, cenasRapidas, cenasRapidas),
-            )
-        } else {
-            null
-        }
-    RejillaCategorias(listOfNotNull(rapidas) + familias, onCategoria)
+    RejillaCategorias(familias, onCategoria)
 }
 
 private fun FamiliaBase.icono(): Icono =

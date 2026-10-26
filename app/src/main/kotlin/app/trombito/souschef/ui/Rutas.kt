@@ -19,9 +19,6 @@ object Rutas {
     /** Largo máximo de [ARG_PLATO]: lo que sobra se corta. */
     const val PLATO_MAX = 100
 
-    /** Valor de [ARG_FAMILIA] que abre la lista de «Cenas rápidas» en vez de la de una familia. */
-    const val CENAS_RAPIDAS = "cenas-rapidas"
-
     /** Intro de primer arranque: sin barras, y al acabar limpia la pila y va a Recetas. */
     const val BIENVENIDA = "bienvenida"
 

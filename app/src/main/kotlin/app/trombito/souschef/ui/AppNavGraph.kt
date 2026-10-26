@@ -160,7 +160,7 @@ private fun NavGraphBuilder.listas(
     }
     composable(Rutas.RECETAS_FAMILIA, arguments = listOf(ARG_FAMILIA)) {
         RecetasScreen(onAbrir = abrirFicha, onAtras = { navController.popBackStack() }, onPedir = pedir)
-        // Si se llegó con un atajo (Cenas rápidas), las novedades pendientes salen aquí, como en la pestaña.
+        // Las novedades pendientes salen también aquí, como en la pestaña.
         PuertaNovedades(onReceta = abrirFicha)
     }
     composable(Pestana.Tecnicas.ruta) {

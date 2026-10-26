@@ -39,8 +39,6 @@
     <string name="filtro_momento_merienda">Merienda</string>
     <string name="filtro_momento_postre">Postre</string>
 
-    <string name="cenas_rapidas">Cenas rápidas</string>
-
     <string name="filtro_base_pasta">Pasta</string>
     <string name="filtro_base_arroz">Arroz</string>
     <string name="filtro_base_patata">Patata</string>
