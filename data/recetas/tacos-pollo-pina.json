@@ -1,0 +1,562 @@
+{
+  "actualizada": "2026-10-26T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "plancha",
+      "nombre": "PLANCHA · FUEGO GRANDE",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN HONDA · FUEGO MEDIANO",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "En el filete fino la fibra corre a lo largo de la pieza. Cortadas en perpendicular a ella, tiras de 1 cm de ancho y 4 cm de largo: cada hebra mide un centímetro y el bocado se rompe con los dientes, en vez de tirar del relleno fuera de una tortilla tan pequeña. En tiras y no en filete entero porque la marinada solo dura diez minutos y no entra más de un par de milímetros: con más superficie, más carne lleva especias.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Filete fino de pechuga con la fibra en horizontal, cortes verticales cada centímetro y un corte horizontal que deja tiras de 4 cm\"><path d=\"M8 34c8-14 46-20 80-14 16 3 24 12 22 24-2 15-20 28-52 30-26 2-44-8-48-20-2-7-3-13-2-20z\" fill=\"#E9B8A6\" fill-opacity=\".18\" stroke=\"#B9826E\"/><g stroke=\"#B9826E\" stroke-width=\".7\" opacity=\".65\"><path d=\"M14 34h94M12 44h98M14 54h94M22 64h76\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"4 3\"><line x1=\"22\" y1=\"14\" x2=\"22\" y2=\"78\"/><line x1=\"34\" y1=\"14\" x2=\"34\" y2=\"78\"/><line x1=\"46\" y1=\"14\" x2=\"46\" y2=\"78\"/><line x1=\"58\" y1=\"14\" x2=\"58\" y2=\"78\"/><line x1=\"70\" y1=\"14\" x2=\"70\" y2=\"78\"/><line x1=\"82\" y1=\"14\" x2=\"82\" y2=\"78\"/><line x1=\"94\" y1=\"14\" x2=\"94\" y2=\"78\"/><line x1=\"6\" y1=\"48\" x2=\"114\" y2=\"48\"/></g></svg>",
+      "t": "Pollo · tiras de 1 cm, cruzando la fibra"
+    },
+    {
+      "p": "Media cebolla bocabajo y cortes de la raíz a la punta, siguiendo las capas. Siguiendo la fibra se rompen menos células que cruzándola: sale menos compuesto picante y la tira aguanta crujiente en el vinagre. A 2 mm el ácido la atraviesa en diez minutos; más gruesa, el centro seguiría crudo y picante en el montaje.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla morada bocabajo con las capas en arco y cortes finos que van de la raíz a la punta\"><path d=\"M10 74 A50 56 0 0 1 110 74 Z\" fill=\"#8E5A8C\" fill-opacity=\".14\" stroke=\"#8E5A8C\"/><g stroke=\"#8E5A8C\" stroke-width=\".8\" opacity=\".6\" fill=\"none\"><path d=\"M22 74 A38 44 0 0 1 98 74\"/><path d=\"M34 74 A26 32 0 0 1 86 74\"/><path d=\"M46 74 A14 20 0 0 1 74 74\"/></g><g stroke=\"#17150F\" stroke-width=\"1.1\" stroke-dasharray=\"3 2\"><line x1=\"60\" y1=\"18\" x2=\"60\" y2=\"74\"/><line x1=\"60\" y1=\"18\" x2=\"44\" y2=\"74\"/><line x1=\"60\" y1=\"18\" x2=\"28\" y2=\"74\"/><line x1=\"60\" y1=\"18\" x2=\"76\" y2=\"74\"/><line x1=\"60\" y1=\"18\" x2=\"92\" y2=\"74\"/><line x1=\"60\" y1=\"18\" x2=\"16\" y2=\"70\"/><line x1=\"60\" y1=\"18\" x2=\"104\" y2=\"70\"/></g></svg>",
+      "t": "Cebolla morada · juliana de 2 mm, de polo a polo"
+    },
+    {
+      "p": "La fibra de la piña corre a lo largo de la fruta, así que en la rodaja ya va de cara a cara: cortada en 12 cuñas desde el agujero hacia fuera y cada cuña por la mitad, cada dado lleva fibra de 1 cm y se muerde sin hebras. Del tamaño de las tiras de pollo, para que se mezclen y cada taco lleve de los dos.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Rodaja de piña con el agujero central, cortes radiales en cuñas y un corte circular que las parte por la mitad\"><circle cx=\"60\" cy=\"44\" r=\"38\" fill=\"#E9C46A\" fill-opacity=\".28\" stroke=\"#C9A13E\"/><circle cx=\"60\" cy=\"44\" r=\"12\" fill=\"#FFFFFF\" fill-opacity=\".6\" stroke=\"#C9A13E\"/><g fill=\"#C9A13E\" opacity=\".55\"><circle cx=\"60\" cy=\"14\" r=\"1\"/><circle cx=\"86\" cy=\"44\" r=\"1\"/><circle cx=\"60\" cy=\"74\" r=\"1\"/><circle cx=\"34\" cy=\"44\" r=\"1\"/></g><g stroke=\"#17150F\" stroke-width=\"1.1\" stroke-dasharray=\"3 2\" fill=\"none\"><circle cx=\"60\" cy=\"44\" r=\"25\"/><line x1=\"60\" y1=\"32\" x2=\"60\" y2=\"6\"/><line x1=\"66\" y1=\"33.6\" x2=\"79\" y2=\"11.1\"/><line x1=\"70.4\" y1=\"38\" x2=\"92.9\" y2=\"25\"/><line x1=\"72\" y1=\"44\" x2=\"98\" y2=\"44\"/><line x1=\"70.4\" y1=\"50\" x2=\"92.9\" y2=\"63\"/><line x1=\"66\" y1=\"54.4\" x2=\"79\" y2=\"76.9\"/><line x1=\"60\" y1=\"56\" x2=\"60\" y2=\"82\"/><line x1=\"54\" y1=\"54.4\" x2=\"41\" y2=\"76.9\"/><line x1=\"49.6\" y1=\"50\" x2=\"27.1\" y2=\"63\"/><line x1=\"48\" y1=\"44\" x2=\"22\" y2=\"44\"/><line x1=\"49.6\" y1=\"38\" x2=\"27.1\" y2=\"25\"/><line x1=\"54\" y1=\"33.6\" x2=\"41\" y2=\"11.1\"/></g></svg>",
+      "t": "Piña dorada · dados de 1 cm"
+    }
+  ],
+  "creada": "2026-10-26T00:00:00Z",
+  "datos": [
+    [
+      "25 min",
+      "de principio a fin"
+    ],
+    [
+      "5 + 17 + 3",
+      "mise en place + plancha + montaje"
+    ],
+    [
+      "2",
+      "fuegos"
+    ],
+    [
+      "12",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Minitortillas de trigo con pollo en tiras marinado diez minutos en especias y el jugo de la lata de piña, piña dorada a la plancha en dados y cebolla morada encurtida rápida con vinagre, sal y azúcar. Rápido, ácido y dulce. La dificultad está en el azúcar: el de la marinada y el de la piña doran en minutos y queman en uno más, así que ni el pollo ni la piña pasan del {7}.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 300,
+          "n": "pechugas finas de pollo (4 filetes finos)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "n": "aceite de girasol, para la marinada (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "piña en lata, su jugo, para la marinada (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "comino molido (1 cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "pimentón picante (2 vueltas cortas del bote)",
+          "u": "g"
+        },
+        {
+          "a": 2,
+          "esc": "sub",
+          "n": "ajo en polvo (½ cucharadita colmada)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "orégano seco (1 cucharadita)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL GRANDE · LA MARINADA"
+    },
+    {
+      "items": [
+        {
+          "a": 5,
+          "n": "aceite de girasol, para la sartén (1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal, para el pollo (½ cucharadita rasa)",
+          "u": "g"
+        }
+      ],
+      "n": "SARTÉN HONDA · EL POLLO"
+    },
+    {
+      "items": [
+        {
+          "a": 160,
+          "n": "piña en lata, en rodajas escurridas (4 rodajas)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "n": "aceite de girasol, para pintar la piña (1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 8,
+          "n": "minitortillas de trigo (8 de un paquete de 12)",
+          "u": "uds"
+        }
+      ],
+      "n": "PLANCHA · PIÑA Y TORTILLAS"
+    },
+    {
+      "items": [
+        {
+          "a": 60,
+          "n": "cebolla morada (½ cebolla morada pequeña)",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "vinagre de vino (2 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 15,
+          "n": "agua, para el encurtido (1 cucharada sopera)",
+          "u": "ml"
+        },
+        {
+          "a": 4,
+          "esc": "sub",
+          "n": "azúcar blanco (1 cucharadita rasa)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal, para el encurtido (1 pizca)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL PEQUEÑO · LA CEBOLLA ENCURTIDA"
+    }
+  ],
+  "lectura": "La suma, por la plancha, que es el camino largo: 5 de cortar y marinar + 6 de calentar la plancha con el encurtido a la vez + 5 de piña + 2 de bajar la plancha al {6} mientras se pica la piña + 4 de tortillas + 3 de montaje = 25 minutos. La sartén honda corre al lado: se enciende en el 13 y el pollo entra en el 15, cuando la marinada lleva sus diez minutos, y sale salado en el 21. Los dos fuegos coinciden del minuto 13 al 21: la plancha en el grande y la sartén en el mediano. Del 18 al 22 es el tramo con más manos: las tortillas piden una vuelta cada treinta segundos y, entre tanda y tanda, se sala el pollo en el 20 y se mezcla con la piña en el 21. La cebolla encurte desde el minuto 6 hasta el montaje del 22.",
+  "mep": [
+    {
+      "l": [
+        "<b>Pechugas finas de pollo · 300 g (4 filetes finos)</b> · tiras de 1 cm de ancho y 4 cm de largo, cruzando la fibra, directas al bol grande de la marinada en el minuto 2. Entran en la sartén en el 15. Después, tabla y cuchillo al grifo y secos.",
+        "<b>Cebolla morada · 60 g (½ cebolla morada pequeña)</b> · juliana de 2 mm de polo a polo, al bol pequeño del encurtido en el minuto 6. Sale escurrida al montaje del 22.",
+        "<b>Piña en lata, en rodajas · 160 g (4 rodajas)</b> · ya dorada, en dados de 1 cm en el minuto 16. Al bol del pollo en el 21."
+      ],
+      "orden": true,
+      "porq": "Con carne cruda, la carne va primero y la tabla se lava una sola vez. Después la cebolla, sobre la tabla limpia. La piña llega a la tabla ya dorada, en el minuto 16, cuando la tabla solo ha visto la cebolla.",
+      "t": "TABLA DE CORTAR, EN ESTE ORDEN"
+    },
+    {
+      "l": [
+        "<b>Bol grande</b> · 300 g de pollo en tiras + 10 ml de aceite de girasol (2 cucharaditas) + 15 ml del jugo de la piña en lata (1 cucharada sopera) + 2 g de comino molido (1 cucharadita rasa) + 2 g de pimentón picante (2 vueltas cortas del bote) + 2 g de ajo en polvo (½ cucharadita colmada) + 1 g de orégano seco (1 cucharadita), mezclados en el minuto 2. Todo entra en la sartén en el 15. El pimentón sale de un bote de agujeros: los 2 g son una referencia, no una pesada.",
+        "<b>Bol pequeño</b> · 60 g de cebolla morada en juliana + 30 ml de vinagre de vino (2 cucharadas soperas) + 15 ml de agua (1 cucharada sopera) + 4 g de azúcar blanco (1 cucharadita rasa) + 1 g de sal (1 pizca), en el minuto 6. Se escurre en el 21 y sale al montaje en el 22.",
+        "<b>Plato llano</b> · las 4 rodajas de piña (160 g), secas con papel y pintadas con 5 ml de aceite de girasol (1 cucharadita) en el minuto 8. A la plancha en el 11.",
+        "<b>Platito</b> · 3 g de sal (½ cucharadita rasa), para el pollo en el minuto 20.",
+        "<b>Bol mediano limpio</b> · vacío hasta el minuto 21, cuando recibe el pollo; la piña se le suma en el mismo minuto.",
+        "<b>Paño de cocina limpio</b> · vacío hasta el minuto 18, cuando recibe las tortillas calientes, apiladas y tapadas. Salen al montaje en el 22."
+      ],
+      "orden": false,
+      "porq": "Cada recipiente guarda algo que entra en un momento distinto. Las especias de la marinada no tienen platito propio porque entran todas a la vez y directas al bol del pollo. El bol de la marinada no se reutiliza: ha tenido pollo crudo, y el pollo hecho sale a uno limpio.",
+      "t": "DOS BOLES, UN PLATITO, UN PLATO Y UN PAÑO"
+    },
+    {
+      "l": [
+        "<b>Aceite de girasol para la sartén · 5 ml (1 cucharadita)</b> · directo a la sartén honda en frío, en el minuto 13.",
+        "<b>Minitortillas de trigo · 8 unidades</b> · en su paquete hasta el minuto 18; a la plancha de dos en dos."
+      ],
+      "orden": false,
+      "porq": "Lo que va directo a la sartén o ya viene en su envase no se trasvasa.",
+      "t": "ESTO NO NECESITA RECIPIENTE"
+    }
+  ],
+  "notaEscala": "Va de 1 a 2 raciones: con 1, la mitad de todo, 2 rodajas de piña y 4 minitortillas en dos tandas. Por encima de 2, los 450 g de pollo ya no caben en una capa en la sartén honda y se cuecen en su jugo en vez de dorarse, y las 12 tortillas pedirían seis tandas. La sal, el azúcar y las especias suben menos que el resto: corrige probando.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "mise-en-place",
+      "junto": null,
+      "meto": "",
+      "min": 5,
+      "nota": "Escurre la piña sobre un vaso y aparta 15 ml del jugo. Pollo en tiras de 1 cm cruzando la fibra, al bol con el aceite, el jugo y las especias. Sin sal. Lava la tabla.",
+      "off": 0,
+      "p": "Primero la lata, que es lo seco: las rodajas a un colador sobre un vaso, y del jugo que cae apartas 15 ml para la marinada. Después el pollo crudo, que va antes que nada más en la tabla para lavarla una sola vez: 300 g de pechugas finas en tiras de 1 cm de ancho y 4 cm de largo, cruzando la fibra, al bol grande con 10 ml de aceite de girasol, los 15 ml de jugo, el comino, el pimentón, el ajo en polvo y el orégano. Mezcla con las manos hasta que no quede ninguna cara blanca. Sin sal: en diez minutos sacaría agua a la superficie y en la sartén habría que evaporarla antes de dorar.",
+      "s": 300,
+      "saco": "el pollo marinando en el bol grande, las rodajas de piña escurriendo y la tabla lavada",
+      "t": "Abrir la piña, cortar y marinar el pollo",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "encurtido",
+      "junto": null,
+      "meto": "",
+      "min": 4,
+      "nota": "Cebolla morada en juliana de 2 mm, de polo a polo, al bol pequeño con el vinagre, el agua, el azúcar y la sal; apriétala con una cuchara para que el líquido la cubra. Seca las rodajas con papel y píntalas con el aceite de girasol.",
+      "off": 5,
+      "p": "Con la tabla limpia, los 60 g de cebolla morada en juliana de 2 mm siguiendo las capas, de polo a polo, al bol pequeño con 30 ml de vinagre de vino, 15 ml de agua, 4 g de azúcar y 1 g de sal. El azúcar y la sal se disuelven en el vinagre y la sal, además, saca agua de la cebolla y deja entrar el ácido más deprisa: en diez minutos ya está rosa y sin picor, y llega al montaje con dieciséis. Después, las 4 rodajas de piña secas con papel por las dos caras, porque el agua de la superficie tiene que irse antes de que el azúcar empiece a dorar, y pintadas con 5 ml de aceite de girasol.",
+      "s": 240,
+      "saco": "la cebolla encurtiendo en el bol pequeño y las 4 rodajas secas y pintadas, en un plato",
+      "t": "Encurtir la cebolla y pintar la piña",
+      "tapa": null
+    },
+    {
+      "carril": "plancha",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Prueba con una gota de agua: tiene que bailar y desaparecer"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "calentar-plancha",
+      "junto": null,
+      "meto": "la plancha, vacía y seca, en el fuego grande",
+      "min": 6,
+      "nota": "Plancha en el fuego grande, seca y sin aceite, al {7}. Lista cuando una gota de agua baila y desaparece.",
+      "off": 5,
+      "p": "Una plancha gruesa tarda en acumular calor en toda la superficie, y la vitro algo más: seis minutos al {7}, vacía. Al {7} y no al {8}, porque lo que va a recibir es piña: su azúcar empieza a caramelizar enseguida y, con el metal más caliente, se queman los bordes antes de que el centro de la rodaja se dore. Sin aceite: ya va pintado en la fruta.",
+      "s": 360,
+      "saco": "",
+      "t": "Calentar la plancha al {7}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "encurtido"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-sarten",
+      "junto": null,
+      "meto": "5 ml de aceite de girasol (1 cucharadita), en la sartén honda en frío",
+      "min": 2,
+      "nota": "Sartén honda en el fuego mediano con el aceite de girasol dentro, al {7}. Lista cuando el aceite corre suelto al inclinarla.",
+      "off": 13,
+      "p": "La sartén honda en el fuego mediano, con 5 ml de aceite de girasol desde frío y al {7}. Dos minutos es lo que tarda la vitro en llegar: si el pollo entra en un metal tibio, el jugo de la marinada se queda en el fondo cociéndolo en vez de evaporarse en el primer minuto, y el pollo sale blanco y hervido.",
+      "s": 120,
+      "saco": "",
+      "t": "Calentar la sartén honda al {7}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 150,
+          "t": "Vuelta a las 4 rodajas"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "pina",
+      "junto": null,
+      "meto": "las 4 rodajas de piña pintadas, separadas, en el centro de la plancha",
+      "min": 5,
+      "nota": "Al {7}, quietas. Dos minutos y medio por cara: marcas doradas, no negras.",
+      "off": 11,
+      "p": "Las cuatro rodajas separadas en la zona caliente y quietas: el azúcar de la superficie necesita contacto continuo con el metal para caramelizar, y si las mueves solo se templan. Dos minutos y medio por cara al {7} dejan marcas doradas y un centro caliente que sigue jugoso. Si ves que el borde se pone negro antes de la vuelta, baja al {6}: el azúcar pasa de dorado a quemado en menos de un minuto y quemado amarga.",
+      "s": 300,
+      "saco": "las 4 rodajas, a la tabla",
+      "t": "Dorar la piña",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "mise-en-place"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Remueve y separa las tiras pegadas"
+        },
+        {
+          "en": 240,
+          "t": "Abre la tira más gruesa: blanca por dentro. Si el fondo se oscurece, baja al {6}"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "pollo",
+      "junto": null,
+      "meto": "el bol grande: 300 g de pollo en tiras de 1 cm con toda su marinada, extendido en una capa",
+      "min": 5,
+      "nota": "Al {7}, en una capa y quieto los dos primeros minutos. Después remueve hasta el final.",
+      "off": 15,
+      "p": "Todo el bol a la sartén, con la marinada, y extendido en una sola capa. Quieto dos minutos: el poco jugo de la lata se evapora en el primero, y a partir de ahí el aceite fríe las especias pegadas a la carne y el azúcar ayuda al dorado. Al {7} y no al {8}, porque ese azúcar y el pimentón se queman antes que la carne se dore. Luego, removiendo. En tiras de 1 cm el centro se hace en cuatro minutos; el quinto es el margen. La sartén honda retiene humedad en las paredes: por eso sin tapa en ningún momento.",
+      "s": 300,
+      "saco": "",
+      "t": "Saltear el pollo marinado",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "sal-pollo",
+      "junto": null,
+      "meto": "3 g de sal (½ cucharadita rasa), del platito",
+      "min": 1,
+      "nota": "Apaga la vitro, sala, da dos vueltas y pásalo al bol mediano limpio.",
+      "off": 20,
+      "p": "Apaga antes de salar y sácalo enseguida: en la sartén apagada el calor que guarda el metal lo seguiría cocinando y las tiras se secarían. La sal entra ahora porque sobre el pollo crudo habría sacado agua y la sartén la habría tenido que evaporar antes de dorar. Al bol mediano limpio, nunca al de la marinada, que ha tenido pollo crudo.",
+      "s": 60,
+      "saco": "el pollo, a un bol mediano limpio",
+      "t": "Apagar y salar el pollo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "asentar",
+      "junto": null,
+      "meto": "",
+      "min": 2,
+      "nota": "Baja al {6}. Rasca el caramelo de la piña con la espátula y pasa un papel: seca para las tortillas.",
+      "off": 16,
+      "p": "Las tortillas quieren menos calor que la piña: al {7} se mancharían de negro antes de ablandarse. La plancha gruesa guarda calor, así que se baja ahora al {6} y no en el último momento. El azúcar que ha quedado pegado se rasca ya, aún blando: frío se endurece, y bajo la tortilla se quemaría y la pegaría al metal.",
+      "s": 120,
+      "saco": "los restos de caramelo de la piña, con la espátula y un papel de cocina",
+      "t": "Baja al {6} y rasca la plancha",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "pina"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "picar-pina",
+      "junto": null,
+      "meto": "las 4 rodajas doradas",
+      "min": 2,
+      "nota": "Cada rodaja en 12 cuñas y cada cuña por la mitad: dados de 1 cm.",
+      "off": 16,
+      "p": "Doradas enteras y picadas después: plana sobre la plancha, toda la cara de la rodaja toca el metal y carameliza; en dados, rodarían, tocarían por una sola arista y soltarían el jugo por los seis cortes. Cada rodaja en 12 cuñas desde el agujero hacia fuera y cada cuña por la mitad a lo ancho: dados de 1 cm, del tamaño de las tiras de pollo, para que cada bocado lleve de los dos. Esperan templados en la tabla hasta el minuto 21; el pollo recién salido de la sartén los vuelve a calentar en el bol.",
+      "s": 120,
+      "saco": "los dados de piña, a un lado de la tabla",
+      "t": "Picar la piña en dados de 1 cm",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "sal-pollo"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "mezclar",
+      "junto": null,
+      "meto": "los dados de piña, de la tabla al bol mediano del pollo",
+      "min": 1,
+      "nota": "Los dados de piña al bol del pollo y dos vueltas con la cuchara. Escurre la cebolla en un colador.",
+      "off": 21,
+      "p": "La piña se mezcla con el pollo en el bol y no se reparte por encima en el montaje: así el jugo caramelizado de los dados se pega a las especias del pollo y cada taco lleva su parte, en vez de que unos salgan solo de piña. La cebolla se escurre ahora para que llegue sin vinagre suelto: el líquido que gotee empapa la tortilla por dentro.",
+      "s": 60,
+      "saco": "el bol del relleno, junto a la tabla",
+      "t": "Mezclar el pollo con la piña",
+      "tapa": null
+    },
+    {
+      "carril": "plancha",
+      "dep": [],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Vuelta a las dos primeras"
+        },
+        {
+          "en": 60,
+          "t": "Al paño. Entran la 3ª y la 4ª"
+        },
+        {
+          "en": 90,
+          "t": "Vuelta a estas dos"
+        },
+        {
+          "en": 120,
+          "t": "Al paño. Entran la 5ª y la 6ª"
+        },
+        {
+          "en": 150,
+          "t": "Vuelta a estas dos"
+        },
+        {
+          "en": 180,
+          "t": "Al paño. Entran la 7ª y la 8ª"
+        },
+        {
+          "en": 210,
+          "t": "Vuelta a las dos últimas"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "tortillas",
+      "junto": null,
+      "meto": "8 minitortillas de trigo, de dos en dos, sobre la plancha seca al {6}",
+      "min": 4,
+      "nota": "Al {6}, treinta segundos por cara. Cada tanda, al paño y tapada.",
+      "off": 18,
+      "p": "Una tortilla de trigo fría se agrieta al doblarla: el almidón se ha endurecido en el paquete y solo con calor vuelve a ablandarse. Treinta segundos por cara al {6}, en seco, hasta que abombe y salga alguna mancha tostada; más tiempo la seca y cruje. De dos en dos porque es lo que cabe sin montarse, y las ocho salen en cuatro minutos. Apiladas en el paño y tapadas se dan vapor entre ellas y llegan blandas al montaje.",
+      "s": 240,
+      "saco": "las tortillas, apiladas en un paño y tapadas. Apaga el fuego grande",
+      "t": "Calentar las 8 minitortillas, de dos en dos",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "tortillas"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "montaje",
+      "junto": null,
+      "meto": "las 8 minitortillas del paño + el pollo con piña + los 60 g de cebolla morada encurtida, escurrida",
+      "min": 3,
+      "nota": "En cada tortilla, una cucharada colmada del pollo con piña en el centro y un pellizco de cebolla encima.",
+      "off": 22,
+      "p": "Un octavo del relleno en cada tortilla, en una franja por el centro y sin llegar al borde, para que se doble sin que se salga. La cebolla encurtida arriba del todo y escurrida: es el ácido que corta el dulce de la piña y la grasa del pollo, y encima se ve rosa y cruje al primer bocado; debajo se ablandaría con el calor del relleno. Se sirven ya: la tortilla templada y el pollo recién hecho son lo que hace el taco.",
+      "s": 180,
+      "saco": "a los 2 platos: 4 tacos por persona",
+      "t": "Montar los 8 tacos",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "pechugas finas de pollo"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj, las vueltas de la piña y de las tortillas y el paso a paso están en el cronómetro.",
+  "porque": [
+    [
+      "Minitortillas de trigo y no las grandes",
+      "Las grandes de 25 cm son las del wrap y las quesadillas: dobladas como taco, el relleno se pierde en la masa. Las mini son de bocado, como las de los tacos de fiesta, y caben dos a la vez en la plancha. No hay tortillas de maíz en la despensa."
+    ],
+    [
+      "Pollo en tiras antes de marinar, y solo diez minutos",
+      "En diez minutos una marinada no entra más de un par de milímetros. Por eso se corta antes: en tiras de 1 cm casi toda la carne está a esa distancia de la superficie y el sabor llega a cada bocado, cosa que en un filete entero pediría media hora larga."
+    ],
+    [
+      "El jugo de la lata en la marinada",
+      "Su azúcar ayuda al dorado y ata el pollo al sabor de la piña. La piña de lata está pasteurizada, así que su enzima ya no ablanda la carne: con piña fresca, la marinada dejaría la superficie del pollo como una pasta. Solo 15 ml: más líquido cocería el pollo en vez de dorarlo."
+    ],
+    [
+      "Marinada que no se seca",
+      "La ficha de marinada dice secar antes de sellar, pero aquí casi todo es aceite y especias: secarla se llevaría el sabor. El poco jugo que lleva se evapora en el primer minuto en la sartén caliente."
+    ],
+    [
+      "Piña a la plancha y pollo en la sartén honda, a la vez",
+      "La plancha solo cabe en el fuego grande y la sartén honda en el mediano, así que trabajan en paralelo y el plato baja de media hora. La piña quiere la superficie plana y ancha de la plancha para dorar las rodajas enteras; el pollo, con su marinada, quiere paredes que no la dejen escurrirse fuera del metal."
+    ],
+    [
+      "Al {7} y no al {8}",
+      "El azúcar de la piña y el de la marinada, y el pimentón, pasan de dorado a quemado en menos de un minuto a fuego fuerte. Al {7} hay margen para mirarlo; los hitos dicen cuándo bajar al {6}."
+    ],
+    [
+      "Sal al final y fuera del fuego",
+      "En la marinada sacaría agua al pollo y en la sartén habría que evaporarla antes de dorar. Sobre el pollo ya hecho, con la vitro apagada, se reparte sin cocerlo más."
+    ],
+    [
+      "Encurtido con azúcar y poca agua",
+      "Para que sea rápido el vinagre va casi puro y con sal, que abre la cebolla al ácido; el azúcar equilibra la acidez y repite el dulce de la piña. Del minuto 6 al 22 son dieciséis minutos: a los diez ya está, y el agua evita que en el resto se curta de más."
+    ],
+    [
+      "Sin guacamole ni feta",
+      "Son el remate de los tacos de carne. Aquí el plato va de ácido y dulce: la grasa del aguacate y la sal del queso taparían la piña y la cebolla."
+    ],
+    [
+      "Sin jalapeños ni limón",
+      "El pique ya está en el pimentón de la marinada y el ácido lo pone la cebolla encurtida. Un tercer ácido o un segundo pique se comerían el dulce de la piña, que es lo que distingue este taco."
+    ],
+    [
+      "Sin cilantro",
+      "No hay hierbas frescas, y las secas no se echan crudas al final. El orégano va en la marinada, donde se cuece."
+    ],
+    [
+      "Pimentón picante, 2 g",
+      "Solo hay picante. Con 2 g para 300 g de pollo el pique queda de fondo, detrás del dulce de la piña. Sale de un bote de agujeros: dos vueltas cortas son una referencia, no una pesada."
+    ],
+    [
+      "El pollo fresco manda",
+      "El plato se apoya en las pechugas finas: confírmalas antes de empezar. Si no hay, sirve la pechuga familiar abierta en filetes de 1 cm de grosor antes de cortar las tiras."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "tacos-pollo-pina",
+  "tags": {
+    "base": "taco",
+    "equipo": [
+      "plancha"
+    ],
+    "momento": [
+      "cena",
+      "comida"
+    ],
+    "proteina": "pollo",
+    "tecnica": [
+      "marinada",
+      "plancha"
+    ]
+  },
+  "titulo": "Tacos de pollo con piña",
+  "totalMin": 25
+}
