@@ -1,0 +1,11 @@
+{
+  "version": "1.7",
+  "titulo": "Sous Chef 1.7 ya está en tu cocina",
+  "lineas": [
+    { "texto": "Nueve recetas nuevas y «Cenas rápidas» de 30 minutos, con tu hora de cenar.", "destino": "recetas" },
+    { "texto": "«¿Qué cocino hoy?» te propone tres recetas que llegan a tiempo." },
+    { "texto": "Valora cada cocinada y apunta las que quieres hacer." },
+    { "texto": "En la cocina: temporizador libre, ingredientes a mano y «Chef, cuánto de sal»." },
+    { "texto": "Copia automática del historial en la carpeta que elijas." }
+  ]
+}
