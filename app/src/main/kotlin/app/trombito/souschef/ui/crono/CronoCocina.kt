@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -70,7 +69,6 @@ fun CronoCocina(
     var abandonar by remember { mutableStateOf(false) }
     var diagrama by remember { mutableStateOf(false) }
     var interfaz by remember { mutableStateOf(false) }
-    var ingredientes by remember { mutableStateOf(false) }
     BackHandler { salidas.salir() }
     val acciones =
         AccionesCarril(
@@ -90,7 +88,6 @@ fun CronoCocina(
                 abandonar = { abandonar = true },
                 diagrama = { diagrama = true },
                 interfaz = { interfaz = true },
-                ingredientes = { ingredientes = true },
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
         BandaTemporizadores(estado, ui.ahoraMs, viewModel::quitarTemporizador)
@@ -108,7 +105,6 @@ fun CronoCocina(
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
     if (interfaz) DialogoInterfaz(ui.disposicion, viewModel::elegirDisposicion) { interfaz = false }
-    if (ingredientes) HojaIngredientesCocina(ui, viewModel) { ingredientes = false }
     if (abandonar) {
         DialogoAbandonar(
             onSi = {
@@ -250,11 +246,12 @@ internal class AccionesMenu(
     val abandonar: () -> Unit,
     val diagrama: () -> Unit,
     val interfaz: () -> Unit,
-    val ingredientes: () -> Unit = {},
+    val temporizador: () -> Unit = {},
+    val ordenes: () -> Unit = {},
 )
 
 /**
- * Menú de tres puntos: diagrama de tiempos, ingredientes, interfaz, temporizador, órdenes de voz, reiniciar (doble
+ * Menú de tres puntos: diagrama de tiempos, interfaz, temporizador, órdenes de voz, reiniciar (doble
  * toque, el primero pide confirmación) y abandonar (con diálogo).
  */
 @Composable
@@ -272,27 +269,19 @@ private fun MenuCocina(
             Icon(Icono.Mas.vector, stringResource(R.string.menu_mas))
         }
         DropdownMenu(abierto, { abierto = false }, containerColor = CronoPalette.carta2) {
-            ItemMenu(R.string.crono_diagrama, { abierto = false }, menu.diagrama)
-            ItemMenu(R.string.crono_ingredientes, { abierto = false }, menu.ingredientes)
-            ItemMenu(R.string.ajustes_interfaz, { abierto = false }, menu.interfaz)
-            ItemMenu(R.string.crono_temporizador_menu, { abierto = false }) { temporizador = true }
-            ItemMenu(R.string.crono_ordenes_voz, { abierto = false }) { ordenes = true }
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        stringResource(
-                            if (reiniciarArmado) R.string.crono_reiniciar_seguro else R.string.crono_reiniciar,
-                        ),
-                        color = if (reiniciarArmado) CronoPalette.alerta else CronoPalette.texto,
-                        fontWeight = if (reiniciarArmado) FontWeight.Bold else FontWeight.Normal,
-                    )
-                },
-                onClick = {
-                    if (reiniciarArmado) abierto = false
-                    viewModel.reiniciar()
-                },
+            EntradasMenuCocina(
+                reiniciarArmado,
+                AccionesMenu(
+                    menu.volver,
+                    menu.abandonar,
+                    menu.diagrama,
+                    menu.interfaz,
+                    temporizador = { temporizador = true },
+                    ordenes = { ordenes = true },
+                ),
+                cerrar = { abierto = false },
+                onReiniciar = viewModel::reiniciar,
             )
-            ItemMenu(R.string.crono_abandonar, { abierto = false }, menu.abandonar)
         }
         if (ordenes) HojaOrdenesCocina { ordenes = false }
         if (temporizador) {

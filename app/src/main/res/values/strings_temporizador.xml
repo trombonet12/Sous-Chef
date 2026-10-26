@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Temporizador libre (ADR-0016) -->
-    <string name="crono_temporizador_menu">+ Temporizador</string>
+    <string name="crono_temporizador_menu">Temporizador</string>
     <string name="crono_temporizador_titulo">Temporizador</string>
     <string name="crono_temporizador_rapido">%1$d min</string>
     <string name="crono_temporizador_campo">Minutos (1 a 180)</string>

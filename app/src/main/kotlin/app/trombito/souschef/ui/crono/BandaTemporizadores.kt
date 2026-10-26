@@ -111,7 +111,7 @@ internal fun EstadoCrono.libresLlenos(): Boolean =
     TemporizadoresLibres.pendientes(this).size >= TemporizadoresLibres.MAX_A_LA_VEZ
 
 /**
- * Diálogo de «+ Temporizador»: minutos rápidos (1, 3, 5, 10 y 15) y un campo de 1 a 180. Con tres en marcha solo avisa.
+ * Diálogo de «Temporizador»: minutos rápidos (1, 3, 5, 10 y 15) y un campo de 1 a 180. Con tres en marcha solo avisa.
  */
 @Composable
 internal fun DialogoTemporizador(

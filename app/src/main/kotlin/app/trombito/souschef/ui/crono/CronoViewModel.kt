@@ -106,8 +106,6 @@ data class CronoUi(
     val notas: List<NotaCocinada> = emptyList(),
     /** Valoración elegida en el cierre (o durante la ventana de deshacer); null si no se ha valorado. */
     val valoracion: Valoracion? = null,
-    /** Casillas marcadas en la hoja «Ingredientes» (claves de [claveIngrediente]); duran lo que la cocinada. */
-    val ingredientesMarcados: Set<String> = emptySet(),
 )
 
 private const val PERIODO_TIC_MS = 1_000L
@@ -400,15 +398,6 @@ class CronoViewModel
             marcada: Boolean,
         ) = mutar { e, _, t -> idsCasilla.fold(e) { acc, id -> SesionCrono.marcar(acc, id, marcada, t) } }
 
-        /** Marca o desmarca una casilla de la hoja «Ingredientes»; solo vive en esta pantalla, no se guarda. */
-        fun marcarIngrediente(
-            clave: String,
-            marcada: Boolean,
-        ) = _ui.update {
-            val marcados = if (marcada) it.ingredientesMarcados + clave else it.ingredientesMarcados - clave
-            it.copy(ingredientesMarcados = marcados)
-        }
-
         fun enfocar(carril: String) = mutar { e, _, t -> SesionCrono.enfocar(e, carril, t) }
 
         /** La misma preferencia que en Ajustes: la cocina se repinta con la nueva disposición sin reiniciarse. */
@@ -469,7 +458,7 @@ class CronoViewModel
             }
 
         /**
-         * Pone un temporizador libre de [minutos] (ADR-0016; «+ Temporizador» y la voz). false si no se puede: duración
+         * Pone un temporizador libre de [minutos] (ADR-0016; «Temporizador» y la voz). false si no se puede: duración
          * fuera de 1 a 180, cocina sin abrir o ya hay tres sin avisar.
          */
         fun temporizador(minutos: Int): Boolean {
@@ -509,7 +498,6 @@ class CronoViewModel
                         banda = emptyList(),
                         resumen = null,
                         valoracion = null,
-                        ingredientesMarcados = emptySet(),
                     )
                 }
                 cadena.cerrado(slug)

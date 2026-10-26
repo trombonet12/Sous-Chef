@@ -189,8 +189,8 @@
     <string name="crono_mientras_no_mirabas">MIENTRAS NO MIRABAS</string>
     <string name="crono_linea_perdida">%1$s: %2$s · hace %3$d min</string>
     <string name="crono_cerrar_aviso">Cerrar el aviso</string>
-    <string name="crono_reiniciar">REINICIAR</string>
-    <string name="crono_reiniciar_seguro">¿SEGURO?</string>
+    <string name="crono_reiniciar">Reiniciar</string>
+    <string name="crono_reiniciar_seguro">¿Seguro?</string>
     <string name="crono_tapada">tapada</string>
     <string name="crono_destapada">destapada</string>
     <string name="crono_tapa_medias">tapa a medias</string>
@@ -245,7 +245,7 @@
     <string name="crono_alarma_parar">Parar</string>
     <string name="crono_alarma_hecho_siguiente">Hecho y siguiente</string>
     <string name="crono_alarma_abrir">Abrir cocina</string>
-    <string name="crono_abandonar">ABANDONAR</string>
+    <string name="crono_abandonar">Abandonar</string>
     <string name="crono_abandonar_titulo">¿Abandonar esta cocinada?</string>
     <string name="crono_abandonar_detalle">Se pierde el progreso y no se guarda en el historial.</string>
     <string name="crono_abandonar_si">Abandonar</string>

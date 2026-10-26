@@ -210,6 +210,26 @@ enum class Icono(
 
     /** Cazo con mango largo: categoría de salsa. */
     Salsa("M8 21a5 5 0 1 0 0-10a5 5 0 0 0 0 10z", "M11.5 12.5L21 3"),
+
+    /** Tres barras horizontales escalonadas: diagrama de tiempos (gantt). */
+    Gantt("M4 4h9v3H4z", "M9 10.5h11v3H9z", "M6 17h8v3H6z"),
+
+    /** Cuatro paneles: interfaz (disposición). */
+    Rejilla("M4 4h7v7H4z", "M13 4h7v7h-7z", "M4 13h7v7H4z", "M13 13h7v7h-7z"),
+
+    /** Reloj de arena: temporizador. */
+    RelojArena(
+        "M7 3h10",
+        "M7 21h10",
+        "M8 3v3a4 4 0 0 0 1.6 3.2L12 12l-2.4 2.8A4 4 0 0 0 8 18v3",
+        "M16 3v3a4 4 0 0 1-1.6 3.2L12 12l2.4 2.8A4 4 0 0 1 16 18v3",
+    ),
+
+    /** Flecha circular: reiniciar. */
+    Reiniciar("M4 12a8 8 0 1 0 2.34-5.66", "M6 3v4h4"),
+
+    /** Puerta con flecha de salida: abandonar. */
+    Salir("M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5", "M16 8l4 4-4 4", "M20 12H9"),
     ;
 
     val vector: ImageVector by lazy {
