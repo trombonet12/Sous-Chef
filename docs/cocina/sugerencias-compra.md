@@ -1,6 +1,6 @@
 # Sugerencias de compra
 
-> Propósito: qué sugerir comprar y cómo decirlo, sin tocar nunca la receta · Audiencia: Claude Code · Actualizado: 2026-10-13 · Relacionado: docs/cocina/reglas.md
+> Propósito: qué sugerir comprar y cómo decirlo, sin tocar nunca la receta · Audiencia: Claude Code · Actualizado: 2026-10-25 · Relacionado: docs/cocina/reglas.md
 
 **Nada de este archivo está en casa.** No lo uses nunca como ingrediente disponible ni lo metas en una receta. Sirve para una cosa: cuando un plato saldría claramente mejor con algo que no hay, poder decirlo al final con el porqué concreto y qué desbloquea.
 
@@ -21,7 +21,6 @@
 ## El congelador
 Solo hay helados. Cualquier cosa de aquí dura meses y no se echa a perder:
 - **Espinacas** — rescatan arroces, pastas y lasañas; abren además rellenos y cremas.
-- **Lomos de salmón** (o de otro pescado limpio) — no hay pescado más allá del atún en lata, la única categoría de proteína que hoy no existe. Con limón y mantequilla en casa ya hay con qué terminarlo. Solo pescado sin espinas.
 
 ## Menores
 Balsámico (reducciones y tomate) · nueces o piñones sueltos (pesto propio, ensaladas, pasta) · bicarbonato (galletas, y una pizca acelera el caramelizado de la cebolla) · cilantro fresco (cierra los platos con comino, jalapeño y lima) · pan de pita o naan (para mojar en el curry).
