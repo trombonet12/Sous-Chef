@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ficha impresa: dos salidas del mismo HTML (ronda 19) -->
+    <string name="impr_hoja">Hoja de cocina</string>
+    <string name="impr_completa">Ficha completa</string>
+    <string name="impr_hoja_desc">1 o 2 páginas: ingredientes, diagrama y órdenes</string>
+    <string name="impr_completa_desc">Con preparación, porqués y técnica</string>
+    <string name="impr_elige">Qué imprimir</string>
+    <string name="impr_pdf_hoja">Sous Chef – %1$s · hoja de cocina</string>
+    <string name="impr_cronologia">Cronología</string>
+    <string name="impr_min">min %1$s</string>
+    <string name="impr_empieza">empieza</string>
+    <string name="impr_sirve">sirve</string>
+    <string name="impr_mete">Mete</string>
+    <string name="impr_avisos">Avisos</string>
+    <string name="impr_senal">Señal</string>
+    <string name="impr_saca">Saca</string>
+    <string name="impr_porque">Por qué</string>
+</resources>

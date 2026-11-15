@@ -9,6 +9,91 @@ import android.print.PrintDocumentAdapter
 import android.print.PrintManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import app.trombito.souschef.R
+import app.trombito.souschef.receta.Cocina
+import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.ui.shell.Icono
+
+/**
+ * Botón de la barra de la ficha: ofrece las dos salidas de la impresión («Hoja de cocina» y «Ficha completa») en un
+ * menú. [servirMin] (minutos desde medianoche) pone en el papel la hora de empezar, la de servir y la de cada paso.
+ */
+@Composable
+fun BotonImprimirFicha(
+    receta: Receta,
+    raciones: Int,
+    cocina: Cocina,
+    servirMin: Int?,
+) {
+    val contexto = LocalContext.current
+    var abierto by remember { mutableStateOf(false) }
+    val nombreHoja = stringResource(R.string.impr_pdf_hoja, receta.titulo)
+    val nombreCompleta = stringResource(R.string.ficha_pdf_nombre, receta.titulo)
+    val imprimir = { tipo: TipoFicha ->
+        abierto = false
+        val html =
+            fichaHtml(
+                receta,
+                raciones,
+                TextosFicha.desde(contexto, cocina),
+                tipo,
+                servirMin,
+                TextosImpresion.desde(contexto),
+            )
+        imprimirFicha(contexto, if (tipo == TipoFicha.HOJA) nombreHoja else nombreCompleta, html)
+    }
+    Box {
+        IconButton(onClick = { abierto = true }, modifier = Modifier.testTag("imprimir")) {
+            Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
+        }
+        DropdownMenu(expanded = abierto, onDismissRequest = { abierto = false }) {
+            OpcionImpresion(R.string.impr_hoja, R.string.impr_hoja_desc, "imprimir-hoja") { imprimir(TipoFicha.HOJA) }
+            OpcionImpresion(R.string.impr_completa, R.string.impr_completa_desc, "imprimir-completa") {
+                imprimir(TipoFicha.COMPLETA)
+            }
+        }
+    }
+}
+
+@Composable
+private fun OpcionImpresion(
+    titulo: Int,
+    descripcion: Int,
+    etiqueta: String,
+    onClick: () -> Unit,
+) {
+    DropdownMenuItem(
+        text = {
+            Column {
+                Text(stringResource(titulo), style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    stringResource(descripcion),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        },
+        onClick = onClick,
+        modifier = Modifier.testTag(etiqueta),
+    )
+}
 
 /** WebViews con una impresión en curso: la referencia fuerte evita que se recojan antes de terminar. */
 private val enCurso = mutableSetOf<WebView>()

@@ -34,7 +34,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -183,8 +182,6 @@ private fun BarraFicha(
     receta: Receta,
     acciones: AccionesFicha,
 ) {
-    val contexto = LocalContext.current
-    val nombrePdf = stringResource(R.string.ficha_pdf_nombre, receta.titulo)
     BarraTitulo(receta.titulo, acciones.onAtras) {
         IconButton(onClick = acciones.onFavorita) {
             val nombre =
@@ -200,17 +197,7 @@ private fun BarraFicha(
             )
         }
         BotonQuiereHacerla(estado.quiereHacerla, acciones.onQuiereHacerla)
-        IconButton(
-            onClick = {
-                imprimirFicha(
-                    contexto,
-                    nombrePdf,
-                    fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
-                )
-            },
-        ) {
-            Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
-        }
+        BotonImprimirFicha(receta, estado.raciones, estado.cocina, estado.servirMin)
     }
 }
 
