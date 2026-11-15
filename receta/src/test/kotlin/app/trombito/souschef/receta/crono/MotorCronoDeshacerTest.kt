@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
 /** Deshacer el último Hecho de un carril (toque sin querer), sobre la ensalada de ñoquis real. */
 class MotorCronoDeshacerTest {
     private val ensalada =
-        leerReceta(File("../data/recetas/ensalada-de-noquis-con-atun-y-feta.json").readText())
+        leerReceta(File("src/test/resources/fixtures/ensalada-motor.json").readText())
 
     private val servir = 1_700_000_000_000L
 

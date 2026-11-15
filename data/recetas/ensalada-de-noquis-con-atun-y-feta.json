@@ -205,7 +205,9 @@
     },
     {
       "carril": "sarten",
-      "dep": [],
+      "dep": [
+        "atunqueso"
+      ],
       "f": 4,
       "hitos": [
         {

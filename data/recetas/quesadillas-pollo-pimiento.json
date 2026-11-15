@@ -167,7 +167,7 @@
       "f": 7,
       "holgura": "flexible",
       "id": "calentar-aceite",
-      "junto": null,
+      "junto": "mise-en-place",
       "meto": "la botella: 15 ml de aceite de oliva",
       "min": 2,
       "nota": "Listo cuando brilla y corre suelto al inclinar la sartén.",

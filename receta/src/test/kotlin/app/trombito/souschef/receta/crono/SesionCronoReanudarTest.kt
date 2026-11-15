@@ -10,7 +10,7 @@ import kotlin.test.assertSame
 /** Decisión de reanudar al entrar en la cocina: nueva, tal cual (abierta) o portada con ajustes nuevos. */
 class SesionCronoReanudarTest {
     private val ensalada =
-        leerReceta(File("../data/recetas/ensalada-de-noquis-con-atun-y-feta.json").readText())
+        leerReceta(File("src/test/resources/fixtures/ensalada-motor.json").readText())
 
     private val ahora = 1_700_000_000_000L
     private val servirNuevo = ahora + 3_600_000L

@@ -17,7 +17,7 @@ import kotlin.test.assertTrue
 /** Motor puro del cronómetro: ensalada de ñoquis real (dos carriles, dependencias, hitos) y casos sintéticos. */
 class MotorCronoTest {
     private val ensalada =
-        leerReceta(File("../data/recetas/ensalada-de-noquis-con-atun-y-feta.json").readText())
+        leerReceta(File("src/test/resources/fixtures/ensalada-motor.json").readText())
 
     private val servir = 1_700_000_000_000L
 

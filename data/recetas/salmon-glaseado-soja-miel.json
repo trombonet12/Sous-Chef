@@ -227,9 +227,7 @@
     },
     {
       "carril": "olla",
-      "dep": [
-        "arrancar"
-      ],
+      "dep": [],
       "f": 2,
       "holgura": "critico",
       "id": "arroz",
