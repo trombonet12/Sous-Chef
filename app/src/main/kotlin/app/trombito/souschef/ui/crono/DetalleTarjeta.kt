@@ -32,7 +32,6 @@ import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
-import kotlin.math.roundToInt
 
 @Composable
 internal fun BloqueReloj(
@@ -52,11 +51,11 @@ internal fun BloqueReloj(
             maxLines = 1,
             autoSize = TextAutoSize.StepBased(minFontSize = 20.sp, maxFontSize = relojSp.sp),
         )
+        if (v.enPausa) RotuloPausa(Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
         BarraProgreso(v, if (v.quedanS < 0) CronoPalette.alerta else color)
         v.proximoHito?.let { h ->
-            val segundos = (h.fraccion * v.duracionS).roundToInt()
             Text(
-                stringResource(R.string.crono_proximo_hito, formatoReloj(segundos), h.texto),
+                textoProximoAviso(v, h),
                 Modifier.fillMaxWidth().padding(top = 2.dp),
                 color = CronoPalette.acento,
                 style = MaterialTheme.typography.labelLarge,

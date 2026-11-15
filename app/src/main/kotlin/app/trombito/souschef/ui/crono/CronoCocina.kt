@@ -23,12 +23,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -99,16 +102,21 @@ fun CronoCocina(
             )
         Cabecera(datos, ui.reiniciarArmado, viewModel, menu, slotMicrofono)
         BandaTemporizadores(estado, ui.ahoraMs, viewModel::quitarTemporizador)
-        CuerpoCrono(
-            datos,
-            ui.disposicion,
-            acciones,
-            ui.tecnicas,
-            salidas.tecnica,
-            relleno = PaddingValues(start = 12.dp, end = 12.dp, bottom = 8.dp),
-            modifier = Modifier.weight(1f).fillMaxWidth(),
-            rellenoClasica = PaddingValues(0.dp),
-        )
+        // Sin nada arrancado, el paso que toca primero lleva EMPEZAR lleno aunque falte más de 3 min (el plan sigue al
+        // primer arranque, ADR-0018).
+        val primero = if (ConsultasCrono.arrancada(estado)) null else primerCarrilSinArrancar(vistasCarriles(datos))
+        CompositionLocalProvider(LocalPrimerArranque provides primero) {
+            CuerpoCrono(
+                datos,
+                ui.disposicion,
+                acciones,
+                ui.tecnicas,
+                salidas.tecnica,
+                relleno = PaddingValues(start = 12.dp, end = 12.dp, bottom = 8.dp),
+                modifier = Modifier.weight(1f).fillMaxWidth(),
+                rellenoClasica = PaddingValues(0.dp),
+            )
+        }
     }
     HojaPorque(datos, porque, ui, salidas) { porque = null }
     if (diagrama) DialogoDiagrama(datos) { diagrama = false }
@@ -221,6 +229,7 @@ private fun Cabecera(
             formatoHora(datos.plan.llegadaMs),
             Modifier.weight(1f),
             if (ajustable) ({ ajustarServir = true }) else null,
+            gramosPara = datos.receta.raciones.takeIf { datos.estado.raciones != it },
         )
         slotMicrofono()
         MenuCocina(reiniciarArmado, datos.estado.libresLlenos(), viewModel, menu)
@@ -232,28 +241,40 @@ private fun Cabecera(
 
 /** «Llegas a las 15:21»: un toque abre el ajuste de la hora de servir. */
 @Composable
-private fun LlegadaCabecera(
+internal fun LlegadaCabecera(
     hora: String,
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)?,
+    gramosPara: Int? = null,
 ) {
     val descripcion = stringResource(R.string.crono_a11y_llegas_a_las, hora)
     val etiqueta = stringResource(R.string.crono_llegas_ajustar)
-    val base = modifier.heightIn(min = BOTON_CABECERA)
+    val base = modifier.heightIn(min = BOTON_CABECERA).testTag("llegada")
     Box(
         (if (onClick != null) base.clickable(onClickLabel = etiqueta, role = Role.Button, onClick = onClick) else base)
             .semantics { contentDescription = descripcion },
         contentAlignment = Alignment.CenterStart,
     ) {
-        Text(
-            stringResource(R.string.crono_llegas_a_las, hora),
-            Modifier.padding(horizontal = 8.dp),
-            style = MaterialTheme.typography.titleMedium.merge(Tabular),
-            fontWeight = FontWeight.Bold,
-            color = CronoPalette.texto,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        Column(Modifier.padding(horizontal = 8.dp)) {
+            Text(
+                stringResource(R.string.crono_llegas_a_las, hora),
+                style = MaterialTheme.typography.titleMedium.merge(Tabular),
+                fontWeight = FontWeight.Bold,
+                color = CronoPalette.texto,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            // METE y SACA llevan los gramos de la receta base: con otras raciones, aviso discreto (M13).
+            if (gramosPara != null) {
+                Text(
+                    pluralStringResource(R.plurals.crono_gramos_para_raciones, gramosPara, gramosPara),
+                    color = CronoPalette.apagado,
+                    style = MaterialTheme.typography.labelMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
     }
 }
 

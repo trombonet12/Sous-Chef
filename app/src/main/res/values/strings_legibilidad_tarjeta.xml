@@ -2,4 +2,9 @@
 <!-- Legibilidad de la tarjeta del cronómetro y del panel «i» (ronda 19, lote 1). -->
 <resources>
     <string name="crono_senal">SEÑAL</string>
+    <string name="crono_en_pausa">EN PAUSA</string>
+    <plurals name="crono_gramos_para_raciones">
+        <item quantity="one">Gramos para %d ración</item>
+        <item quantity="other">Gramos para %d raciones</item>
+    </plurals>
 </resources>

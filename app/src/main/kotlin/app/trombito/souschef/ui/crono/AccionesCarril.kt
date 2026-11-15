@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -43,6 +45,7 @@ import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.crono.guia.GuiaIds
 import app.trombito.souschef.ui.crono.guia.guia
 import app.trombito.souschef.ui.theme.CronoPalette
+import kotlin.math.roundToInt
 
 /**
  * Lo que la UI puede pedir sobre un carril; todos los mandos reciben el id del carril. Es un saco de callbacks con
@@ -138,11 +141,36 @@ internal enum class EstiloAccion {
     ESPERA_TEXTO,
 }
 
-/** Botón lleno solo si toca ya (YA) o ha vencido; en ESPERA un enlace; en BLOQ, solo texto; «Hecho» de contorno. */
-internal fun estiloAccion(v: VistaCarril): EstiloAccion =
+/**
+ * Carril al que toca arrancar primero mientras no haya ningún paso empezado (ADR-0018: el plan sigue al primer
+ * arranque, así que ese paso no «adelanta» nada y lleva EMPEZAR lleno aunque falten más de 3 min); null si no aplica.
+ */
+internal val LocalPrimerArranque = compositionLocalOf<String?> { null }
+
+/**
+ * El carril que toca primero con la cocina sin arrancar: entre los que se pueden empezar (no bloqueados), el de hora
+ * prevista más temprana. Null si hay algo empezado (en marcha, en pausa, vencido o con un paso ya hecho) o no hay
+ * ninguno que empezar.
+ */
+internal fun primerCarrilSinArrancar(vistas: List<VistaCarril>): String? {
+    if (vistas.any { it.momento != MomentoPaso.POR_EMPEZAR || it.paso != 1 }) return null
+    return vistas
+        .filter { it.accion == AccionCarril.EMPEZAR }
+        .minByOrNull { it.sugeridoMs ?: Long.MAX_VALUE }
+        ?.id
+}
+
+/**
+ * Botón lleno solo si toca ya (YA) o ha vencido; en ESPERA un enlace (salvo [primeroSinArrancar], el que toca primero
+ * con la cocina sin arrancar); en BLOQ, solo texto; «Hecho» de contorno.
+ */
+internal fun estiloAccion(
+    v: VistaCarril,
+    primeroSinArrancar: Boolean = false,
+): EstiloAccion =
     when {
         v.accion == AccionCarril.BLOQUEADO -> EstiloAccion.ESPERA_TEXTO
-        v.accion == AccionCarril.EMPEZAR && v.clase != ClaseEstado.YA -> EstiloAccion.ENLACE
+        v.accion == AccionCarril.EMPEZAR && v.clase != ClaseEstado.YA && !primeroSinArrancar -> EstiloAccion.ENLACE
         v.accion == AccionCarril.PAUSAR || v.accion == AccionCarril.SEGUIR -> EstiloAccion.CONTORNO
         else -> EstiloAccion.LLENO
     }
@@ -155,7 +183,7 @@ internal fun BotonAccion(
     modifier: Modifier = Modifier,
     compacto: Boolean = false,
 ) {
-    when (estiloAccion(v)) {
+    when (estiloAccion(v, LocalPrimerArranque.current == v.id)) {
         EstiloAccion.LLENO -> BotonPrincipal(v, acciones, modifier, compacto, lleno = true)
         EstiloAccion.CONTORNO -> BotonPrincipal(v, acciones, modifier, compacto, lleno = false)
         EstiloAccion.ENLACE -> EnlaceEmpezarAntes(v, acciones, modifier, compacto)
@@ -337,7 +365,59 @@ internal fun ChipTapa(v: VistaCarril) {
 
 @Composable
 @ReadOnlyComposable
-internal fun VistaCarril.colorReloj(): Color = if (quedanS < 0) CronoPalette.alerta else CronoPalette.texto
+internal fun VistaCarril.colorReloj(): Color =
+    when {
+        quedanS < 0 -> CronoPalette.alerta
+        accion == AccionCarril.SEGUIR -> CronoPalette.apagado
+        else -> CronoPalette.texto
+    }
+
+/** En pausa (el reloj está parado): la tarjeta lo dice con «EN PAUSA» junto al reloj y el reloj atenuado. */
+internal val VistaCarril.enPausa: Boolean get() = accion == AccionCarril.SEGUIR
+
+/** Rótulo «EN PAUSA» junto al reloj de una tarjeta en pausa. */
+@Composable
+internal fun RotuloPausa(
+    modifier: Modifier = Modifier,
+    estilo: TextStyle = MaterialTheme.typography.labelLarge,
+    textAlign: TextAlign? = null,
+) {
+    Text(
+        stringResource(R.string.crono_en_pausa),
+        modifier,
+        color = CronoPalette.acento,
+        style = estilo,
+        fontWeight = FontWeight.ExtraBold,
+        textAlign = textAlign,
+        maxLines = 1,
+    )
+}
+
+/** Segundos que faltan para el aviso [h] del paso de [v] (el reloj descuenta, así que el aviso también). */
+internal fun segundosHastaAviso(
+    v: VistaCarril,
+    h: MarcaHito,
+): Int {
+    val enSegundos = (h.fraccion * v.duracionS).roundToInt()
+    val transcurrido = v.duracionS - v.quedanS
+    return (enSegundos - transcurrido).coerceAtLeast(0)
+}
+
+/** «3:07» (minutos sin cero a la izquierda) para «en 3:07 · texto». */
+internal fun cuentaAtras(segundos: Int): String {
+    val m = segundos / SEGUNDOS_POR_MINUTO
+    val s = segundos % SEGUNDOS_POR_MINUTO
+    return "$m:${s.toString().padStart(2, '0')}"
+}
+
+private const val SEGUNDOS_POR_MINUTO = 60
+
+/** «en 3:07 · Dales la vuelta»: cuenta atrás hasta el próximo aviso, en el mismo sentido que el reloj de la tarjeta. */
+@Composable
+internal fun textoProximoAviso(
+    v: VistaCarril,
+    h: MarcaHito,
+): String = stringResource(R.string.crono_proximo_hito, cuentaAtras(segundosHastaAviso(v, h)), h.texto)
 
 /** Línea "METO  …" o "SACO  …": etiqueta de color en negrita y texto con negritas ligeras. */
 @Composable

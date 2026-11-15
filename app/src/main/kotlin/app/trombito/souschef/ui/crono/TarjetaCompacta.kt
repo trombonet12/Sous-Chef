@@ -28,7 +28,6 @@ import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
-import kotlin.math.roundToInt
 
 /**
  * Contenido de la tarjeta cuando falta alto (4 carriles o letra grande): arriba la cabecera (insignia, nombre, hora
@@ -53,14 +52,20 @@ internal fun ContenidoCompacto(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    formatoReloj(v.quedanS),
-                    color = v.colorReloj(),
-                    fontWeight = FontWeight.ExtraBold,
-                    style = MaterialTheme.typography.displaySmall.merge(Tabular),
-                    maxLines = 1,
-                    autoSize = TextAutoSize.StepBased(minFontSize = 20.sp, maxFontSize = RELOJ_COMPACTO_MAX),
-                )
+                Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        formatoReloj(v.quedanS),
+                        Modifier.weight(1f, fill = false),
+                        color = v.colorReloj(),
+                        fontWeight = FontWeight.ExtraBold,
+                        style = MaterialTheme.typography.displaySmall.merge(Tabular),
+                        maxLines = 1,
+                        autoSize = TextAutoSize.StepBased(minFontSize = 20.sp, maxFontSize = RELOJ_COMPACTO_MAX),
+                    )
+                    if (v.enPausa) {
+                        RotuloPausa(Modifier.padding(bottom = 4.dp), MaterialTheme.typography.labelMedium)
+                    }
+                }
                 BarraProgreso(v, if (v.quedanS < 0) CronoPalette.alerta else color)
             }
             MandosSecundarios(v, acciones, compacto = true)
@@ -85,7 +90,7 @@ private fun CabeceraCompacta(
         extras = {
             ChipFuego(v)
             ChipTapa(v)
-            if (v.tienePorque) IconoPorque()
+            if (v.tienePorque) BotonPorque(v, acciones, encabezado = true)
         },
         titulo = { TituloEnCabecera(v.titulo.orEmpty(), lineas = 2) },
         modifier = Modifier.fillMaxWidth().abrePorque(v, acciones),
@@ -135,10 +140,7 @@ internal fun TituloEnCabecera(
 @Composable
 private fun bloquesCompacta(v: VistaCarril): List<BloquePila> {
     val hito =
-        v.proximoHito?.let { h ->
-            val segundos = (h.fraccion * v.duracionS).roundToInt()
-            stringResource(R.string.crono_proximo_hito, formatoReloj(segundos), h.texto)
-        }
+        v.proximoHito?.let { h -> textoProximoAviso(v, h) }
     val junto = textoJunto(v)
     val paso = bloquesDelMomento(v)
     val bloqueHito = hito?.let { BloquePila(AnnotatedString(it), CronoPalette.acento) }
@@ -239,7 +241,7 @@ internal fun ContenidoPorEmpezar(
                     style = MaterialTheme.typography.labelLarge.merge(Tabular),
                     maxLines = 1,
                 )
-                if (v.tienePorque) IconoPorque()
+                if (v.tienePorque) BotonPorque(v, acciones, encabezado = true)
             },
             titulo = { TituloEnCabecera(v.pantalla.titulo, lineas = 2, grande = true) },
             modifier = Modifier.fillMaxWidth().abrePorque(v, acciones),

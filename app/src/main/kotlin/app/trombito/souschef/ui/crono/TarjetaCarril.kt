@@ -1,9 +1,12 @@
+@file:Suppress("TooManyFunctions") // cabecera, mandos, «i» y fila final de la tarjeta
+
 package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -37,6 +40,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.progressBarRangeInfo
@@ -103,7 +107,7 @@ fun TarjetaCarril(
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             FilaTitulo(v, color, acciones)
-            FilaDatos(v)
+            FilaDatos(v, acciones)
             TituloPaso(v, plan.tituloLineas, acciones)
             BloqueReloj(v, color, plan.relojSp, Modifier.weight(1f))
             PilaPrioritaria(
@@ -166,7 +170,10 @@ private fun FilaTitulo(
  * No sale si el carril no tiene nada de eso (por ejemplo, un paso sin fuego en marcha).
  */
 @Composable
-private fun FilaDatos(v: VistaCarril) {
+private fun FilaDatos(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+) {
     val hayDatos = previstaDe(v) != null || v.fuego != null || recursoTapa(v.tapa) != null || v.tienePorque
     if (!hayDatos) return
     Row(
@@ -177,11 +184,14 @@ private fun FilaDatos(v: VistaCarril) {
         Box(Modifier.weight(1f)) { HoraPrevista(v) }
         ChipFuego(v)
         ChipTapa(v)
-        if (v.tienePorque) IconoPorque()
+        if (v.tienePorque) BotonPorque(v, acciones)
     }
 }
 
-/** Pausa y +30 s (o el enlace «Empezar igual» si el carril espera a otro): secundarios, el principal está abajo. */
+/**
+ * Pausa y +30 s (o el enlace «Empezar igual» si el carril espera a otro): secundarios, el principal está abajo. Pasado
+ * de tiempo solo queda +30 s; en pausa, +30 s junto a «Seguir».
+ */
 @Composable
 internal fun MandosSecundarios(
     v: VistaCarril,
@@ -189,7 +199,7 @@ internal fun MandosSecundarios(
     compacto: Boolean = false,
 ) {
     when (v.accion) {
-        AccionCarril.PAUSAR, AccionCarril.HECHO -> {
+        AccionCarril.PAUSAR -> {
             BotonSecundario(
                 stringResource(R.string.crono_pausa),
                 stringResource(R.string.crono_a11y_pausa, v.nombre),
@@ -203,7 +213,8 @@ internal fun MandosSecundarios(
             ) { acciones.masTreinta(v.id) }
         }
 
-        AccionCarril.SEGUIR -> {
+        // Vencido no se pausa (el reloj ya pasó de cero): solo +30 s.
+        AccionCarril.SEGUIR, AccionCarril.HECHO -> {
             BotonSecundario(
                 stringResource(R.string.crono_mas_30),
                 stringResource(R.string.crono_a11y_mas_30, v.nombre),
@@ -315,17 +326,45 @@ private fun TituloPaso(
     )
 }
 
-/** Círculo con una "i": avisa de que el título abre el porqué del paso. */
+/**
+ * La «i» que abre el porqué del paso: botón de 48 dp de área táctil con su descripción para TalkBack. Con [encabezado]
+ * (tarjetas compactas y «por empezar», cuya cabecera ya es pulsable y ocupa más de 48 dp de alto) solo lleva 28 dp de
+ * alto para no engordar la cabecera; el resto del toque lo recoge la propia cabecera, que abre lo mismo.
+ */
 @Composable
-internal fun IconoPorque() {
+internal fun BotonPorque(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+    encabezado: Boolean = false,
+) {
+    val descripcion = stringResource(R.string.crono_ver_porque)
+    val modifier = Modifier.testTag("porque-${v.id}").semantics { contentDescription = descripcion }
+    if (encabezado) {
+        Box(
+            modifier
+                .size(width = AREA_PORQUE, height = ALTO_PORQUE_ENCABEZADO)
+                .clickable(role = Role.Button) { acciones.porque(v.id) },
+            contentAlignment = Alignment.Center,
+        ) { CirculoPorque() }
+    } else {
+        IconButton(onClick = { acciones.porque(v.id) }, modifier.size(AREA_PORQUE)) { CirculoPorque() }
+    }
+}
+
+private val AREA_PORQUE = 48.dp
+private val ALTO_PORQUE_ENCABEZADO = 28.dp
+
+/** Círculo con una "i" (lo que se ve del botón; sin semántica propia, la lleva el botón). */
+@Composable
+private fun CirculoPorque() {
     Text(
         "i",
         Modifier
             .clearAndSetSemantics {}
             .clip(RoundedCornerShape(50))
             .background(CronoPalette.carta2)
-            .width(22.dp)
-            .padding(vertical = 1.dp),
+            .width(24.dp)
+            .padding(vertical = 2.dp),
         color = CronoPalette.acento,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,

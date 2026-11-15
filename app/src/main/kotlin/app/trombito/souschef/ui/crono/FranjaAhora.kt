@@ -306,7 +306,7 @@ private fun BotonFranja(
     v: VistaCarril,
     acciones: AccionesCarril,
 ) {
-    val estilo = estiloAccion(v)
+    val estilo = estiloAccion(v, LocalPrimerArranque.current == v.id)
     if (estilo == EstiloAccion.ESPERA_TEXTO) return
     val enlace = estilo == EstiloAccion.ENLACE
     val descripcion =
