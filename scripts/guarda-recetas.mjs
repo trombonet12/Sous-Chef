@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Guarda mecánica al reescribir textos de recetas (ADR-0017): compara cada receta con su versión en una ref de git
 // (por defecto HEAD) y falla si cambia algo que no sea texto. Uso:
-//   node scripts/guarda-recetas.mjs [--base <ref>] [slug…]
+//   node scripts/guarda-recetas.mjs [--base <ref>] [--permitir-enlaces] [slug…]
+// --permitir-enlaces deja cambiar `dep` y `junto` (ADR-0018: enlazar pasos que solo seguían al reloj); salen como AVISO.
 // Sin slugs, mira todas las recetas modificadas respecto a la base. Los cambios en avisos (hitos[].en) salen como AVISO:
 // se admiten si se justifican (p. ej. un aviso que sale del título), el resto es ERROR.
 import { execFileSync } from 'node:child_process';
@@ -9,9 +10,11 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const args = process.argv.slice(2);
 let base = 'HEAD';
+let permitirEnlaces = false;
 const slugs = [];
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--base') base = args[++i];
+  else if (args[i] === '--permitir-enlaces') permitirEnlaces = true;
   else slugs.push(args[i].replace(/\.json$/, '').replace(/^data\/recetas\//, ''));
 }
 
@@ -55,7 +58,12 @@ for (const slug of slugs) {
   for (const id of Object.keys(a)) if (!(id in b)) fallos.push(`paso ${id} desaparece`);
   for (const id of Object.keys(b)) if (!(id in a)) fallos.push(`paso ${id} es nuevo`);
   for (const id of Object.keys(a).filter((x) => x in b)) {
-    for (const c of CAMPOS_PASO) if (!igual(a[id][c], b[id][c])) fallos.push(`${id}.${c}: ${JSON.stringify(a[id][c])} → ${JSON.stringify(b[id][c])}`);
+    for (const c of CAMPOS_PASO) {
+      if (igual(a[id][c], b[id][c])) continue;
+      const linea = `${id}.${c}: ${JSON.stringify(a[id][c])} → ${JSON.stringify(b[id][c])}`;
+      if (permitirEnlaces && (c === 'dep' || c === 'junto')) notas.push(linea);
+      else fallos.push(linea);
+    }
     const en = (p) => (p.hitos ?? []).map((h) => h.en).sort((x, y) => x - y);
     if (!igual(en(a[id]), en(b[id]))) notas.push(`${id}.hitos[].en: ${JSON.stringify(en(a[id]))} → ${JSON.stringify(en(b[id]))}`);
   }
