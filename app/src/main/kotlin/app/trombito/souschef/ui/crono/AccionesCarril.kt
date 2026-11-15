@@ -39,8 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.crono.ClaseEstado
-import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.crono.guia.GuiaIds
 import app.trombito.souschef.ui.crono.guia.guia
@@ -304,16 +302,23 @@ internal fun Chip(
     )
 }
 
-/** "🔥 5" (o "🔥 medio-alto") si el carril es de fuego y el paso fija potencia; en la cocina del usuario. */
+/** "🔥 5" o "🔥 4 → 5" si cambia respecto al paso anterior (o "🔥 medio-alto"), en la cocina del usuario. */
 @Composable
 internal fun ChipFuego(v: VistaCarril) {
-    val potencia = LocalCocina.current.nivel(v.fuego ?: return)
+    val potencia = v.pantalla.fuego ?: return
+    val partes = potencia.split(FLECHA_FUEGO)
     Chip(
         stringResource(R.string.crono_fuego_chip, potencia),
         CronoPalette.acento,
-        stringResource(R.string.ficha_fuego_bajo, potencia),
+        if (partes.size == 2) {
+            stringResource(R.string.crono_a11y_fuego_cambia, partes[0], partes[1])
+        } else {
+            stringResource(R.string.ficha_fuego_bajo, potencia)
+        },
     )
 }
+
+private const val FLECHA_FUEGO = " → "
 
 /** «sin tapa / tapada / tapa a medias»: sale siempre que el paso declare tapa; resaltada si está puesta o a medias. */
 @Composable

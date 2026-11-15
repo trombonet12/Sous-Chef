@@ -76,6 +76,22 @@ class CocinaUiTest {
                 ),
         )
 
+    /**
+     * Como [receta], pero con la mesa a los 10 min (no al 0): con otros carriles ya en marcha, un paso de `off` 0 sin
+     * arrancar toca ya (ADR-0018: sigue al arranque de la cocina); uno con `off` 10 espera su hora.
+     */
+    private val recetaMesaEspera =
+        receta.copy(
+            pasos =
+                receta.pasos.map {
+                    when (it.id) {
+                        "p4" -> it.copy(off = 10.0)
+                        "p5" -> it.copy(off = 12.0)
+                        else -> it
+                    }
+                },
+        )
+
     private fun corriendo(quedanS: Int) = EstadoCarril(finAtMs = ahora + quedanS * 1000L)
 
     private fun vistas(
@@ -116,14 +132,15 @@ class CocinaUiTest {
     fun `foco pinta una tarjeta completa y el resto en filas compactas`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
-        val v = vistas()
+        val v = vistas(r = recetaMesaEspera)
         banco.cocina { CronoFoco(v, elegirFoco(v, null), p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("tarjeta-f0"), banco.etiquetas("tarjeta-"))
         assertEquals(listOf("fila-f1", "fila-m"), banco.etiquetas("fila-"))
         assertFalse(banco.hayDesplazable())
-        // El dato aparece una sola vez: el título del paso en foco no se repite en ninguna fila.
-        assertEquals(1, banco.nodos().count { n -> banco.textos(n).let { "Sofrito" in it && n.children.isEmpty() } })
+        // El dato aparece una sola vez en los carriles: el título del paso en foco no se repite en ninguna fila.
+        val enCarriles = banco.etiquetas("tarjeta-") + banco.etiquetas("fila-")
+        assertEquals(1, enCarriles.sumOf { e -> banco.textos(banco.conEtiqueta(e)).count { it == "Sofrito" } })
     }
 
     @Test
@@ -208,12 +225,18 @@ class CocinaUiTest {
     fun `el boton principal dice la accion que ejecuta`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
-        val v = vistas(f0 = corriendo(200), f1 = EstadoCarril(pausado = true, restanteS = 100), m = EstadoCarril())
+        val v =
+            vistas(
+                f0 = corriendo(200),
+                f1 = EstadoCarril(pausado = true, restanteS = 100),
+                m = EstadoCarril(),
+                r = recetaMesaEspera,
+            )
         banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("HECHO"), banco.textos(banco.conEtiqueta("accion-f0")))
         assertEquals(listOf("SEGUIR"), banco.textos(banco.conEtiqueta("accion-f1")))
-        // «m» espera su hora (faltan 13 min): enlace «Empezar antes», no botón lleno.
+        // «m» espera su hora (faltan unos 7 min): enlace «Empezar antes», no botón lleno.
         assertEquals(listOf("Empezar antes"), banco.textos(banco.conEtiqueta("accion-m")))
     }
 
@@ -237,7 +260,7 @@ class CocinaUiTest {
     fun `el enlace Empezar antes empieza el carril que espera su hora`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
-        val v = vistas(m = EstadoCarril())
+        val v = vistas(m = EstadoCarril(), r = recetaMesaEspera)
         assertEquals(ClaseEstado.ESPERA, v.first { it.id == "m" }.clase)
         banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
 
@@ -330,7 +353,7 @@ class CocinaUiTest {
     }
 
     @Test
-    fun `la tarjeta muestra meto saco nota y el siguiente hito una sola vez`() {
+    fun `la tarjeta en marcha muestra la senal y el siguiente hito una sola vez y no lo que entra o sale`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
@@ -338,11 +361,10 @@ class CocinaUiTest {
 
         val textos = banco.textos(banco.conEtiqueta("tarjeta-f0"))
 
-        assertTrue(textos.any { it.startsWith("METO") && "Cebolla" in it })
-        assertTrue(textos.any { it.startsWith("SACO") })
-        assertTrue(textos.any { it.contains("Remueve") })
+        assertTrue(textos.any { it.startsWith("SEÑAL") && "Remueve" in it })
+        assertTrue(textos.none { it.startsWith("METE") || it.startsWith("SACA") })
         assertEquals(1, textos.count { it.contains("Dales la vuelta") })
-        assertEquals(1, textos.count { it == "Después: Reposo · fuego 8 · 10:00" })
+        assertEquals(1, textos.count { it == "Luego: Reposo · fuego 8 · 10 min" })
         assertEquals(1, textos.count { it == "tapada" })
     }
 

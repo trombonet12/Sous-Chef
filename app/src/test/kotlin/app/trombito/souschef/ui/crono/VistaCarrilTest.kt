@@ -224,6 +224,45 @@ class VistaCarrilTest {
         assertEquals("Reposo", vistas(r = r)[0].despues)
     }
 
+    // ---- orden del paso y momento
+
+    @Test
+    fun `la orden compuesta lleva el fuego con flecha si cambia respecto al paso anterior del carril`() {
+        assertEquals("5", vistas()[0].pantalla.fuego)
+        val segundo = vistas(f0 = EstadoCarril(i = 1))[0]
+        assertEquals(5, segundo.orden.fuegoAnterior)
+        assertEquals("5 → 8", segundo.pantalla.fuego)
+        assertEquals("fuego 5 → 8 · 10 min", segundo.pantalla.detalle)
+    }
+
+    @Test
+    fun `la orden de la tarjeta trae METE y duracion y el carril mesa no lleva potencia`() {
+        val p = vistas()[0].pantalla
+        assertEquals("Cebolla", p.mete)
+        assertEquals("Nada", p.saca)
+        assertEquals("Remueve", p.senal)
+        assertEquals("fuego 5 · tapada · 5 min", p.detalle)
+        val conF = receta.copy(pasos = receta.pasos.map { if (it.id == "p3") it.copy(f = 3) else it })
+        assertNull(vistas(r = conF)[1].pantalla.fuego)
+    }
+
+    @Test
+    fun `despuesF es la potencia del siguiente paso solo en carril de fuego`() {
+        assertEquals(8, vistas()[0].despuesF)
+        assertNull(vistas()[1].despuesF)
+        assertNull(vistas(f0 = EstadoCarril(i = 1))[0].despuesF)
+    }
+
+    @Test
+    fun `el momento sale de la accion del carril`() {
+        assertEquals(MomentoPaso.POR_EMPEZAR, vistas()[0].momento)
+        assertEquals(MomentoPaso.POR_EMPEZAR, vistas()[1].momento)
+        assertEquals(MomentoPaso.EN_MARCHA, vistas(f0 = corriendoCon(200))[0].momento)
+        assertEquals(MomentoPaso.EN_MARCHA, vistas(f0 = EstadoCarril(pausado = true, restanteS = 90))[0].momento)
+        assertEquals(MomentoPaso.VENCIDO, vistas(f0 = corriendoCon(-3))[0].momento)
+        assertEquals(MomentoPaso.TERMINADO, vistas(m = EstadoCarril(i = 1, fin = true))[1].momento)
+    }
+
     // ---- acciones
 
     @Test

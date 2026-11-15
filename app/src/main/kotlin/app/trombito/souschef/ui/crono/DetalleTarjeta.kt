@@ -28,6 +28,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
@@ -132,13 +133,26 @@ internal fun quitarPotenciaRepetida(despues: String): String {
     return if (yaLaDice) titulo else despues
 }
 
-/** «Después: …» de la tarjeta compacta, sin repetir la potencia que ya trae el título. */
+/**
+ * El título del paso siguiente sin repetir la potencia: el «· fuego N» del final solo queda si ese paso la cambia
+ * ([fuegoSiguiente] distinto del [fuego] de ahora) y el título no la dice ya.
+ */
+internal fun luegoSinPotencia(
+    despues: String,
+    fuego: Int?,
+    fuegoSiguiente: Int?,
+): String {
+    val partes = POTENCIA_REPETIDA.matchEntire(despues) ?: return despues
+    return if (fuego != null && fuego == fuegoSiguiente) partes.groupValues[1] else quitarPotenciaRepetida(despues)
+}
+
+/** «Luego: Subir al 5 · 2 min» (o «Último paso»): el paso siguiente del carril, con su duración en el formato corto. */
 @Composable
-internal fun textoDespuesLimpio(v: VistaCarril): String {
+internal fun textoLuego(v: VistaCarril): String {
     val despues = v.despues ?: return stringResource(R.string.crono_ultimo)
-    val limpio = quitarPotenciaRepetida(despues)
-    return v.despuesS?.let { stringResource(R.string.crono_despues_tiempo, limpio, formatoReloj(it)) }
-        ?: stringResource(R.string.crono_despues_corto, limpio)
+    val limpio = luegoSinPotencia(despues, v.fuego, v.despuesF)
+    return OrdenPaso.duracionCorta(v.despuesS)?.let { stringResource(R.string.crono_luego_tiempo, limpio, it) }
+        ?: stringResource(R.string.crono_luego_corto, limpio)
 }
 
 /** Lo que lee TalkBack en vez de «a la vez que ②»: «a la vez que el carril 2». Null si el paso no tiene `junto`. */

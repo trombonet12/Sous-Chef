@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.crono.guia.GuiaIds
@@ -59,7 +60,10 @@ import app.trombito.souschef.ui.theme.LocalFonts
 import app.trombito.souschef.ui.theme.colorCarrilTexto
 import kotlin.math.roundToInt
 
-/** Tarjeta completa de un carril: título, reloj con hitos, METO/SACO, nota y acción principal. Sin scroll. */
+/**
+ * Tarjeta de un carril; enseña lo que toca en este momento (ADR-0017): antes de empezar, METE, fuego, tapa y duración
+ * ([ContenidoPorEmpezar]); en marcha, el reloj, el próximo aviso y la SEÑAL; vencido, SACA y «Luego». Sin scroll.
+ */
 @Composable
 fun TarjetaCarril(
     v: VistaCarril,
@@ -69,6 +73,8 @@ fun TarjetaCarril(
 ) {
     val color = colorDeCarril(v.colorHex, v.indiceCarril)
     val forma = RoundedCornerShape(16.dp)
+    // Borde grueso del color del carril cuando toca empezar ya: es la tarjeta a la que mirar.
+    val tocaYa = v.accion == AccionCarril.EMPEZAR && v.clase == ClaseEstado.YA
     BoxWithConstraints(
         modifier
             .testTag("tarjeta-${v.id}")
@@ -76,16 +82,22 @@ fun TarjetaCarril(
             .clip(forma)
             .avisoVencido(v)
             .background(if (v.vencido) CronoPalette.parpadeo else CronoPalette.carta)
-            .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
+            .border(if (tocaYa) 4.dp else 2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
     ) {
+        if (v.momento == MomentoPaso.POR_EMPEZAR) {
+            ContenidoPorEmpezar(v, color, acciones)
+            return@BoxWithConstraints
+        }
         val escala = LocalDensity.current.fontScale
-        val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()
-        val hayNota = !v.nota.isNullOrBlank()
+        // En marcha solo se enseña la SEÑAL; vencido, SACA y la SEÑAL.
+        val hayMetoSaco = v.vencido && !v.pantalla.saca.isNullOrBlank()
+        val hayNota = !v.pantalla.senal.isNullOrBlank()
         if (tarjetaCompacta(maxHeight.value, escala, hayNota = hayNota, hayMetoSaco = hayMetoSaco)) {
             ContenidoCompacto(v, color, acciones)
             return@BoxWithConstraints
         }
         val plan = planTarjeta(maxHeight.value, carriles, hayMetoSaco, hayNota)
+        val paso = bloquesDelMomento(v, MaterialTheme.typography.bodyLarge)
         Column(
             Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 6.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -95,7 +107,7 @@ fun TarjetaCarril(
             TituloPaso(v, plan.tituloLineas, acciones)
             BloqueReloj(v, color, plan.relojSp, Modifier.weight(1f))
             PilaPrioritaria(
-                bloquesDelPaso(v, MaterialTheme.typography.bodyLarge).lista(),
+                (if (v.vencido) listOfNotNull(paso.saca, paso.senal) else listOfNotNull(paso.senal)),
                 Modifier.heightIn(max = (plan.textoDp * maxOf(1f, escala)).dp),
             )
             FilaFinal(v, acciones)
@@ -293,7 +305,7 @@ private fun TituloPaso(
     acciones: AccionesCarril,
 ) {
     Text(
-        v.titulo.orEmpty(),
+        v.pantalla.titulo,
         Modifier.fillMaxWidth().abrePorque(v, acciones),
         style = MaterialTheme.typography.titleLarge,
         fontWeight = FontWeight.Bold,
@@ -322,7 +334,7 @@ internal fun IconoPorque() {
 }
 
 /**
- * A la izquierda, «a la vez que ②» (si el paso tiene `junto`) y «Después: …»; a la derecha, la acción principal: botón
+ * A la izquierda, «a la vez que ②» (si el paso tiene `junto`) y «Luego: …»; a la derecha, la acción principal: botón
  * lleno solo si toca ya o ha vencido, enlace «Empezar antes» si espera su hora y «Antes: …» si espera a otro carril.
  */
 @Composable
@@ -351,7 +363,7 @@ private fun FilaFinal(
                 )
             }
             Text(
-                textoDespuesLimpio(v),
+                textoLuego(v),
                 color = CronoPalette.apagado,
                 style = MaterialTheme.typography.bodySmall,
                 maxLines = if (junto != null) 1 else 2,

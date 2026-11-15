@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- La orden del paso por momentos (ADR-0017): lo que entra, lo que sale y lo que viene -->
+    <string name="crono_mete">METE</string>
+    <string name="crono_saca">SACA</string>
+    <string name="crono_a11y_fuego_cambia">fuego de %1$s a %2$s</string>
+    <string name="crono_luego_corto">Luego: %1$s</string>
+    <string name="crono_luego_tiempo">Luego: %1$s · %2$s</string>
+
+    <!-- Franja fija «Ahora / Luego» encima de los carriles -->
+    <string name="crono_franja_ahora">AHORA</string>
+    <string name="crono_franja_luego">LUEGO</string>
+    <string name="crono_franja_nada">Nada que empezar</string>
+    <string name="crono_franja_cuando_acabe">cuando acabe %1$s</string>
+    <string name="crono_franja_tras">tras %1$s</string>
+    <string name="crono_franja_con">con %1$s</string>
+    <string name="crono_franja_a11y_ahora">Ahora, carril %1$d: %2$s</string>
+    <string name="crono_franja_a11y_marcha">Ahora, en marcha, carril %1$d: %2$s, quedan %3$s</string>
+    <string name="crono_franja_a11y_nada">Ahora: nada que empezar</string>
+    <string name="crono_franja_a11y_luego">Luego, a las %1$s, carril %2$d: %3$s</string>
+    <string name="crono_franja_a11y_luego_sin_hora">Luego, carril %1$d: %2$s</string>
+    <string name="crono_franja_a11y_cuando_acabe">cuando acabe el carril %1$d</string>
+</resources>

@@ -6,6 +6,7 @@ import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.receta.crono.EstadoCarril
+import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.ui.comun.nivel
 
 /** Acción principal de un carril; el botón grande de la UI la ejecuta. */
@@ -17,6 +18,20 @@ data class MarcaHito(
     val texto: String,
     val avisado: Boolean,
 )
+
+/** Qué le toca a la tarjeta de un carril en este momento: decide qué parte de la orden del paso se enseña. */
+enum class MomentoPaso {
+    /** Antes de empezar (toca ya, espera su hora o espera a otro carril): METE, fuego, tapa y duración. */
+    POR_EMPEZAR,
+
+    /** Corriendo o en pausa: el reloj, el próximo aviso y la señal. */
+    EN_MARCHA,
+
+    /** El reloj pasó de cero y espera Hecho: SACA y qué viene luego. */
+    VENCIDO,
+
+    TERMINADO,
+}
 
 /** Un paso que viene después en el carril: título y duración en segundos. */
 data class PasoProximo(
@@ -82,7 +97,32 @@ data class VistaCarril(
     val bloqueadoPorN: Int? = null,
     /** Número (1-based) del carril del paso con el que este va «a la vez» (`junto`); null si no tiene. */
     val juntoN: Int? = null,
+    /** Potencia canónica del siguiente paso del carril (solo carril FUEGO): «Luego» no la repite si es la misma. */
+    val despuesF: Int? = null,
+    /** La orden del paso compuesta con sus datos (ADR-0017): METE, fuego «4 → 5», tapa, duración, SEÑAL y SACA. */
+    val orden: OrdenPaso =
+        OrdenPaso(
+            titulo = titulo.orEmpty(),
+            meto = meto,
+            fuego = fuego,
+            tapa = tapa,
+            segundos = duracionS.takeIf { it > 0 },
+            senal = nota,
+            saco = saco,
+        ),
 ) {
+    /** Las piezas de la [orden] en la cocina del usuario; se calcula una vez por vista. */
+    val pantalla: OrdenPaso.Pantalla by lazy { orden.pantalla(cocina) }
+
+    val momento: MomentoPaso
+        get() =
+            when (accion) {
+                AccionCarril.EMPEZAR, AccionCarril.BLOQUEADO -> MomentoPaso.POR_EMPEZAR
+                AccionCarril.PAUSAR, AccionCarril.SEGUIR -> MomentoPaso.EN_MARCHA
+                AccionCarril.HECHO -> MomentoPaso.VENCIDO
+                AccionCarril.TERMINADO -> MomentoPaso.TERMINADO
+            }
+
     val puedeDeshacer: Boolean get() = deshacerA != null
 
     val terminado: Boolean get() = accion == AccionCarril.TERMINADO
@@ -154,14 +194,15 @@ private fun vistaActiva(
     val hitos = hitosDe(paso, ec)
     val vista = datos.vista(carril.id)
     val esFuego = carril.tipoCarril == TipoCarril.FUEGO
-    val tecnicas = datos.receta.tags.tecnica
+    val cola = datos.cola(carril.id)
+    val siguiente = cola.getOrNull(ec.i + 1)
     return VistaCarril(
         id = carril.id,
         nombre = carril.nombre,
         colorHex = carril.color,
         indiceCarril = indice,
         paso = ec.i + 1,
-        pasos = datos.cola(carril.id).size,
+        pasos = cola.size,
         titulo = paso.t,
         fuego = if (esFuego) paso.f else null,
         tapa = paso.tapa,
@@ -173,8 +214,10 @@ private fun vistaActiva(
         meto = paso.meto,
         saco = paso.saco,
         nota = paso.nota,
-        despues = datos.cola(carril.id).getOrNull(ec.i + 1)?.let { despuesDe(it, esFuego, datos.cocina) },
-        despuesS = datos.cola(carril.id).getOrNull(ec.i + 1)?.segundos,
+        despues = siguiente?.let { despuesDe(it, esFuego, datos.cocina) },
+        despuesS = siguiente?.segundos,
+        despuesF = siguiente?.f?.takeIf { esFuego },
+        orden = ordenDe(cola, ec.i, esFuego),
         accion = accion,
         bloqueadoPor =
             pendientes.firstOrNull()?.takeIf { accion == AccionCarril.BLOQUEADO }?.let {
@@ -183,14 +226,12 @@ private fun vistaActiva(
         clase = vista.clase,
         sugeridoMs = vista.sugeridoMs,
         finAtMs = ec.finAtMs,
-        tienePorque = !paso.p.isNullOrBlank() || tecnicas.isNotEmpty(),
+        tienePorque =
+            !paso.p.isNullOrBlank() ||
+                datos.receta.tags.tecnica
+                    .isNotEmpty(),
         porque = paso.p?.takeIf { it.isNotBlank() },
-        proximos =
-            datos
-                .cola(carril.id)
-                .drop(ec.i + 1)
-                .take(MAX_PROXIMOS)
-                .map { PasoProximo(it.t, it.segundos) },
+        proximos = cola.drop(ec.i + 1).take(MAX_PROXIMOS).map { PasoProximo(it.t, it.segundos) },
         faltanMin = vista.sugeridoMs?.let { Math.round((it - datos.ahoraMs) / MS_POR_MIN.toDouble()).toInt() },
         bloqueadoPorN =
             pendientes
@@ -199,6 +240,16 @@ private fun vistaActiva(
                 ?.let { datos.numeroCarril(it.carril) },
         juntoN = paso.junto?.let { datos.recetaUi.paso(it) }?.let { datos.numeroCarril(it.carril) },
     )
+}
+
+/** La orden del paso [indice] de la cola; en un carril que no es de fuego no lleva potencia (ni «4 → 5»). */
+private fun ordenDe(
+    cola: List<Paso>,
+    indice: Int,
+    esFuego: Boolean,
+): OrdenPaso {
+    val orden = OrdenPaso.delCarril(cola, indice)
+    return if (esFuego) orden else orden.copy(fuego = null, fuegoAnterior = null)
 }
 
 /** Número del carril (1-based, el de la insignia y el de la voz); null si no existe. */

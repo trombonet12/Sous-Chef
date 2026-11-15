@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
@@ -33,6 +34,8 @@ internal data class BloquePila(
     val color: Color,
     val estilo: TextStyle? = null,
     val descripcion: String? = null,
+    /** Etiqueta de prueba del texto (`testTag`); null = sin etiqueta. */
+    val etiqueta: String? = null,
 )
 
 /** Líneas máximas de cada bloque de la pila: si pasa, se corta con «…» y el resto está en el detalle. */
@@ -108,6 +111,7 @@ internal fun PilaPrioritaria(
                             b.texto,
                             Modifier
                                 .fillMaxWidth()
+                                .then(if (b.etiqueta != null) Modifier.testTag(b.etiqueta) else Modifier)
                                 .semantics { b.descripcion?.let { contentDescription = it } },
                             color = b.color,
                             style = b.estilo ?: estiloBase,

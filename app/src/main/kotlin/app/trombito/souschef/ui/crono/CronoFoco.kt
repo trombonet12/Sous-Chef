@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-/** FOCO: el carril más urgente en tarjeta completa y el resto en filas compactas debajo. Sin scroll. */
+/** FOCO: la franja «Ahora / Luego», el carril más urgente en tarjeta completa y el resto en filas compactas. */
 @Composable
 fun CronoFoco(
     vistas: List<VistaCarril>,
@@ -17,6 +17,7 @@ fun CronoFoco(
 ) {
     val foco = vistas.firstOrNull { it.id == focoId && !it.terminado }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        FranjaAhora(vistas, acciones)
         if (foco != null) TarjetaCarril(foco, acciones, vistas.size, Modifier.weight(1f).fillMaxWidth())
         vistas.filter { it.id != foco?.id }.forEach { FilaCarrilCompacta(it, acciones) }
     }
