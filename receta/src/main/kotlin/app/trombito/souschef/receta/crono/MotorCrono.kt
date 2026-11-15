@@ -105,9 +105,11 @@ object MotorCrono {
         return if (siguiente == null) {
             base.copy(foco = ConsultasCrono.siguienteAccionable(base, receta, ahoraMs) ?: base.foco)
         } else {
-            // Avisado si su hora (ya con este Hecho) ha llegado: el cocinero está delante y no hay que avisarle.
-            val prevista = plano.previstos(base, ahoraMs)[siguiente.id]?.inicioMs ?: ahoraMs
-            base.copy(carriles = base.carriles + (carril to nuevo.copy(avisado = prevista <= ahoraMs)))
+            // Avisado si su hora (ya con este Hecho) es firme y ha llegado: el cocinero está delante y no hay que
+            // avisarle. Una hora flotante no cuenta: al fijarse después (arranca el compañero) su aviso debe sonar.
+            val prev = plano.previstos(base, ahoraMs)[siguiente.id]
+            val avisado = prev != null && prev.firme && prev.inicioMs <= ahoraMs
+            base.copy(carriles = base.carriles + (carril to nuevo.copy(avisado = avisado)))
         }
     }
 

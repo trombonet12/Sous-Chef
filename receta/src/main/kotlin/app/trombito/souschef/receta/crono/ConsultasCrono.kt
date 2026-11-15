@@ -35,8 +35,16 @@ object ConsultasCrono {
         ahoraMs: Long,
     ): Map<String, PasoPrevisto> = Plano(receta).previstos(e, ahoraMs)
 
-    /** Alguien ha arrancado o dado por hecho algún paso: desde ahí la hora de servir ya no mueve nada. */
-    fun arrancada(e: EstadoCrono): Boolean = e.inicioRealMs.isNotEmpty() || e.finRealMs.isNotEmpty()
+    /**
+     * Alguien ha arrancado o dado por hecho algún paso: desde ahí la hora de servir ya no mueve nada. Mira también el
+     * progreso de los estados viejos (sin `inicioRealMs`/`finRealMs`): pasos reales o algún carril en marcha, en pausa,
+     * pasado de su primer paso o terminado.
+     */
+    fun arrancada(e: EstadoCrono): Boolean =
+        e.inicioRealMs.isNotEmpty() ||
+            e.finRealMs.isNotEmpty() ||
+            e.pasosReales.isNotEmpty() ||
+            e.carriles.values.any { it.corriendo || it.pausado || it.i > 0 || it.fin }
 
     /**
      * Hora prevista de empezar el paso actual del carril (ADR-0018); null si terminado o desconocido. Pasar

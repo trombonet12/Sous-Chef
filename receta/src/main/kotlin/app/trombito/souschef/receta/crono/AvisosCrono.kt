@@ -91,7 +91,7 @@ object AvisosCrono {
             }
         for (pe in vencidos) {
             ec = marcar(ec, pe)
-            avisos += aviso(pe, ahoraMs)
+            avisos += aviso(pe, ahoraMs, e.actualizadoMs)
         }
         return ec to avisos
     }
@@ -111,18 +111,26 @@ object AvisosCrono {
 
     private fun sinArrancar(ec: EstadoCarril): Boolean = !ec.corriendo && !ec.pausado && !ec.salto
 
+    /**
+     * «Toca empezar» que nace ya vencido por un mando (Hecho sin arrancar, `junto` con el compañero dado por hecho)
+     * suena en el acto: su retraso se mide desde el último cambio de estado ([actualizadoMs]), no desde su hora. Si el
+     * retraso viene de dormir el móvil (Doze), `actualizadoMs` es anterior a la hora y sigue saliendo silencioso.
+     */
     private fun aviso(
         pe: Pendiente,
         ahoraMs: Long,
-    ): Aviso =
-        Aviso(
+        actualizadoMs: Long,
+    ): Aviso {
+        val desdeMs = if (pe.evento.tipo == TipoAviso.TOCA_EMPEZAR) maxOf(pe.evento.ms, actualizadoMs) else pe.evento.ms
+        return Aviso(
             tipo = pe.evento.tipo,
             carril = pe.evento.carril,
             paso = pe.evento.paso,
             texto = pe.texto,
             instanteMs = pe.evento.ms,
-            silencioso = ahoraMs - pe.evento.ms > SILENCIO_MS,
+            silencioso = ahoraMs - desdeMs > SILENCIO_MS,
         )
+    }
 
     @Suppress("DEPRECATION")
     private fun marcar(

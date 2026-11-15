@@ -57,9 +57,10 @@ object SesionCrono {
                 if (p == null) {
                     ec
                 } else {
+                    val prev = previstos[p.id]
                     ec.copy(
                         inicioPasoMs = ec.inicioPasoMs ?: ahoraMs,
-                        avisado = ec.avisado || (previstos[p.id]?.inicioMs ?: ahoraMs) <= ahoraMs,
+                        avisado = ec.avisado || prev == null || (prev.firme && prev.inicioMs <= ahoraMs),
                     )
                 }
             }

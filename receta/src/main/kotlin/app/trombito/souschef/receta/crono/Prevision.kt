@@ -130,8 +130,9 @@ internal class Prevision(
         val firme = terminos.all { it.second }
         val inicio = maxOf(previsto, ahoraMs)
         // El paso actual cuenta la prórroga hecha antes de arrancar (`restanteS`); uno futuro, su duración de receta.
+        // Fin firme solo si aún no toca (previsto > ahora): con previsto == ahora su arranque depende del cocinero.
         val duracion = if (p.id in actuales) (e.carriles[p.carril]?.restanteS ?: p.segundos) * MS_S else dur(p)
-        return Nodo(inicio, inicio + duracion, firme && previsto >= ahoraMs, Situacion.PENDIENTE, previsto, firme)
+        return Nodo(inicio, inicio + duracion, firme && previsto > ahoraMs, Situacion.PENDIENTE, previsto, firme)
     }
 
     /** Un término por arista (cola, `dep`, `junto`), con su firmeza; sin aristas, el del origen del plan. */
