@@ -22,12 +22,12 @@
   ],
   "cortes": [
     {
-      "p": "Por la mitad a lo largo y cada mitad en gajos de 3 cm en su parte más gruesa, siguiendo el eje largo del boniato, como una naranja. Con la piel, que sujeta el gajo en una hora de horno y se tuesta. De 3 cm porque son 55 minutos de horno: con ese grosor el centro queda cremoso y la cara exterior carameliza sin secarse. A lo largo, cada gajo tiene dos caras cortadas que se doran contra el papel y una punta fina que carameliza; en rodajas, las del centro tardarían más que las de las puntas.",
+      "p": "Por la mitad a lo largo y cada mitad en gajos de 3 cm en su parte más gruesa, como una naranja, y con la piel, que sujeta el gajo en el horno y se tuesta. Con ese grosor el centro queda cremoso y la cara exterior carameliza sin secarse; en rodajas, las del centro tardarían más que las de las puntas.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Boniato visto desde arriba, partido a lo largo en gajos\"><path d=\"M10 44 Q18 20 60 18 Q102 20 110 44 Q102 68 60 70 Q18 68 10 44 Z\" fill=\"#E07B39\" fill-opacity=\".18\" stroke=\"#B85A22\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\" fill=\"none\"><line x1=\"12\" y1=\"44\" x2=\"108\" y2=\"44\"/><path d=\"M14 34 Q60 24 106 34\"/><path d=\"M14 54 Q60 64 106 54\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">gajos de 3 cm, a lo largo</text></svg>",
       "t": "Boniato · gajos de 3 cm, a lo largo, con piel"
     },
     {
-      "p": "Ya asado y con el hueso hacia arriba, el cuchillo entra por el medio de la carne que hay entre dos huesos, en paralelo a ellos, cada dos huesos: tiras de 4-5 cm. Las fibras de esa carne van de un hueso al siguiente, así que el corte las cruza por la mitad y deja fibras cortas, que se sueltan del hueso al morder. Dos huesos por tira guardan mejor el jugo que una costilla suelta.",
+      "p": "Ya asado y con el hueso arriba, el cuchillo entra por el medio de la carne entre dos huesos, en paralelo a ellos, cada dos huesos: tiras de 4-5 cm. El corte cruza las fibras, que van de un hueso al siguiente, y deja fibras cortas que se sueltan del hueso al morder. Dos huesos por tira guardan mejor el jugo.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Medio costillar visto desde arriba con ocho huesos, cortado cada dos huesos\"><path d=\"M8 24 L112 30 L112 62 L8 68 Z\" fill=\"#D98C7A\" fill-opacity=\".2\" stroke=\"#B5604E\"/><g stroke=\"#CDBFA6\" stroke-width=\"3\"><line x1=\"16\" y1=\"27\" x2=\"16\" y2=\"65\"/><line x1=\"28\" y1=\"28\" x2=\"28\" y2=\"64\"/><line x1=\"40\" y1=\"28\" x2=\"40\" y2=\"64\"/><line x1=\"52\" y1=\"29\" x2=\"52\" y2=\"63\"/><line x1=\"64\" y1=\"29\" x2=\"64\" y2=\"63\"/><line x1=\"76\" y1=\"30\" x2=\"76\" y2=\"62\"/><line x1=\"88\" y1=\"30\" x2=\"88\" y2=\"62\"/><line x1=\"100\" y1=\"31\" x2=\"100\" y2=\"61\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"34\" y1=\"20\" x2=\"34\" y2=\"72\"/><line x1=\"58\" y1=\"20\" x2=\"58\" y2=\"72\"/><line x1=\"82\" y1=\"20\" x2=\"82\" y2=\"72\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">entre huesos, de dos en dos</text></svg>",
       "t": "Costillar · entre huesos, tiras de 2 huesos (4-5 cm)"
     }
@@ -55,7 +55,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Medio costillar de cerdo con un rub seco, dos horas envuelto en papel de aluminio a 150 °C y glaseado al final con una barbacoa casera hecha con su propio jugo; el boniato en gajos se asa en la misma bandeja. La dificultad está en el final: secar la superficie, reducir el glaseado y pintarlo en dos capas finas sin que la miel se queme. El plato se apoya entero en el costillar: cómpralo para la ocasión.",
+  "descripcion": "Medio costillar con rub, dos horas envuelto a 150 °C y glaseado con su propio jugo; boniato en la misma bandeja. Lo difícil: secar, reducir el glaseado y pintar dos capas sin quemar la miel.",
   "escala": {
     "max": 2,
     "min": 2,
@@ -168,11 +168,11 @@
       "n": "SARTÉN PEQUEÑA · EL GLASEADO"
     }
   ],
-  "lectura": "Un horno, una bandeja y un solo fuego: 15 de precalentar + 90 de costillar envuelto + 30 envuelto con el boniato + 4 de abrir + 10 destapado + 2 de primera capa + 8 de horno + 1 de segunda capa + 7 de horno + 5 de reposo y corte = 172 minutos. El rub y el paquete se hacen mientras sube el horno, y el boniato y el glaseado en frío en los últimos diez minutos del primer tramo envuelto. El glaseado se reduce en el fuego pequeño entre los minutos 139 y 147, mientras la carne se seca destapada: es el único fuego del plan. Si en el minuto 135 el hueso no cede, todo lo que sigue se retrasa 15 minutos.",
+  "lectura": "La cuenta: 15 de precalentar + 90 de costillar envuelto + 30 envuelto con el boniato + 4 de abrir + 10 destapado + 2 de primera capa + 8 de horno + 1 de segunda capa + 7 de horno + 5 de reposo y corte = 172 minutos.\n\n- El rub y el paquete se hacen mientras sube el horno.\n- El boniato y el glaseado en frío caen en los últimos diez minutos del primer tramo envuelto.\n- El glaseado se reduce en el fuego pequeño entre el 139 y el 147, mientras la carne se seca destapada: es el único fuego del plan.\n\nLo que gobierna el plan es el hueso: si en el minuto 135 no cede, todo lo que sigue se retrasa 15 minutos.",
   "mep": [
     {
       "l": [
-        "<b>Costillar de cerdo · 700 g (medio costillar, unas 6-8 costillas)</b> · secado, sin membrana y con el rub, en el minuto 0. Al paquete en el minuto 10; después se lavan tabla y cuchillo. Vuelve a la tabla en el minuto 167 para cortarlo entre huesos.",
+        "<b>Costillar de cerdo · 700 g (medio costillar, unas 6-8 costillas)</b> · secado, sin membrana y con el rub, en el minuto 0. Al paquete en el minuto 10; después se lavan tabla y cuchillo. Reposa 3 minutos en la bandeja y vuelve a la tabla en el minuto 170 para cortarlo entre huesos.",
         "<b>Boniato · 400 g (1 boniato grande)</b> · lavado y en gajos de 3 cm a lo largo, con piel. Al bol mediano en el minuto 95."
       ],
       "orden": true,
@@ -198,11 +198,11 @@
         "<b>Sartén pequeña, en frío</b> · el glaseado: 80 g de ketchup (5 cucharadas soperas) + 20 g de miel (1 cucharada sopera) + 10 g de mostaza (2 cucharaditas) + 10 ml de salsa de soja + 10 ml de vinagre de vino del vaso. Se junta en el minuto 95 y va al fuego pequeño en el 139 con 80 ml del jugo."
       ],
       "orden": false,
-      "porq": "Cada cosa entra en un momento distinto: el rub en el minuto 0, el paquete al horno en el 15, el boniato en el 105 y el glaseado al fuego en el 139. El bol pequeño se enjuaga y se reutiliza en el minuto 149 para el glaseado de la mesa; la bandeja es la base del paquete y de los gajos.",
+      "porq": "Cada cosa entra en un momento distinto: el rub en el minuto 0, el paquete al horno en el 15, el boniato en el 105 y el glaseado al fuego en el 139. El bol pequeño se enjuaga para el glaseado de la mesa; la bandeja es la base del paquete y de los gajos.",
       "t": "CUATRO SITIOS, CUATRO MOMENTOS"
     }
   ],
-  "notaEscala": "Va solo a 2 raciones. Un costillar entero no cabe en la única bandeja junto al boniato, y un paquete más grueso cambia el tiempo envuelto. Para una persona el medio costillar tarda lo mismo, porque manda el grosor y no el peso: haz el plan igual y guarda lo que sobre.",
+  "notaEscala": "- Va solo a 2 raciones: un costillar entero no cabe en la única bandeja junto al boniato, y un paquete más grueso cambia el tiempo envuelto.\n- Para una persona el medio costillar tarda lo mismo, porque manda el grosor y no el peso: haz el plan igual y guarda lo que sobre.\n- El plato se apoya entero en el costillar: cómpralo para la ocasión.",
   "pasos": [
     {
       "carril": "horno",
@@ -213,13 +213,13 @@
       "junto": "rub",
       "meto": "",
       "min": 15,
-      "nota": "Saca la bandeja, pon la rejilla a media altura y enciende el horno a 150 °C, calor arriba y abajo. La bandeja se queda fuera con papel de horno: el paquete se monta sobre ella.",
+      "nota": "Bandeja fuera, con papel. Rejilla a media altura, calor arriba y abajo.",
       "off": 0,
-      "p": "Se enciende en el minuto 0 porque tarda unos quince minutos en estar de verdad a 150 °C, y ese tiempo se va en preparar el costillar. 150 °C es lo bastante suave para que el paquete cerrado se quede a unos 100 °C por dentro durante dos horas, en vapor, sin que el jugo del fondo hierva fuerte y se queme contra el aluminio. La bandeja sale antes de encender porque el paquete se monta sobre ella en frío.",
+      "p": "El horno tarda unos quince minutos en estar de verdad a 150 °C, y ese tiempo se va en preparar el costillar.\n\n150 °C es lo bastante suave para que el paquete cerrado se quede a unos 100 °C por dentro, en vapor, sin que el jugo del fondo hierva fuerte y se queme contra el aluminio. La bandeja sale antes porque el paquete se monta sobre ella en frío.",
       "s": 900,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar y cada apertura le quita parte del precalentado.",
-      "t": "Precalentar el horno a 150 °C",
+      "t": "Precalentar a 150 °C",
       "tapa": null
     },
     {
@@ -229,14 +229,14 @@
       "holgura": "flexible",
       "id": "rub",
       "junto": null,
-      "meto": "bol pequeño: 5 g de sal + 10 g de azúcar moreno + 2 g de ajo en polvo + 1 g de pimentón picante + 1 g de pimienta · tabla: el costillar (700 g)",
+      "meto": "el bol pequeño: 5 g de sal + 10 g de azúcar moreno + 2 g de ajo en polvo + 1 g de pimentón picante + 1 g de pimienta + la tabla: 700 g de costillar",
       "min": 10,
-      "nota": "Mezcla el rub en el bol pequeño y seca el costillar con papel de cocina sobre la tabla. Levanta la membrana blanca del lado del hueso con la punta de un cuchillo, tira de ella con papel y reparte el rub por las dos caras, frotándolo.",
+      "nota": "Membrana fuera y rub pegado por las dos caras.",
       "off": 0,
-      "p": "La membrana del lado del hueso es una lámina de tejido conjuntivo que no se funde en dos horas: se queda gomosa, encoge, arquea el costillar y no deja pasar el rub. Se agarra con papel porque resbala entre los dedos. El costillar se seca antes porque el agua de la superficie disuelve el rub y lo arrastra al fondo del paquete; sobre carne seca, la sal y el azúcar se pegan y sacan un poco de jugo que la carne vuelve a absorber antes de entrar al horno.",
+      "p": "El costillar se seca con papel antes de nada: el agua de la superficie disuelve el rub y lo arrastra al fondo del paquete; sobre carne seca, la sal y el azúcar se pegan.\n\nLa membrana del lado del hueso no se funde en dos horas: queda gomosa, encoge, arquea el costillar y no deja pasar el rub. Se levanta con la punta del cuchillo y se tira de ella con papel, que resbala menos que los dedos.\n\nEl rub, mezclado antes en el bol pequeño, se reparte por las dos caras frotando.",
       "s": 600,
       "saco": "",
-      "t": "Secar el costillar, quitar la membrana y frotar el rub",
+      "t": "Secar, quitar membrana y frotar",
       "tapa": null
     },
     {
@@ -246,14 +246,14 @@
       "holgura": "flexible",
       "id": "envolver",
       "junto": null,
-      "meto": "sobre la bandeja con papel: dos hojas de aluminio + el costillar con la carne abajo + el vaso medidor (30 ml de agua + 15 ml de vinagre de vino)",
+      "meto": "la bandeja: dos hojas de aluminio + el costillar, con la carne abajo + el vaso: 30 ml de agua + 15 ml de vinagre de vino",
       "min": 4,
-      "nota": "Pon dos hojas de aluminio una encima de otra sobre la bandeja, el costillar encima con la carne hacia abajo, levanta los bordes y echa el agua y el vinagre. Cierra doblando los bordes dos veces, sin apretar contra la carne, y lava la tabla y el cuchillo.",
+      "nota": "Bordes doblados dos veces, sin apretar la carne.",
       "off": 10,
-      "p": "Doble hoja porque el hueso pincha el aluminio, y por un agujero se escapa el vapor que hace todo el trabajo: un paquete abierto seca la carne en vez de cocerla. La carne va abajo para pasar las dos horas en el líquido y en el jugo que suelta, y los huesos, arriba, hacen de tapa. El agua pone el vapor desde el primer minuto, antes de que la carne suelte el suyo, y el vinagre deja ácido en el jugo, que luego será la base del glaseado. Los bordes se doblan dos veces para que el cierre sea estanco.",
+      "p": "Doble hoja porque el hueso pincha el aluminio, y por un agujero se escapa el vapor que hace todo el trabajo: un paquete abierto seca la carne en vez de cocerla.\n\nLa carne va abajo para pasar las dos horas en el líquido y en su propio jugo, y los huesos, arriba, hacen de tapa.\n\nCon los bordes levantados se echan el agua y el vinagre: el agua pone el vapor desde el primer minuto, antes de que la carne suelte el suyo, y el vinagre deja ácido en el jugo, que luego será la base del glaseado.\n\nLos bordes se doblan dos veces para que el cierre sea estanco.",
       "s": 240,
-      "saco": "",
-      "t": "Envolver el costillar en doble papel de aluminio",
+      "saco": "el paquete cerrado, en la bandeja + tabla y cuchillo, lavados",
+      "t": "Envolver en doble aluminio",
       "tapa": null
     },
     {
@@ -267,13 +267,13 @@
       "junto": null,
       "meto": "la bandeja con el paquete",
       "min": 90,
-      "nota": "Mete la bandeja a media altura y cierra. No abras el paquete ni el horno: dentro se está cociendo en su vapor.",
+      "nota": "No abras el paquete ni el horno.",
       "off": 15,
-      "p": "La carne de costilla tiene mucho colágeno entre las fibras, y el colágeno solo se convierte en gelatina con tiempo, humedad y la carne por encima de 70 °C. Dentro del paquete el aire está saturado de vapor a unos 100 °C: la superficie no se seca ni se enfría por evaporación, así que el calor entra parejo y la carne se queda jugosa mientras la gelatina la ablanda. Son dos horas en total; este primer tramo de 90 minutos va solo porque el boniato tarda mucho menos.",
+      "p": "La carne de costilla tiene mucho colágeno entre las fibras, y el colágeno solo se convierte en gelatina con tiempo, humedad y la carne por encima de 70 °C.\n\nDentro del paquete el aire está saturado de vapor a unos 100 °C: la superficie no se seca ni se enfría por evaporación, así que el calor entra parejo y la carne se queda jugosa mientras la gelatina la ablanda.\n\nEste primer tramo va solo porque el boniato tarda mucho menos: son dos horas de cocción en total.",
       "s": 5400,
       "saco": "",
       "sinHitos": "El paquete cerrado no deja ver nada, y abrir el horno solo enfría el vapor de dentro: hasta que entre el boniato no hay nada que hacer.",
-      "t": "Costillar envuelto a 150 °C, 90 minutos",
+      "t": "Costillar envuelto a 150 °C",
       "tapa": null
     },
     {
@@ -283,14 +283,14 @@
       "holgura": "flexible",
       "id": "boniato-glaseado",
       "junto": null,
-      "meto": "bol mediano: 400 g de boniato en gajos + 15 ml de aceite de oliva + 2 g de sal · sartén pequeña, en frío: 80 g de ketchup + 20 g de miel + 10 g de mostaza + 10 ml de salsa de soja + 10 ml de vinagre de vino",
+      "meto": "el bol mediano: 400 g de boniato + 15 ml de aceite de oliva + 2 g de sal + la sartén, en frío: 80 g de ketchup + 20 g de miel + 10 g de mostaza + 10 ml de salsa de soja + 10 ml de vinagre de vino",
       "min": 10,
-      "nota": "Lava el boniato, pártelo a lo largo en gajos de 3 cm con su piel y mézclalo en el bol mediano con el aceite y la sal. En la sartén pequeña, sin encender, junta el ketchup, la miel, la mostaza, la soja y el vinagre y remuévelo con una cuchara.",
+      "nota": "Gajos bien untados de aceite. Glaseado liso, sin grumos.",
       "off": 95,
-      "p": "El boniato va con piel porque la piel sostiene el gajo durante una hora de horno y se tuesta; sin ella, la cara exterior se deshace. Gajos de 3 cm en la parte más gruesa, todos iguales, para que se hagan a la vez: pasan casi una hora en el horno, y más finos se secarían por dentro y se quemarían en las puntas antes de acabar el glaseado. El aceite en el bol cubre cada cara, y es lo que la dora; en la bandeja, con el paquete en medio, no se reparte bien. El glaseado se junta ahora en frío porque son condimentos que aguantan a temperatura ambiente, y en el minuto 139 habrá prisa: la sartén pequeña es su recipiente y nada más.",
+      "p": "El boniato va con piel porque la piel sostiene el gajo durante el horno y se tuesta; sin ella, la cara exterior se deshace.\n\nEl aceite se mezcla en el bol y no en la bandeja: cubre cada cara y es lo que la dora; con el paquete en medio no se repartiría bien.\n\nEl glaseado se junta ahora, en frío y removiendo con una cuchara: son condimentos que aguantan a temperatura ambiente, y en el minuto 139 habrá prisa. La sartén pequeña es su recipiente y nada más.",
       "s": 600,
       "saco": "",
-      "t": "Boniato en gajos de 3 cm y el glaseado en frío en la sartén",
+      "t": "Boniato en gajos y glaseado en frío",
       "tapa": null
     },
     {
@@ -302,20 +302,20 @@
       "hitos": [
         {
           "en": 900,
-          "t": "Saca la bandeja, da la vuelta a los gajos sobre la otra cara cortada y vuelve a meterla"
+          "t": "Saca, gira los gajos a la otra cara, mete"
         }
       ],
       "holgura": "ajustado",
       "id": "horno-boniato",
       "junto": null,
-      "meto": "los gajos del bol mediano, en una capa alrededor del paquete, sobre una cara cortada",
+      "meto": "el bol: gajos, alrededor del paquete",
       "min": 30,
-      "nota": "Saca la bandeja, reparte los gajos alrededor del paquete sin que se toquen y vuelve a meterla a media altura. El paquete sigue cerrado.",
+      "nota": "Gajos sobre una cara cortada, sin tocarse. El paquete, cerrado.",
       "off": 105,
-      "p": "El boniato entra a 150 °C y no al final por el dulzor: tiene una enzima, la amilasa, que convierte su almidón en maltosa entre 60 y 75 °C, y cuanto más despacio cruza el interior esa franja, más dulce sale. Treinta minutos suaves lo dejan casi hecho por dentro; el dorado llega luego, en los 25 minutos a 200 °C. Separados entre sí, porque dos gajos que se tocan se cuecen en el vapor del otro.",
+      "p": "El boniato entra a 150 °C y no al final por el dulzor: tiene una enzima, la amilasa, que convierte su almidón en maltosa entre 60 y 75 °C, y cuanto más despacio cruza el interior esa franja, más dulce sale.\n\nEstos treinta minutos suaves lo dejan casi hecho por dentro; el dorado llega luego, en los 25 minutos a 200 °C. Separados entre sí, porque dos gajos que se tocan se cuecen en el vapor del otro.",
       "s": 1800,
       "saco": "",
-      "t": "Boniato alrededor del paquete, 30 minutos más a 150 °C",
+      "t": "Boniato alrededor del paquete",
       "tapa": null
     },
     {
@@ -327,14 +327,14 @@
       "holgura": "ajustado",
       "id": "abrir",
       "junto": null,
-      "meto": "la bandeja, de vuelta al horno: el costillar sobre el papel con la carne arriba y los gajos girados",
+      "meto": "la bandeja con el paquete, del horno",
       "min": 4,
-      "nota": "Saca la bandeja, abre el paquete por un extremo (sale vapor) y gira un hueso del centro: si cede, sube el horno a 200 °C; si no cede, ciérralo y dale 15 minutos más a 150 °C. Vierte el jugo en el vaso medidor, tira el aluminio, deja el costillar sobre el papel con la carne arriba, da la vuelta a los gajos y mete la bandeja.",
+      "nota": "Si el hueso gira, sube el horno a 200 °C. Si no, ciérralo: 15 minutos más.",
       "off": 135,
-      "p": "El hueso es la prueba fiable: cuando el colágeno se ha hecho gelatina, la carne ya no lo sujeta y gira con dos dedos. Si sigue firme, quince minutos más envuelto arreglan lo que el glaseado no puede arreglar después. El jugo va al vaso medidor porque la grasa sube arriba en un par de minutos y se quita con una cuchara; debajo queda el caldo con gelatina, que da cuerpo y brillo al glaseado. La carne se pone arriba porque es la cara que se va a secar y glasear.",
+      "p": "El hueso es la prueba fiable: cuando el colágeno se ha hecho gelatina, la carne ya no lo sujeta y gira con dos dedos. Se prueba con un hueso del centro, abriendo el paquete por un extremo porque sale vapor.\n\nSi sigue firme, quince minutos más envuelto arreglan lo que el glaseado no puede arreglar después.\n\nEl jugo va al vaso porque la grasa sube arriba en un par de minutos y se quita con una cuchara; debajo queda el caldo con gelatina, que da cuerpo y brillo al glaseado. La carne se pone arriba: es la cara que se seca y se glasea.",
       "s": 240,
-      "saco": "el jugo del paquete, al vaso medidor; el aluminio, a la basura",
-      "t": "Abrir el paquete, comprobar el hueso y subir el horno a 200 °C",
+      "saco": "el jugo, al vaso medidor + el aluminio, a la basura + el costillar, carne arriba + los gajos, girados + la bandeja, al horno",
+      "t": "Abrir el paquete y probar el hueso",
       "tapa": null
     },
     {
@@ -346,20 +346,20 @@
       "hitos": [
         {
           "en": 420,
-          "t": "Mira por el cristal: la carne tiene que verse mate y seca, sin brillo de jugo"
+          "t": "Mira por el cristal: carne mate y seca"
         }
       ],
       "holgura": "ajustado",
       "id": "secar-superficie",
       "junto": null,
-      "meto": "la bandeja con el costillar destapado y los gajos",
+      "meto": "",
       "min": 10,
-      "nota": "El horno va subiendo de 150 a 200 °C mientras tanto; no lo abras.",
+      "nota": "De brillante a mate. No abras el horno.",
       "off": 139,
-      "p": "El glaseado no se agarra a una superficie mojada: el agua lo diluye y lo hace resbalar hasta el papel. Diez minutos destapado, con el horno subiendo a 200 °C, evaporan la humedad de la cara de arriba y arrancan el Maillard del rub, que da el color de fondo. La señal es que la carne pase de brillante a mate; con ese aspecto, la primera capa se queda pegada y cuaja.",
+      "p": "El glaseado no se agarra a una superficie mojada: el agua lo diluye y lo hace resbalar al papel. Destapado y con el horno subiendo a 200 °C, la cara de arriba pierde la humedad y arranca el Maillard del rub, que da el color de fondo.\n\nCon la carne mate y sin brillo de jugo, la primera capa se queda pegada y cuaja.",
       "s": 600,
       "saco": "",
-      "t": "Costillar destapado a 200 °C, 10 minutos, sin glasear",
+      "t": "Secar destapado a 200 °C",
       "tapa": null
     },
     {
@@ -371,14 +371,14 @@
       "holgura": "ajustado",
       "id": "glaseado-arrancar",
       "junto": null,
-      "meto": "80 ml del jugo desgrasado del vaso medidor, sobre el glaseado de la sartén",
+      "meto": "el vaso: 80 ml de jugo, sin la grasa",
       "min": 2,
-      "nota": "Enciende el fuego pequeño al {6} con la sartén encima y quita con una cuchara la capa de grasa del vaso. Echa 80 ml de jugo a la sartén (si hay menos, completa con agua) y remueve sin tapa hasta que hierva.",
+      "nota": "Remueve hasta que hierva. Si hay menos jugo, completa con agua.",
       "off": 139,
-      "p": "Al {6} el glaseado llega a hervir en un par de minutos sin pegarse, porque el jugo pone el agua que la miel y el ketchup necesitan para no quemarse en el fondo. Sin tapa desde el principio: toda el agua que sale es la que tiene que irse para que espese. La grasa se quita antes porque no se mezcla con el resto, y un glaseado con grasa queda turbio y resbala de la carne.",
+      "p": "Al {6} el glaseado llega a hervir en un par de minutos sin pegarse, porque el jugo pone el agua que la miel y el ketchup necesitan para no quemarse en el fondo.\n\nSin tapa desde el principio: toda el agua que sale es la que tiene que irse para que espese.\n\nLa grasa se quita antes con una cuchara: no se mezcla con el resto, y un glaseado con grasa queda turbio y resbala de la carne.",
       "s": 120,
       "saco": "",
-      "t": "Arrancar el glaseado con el jugo al {6}",
+      "t": "Arrancar el glaseado con el jugo",
       "tapa": "sin tapa"
     },
     {
@@ -392,7 +392,7 @@
         },
         {
           "en": 240,
-          "t": "Remueve: al pasar la cuchara tiene que dejar rastro en el fondo"
+          "t": "Remueve: la cuchara deja rastro en el fondo"
         }
       ],
       "holgura": "flexible",
@@ -400,12 +400,12 @@
       "junto": null,
       "meto": "",
       "min": 6,
-      "nota": "Baja al {4} y deja que borbotee suave, sin tapa. Al terminar, apaga y aparta la sartén: la vitro sigue calentando un par de minutos y la miel se pegaría.",
+      "nota": "Borbotea suave. Listo cuando napa la cuchara.",
       "off": 141,
-      "p": "Al {4} hierve flojo: el agua del jugo y del vinagre se evapora sin que el azúcar de la miel y del ketchup llegue a caramelizar en el fondo, que es lo que pasaría a fuego alto. Está cuando napa la cuchara y, al pasar el dedo por el dorso, queda una raya limpia; frío espesa algo más, así que no lo lleves más allá. Se aparta porque la placa guarda calor y seguiría reduciendo sin que la mires.",
+      "p": "Al {4} hierve flojo: el agua del jugo y del vinagre se evapora sin que el azúcar de la miel y del ketchup llegue a caramelizar en el fondo, que es lo que pasaría a fuego alto.\n\nEstá cuando napa la cuchara y, al pasar el dedo por el dorso, queda una raya limpia; frío espesa algo más, así que no lo lleves más allá.\n\nSe aparta porque la placa guarda calor y seguiría reduciendo sin que la mires; la miel se pegaría.",
       "s": 360,
-      "saco": "la sartén, fuera del fuego, a la encimera",
-      "t": "Bajar al {4} y reducir el glaseado hasta que nape",
+      "saco": "la sartén, apagada, a la encimera",
+      "t": "Bajar al {4} y reducir",
       "tapa": "sin tapa"
     },
     {
@@ -418,14 +418,14 @@
       "holgura": "ajustado",
       "id": "capa-1",
       "junto": null,
-      "meto": "bol pequeño, enjuagado: un tercio del glaseado (unos 50 g, 3 cucharadas soperas) · sobre la carne: otro tercio",
+      "meto": "la bandeja, del horno + la sartén: el glaseado, en tercios",
       "min": 2,
-      "nota": "Echa un tercio del glaseado en el bol pequeño y apártalo para la mesa. Saca la bandeja, cierra el horno, pinta la carne con otro tercio con el dorso de una cuchara, por encima y por los lados, y métela.",
+      "nota": "Capa fina, por encima y por los lados. Cierra el horno.",
       "off": 149,
-      "p": "El tercio de la mesa se separa antes de tocar la carne para que la cuchara que pasa por ella no vuelva a él. Una capa fina, no un baño: con poco grosor, el agua del glaseado se evapora en el horno y el azúcar cuaja pegado a la carne; una capa gruesa resbala hasta el papel y allí se quema. El horno se cierra mientras pintas para que no pierda los 200 °C.",
+      "p": "El tercio de la mesa se separa antes de tocar la carne para que la cuchara que pasa por ella no vuelva a él.\n\nSe pinta con el dorso de una cuchara. Fina, no un baño: el agua se evapora en el horno y el azúcar cuaja pegado a la carne; una capa gruesa resbala al papel y allí se quema.\n\nLa bandeja sale del horno y el horno se cierra mientras pintas, para que no pierda los 200 °C.",
       "s": 120,
-      "saco": "",
-      "t": "Separar el tercio de la mesa y pintar la primera capa",
+      "saco": "un tercio (50 g), al bol enjuagado + otro tercio, a la carne",
+      "t": "Tercio aparte y primera capa",
       "tapa": null
     },
     {
@@ -437,20 +437,20 @@
       "hitos": [
         {
           "en": 300,
-          "t": "Mira por el cristal: el glaseado tiene que burbujear en los bordes y empezar a oscurecer"
+          "t": "Mira: burbujea en los bordes y oscurece"
         }
       ],
       "holgura": "ajustado",
       "id": "horno-capa-1",
       "junto": null,
-      "meto": "la bandeja con la primera capa",
+      "meto": "la bandeja, a media altura",
       "min": 8,
-      "nota": "Mete la bandeja a media altura y cierra. La capa tiene que quedar pegajosa y sin charcos, no seca del todo.",
+      "nota": "Pegajosa y sin charcos, no seca del todo.",
       "off": 151,
-      "p": "En ocho minutos a 200 °C el agua de la capa se evapora y los azúcares de la miel y del ketchup caramelizan en la superficie, formando una película pegada a la carne. Es la base de la segunda capa: sobre una película cuajada, el glaseado nuevo se agarra en vez de deslizarse. El boniato sigue dorándose al lado, ya a temperatura alta.",
+      "p": "A 200 °C el agua de la capa se evapora y los azúcares de la miel y del ketchup caramelizan, formando una película pegada a la carne.\n\nEs la base de la segunda capa: sobre una película cuajada el glaseado nuevo se agarra en vez de deslizarse. El boniato sigue dorándose al lado.",
       "s": 480,
       "saco": "",
-      "t": "Primera capa al horno, 8 minutos",
+      "t": "Primera capa al horno",
       "tapa": null
     },
     {
@@ -462,11 +462,11 @@
       "holgura": "ajustado",
       "id": "capa-2",
       "junto": null,
-      "meto": "el último tercio del glaseado de la sartén, sobre la carne",
+      "meto": "la bandeja, del horno + la sartén: el último tercio",
       "min": 1,
-      "nota": "Saca la bandeja, cierra el horno, pinta la carne con el glaseado que queda en la sartén y métela.",
+      "nota": "Toda la carne cubierta, sin charcos. Cierra el horno.",
       "off": 159,
-      "p": "La segunda capa va sobre la primera ya cuajada y la cubre donde se ha quedado fina o se ha agrietado. Es la que da el brillo final: su azúcar se calienta menos tiempo y queda lacado y pegajoso en vez de tostado. Rápido, porque con la puerta abierta el horno pierde temperatura a cada segundo.",
+      "p": "La segunda capa va sobre la primera ya cuajada y cubre donde se ha quedado fina o se ha agrietado. Es la que da el brillo final: su azúcar se calienta menos tiempo y queda lacado y pegajoso en vez de tostado.\n\nSe pinta con la bandeja fuera y el horno cerrado, y rápido: con la puerta abierta el horno pierde temperatura a cada segundo.",
       "s": 60,
       "saco": "",
       "t": "Pintar la segunda capa",
@@ -481,20 +481,20 @@
       "hitos": [
         {
           "en": 300,
-          "t": "Mira por el cristal: si algún borde se pone negro, saca la bandeja ya"
+          "t": "Si algún borde se pone negro, saca ya"
         }
       ],
       "holgura": "critico",
       "id": "horno-capa-2",
       "junto": null,
-      "meto": "la bandeja con la segunda capa",
+      "meto": "la bandeja, a media altura",
       "min": 7,
-      "nota": "Mete la bandeja y no te alejes: la miel pasa de lacada a quemada en un par de minutos.",
+      "nota": "Brillante y pegajosa, sin bordes negros. No te alejes.",
       "off": 160,
-      "p": "Siete minutos bastan para que la segunda capa burbujee y se pegue sin llegar al quemado: la miel tiene fructosa, que carameliza a menos temperatura que el azúcar de mesa y se pone negra antes. Por eso es el paso que no espera. Los bordes finos del costillar y las puntas de los gajos son lo primero que se oscurece, y son la señal para sacarlo antes.",
+      "p": "Estos minutos bastan para que la segunda capa burbujee y se pegue sin llegar al quemado: la miel tiene fructosa, que carameliza a menos temperatura que el azúcar de mesa y se pone negra antes. Por eso es el paso que no espera.\n\nLos bordes finos del costillar y las puntas de los gajos son lo primero que se oscurece, y son la señal para sacarlo antes.",
       "s": 420,
-      "saco": "la bandeja, fuera del horno, a la encimera. Apaga el horno",
-      "t": "Segunda capa al horno, 7 minutos",
+      "saco": "la bandeja, a la encimera + apaga el horno",
+      "t": "Segunda capa al horno",
       "tapa": null
     },
     {
@@ -503,17 +503,23 @@
         "horno-capa-2"
       ],
       "f": null,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Pásalo a la tabla con el hueso arriba"
+        }
+      ],
       "holgura": "critico",
       "id": "servir",
       "junto": null,
-      "meto": "el costillar, de la bandeja a la tabla",
+      "meto": "",
       "min": 5,
-      "nota": "Deja reposar el costillar 3 minutos en la bandeja. Pásalo a la tabla con el hueso hacia arriba, córtalo entre huesos en tiras de 2 huesos y repártelas en dos platos con los gajos, con el bol del glaseado aparte.",
+      "nota": "Tiras de 2 huesos, con el glaseado aparte.",
       "off": 167,
-      "p": "En los tres minutos de reposo el glaseado se enfría lo justo para dejar de estar líquido y cuajar en lacado; cortado al salir, se pega al cuchillo y se arrastra. Con el hueso arriba ves dónde va cada uno, y el cuchillo entra por el medio de la carne, no contra el hueso. El tercio de la mesa es para mojar: sin hornear, conserva el ácido del vinagre que el horno les ha quitado a las capas.",
+      "p": "En los tres minutos de reposo en la bandeja el glaseado se enfría lo justo para dejar de estar líquido y cuajar en lacado; cortado al salir, se pega al cuchillo y se arrastra.\n\nCon el hueso arriba ves dónde va cada uno, y el cuchillo entra por el medio de la carne, no contra el hueso.\n\nEl tercio de la mesa es para mojar: sin hornear, conserva el ácido del vinagre que el horno ha quitado a las capas.",
       "s": 300,
-      "saco": "2 platos: las tiras de costillar con los gajos de boniato · el bol pequeño con el tercio de glaseado, a la mesa",
-      "t": "Reposar 3 minutos, cortar entre huesos y a la mesa",
+      "saco": "las tiras con los gajos, en 2 platos + el bol del glaseado, a la mesa",
+      "t": "Reposar y cortar entre huesos",
       "tapa": null
     }
   ],
@@ -525,7 +531,7 @@
   "porque": [
     [
       "Dos horas envuelto a 150 °C",
-      "El colágeno de la costilla necesita tiempo y humedad para volverse gelatina. Dentro del aluminio la carne se cuece en vapor a unos 100 °C sin secarse; asada al aire las mismas dos horas, la superficie se endurecería antes de que el centro se ablandara."
+      "El colágeno de la costilla necesita tiempo y humedad para volverse gelatina. Dentro del aluminio la carne se cuece en vapor a unos 100 °C sin secarse; asada al aire, la superficie se endurecería antes de que el centro se ablandara."
     ],
     [
       "La carne abajo en el paquete",
@@ -553,7 +559,7 @@
     ],
     [
       "El boniato, a mitad del horno lento",
-      "Entra cuando faltan 30 minutos de horno suave para que su amilasa convierta almidón en azúcar, y dora después en los 25 minutos a 200 °C. Entero el plan a 150 °C se quedaría pálido; entero a 200 °C se quemaría."
+      "Entra cuando faltan 30 minutos de horno suave para que su amilasa convierta almidón en azúcar, y dora después en los 25 minutos a 200 °C. Entero a 150 °C se quedaría pálido; entero a 200 °C se quemaría."
     ],
     [
       "Sin comino",
