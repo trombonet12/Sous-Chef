@@ -22,12 +22,12 @@
   ],
   "cortes": [
     {
-      "p": "Con las lonchas apiladas, el cuchillo va de lado a lado, cruzando las vetas de grasa que corren a lo largo de la loncha. Cada tira de 1 cm lleva así grasa y magro: la grasa se funde en la sartén y fríe el magro, que se dora por los bordes y queda tierno en el centro. Más finas se secarían; más anchas se quedarían blandas y con la grasa dentro.",
+      "p": "Con las lonchas apiladas, el cuchillo va de lado a lado, cruzando las vetas de grasa. Cada tira de 1 cm lleva así grasa y magro: la grasa se funde y fríe el magro, que se dora por los bordes y queda tierno por dentro. Más finas se secarían; más anchas se quedarían blandas.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Loncha de bacon con las vetas de grasa a lo largo, cortada en tiras de 1 cm que las cruzan\"><rect x=\"8\" y=\"28\" width=\"104\" height=\"30\" rx=\"3\" fill=\"#D98C7A\" fill-opacity=\".2\" stroke=\"#B5604E\"/><g stroke=\"#E8DCC8\" stroke-width=\"3\"><line x1=\"10\" y1=\"36\" x2=\"110\" y2=\"36\"/><line x1=\"10\" y1=\"50\" x2=\"110\" y2=\"50\"/></g><g stroke=\"#B5604E\" stroke-width=\".8\" opacity=\".75\"><line x1=\"10\" y1=\"43\" x2=\"110\" y2=\"43\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"21\" y1=\"20\" x2=\"21\" y2=\"66\"/><line x1=\"34\" y1=\"20\" x2=\"34\" y2=\"66\"/><line x1=\"47\" y1=\"20\" x2=\"47\" y2=\"66\"/><line x1=\"60\" y1=\"20\" x2=\"60\" y2=\"66\"/><line x1=\"73\" y1=\"20\" x2=\"73\" y2=\"66\"/><line x1=\"86\" y1=\"20\" x2=\"86\" y2=\"66\"/><line x1=\"99\" y1=\"20\" x2=\"99\" y2=\"66\"/></g><text x=\"60\" y=\"82\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">tiras de 1 cm, cruzando las vetas</text></svg>",
       "t": "Bacon · tiras de 1 cm, cruzando las vetas"
     },
     {
-      "p": "La cuña, sujeta por la corteza, se pasa por la cara de agujeros más pequeños del rallador, en hebras de 1 mm. Así de fino, el queso se funde a los 65 °C de la crema sin necesidad de fuego y se reparte sin dejar granos. Rallado grueso necesita más calor del que admite la yema: o queda en grumos o el huevo cuaja mientras se funde.",
+      "p": "La cuña, sujeta por la corteza, se pasa por la cara fina del rallador, en hebras de 1 mm. Así se funde a los 65 °C de la crema sin fuego y se reparte sin granos. Rallado grueso pide más calor del que admite la yema: queda en grumos o el huevo cuaja.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Cuña de Grana Padano pasada por la cara fina del rallador, en hebras de 1 mm\"><path d=\"M14 62 L106 62 L94 22 Z\" fill=\"#E9C46A\" fill-opacity=\".22\" stroke=\"#C9A13E\"/><line x1=\"14\" y1=\"62\" x2=\"106\" y2=\"62\" stroke=\"#A8853A\" stroke-width=\"3\"/><g stroke=\"#C9A13E\" stroke-width=\".8\" opacity=\".75\"><line x1=\"40\" y1=\"54\" x2=\"98\" y2=\"54\"/><line x1=\"64\" y1=\"44\" x2=\"96\" y2=\"44\"/><line x1=\"84\" y1=\"34\" x2=\"95\" y2=\"34\"/></g><g stroke=\"#17150F\" stroke-width=\"1\" stroke-dasharray=\"2 2\"><line x1=\"94\" y1=\"22\" x2=\"108\" y2=\"8\"/><line x1=\"98\" y1=\"34\" x2=\"112\" y2=\"20\"/><line x1=\"101\" y1=\"46\" x2=\"115\" y2=\"32\"/><line x1=\"104\" y1=\"56\" x2=\"117\" y2=\"43\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">rallado fino, hebras de 1 mm</text></svg>",
       "t": "Grana Padano · de la cuña, rallado fino de 1 mm"
     }
@@ -51,7 +51,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Espaguetis con bacon y Grana Padano ligados con una crema de huevo fuera del fuego, sin nata y con mucha pimienta. La dificultad es la temperatura: la yema tiene que espesar sin cuajar, y eso se decide en los tres últimos minutos, con la sartén fuera de la placa y el agua de cocción como mando. Se apoya en el bacon y los huevos: si falta uno, no hay plato.",
+  "descripcion": "Espaguetis con bacon y Grana Padano ligados con una crema de huevo fuera del fuego, sin nata y con mucha pimienta. La dificultad es la temperatura: la yema tiene que espesar sin cuajar.",
   "escala": {
     "max": 2,
     "min": 2,
@@ -116,7 +116,7 @@
       "n": "SARTÉN HONDA · EL BACON"
     }
   ],
-  "lectura": "Dos fuegos, nunca tres: la olla del minuto 0 al 22 y la sartén del 11 al 26, solapadas del 11 al 22. Tramos: 11 de agua hasta el hervor (dentro, 5 de crema y 4 de cortar el bacon) + 11 de espaguetis, con el bacon a la vez en la sartén + 1 de pasta con la grasa + 1 fuera de la placa + 2 de ligar + 1 de emplatar = 27 minutos. El bacon entra al fuego con los espaguetis y termina con ellos, en el 22. Del minuto 22 al 27 no hay pausa: es lo único que no espera.",
+  "lectura": "La cuenta: 11 de agua hasta el hervor (dentro, 5 de crema y 4 de cortar el bacon) + 11 de espaguetis + 1 de pasta con la grasa + 1 fuera de la placa + 2 de ligar + 1 de emplatar = 27 minutos.\n\n- Dos fuegos, nunca tres: la olla del minuto 0 al 22 y la sartén del 11 al 26, solapadas del 11 al 22.\n- Enciendes la olla antes de ponerte con la crema; crema y bacon se preparan mientras el agua llega al hervor.\n- El bacon entra al fuego con los espaguetis y termina con ellos, en el 22.\n\nLo que gobierna el plan: del 22 al 27 no hay pausa, es lo único que no espera. La temperatura se decide en los tres últimos minutos, con la sartén fuera de la placa y el agua de cocción como mando. Se apoya en el bacon y los huevos: si falta uno, no hay plato.",
   "mep": [
     {
       "l": [
@@ -149,22 +149,22 @@
       "t": "UN BOL, LA OLLA Y LA SARTÉN"
     }
   ],
-  "notaEscala": "Va solo a 2 raciones. La emulsión depende de la masa de pasta caliente frente a la crema: con 100 g la pasta se enfría antes de ligar y con 400 g no se mueve en la sartén honda, y el doble de bacon no se dora en los mismos once minutos. Los huevos (1 entero y 2 yemas) tampoco se parten bien por la mitad.",
+  "notaEscala": "- Va solo a 2 raciones: la emulsión depende de la masa de pasta caliente frente a la crema.\n- Con 100 g la pasta se enfría antes de ligar; con 400 g no se mueve en la sartén honda.\n- El doble de bacon no se dora en los mismos once minutos.\n- Los huevos (1 entero y 2 yemas) tampoco se parten bien por la mitad.",
   "pasos": [
     {
       "carril": "olla",
       "f": 9,
       "holgura": "flexible",
       "id": "agua",
-      "meto": "2 l de agua + 12 g de sal, en la olla",
+      "meto": "la olla: 2 l de agua + 12 g de sal",
       "min": 11,
-      "nota": "Llena la olla con 2 l de agua y la sal, tápala y enciende el fuego grande al {9}. Hazlo antes de ponerte con la crema.",
+      "nota": "Está cuando suena el hervor bajo la tapa.",
       "off": 0,
-      "p": "Dos litros y no más: con 200 g de pasta el agua sale más cargada de almidón, y ese almidón es la mitad de la emulsión del final. Tapada y al {9} rompe a hervir en unos once minutos, justo cuando el bacon va al fuego. La sal es la mitad de lo habitual, 6 g por litro, porque el agua de cocción acaba en la salsa y el bacon y el Grana ya salan.",
+      "p": "Poca agua para la pasta que lleva: así sale más cargada de almidón, y ese almidón es la mitad de la emulsión del final.\n\nSe enciende lo primero, antes de batir la crema: tapada y al {9} rompe a hervir en unos once minutos, justo cuando el bacon va al fuego.\n\nLa sal es la mitad de lo habitual, 6 g por litro, porque el agua de cocción acaba en la salsa y el bacon y el Grana ya salan.",
       "s": 660,
       "saco": "",
       "sinHitos": "Tapada y al {9} no hay nada que hacer: abrir para mirar solo deja salir el vapor y retrasa el hervor un par de minutos.",
-      "t": "Agua al fuego grande al {9}, tapada",
+      "t": "Agua con sal, al fuego grande",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -172,14 +172,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "crema",
-      "meto": "bol mediano: 50 g de Grana Padano rallado fino de la cuña + 1 huevo entero + 2 yemas + 2 g de pimienta negra",
+      "meto": "el bol mediano: 50 g de Grana Padano + 1 huevo entero + 2 yemas + 2 g de pimienta negra",
       "min": 5,
-      "nota": "Ralla la cuña de Grana por la cara fina del rallador, directo al bol. Casca el huevo entero, separa las 2 yemas (las claras, a un táper), añade la pimienta y mezcla con un tenedor hasta que quede una pasta espesa y lisa.",
+      "nota": "Mezcla con un tenedor hasta una pasta espesa y lisa.",
       "off": 0,
-      "p": "El Grana rallado fino de la cuña se funde con el calor de la pasta, sin fuego, y se reparte en la crema; en grueso haría hebras y grumos. Mezclado ahora con la yema forma una pasta espesa que luego afloja el agua de cocción, y espera en el bol a temperatura ambiente: así entra templada, no de nevera. Solo una clara para dos yemas, porque la clara cuaja antes que la yema y es la que forma los grumos.",
+      "p": "El Grana rallado fino se funde con el calor de la pasta, sin fuego, y se reparte por la crema; rallado grueso dejaría hebras y grumos.\n\nSe bate ahora y espera en el bol: a temperatura ambiente entra templada, no de nevera, y la pasta espesa de yema y queso la afloja luego el agua de cocción.\n\nUna sola clara para dos yemas: la clara cuaja antes que la yema y es la que forma los grumos.",
       "s": 300,
-      "saco": "",
-      "t": "Rallar fino la cuña de Grana y batir la crema de huevo",
+      "saco": "las 2 claras, al táper + la crema, en el bol mediano",
+      "t": "Rallar el Grana y batir la crema",
       "tapa": null
     },
     {
@@ -187,14 +187,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "cortar-bacon",
-      "meto": "tabla: 120 g de bacon (6 lonchas) · sartén honda, en frío y seca: las tiras",
+      "meto": "la tabla: 120 g de bacon",
       "min": 4,
-      "nota": "Apila las lonchas y córtalas de lado a lado, cruzando las vetas, en tiras de 1 cm. Échalas a la sartén fría y sin aceite, y lava la tabla, el cuchillo y las manos.",
+      "nota": "Todas las tiras del mismo ancho.",
       "off": 5,
-      "p": "Tiras de 1 cm cruzando las vetas: cada una lleva grasa y magro, se dora por los bordes en once minutos y queda tierna por dentro; más finas se secarían como cortezas. Van a la sartén en frío y sin aceite porque la grasa del bacon se funde despacio al subir el calor y lo fríe en ella misma: es la grasa de la emulsión. La tabla se lava ahora porque el bacon es lo único crudo del plan.",
+      "p": "Cruzando las vetas, cada tira lleva grasa y magro: se dora por los bordes y queda tierna por dentro. Más finas se secarían como cortezas.\n\nVan a la sartén en frío y sin aceite: la grasa del bacon se funde despacio al subir el calor y lo fríe en ella misma, y esa grasa es la de la emulsión.\n\nLa tabla se lava ahora porque el bacon es lo único crudo del plan.",
       "s": 240,
-      "saco": "",
-      "t": "Cortar el bacon en tiras de 1 cm y a la sartén en frío",
+      "saco": "las tiras, a la sartén fría y seca + tabla, cuchillo y manos, a lavar",
+      "t": "Cortar el bacon",
       "tapa": null
     },
     {
@@ -206,23 +206,23 @@
       "hitos": [
         {
           "en": 240,
-          "t": "Remueve y separa las tiras que se hayan pegado"
+          "t": "Remueve y separa las tiras pegadas"
         },
         {
           "en": 480,
-          "t": "Remueve. Si ya están doradas, baja al {3}"
+          "t": "Remueve. Si están doradas, baja al {3}"
         }
       ],
       "holgura": "ajustado",
       "id": "bacon",
-      "meto": "las tiras de bacon, que ya están en la sartén en frío",
+      "meto": "el bacon en frío, al fuego mediano",
       "min": 11,
-      "nota": "Enciende el fuego mediano al {5}, sin tapa. Las tiras tienen que chisporrotear suave en su grasa, nunca humear.",
+      "nota": "Tiras chisporroteando suave en su grasa, sin humear.",
       "off": 11,
-      "p": "Al {5} la grasa se funde antes de que el magro se tueste: en once minutos el bacon suelta casi toda la suya y se dora por los bordes, crujiente fuera y tierno dentro. Arranca con los espaguetis y acaba con ellos, así su grasa está líquida y caliente cuando llega la pasta. A fuego fuerte se quemaría por fuera con la grasa todavía dentro, y esa grasa es la que, con el agua de cocción, hace la salsa. Sin tapa porque el agua que suelta tiene que irse, o se cocería en vez de dorarse.",
+      "p": "Al {5} la grasa se funde antes de que el magro se tueste: el bacon suelta casi toda la suya y se dora por los bordes, crujiente fuera y tierno dentro. A fuego fuerte se quemaría por fuera con la grasa todavía dentro.\n\nArranca con los espaguetis y acaba con ellos: así su grasa está líquida y caliente cuando llega la pasta, y con el agua de cocción hace la salsa.\n\nSin tapa, porque el agua que suelta tiene que irse o se cocería en vez de dorarse.",
       "s": 660,
       "saco": "",
-      "t": "Dorar el bacon en su grasa al {5}",
+      "t": "Dorar el bacon en su grasa",
       "tapa": "sin tapa"
     },
     {
@@ -231,7 +231,7 @@
       "hitos": [
         {
           "en": 30,
-          "t": "Empuja los espaguetis hacia el fondo: ya se doblan"
+          "t": "Hunde los espaguetis: ya se doblan"
         },
         {
           "en": 90,
@@ -243,23 +243,23 @@
         },
         {
           "en": 540,
-          "t": "Llena el vaso medidor con 150 ml de agua de cocción"
+          "t": "Llena el vaso con 150 ml de agua de cocción"
         },
         {
           "en": 600,
-          "t": "Muerde uno: tiene que quedar un punto duro en el centro"
+          "t": "Muerde uno: punto duro en el centro"
         }
       ],
       "holgura": "critico",
       "id": "espaguetis",
-      "meto": "200 g de espaguetis, del paquete al agua hirviendo",
+      "meto": "el paquete: 200 g de espaguetis",
       "min": 11,
-      "nota": "Destapa, echa los espaguetis en abanico y baja al {7}. Once minutos, uno menos que los 12 del paquete: terminan en la sartén.",
+      "nota": "Hierve sin desbordarse.",
       "off": 11,
-      "p": "Al {7} el agua sigue hirviendo sin desbordarse. Once minutos, uno menos que el paquete, porque los espaguetis acaban de hacerse en la sartén, absorbiendo grasa y agua con almidón. El agua de cocción se aparta a dos minutos del final, cuando está más turbia del almidón que ha soltado la pasta: ese almidón es lo que impide que la grasa y la yema se separen. Sin ella la salsa no liga.",
+      "p": "Se baja al {7} porque ese hervor se mantiene sin que el agua suba. Un minuto menos que el paquete: los espaguetis acaban de hacerse en la sartén, absorbiendo grasa y agua con almidón.\n\nSe destapa y se abren en abanico para que se hundan a la vez y no se peguen entre sí.\n\n- Apartar el agua a dos minutos del final: es cuando está más turbia del almidón que ha soltado la pasta.\n- Ese almidón impide que la grasa y la yema se separen; sin él la salsa no liga.",
       "s": 660,
-      "saco": "apaga el fuego grande; la olla se queda con su agua",
-      "t": "Espaguetis al agua y bajar al {7}",
+      "saco": "apaga la olla, sin escurrir",
+      "t": "Cocer los espaguetis",
       "tapa": "sin tapa"
     },
     {
@@ -270,14 +270,14 @@
       "f": 0,
       "holgura": "critico",
       "id": "base",
-      "meto": "los espaguetis, con pinzas, de la olla a la sartén + 60 ml de agua de cocción del vaso",
+      "meto": "la olla: los espaguetis, con pinzas + el vaso: 60 ml de agua de cocción",
       "min": 1,
-      "nota": "Apaga el fuego mediano. Pasa los espaguetis con pinzas, escurriéndolos un poco, echa 60 ml del agua del vaso y remueve un minuto hasta que la grasa y el agua se vuelvan una salsa turbia.",
+      "nota": "Escurridos a medias. Remueve hasta una salsa turbia.",
       "off": 22,
-      "p": "La pasta recién salida, a unos 95 °C, se cubre de grasa del bacon y de agua con almidón. Al removerlas, el almidón envuelve las gotas de grasa y las mantiene suspendidas en el agua: es una primera emulsión, turbia, que se pega a los espaguetis y sobre la que luego se agarra la crema. Se apaga ya porque la placa sigue calentando el minuto que dura este paso, y con eso basta.",
+      "p": "Al removerlos, el almidón del agua envuelve las gotas de grasa del bacon y las mantiene suspendidas: es una primera emulsión, turbia, que se pega a la pasta y sobre la que luego se agarra la crema.\n\nSe apaga ya, antes de pasar nada: la placa sigue calentando el minuto que dura este paso y con eso basta. La pasta sale de la olla a unos 95 °C.",
       "s": 60,
-      "saco": "",
-      "t": "Apagar y pasar los espaguetis a la grasa del bacon",
+      "saco": "la sartén, sobre un salvamanteles",
+      "t": "Apagar y pasar la pasta a la sartén",
       "tapa": "sin tapa"
     },
     {
@@ -285,14 +285,14 @@
       "f": 0,
       "holgura": "critico",
       "id": "apartar",
-      "meto": "bol de la crema: 30 ml (2 cucharadas soperas) de agua de cocción del vaso",
+      "meto": "30 ml de agua de cocción, a la crema",
       "min": 1,
-      "nota": "Pasa la sartén a la encimera, sobre un salvamanteles, y sigue removiendo. Echa 2 cucharadas de agua del vaso a la crema y bátela con el tenedor.",
+      "nota": "Sigue removiendo. Bate la crema con el tenedor.",
       "off": 23,
-      "p": "La placa apagada de la vitro sigue caliente un par de minutos: con la sartén encima, el huevo cuajaría contra el fondo. Un minuto en la encimera, removiendo, baja la pasta de unos 95 a unos 75 °C. El agua caliente afloja la crema y la templa, para que al caer se reparta en segundos en vez de quedarse en pegotes que se calientan antes que el resto.",
+      "p": "La placa apagada de la vitro sigue caliente un par de minutos: con la sartén encima, el huevo cuajaría contra el fondo.\n\nUn minuto en la encimera, removiendo, baja la pasta de unos 95 a unos 75 °C.\n\nEl agua caliente afloja la crema y la templa, para que al caer se reparta en segundos en vez de quedarse en pegotes que se calientan antes que el resto.",
       "s": 60,
       "saco": "",
-      "t": "Sacar la sartén de la placa y templar la crema",
+      "t": "Sartén a la encimera",
       "tapa": "sin tapa"
     },
     {
@@ -301,19 +301,19 @@
       "hitos": [
         {
           "en": 60,
-          "t": "Mira: tiene que napar y brillar. Si está espesa, una cucharada de agua del vaso"
+          "t": "Si espesa, una cucharada de agua del vaso"
         }
       ],
       "holgura": "critico",
       "id": "ligar",
-      "meto": "la crema de huevo del bol, sobre los espaguetis",
+      "meto": "el bol: la crema, sobre la pasta",
       "min": 2,
-      "nota": "Vuelca la crema sobre la pasta y remueve con las pinzas sin parar, levantando los espaguetis, durante 2 minutos.",
+      "nota": "Remueve con las pinzas sin parar. Debe napar y brillar.",
       "off": 24,
-      "p": "La crema templada baja la mezcla a unos 65-70 °C, que es donde la yema espesa sin cuajar: sus proteínas se despliegan y atrapan agua y grasa en una crema lisa. Removiendo sin parar el calor se reparte igual y ninguna zona pasa de 70 °C, donde se cortaría en huevo revuelto. El agua del vaso es el mando: si espesa de más, una cucharada la afloja; el queso se funde en ese mismo calor.",
+      "p": "La crema templada baja la mezcla a unos 65-70 °C, donde la yema espesa sin cuajar: sus proteínas se despliegan y atrapan agua y grasa en una crema lisa.\n\nRemoviendo sin parar y levantando la pasta, el calor se reparte igual y ninguna zona pasa de 70 °C, donde se cortaría en huevo revuelto.\n\n- El queso se funde en ese mismo calor.\n- El agua del vaso es el mando: si espesa de más, una cucharada la afloja.",
       "s": 120,
       "saco": "",
-      "t": "Ligar con la crema de huevo, fuera del fuego",
+      "t": "Ligar con la crema, fuera del fuego",
       "tapa": "sin tapa"
     },
     {
@@ -324,14 +324,14 @@
       "f": null,
       "holgura": "critico",
       "id": "servir",
-      "meto": "los espaguetis de la sartén, a dos platos hondos",
+      "meto": "la sartén: los espaguetis + el bacon y la crema que queden",
       "min": 1,
-      "nota": "Reparte con las pinzas en dos platos hondos, girándolos en nido, y echa por encima la crema y el bacon que queden en la sartén. A la mesa ya: en dos minutos espesa de más.",
+      "nota": "Con las pinzas, girándolos en nido.",
       "off": 26,
-      "p": "La carbonara no espera: la pasta sigue cediendo calor a la crema y en dos o tres minutos la yema pasa de napar a ponerse pastosa. En nido, la pasta se enfría más despacio y la crema no se escurre al fondo del plato. El bacon tiende a quedarse en la sartén, por eso se rasca al final y va encima de cada plato.",
+      "p": "La carbonara no espera: la pasta sigue cediendo calor a la crema y en dos o tres minutos la yema pasa de napar a ponerse pastosa.\n\nEn nido, la pasta se enfría más despacio y la crema no se escurre al fondo del plato.\n\nEl bacon tiende a quedarse en la sartén: por eso se rasca al final y va encima de cada plato.",
       "s": 60,
-      "saco": "2 platos hondos de espaguetis carbonara",
-      "t": "Emplatar y a la mesa al momento",
+      "saco": "2 platos hondos, con crema y bacon",
+      "t": "Emplatar y a la mesa",
       "tapa": null
     }
   ],
@@ -343,15 +343,7 @@
   "porque": [
     [
       "La temperatura de la crema: 65-70 °C",
-      "La yema espesa hacia los 65-70 °C y por encima se corta en grumos. La pasta sale a unos 95 °C; un minuto en la sartén apagada y otro en la encimera la bajan a unos 75 °C. Unos 470 g de pasta cocida a 75 °C con unos 170 g de crema templada a 35 °C (el queso guarda menos calor que el agua) se quedan hacia los 66 °C, y el calor del metal de la sartén suma un par de grados: justo la franja en la que liga."
-    ],
-    [
-      "Quién hace la emulsión",
-      "La grasa del bacon y el agua de cocción no se mezclan solas: el almidón del agua y la lecitina de la yema envuelven las gotas de grasa y las mantienen suspendidas. Por eso hay 2 l de agua y no más, y por eso el bacon va sin aceite: su grasa es la de la salsa."
-    ],
-    [
-      "Fuera del fuego y fuera de la placa",
-      "La vitro apagada sigue calentando un par de minutos. Con la sartén encima, el fondo pasaría de 70 °C y el huevo cuajaría contra el metal antes de repartirse."
+      "La yema espesa hacia los 65-70 °C y por encima se corta. La pasta sale a unos 95 °C y, tras un minuto en la sartén apagada y otro en la encimera, baja a unos 75 °C. Con unos 170 g de crema templada a 35 °C, la mezcla queda hacia los 66 °C, justo la franja en la que liga."
     ],
     [
       "Un huevo entero y dos yemas",

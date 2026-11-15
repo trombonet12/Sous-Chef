@@ -16,22 +16,22 @@
   ],
   "cortes": [
     {
-      "p": "Partida de la raíz a la punta y con la cara plana sobre la tabla, el cuchillo sigue las vetas en láminas de 3 mm. Así de fina se ablanda en ocho minutos de pochado sin dorarse; como luego se tritura, la forma importa menos que el grosor parejo, para que toda esté igual de hecha.",
+      "p": "Partida de la raíz a la punta y con la cara plana sobre la tabla, el cuchillo sigue las vetas en láminas de 3 mm. Así de fina se ablanda en ocho minutos de pochado sin dorarse; como luego se tritura, importa más el grosor parejo que la forma.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla vista desde arriba, con las vetas de la raíz a la punta y cortes que las siguen, en pluma de 3 mm\"><ellipse cx=\"60\" cy=\"42\" rx=\"50\" ry=\"28\" fill=\"#E8D9A8\" fill-opacity=\".3\" stroke=\"#B89A5A\"/><g stroke=\"#B89A5A\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><path d=\"M12 42 Q60 22 108 42\"/><path d=\"M12 42 Q60 34 108 42\"/><path d=\"M12 42 Q60 50 108 42\"/><path d=\"M12 42 Q60 62 108 42\"/></g><line x1=\"12\" y1=\"32\" x2=\"12\" y2=\"52\" stroke=\"#8A6A3A\" stroke-width=\"2\"/><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 42 Q60 16 106 42\"/><path d=\"M14 42 Q60 28 106 42\"/><line x1=\"14\" y1=\"42\" x2=\"106\" y2=\"42\"/><path d=\"M14 42 Q60 56 106 42\"/><path d=\"M14 42 Q60 68 106 42\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">pluma de 3 mm, con las vetas</text></svg>",
       "t": "Cebolla · pluma de 3 mm, siguiendo las vetas"
     },
     {
-      "p": "La patata pelada se parte a lo largo en bastones de 2 cm y de cada bastón se cascan trozos de 2 cm: el cuchillo entra un tercio y se gira, y el trozo se rompe en vez de cortarse. La cara rota es rugosa y tiene más células abiertas que una cara lisa, así que suelta más almidón al hervir, que es el que espesa y liga la crema.",
+      "p": "La patata pelada se parte a lo largo en bastones de 2 cm y de cada bastón se cascan trozos de 2 cm: el cuchillo entra un tercio y se gira, y el trozo se rompe en vez de cortarse. La cara rota es rugosa y suelta más almidón al hervir, que es el que espesa y liga la crema.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Bastón de patata de 2 cm con trozos de 2 cm rotos por la cara, cascados con el cuchillo\"><rect x=\"10\" y=\"30\" width=\"100\" height=\"24\" rx=\"4\" fill=\"#E6C873\" fill-opacity=\".25\" stroke=\"#B8973E\"/><g stroke=\"#B8973E\" stroke-width=\".8\" opacity=\".6\" fill=\"none\"><circle cx=\"26\" cy=\"40\" r=\"1.2\"/><circle cx=\"70\" cy=\"46\" r=\"1.2\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"4 3\" fill=\"none\"><path d=\"M34 26 L32 34 L36 42 L31 50 L34 58\"/><path d=\"M58 26 L56 34 L60 42 L55 50 L58 58\"/><path d=\"M82 26 L80 34 L84 42 L79 50 L82 58\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">cascada en trozos de 2 cm</text></svg>",
       "t": "Patata · trozos cascados de 2 cm"
     },
     {
-      "p": "Con piel y sin las puntas, el calabacín se parte a lo largo por la mitad y cada mitad, con la cara plana sobre la tabla, se corta de través en 1 cm. El corte cruza la fibra, que corre a lo largo: las hebras quedan cortas, se ablandan antes y la batidora no deja hilos de piel. La piel se queda porque da el color verde.",
+      "p": "Con piel y sin las puntas, el calabacín se parte a lo largo por la mitad y cada mitad, con la cara plana sobre la tabla, se corta de través en 1 cm. Cruza la fibra: las hebras quedan cortas, se ablandan antes y la batidora no deja hilos de piel. La piel da el color verde.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Medio calabacín visto desde arriba, con la fibra a lo largo y cortes de través en medias lunas de 1 cm\"><rect x=\"8\" y=\"28\" width=\"104\" height=\"30\" rx=\"14\" fill=\"#5E8C3A\" fill-opacity=\".22\" stroke=\"#4A7A2E\"/><g stroke=\"#4A7A2E\" stroke-width=\".8\" opacity=\".7\"><line x1=\"16\" y1=\"36\" x2=\"104\" y2=\"36\"/><line x1=\"14\" y1=\"43\" x2=\"106\" y2=\"43\"/><line x1=\"16\" y1=\"50\" x2=\"104\" y2=\"50\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"22\" y1=\"22\" x2=\"22\" y2=\"64\"/><line x1=\"34\" y1=\"22\" x2=\"34\" y2=\"64\"/><line x1=\"46\" y1=\"22\" x2=\"46\" y2=\"64\"/><line x1=\"58\" y1=\"22\" x2=\"58\" y2=\"64\"/><line x1=\"70\" y1=\"22\" x2=\"70\" y2=\"64\"/><line x1=\"82\" y1=\"22\" x2=\"82\" y2=\"64\"/><line x1=\"94\" y1=\"22\" x2=\"94\" y2=\"64\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">medias lunas de 1 cm, cruzando la fibra</text></svg>",
       "t": "Calabacín · medias lunas de 1 cm"
     },
     {
-      "p": "Sin corteza y por la cara de agujeros grandes del rallador, en hebras de unos 5 mm. Así de fino se funde en segundos con la crema a 90 °C y la batidora lo reparte entero; en dados tardaría en fundirse y se quedaría en grumos gomosos enganchados en la cuchilla.",
+      "p": "Sin corteza y por la cara de agujeros grandes del rallador, en hebras de unos 5 mm. Así se funde en segundos con la crema a 90 °C y la batidora lo reparte entero; en dados tardaría en fundirse y quedaría en grumos gomosos enganchados en la cuchilla.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Taco de queso semicurado pasado por la cara gruesa del rallador, en hebras de 5 mm\"><rect x=\"16\" y=\"26\" width=\"70\" height=\"36\" rx=\"2\" fill=\"#EBCB7A\" fill-opacity=\".25\" stroke=\"#C9A13E\"/><g fill=\"#C9A13E\" opacity=\".5\"><circle cx=\"34\" cy=\"38\" r=\"1.5\"/><circle cx=\"60\" cy=\"50\" r=\"1.5\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\"><line x1=\"86\" y1=\"30\" x2=\"108\" y2=\"20\"/><line x1=\"86\" y1=\"40\" x2=\"110\" y2=\"32\"/><line x1=\"86\" y1=\"50\" x2=\"110\" y2=\"46\"/><line x1=\"86\" y1=\"60\" x2=\"108\" y2=\"60\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">rallado grueso, hebras de 5 mm</text></svg>",
       "t": "Queso semicurado · rallado grueso de 5 mm"
     }
@@ -55,7 +55,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Crema de calabacín con patata, cebolla pochada y caldo de pollo, triturada con batidora de mano y con queso semicurado fundido dentro. La dificultad está en la textura: la patata tiene que estar deshecha para soltar su almidón, que es lo que liga el aceite y el queso en una crema lisa sin nata, y la batidora no debe pasar de dos minutos. Se apoya en el calabacín: si falta, no hay plato.",
+  "descripcion": "Crema de calabacín con patata, cebolla pochada y caldo de pollo, triturada con queso semicurado fundido dentro y sin nata. La dificultad es la textura: la patata tiene que deshacerse para ligar.",
   "escala": {
     "max": 3,
     "min": 2,
@@ -125,7 +125,7 @@
       "n": "AL TRITURAR"
     }
   ],
-  "lectura": "Un solo fuego, el mediano, con la olla del minuto 3 al 33. Camino crítico: 3 de cebolla + 8 de pochar + 2 de rehogar + 4 hasta el hervor + 14 de cocción + 2 de triturar + 2 de servir = 35 minutos. Mientras la cebolla pocha cortas la patata y el calabacín (3 a 9), rallas el queso y mides el caldo (9 a 11). Del minuto 31 al 35 no hay pausa.",
+  "lectura": "La cuenta: 3 de cebolla + 8 de pochar + 2 de rehogar + 4 hasta el hervor + 14 de cocción + 2 de triturar + 2 de servir = 35 minutos.\n\n- Un solo fuego, el mediano, con la olla del minuto 3 al 33.\n- Mientras la cebolla pocha cortas la patata y el calabacín (3 a 9) y rallas el queso y mides el caldo (9 a 11).\n- Del minuto 31 al 35 no hay pausa.\n\nLo que gobierna el plan: la patata deshecha, que liga la crema, y una batidora que no pasa de dos minutos. Se apoya en el calabacín: si falta, no hay plato.",
   "mep": [
     {
       "l": [
@@ -160,21 +160,21 @@
       "t": "LOS RECIPIENTES"
     }
   ],
-  "notaEscala": "Vale para 2 y 3 raciones con los mismos pasos y la misma olla mediana: con 3, la cebolla pocha igual en 8 minutos y el caldo tarda un minuto más en hervir, que absorbe la cocción de 14. Por debajo de 2 no hay fondo para la batidora de mano y salpica; por encima de 3 no cabe en la olla. La sal y la pimienta van sublineales porque el caldo y el queso ya salan.",
+  "notaEscala": "- Vale para 2 y 3 raciones con los mismos pasos y la misma olla mediana.\n- Con 3, la cebolla pocha igual en 8 minutos y el caldo tarda un minuto más en hervir, que absorbe la cocción de 14.\n- Por debajo de 2 no hay fondo para la batidora de mano y salpica; por encima de 3 no cabe en la olla.\n- La sal y la pimienta van sublineales porque el caldo y el queso ya salan.",
   "pasos": [
     {
       "carril": "mesa",
       "f": null,
       "holgura": "flexible",
       "id": "cortar-cebolla",
-      "meto": "olla mediana en frío: 30 ml de aceite de oliva + 100 g de cebolla en pluma de 3 mm + 1 g de sal",
+      "meto": "la olla: 30 ml de aceite de oliva + 100 g de cebolla + 1 g de sal (un pellizco)",
       "min": 3,
-      "nota": "Echa 2 cucharadas de aceite de oliva en la olla fría. Corta la cebolla en pluma de 3 mm siguiendo las vetas, a la olla con un pellizco de sal, y seca la tabla con un trapo.",
+      "nota": "Pluma fina y pareja, siguiendo las vetas.",
       "off": 0,
-      "p": "La cebolla va primero porque es lo que más tarda en hacerse y empieza a pochar mientras cortas lo demás. En pluma de 3 mm siguiendo las vetas se ablanda en ocho minutos; como luego se tritura, la forma da igual y solo importa que sea fina y pareja. Entra en la olla fría con el aceite y la sal: arranca templada y suda sin dorarse, y la sal le saca el agua desde el principio.",
+      "p": "La cebolla va primero porque es lo que más tarda en hacerse: empieza a pochar mientras cortas lo demás.\n\nFina y pareja se ablanda en ocho minutos; como luego se tritura, la forma da igual y solo importa que toda esté igual de hecha.\n\nEntra en la olla fría con el aceite y la sal: arranca templada y suda sin dorarse, y la sal le saca el agua desde el principio.",
       "s": 180,
-      "saco": "",
-      "t": "Cortar la cebolla en pluma de 3 mm y a la olla en frío",
+      "saco": "la cebolla, a la olla en frío + la tabla, a secar con un trapo",
+      "t": "Cortar la cebolla",
       "tapa": null
     },
     {
@@ -190,19 +190,19 @@
         },
         {
           "en": 360,
-          "t": "Remueve. Si coge color en los bordes, baja al {4}"
+          "t": "Remueve. Si dora en los bordes, baja al {4}"
         }
       ],
       "holgura": "flexible",
       "id": "pochar",
-      "meto": "la olla con el aceite y la cebolla, al fuego mediano",
+      "meto": "la olla, al fuego mediano",
       "min": 8,
-      "nota": "Enciende el fuego mediano al {5} y pon la tapa a medias. Tiene que sisear suave; la cebolla queda transparente y blanda, sin color.",
+      "nota": "Sisea suave. Transparente y blanda, sin color.",
       "off": 3,
-      "p": "Al {5} y con la tapa a medias, el vapor que suelta la cebolla se condensa y vuelve a caer: se cuece en su agua y en el aceite sin pasar de unos 100 °C, y no llega a la reacción de Maillard. Pochada así es dulce y suave, que es lo que pide el calabacín; dorada daría un fondo tostado que en una crema verde se nota amargo y la tiñe de marrón. Ocho minutos bastan porque luego cuece otros veinte con el resto.",
+      "p": "Al {5} y con la tapa a medias, el vapor que suelta la cebolla se condensa y vuelve a caer: se cuece en su agua y en el aceite, sin pasar de unos 100 °C ni llegar al Maillard.\n\nPochada así es dulce y suave, que es lo que pide el calabacín; dorada daría un fondo tostado que en una crema verde se nota amargo y la tiñe de marrón.\n\nOcho minutos bastan porque luego cuece otros veinte con el resto.",
       "s": 480,
       "saco": "",
-      "t": "Pochar la cebolla al {5}, con la tapa a medias",
+      "t": "Pochar la cebolla",
       "tapa": "TAPA A MEDIAS"
     },
     {
@@ -210,14 +210,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "cortar-verdura",
-      "meto": "bol grande: 120 g de patata + 350 g de calabacín",
+      "meto": "120 g de patata + 350 g de calabacín",
       "min": 6,
-      "nota": "Pela la patata, lávala entera y cáscala en trozos de 2 cm: mete el cuchillo y gíralo para que el trozo se rompa. Lava el calabacín, quítale las puntas y, con piel, pártelo a lo largo y en medias lunas de 1 cm; todo al bol grande.",
+      "nota": "Patata pelada, en trozos rotos. Calabacín con piel, sin puntas.",
       "off": 3,
-      "p": "La patata, dura y seca, va antes que el calabacín, que moja la tabla. Cascada en vez de cortada, la cara rota es rugosa y suelta más almidón al hervir: ese almidón es el que espesa la crema y sujeta el aceite y el queso al triturar. El calabacín va con piel, que le da el color verde, y en medias lunas de 1 cm cruzando la fibra se deshace antes que la patata, lo que no importa porque todo se tritura.",
+      "p": "La patata, dura y seca, va antes que el calabacín, que moja la tabla.\n\nCascada y no cortada, la cara rota es rugosa y suelta más almidón al hervir: ese almidón espesa la crema y sujeta el aceite y el queso al triturar.\n\nEl calabacín va con piel, que le da el color verde; cortado cruzando la fibra se deshace antes que la patata, y no importa porque todo se tritura.",
       "s": 360,
-      "saco": "",
-      "t": "Patata en trozos cascados de 2 cm y calabacín en medias lunas de 1 cm",
+      "saco": "todo, al bol grande",
+      "t": "Cortar la patata y el calabacín",
       "tapa": null
     },
     {
@@ -225,14 +225,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "rallar-queso",
-      "meto": "plato pequeño: 50 g de queso semicurado rallado grueso · vaso medidor: 300 ml de caldo de pollo",
+      "meto": "50 g de queso semicurado + el brick: 300 ml de caldo de pollo",
       "min": 2,
-      "nota": "Quita la corteza al queso y rállalo por la cara gruesa del rallador sobre un plato pequeño. Llena el vaso medidor con 300 ml de caldo de pollo.",
+      "nota": "Queso sin corteza, en hebras gruesas.",
       "off": 9,
-      "p": "El queso se ralla ahora y espera: a temperatura ambiente se funde antes cuando entra en la crema caliente. Rallado grueso funde en segundos con el calor de la olla y no deja trozos enganchados en la cuchilla de la batidora; en dados quedarían grumos gomosos. El caldo se mide antes porque en el minuto 13 se echa de una vez, sin buscar el brick.",
+      "p": "El queso se ralla ahora y espera: a temperatura ambiente se funde antes al entrar en la crema caliente.\n\nRallado grueso se funde en segundos con el calor de la olla y no deja trozos enganchados en la cuchilla de la batidora; en dados quedarían grumos gomosos.\n\nEl caldo se mide antes porque cuando toca se echa de una vez, sin buscar el brick.",
       "s": 120,
-      "saco": "",
-      "t": "Rallar el queso en grueso y medir el caldo",
+      "saco": "el queso, a un plato pequeño + el caldo, en el vaso medidor",
+      "t": "Rallar el queso y medir el caldo",
       "tapa": null
     },
     {
@@ -243,14 +243,14 @@
       "f": 5,
       "holgura": "ajustado",
       "id": "rehogar",
-      "meto": "todo el bol grande: 120 g de patata + 350 g de calabacín",
+      "meto": "el bol grande: patata y calabacín",
       "min": 2,
-      "nota": "Quita la tapa, echa la patata y el calabacín y remueve 2 minutos al {5} para que se impregnen del aceite.",
+      "nota": "Remueve sin parar hasta que todo brille de aceite.",
       "off": 11,
-      "p": "Dos minutos en el aceite de la cebolla envuelven cada trozo en grasa y lo calientan: el calabacín empieza a sudar su agua y el caldo romperá a hervir antes. El aceite que recubre la verdura es el mismo que luego la batidora parte en gotas finas y el almidón sujeta. Sin tapa, porque aquí se trata de remover y ver, no de cocer al vapor.",
+      "p": "En el aceite de la cebolla, cada trozo se envuelve en grasa y se calienta: el calabacín empieza a sudar su agua y el caldo romperá a hervir antes.\n\nEse aceite que recubre la verdura es el mismo que luego la batidora parte en gotas finas y el almidón sujeta.\n\nSin tapa: aquí se trata de remover y ver, no de cocer al vapor.",
       "s": 120,
       "saco": "",
-      "t": "Rehogar la patata y el calabacín 2 minutos",
+      "t": "Rehogar la patata y el calabacín",
       "tapa": "tapa fuera"
     },
     {
@@ -261,14 +261,14 @@
       "f": 8,
       "holgura": "flexible",
       "id": "hervir",
-      "meto": "300 ml de caldo de pollo del vaso medidor + 1 g de sal",
+      "meto": "el vaso: 300 ml de caldo de pollo + 1 g de sal (un pellizco)",
       "min": 4,
-      "nota": "Echa el caldo y un pellizco de sal, sube al {8} y tapa. Está cuando hierve por debajo de la tapa.",
+      "nota": "Hierve bajo la tapa.",
       "off": 13,
-      "p": "Los 300 ml no cubren del todo la verdura, a propósito: el calabacín es agua en un 95 % y en los primeros minutos suelta la suya, y con la tapa puesta el vapor cuece lo que asoma. Más caldo daría una crema aguada que habría que reducir. Al {8} y tapada rompe a hervir en unos cuatro minutos. La sal es solo un pellizco porque el caldo y el queso ya salan.",
+      "p": "El caldo no cubre del todo la verdura, a propósito: el calabacín es agua en un 95 % y suelta la suya, y con la tapa puesta el vapor cuece lo que asoma.\n\nMás caldo daría una crema aguada que habría que reducir. Al {8} y tapada rompe a hervir en unos cuatro minutos.\n\nLa sal es solo un pellizco porque el caldo y el queso ya salan.",
       "s": 240,
       "saco": "",
-      "t": "Caldo y sal, y subir al {8} con la tapa puesta",
+      "t": "Caldo y sal, subir al {8}",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -277,27 +277,27 @@
       "hitos": [
         {
           "en": 300,
-          "t": "Destapa, remueve desde el fondo y vuelve a tapar"
+          "t": "Destapa, remueve del fondo y tapa"
         },
         {
           "en": 600,
-          "t": "Destapa, remueve desde el fondo y vuelve a tapar"
+          "t": "Destapa, remueve del fondo y tapa"
         },
         {
           "en": 780,
-          "t": "Pincha un trozo de patata: tiene que deshacerse al apretarlo. Enchufa la batidora"
+          "t": "Pincha la patata y enchufa la batidora"
         }
       ],
       "holgura": "flexible",
       "id": "cocer",
       "meto": "",
       "min": 14,
-      "nota": "Baja al {4}: hervor suave bajo la tapa. Si la tapa baila o rebosa espuma, baja al {3}.",
+      "nota": "Patata deshecha al apretarla. Si rebosa o la tapa baila, baja al {3}.",
       "off": 17,
-      "p": "Al {4} con la tapa puesta el hervor se mantiene sin evaporar: el líquido que hay es el que tendrá la crema. En catorce minutos la patata se cuece hasta el centro, sus gránulos de almidón se hinchan y se abren, y el calabacín se ablanda del todo. La patata tiene que deshacerse al apretarla: si sigue entera, el almidón está aún dentro del grano y la crema sale arenosa y sin cuerpo.",
+      "p": "Al {4} con la tapa puesta el hervor se mantiene sin evaporar: el líquido que hay es el que tendrá la crema.\n\nCociendo así, la patata llega hasta el centro, sus gránulos de almidón se hinchan y se abren, y el calabacín se ablanda del todo.\n\nLa patata tiene que deshacerse al apretarla: si sigue entera, el almidón está aún dentro del grano y la crema sale arenosa y sin cuerpo.",
       "s": 840,
       "saco": "",
-      "t": "Bajar al {4} y cocer tapado 14 minutos",
+      "t": "Bajar al {4} y cocer",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -305,14 +305,14 @@
       "f": 0,
       "holgura": "ajustado",
       "id": "triturar",
-      "meto": "50 g de queso semicurado rallado del plato + 0,5 g de pimienta negra",
+      "meto": "el plato: 50 g de queso semicurado + 0,5 g de pimienta negra",
       "min": 2,
-      "nota": "Apaga el fuego y aparta la olla de la placa. Echa el queso y la pimienta, mete la batidora hasta el fondo antes de encenderla y tritura 2 minutos moviéndola despacio, sin sacarla.",
+      "nota": "Batidora al fondo antes de encenderla. Muévela despacio, sin sacarla.",
       "off": 31,
-      "p": "Fuera de la placa la crema deja de hervir y baja hacia los 90 °C: el queso se funde sin hervir, que es cuando suelta la grasa y se vuelve hebra. La cuchilla rompe la verdura y parte el aceite y la grasa del queso en gotas diminutas, y el almidón de la patata, ya suelto, las envuelve y las mantiene repartidas: es una emulsión, y por eso la crema sale lisa y brillante sin nata. Dos minutos y no más: triturar de más revienta los gránulos de almidón y la crema se vuelve pegajosa.",
+      "p": "Fuera de la placa la crema deja de hervir y baja hacia los 90 °C: el queso se funde sin hervir, que es cuando suelta la grasa y se vuelve hebra.\n\nLa cuchilla rompe la verdura y parte el aceite y la grasa del queso en gotas diminutas, y el almidón de la patata, ya suelto, las envuelve y las mantiene repartidas: es una emulsión, y por eso la crema sale lisa y brillante sin nata.\n\nDos minutos y no más: triturar de más revienta los gránulos de almidón y la crema se vuelve pegajosa.",
       "s": 120,
       "saco": "",
-      "t": "Apagar, el queso y la pimienta, y triturar 2 minutos",
+      "t": "Apagar, apartar la olla y triturar",
       "tapa": "tapa fuera"
     },
     {
@@ -323,14 +323,14 @@
       "f": null,
       "holgura": "critico",
       "id": "servir",
-      "meto": "la crema de la olla, a 2 cuencos hondos",
+      "meto": "la olla: la crema, con el cazo",
       "min": 2,
-      "nota": "Remueve la crema con el cazo y repártela en los 2 cuencos, unos 450 g en cada uno. A la mesa ya: en el plato se espesa al enfriarse.",
+      "nota": "Remueve antes de repartir. Unos 450 g por cuenco.",
       "off": 33,
-      "p": "Se sirve caliente porque el almidón de la patata espesa la crema al bajar de temperatura y la grasa del queso empieza a cuajar en la superficie. Un último remover con el cazo vuelve a repartir lo que se haya asentado al fondo. Unos 450 g por cuenco es plato de comida; como primero de una comida más larga, daría para tres.",
+      "p": "Se sirve caliente porque el almidón de la patata espesa la crema al bajar de temperatura y la grasa del queso empieza a cuajar en la superficie.\n\nUn último remover con el cazo vuelve a repartir lo que se haya asentado al fondo.\n\nEsa ración es plato de comida; como primero de una comida más larga, daría para tres.",
       "s": 120,
-      "saco": "2 cuencos de crema de calabacín, unos 450 g cada uno",
-      "t": "Servir en dos cuencos y a la mesa",
+      "saco": "2 cuencos de crema, a la mesa",
+      "t": "Servir en dos cuencos",
       "tapa": null
     }
   ],
@@ -343,11 +343,7 @@
   "porque": [
     [
       "La patata hace la crema",
-      "El almidón de la patata, suelto al cocerse hasta deshacerse, espesa el agua y envuelve las gotas de aceite y de grasa del queso que la batidora parte: es una emulsión, y da cuerpo y brillo sin nata. 120 g para 350 g de calabacín es lo justo: con más, la crema sabe a puré de patata y se vuelve pastosa."
-    ],
-    [
-      "Patata cascada y no cortada",
-      "La cara rota tiene más células abiertas y suelta más almidón al hervir; con un corte limpio, la crema sale menos ligada."
+      "El almidón de la patata, suelto al cocerse hasta deshacerse, espesa el agua y envuelve las gotas de aceite y de grasa del queso que parte la batidora: una emulsión que da cuerpo y brillo sin nata. 120 g para 350 g de calabacín es lo justo: con más, sabe a puré de patata."
     ],
     [
       "Poco caldo y la tapa puesta",
@@ -356,18 +352,6 @@
     [
       "El queso dentro y no encima",
       "Encima, sobre una crema a 80 °C en el cuenco, el semicurado se funde a medias en un disco que suelta grasa. Dentro, rallado y triturado a 90 °C, se reparte entero: da sal, profundidad y grasa a la emulsión. Por eso va fuera del fuego, justo antes de la batidora."
-    ],
-    [
-      "Apagar y apartar antes de triturar",
-      "La crema hirviendo salpica y quema, y el queso que hierve suelta la grasa y se vuelve hebra. Fuera de la placa baja hacia los 90 °C en segundos."
-    ],
-    [
-      "Dos minutos de batidora",
-      "Bastan para una crema lisa. Más rato revienta los gránulos de almidón hinchados y la crema se vuelve elástica y pegajosa, como un puré batido."
-    ],
-    [
-      "Pochar, no dorar",
-      "Con la tapa a medias y al {5}, la cebolla se hace dulce y transparente. Dorada daría un fondo tostado que en una crema verde amarga y la vuelve marrón."
     ],
     [
       "Calabacín con piel",
