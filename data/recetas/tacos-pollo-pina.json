@@ -274,7 +274,9 @@
     },
     {
       "carril": "plancha",
-      "dep": [],
+      "dep": [
+        "encurtido"
+      ],
       "f": 7,
       "hitos": [
         {

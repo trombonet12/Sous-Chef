@@ -167,7 +167,7 @@
       "n": "HORNO · LAS PATATAS"
     }
   ],
-  "lectura": "La cuenta, por el camino largo, que es el horno: 10 de precalentar + 32 de patatas + 2 de emplatar = 44 minutos. Lo demás cae dentro.\n\n- El salmoriglio (sin el perejil, que espera en su platito) se hace del 6 al 14, mientras el horno termina de subir, y reposa todo el horneado.\n- El emperador sale de la nevera en el minuto 14 para llegar templado a la plancha.\n- La plancha se enciende en el 32, con las patatas a diez minutos de acabar; el pescado se aceita y se sala en el 37 y sale en el 42, justo con la bandeja.\n\nLo que gobierna el plan: solo hay un fuego, el grande, porque la plancha no cabe en otro.",
+  "lectura": "La cuenta, por el camino largo, que es el horno: 10 de precalentar + 32 de patatas + 2 de emplatar = 44 minutos. Lo demás cae dentro.\n\n- El salmoriglio (sin el perejil, que espera en su platito) se hace del 6 al 14, mientras el horno termina de subir, y reposa todo el horneado.\n- El emperador sale de la nevera en el minuto 14 para llegar templado a la plancha.\n- La plancha se enciende en el 31, con las patatas a once minutos de acabar; el pescado se aceita y se sala en el 36 y sale en el 42, justo con la bandeja.\n\nLo que gobierna el plan: solo hay un fuego, el grande, porque la plancha no cabe en otro.",
   "mep": [
     {
       "l": [
@@ -185,7 +185,7 @@
         "<b>Bandeja con papel</b> · 450 g de gajos de 2 cm + 20 ml de aceite de oliva (1 cucharada sopera y 1 cucharadita) + 3 g de sal (½ cucharadita), mezclados ahí mismo. Al horno en el minuto 10.",
         "<b>Bol mediano</b> · el salmoriglio: 2 g de ralladura de limón + 4 g de ajo + 1 g de orégano seco (1 cucharadita rasa) + 1 g de sal (una pizca) + 1 pizca de pimienta negra + 30 ml de zumo de limón + 15 ml de agua caliente (1 cucharada sopera, del grifo bien caliente o 10 segundos de microondas) + 45 ml de aceite de oliva (3 cucharadas soperas). Se monta del minuto 6 al 14 y se usa en el 42.",
         "<b>Platito</b> · los 6 g de perejil picado, desde el minuto 0. Se remueve en el salmoriglio en el minuto 42, justo antes de servir.",
-        "<b>Plato con papel</b> · los 2 filetes de emperador (400 g), fuera de la nevera desde el minuto 14. Si traen la tira de piel del borde, 2 cortes de 1 cm en ella, sobre el mismo plato. En el 37, justo antes de la plancha, 10 ml de aceite de oliva (2 cucharaditas) extendido con una brocha o los dedos, y 2 g de sal (un pellizco por cara)."
+        "<b>Plato con papel</b> · los 2 filetes de emperador (400 g), fuera de la nevera desde el minuto 14. Si traen la tira de piel del borde, 2 cortes de 1 cm en ella, sobre el mismo plato. En el 36, justo antes de la plancha, 10 ml de aceite de oliva (2 cucharaditas) extendido con una brocha o los dedos, y 2 g de sal (un pellizco por cara)."
       ],
       "orden": false,
       "porq": "Un recipiente se justifica si su contenido entra en otro momento. La patata se aliña en la bandeja, donde hornea. El salmoriglio tiene bol: se hace en el minuto 6 y se usa en el 42. El perejil espera aparte porque entra al final, y el emperador porque sale de la nevera en el 14.",
@@ -202,7 +202,7 @@
       "t": "EL VASO MEDIDOR, SOLO PARA LA SALSA"
     }
   ],
-  "notaEscala": "- A 4 raciones la plancha no admite los cuatro filetes a la vez sin enfriarse: van en dos tandas de 4 minutos, y la primera espera tapada con el salmoriglio encima.\n- Las patatas pasan a 900 g y en una sola bandeja se amontonan y se cuecen al vapor en vez de dorarse: con una bandeja, 4 raciones no salen bien.\n- El salmoriglio escala en línea recta salvo la sal, el orégano y la pimienta.",
+  "notaEscala": "- A 4 raciones la plancha no admite los cuatro filetes a la vez sin enfriarse: van en dos tandas de 5 minutos, y la primera espera tapada con el salmoriglio encima.\n- Las patatas pasan a 900 g y en una sola bandeja se amontonan y se cuecen al vapor en vez de dorarse: con una bandeja, 4 raciones no salen bien.\n- El salmoriglio escala en línea recta salvo la sal, el orégano y la pimienta.",
   "pasos": [
     {
       "carril": "mesa",
@@ -228,15 +228,15 @@
       "holgura": "flexible",
       "id": "precalentar",
       "junto": "cortar-patatas",
-      "meto": "",
+      "meto": "la rejilla, a media altura",
       "min": 10,
-      "nota": "Rejilla a media altura, calor arriba y abajo.",
+      "nota": "",
       "off": 0,
       "p": "El horno se enciende en el minuto 0 porque tarda diez minutos en llegar de verdad a temperatura, y esos diez minutos ya se gastan cortando y aliñando.\n\nTiene que estar caliente cuando entra la bandeja: una patata que entra en un horno tibio se cuece en su propia humedad antes de dorar y ya no queda crujiente. La rejilla se pone antes de encender.",
       "s": 600,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar y cada apertura le quita parte del precalentado.",
-      "t": "Precalentar el horno a 220 °C",
+      "t": "Precalentar a 220 °C arriba y abajo",
       "tapa": null
     },
     {
@@ -318,7 +318,7 @@
       "meto": "la plancha, seca, al fuego grande",
       "min": 6,
       "nota": "Lista si una gota de agua baila y desaparece. Sin aceite.",
-      "off": 32,
+      "off": 31,
       "p": "Una plancha gruesa tarda en acumular calor en toda su superficie, y en la vitro un poco más. Ese calor guardado sella el filete al tocarlo: con la plancha tibia el pescado suelta su jugo, se cuece en él y se pega.\n\nVa sin aceite porque, solo sobre una plancha vacía, pasa su punto de humo antes de que llegue el pescado. La gota que baila en vez de hervir es la señal: hay una capa de vapor debajo.\n\nSi la gota hierve y se queda, falta calor: espera un minuto y repite.",
       "s": 360,
       "saco": "",
@@ -335,10 +335,10 @@
       "meto": "10 ml de aceite de oliva + 2 g de sal (un pellizco por cara)",
       "min": 1,
       "nota": "Película fina de aceite, a brocha o con los dedos. Sal por las dos caras.",
-      "off": 37,
+      "off": 36,
       "p": "El aceite va sobre el pescado y no en la plancha: queda una película fina justo en la superficie que va a tocar el metal, que conduce el calor por igual y evita que la proteína se pegue, sin un charco alrededor que humee.\n\nSe hace ahora, con la plancha casi a punto, y no al sacar los filetes de la nevera, por la sal: saca agua a la superficie, y esa agua enfriaría la plancha y haría que el filete se cociera en vez de dorarse.",
       "s": 60,
-      "saco": "los filetes, a la plancha",
+      "saco": "",
       "t": "Aceitar y salar el emperador",
       "tapa": null
     },
@@ -350,19 +350,23 @@
       "f": 8,
       "hitos": [
         {
-          "en": 120,
+          "en": 150,
           "t": "Dales la vuelta con la espátula"
+        },
+        {
+          "en": 270,
+          "t": "Corta con la punta: centro opaco, sin rosa"
         }
       ],
       "holgura": "critico",
       "id": "plancha-emperador",
       "junto": null,
       "meto": "el plato: 2 filetes, separados",
-      "min": 4,
+      "min": 5,
       "nota": "Al centro y quietos hasta la vuelta. Si se pegan, espera 15 s: se sueltan.",
-      "off": 38,
-      "p": "Dos minutos por cara dejan el filete dorado por fuera y el centro apenas rosado, que es el punto jugoso: el emperador tiene muy poca grasa y a partir de ahí se seca en un minuto.\n\nMientras se marca no se mueve: la proteína se pega a la plancha y se suelta sola cuando la superficie está dorada; si fuerzas antes, el filete se rompe. La sal ya va puesta y el aceite en el pescado, del paso anterior.",
-      "s": 240,
+      "off": 37,
+      "p": "Dos minutos y medio por cara, más el reposo del emplatado, llevan el centro a 60 °C: opaco y aún jugoso. Por debajo no se garantiza inactivar el anisakis del pescado fresco; por encima, el emperador, tan magro, se seca en un minuto.\n\nMientras se marca no se mueve: la proteína se pega a la plancha y se suelta sola cuando la superficie está dorada; si fuerzas antes, el filete se rompe. La sal ya va puesta y el aceite en el pescado, del paso anterior.",
+      "s": 300,
       "saco": "los filetes, uno a cada plato + la plancha, apagada y aparte",
       "t": "Emperador a la plancha",
       "tapa": "sin tapa"
@@ -396,8 +400,8 @@
   "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
   "porque": [
     [
-      "2 minutos por cara, y ni uno más",
-      "El emperador es un pescado magro y muy firme: su punto jugoso es estrecho. Con 2 cm, dos minutos por cara a plancha muy caliente dejan el centro a unos 55 °C, apenas rosado; un minuto más por cara lo pasa a blanco y fibroso."
+      "Dos minutos y medio por cara, no menos",
+      "El emperador es magro y muy firme, y el fresco puede traer anisakis: por debajo de 60 °C en el centro no se inactiva. Dos minutos y medio por cara a plancha muy caliente, más el reposo, lo alcanzan; un minuto más por cara lo pasa a fibroso."
     ],
     [
       "Agua caliente en el salmoriglio",

@@ -219,7 +219,7 @@
       "off": 0,
       "p": "Se corta de lo más seco a lo que más moja la tabla: zanahoria, cebolla y, al final, el ajo, que es el corte más fino. Es el orden de la mise en place.\n\nLos setenta minutos siguientes no tienen un hueco para medir nada: por eso todo está listo antes de empezar.",
       "s": 720,
-      "saco": "los cinco recipientes llenos + la tabla libre",
+      "saco": "la verdura, al bol mediano + el ajo, al platito",
       "t": "Cortar y pesar",
       "tapa": null
     },
@@ -233,7 +233,7 @@
       "id": "aceite",
       "meto": "la sartén: 40 ml de aceite de oliva",
       "min": 1,
-      "nota": "Sartén de 28 cm o más.",
+      "nota": "Aceite fluido: corre al inclinar la sartén.",
       "off": 12,
       "p": "Cuatro raciones de verdura piden superficie: en una sola capa suda y suelta su dulzor; amontonada se cuece unas capas contra otras y tarda el doble.\n\nEl aceite ya está dentro desde la preparación: solo giras el mando.",
       "s": 60,
@@ -266,7 +266,7 @@
       "off": 13,
       "p": "Del {6} al {5} y con tapa, la verdura se cuece en su propia agua en vez de tostarse, que es lo que quieres: el dulzor viene de ahí. Por debajo del {6} la vitro no tuesta los bordes antes de que el interior ceda.\n\nSe destapa solo para remover y se tapa enseguida: cada vez que se levanta la tapa se pierde vapor.\n\nSi a los seis minutos la sartén está seca y la cebolla coge color, es que la tapa no cierra bien.",
       "s": 660,
-      "saco": "",
+      "saco": "la tapa",
       "t": "Sudar la verdura",
       "tapa": "TAPA PUESTA"
     },
@@ -281,7 +281,7 @@
       "off": 24,
       "p": "Sesenta segundos removiendo sin parar es lo que tarda el picado de 1 mm en soltar su aroma en la grasa.\n\nEntra aquí y no con la verdura porque once minutos de sofrito lo habrían deshecho sin dejar rastro.\n\nDespués viene un guiso largo, así que este ajo no se queda rubio: se tuesta en el borde, junto a la carne, y acaba fundido en la salsa. La verdura húmeda a su lado impide que se queme.",
       "s": 60,
-      "saco": "la tapa, hasta el chup-chup",
+      "saco": "la verdura y el ajo, a un borde",
       "t": "Sofreír el ajo",
       "tapa": "tapa fuera"
     },
@@ -306,11 +306,11 @@
       "id": "carne",
       "meto": "la bandeja: 500 g de carne picada",
       "min": 15,
-      "nota": "Verdura a un borde. Carne extendida, sin tocarla hasta el aviso.",
+      "nota": "Extendida y quieta hasta el primer aviso.",
       "off": 25,
       "p": "Sube del {5} al {8} y aparta la verdura y el ajo a un borde antes de echar la carne: así toca el metal y no el sofrito húmedo.\n\nExtendida y quieta tres minutos, el Maillard tiene superficie seca y contacto; si la remueves antes suelta agua y se cuece gris.\n\nLos quince minutos dan para dorarla, deshacer los grumos y evaporar su agua hasta que el fondo chisporrotee.",
       "s": 900,
-      "saco": "su agua, evaporada",
+      "saco": "",
       "t": "Dorar la carne",
       "tapa": "sin tapa"
     },
@@ -325,7 +325,7 @@
       "off": 40,
       "p": "El vino va de golpe sobre el fondo: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran.\n\nCon el fuego fuerte hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo. Si queda líquido, el ragú sabrá a alcohol.",
       "s": 240,
-      "saco": "el alcohol",
+      "saco": "",
       "t": "Desglasar",
       "tapa": "sin tapa"
     },
@@ -369,7 +369,7 @@
       "off": 49,
       "p": "Del {8} al {3} y con la tapa apoyada con un dedo de hueco, sale vapor suficiente para que concentre pero no tanto como para que se pegue.\n\n- Encender el agua a los tres minutos: así rompe a hervir justo cuando la pasta tiene que entrar.\n- Remover raspando el fondo: es donde se agarra el tomate cuando la salsa espesa.",
       "s": 1200,
-      "saco": "vapor",
+      "saco": "la tapa",
       "t": "Chup-chup del ragú",
       "tapa": "TAPA A MEDIAS"
     },
@@ -414,7 +414,7 @@
       "off": 69,
       "p": "La tapa se quita justo cuando los macarrones entran al agua: sin tapa la evaporación es libre y la salsa espesa en esos diez minutos exactos que tarda la pasta.\n\nSubir el fuego aquí no espesa más rápido, solo agarra el fondo.",
       "s": 600,
-      "saco": "la tapa, para que espese",
+      "saco": "",
       "t": "Reducir el ragú",
       "tapa": "tapa fuera"
     },
@@ -442,11 +442,11 @@
       "id": "macarrones",
       "meto": "el paquete: 360 g de macarrones",
       "min": 10,
-      "nota": "Un minuto menos que el paquete. Salen y van directos a la sartén.",
+      "nota": "Firmes al morder, con un punto blanco en el centro.",
       "off": 69,
       "p": "Del {9} al {7}, para mantener el hervor sin que se desborde. Se quedan algo crudos a propósito: terminan de cocerse en la sartén, absorbiendo salsa en vez de agua.\n\nEl agua de cocción se aparta antes de escurrir, en el vaso que dejaste junto a la olla: sin ella el paso siguiente no funciona, y una vez escurridos ya no hay de dónde sacarla.",
       "s": 600,
-      "saco": "200 ml de agua, al vaso + la pasta, a la sartén",
+      "saco": "200 ml de agua, al vaso + la pasta, a la sartén + la olla, apagada",
       "t": "Cocer los macarrones",
       "tapa": "sin tapa"
     },
@@ -464,7 +464,7 @@
       "off": 79,
       "p": "Del {3} al {5} y removiendo fuerte tres minutos, el almidón del agua emulsiona con la grasa del ragú y forma una salsa que se agarra a la pasta en vez de resbalar.\n\nLa albahaca entra aquí porque es seca y frágil, y con el vapor se abre sin perder el aroma.\n\nEste paso no espera: la pasta escurrida se pasa de punto sola.",
       "s": 180,
-      "saco": "todo, a los platos",
+      "saco": "todo, a los platos + la sartén, apagada",
       "t": "Mantecatura",
       "tapa": "sin tapa"
     }

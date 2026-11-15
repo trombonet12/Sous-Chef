@@ -317,7 +317,7 @@
       "off": 12,
       "p": "Baja al {5} antes de echar el bol. Aquí no buscas color: una cebolla dorada llevaría el rojo del tomate hacia el marrón.\n\nSolo va aceite de oliva para completar: los 55 ml de grasa del bacon ya están en la sartén, y con los 40 ml de un sofrito normal la salsa saldría aceitosa.\n\nLa sal va ahora y no después: rompe el equilibrio osmótico de la célula y saca el agua, que mantiene la sartén bajo el punto de dorado. La tapa devuelve ese vapor y disuelve el fondo tostado del bacon: medio caldo gratis.",
       "s": 600,
-      "saco": "",
+      "saco": "la tapa, aparte",
       "t": "Sudar la cebolla",
       "tapa": "TAPA PUESTA"
     },
@@ -334,7 +334,7 @@
       "off": 22,
       "p": "La vitro no es gas: debajo del cristal hay una masa que sigue radiando un par de minutos después de bajar el mando. El ajo que entrara ahora caería sobre una superficie todavía a la potencia de antes.\n\nEl ajo se quema a partir de unos 140 °C y quemado no es un matiz: sus azúcares y su azufre viran a amargo, y ya no sale de la salsa en los treinta minutos que quedan. Este minuto sin hacer nada separa un ajo rubio de un plato perdido.\n\nAprovéchalo para quitar la tapa, que no vuelve hasta el chup-chup.",
       "s": 60,
-      "saco": "la tapa",
+      "saco": "",
       "t": "Bajar al {4} y esperar",
       "tapa": "tapa fuera"
     },
@@ -362,7 +362,7 @@
       "holgura": "flexible",
       "id": "el-tomate-arranca",
       "junto": null,
-      "meto": "el bol grande: 800 g de tomate + 2 g de sal + 5 g de azúcar + 0,5 g de pimienta negra",
+      "meto": "800 g de tomate ya aliñado",
       "min": 4,
       "nota": "Burbujeo en toda la superficie, no solo en el centro.",
       "off": 24,
@@ -384,6 +384,10 @@
         {
           "en": 480,
           "t": "Remueve rascando el fondo"
+        },
+        {
+          "en": 600,
+          "t": "Pesa y enjuaga el arroz hasta agua clara"
         }
       ],
       "holgura": "flexible",
@@ -395,7 +399,7 @@
       "off": 28,
       "p": "Más potencia agarraría el tomate al fondo, y lo que se pega se quema y amarga toda la salsa sin remedio. Por eso baja al {3}: un burbujeo perezoso.\n\nLa tapa apoyada con un dedo de hueco regula: deja salir el vapor justo para que reduzca, corta las salpicaduras de un triturado que salta mucho y evita que los treinta minutos se queden secos a la mitad.\n\nEste tramo se corta a los doce minutos porque ahí toca encender el agua del arroz, no porque la salsa pida nada.",
       "s": 720,
-      "saco": "vapor",
+      "saco": "",
       "t": "Chup-chup, primer tramo",
       "tapa": "TAPA A MEDIAS"
     },
@@ -408,7 +412,7 @@
       "holgura": "flexible",
       "id": "agua-al-fuego",
       "junto": null,
-      "meto": "la cazuela: 600 ml de agua + 4 g de sal",
+      "meto": "la cazuela: 600 ml de agua con sal",
       "min": 8,
       "nota": "Hervor a borbotones: ya puede entrar el arroz.",
       "off": 40,
@@ -438,7 +442,7 @@
       "off": 40,
       "p": "Aquí pasa todo: de los 1.090 g de la sartén se van unos 300 en vapor, el ácido se suaviza según se concentra el azúcar propio del tomate, y la grasa y la gelatina del bacon que se quedó dentro se reparten por la salsa.\n\nRascar el fondo cada ocho o diez minutos no es manía: el tomate sedimenta, la capa pegada al metal se seca antes que el resto y, en cuanto se pega, amarga.\n\nEs el paso elástico del plan: el único que puedes estirar o encoger sin que se note, y donde se recupera un retraso.",
       "s": 960,
-      "saco": "vapor",
+      "saco": "",
       "t": "Chup-chup, segundo tramo",
       "tapa": "TAPA A MEDIAS"
     },
@@ -523,7 +527,7 @@
       "off": 58,
       "p": "Con la tapa a medias la evaporación iba frenada a propósito. Destapada, la superficie libre se lleva los últimos 100 o 150 g (de 1.090 a unos 700) y la salsa pasa a untuosa. Manda la señal, no el reloj.\n\nLa sal se corrige ahora y no antes: al reducir se concentra la que ya había, y lo que estaba justo al principio acaba pasado. Si sigue ácida, hasta 2 g más de azúcar y no más: por encima deja de corregir y se nota dulce.",
       "s": 360,
-      "saco": "",
+      "saco": "la salsa, apagada, en la sartén",
       "t": "Destapar y tomar punto",
       "tapa": "tapa fuera"
     },
@@ -555,23 +559,23 @@
         },
         {
           "en": 150,
-          "t": "Fuera el 2.º. Entra el 3.º"
+          "t": "Fuera el 2.º, con sal. Entra el 3.º"
         },
         {
           "en": 225,
-          "t": "Fuera el 3.º y entra el 4.º. Aliña el arroz"
+          "t": "Fuera el 3.º, con sal. Entra el 4.º"
         }
       ],
       "holgura": "critico",
       "id": "los-cuatro-huevos",
       "junto": null,
-      "meto": "4 huevos del cartón, de uno en uno",
+      "meto": "4 huevos del cartón, de uno en uno + 2 g de sal, sobre cada uno al salir",
       "min": 5,
       "nota": "Riégalo de aceite a cucharadas. Clara cuajada por arriba, yema todavía líquida.",
       "off": 61,
       "p": "De uno en uno: los cuatro a la vez le tirarían la temperatura al aceite de golpe y saldrían cocidos en vez de fritos. Cada uno lleva de sesenta a setenta y cinco segundos.\n\nCon un centímetro de aceite la clara no se extiende por el fondo: se contrae y encaja. Escáldala echándole aceite por encima con la cuchara, sin darle la vuelta: la yema queda líquida bajo una clara entera cuajada.\n\nLa sal, al salir y nunca en el aceite: dentro salta, y sobre la clara recién hecha se disuelve y deja de crujir, que es justo lo que venía a aportar.",
       "s": 300,
-      "saco": "cada huevo, al borde de su plato",
+      "saco": "cada huevo, al borde de su plato + la sartén de huevos, apagada",
       "t": "Los cuatro huevos",
       "tapa": "tapa fuera"
     },

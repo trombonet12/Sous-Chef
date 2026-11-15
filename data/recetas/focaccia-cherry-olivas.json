@@ -150,7 +150,7 @@
       "n": "FUENTE · LA CORONA"
     }
   ],
-  "lectura": "La cuenta: 5 de levadura + 5 de mezclar + 90 de levado en bloque + 4 de pasar a la fuente + 35 de segundo levado + 4 de coronar + 24 de horno + 3 de desmoldar + 8 de reposo + 2 de cortar = 180 minutos.\n\n- El corte de olivas y cherry (110-118) y el precalentado (123-143) caben dentro del segundo levado.\n- El bol sale del horno en el 100, antes de encenderlo.\n\nLo que gobierna el plan: los dos levados son la parte elástica. Si la masa va lenta, alarga el que toque hasta que doble o hasta el pinchazo, y enciende el horno 16 minutos antes de lo que calcules que acaba el segundo levado. Sin fuegos: el único calor es el horno.",
+  "lectura": "La cuenta: 5 de levadura + 5 de mezclar + 90 de levado en bloque + 4 de pasar a la fuente + 35 de segundo levado + 4 de coronar + 24 de horno + 3 de desmoldar + 8 de reposo + 2 de cortar = 180 minutos.\n\n- El corte de olivas y cherry (110-118) cabe dentro del segundo levado, y el precalentado (123-143) empieza dentro de él.\n- El bol sale del horno en el 100, antes de encenderlo.\n\nLo que gobierna el plan: los dos levados son la parte elástica. Si la masa va lenta, alarga el que toque hasta que doble o hasta el pinchazo, y enciende el horno 16 minutos antes de lo que calcules que acaba el segundo levado. Sin fuegos: el único calor es el horno.",
   "mep": [
     {
       "l": [
@@ -265,7 +265,7 @@
       "off": 100,
       "p": "El aceite del fondo fríe la base en el horno y sale dorada y crujiente, sin pegarse. Volteada, la masa queda aceitada también por arriba y la superficie no se seca ni hace costra durante el segundo levado.\n\nNo hay que forzarla a llegar a las esquinas: recién volcada el gluten está tenso y vuelve atrás, y en un cuarto de hora se relaja y cede sola.",
       "s": 240,
-      "saco": "",
+      "saco": "la fuente tapada, junto al horno",
       "t": "Pasar la masa a la fuente",
       "tapa": null
     },
@@ -319,15 +319,15 @@
       "holgura": "flexible",
       "id": "precalentar",
       "junto": "apresto",
-      "meto": "",
+      "meto": "la rejilla, 2º nivel desde abajo",
       "min": 20,
-      "nota": "Segundo nivel desde abajo, calor arriba y abajo, sin ventilador.",
+      "nota": "",
       "off": 123,
       "p": "El horno tarda en llegar de verdad a 220 °C, paredes incluidas y no solo el aire; se enciende vacío.\n\nLa rejilla se pone antes de encender, en la segunda posición desde abajo: la fuente es honda y aísla, y el calor de abajo tiene que atravesarla para freír la base, mientras la superficie, lejos de la resistencia, dora sin quemarse.\n\nCalor arriba y abajo y sin ventilador: el aire forzado secaría los cherry y la superficie antes de que la miga se haga.",
       "s": 1200,
       "saco": "",
       "sinHitos": "El horno sube solo y abrir la puerta solo le quita calor: la señal es el piloto que se apaga, no la vista.",
-      "t": "Precalentar a 220 °C",
+      "t": "Precalentar a 220 °C sin ventilador",
       "tapa": null
     },
     {
@@ -370,13 +370,13 @@
       ],
       "holgura": "ajustado",
       "id": "hornear",
-      "meto": "la fuente, en la rejilla baja",
+      "meto": "la fuente, 2º nivel desde abajo",
       "min": 24,
       "nota": "Arriba dorado, cherry arrugados. Base pálida: 4 minutos más.",
       "off": 143,
       "p": "A 220 °C el agua de una masa al 80 % se convierte en vapor de golpe y empuja la miga hacia arriba antes de que la corteza cuaje: eso abre los alveolos.\n\nEl aceite del fondo fríe la base y el de arriba dora los bordes de los hoyos. El cristal o la cerámica calientan más despacio que el metal: por eso va en la rejilla baja y se mira la base, no solo el color de arriba.",
       "s": 1440,
-      "saco": "la fuente, fuera del horno + apaga el horno",
+      "saco": "la fuente, fuera del horno + el horno, apagado",
       "t": "Hornear a 220 °C",
       "tapa": null
     },

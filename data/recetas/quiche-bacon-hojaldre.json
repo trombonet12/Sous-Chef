@@ -136,7 +136,7 @@
       "n": "BOL · LA CREMA"
     }
   ],
-  "lectura": "La cuenta, por el camino largo del horno: 10 de precalentar + 12 de base a ciegas con peso + 4 de secar el fondo + 2 de rellenar + 24 de cuajar + 10 de reposo = 62 minutos.\n\n- La tabla trabaja mientras el horno sube (del 0 al 10).\n- La sartén cabe entera dentro de la base a ciegas: el bacon del 11 al 17 y la cebolla del 17 al 25, así que llega al plato un minuto antes de rellenar.\n- La crema se bate del 12 al 16, con el bacon ya en marcha.\n- El horno cambia de mando una sola vez, de 200 a 170 °C en el minuto 22, y acaba de bajar con la puerta abierta del relleno.\n\nLo que gobierna el plan: un solo fuego, y que el fondo se seque antes de rellenar.",
+  "lectura": "La cuenta, por el camino largo del horno: 10 de precalentar + 12 de base a ciegas con peso + 4 de secar el fondo + 2 de rellenar + 24 de cuajar + 10 de reposo = 62 minutos.\n\n- La tabla trabaja mientras el horno sube (del 0 al 10).\n- La sartén cabe entera dentro de la base a ciegas y el secado: el bacon del 11 al 17 y la cebolla del 17 al 25, así que llega al plato un minuto antes de rellenar.\n- La crema se bate del 12 al 16, con el bacon ya en marcha.\n- El horno cambia de mando una sola vez, de 200 a 170 °C en el minuto 22, y acaba de bajar con la puerta abierta del relleno.\n\nLo que gobierna el plan: un solo fuego, y que el fondo se seque antes de rellenar.",
   "mep": [
     {
       "l": [
@@ -177,7 +177,7 @@
       "id": "forrar",
       "meto": "1 lámina de hojaldre, de la nevera + 300 g de arroz crudo + papel de horno",
       "min": 6,
-      "nota": "Borde 5 mm por encima del molde y sin bolsas de aire en el ángulo.",
+      "nota": "Fondo pinchado; borde 5 mm por encima, sin aire en el ángulo.",
       "off": 0,
       "p": "La lámina entra fría, con su propio papel debajo: la mantequilla de entre capas sigue dura y la masa se aprieta contra el fondo y las esquinas sin romperse ni pegarse.\n\n- Aprieta el ángulo entre fondo y pared: ahí queda una bolsa de aire.\n- Pincha el fondo con un tenedor cada 2 cm, para que el vapor salga por abajo.\n- Papel de horno arrugado encima, y el arroz hasta arriba de las paredes.\n\nLo que sobresalga, doblado hacia dentro: el hojaldre encoge y ese margen evita que la crema rebose. La nevera relaja la masa y encoge menos.",
       "s": 360,
@@ -190,15 +190,15 @@
       "f": null,
       "holgura": "flexible",
       "id": "precalentar",
-      "meto": "",
+      "meto": "la rejilla, la segunda desde abajo",
       "min": 10,
-      "nota": "Segundo nivel desde abajo, calor arriba y abajo, sin ventilador.",
+      "nota": "",
       "off": 0,
       "p": "Pon la rejilla antes de encender, que luego quema: el fondo es lo que más le cuesta hacerse a una quiche, y cerca de la resistencia de abajo recibe más calor que el borde.\n\nSin ventilador: el aire forzado dora y seca el borde del hojaldre mucho antes de que el fondo, tapado por el papel y el peso, termine de cocerse. El precalentado cabe entero en el forrado y el corte.",
       "s": 600,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar, y el trabajo está en la tabla.",
-      "t": "Precalentar a 200 °C",
+      "t": "Precalentar a 200 °C, arriba y abajo",
       "tapa": null
     },
     {
@@ -274,7 +274,7 @@
       "holgura": "flexible",
       "id": "batir",
       "junto": "bacon",
-      "meto": "4 huevos + 200 ml de nata + 200 ml de leche + 100 g de queso + 1 g de sal + 0,5 g de pimienta + 0,3 g de nuez moscada",
+      "meto": "4 huevos + 200 ml de nata + 200 ml de leche + 100 g de queso + 1 g de sal + ¼ cdta de pimienta + ⅛ cdta de nuez moscada",
       "min": 4,
       "nota": "Mezcla lisa, sin espuma en la superficie.",
       "off": 12,
@@ -305,7 +305,7 @@
       "off": 17,
       "p": "Baja al {5} y echa la cebolla sobre el bacon: se hace en su grasa, que ya sabe a bacon, y toma ese sabor sin pedir más aceite.\n\nSin tapa, porque cada gota de agua que suelte la cebolla y no se vaya aquí saldrá dentro de la crema y la dejará aguada. Queda blanda y dulce, y ese dulzor equilibra la sal del bacon y del queso.\n\nSácalo con la espumadera al papel de cocina: así la grasa no flota luego en la superficie de la quiche.",
       "s": 480,
-      "saco": "bacon y cebolla, al plato con papel + la grasa se queda en la sartén + apaga el fuego",
+      "saco": "bacon y cebolla, al plato con papel + la sartén, apagada",
       "t": "La cebolla en la grasa del bacon",
       "tapa": "sin tapa"
     },
@@ -333,13 +333,13 @@
       "f": null,
       "holgura": "critico",
       "id": "rellenar",
-      "meto": "rejilla a medio sacar, con el molde + el plato: bacon y cebolla + el bol grande: la crema",
+      "meto": "rejilla a medio sacar, con el molde + el plato: bacon y cebolla + el bol grande: la crema, removida",
       "min": 2,
       "nota": "Bacon y cebolla repartidos por el fondo; crema hasta 5 mm del borde.",
       "off": 26,
       "p": "Se rellena sobre la rejilla a medio sacar: llevar después al horno un molde lleno de crema líquida acaba con la mitad por el suelo.\n\nRemueve la crema con una cuchara antes de verterla, porque el queso se ha ido al fondo del bol, y échala despacio. Si sobra, no la fuerces: la que rebosa se pega entre el hojaldre y el molde y no deja desmoldar.\n\nLa rejilla se empuja despacio, para que la crema no se mueva en ola por encima del borde.",
       "s": 120,
-      "saco": "empuja la rejilla despacio y cierra",
+      "saco": "el molde, dentro y puerta cerrada",
       "t": "Rellenar sobre la rejilla",
       "tapa": null
     },
@@ -367,7 +367,7 @@
       "off": 28,
       "p": "A 170 °C el calor entra despacio desde el borde hacia el centro, y así el borde y el centro llegan a los 80 °C casi a la vez.\n\nMás fuerte, el borde pasa de 90 °C mientras el centro sigue líquido: se hincha, se agrieta y suelta agua sobre la base que tanto ha costado secar.\n\nSácala todavía temblando: el calor que guardan la masa y el molde la termina de cuajar en el reposo, y si sale firme del todo llega con la textura de una tortilla pasada.\n\nCon un molde de 26 cm la crema queda más baja y cuaja unos 3 minutos antes: mira el centro, no el reloj.",
       "s": 1440,
-      "saco": "la quiche, a un salvamanteles + apaga el horno",
+      "saco": "la quiche, a un salvamanteles + el horno, apagado",
       "t": "Cuajar a 170 °C",
       "tapa": null
     },

@@ -166,7 +166,7 @@
       "n": "OLLA · EL ARROZ"
     }
   ],
-  "lectura": "La cuenta: 14 de cortar + 2 + 5 + 8 + 1 + 1 + 2 + 10 + 6 + 1 = 36 de sartén, 50 minutos en total.\n\n- El agua del arroz se enciende en el minuto 28, con el sofrito en el siete de sus ocho: la tapa deja las manos libres.\n- Tapada rompe a hervir en el 34, un minuto después de que caiga el coco: las dos manos no pueden estar en los dos fuegos a la vez.\n- Los 22 minutos de la olla caben dentro de los de la sartén y no suman.\n\nLo que gobierna el plan: el reposo del arroz y el limón terminan juntos, en el 50.",
+  "lectura": "La cuenta: 14 de cortar + 2 + 5 + 8 + 1 + 1 + 2 + 10 + 6 + 1 = 36 de sartén, 50 minutos en total.\n\n- El agua del arroz se enciende en el minuto 28, con el sofrito en el siete de sus ocho: la tapa deja las manos libres.\n- Tapada rompe a hervir en el 34, un minuto después de que acabe el coco: las dos manos no pueden estar en los dos fuegos a la vez.\n- Los 22 minutos de la olla caben dentro de los de la sartén y no suman.\n\nLo que gobierna el plan: el reposo del arroz y el limón terminan juntos, en el 50.",
   "mep": [
     {
       "l": [
@@ -228,7 +228,7 @@
       "holgura": "flexible",
       "id": "cortar",
       "junto": null,
-      "meto": "",
+      "meto": "400 g de pollo + 100 g de pimiento + 150 g de cebolla + 12 g de ajo + 5 g de jengibre",
       "min": 14,
       "nota": "Pollo primero. Lava tabla, cuchillo y manos con jabón, y luego la verdura.",
       "off": 0,
@@ -247,7 +247,7 @@
       "holgura": "flexible",
       "id": "aceite",
       "junto": null,
-      "meto": "",
+      "meto": "15 ml de aceite de girasol",
       "min": 2,
       "nota": "Listo si se mueve solo y brilla sin humear.",
       "off": 14,
@@ -293,7 +293,7 @@
       "off": 21,
       "p": "Al {5} y con tapa, la verdura suda en su propia agua en vez de tostarse; el vapor despega el fondo pegado del sellado, que es medio caldo gratis.\n\nLa vitro sigue caliente un par de minutos tras el sellado: la verdura entra sobre más calor del que marca el mando, y por eso remueves pronto.\n\nEs el paso más flexible del plan: si vas tarde, róbale minutos aquí.",
       "s": 480,
-      "saco": "",
+      "saco": "la tapa, fuera hasta el final",
       "t": "Sudar la verdura",
       "tapa": "TAPA PUESTA"
     },
@@ -316,7 +316,7 @@
       "holgura": "flexible",
       "id": "agua",
       "junto": null,
-      "meto": "",
+      "meto": "270 ml de agua con ½ cdta de sal",
       "min": 6,
       "nota": "Rompe a hervir tapada: no la levantes, se ve desde fuera.",
       "off": 28,
@@ -335,11 +335,11 @@
       "junto": null,
       "meto": "10 ml de aceite de girasol + el platito: 3 ajos y 5 g de jengibre",
       "min": 1,
-      "nota": "Remueve sin parar: pasados los noventa segundos amarga.",
+      "nota": "Remueve sin parar: que huela, sin tomar color.",
       "off": 29,
       "p": "Entra ahora y no con la verdura, que lleva ocho minutos al fuego: picado a 2 mm, el ajo pasa de dorado a amargo en poco más de un minuto.\n\nEl jengibre va con él en el mismo montón: sus aromas son liposolubles y el aceite los suelta en segundos, sin quemarse.",
       "s": 60,
-      "saco": "la tapa, fuera hasta el final",
+      "saco": "",
       "t": "Ajo y jengibre",
       "tapa": "tapa fuera"
     },
@@ -384,7 +384,7 @@
       "hitos": [
         {
           "en": 480,
-          "t": "No espesa: añade la maicena diluida"
+          "t": "No espesa: maicena en 15 ml de agua fría"
         }
       ],
       "holgura": "flexible",
@@ -396,7 +396,7 @@
       "off": 33,
       "p": "Al {3} y sin tapa se va el agua que sobra de la salsa; con tapa volvería a la sartén justo la que quieres perder: es el error del plato.\n\nSi no espesa, disuelve la maicena en 15 ml de agua fría y échala removiendo: en seco sobre la salsa caliente gelatiniza en grumos al instante y no hay forma de deshacerlos.",
       "s": 600,
-      "saco": "unos 100 ml, evaporados",
+      "saco": "",
       "t": "Reducir la salsa",
       "tapa": "sin tapa"
     },
@@ -466,12 +466,18 @@
       "carril": "sarten",
       "dep": [],
       "f": 0,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Sin hervir: echa el zumo del limón"
+        }
+      ],
       "holgura": "critico",
       "id": "limon",
       "junto": null,
       "meto": "el medio limón: 20 ml de zumo",
       "min": 1,
-      "nota": "Apaga y espera medio minuto antes del limón. Prueba y corrige la sal.",
+      "nota": "Prueba y corrige la sal.",
       "off": 49,
       "p": "Fuera del fuego porque los aromáticos del limón se volatilizan por encima de los ochenta grados: dentro solo quedaría el ácido, sin el perfume, que es la mitad de lo que aporta.\n\nLa sal se prueba ahora, al final: la soja ya saló y puede que no haga falta ni una pizca. Este paso no espera; con el limón dentro, a los platos.",
       "s": 60,

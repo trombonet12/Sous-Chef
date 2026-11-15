@@ -215,6 +215,7 @@
       ],
       "holgura": "ajustado",
       "id": "bacon",
+      "junto": "espaguetis",
       "meto": "el bacon en frío, al fuego mediano",
       "min": 11,
       "nota": "Tiras chisporroteando suave en su grasa, sin humear.",
@@ -258,7 +259,7 @@
       "off": 11,
       "p": "Se baja al {7} porque ese hervor se mantiene sin que el agua suba. Un minuto menos que el paquete: los espaguetis acaban de hacerse en la sartén, absorbiendo grasa y agua con almidón.\n\nSe destapa y se abren en abanico para que se hundan a la vez y no se peguen entre sí.\n\n- Apartar el agua a dos minutos del final: es cuando está más turbia del almidón que ha soltado la pasta.\n- Ese almidón impide que la grasa y la yema se separen; sin él la salsa no liga.",
       "s": 660,
-      "saco": "apaga la olla, sin escurrir",
+      "saco": "la olla, apagada y sin escurrir",
       "t": "Cocer los espaguetis",
       "tapa": "sin tapa"
     },

@@ -171,9 +171,9 @@
       "holgura": "flexible",
       "id": "calentar-aceite",
       "junto": null,
-      "meto": "",
+      "meto": "500 ml de aceite de girasol",
       "min": 5,
-      "nota": "El aceite ya está dentro: solo enciendes. No lo subas más.",
+      "nota": "No lo subas más.",
       "off": 6,
       "p": "La primera fritura cuece la patata por dentro sin colorearla por fuera. Por eso el aceite se queda bajo, lejos del punto en el que empezaría a dorar.",
       "s": 300,
@@ -255,7 +255,7 @@
       "holgura": "flexible",
       "id": "reposo-patata",
       "junto": null,
-      "meto": "sartén grande: la patata blanqueada",
+      "meto": "el plato con papel: la patata",
       "min": 4,
       "nota": "Déjalas quietas: tienen que soltar el vapor.",
       "off": 29,
@@ -339,7 +339,7 @@
       "off": 32,
       "p": "La misma sartén, ya caliente por el jamón, sube del {6} al {8} con el aceite de oliva. El calor fuerte convierte de golpe en vapor el agua del pimiento: lo hincha y le arruga la piel, que es la textura que se busca.\n\nLa sal va nada más retirarlos, con la piel aún caliente y brillante de aceite: ahí se agarra. Echada en la sartén sacaría agua por ósmosis y el pimiento se ablandaría en vez de quedar tostado.",
       "s": 240,
-      "saco": "los pimientos, a un plato + 1 g de sal, por encima",
+      "saco": "los pimientos, a un plato + 1 g de sal, por encima + la sartén pequeña, apagada",
       "t": "Freír los pimientos de padrón",
       "tapa": "sin tapa"
     },
@@ -421,7 +421,7 @@
         },
         {
           "en": 90,
-          "t": "Entra la segunda tanda"
+          "t": "Entra la segunda tanda: 2 huevos"
         },
         {
           "en": 150,
@@ -431,13 +431,13 @@
       "holgura": "critico",
       "id": "freir-huevos",
       "junto": null,
-      "meto": "la huevera: la mitad de los huevos",
+      "meto": "la huevera: 2 huevos",
       "min": 3,
       "nota": "Baña la clara con aceite, a cucharadas. Fuera con puntilla y yema líquida.",
       "off": 42,
       "p": "De dos en dos, porque cuatro juntos no dejan sitio para que la clara suba con puntilla. Sesenta segundos por tanda: lo que tarda la clara en cuajar y el borde en encresparse, con la yema aún entera y líquida.\n\nEso los hace rotos y no fritos: al romperlos la yema tiene que correr entre la patata. Con dos minutos en el aceite la yema cuaja y ya no hay salsa.\n\n- Los 30 segundos entre tandas son para sacar y cascar, no para freír.\n- El aceite ya sabe a patata: estos huevos no salen neutros.",
       "s": 180,
-      "saco": "cada tanda, directa al plato",
+      "saco": "cada tanda, directa al plato + la sartén grande, apagada",
       "t": "Freír los huevos en dos tandas",
       "tapa": "sin tapa"
     },

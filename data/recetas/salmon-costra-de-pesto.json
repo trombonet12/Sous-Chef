@@ -171,15 +171,15 @@
       "holgura": "flexible",
       "id": "precalentar",
       "junto": "patatas",
-      "meto": "",
+      "meto": "la rejilla, a media altura",
       "min": 15,
-      "nota": "Rejilla a media altura, calor arriba y abajo.",
+      "nota": "",
       "off": 0,
       "p": "Se enciende en el minuto 0 porque tarda unos quince minutos en llegar de verdad a temperatura, y esos minutos ya se gastan preparando las patatas y la costra.\n\nSe queda así todo el plan: es la temperatura a la que la patata dora y el salmón se hace sin secarse por fuera, y no hay que tocar el horno con la puerta abierta cuando entra el pescado. La rejilla se pone antes de encender.",
       "s": 900,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar y cada apertura le quita parte del precalentado.",
-      "t": "Precalentar el horno a 200 °C",
+      "t": "Precalentar a 200 °C, arriba y abajo",
       "tapa": null
     },
     {
@@ -227,7 +227,7 @@
       "junto": null,
       "meto": "la bandeja: 400 g de patata",
       "min": 20,
-      "nota": "Bandeja a media altura. No las muevas: se doran contra el papel.",
+      "nota": "",
       "off": 15,
       "p": "Las patatas llevan ventaja porque necesitan unos 36 minutos a esta temperatura y el salmón solo 16: entrando antes, acaban a la vez sin que nada espere.\n\nEn este tramo el almidón de la cara cortada se gelatiniza y se dora contra el papel caliente, y el interior empieza a cocerse en su vapor. No se tocan: esa costra se forma pegada al papel, y si la despegas antes se queda en él.",
       "s": 1200,
@@ -267,7 +267,7 @@
         },
         {
           "en": 780,
-          "t": "Aprieta el centro: opaco y en capas, sácalo"
+          "t": "Mira el lateral: opaco y en capas, sácalo"
         }
       ],
       "holgura": "critico",
@@ -289,14 +289,24 @@
         "hornear-salmon"
       ],
       "f": null,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Corta de través por la mitad, entre capas"
+        },
+        {
+          "en": 150,
+          "t": "Con la espátula, entre carne y piel"
+        }
+      ],
       "holgura": "critico",
       "id": "reposar-servir",
       "junto": null,
       "meto": "la bandeja: salmón, patata y cherry",
       "min": 3,
-      "nota": "Reposa 2 min. Levanta cada mitad con la espátula, entre carne y piel.",
+      "nota": "Levanta cada mitad de una vez, sin romperla.",
       "off": 51,
-      "p": "El centro del salmón sube todavía uno o dos grados con su propio calor y los jugos se asientan durante el reposo: cortado nada más salir, pierde ese jugo en la bandeja.\n\nSe corta por la mitad, de través, en paralelo a las líneas blancas: el cuchillo entra entre dos capas y cada ración sale entera.\n\nAl horno y con la piel abajo, la piel no se pone crujiente pero se despega sola de la carne y se queda en el papel. Los cherry reventados y su jugo van por encima de las patatas: son el ácido del plato.",
+      "p": "El centro del salmón sube todavía uno o dos grados con su propio calor y los jugos se asientan durante el reposo: cortado nada más salir, pierde ese jugo en la bandeja.\n\nSe corta por la mitad, de través, en paralelo a las líneas blancas: la espátula entra entre dos capas y cada ración sale entera.\n\nAl horno y con la piel abajo, la piel no se pone crujiente pero se despega sola de la carne y se queda en el papel. Los cherry reventados y su jugo van por encima de las patatas: son el ácido del plato.",
       "s": 180,
       "saco": "½ salmón, patata y cherry por plato",
       "t": "Reposar, quitar la piel y servir",

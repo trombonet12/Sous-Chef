@@ -163,7 +163,7 @@
       "holgura": "flexible",
       "id": "mise-en-place",
       "junto": null,
-      "meto": "",
+      "meto": "100 g de ensalada de bolsa + 30 g de Grana Padano + 4 filetes de pechuga (320 g) + 10 ml de aceite de girasol + 2 g de sal",
       "min": 6,
       "nota": "Filetes secos del todo y pintados por las dos caras.",
       "off": 0,
@@ -206,6 +206,10 @@
         {
           "en": 120,
           "t": "Voltea: el filete dorado se despega solo"
+        },
+        {
+          "en": 210,
+          "t": "Abre el más grueso: sin rosa por dentro"
         }
       ],
       "holgura": "critico",
@@ -215,7 +219,7 @@
       "min": 4,
       "nota": "Sala por las dos caras. Separados, en el centro y sin tocar hasta la vuelta.",
       "off": 6,
-      "p": "Dos filetes es lo que cabe en la zona caliente sin tocarse: cuatro a la vez llevarían los de fuera a la parte tibia y bajarían la temperatura del metal.\n\n- Quietos hasta la vuelta: se pegan al principio y se sueltan solos al dorarse.\n- Una sola vuelta: en un filete fino la primera cara ya calienta hasta la mitad.\n- Sal justo al apoyarlos: antes, sacaría agua.\n\nAl sacarlos, abre el más grueso: blanco por dentro y sin rosa.",
+      "p": "Dos filetes es lo que cabe en la zona caliente sin tocarse: cuatro a la vez llevarían los de fuera a la parte tibia y bajarían la temperatura del metal.\n\n- Quietos hasta la vuelta: se pegan al principio y se sueltan solos al dorarse.\n- Una sola vuelta: en un filete fino la primera cara ya calienta hasta la mitad.\n- Sal justo al apoyarlos: antes, sacaría agua.",
       "s": 240,
       "saco": "los filetes, enteros, a la tabla + lo pegado, fuera con la espátula",
       "t": "Primera tanda: 2 filetes",
@@ -229,6 +233,10 @@
         {
           "en": 120,
           "t": "Voltea: el filete dorado se despega solo"
+        },
+        {
+          "en": 210,
+          "t": "Abre el más grueso: sin rosa por dentro"
         }
       ],
       "holgura": "critico",
@@ -309,7 +317,7 @@
       "off": 16,
       "p": "Una tortilla de trigo fría se agrieta al enrollarla: el almidón se endurece en el paquete y solo el calor lo ablanda. Treinta segundos por cara y en seco la dejan flexible y con alguna mancha tostada, sin secarla hasta que cruja.\n\nDe una en una, porque a 25 cm ocupa toda la zona caliente. Apiladas en el paño y tapadas se dan vapor unas a otras y llegan blandas al montaje; sueltas en un plato se resecan por el borde.",
       "s": 240,
-      "saco": "las tortillas, en el paño, tapadas + apaga el fuego y aparta la plancha",
+      "saco": "las tortillas, en el paño, tapadas + la plancha, apagada",
       "t": "Calentar las tortillas",
       "tapa": "sin tapa"
     },
@@ -345,7 +353,7 @@
       "off": 21,
       "p": "La lechuga va en una franja a un tercio del borde de tu lado, con 4 cm libres a cada lado. La cebollita, la última y sin mezclar, para que no toque la salsa y siga crujiente.\n\nDobla los dos lados hacia dentro, levanta el borde de tu lado sobre el relleno y enrolla apretando con los dedos: apretado, el relleno no se escurre al morder. Con el cierre abajo, el peso lo sella.\n\nCorta en diagonal con el cuchillo grande, de un solo golpe y sin serrar.",
       "s": 180,
-      "saco": "2 wraps por plato, cierre abajo",
+      "saco": "2 wraps por plato, en diagonal",
       "t": "Montar los 4 wraps y servir",
       "tapa": null
     }

@@ -211,15 +211,15 @@
       "holgura": "flexible",
       "id": "precalentar",
       "junto": "rub",
-      "meto": "",
+      "meto": "la rejilla, a media altura",
       "min": 15,
-      "nota": "Bandeja fuera, con papel. Rejilla a media altura, calor arriba y abajo.",
+      "nota": "",
       "off": 0,
       "p": "El horno tarda unos quince minutos en estar de verdad a 150 °C, y ese tiempo se va en preparar el costillar.\n\n150 °C es lo bastante suave para que el paquete cerrado se quede a unos 100 °C por dentro, en vapor, sin que el jugo del fondo hierva fuerte y se queme contra el aluminio. La bandeja sale antes porque el paquete se monta sobre ella en frío.",
       "s": 900,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar y cada apertura le quita parte del precalentado.",
-      "t": "Precalentar a 150 °C",
+      "t": "Precalentar a 150 °C, arriba y abajo",
       "tapa": null
     },
     {
@@ -252,7 +252,7 @@
       "off": 10,
       "p": "Doble hoja porque el hueso pincha el aluminio, y por un agujero se escapa el vapor que hace todo el trabajo: un paquete abierto seca la carne en vez de cocerla.\n\nLa carne va abajo para pasar las dos horas en el líquido y en su propio jugo, y los huesos, arriba, hacen de tapa.\n\nCon los bordes levantados se echan el agua y el vinagre: el agua pone el vapor desde el primer minuto, antes de que la carne suelte el suyo, y el vinagre deja ácido en el jugo, que luego será la base del glaseado.\n\nLos bordes se doblan dos veces para que el cierre sea estanco.",
       "s": 240,
-      "saco": "el paquete cerrado, en la bandeja + tabla y cuchillo, lavados",
+      "saco": "el paquete cerrado, en la bandeja + tabla y cuchillo, lavados + el bol pequeño, lavado",
       "t": "Envolver en doble aluminio",
       "tapa": null
     },
@@ -324,6 +324,12 @@
         "horno-boniato"
       ],
       "f": null,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Si el hueso gira, vierte el jugo al vaso"
+        }
+      ],
       "holgura": "ajustado",
       "id": "abrir",
       "junto": null,
@@ -424,7 +430,7 @@
       "off": 149,
       "p": "El tercio de la mesa se separa antes de tocar la carne para que la cuchara que pasa por ella no vuelva a él.\n\nSe pinta con el dorso de una cuchara. Fina, no un baño: el agua se evapora en el horno y el azúcar cuaja pegado a la carne; una capa gruesa resbala al papel y allí se quema.\n\nLa bandeja sale del horno y el horno se cierra mientras pintas, para que no pierda los 200 °C.",
       "s": 120,
-      "saco": "un tercio (50 g), al bol enjuagado + otro tercio, a la carne",
+      "saco": "un tercio (50 g), al bol lavado + otro tercio, a la carne",
       "t": "Tercio aparte y primera capa",
       "tapa": null
     },
@@ -493,7 +499,7 @@
       "off": 160,
       "p": "Estos minutos bastan para que la segunda capa burbujee y se pegue sin llegar al quemado: la miel tiene fructosa, que carameliza a menos temperatura que el azúcar de mesa y se pone negra antes. Por eso es el paso que no espera.\n\nLos bordes finos del costillar y las puntas de los gajos son lo primero que se oscurece, y son la señal para sacarlo antes.",
       "s": 420,
-      "saco": "la bandeja, a la encimera + apaga el horno",
+      "saco": "la bandeja, a la encimera + el horno, apagado",
       "t": "Segunda capa al horno",
       "tapa": null
     },

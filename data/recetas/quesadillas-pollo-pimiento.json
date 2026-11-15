@@ -151,7 +151,7 @@
       "holgura": "flexible",
       "id": "mise-en-place",
       "junto": null,
-      "meto": "",
+      "meto": "250 g de pechuga de pollo + 150 g de pimiento rojo + 120 g de queso + 3 g de sal + 1 g de comino + 1 g de pimentón picante",
       "min": 8,
       "nota": "Pollo, lava la tabla, pimiento. El queso, rallado directo a su bol.",
       "off": 0,
@@ -199,7 +199,7 @@
       "off": 8,
       "p": "Entra antes que el pollo porque tarda más: en tiras de 5 mm necesita unos nueve minutos para ablandarse y endulzar, y el pollo se seca si pasa de cinco.\n\nSin tapa, el agua que suelta se evapora y el azúcar de la piel tuesta en vez de cocerse. Tapado, el vapor lo ablandaría y mojaría el relleno, y esa agua es lo que reblandece la tortilla.\n\n- Extender las tiras en una capa: así todas tocan el metal y se tuestan.",
       "s": 240,
-      "saco": "",
+      "saco": "el pimiento, al borde",
       "t": "Saltear el pimiento",
       "tapa": "sin tapa"
     },
@@ -222,7 +222,7 @@
       "junto": null,
       "meto": "el plato: 250 g de pechuga de pollo",
       "min": 5,
-      "nota": "Pimiento al borde y pollo al centro, en una capa. Sin rosa dentro.",
+      "nota": "En una capa y quieto. Sin rosa dentro.",
       "off": 12,
       "p": "Sube al {8} antes de echarlo: el pollo tiene que tocar el metal, no apoyarse en la verdura húmeda, para que dore y no se cueza en su jugo.\n\n- Quieto al principio: si lo remueves antes, suelta su jugo y se cuece blanco.\n- Remover después, junto al pimiento, para que se haga parejo.\n- Abrir la tira más gruesa: es la única forma de saber que el centro está hecho.\n\nEn tiras de 1 cm el centro se hace en unos cuatro minutos; el quinto es el margen, y pasarse lo deja seco y fibroso. Sin sal todavía.",
       "s": 300,
@@ -243,7 +243,7 @@
       "off": 17,
       "p": "Se apaga antes de echarlas: con la sartén al {8} el pimentón picante se quema en segundos y, quemado, el pique se vuelve áspero y amargo. Apagada, el calor del metal basta para freír el comino y el pimentón en la grasa del salteado.\n\nLa sal entra ahora y no antes porque sobre el pollo crudo habría sacado agua.\n\nAl plato extendido y no amontonado: el vapor que se escapa ahora es agua que no acaba dentro de la tortilla.",
       "s": 60,
-      "saco": "el relleno, extendido, al plato",
+      "saco": "el relleno, a un plato limpio",
       "t": "Apagar y echar las especias",
       "tapa": "sin tapa"
     },
@@ -273,7 +273,7 @@
       "holgura": "flexible",
       "id": "montar-1",
       "junto": null,
-      "meto": "el paquete: 2 tortillas grandes + el bol: 60 g de queso rallado + el plato: la mitad del relleno",
+      "meto": "el paquete: 2 tortillas grandes + el bol: 60 g de queso rallado + el plato limpio: medio relleno",
       "min": 2,
       "nota": "Sobre una mitad: queso, ¼ de relleno y queso. Dobla y aprieta con la palma.",
       "off": 18,
@@ -293,6 +293,10 @@
         {
           "en": 120,
           "t": "Voltea: espátula debajo, tenedor arriba"
+        },
+        {
+          "en": 210,
+          "t": "Pálida: sube al {6}. Negra: baja al {4}"
         }
       ],
       "holgura": "critico",
@@ -304,7 +308,7 @@
       "off": 20,
       "p": "Las medias lunas entran con el lado recto hacia el centro: juntas forman un círculo y caben enteras en la sartén de 28 cm.\n\nSin tapa, el vapor del relleno se escapa y no ablanda la tortilla que estás tostando. El calor medio tiene tiempo de atravesarla y fundir el queso antes de que la cara se queme.\n\n- Voltear de un golpe: el queso aún no ha pegado del todo y, si la giras despacio, la media luna se abre.",
       "s": 240,
-      "saco": "a la tabla, sin apilar",
+      "saco": "a la tabla, sin apilar + el queso caído, con papel, si lo hay",
       "t": "Dorar la primera tanda",
       "tapa": "sin tapa"
     },
@@ -315,7 +319,7 @@
       "holgura": "flexible",
       "id": "montar-2",
       "junto": null,
-      "meto": "el paquete: 2 tortillas grandes + el bol: 60 g de queso rallado + el plato: el resto del relleno",
+      "meto": "el paquete: 2 tortillas grandes + el bol: 60 g de queso rallado + el plato limpio: el resto",
       "min": 2,
       "nota": "Igual que las primeras: queso, ¼ de relleno, queso; dobla y aprieta.",
       "off": 20,
@@ -342,11 +346,11 @@
       "junto": null,
       "meto": "2 medias lunas, lado recto al centro",
       "min": 4,
-      "nota": "Si la 1ª salió pálida, sube al {6}; si con manchas negras, baja al {4}.",
+      "nota": "Igual que la primera: dorada a manchas, queso asomando.",
       "off": 24,
       "p": "Mismo montaje y mismos tiempos que la primera tanda. Antes de meterlas, pasa otra vez el papel si ha caído queso, que se quemaría bajo la tortilla nueva.\n\nLa vitro tarda un minuto en notar el cambio de potencia: decídelo nada más sacar la primera.",
       "s": 240,
-      "saco": "a la tabla, con las primeras + apaga la vitro",
+      "saco": "a la tabla, con las primeras + la sartén, apagada",
       "t": "Dorar la segunda tanda",
       "tapa": "sin tapa"
     },

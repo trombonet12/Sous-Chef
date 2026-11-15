@@ -152,7 +152,7 @@
       "n": "GRATINADO"
     }
   ],
-  "lectura": "La cuenta, por el camino largo del horno: 12 de precalentar + 30 de asar + 4 de vaciar + 5 de secar la carne en la sartén + 2 del atún + 3 de rellenar + 4 de gratinar = 60 minutos.\n\n- La tabla trabaja mientras el horno sube (del 0 al 12).\n- La sartén cabe entera dentro del asado: la cebolla del 28 al 38 y el tomate del 38 al 46, reducido justo cuando llega la carne vaciada.\n- El horno no se apaga entre el asado y el grill: sigue a 200 °C del 42 al 52 y pasa a grill fuerte en el 52, con cuatro minutos para ponerse al rojo antes de que entre la bandeja.\n\nLo que gobierna el plan: un solo fuego en todo el tiempo, y el agua, que se evapora antes de rellenar.",
+  "lectura": "La cuenta, por el camino largo del horno: 12 de precalentar + 30 de asar + 4 de vaciar + 5 de secar la carne en la sartén + 2 del atún + 3 de rellenar + 4 de gratinar = 60 minutos.\n\n- La tabla trabaja mientras el horno sube (del 0 al 12).\n- El sofrito (del 28 al 38) cabe dentro del asado; el tomate (del 38 al 46) acaba justo cuando llega la carne vaciada.\n- El horno no se apaga entre el asado y el grill: sigue a 200 °C del 42 al 52 y pasa a grill fuerte en el 52, con cuatro minutos para ponerse al rojo antes de que entre la bandeja.\n\nLo que gobierna el plan: un solo fuego en todo el tiempo, y el agua, que se evapora antes de rellenar.",
   "mep": [
     {
       "l": [
@@ -209,13 +209,13 @@
       "id": "precalentar",
       "meto": "",
       "min": 12,
-      "nota": "Bandeja fuera. Calor arriba y abajo, sin ventilador.",
+      "nota": "",
       "off": 0,
       "p": "Se enciende ya porque tarda lo mismo que el corte en llegar a temperatura: así precalentar no cuesta tiempo.\n\nSin ventilador: el aire forzado seca la piel de la berenjena antes de que la carne se haga, y la barquita sale acartonada y se quiebra al vaciarla.",
       "s": 720,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar, y el trabajo está en la tabla.",
-      "t": "Precalentar a 200 °C",
+      "t": "Precalentar a 200 °C sin ventilador",
       "tapa": null
     },
     {
@@ -223,13 +223,13 @@
       "f": null,
       "holgura": "flexible",
       "id": "cortar",
-      "meto": "150 g de cebolla y 8 g de ajo + 200 g de tomate triturado + 156 g de atún escurrido + 50 g de queso y 20 g de Grana",
+      "meto": "20 ml de aceite de oliva + 150 g de cebolla y 8 g de ajo + 200 g de tomate triturado + 156 g de atún escurrido + 50 g de queso y 20 g de Grana",
       "min": 7,
       "nota": "Atún bien escurrido, sin el aceite de la lata.",
       "off": 5,
       "p": "La cebolla y el ajo caen directos en la sartén grande, en frío y sobre su aceite de oliva: entran a la vez y la sartén es su recipiente.\n\n- Tomate en el vaso medidor, con el orégano y la sal.\n- Atún escurrido apretando la tapa y desmigado con la pimienta: el relleno ya lleva su grasa.\n- Grana rallado fino, mezclado con el queso.",
       "s": 420,
-      "saco": "cebolla y ajo, a la sartén en frío + tomate, orégano y sal, al vaso + atún y pimienta, al plato + los quesos, al bol",
+      "saco": "20 ml de aceite, a la sartén fría + cebolla y ajo, encima + tomate, orégano y sal, al vaso + atún y pimienta, al plato + los quesos, al bol",
       "t": "Picar y preparar los recipientes",
       "tapa": null
     },
@@ -283,7 +283,7 @@
       ],
       "holgura": "flexible",
       "id": "sofrito",
-      "meto": "20 ml de aceite de oliva, en frío + 150 g de cebolla + 8 g de ajo",
+      "meto": "",
       "min": 10,
       "nota": "Translúcida y blanda, sin bordes dorados.",
       "off": 28,
@@ -371,7 +371,7 @@
       "off": 51,
       "p": "Entra al final porque ya viene cocido de la lata: solo hay que calentarlo, y más fuego le apretaría la proteína, soltaría el aceite que le queda y lo dejaría seco y en hebras.\n\nBaja al {2} y mezcla con la pimienta. No añadas sal: el atún y los quesos de encima ponen la que falta.",
       "s": 120,
-      "saco": "el relleno, en la sartén + apaga el fuego",
+      "saco": "el relleno, en la sartén apagada",
       "t": "El atún, al final",
       "tapa": "sin tapa"
     },
@@ -383,7 +383,7 @@
       "junto": "atun",
       "meto": "",
       "min": 4,
-      "nota": "Con la puerta cerrada.",
+      "nota": "",
       "off": 52,
       "p": "La resistencia de arriba tarda unos minutos en ponerse al rojo, y como el horno ya está caliente le basta este rato.\n\nSi la bandeja entrara con el grill frío, el queso se calentaría despacio, soltaría la grasa y se secaría antes de dorar.",
       "s": 240,
@@ -429,7 +429,7 @@
       "off": 56,
       "p": "Un piso por encima del centro, a 10-15 cm de la resistencia: más cerca, lo que queda justo debajo se quema mientras las puntas de la barquita siguen pálidas.\n\nEl queso rallado funde y el Grana, más seco, se dora y hace la costra. Con la puerta cerrada y sin salir de la cocina: en cuanto la superficie se seca, pasa de dorado a negro en menos de un minuto.\n\nSi tu horno no tiene grill, 230 °C en la parte alta y unos ocho minutos.",
       "s": 240,
-      "saco": "las 4 mitades, 2 por plato + apaga el horno",
+      "saco": "las 4 mitades, 2 por plato + el horno, apagado",
       "t": "Gratinar",
       "tapa": null
     }

@@ -197,12 +197,12 @@
       "id": "arrancar-confitado",
       "meto": "el bol grande: 500 g de patata + 150 g de cebolla",
       "min": 4,
-      "nota": "Desliza sin dejar caer de alto. Listo cuando burbujea parejo otra vez.",
+      "nota": "Listo cuando burbujea parejo otra vez.",
       "off": 10,
       "p": "Más de medio kilo de verdura fría baja el aceite de unos 130 a unos 90 °C, donde la patata solo chupa grasa. Cuatro minutos más al {5} lo devuelven a la franja del confitado, de 110 a 130 °C, y entonces se baja.\n\nDeslizarla desde cerca evita salpicaduras: el agua de la patata cortada hierve al tocar el aceite.",
       "s": 240,
       "saco": "",
-      "t": "Patata y cebolla al aceite",
+      "t": "Deslizar patata y cebolla al aceite",
       "tapa": "sin tapa"
     },
     {
@@ -246,7 +246,7 @@
       "junto": "confitar",
       "meto": "bol grande: 5 huevos + 1 g de sal",
       "min": 2,
-      "nota": "Sin hebras ni espuma. Monta el colador sobre el bol mediano.",
+      "nota": "Sin hebras ni espuma. Colador sobre el bol de metal o cristal.",
       "off": 25,
       "p": "Se bate solo hasta que yema y clara sean una, sin espumar: el aire de más se escapa al cuajar y deja la tortilla seca y con agujeros.\n\nEl bol es el de la patata, sin lavar, porque el almidón de sus paredes ayuda a trabar la mezcla. Solo un pellizco de sal, porque la patata ya va salada desde el corte.\n\nEl colador se deja montado antes de que el aceite salga caliente.",
       "s": 120,
@@ -264,12 +264,12 @@
       "id": "escurrir",
       "meto": "la sartén: patata, cebolla y aceite",
       "min": 3,
-      "nota": "Vuelca despacio y lejos del cuerpo. Limpia la sartén con papel.",
+      "nota": "Limpia la sartén con papel.",
       "off": 32,
       "p": "Tres minutos de escurrido hacen dos cosas: el aceite que moja la patata cae al bol y la tortilla no sale grasienta, y la patata baja de unos 110 a unos 80 °C.\n\nRecién salida del aceite haría huevo revuelto en cuanto tocase el bol. Mueve el colador un par de veces para que escurra del todo.\n\nEl aceite está a más de 100 °C: el bol, de metal o cristal, nunca de plástico. Se queda en él hasta que se enfría; luego se cuela al tarro.",
       "s": 180,
       "saco": "",
-      "t": "Escurrir y recuperar el aceite",
+      "t": "Volcar despacio, lejos del cuerpo",
       "tapa": null
     },
     {
@@ -301,7 +301,7 @@
       "f": 6,
       "holgura": "ajustado",
       "id": "calentar-sarten",
-      "meto": "el bol mediano: 15 ml de aceite",
+      "meto": "el bol: 15 ml de aceite de oliva",
       "min": 2,
       "nota": "Sartén limpia. Extiende el aceite por fondo y paredes.",
       "off": 41,
@@ -375,11 +375,17 @@
         "cuajar-2"
       ],
       "f": null,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Corta en 4 cuñas desde el centro"
+        }
+      ],
       "holgura": "critico",
       "id": "servir",
       "meto": "el plato de la vuelta: la tortilla",
       "min": 2.5,
-      "nota": "Cuatro cuñas desde el centro, dos por plato. El aceite frío, al tarro.",
+      "nota": "El aceite frío, al tarro.",
       "off": 47.5,
       "p": "Los dos minutos de reposo dejan que el calor del centro termine de espesar el huevo sin endurecerlo y que la tortilla se asiente: cortada al momento, el interior se derramaría en el plato.\n\nSe corta en cuñas para que cada porción lleve borde dorado y centro jugoso.\n\nEl aceite colado sirve para dos o tres usos más, porque a esa temperatura no se ha degradado.",
       "s": 150,

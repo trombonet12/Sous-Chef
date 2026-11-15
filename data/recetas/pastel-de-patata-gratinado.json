@@ -244,9 +244,9 @@
       "min": 22,
       "nota": "Rodajas parejas, sin agua y sin enjuagar.",
       "off": 0,
-      "p": "La patata va en seco y sin enjuagar: el almidón de su superficie es lo que luego espesa la leche y sostiene la porción al cortarla.\n\n- Pela y corta la patata, a cuchillo o con mandolina.\n- Cebolla en dados y ajo laminado; el quinto diente, partido por la mitad, aparte para frotar la fuente.\n\nCazuela en frío: leche, 300 ml de nata, ajo, laurel, sal y nuez moscada. Sartén: aceite y cebolla. Aparte, 100 ml de nata al vaso en la nevera, la soja con sal y pimienta en una taza y el queso en un bol.",
+      "p": "La patata va en seco y sin enjuagar: el almidón de su superficie es lo que luego espesa la leche y sostiene la porción al cortarla.\n\nCazuela y sartén se cargan en frío antes de encender: así, cuando toca cada fuego, solo queda girar el mando.",
       "s": 1320,
-      "saco": "patata, al bol grande sin agua + cebolla, a la sartén + ajo laminado, a la cazuela + cazuela y sartén cargadas en frío",
+      "saco": "patata, al bol grande sin agua + cebolla, a la sartén + ajo laminado, a la cazuela + el diente partido, para la fuente + cazuela y sartén cargadas en frío",
       "t": "Cortar y cargar los recipientes",
       "tapa": null
     },
@@ -296,7 +296,7 @@
         },
         {
           "en": 480,
-          "t": "Destapa y remueve: translúcida, sin dorar"
+          "t": "Destapa, remueve y vuelve a tapar"
         }
       ],
       "holgura": "flexible",
@@ -306,9 +306,9 @@
       "min": 10,
       "nota": "Translúcida, sin bordes dorados.",
       "off": 24,
-      "p": "Tapada, el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla.\n\nSe enciende al {5} dos minutos después de poner la leche, y se destapa solo para remover. Con el doble de cebolla tarda un 40 % más, porque es más masa sobre la misma superficie.",
+      "p": "Tapada, el vapor que devuelve la tapa cuece la cebolla en su propia agua en vez de tostarla.\n\nSe enciende al {5} dos minutos después de poner la leche, y se destapa solo para remover.",
       "s": 600,
-      "saco": "",
+      "saco": "la cebolla, a un borde",
       "t": "Sudar la cebolla",
       "tapa": "TAPA PUESTA"
     },
@@ -356,7 +356,7 @@
       "off": 33,
       "p": "Al {3} el conjunto se queda temblando alrededor de los 90 °C: la patata se cuece sin que la leche hierva.\n\nTapa a medias, con un dedo de hueco: sale algo de vapor sin que se evapore media cazuela.\n\nEs el paso más flexible del plan: dieciocho minutos con los cuatro anteriores y este peso, y las rodajas aguantan en su líquido a poco fuego.",
       "s": 840,
-      "saco": "las patatas, en su líquido + apaga el fuego",
+      "saco": "la cazuela, apagada",
       "t": "Cocer las patatas",
       "tapa": "TAPA A MEDIAS"
     },
@@ -385,7 +385,7 @@
       "min": 13,
       "nota": "Carne en una capa, sin tocarla hasta el primer aviso.",
       "off": 34,
-      "p": "La reacción de Maillard necesita superficie seca y contacto: si remueves antes, la carne suelta agua y se cuece gris en su propio jugo.\n\nQuita la tapa, sube al {8} y espera treinta segundos a que la sartén recupere temperatura. Extiende la carne en una capa sobre la cebolla.\n\nHace falta una sartén de 28 cm o más: amontonada no dora, se guisa.",
+      "p": "La reacción de Maillard necesita superficie seca y contacto: si remueves antes, la carne suelta agua y se cuece gris en su propio jugo.\n\nQuita la tapa, sube al {8} y espera treinta segundos a que la sartén recupere temperatura. Extiende la carne en una capa sobre el metal libre, junto a la cebolla.\n\nHace falta una sartén de 28 cm o más: amontonada no dora, se guisa.",
       "s": 780,
       "saco": "",
       "t": "Dorar la carne",
@@ -415,15 +415,15 @@
       "holgura": "flexible",
       "id": "precalentar",
       "junto": "carne",
-      "meto": "",
+      "meto": "la rejilla, a media altura",
       "min": 15,
-      "nota": "Rejilla a media altura, calor arriba y abajo, sin ventilador.",
+      "nota": "",
       "off": 44,
       "p": "Se enciende con la carne ya dorándose, para que llegue a temperatura justo cuando acabas de montar la fuente: precalentar no cuesta tiempo, porque cae entero dentro del trabajo de los fuegos.",
       "s": 900,
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro, y el trabajo está en los fuegos.",
-      "t": "Precalentar a 200 °C",
+      "t": "Precalentar a 200 °C, arriba y abajo",
       "tapa": null
     },
     {
@@ -439,7 +439,7 @@
       "off": 47,
       "p": "Este paso no es para cocinar, es para evaporar: cada gota de líquido que entre en la fuente volverá a salir por debajo del gratén y lo desmontará en el plato.\n\nEcha la soja con la sal y la pimienta y baja al {6}.",
       "s": 240,
-      "saco": "la carne, en la sartén + apaga el fuego",
+      "saco": "la sartén, apagada",
       "t": "Ligar y secar",
       "tapa": "sin tapa"
     },
@@ -537,7 +537,7 @@
       "min": 32,
       "nota": "Burbujea toda la superficie y el cuchillo entra sin resistencia.",
       "off": 59,
-      "p": "Sin papel y sin tapar, porque el vapor tiene que poder salir.\n\nLleva siete minutos más que con la mitad de cantidad: la fuente es más grande y el calor tarda más en llegar al centro.\n\nA mitad de horneado los bordes empiezan a burbujear, y al final burbujea toda la superficie: es la crema hirviendo entre las rodajas y la señal de que el centro ya está caliente.",
+      "p": "Sin papel y sin tapar, porque el vapor tiene que poder salir.\n\nLleva más rato que una fuente pequeña: la fuente es grande y el calor tarda en llegar al centro.\n\nA mitad de horneado los bordes empiezan a burbujear, y al final burbujea toda la superficie: es la crema hirviendo entre las rodajas y la señal de que el centro ya está caliente.",
       "s": 1920,
       "saco": "",
       "t": "Hornear a 200 °C",
@@ -562,7 +562,7 @@
       "off": 91,
       "p": "El queso pasa de dorado a quemado en cuarenta segundos, porque el grill calienta solo la superficie y muy cerca.\n\nSi tu horno no tiene grill, sube a 230 °C con la resistencia de arriba y dale cuatro minutos más.",
       "s": 300,
-      "saco": "la fuente, a la encimera + apaga el horno",
+      "saco": "la fuente, a la encimera + el horno, apagado",
       "t": "Gratinar con grill fuerte",
       "tapa": null
     },
@@ -579,7 +579,7 @@
       "min": 12,
       "nota": "No lo cortes todavía.",
       "off": 96,
-      "p": "El almidón de la crema solo cuaja cuando baja de unos 80 °C, y con este peso tarda más en bajar que con dos raciones.\n\nSi cortas al salir del horno, la crema corre por el plato; si esperas, la porción se sostiene. Aguanta hasta veinte minutos si vas tarde.",
+      "p": "El almidón de la crema solo cuaja cuando baja de unos 80 °C, y con este peso tarda en bajar.\n\nSi cortas al salir del horno, la crema corre por el plato; si esperas, la porción se sostiene. Aguanta hasta veinte minutos si vas tarde.",
       "s": 720,
       "saco": "4 porciones, a los platos",
       "t": "Reposo fuera del horno",
