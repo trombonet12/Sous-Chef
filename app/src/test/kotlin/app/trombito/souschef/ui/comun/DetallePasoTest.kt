@@ -47,9 +47,9 @@ class DetallePasoTest {
                         holgura = "critico",
                         dep = listOf("pel"),
                         junto = "ras",
-                        meto = "500 g de patata · la fuente",
+                        meto = "la fuente: 500 g de patata",
                         nota = "Tiernas y pálidas.",
-                        saco = "la patata, al plato",
+                        saco = "el plato: la patata",
                         hitos = listOf(Hito(120.0, "Despega del fondo"), Hito(540.0, "Dales la vuelta")),
                         p = "Aquí se cuece.\n\n- Despegar a los 2 minutos.\n- Pinchar a los 15.",
                     ),
@@ -78,6 +78,31 @@ class DetallePasoTest {
         assertEquals(4, c.fuegoAnterior)
         assertEquals(listOf(ReferenciaPaso(2, "1ª fritura")), c.tras)
         assertEquals(2, c.indiceCarril)
+    }
+
+    @Test
+    fun `el fuego anterior sigue la cadena de la tarjeta, que corta un hueco o un fuego apagado`() {
+        // Caso de lasana-carne-berenjena:roux: la honda venía del 7, pero hubo un hueco y el roux arranca en frío.
+        val honda =
+            Receta(
+                slug = "lasana",
+                titulo = "Lasaña",
+                totalMin = 40.0,
+                carriles = listOf(Carril("h", nombre = "HONDA", color = "#E8836B", tipo = "fuego")),
+                pasos =
+                    listOf(
+                        Paso("sofrito", "Sofrito", "h", 0.0, 10.0, f = 7),
+                        Paso("roux", "Roux", "h", 15.0, 5.0, f = 4),
+                        Paso("apaga", "Apagar", "h", 20.0, 2.0, f = 0),
+                        Paso("natillas", "Cuajar", "h", 22.0, 5.0, f = 4),
+                        Paso("sigue", "Seguir", "h", 27.0, 3.0),
+                        Paso("sube", "Subir", "h", 30.0, 3.0, f = 6),
+                    ),
+            )
+        assertNull(contextoPaso(honda, honda.paso("roux")!!).fuegoAnterior)
+        assertNull(contextoPaso(honda, honda.paso("natillas")!!).fuegoAnterior)
+        // Un paso contiguo sin `f` en medio no corta la cadena: sube viene del 4.
+        assertEquals(4, contextoPaso(honda, honda.paso("sube")!!).fuegoAnterior)
     }
 
     @Test
@@ -134,7 +159,10 @@ class DetallePasoTest {
         val orden = listOf("METE", "FUEGO", "AVISOS", "SEÑAL", "SACA", "POR QUÉ").map { textos.indexOf(it) }
         assertTrue(textos.toString(), orden.all { it >= 0 })
         assertEquals(orden.sorted(), orden)
+        // METE y SACA se componen como en la tarjeta: lo que es, y detrás el recipiente.
         assertTrue(textos.toString(), "500 g de patata · la fuente" in textos)
+        assertTrue(textos.toString(), "la patata · el plato" in textos)
+        assertFalse(textos.toString(), textos.any { it.startsWith("la fuente:") })
         assertTrue(textos.toString(), "4 · sin tapa · 18 min" in textos)
         assertTrue(textos.toString(), "02:00" in textos && "09:00" in textos)
         assertTrue(textos.toString(), "Dales la vuelta" in textos)

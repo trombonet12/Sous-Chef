@@ -9,6 +9,7 @@ import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.crono.BancoCompose
 import app.trombito.souschef.ui.crono.LimpiezaCompose
+import app.trombito.souschef.ui.crono.NEUTROS_CARRIL_RGB
 import app.trombito.souschef.ui.crono.colorDeCarril
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -73,9 +74,9 @@ class DiagramaPlanTest {
                 Carril("raro", "R", "red;x"),
             )
         assertEquals(0xA8421C, rgbCarrilPlan(carriles, "p"))
-        assertEquals(0x7FB7D6, rgbCarrilPlan(carriles, "n0"))
-        assertEquals(0x6FCBB5, rgbCarrilPlan(carriles, "n2"))
-        assertEquals(0xE58FB0, rgbCarrilPlan(carriles, "raro"))
+        assertEquals(NEUTROS_CARRIL_RGB[0], rgbCarrilPlan(carriles, "n0"))
+        assertEquals(NEUTROS_CARRIL_RGB[2], rgbCarrilPlan(carriles, "n2"))
+        assertEquals(NEUTROS_CARRIL_RGB[3], rgbCarrilPlan(carriles, "raro"))
     }
 
     @Test

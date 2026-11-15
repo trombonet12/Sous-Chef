@@ -61,8 +61,15 @@ class DatosCrono(
 }
 
 private const val SATURACION_MINIMA = 0.2f
-private val COLORES_NEUTROS =
-    listOf(Color(0xFF7FB7D6), Color(0xFFB79BE0), Color(0xFF6FCBB5), Color(0xFFE58FB0))
+private const val OPACO = 0xFF000000.toInt()
+
+/**
+ * Colores que reciben los carriles neutros (grises o beige, como la mesa), por su posición en la receta. Elegidos lejos
+ * de los que llevan los demás carriles de las 33 recetas (naranja, salmón, malva, azul y verde): el primero, que es el
+ * de la mesa en todas, es un turquesa a ΔE76 ≥ 32 de cualquiera de ellos. El azul anterior (#7FB7D6) quedaba a ΔE 4-6
+ * de la olla (#6FBEE8) en diez recetas. El diagrama de la ficha debe usar los mismos (`rgbCarrilPlan`).
+ */
+internal val NEUTROS_CARRIL_RGB = intArrayOf(0x38C6B2, 0xF4A3BF, 0xB3BFF3, 0xB5A573)
 
 internal fun colorDeCarril(
     hex: String,
@@ -74,7 +81,7 @@ internal fun colorDeCarril(
     return if (argb != null && hsv[1] >= SATURACION_MINIMA) {
         Color(argb)
     } else {
-        COLORES_NEUTROS[indice.coerceAtLeast(0) % COLORES_NEUTROS.size]
+        Color(OPACO or NEUTROS_CARRIL_RGB[indice.coerceAtLeast(0) % NEUTROS_CARRIL_RGB.size])
     }
 }
 

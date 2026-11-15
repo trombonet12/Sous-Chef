@@ -34,6 +34,7 @@ import app.trombito.souschef.receta.Holgura
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCarril
+import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.ui.crono.minutosPaso
 import app.trombito.souschef.ui.crono.recursoTapa
 import app.trombito.souschef.ui.theme.CronoPalette
@@ -92,7 +93,8 @@ fun contextoPaso(
         numero = porReloj.indexOfFirst { it.id == paso.id } + 1,
         indiceCarril = i + 1,
         totalCarril = if (i >= 0) cola.size else 0,
-        fuegoAnterior = if (i > 0) cola[i - 1].f else null,
+        // La misma cadena que la tarjeta: un hueco con el paso anterior o un fuego apagado la cortan.
+        fuegoAnterior = if (i > 0) OrdenPaso.delCarril(cola, i).fuegoAnterior else null,
         tras = paso.dep.mapNotNull { referencia(it) },
         juntoCon = paso.junto?.let { referencia(it) },
         inicioPlanMin = inicioPlanMin,
@@ -190,16 +192,18 @@ fun DetallePaso(
             fontWeight = FontWeight.Bold,
             color = paleta.texto,
         )
-        paso.meto?.takeIf { it.isNotBlank() }?.let {
-            LineaDetalle(R.string.detalle_mete, paleta.mete, cuerpo) { Text(textoRico(it), style = cuerpo) }
+        // METE y SACA se componen como en la tarjeta («500 g de patata · la fuente»), no con el texto crudo.
+        val orden = OrdenPaso.de(paso).pantalla(LocalCocina.current)
+        orden.mete?.let {
+            LineaDetalle(R.string.detalle_mete, paleta.mete, cuerpo) { Text(it, style = cuerpo) }
         }
         LineaDatos(paso, tipoCarril, contexto, paleta, cuerpo)
         Avisos(paso, paleta, cuerpo)
         paso.nota?.takeIf { it.isNotBlank() }?.let {
             LineaDetalle(R.string.detalle_senal, paleta.acento, cuerpo) { Text(textoRico(it), style = cuerpo) }
         }
-        paso.saco?.takeIf { it.isNotBlank() }?.let {
-            LineaDetalle(R.string.detalle_saca, paleta.saca, cuerpo) { Text(textoRico(it), style = cuerpo) }
+        orden.saca?.let {
+            LineaDetalle(R.string.detalle_saca, paleta.saca, cuerpo) { Text(it, style = cuerpo) }
         }
         Relacion(paso, contexto, paleta)
         if (conPorque) {

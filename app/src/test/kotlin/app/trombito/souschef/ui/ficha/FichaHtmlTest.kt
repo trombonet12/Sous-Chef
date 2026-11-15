@@ -9,6 +9,7 @@ import app.trombito.souschef.receta.Hito
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.ui.crono.NEUTROS_CARRIL_RGB
 import app.trombito.souschef.ui.theme.FichaOscuro
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -100,8 +101,8 @@ class FichaHtmlTest {
     fun ganttUsaColorDeCarrilYSaneaElInvalido() {
         assertTrue(html.contains("background:#A8421C"))
         assertFalse(html.contains("red;x"))
-        assertTrue(html.contains("background:#B79BE0"))
-        assertTrue(html.contains("+0:30 Remover"))
+        assertTrue(html.contains("background:#%06X".format(NEUTROS_CARRIL_RGB[1])))
+        assertTrue(html.contains("00:30 Remover"))
         assertTrue(html.contains("@page{size:A4;margin:13mm}"))
     }
 
@@ -256,8 +257,50 @@ class FichaHtmlTest {
         assertTrue(paso.contains("500 g de patata"))
         assertTrue(paso.contains("Tiernas y pálidas"))
         assertTrue(paso.contains("la patata, al plato"))
-        assertTrue(h.contains("AVISOS</span> +1:00 Dale la vuelta"))
-        assertTrue(h.contains("sin fuego · 2′"))
+        assertTrue(h.contains("AVISOS</span> 01:00 Dale la vuelta"))
+        // El paso sin fuego no dice «sin fuego»: solo la duración.
+        assertTrue(h.contains("<p class=\"l dat\">2′</p>"))
+        assertFalse(h.contains("sin fuego"))
+    }
+
+    @Test
+    fun meteYSacaSeComponenComoLaTarjetaYNoConElOrigenDelante() {
+        val conOrigen =
+            huevos.copy(
+                pasos =
+                    huevos.pasos.map {
+                        if (it.id == "a") {
+                            it.copy(meto = "la fuente: 500 g de patata", saco = "el plato: la patata")
+                        } else {
+                            it
+                        }
+                    },
+            )
+        val h = fichaHtml(conOrigen, 2, textos, TipoFicha.HOJA, null, imp)
+        assertTrue(h.contains("METE</span> 500 g de patata · la fuente</p>"))
+        assertTrue(h.contains("SACA</span> la patata · el plato</p>"))
+        assertFalse(h.contains("la fuente: 500"))
+    }
+
+    @Test
+    fun elFuegoQueCambiaSaleConFlechaSoloSiLaCadenaSigueEncendida() {
+        fun conC(off: Double) = huevos.copy(pasos = huevos.pasos.map { if (it.id == "c") it.copy(off = off) else it })
+
+        // a (f4) acaba en el minuto 26: contiguo, «4 → 8».
+        assertTrue(fichaHtml(conC(26.0), 2, textos, TipoFicha.HOJA, null, imp).contains("fuego 4 → 8 · 5′"))
+        // Con un hueco la sartén vuelve a empezar: solo «fuego 8».
+        val hueco = fichaHtml(conC(31.0), 2, textos, TipoFicha.HOJA, null, imp)
+        assertTrue(hueco.contains("fuego 8 · 5′"))
+        assertFalse(hueco.contains("→"))
+    }
+
+    @Test
+    fun laUltimaMarcaDelEjeSeAlineaALaDerechaParaNoCortarse() {
+        val h = hoja()
+        assertEquals(1, apariciones(h, "<span class=\"fin\" style=\"right:0\">"))
+        assertTrue(h.contains(".ticks span.fin{transform:none;text-align:right}"))
+        // La hora de servir es la de la última marca y va dentro de ese span.
+        assertTrue(h.contains("<span class=\"fin\" style=\"right:0\">47<em>15:30</em></span>"))
     }
 
     @Test
@@ -300,7 +343,7 @@ class FichaHtmlTest {
         assertTrue(h.contains("background:#A8421C;color:#FFFFFF"))
         assertTrue(h.contains("background:#E9C46A;color:#191A14"))
         // La mesa, de color neutro en el JSON, lleva el mismo color que en la cocina (no el beige).
-        assertTrue(h.contains("background:#7FB7D6;color:#191A14"))
+        assertTrue(h.contains("background:#%06X;color:#191A14".format(NEUTROS_CARRIL_RGB[0])))
         assertFalse(h.contains("#6B6C5F;color"))
     }
 

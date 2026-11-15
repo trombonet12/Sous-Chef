@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.ui.crono.NEUTROS_CARRIL_RGB
 import app.trombito.souschef.ui.shell.Icono
 
 /** Color de un carril (`#RRGGBB`); gris si el dato no se entiende. */
@@ -37,7 +38,7 @@ private const val SATURACION_NEUTRO = 0.2f
 private const val HEX_BASE = 16
 private const val BYTE = 8
 private val HEX_RGB = Regex("#([0-9A-Fa-f]{6})")
-private val NEUTROS_PLAN = intArrayOf(0x7FB7D6, 0xB79BE0, 0x6FCBB5, 0xE58FB0)
+private val NEUTROS_PLAN = NEUTROS_CARRIL_RGB
 
 /**
  * `0xRRGGBB` del carril [id] en cualquier diagrama de tiempos (lista, ficha, cocina y papel): el color del JSON si

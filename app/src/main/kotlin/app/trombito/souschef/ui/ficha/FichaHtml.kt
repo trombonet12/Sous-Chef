@@ -14,6 +14,7 @@ import app.trombito.souschef.ui.comun.FilaPlan
 import app.trombito.souschef.ui.comun.alturaFuego
 import app.trombito.souschef.ui.comun.conNegritas
 import app.trombito.souschef.ui.comun.filasPlan
+import app.trombito.souschef.ui.comun.marcaAviso
 import java.util.Locale
 
 private const val ANCHO_CORTE_PX = 120
@@ -123,6 +124,7 @@ private val CSS =
     .perfil{position:relative;height:8pt;margin-top:1px;border-bottom:1px solid #D6D5C6}
     .esc{position:absolute;bottom:0;opacity:.8;border-radius:1px 1px 0 0}
     .ticks span{position:absolute;transform:translateX(-50%);font-variant-numeric:tabular-nums}
+    .ticks span.fin{transform:none;text-align:right}
     .meta{font-family:system-ui,Arial,sans-serif;font-size:8pt;color:#6B6C5F;text-transform:uppercase;letter-spacing:.04em}
     .diagrama .meta{margin:4pt 0 0}
     .lectura{margin:6pt 0 0}
@@ -187,6 +189,14 @@ private class Salida(
 
     /** Número de cada paso por id, el mismo del diagrama y de la cronología. */
     val numeros: Map<String, Int> = pasos.associate { it.paso.id to it.n }
+
+    /** La orden de cada paso con su cola de carril, como la compone la tarjeta (fuego anterior incluido). */
+    val ordenes: Map<String, OrdenPaso> =
+        receta.pasos
+            .groupBy { it.carril }
+            .values
+            .flatMap { cola -> cola.indices.map { cola[it].id to OrdenPaso.delCarril(cola, it) } }
+            .toMap()
 
     private val empiezaMin: Int? = servirMin?.let { Servir.inicio(it, receta) }
     val servir: String? = servirMin?.let { Servir.formato(it) }
@@ -301,10 +311,16 @@ private fun Salida.tiempo(b: StringBuilder) {
     b.append("<section class=\"diagrama\"><h2>").append(esc(textos.tiempo)).append("</h2>")
     b.append("<div class=\"carril regla\"><div></div><div class=\"ticks").append(if (empieza != null) " hh" else "")
     b.append("\">")
-    Gantt.marcas(total).forEach {
-        b.append("<span style=\"left:").append(pct(it / total)).append("\">")
-        b.append(esc(Escalado.minutos(it)))
-        hora(it)?.let { h -> b.append("<em>").append(esc(h)).append("</em>") }
+    val marcas = Gantt.marcas(total)
+    marcas.forEachIndexed { i, marca ->
+        // La última marca cae sobre el borde derecho: se alinea a la derecha para que no se corte («15:»).
+        if (i == marcas.lastIndex && marcas.size > 1) {
+            b.append("<span class=\"fin\" style=\"right:0\">")
+        } else {
+            b.append("<span style=\"left:").append(pct(marca / total)).append("\">")
+        }
+        b.append(esc(Escalado.minutos(marca)))
+        hora(marca)?.let { h -> b.append("<em>").append(esc(h)).append("</em>") }
         b.append("</span>")
     }
     b.append("</div></div>")
@@ -405,13 +421,18 @@ private fun Salida.entrada(
     b.append("<li class=\"ord\"><i>").append(o.n).append("</i>")
     b.append("<div class=\"cab\"><span class=\"cm\">").append(esc(cabecera)).append(" ·</span> <b>")
     b.append(esc(p.t)).append("</b></div>")
-    p.meto?.takeIf { it.isNotBlank() }?.let { linea(b, imp.mete, rico(it)) }
-    b.append("<p class=\"l dat\">").append(esc(datosPaso(p))).append("</p>")
+    // METE y SACA con la misma composición que la tarjeta y el detalle («500 g de patata · la fuente»).
+    val orden = ordenes[p.id] ?: OrdenPaso.de(p)
+    val pantalla = orden.pantalla()
+    pantalla.mete?.let { linea(b, imp.mete, esc(it)) }
+    datosPaso(p, orden).takeIf { it.isNotEmpty() }?.let {
+        b.append("<p class=\"l dat\">").append(esc(it)).append("</p>")
+    }
     p.hitosValidos.takeIf { it.isNotEmpty() }?.let { hitos ->
-        linea(b, imp.avisos, hitos.joinToString(" · ") { esc("${formatoHito(it.en)} ${it.t}") })
+        linea(b, imp.avisos, hitos.joinToString(" · ") { esc("${marcaAviso(it.en)} ${it.t}") })
     }
     p.nota?.takeIf { it.isNotBlank() }?.let { linea(b, imp.senal, rico(it)) }
-    p.saco?.takeIf { it.isNotBlank() }?.let { linea(b, imp.saca, rico(it)) }
+    pantalla.saca?.let { linea(b, imp.saca, esc(it)) }
     if (completa && !p.p.isNullOrBlank()) {
         b.append("<div class=\"porqp\"><span class=\"k\">").append(esc(imp.porque)).append("</span>")
         prosa(b, p.p)
@@ -420,10 +441,16 @@ private fun Salida.entrada(
     b.append("</li>")
 }
 
-/** «fuego 4 · sin tapa · 5′ · tras 2 · a la vez que 3» (o «sin fuego · 5′» si el paso no usa fuego). */
-private fun Salida.datosPaso(p: Paso): String =
+/**
+ * «fuego 4 · sin tapa · 5′ · tras 2 · a la vez que 3». El paso sin fuego (mesa, horno) no dice «sin fuego»: se omite.
+ * El fuego lleva «4 → 5» cuando cambia respecto al paso anterior del carril, igual que la tarjeta y el detalle.
+ */
+private fun Salida.datosPaso(
+    p: Paso,
+    orden: OrdenPaso,
+): String =
     listOfNotNull(
-        p.f?.let { textos.fuego(it) } ?: textos.sinFuego,
+        p.f?.let { fuegoConCambio(orden.fuegoAnterior, it) },
         OrdenPaso.textoTapa(p.tapa) ?: p.tapa?.takeIf { it.isNotBlank() }?.lowercase(),
         textos.duracion(Escalado.minutos(p.min)),
         p.dep
@@ -432,6 +459,23 @@ private fun Salida.datosPaso(p: Paso): String =
             ?.let { textos.tras(it.joinToString(", ")) },
         p.junto?.let { numeros[it] }?.let { textos.juntoCon(it.toString()) },
     ).joinToString(" · ")
+
+/**
+ * «fuego 4 → 5» si la potencia [antes] es otra que [ahora]; si no, «fuego 5». Se parte de los textos de
+ * [TextosFicha.fuego] («fuego 4», «fuego medio-alto») y se saca lo que tienen en común antes del último espacio común,
+ * así sirve para cualquier cocina sin pedir otra cadena.
+ */
+private fun Salida.fuegoConCambio(
+    antes: Int?,
+    ahora: Int,
+): String {
+    val actual = textos.fuego(ahora)
+    val previo = antes?.takeIf { it != ahora }?.let { textos.fuego(it) }
+    if (previo == null || previo == actual) return actual
+    val comun = actual.commonPrefixWith(previo)
+    val etiqueta = comun.substring(0, comun.lastIndexOf(' ') + 1)
+    return "$etiqueta${previo.removePrefix(etiqueta)} → ${actual.removePrefix(etiqueta)}"
+}
 
 /** Una línea de la orden con su etiqueta (METE, AVISOS, SEÑAL, SACA); [html] ya viene escapado. */
 private fun linea(
