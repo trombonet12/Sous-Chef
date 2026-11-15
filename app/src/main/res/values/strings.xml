@@ -201,8 +201,6 @@
     <string name="crono_btn_empezar">EMPEZAR</string>
     <string name="crono_btn_seguir">SEGUIR</string>
     <string name="crono_antes_bloqueado">Antes: %1$s</string>
-    <string name="crono_despues_corto">Después: %1$s</string>
-    <string name="crono_despues_tiempo">Después: %1$s · %2$s</string>
     <string name="crono_ultimo">Último paso</string>
     <string name="crono_proximo_hito">a %1$s · %2$s</string>
     <string name="crono_fuego_chip">🔥 %1$s</string>
@@ -222,7 +220,6 @@
     <string name="crono_servido_previsto">SERVIDO %1$s, previsto %2$s</string>
     <string name="crono_proxima_vez">Para la próxima vez (opcional)</string>
     <string name="crono_ya_esta">Ya está, a la mesa</string>
-    <string name="crono_potencia">Potencia %1$s</string>
     <string name="crono_notif_hecho">Hecho</string>
     <string name="crono_notif_hecho_siguiente">Hecho y siguiente</string>
     <string name="crono_notif_parar">Parar</string>
@@ -244,8 +241,6 @@
     <string name="crono_pantalla_aviso">Los avisos no pueden encender la pantalla bloqueada.</string>
     <string name="crono_pantalla_ajustes">Permitir</string>
     <string name="crono_deshacer">Deshacer</string>
-    <string name="crono_tecnica_enlace">Técnica: %1$s</string>
-    <string name="crono_porque_hitos">Hitos</string>
     <string name="crono_canal_alarma">Alarma del cronómetro</string>
     <string name="crono_canal_cocina">Cocina en marcha</string>
     <string name="crono_aviso_notificaciones">Las notificaciones de Sous Chef están desactivadas: el cronómetro no avisará.</string>

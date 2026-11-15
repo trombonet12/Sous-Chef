@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Escalado
@@ -41,7 +43,13 @@ import java.util.Locale
 
 private const val MIN_DIA = 24 * 60
 private const val SEG_MIN = 60
-private val ANCHO_ETIQUETA = 76.dp
+private const val ANCHO_ETIQUETA_DP = 76
+
+/** Ancho de la columna de etiquetas: crece con el tamaño de letra para que «AVISOS» y «TIEMPO» no se corten. */
+@Composable
+@ReadOnlyComposable
+private fun anchoEtiqueta(): Dp = (ANCHO_ETIQUETA_DP * maxOf(1f, LocalDensity.current.fontScale)).dp
+
 private val ANCHO_MIN_HORA_AVISO = 48.dp
 
 /** Otro paso de la receta nombrado por su posición en el orden de reloj y su título («tras 2 (Pelar la patata)»). */
@@ -321,7 +329,7 @@ private fun Relacion(
     if (partes.isEmpty()) return
     Text(
         partes.joinToString(" · "),
-        Modifier.padding(start = ANCHO_ETIQUETA),
+        Modifier.padding(start = anchoEtiqueta()),
         style = MaterialTheme.typography.labelLarge,
         color = paleta.apagado,
     )
@@ -354,7 +362,7 @@ private fun LineaDetalle(
     Row(Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}) {
         Text(
             stringResource(etiqueta),
-            Modifier.width(ANCHO_ETIQUETA),
+            Modifier.width(anchoEtiqueta()),
             style = cuerpo,
             fontWeight = FontWeight.ExtraBold,
             color = colorEtiqueta,

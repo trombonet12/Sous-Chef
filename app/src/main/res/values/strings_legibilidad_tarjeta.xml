@@ -2,5 +2,4 @@
 <!-- Legibilidad de la tarjeta del cronómetro y del panel «i» (ronda 19, lote 1). -->
 <resources>
     <string name="crono_senal">SEÑAL</string>
-    <string name="crono_porque_titulo">POR QUÉ</string>
 </resources>

@@ -276,7 +276,13 @@ private fun CuerpoPlan(
     ctx: Contexto,
     inicioPlanMin: Int?,
 ) {
-    val rotulos = ctx.densidad != DensidadPlan.HUELLA
+    // La huella (lista) no lleva texto ni desplaza: solo pistas, sin medidores ni restricciones.
+    if (ctx.densidad == DensidadPlan.HUELLA) {
+        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(ctx.medidas.hueco)) {
+            modelo.filas.forEach { PistaPlan(it, ctx, medidor = null) }
+        }
+        return
+    }
     val tipografia = MaterialTheme.typography
     val estilo = if (ctx.densidad == DensidadPlan.DETALLE) tipografia.labelMedium else tipografia.labelSmall
     val medidor = rememberTextMeasurer()
@@ -284,29 +290,26 @@ private fun CuerpoPlan(
     val estiloEje = tipografia.labelSmall.merge(Tabular)
     val alturaLinea = medidor.measure("0", estiloEje).size.height
     val lineaEje = with(pantalla) { alturaLinea.toDp() }
-    val altoEje = if (rotulos) lineaEje * (if (inicioPlanMin != null) 2 else 1) + 2.dp else 0.dp
+    val altoEje = lineaEje * (if (inicioPlanMin != null) 2 else 1) + 2.dp
     BoxWithConstraints(Modifier.fillMaxWidth()) {
-        val separacion = if (rotulos) SEPARACION_ROTULO else 0.dp
-        val anchoRotulo = if (rotulos) anchoRotulos(modelo, medidor, estilo, maxWidth) else 0.dp
-        val disponible = maxWidth - anchoRotulo - separacion
+        val anchoRotulo = anchoRotulos(modelo, medidor, estilo, maxWidth)
+        val disponible = maxWidth - anchoRotulo - SEPARACION_ROTULO
         val desplaza = ctx.total > MAX_MIN_SIN_DESPLAZAR
         val anchoPistas = if (desplaza) disponible * (ctx.total / MAX_MIN_SIN_DESPLAZAR).toFloat() else disponible
         Row(Modifier.fillMaxWidth()) {
-            if (rotulos) {
-                Column(Modifier.width(anchoRotulo), verticalArrangement = Arrangement.spacedBy(ctx.medidas.hueco)) {
-                    Spacer(Modifier.height(altoEje))
-                    modelo.filas.forEach { Rotulo(it, ctx, estilo) }
-                }
-                Spacer(Modifier.width(separacion))
+            Column(Modifier.width(anchoRotulo), verticalArrangement = Arrangement.spacedBy(ctx.medidas.hueco)) {
+                Spacer(Modifier.height(altoEje))
+                modelo.filas.forEach { Rotulo(it, ctx, estilo) }
             }
+            Spacer(Modifier.width(SEPARACION_ROTULO))
             val scroll = if (desplaza) Modifier.horizontalScroll(rememberScrollState()) else Modifier
             Box(Modifier.weight(1f).then(scroll)) {
                 Column(
                     if (desplaza) Modifier.width(anchoPistas) else Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(ctx.medidas.hueco),
                 ) {
-                    if (rotulos) EjePlan(ctx, inicioPlanMin, altoEje)
-                    modelo.filas.forEach { PistaPlan(it, ctx) }
+                    EjePlan(ctx, inicioPlanMin, altoEje, medidor)
+                    modelo.filas.forEach { PistaPlan(it, ctx, medidor) }
                 }
             }
         }
@@ -358,8 +361,8 @@ private fun EjePlan(
     ctx: Contexto,
     inicioPlanMin: Int?,
     alto: Dp,
+    medidor: TextMeasurer,
 ) {
-    val medidor = rememberTextMeasurer()
     val marcas = remember(ctx.total) { Gantt.marcas(ctx.total) }
     val minutos =
         MaterialTheme.typography.labelSmall
@@ -398,8 +401,8 @@ private fun centrar(
 private fun PistaPlan(
     fila: FilaPlan,
     ctx: Contexto,
+    medidor: TextMeasurer?,
 ) {
-    val medidor = rememberTextMeasurer()
     val fondo = ctx.paleta.pista
     val color = remember(fila, fondo) { colorBarraSobre(fila.color, fondo) }
     val descripcion =
@@ -430,7 +433,7 @@ private fun DrawScope.pintarPista(
     fila: FilaPlan,
     color: Color,
     ctx: Contexto,
-    medidor: TextMeasurer,
+    medidor: TextMeasurer?,
 ) {
     val total = ctx.total
     val m = ctx.medidas
@@ -467,7 +470,7 @@ private fun DrawScope.pintarBarra(
     color: Color,
     ctx: Contexto,
     radio: CornerRadius,
-    medidor: TextMeasurer,
+    medidor: TextMeasurer?,
 ) {
     val paso = barra.paso
     val m = ctx.medidas
@@ -500,7 +503,7 @@ private fun DrawScope.pintarBarra(
             drawRoundRect(color, origen, tamano, radio, style = Stroke(1.5.dp.toPx()))
         }
     }
-    if (ctx.densidad == DensidadPlan.DETALLE) {
+    if (ctx.densidad == DensidadPlan.DETALLE && medidor != null) {
         val texto = medidor.measure((ctx.numeros[paso.id] ?: 0).toString(), ctx.estiloNumero)
         val tinta =
             when (situacion) {
