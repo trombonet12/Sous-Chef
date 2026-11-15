@@ -273,25 +273,6 @@
       "tapa": "sin tapa"
     },
     {
-      "carril": "sarten",
-      "dep": [
-        "encurtido"
-      ],
-      "f": 7,
-      "holgura": "flexible",
-      "id": "calentar-sarten",
-      "junto": null,
-      "meto": "5 ml de aceite de girasol (1 cucharadita), en la sartén honda en frío",
-      "min": 2,
-      "nota": "Sartén honda en el fuego mediano con el aceite de girasol dentro, al {7}. Lista cuando el aceite corre suelto al inclinarla.",
-      "off": 13,
-      "p": "La sartén honda en el fuego mediano, con 5 ml de aceite de girasol desde frío y al {7}. Dos minutos es lo que tarda la vitro en llegar: si el pollo entra en un metal tibio, el jugo de la marinada se queda en el fondo cociéndolo en vez de evaporarse en el primer minuto, y el pollo sale blanco y hervido.",
-      "s": 120,
-      "saco": "",
-      "t": "Calentar la sartén honda al {7}",
-      "tapa": "sin tapa"
-    },
-    {
       "carril": "plancha",
       "dep": [],
       "f": 7,
@@ -312,6 +293,25 @@
       "s": 300,
       "saco": "las 4 rodajas, a la tabla",
       "t": "Dorar la piña",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "encurtido"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "calentar-sarten",
+      "junto": null,
+      "meto": "5 ml de aceite de girasol (1 cucharadita), en la sartén honda en frío",
+      "min": 2,
+      "nota": "Sartén honda en el fuego mediano con el aceite de girasol dentro, al {7}. Lista cuando el aceite corre suelto al inclinarla.",
+      "off": 13,
+      "p": "La sartén honda en el fuego mediano, con 5 ml de aceite de girasol desde frío y al {7}. Dos minutos es lo que tarda la vitro en llegar: si el pollo entra en un metal tibio, el jugo de la marinada se queda en el fondo cociéndolo en vez de evaporarse en el primer minuto, y el pollo sale blanco y hervido.",
+      "s": 120,
+      "saco": "",
+      "t": "Calentar la sartén honda al {7}",
       "tapa": "sin tapa"
     },
     {
@@ -341,23 +341,6 @@
       "s": 300,
       "saco": "",
       "t": "Saltear el pollo marinado",
-      "tapa": "sin tapa"
-    },
-    {
-      "carril": "sarten",
-      "dep": [],
-      "f": 0,
-      "holgura": "critico",
-      "id": "sal-pollo",
-      "junto": null,
-      "meto": "3 g de sal (½ cucharadita rasa), del platito",
-      "min": 1,
-      "nota": "Apaga la vitro, sala, da dos vueltas y pásalo al bol mediano limpio.",
-      "off": 20,
-      "p": "Apaga antes de salar y sácalo enseguida: en la sartén apagada el calor que guarda el metal lo seguiría cocinando y las tiras se secarían. La sal entra ahora porque sobre el pollo crudo habría sacado agua y la sartén la habría tenido que evaporar antes de dorar. Al bol mediano limpio, nunca al de la marinada, que ha tenido pollo crudo.",
-      "s": 60,
-      "saco": "el pollo, a un bol mediano limpio",
-      "t": "Apagar y salar el pollo",
       "tapa": "sin tapa"
     },
     {
@@ -394,25 +377,6 @@
       "s": 120,
       "saco": "los dados de piña, a un lado de la tabla",
       "t": "Picar la piña en dados de 1 cm",
-      "tapa": null
-    },
-    {
-      "carril": "mesa",
-      "dep": [
-        "sal-pollo"
-      ],
-      "f": null,
-      "holgura": "ajustado",
-      "id": "mezclar",
-      "junto": null,
-      "meto": "los dados de piña, de la tabla al bol mediano del pollo",
-      "min": 1,
-      "nota": "Los dados de piña al bol del pollo y dos vueltas con la cuchara. Escurre la cebolla en un colador.",
-      "off": 21,
-      "p": "La piña se mezcla con el pollo en el bol y no se reparte por encima en el montaje: así el jugo caramelizado de los dados se pega a las especias del pollo y cada taco lleva su parte, en vez de que unos salgan solo de piña. La cebolla se escurre ahora para que llegue sin vinagre suelto: el líquido que gotee empapa la tortilla por dentro.",
-      "s": 60,
-      "saco": "el bol del relleno, junto a la tabla",
-      "t": "Mezclar el pollo con la piña",
       "tapa": null
     },
     {
@@ -461,6 +425,42 @@
       "saco": "las tortillas, apiladas en un paño y tapadas. Apaga el fuego grande",
       "t": "Calentar las 8 minitortillas, de dos en dos",
       "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "sal-pollo",
+      "junto": null,
+      "meto": "3 g de sal (½ cucharadita rasa), del platito",
+      "min": 1,
+      "nota": "Apaga la vitro, sala, da dos vueltas y pásalo al bol mediano limpio.",
+      "off": 20,
+      "p": "Apaga antes de salar y sácalo enseguida: en la sartén apagada el calor que guarda el metal lo seguiría cocinando y las tiras se secarían. La sal entra ahora porque sobre el pollo crudo habría sacado agua y la sartén la habría tenido que evaporar antes de dorar. Al bol mediano limpio, nunca al de la marinada, que ha tenido pollo crudo.",
+      "s": 60,
+      "saco": "el pollo, a un bol mediano limpio",
+      "t": "Apagar y salar el pollo",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "sal-pollo"
+      ],
+      "f": null,
+      "holgura": "ajustado",
+      "id": "mezclar",
+      "junto": null,
+      "meto": "los dados de piña, de la tabla al bol mediano del pollo",
+      "min": 1,
+      "nota": "Los dados de piña al bol del pollo y dos vueltas con la cuchara. Escurre la cebolla en un colador.",
+      "off": 21,
+      "p": "La piña se mezcla con el pollo en el bol y no se reparte por encima en el montaje: así el jugo caramelizado de los dados se pega a las especias del pollo y cada taco lleva su parte, en vez de que unos salgan solo de piña. La cebolla se escurre ahora para que llegue sin vinagre suelto: el líquido que gotee empapa la tortilla por dentro.",
+      "s": 60,
+      "saco": "el bol del relleno, junto a la tabla",
+      "t": "Mezclar el pollo con la piña",
+      "tapa": null
     },
     {
       "carril": "mesa",

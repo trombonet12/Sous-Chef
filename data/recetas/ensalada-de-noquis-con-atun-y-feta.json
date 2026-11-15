@@ -271,23 +271,6 @@
       "tapa": "sin tapa"
     },
     {
-      "carril": "sarten",
-      "dep": [],
-      "f": 0,
-      "holgura": "critico",
-      "id": "albahaca",
-      "junto": null,
-      "meto": "½ cdta de albahaca seca, con la vitro ya apagada",
-      "min": 1,
-      "nota": "Apaga la vitro. La albahaca por encima y un minuto de vueltas con el calor que queda en el metal.",
-      "off": 16,
-      "p": "Apaga la vitro antes de echarla: es un paso aparte y no un remate del anterior, porque lo que cambia es la potencia. Las hierbas secas necesitan calor y vapor para soltar su aroma, pero al {8} la albahaca se quema en segundos y amarga. Con la placa apagada, el calor que queda en el metal y el vapor de los propios ñoquis hacen ese trabajo en un minuto. Sin tapa, que la costra se ablanda.",
-      "s": 60,
-      "saco": "los ñoquis, calientes y directos al bol",
-      "t": "Albahaca, fuera del fuego",
-      "tapa": "sin tapa"
-    },
-    {
       "carril": "mesa",
       "dep": [],
       "f": null,
@@ -303,6 +286,23 @@
       "saco": "al bol grande",
       "t": "Montar la ensalada",
       "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [],
+      "f": 0,
+      "holgura": "critico",
+      "id": "albahaca",
+      "junto": null,
+      "meto": "½ cdta de albahaca seca, con la vitro ya apagada",
+      "min": 1,
+      "nota": "Apaga la vitro. La albahaca por encima y un minuto de vueltas con el calor que queda en el metal.",
+      "off": 16,
+      "p": "Apaga la vitro antes de echarla: es un paso aparte y no un remate del anterior, porque lo que cambia es la potencia. Las hierbas secas necesitan calor y vapor para soltar su aroma, pero al {8} la albahaca se quema en segundos y amarga. Con la placa apagada, el calor que queda en el metal y el vapor de los propios ñoquis hacen ese trabajo en un minuto. Sin tapa, que la costra se ablanda.",
+      "s": 60,
+      "saco": "los ñoquis, calientes y directos al bol",
+      "t": "Albahaca, fuera del fuego",
+      "tapa": "sin tapa"
     },
     {
       "carril": "mesa",

@@ -201,6 +201,22 @@
       "tapa": null
     },
     {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "reposar-nevera",
+      "meto": "la bandeja con los aros rebozados, a la nevera",
+      "min": 10,
+      "nota": "Diez minutos en la nevera, sin tapar. Lávate las manos y deja listo el plato con papel junto a la sartén.",
+      "off": 18,
+      "p": "En la nevera el huevo con harina se asienta y pega el pan rallado a la cebolla: un rebozado reposado aguanta la vuelta en la sartén sin abrirse. El frío además hace que la costra entre en el aceite firme y no se despegue al primer borboteo. Diez minutos bastan; a partir de media hora la humedad de la cebolla empieza a ablandar el pan rallado desde dentro.",
+      "s": 600,
+      "saco": "",
+      "t": "Reposar los aros 10 minutos en la nevera",
+      "tapa": null
+    },
+    {
       "carril": "sarten",
       "dep": [],
       "f": 7,
@@ -216,22 +232,6 @@
       "sinHitos": "El aceite se calienta solo y no hay nada que mover: la única comprobación, la miga que burbujea, está al final del paso.",
       "t": "Calentar el aceite de girasol al {7}",
       "tapa": "sin tapa"
-    },
-    {
-      "carril": "mesa",
-      "dep": [],
-      "f": null,
-      "holgura": "flexible",
-      "id": "reposar-nevera",
-      "meto": "la bandeja con los aros rebozados, a la nevera",
-      "min": 10,
-      "nota": "Diez minutos en la nevera, sin tapar. Lávate las manos y deja listo el plato con papel junto a la sartén.",
-      "off": 18,
-      "p": "En la nevera el huevo con harina se asienta y pega el pan rallado a la cebolla: un rebozado reposado aguanta la vuelta en la sartén sin abrirse. El frío además hace que la costra entre en el aceite firme y no se despegue al primer borboteo. Diez minutos bastan; a partir de media hora la humedad de la cebolla empieza a ablandar el pan rallado desde dentro.",
-      "s": 600,
-      "saco": "",
-      "t": "Reposar los aros 10 minutos en la nevera",
-      "tapa": null
     },
     {
       "carril": "sarten",

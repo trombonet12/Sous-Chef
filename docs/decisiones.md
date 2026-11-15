@@ -477,3 +477,8 @@ Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan 
 - **Forma de trabajo:** subagentes en paralelo con archivos disjuntos, un revisor independiente por lote y, al final,
   una auditoría completa con Fable 5.2 al máximo de esfuerzo. Comprueba que los cambios estén bien hechos, que no
   vuelvan las cinco quejas de partida y repasa una por una las 33 recetas (él mismo o con subagentes).
+- **Piloto huevos rotos, revisión culinaria** (`chef-reviewer`, opus): el padrón se sala al sacarlo, en el minuto 36,
+  con la piel caliente y con aceite. En el montaje, el gramo final va solo sobre los huevos: el jamón ya trae su sal
+  (aprobado por Joan). Además: romper las yemas en el montaje, «salas la patata» en vez de «cascas el primer huevo»
+  (los huevos no se cascan antes del 42) y el aceite antes que el padrón en `meto`. Pendiente de vigilar al
+  cocinarla: la subida del {6} al {8} del padrón solo la enseña el chip de fuego.

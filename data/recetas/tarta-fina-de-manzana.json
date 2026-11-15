@@ -172,6 +172,23 @@
       "tapa": null
     },
     {
+      "carril": "mesa",
+      "dep": [],
+      "f": null,
+      "holgura": "flexible",
+      "id": "montar-base",
+      "junto": null,
+      "meto": "la lámina de hojaldre",
+      "min": 3,
+      "nota": "Borde doblado de 1,5 cm, y pincha el fondo entero con un tenedor. Aprovecha y derrite los 20 g de mantequilla en el microondas.",
+      "off": 10,
+      "p": "La lámina tal cual sale del paquete, sobre la bandeja con papel. Dobla un borde de 1,5 cm hacia dentro, que es el que sube y enmarca la tarta, y pincha el fondo entero con un tenedor para que no infle en el horno donde no hay manzana encima que lo pese. Estos tres minutos son también el hueco para derretir los 20 g de mantequilla en el microondas: tiene que quedar líquida y templada, no hirviendo, porque se pincela al final del montaje y si se enfría antes vuelve a cuajar y ya no extiende.",
+      "s": 180,
+      "saco": "",
+      "t": "Extender el hojaldre y marcar el borde",
+      "tapa": null
+    },
+    {
       "carril": "horno",
       "dep": [],
       "f": null,
@@ -187,23 +204,6 @@
       "saco": "",
       "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro y cada apertura le devuelve buena parte del precalentado. El único aviso útil es el del final, que ya lo da el propio paso.",
       "t": "Precalentar el horno a 200°C",
-      "tapa": null
-    },
-    {
-      "carril": "mesa",
-      "dep": [],
-      "f": null,
-      "holgura": "flexible",
-      "id": "montar-base",
-      "junto": null,
-      "meto": "la lámina de hojaldre",
-      "min": 3,
-      "nota": "Borde doblado de 1,5 cm, y pincha el fondo entero con un tenedor. Aprovecha y derrite los 20 g de mantequilla en el microondas.",
-      "off": 10,
-      "p": "La lámina tal cual sale del paquete, sobre la bandeja con papel. Dobla un borde de 1,5 cm hacia dentro, que es el que sube y enmarca la tarta, y pincha el fondo entero con un tenedor para que no infle en el horno donde no hay manzana encima que lo pese. Estos tres minutos son también el hueco para derretir los 20 g de mantequilla en el microondas: tiene que quedar líquida y templada, no hirviendo, porque se pincela al final del montaje y si se enfría antes vuelve a cuajar y ya no extiende.",
-      "s": 180,
-      "saco": "",
-      "t": "Extender el hojaldre y marcar el borde",
       "tapa": null
     },
     {

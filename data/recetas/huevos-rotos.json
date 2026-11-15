@@ -46,7 +46,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Patata en bastón con doble fritura, jamón serrano y pimientos de padrón dorados en la sartén pequeña, y huevos con puntilla al final, todo repartido entre dos sartenes que casi no paran. La dificultad está en el tramo del minuto 28 al 36, con las dos sartenes encendidas.",
+  "descripcion": "Patata en bastón con doble fritura, jamón serrano y pimientos de padrón dorados aparte, y huevos con puntilla al final. Lo difícil está del minuto 28 al 36, con las dos sartenes encendidas.",
   "escala": {
     "max": 2,
     "min": 1,
@@ -107,7 +107,7 @@
       "n": "SARTÉN PEQUEÑA"
     }
   ],
-  "lectura": "La suma por el camino largo: 6 de mise en place + 5 de calentar el aceite + 18 de primera fritura + 4 de reposo (2 al {5} y 2 al {8}) + 7 de segunda + 2 de escurrir bajando al {7} + 3 de huevos + 2 de montar = 47 minutos. Los 8 minutos de la sartén pequeña (calentar, jamón y padrón) caben enteros dentro de los de la grande, y el rasgado del jamón y el lavado del padrón (5 minutos, del 12 al 17) ocurren mientras fríe el blanqueo, así que no suman nada. Una sola ventana con dos fuegos a la vez, nunca tres: del 28 al 36, con la pequeña calentando en seco al {6}, dorando el jamón y friendo el padrón mientras la grande acaba el reposo, sube por escalones y hace la segunda fritura. Lo que gobierna el plan es que la sartén grande nunca se queda sola al {8}: cada vez que la patata sale y tarda en volver, el mando se mueve con cuidado. En el primer hueco sube por escalones (del {4} al {5} y del {5} al {8}) y justo antes de que entre la patata; en el segundo baja del {8} al {7} para los huevos. Por eso hay pasos que parecen no hacer nada y son los que salvan el aceite — y el aceite es el que fríe los huevos al final.",
+  "lectura": "La cuenta, por el camino largo: 6 de mise en place + 5 de calentar el aceite + 18 de primera fritura + 4 de reposo + 7 de segunda + 2 de escurrir + 3 de huevos + 2 de montar = 47 minutos.\n\n- La sartén pequeña (8 minutos: calentar, jamón y padrón) cabe entera dentro de los tiempos de la grande.\n- Rasgar el jamón y lavar el padrón (del 12 al 17) ocurre durante el blanqueo: no suma.\n- Dos fuegos a la vez solo del 28 al 36; nunca tres.\n\nLo que gobierna el plan: la sartén grande nunca se queda sola al {8}. Cuando la patata sale y tarda en volver, el mando se mueve: sube por escalones (del {4} al {5} y del {5} al {8}) justo antes de que entre, y baja del {8} al {7} para los huevos. Esos pasos que parecen no hacer nada son los que salvan el aceite, y con ese aceite se fríen los huevos.",
   "mep": [
     {
       "l": [
@@ -116,7 +116,7 @@
         "<b>Pimientos de padrón · 200 g (unos 25)</b> · enteros y con su rabo, lavados y secados uno a uno con un paño. Se lavan en el minuto 12, tras el jamón. Entran en el minuto 32."
       ],
       "orden": true,
-      "porq": "El padrón va el último porque es lo único que se moja: lavándolo al final la tabla y las manos llegan secas a los 500 ml de aceite, que es de donde salen las salpicaduras. La patata va la primera porque es el corte largo y el que marca el minuto 11.",
+      "porq": "El padrón va el último porque es lo único que se moja: así la tabla y las manos llegan secas a los 500 ml de aceite, de donde salen las salpicaduras. La patata va primero: es el corte largo y marca el minuto 11.",
       "t": "TABLA Y FREGADERO, EN ESTE ORDEN"
     },
     {
@@ -128,7 +128,7 @@
         "<b>Dos platos limpios</b> · el jamón dorado sale a uno en el minuto 32 y los 200 g de padrón al otro en el 36. Ninguno de los dos vuelve al fuego: esperan hasta el montaje del 45."
       ],
       "orden": false,
-      "porq": "Un recipiente se justifica cuando lo que guarda entra en un minuto distinto al del resto. Aquí hay cinco: la patata cruda del minuto 11, el jamón del 30, el padrón del 32, y los dos platos de espera de lo que ya salió del fuego. El jamón y el padrón no comparten plato aunque vayan a la misma sartén: los separan dos minutos y uno sale antes de que entre el otro.",
+      "porq": "Un recipiente se justifica cuando lo que guarda entra en un minuto distinto al del resto. El jamón y el padrón no comparten plato aunque vayan a la misma sartén: los separan dos minutos y uno sale antes de que entre el otro.",
       "t": "CINCO SITIOS, CINCO MOMENTOS"
     },
     {
@@ -139,11 +139,11 @@
         "<b>La sal</b> · 2 g (un pellizco generoso) en un platito para la patata del minuto 40 y 1 g (un pellizco) para el montaje del 45. Y 1 g más para el padrón (un pellizco), en su platito: se echa al sacarlo de la sartén, no antes."
       ],
       "orden": false,
-      "porq": "Girasol en la sartén grande y oliva en la pequeña, y no al revés: los 500 ml de girasol tienen que aguantar el {8} de la segunda fritura sin humear, y su punto de humo está unos cuarenta grados por encima del de oliva. Los 10 ml de oliva solo acompañan a los pimientos cuatro minutos y ahí sí interesa su sabor.",
+      "porq": "Girasol en la grande y oliva en la pequeña, no al revés: el girasol tiene que aguantar el {8} de la segunda fritura sin humear, y su punto de humo está unos cuarenta grados por encima. Los 10 ml de oliva solo acompañan al padrón cuatro minutos, y ahí sí interesa su sabor.",
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Va de 1 a 2 raciones con las mismas tandas: el aceite no cambia, porque es la profundidad de la sartén y no depende de la patata. A 1 ración la segunda fritura dora antes, porque la patata enfría menos el aceite: sácala por el color, no por el reloj. Por encima de 2 la patata enfría el aceite y no cruje, y los huevos ya no caben en sus 3 minutos.",
+  "notaEscala": "- De 1 a 2 raciones, con las mismas tandas. El aceite no cambia: es la profundidad de la sartén, no depende de la patata.\n- A 1 ración la segunda fritura dora antes, porque la patata enfría menos el aceite: sácala por el color, no por el reloj.\n- Por encima de 2, no: la patata enfría el aceite y no cruje, y los huevos ya no caben en sus 3 minutos.",
   "pasos": [
     {
       "carril": "mesa",
@@ -152,13 +152,13 @@
       "holgura": "flexible",
       "id": "mise-en-place",
       "junto": null,
-      "meto": "",
+      "meto": "500 g de patata (3 medianas)",
       "min": 6,
-      "nota": "Bastón de 1,5×1,5×6 cm, corte uniforme.",
+      "nota": "Bastones de 1,5×1,5×6 cm, todos del mismo grosor.",
       "off": 0,
-      "p": "Patata en bastones de 1,5×1,5×6 cm. Con la doble fritura el corte deja de ser solo estética: si el grosor varía, la primera fritura cuece unas antes que otras y la segunda dora con esa diferencia ya hecha.",
+      "p": "Con doble fritura el grosor manda: si varía, la primera fritura cuece unos bastones antes que otros y la segunda los dora con esa diferencia ya hecha.",
       "s": 360,
-      "saco": "",
+      "saco": "a la fuente, tapados con un paño",
       "t": "Pelar y cortar la patata",
       "tapa": null
     },
@@ -171,11 +171,11 @@
       "holgura": "flexible",
       "id": "calentar-aceite",
       "junto": null,
-      "meto": "500 ml de aceite de girasol (ya están en la sartén)",
+      "meto": "",
       "min": 5,
-      "nota": "Al {4}, no más: es temperatura de blanqueo, no de dorado.",
+      "nota": "El aceite ya está dentro: solo enciendes. No lo subas más.",
       "off": 6,
-      "p": "Los 500 ml de aceite de girasol al {4}. Esta primera fritura busca cocer la patata por dentro sin colorearla por fuera, así que la temperatura se queda deliberadamente baja, lejos del punto en el que arrancaría el dorado.",
+      "p": "La primera fritura cuece la patata por dentro sin colorearla por fuera. Por eso el aceite se queda bajo, lejos del punto en el que empezaría a dorar.",
       "s": 300,
       "saco": "",
       "t": "Calentar el aceite",
@@ -188,7 +188,7 @@
       "hitos": [
         {
           "en": 120,
-          "t": "Mueve con la espumadera: despega la que se haya pegado al fondo"
+          "t": "Despega del fondo las que se hayan pegado"
         },
         {
           "en": 540,
@@ -196,19 +196,19 @@
         },
         {
           "en": 900,
-          "t": "Pincha un bastón: tiene que ceder sin resistencia. Si coge color, baja del {4} al {3}"
+          "t": "Pincha un bastón: debe ceder sin resistencia"
         }
       ],
       "holgura": "ajustado",
       "id": "primera-fritura",
       "junto": null,
-      "meto": "la fuente: 500 g de patata en bastones de 1,5×1,5×6 cm",
+      "meto": "la fuente: 500 g de patata",
       "min": 18,
-      "nota": "Tiernas por dentro, pálidas por fuera. Si cogen color, baja del {4} al {3}.",
+      "nota": "Tiernas y pálidas, sin color. Si se doran, baja al {3}.",
       "off": 11,
-      "p": "Dieciocho minutos al {4} hasta que estén tiernas y pálidas, sin nada de color. El almidón de superficie se gelatiniza y el interior se cuece del todo; la costra dorada no es cosa de esta fritura, llega en la segunda. No son dieciocho minutos quietos: a los dos hay que despegar del fondo la que se haya asentado, porque la patata cruda se pega y la que se pega se dora ahí antes de tiempo; y a los nueve se les da la vuelta y a los quince se pincha un bastón, que es la única señal fiable de que el centro está hecho, porque por fuera todas se ven igual de pálidas. Frita una sola vez, la patata sale blanda sin costra, o dorada por fuera y cruda por dentro — nunca las dos cosas.",
+      "p": "Aquí la patata se cuece, no se dora: el almidón de la superficie gelatiniza y el centro se hace del todo. La costra llega en la segunda fritura.\n\n- Despegar a los 2 minutos: la patata cruda se pega, y la que se pega se dora ahí antes de tiempo.\n- Pinchar a los 15 minutos: es la única señal fiable, porque por fuera todas se ven igual de pálidas.\n\nFrita una sola vez sale blanda y sin costra, o dorada por fuera y cruda por dentro.",
       "s": 1080,
-      "saco": "",
+      "saco": "la patata, al plato con papel",
       "t": "1ª fritura (blanqueo)",
       "tapa": "sin tapa"
     },
@@ -219,15 +219,32 @@
       "holgura": "flexible",
       "id": "rasgar-jamon-lavar-padron",
       "junto": "primera-fritura",
-      "meto": "80 g de jamón serrano y 200 g de pimientos de padrón",
+      "meto": "80 g de jamón serrano + 200 g de pimientos de padrón",
       "min": 5,
-      "nota": "Jamón rasgado a mano en trozos de unos 3 cm. Pimientos de padrón lavados y bien secos: con agua salpican al freír.",
+      "nota": "Jamón en trozos de 3 cm, a mano. Padrón seco del todo: mojado salpica.",
       "off": 12,
-      "p": "Mientras la patata se blanquea, el jamón se rasga a mano en trozos de unos 3 cm, siempre a lo largo de la loncha: el borde roto ofrece más superficie de contacto con la sartén que un corte limpio de cuchillo, y dora en manchas en vez de en una lámina pareja. Los pimientos de padrón se lavan enteros y se secan uno a uno con un paño: cualquier gota de agua en aceite muy caliente salpica.",
+      "p": "El jamón se rasga a lo largo de la loncha: el borde roto toca más sartén que un corte limpio de cuchillo y dora en manchas, no en una lámina pareja.\n\nEl padrón se lava entero y se seca uno a uno con un paño: cualquier gota de agua en aceite muy caliente salpica.",
       "s": 300,
-      "saco": "el jamón, al platito hondo; el padrón, seco, al bol",
+      "saco": "el jamón, al platito hondo + el padrón, seco, al bol",
       "t": "Rasgar el jamón y lavar el padrón",
       "tapa": null
+    },
+    {
+      "carril": "sarten2",
+      "dep": [],
+      "f": 6,
+      "holgura": "flexible",
+      "id": "calentar-sarten-pequena",
+      "junto": "primera-fritura",
+      "meto": "",
+      "min": 2,
+      "nota": "Seca y vacía: ni aceite ni jamón todavía.",
+      "off": 28,
+      "p": "La vitro tarda un par de minutos en calentar una sartén fría, y el jamón solo pasa dos en ella: si entra en frío suelta la grasa y se cuece antes de tostar el borde. Va seca porque la grasa la pone el jamón.",
+      "s": 120,
+      "saco": "",
+      "t": "Calentar la sartén pequeña",
+      "tapa": "sin tapa"
     },
     {
       "carril": "mesa",
@@ -238,13 +255,13 @@
       "holgura": "flexible",
       "id": "reposo-patata",
       "junto": null,
-      "meto": "los 500 g de patata blanqueada, de la sartén al plato con papel",
+      "meto": "sartén grande: la patata blanqueada",
       "min": 4,
-      "nota": "Cuatro minutos: bajan de temperatura y sueltan el vapor residual.",
+      "nota": "Déjalas quietas: tienen que soltar el vapor.",
       "off": 29,
-      "p": "A un plato con papel, cuatro minutos. El vapor que todavía llevan dentro necesita salir ahora; entrando directas a la segunda fritura, ese vapor mantendría la superficie húmeda y el aceite caliente las cocería otra vez en vez de formar costra.",
+      "p": "El vapor que aún llevan dentro tiene que salir ahora. Si entraran directas a la segunda fritura, ese vapor mantendría la superficie húmeda y el aceite las cocería otra vez en lugar de formar costra.",
       "s": 240,
-      "saco": "la patata, a un plato con papel",
+      "saco": "",
       "t": "Reposo de la patata en papel",
       "tapa": null
     },
@@ -255,14 +272,39 @@
       "holgura": "flexible",
       "id": "subir-al-5",
       "junto": "reposo-patata",
-      "meto": "nada: los 500 ml de aceite de girasol solos",
+      "meto": "",
       "min": 2,
-      "nota": "Sube del {4} al {5} y déjalo. No lo subas al {8} todavía: la patata no entra hasta el 33.",
+      "nota": "Sartén sola, solo aceite. Aún no al {8}: la patata tarda en volver.",
       "off": 29,
-      "p": "La patata ha salido y le quedan cuatro minutos de reposo, así que la sartén se queda vacía. Al {5} gana temperatura sin pasarse con la sartén vacía: el girasol humea sobre los 225 °C, y 500 ml al {8} sin nada dentro llegan ahí en un par de minutos; el aceite se degrada, coge sabor y ya no hay vuelta atrás para los huevos que se fríen luego en él. Desde el {5} llega al {8} en los dos minutos que vienen.",
+      "p": "La patata reposa cuatro minutos y la sartén se queda vacía: al {5} el aceite gana temperatura sin pasarse.\n\nEl girasol humea sobre los 225 °C, y 500 ml al {8} sin nada dentro llegan ahí en un par de minutos. El aceite se degrada, coge sabor y ya no hay vuelta atrás para los huevos que se fríen luego en él.\n\nDesde el {5} llega al {8} en los dos minutos del paso siguiente.",
       "s": 120,
       "saco": "",
-      "t": "Subir al {5} mientras la patata reposa",
+      "t": "Subir al {5}",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten2",
+      "dep": [
+        "rasgar-jamon-lavar-padron"
+      ],
+      "f": 6,
+      "hitos": [
+        {
+          "en": 60,
+          "t": "Dale la vuelta al jamón"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "dorar-jamon",
+      "junto": "reposo-patata",
+      "meto": "el platito hondo: 80 g de jamón",
+      "min": 2,
+      "nota": "Sin aceite. Fuera al acabar: si se pasa, queda gomoso.",
+      "off": 30,
+      "p": "Va sin aceite porque el jamón suelta su propia grasa. Con un minuto por lado los bordes quedan crujientes; pasado ese punto suelta demasiada grasa y se pone gomoso.",
+      "s": 120,
+      "saco": "el jamón, a un plato",
+      "t": "Dorar el jamón",
       "tapa": "sin tapa"
     },
     {
@@ -272,50 +314,14 @@
       "holgura": "ajustado",
       "id": "subir-al-8",
       "junto": null,
-      "meto": "nada: los 500 ml de aceite de girasol solos",
+      "meto": "",
       "min": 2,
-      "nota": "Sube del {5} al {8}: son los dos minutos justos antes de que entre la patata.",
+      "nota": "Acerca el plato de la patata al fuego: entra en cuanto acabe.",
       "off": 31,
-      "p": "Sube del {5} al {8}. La segunda fritura necesita temperatura alta para que la costra se forme en minutos, y es la misma grasa: el aceite del blanqueo ya está limpio de almidón y no hace falta cambiarlo. Dos minutos bastan para pasar de espera a dorado, y la subida se hace aquí y no antes a propósito: 500 ml de girasol al {8} sin nada dentro se degradan y acaban humeando, y el humo no se va, se queda en el sabor de la patata.",
+      "p": "La segunda fritura pide el aceite muy caliente para que la costra se forme en minutos. Es la misma grasa: tras el blanqueo sigue limpia de almidón y no hace falta cambiarla.\n\nSe sube ahora y no antes a propósito: 500 ml de girasol al {8} sin nada dentro se degradan y acaban humeando, y ese humo se queda en el sabor de la patata.",
       "s": 120,
       "saco": "",
       "t": "Subir al {8}",
-      "tapa": "sin tapa"
-    },
-    {
-      "carril": "sarten2",
-      "dep": [],
-      "f": 6,
-      "holgura": "flexible",
-      "id": "calentar-sarten-pequena",
-      "junto": "primera-fritura",
-      "meto": "nada: la sartén pequeña, seca",
-      "min": 2,
-      "nota": "Al {6}, seca y vacía: el jamón entra en sartén caliente.",
-      "off": 28,
-      "p": "La vitro tarda un par de minutos en calentar una sartén fría y el jamón solo pasa dos en ella: en frío suelta la grasa y se cuece antes de tostar el borde. Va seca porque la grasa la pone el jamón.",
-      "s": 120,
-      "saco": "",
-      "t": "Calentar la sartén pequeña",
-      "tapa": "sin tapa"
-    },
-    {
-      "carril": "sarten2",
-      "dep": [
-        "rasgar-jamon-lavar-padron"
-      ],
-      "f": 6,
-      "holgura": "ajustado",
-      "id": "dorar-jamon",
-      "junto": "reposo-patata",
-      "meto": "el platito hondo: 80 g de jamón serrano rasgado, sobre la sartén seca",
-      "min": 2,
-      "nota": "Un minuto por lado y fuera. Más tiempo, gomoso.",
-      "off": 30,
-      "p": "En la sartén pequeña ya caliente al {6}, sin aceite: el jamón suelta su propia grasa. Un minuto por lado. Pasado ese punto empieza a soltar demasiada grasa y se pone gomoso en vez de crujiente en los bordes.",
-      "s": 120,
-      "saco": "el jamón, a un plato",
-      "t": "Dorar el jamón, 1 min por lado",
       "tapa": "sin tapa"
     },
     {
@@ -327,13 +333,13 @@
       "holgura": "ajustado",
       "id": "freir-padron",
       "junto": null,
-      "meto": "el bol: 200 g de pimientos de padrón + 10 ml de aceite de oliva",
+      "meto": "la botella: 10 ml de aceite de oliva + el bol: 200 g de padrón",
       "min": 4,
-      "nota": "Sube del {6} al {8} y mueve sin parar: hinchados y arrugados, no blandos. La sal, al sacarlos.",
+      "nota": "Mueve sin parar: fuera hinchados y arrugados, no blandos. La sal, al sacarlos.",
       "off": 32,
-      "p": "La misma sartén pequeña, ya caliente por el jamón, sube del {6} al {8} con el aceite de oliva. Cuatro minutos moviendo sin parar: el calor fuerte hace que el agua interior del pimiento se convierta en vapor de golpe, lo hincha y le arruga la piel, que es la textura que se busca. La sal entra al servir y no antes: echada mientras se fríen sacaría agua por ósmosis y el pimiento se ablandaría en vez de quedar tostado.",
+      "p": "La misma sartén, ya caliente por el jamón, sube del {6} al {8} con el aceite de oliva. El calor fuerte convierte de golpe en vapor el agua del pimiento: lo hincha y le arruga la piel, que es la textura que se busca.\n\nLa sal va nada más retirarlos, con la piel aún caliente y brillante de aceite: ahí se agarra. Echada en la sartén sacaría agua por ósmosis y el pimiento se ablandaría en vez de quedar tostado.",
       "s": 240,
-      "saco": "los pimientos, a un plato",
+      "saco": "los pimientos, a un plato + 1 g de sal, por encima",
       "t": "Freír los pimientos de padrón",
       "tapa": "sin tapa"
     },
@@ -356,13 +362,13 @@
       "holgura": "ajustado",
       "id": "segunda-fritura",
       "junto": null,
-      "meto": "el plato con papel: los 500 g de patata blanqueada",
+      "meto": "plato con papel: la patata reposada",
       "min": 7,
-      "nota": "Doradas y crujientes; mantén el {8}.",
+      "nota": "No bajes el fuego. Fuera cuando estén doradas parejas.",
       "off": 33,
-      "p": "La patata ya reposada, de vuelta al aceite al {8}. Siete minutos: entran 500 g de golpe y enfrían el aceite, así que la costra tarda en formarse y el mando se queda en el {8} hasta que dore. La superficie, ya seca por el reposo, forma la costra crujiente — el interior no necesita más cocción, ya está hecho desde el blanqueo.",
+      "p": "Entran 500 g de golpe y enfrían el aceite: por eso la costra tarda en formarse y el mando se queda en el {8} hasta que doren.\n\nLa superficie, seca por el reposo, forma la costra crujiente. El interior no necesita más cocción: ya está hecho desde el blanqueo.",
       "s": 420,
-      "saco": "la patata, dorada y crujiente, a un plato con papel",
+      "saco": "la patata, al plato con papel nuevo",
       "t": "2ª fritura (crocante)",
       "tapa": "sin tapa"
     },
@@ -375,11 +381,11 @@
       "holgura": "critico",
       "id": "escurrir-salar-patata",
       "junto": null,
-      "meto": "la patata de la segunda fritura + 2 g de sal",
+      "meto": "la patata recién frita + el platito: 2 g de sal",
       "min": 2,
-      "nota": "Sal en caliente, recién salida del aceite: se pega mejor a la costra porosa.",
+      "nota": "Sala nada más sacarla: en caliente la sal se agarra.",
       "off": 40,
-      "p": "A papel para escurrir el exceso de aceite y sal enseguida, mientras la costra sigue caliente y porosa: es cuando mejor se agarra. Fría, la sal rebota en la superficie ya sellada.",
+      "p": "El papel se lleva el aceite que sobra. La sal va enseguida, con la costra aún caliente y porosa, que es cuando mejor se agarra; en frío rebota en la superficie ya sellada.",
       "s": 120,
       "saco": "la patata, a los platos",
       "t": "Escurrir y salar la patata",
@@ -392,14 +398,14 @@
       "holgura": "flexible",
       "id": "bajar-al-7",
       "junto": "escurrir-salar-patata",
-      "meto": "nada: los 500 ml de aceite de girasol solos",
+      "meto": "",
       "min": 2,
-      "nota": "Baja del {8} al {7} en cuanto salga la patata. Los huevos van al {7}, no al {8}.",
+      "nota": "En cuanto salga la patata: los huevos van a este fuego, no al {8}.",
       "off": 40,
-      "p": "Dos minutos de escurrir y salar con la sartén vacía al {8} son dos minutos de aceite degradándose. Y aquí además interesa bajar, porque los huevos se fríen al {7} y no al {8}: a temperatura de patata la clara se tuesta antes de que la yema se caliente, y salen con la puntilla quemada. Por eso el mando baja del {8} al {7} y ahí se queda: en lo que escurres y cascas el primer huevo, el aceite se asienta en el punto justo.",
+      "p": "Dos minutos de escurrir y salar con la sartén vacía al {8} son dos minutos de aceite degradándose.\n\nAdemás los huevos se fríen al {7} y no al {8}: a temperatura de patata la clara se tuesta antes de que la yema se caliente, y salen con la puntilla quemada.\n\nMientras escurres y salas la patata, el aceite se asienta en su punto.",
       "s": 120,
       "saco": "",
-      "t": "Bajar al {7} mientras escurres",
+      "t": "Bajar al {7}",
       "tapa": "sin tapa"
     },
     {
@@ -425,11 +431,11 @@
       "holgura": "critico",
       "id": "freir-huevos",
       "junto": null,
-      "meto": "los huevos de la huevera, la mitad en cada tanda, en el mismo aceite de girasol",
+      "meto": "la huevera: la mitad de los huevos",
       "min": 3,
-      "nota": "60 segundos de fritura por tanda, ni uno más: puntilla hecha y yema líquida. Echa aceite por encima de la clara con una cuchara.",
+      "nota": "Baña la clara con aceite, a cucharadas. Fuera con puntilla y yema líquida.",
       "off": 42,
-      "p": "En la misma sartén y el mismo aceite, al {7}, de dos en dos porque cuatro juntos no dejan sitio para que la clara suba con puntilla. Sesenta segundos de fritura por tanda y ni uno más: es lo que tarda la clara en cuajar y el borde en encresparse, y lo justo para que la yema siga entera y líquida. Eso es lo que hace que estos huevos sean rotos y no fritos — al romperlos la yema tiene que correr entre la patata, y si cuaja ya no hay salsa. Los treinta segundos entre tanda y tanda son para sacar y cascar, no para freír. El aceite reutilizado ya lleva el sabor de la patata, así que estos huevos no salen neutros.",
+      "p": "De dos en dos, porque cuatro juntos no dejan sitio para que la clara suba con puntilla. Sesenta segundos por tanda: lo que tarda la clara en cuajar y el borde en encresparse, con la yema aún entera y líquida.\n\nEso los hace rotos y no fritos: al romperlos la yema tiene que correr entre la patata. Con dos minutos en el aceite la yema cuaja y ya no hay salsa.\n\n- Los 30 segundos entre tandas son para sacar y cascar, no para freír.\n- El aceite ya sabe a patata: estos huevos no salen neutros.",
       "s": 180,
       "saco": "cada tanda, directa al plato",
       "t": "Freír los huevos en dos tandas",
@@ -445,11 +451,11 @@
       "holgura": "critico",
       "id": "montar",
       "junto": null,
-      "meto": "los dos platos: 80 g de jamón dorado y 200 g de pimientos de padrón, + 1 g de sal sobre el padrón y 1 g de sal sobre el resto",
+      "meto": "los dos platos: jamón y padrón + 1 g de sal sobre los huevos",
       "min": 2,
-      "nota": "El jamón y el padrón encima, al final: son lo único que no ha vuelto a tocar el fuego.",
+      "nota": "Rompe las yemas sobre la patata. Jamón y padrón encima, lo último.",
       "off": 45,
-      "p": "Con la patata y el huevo ya en los platos, el jamón y los pimientos de padrón por encima, 1 g de sal sobre el padrón y la última pizca sobre el resto. El jamón lleva trece minutos esperando y el padrón nueve, pero ninguno de los dos suelta líquido cerca, así que llegan al plato como salieron de la sartén.",
+      "p": "El jamón lleva trece minutos esperando y el padrón nueve, pero ninguno suelta líquido, así que llegan al plato como salieron de la sartén.\n\nVan encima y al final: cualquier cosa sobre el jamón lo aplastaría contra el plato y perdería el crujiente de los bordes.",
       "s": 120,
       "saco": "todo, a los platos",
       "t": "Montar y sal final",
@@ -465,39 +471,23 @@
   "porque": [
     [
       "Doble fritura",
-      "Una sola fritura obliga a elegir entre patata cocida por dentro o costra por fuera. Blanqueando primero a temperatura baja y subiendo después a temperatura alta se consiguen las dos cosas sin quemar nada."
+      "Una sola fritura obliga a elegir entre patata cocida por dentro o costra por fuera. Blanqueando primero a temperatura baja y subiendo después se consiguen las dos cosas sin quemar nada."
     ],
     [
       "El aceite se reutiliza, no se cambia",
-      "El mismo aceite que blanquea, después de subir de potencia, dora. Y el mismo, ya con sabor a patata, fríe los huevos al final: nada se desperdicia y el sabor se acumula."
-    ],
-    [
-      "Jamón rasgado, no cortado",
-      "El borde irregular de rasgar a mano da más superficie de contacto con la sartén que un corte limpio de cuchillo, y dora en manchas en vez de en una lámina pareja."
-    ],
-    [
-      "Sal en dos momentos",
-      "2 g sobre la patata recién escurrida, cuando la costra caliente y porosa la retiene mejor; 1 g al final, sobre el conjunto ya montado, para que también se note en el huevo y el jamón, que no han pasado por la sal de la patata."
-    ],
-    [
-      "El jamón, lo último que toca el plato",
-      "No vuelve al fuego después de dorarse, así que entra el último: cualquier otra cosa encima lo aplastaría contra el plato y perdería el crujiente de los bordes."
-    ],
-    [
-      "Pimientos de padrón, en el hueco de la sartén pequeña",
-      "Libre desde que sale el jamón en el minuto 32 hasta el montaje en el 45, ese tiempo ya existía en el plan: los pimientos entran ahí sin sumar ni un minuto al total."
-    ],
-    [
-      "La sal del padrón, solo al servir",
-      "Echada mientras aún están en la sartén, la sal saca agua por ósmosis y los ablanda; salados al final y ya fuera del fuego, se quedan tostados."
+      "El mismo aceite blanquea, dora después de subir de potencia y, ya con sabor a patata, fríe los huevos al final: nada se desperdicia y el sabor se acumula."
     ],
     [
       "Con la sartén grande vacía, nunca al {8}",
-      "El girasol humea sobre los 225 °C y una sartén con 500 ml al {8} y nada dentro llega ahí en un par de minutos. No es solo humo: el aceite degradado coge un sabor rancio que se lleva después a la segunda fritura y a los huevos, que se hacen en esa misma grasa. Subir por escalones mientras reposa y bajar del {8} al {7} mientras escurres cuesta unos pocos gestos y salva el aceite del plato entero. Y de paso la subida al {8} se hace justo antes de usarla, que es cuando sirve."
+      "El girasol humea sobre los 225 °C, y 500 ml al {8} sin nada dentro llegan ahí en un par de minutos. Ese aceite coge un sabor rancio que acaba en la segunda fritura y en los huevos: por eso sube por escalones y baja del {8} al {7} mientras escurres."
     ],
     [
-      "Sesenta segundos de huevo, no dos minutos",
-      "Dos minutos en aceite al {7} cuajan la yema, y unos huevos rotos con la yema cuajada son huevos fritos con patatas al lado: se rompen y no pasa nada. El sentido del plato es que la yema corra y haga de salsa sobre la patata crujiente, y eso pide sacarlos cuando la clara acaba de cuajar y el borde está encrespado, sobre el minuto. Los treinta segundos entre tandas son de manos, no de fuego."
+      "Sal en dos momentos",
+      "2 g sobre la patata recién escurrida, cuando la costra caliente y porosa la retiene mejor; 1 g al final sobre los huevos, que no han pasado por esa sal. El jamón ya trae la suya y el padrón sale salado de la sartén."
+    ],
+    [
+      "El padrón, en el hueco de la sartén pequeña",
+      "La sartén pequeña queda libre desde que sale el jamón, en el minuto 32, hasta el montaje del 45: los pimientos entran ahí sin sumar ni un minuto al total."
     ]
   ],
   "raciones": 2,
