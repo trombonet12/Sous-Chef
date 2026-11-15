@@ -215,8 +215,8 @@ Ronda 19 completada: los 9 lotes (`docs/analisis/legibilidad-crono-y-textos.md` 
 recetas con los dos textos y la auditoría final con Fable (`docs/analisis/auditoria-final-ronda19.md`, capturas
 `docs/capturas/auditoria-final-*.png`). Arreglados antes de publicar: B1 (voz con SEÑAL vacía), B2, H1 (el plan se
 adelanta aunque el carril tuviera hueco, anexo de ADR-0018), H2, R-H1 a R-H10 (emperador a 60 °C en el centro),
-M1-M4, M6-M10, M12-M14 y L4. Publicación v1.8: `versionMinor=8` y push a main; publica el workflow (GitHub, pista
-interna y prueba cerrada). Siguiente: lo de «Para la 1.9» en Problemas conocidos y probar en el móvil.
+M1-M4, M6-M10, M12-M14 y L4. **v1.8.0 publicada** el 2026-11-15 por el workflow (GitHub con APK, AAB y checksums; pista
+interna y prueba cerrada de Play). Siguiente: lo de «Para la 1.9» en Problemas conocidos y probar en el móvil.
 
 v1.7.18 publicada: GitHub, pista interna y promoción automática a la prueba cerrada (Alpha, versionCode 282). El
 primer intento (v1.7.17) falló en R8 por `review-ktx` (`-dontwarn` de `NoNullnessRewrite` en `proguard-rules.pro`);
