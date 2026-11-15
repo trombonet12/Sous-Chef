@@ -77,7 +77,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Ragú de carne picada con berenjena dorada aparte, bechamel casera y placas precocidas, para cuatro buenos platos en la fuente de 28×20, con cuatro capas de cuatro placas. La dificultad está en que ragú, bechamel y placas lleguen a la vez al minuto 97: las placas se remojan diez minutos en agua caliente justo antes de montar, ni antes ni después.",
+  "descripcion": "Ragú de carne picada con berenjena dorada aparte, bechamel casera y placas precocidas: cuatro buenos platos en la fuente de 28×20. Lo difícil: ragú, bechamel y placas llegan a la vez al minuto 97.",
   "escala": {
     "max": 4,
     "min": 4,
@@ -214,7 +214,7 @@
       "n": "FUENTE"
     }
   ],
-  "lectura": "El camino largo va por la sartén honda y luego por la mesa y el horno: 17 de cortar + 1 de aceite + 13 de sofrito + 1 de ajo + 18 de carne + 5 de vino + 5 de tomate + 30 de chup-chup + 7 de berenjena + 9 de montaje + 30 de horno + 5 de grill + 20 de reposo = 161 minutos. La berenjena (del 17 al 33) y la bechamel (del 78 al 97) comparten la sartén y caben enteras dentro del ragú. Tres cosas tienen que llegar a la vez al minuto 97: el ragú, la bechamel y las placas, que salen del remojo justo entonces; por eso el agua se enciende en el 77 y no antes. Tres fuegos a la vez solo del minuto 78 al 87 (honda, sartén y olla); el horno se enciende en el 91.",
+  "lectura": "La cuenta, por la sartén honda, la mesa y el horno: 17 de cortar + 1 de aceite + 13 de sofrito + 1 de ajo + 18 de carne + 5 de vino + 5 de tomate + 30 de chup-chup + 7 de berenjena + 9 de montaje + 30 de horno + 5 de grill + 20 de reposo = 161 minutos.\n\n- La berenjena (del 17 al 33) y la bechamel (del 78 al 97) comparten la sartén y caben enteras dentro del ragú.\n- Tres fuegos a la vez solo del 78 al 87 (honda, sartén y olla); el horno se enciende en el 91.\n\nLo que gobierna el plan: ragú, bechamel y placas llegan juntos al minuto 97. Por eso el agua se enciende en el 77 y no antes: las placas salen del remojo justo entonces.",
   "mep": [
     {
       "l": [
@@ -247,7 +247,7 @@
         "<b>Taza de la bechamel</b> · 6 g de sal (1 cucharadita rasa y una pizca) + 0,6 g de nuez moscada (¼ de cucharadita, algo colmado). Entra en el minuto 85, con el último tercio de la leche."
       ],
       "orden": false,
-      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto: la verdura en el 18, la berenjena en el 19, el ajo en el 31, las especias del ragú en el 55, la harina en el 78 y la sal y la nuez moscada de la bechamel en el 85. El bol grande se usa dos veces: cruda y dorada.",
+      "porq": "Un recipiente solo se justifica cuando lo que guarda entra en un minuto distinto: la verdura en el 18, la berenjena en el 19, el ajo en el 31, las especias del ragú en el 55, la harina en el 78 y la sal y la nuez moscada en el 85. El bol grande se usa dos veces.",
       "t": "SEIS RECIPIENTES, SEIS MOMENTOS"
     },
     {
@@ -266,20 +266,20 @@
       "t": "ESTO NO NECESITA RECIPIENTE"
     }
   ],
-  "notaEscala": "Se queda en 4 raciones a propósito: el tamaño lo marca la fuente de 28×20 cm, con cuatro capas de cuatro placas y tres de ragú, y se corta en dos por dos. Con el relleno y la bechamel de ahora pasa de tres kilos: son cuatro platos generosos, de unos 800 g, y lo que sobre aguanta en la nevera. La sal, la pimienta, el orégano y la nuez moscada subieron menos que el resto. Escalar tampoco multiplica los tiempos: el ragú reduce peor cuanto más hay, y el horno apenas cambia con una sola fuente.",
+  "notaEscala": "- Se queda en 4 raciones a propósito: lo marca la fuente de 28×20 cm, con cuatro capas de cuatro placas y tres de ragú, y se corta en dos por dos.\n- Con el relleno y la bechamel de ahora pasa de tres kilos: son cuatro platos generosos, de unos 800 g, y lo que sobre aguanta en la nevera.\n- La sal, la pimienta, el orégano y la nuez moscada subieron menos que el resto.\n- Escalar tampoco multiplica los tiempos: el ragú reduce peor cuanto más hay, y el horno apenas cambia con una sola fuente.",
   "pasos": [
     {
       "carril": "mesa",
       "f": null,
       "holgura": "flexible",
       "id": "cortar",
-      "meto": "",
+      "meto": "150 g de zanahoria + 450 g de berenjena + 225 g de cebolla + 12 g de ajo",
       "min": 17,
-      "nota": "Zanahoria en dados de 3 mm, berenjena en dados de 1,5 cm, cebolla en dados de 4 mm y ajo picado de 1 mm, en ese orden. Saca la bandeja del horno: es donde se remojarán las placas.",
+      "nota": "Todo cortado y pesado, mantequilla en dados incluida.",
       "off": 0,
-      "p": "Zanahoria en dados de 3 mm, berenjena en dados de 1,5 cm, cebolla en dados de 4 mm cortando en perpendicular a las vetas y el ajo picado de 1 mm, en ese orden: de lo más seco a lo que más moja la tabla, y el ajo al final por el olor. Son diecisiete minutos porque hay la mitad más de verdura que picar. Pesa el resto, corta la mantequilla en dados de 2 cm y déjalo todo en su sitio, con el aceite ya en cada sartén en frío. Saca ahora la bandeja del horno y déjala en la encimera: en el minuto 87 es el recipiente del remojo, y desde el 91 el horno estará encendido.",
+      "p": "Se corta de lo duro y seco a lo que más moja la tabla, y el ajo al final por el olor. Son diecisiete minutos porque hay la mitad más de verdura que picar.\n\nLa bandeja del horno sale ya porque es el recipiente del remojo de las placas, y desde el minuto 91 el horno estará encendido.",
       "s": 1020,
-      "saco": "los recipientes llenos, la bandeja del horno fuera y la tabla libre",
+      "saco": "los recipientes llenos + la bandeja del horno, fuera + la tabla libre",
       "t": "Cortar y pesar",
       "tapa": null
     },
@@ -291,11 +291,11 @@
       "f": 6,
       "holgura": "flexible",
       "id": "aceite-ragu",
-      "meto": "los 45 ml de aceite de oliva, que ya están en la sartén honda en frío",
+      "meto": "la sartén honda: 45 ml de aceite",
       "min": 1,
-      "nota": "Enciende la sartén honda al {6}, en el fuego mediano.",
+      "nota": "",
       "off": 17,
-      "p": "Los 45 ml de aceite de oliva ya están en la sartén honda desde la preparación, así que solo giras el mando al {6} y esperas un minuto. La honda va en el fuego mediano porque el grande es para la sartén de la berenjena, que necesita más superficie caliente, y porque el ragú pasa de los dos kilos con el tomate dentro: en una sartén plana se saldría al remover.",
+      "p": "Esta sartén va en el fuego mediano: el grande es para la de la berenjena, que necesita más superficie caliente.\n\nLa honda es la que aguanta el ragú, que con el tomate pasa de los dos kilos: en una sartén plana se saldría al remover.",
       "s": 60,
       "saco": "",
       "t": "Calentar el aceite del ragú",
@@ -309,11 +309,11 @@
       "f": 7,
       "holgura": "flexible",
       "id": "aceite-berenjena",
-      "meto": "los 60 ml de aceite de oliva, que ya están en la sartén en frío",
+      "meto": "la sartén: 60 ml de aceite",
       "min": 2,
-      "nota": "Enciende la sartén al {7}, en el fuego grande. Está lista cuando el aceite ondula al inclinarla.",
+      "nota": "Listo cuando el aceite ondula al inclinar la sartén.",
       "off": 17,
-      "p": "Los 60 ml de aceite de oliva, en la sartén grande y al {7} durante dos minutos. La berenjena es una esponja: si entra en aceite frío lo bebe entero antes de empezar a dorar y queda grasienta. En aceite caliente la superficie se sella enseguida, absorbe mucho menos y empieza la reacción de Maillard. La señal es que el aceite ondule al inclinar la sartén.",
+      "p": "Esta sartén va en el fuego grande, el de más superficie caliente.\n\nLa berenjena es una esponja: si entra en aceite frío lo bebe entero antes de dorar y queda grasienta. En aceite caliente la superficie se sella enseguida, absorbe mucho menos y empieza la reacción de Maillard.",
       "s": 120,
       "saco": "",
       "t": "Calentar el aceite de la berenjena",
@@ -333,16 +333,16 @@
         },
         {
           "en": 720,
-          "t": "Destapa, remueve y vuelve a tapar: la cebolla tiene que estar translúcida"
+          "t": "Remueve, tapa: cebolla translúcida"
         }
       ],
       "holgura": "flexible",
       "id": "sofrito",
-      "meto": "el bol mediano: 225 g de cebolla en dados de 4 mm + 150 g de zanahoria en dados de 3 mm",
+      "meto": "el bol mediano: 225 g de cebolla + 150 g de zanahoria",
       "min": 13,
-      "nota": "Baja al {5} y tapa: suda en su vapor y no se dora. Destapa solo para remover.",
+      "nota": "Cebolla translúcida y blanda, sin dorar.",
       "off": 18,
-      "p": "Cebolla y zanahoria juntas. Baja al {5} y tapa: la tapa devuelve el vapor y la verdura se cuece en su propia agua en vez de tostarse, que es de donde sale el dulzor que equilibra la acidez del tomate. Son trece minutos y no once porque la capa de verdura es la mitad más gruesa y tiene más agua que soltar. Destapa solo para remover, cada cuatro minutos. Si a mitad ves el fondo seco y la cebolla cogiendo color en los bordes, es que la tapa no cierra bien.",
+      "p": "Del {6} al {5} y con tapa, la verdura se cuece en su propia agua en vez de tostarse, y de ahí sale el dulzor que equilibra la acidez del tomate.\n\nSon trece minutos y no once porque la capa de verdura es la mitad más gruesa y tiene más agua que soltar. Se remueve cada cuatro minutos.\n\nSi a mitad ves el fondo seco y la cebolla cogiendo color en los bordes, es que la tapa no cierra bien.",
       "s": 780,
       "saco": "",
       "t": "Sudar la verdura",
@@ -367,13 +367,13 @@
       ],
       "holgura": "ajustado",
       "id": "berenjena",
-      "meto": "el bol grande: 450 g de berenjena en dados de 1,5 cm",
+      "meto": "el bol grande: 450 g de berenjena",
       "min": 14,
-      "nota": "Sigue al {7}. Extiende los dados en una sola capa y no los toques cuatro minutos.",
+      "nota": "Una sola capa de dados, quietos hasta el primer aviso. Sin sal.",
       "off": 19,
-      "p": "Sigue al {7} y extiende los dados en una sola capa: con 450 g la sartén grande queda llena justa, y un dado encima de otro se cuece en vez de dorarse. No los toques en cuatro minutos: el dorado necesita contacto con el metal y superficie seca, y si remueves antes la berenjena suelta agua y se cuece gris. Son catorce minutos porque tantos dados le roban más calor al metal. No lleva sal: la sal saca agua del interior y la cocería en su jugo; ya la cogerá del ragú. Vuelve al bol grande, que ya está libre, y la sartén se limpia con papel porque es la de la bechamel.",
+      "p": "Con tanta berenjena la sartén grande queda llena justa: un dado encima de otro se cuece en vez de dorarse.\n\nEl dorado necesita contacto con el metal y superficie seca: si remueves antes del primer aviso, la berenjena suelta agua y se cuece gris.\n\nNo lleva sal porque saca agua del interior y la cocería en su jugo; ya la cogerá del ragú. Son catorce minutos porque tantos dados le roban más calor al metal. La sartén se limpia con papel porque es la de la bechamel.",
       "s": 840,
-      "saco": "la berenjena dorada, de vuelta al bol grande; apaga la sartén y pásale papel de cocina",
+      "saco": "la berenjena, al bol grande + apaga y limpia la sartén con papel",
       "t": "Dorar la berenjena",
       "tapa": "sin tapa"
     },
@@ -382,14 +382,14 @@
       "f": 5,
       "holgura": "critico",
       "id": "ajo",
-      "meto": "el platito: 12 g de ajo picado de 1 mm",
+      "meto": "el platito: 12 g de ajo",
       "min": 1,
-      "nota": "Sesenta segundos al {5} removiendo sin parar, y después entra la carne.",
+      "nota": "Huele a ajo, sin llegar a color.",
       "off": 31,
-      "p": "Quita la tapa y echa el ajo: sesenta segundos al {5} removiendo sin parar, lo que tarda el picado de 1 mm en soltar su aroma en la grasa. Entra aquí y no con la verdura porque trece minutos de sofrito lo habrían deshecho sin dejar rastro. La verdura húmeda que lo rodea es lo que impide que pase de tostado a quemado antes de que llegue la carne.",
+      "p": "Sin tapa y removiendo sin parar el minuto entero: es lo que tarda el picado de 1 mm en soltar su aroma en la grasa.\n\nEntra aquí y no con la verdura porque trece minutos de sofrito lo habrían deshecho sin dejar rastro.\n\nLa verdura húmeda que lo rodea impide que pase de tostado a quemado antes de que llegue la carne.",
       "s": 60,
       "saco": "la tapa, hasta el chup-chup",
-      "t": "El ajo",
+      "t": "Sofreír el ajo",
       "tapa": "tapa fuera"
     },
     {
@@ -398,24 +398,24 @@
       "hitos": [
         {
           "en": 180,
-          "t": "Ya está sellada por abajo: rómpela y remueve"
+          "t": "Rómpela y remueve: ya está sellada abajo"
         },
         {
           "en": 540,
-          "t": "Remueve y deshaz grumos; si hay caldo en el fondo, déjalo hervir"
+          "t": "Deshaz grumos; si hay caldo, déjalo hervir"
         },
         {
           "en": 960,
-          "t": "El fondo chisporrotea y no queda líquido: casi lista para el vino"
+          "t": "Mira el fondo: chisporrotea, sin líquido"
         }
       ],
       "holgura": "ajustado",
       "id": "carne",
-      "meto": "750 g de carne picada mixta, directa de su bandeja",
+      "meto": "la bandeja: 750 g de carne picada",
       "min": 18,
-      "nota": "Sube al {8} y aparta la verdura a un borde. Echa la carne, extiéndela y no la toques 3 minutos.",
+      "nota": "Verdura a un borde. Carne extendida, sin tocarla hasta el aviso.",
       "off": 32,
-      "p": "Sube al {8} y aparta la verdura y el ajo a un borde antes de echar la carne: así toca el metal y no el sofrito húmedo. Extiéndela y no la toques tres minutos, porque Maillard necesita superficie seca y contacto; si remueves antes, la carne suelta agua y se cuece gris. Con 750 g la carne cubre todo el fondo y suelta la mitad más de agua por la misma superficie: los dieciocho minutos dan para dorarla, deshacer los grumos y evaporar esa agua hasta que el fondo chisporrotee.",
+      "p": "Sube del {5} al {8} y aparta la verdura y el ajo a un borde antes de echar la carne: así toca el metal y no el sofrito húmedo.\n\nExtendida y quieta tres minutos, el Maillard tiene superficie seca y contacto; si la remueves antes suelta agua y se cuece gris.\n\nCon tanta carne cubre todo el fondo y suelta la mitad más de agua por la misma superficie: los dieciocho minutos dan para dorarla, deshacer grumos y evaporar esa agua hasta que el fondo chisporrotee.",
       "s": 1080,
       "saco": "su agua, evaporada",
       "t": "Dorar la carne",
@@ -426,11 +426,11 @@
       "f": 8,
       "holgura": "ajustado",
       "id": "vino",
-      "meto": "el vaso medidor: 180 ml de vino tinto",
+      "meto": "el vaso: 180 ml de vino tinto",
       "min": 5,
       "nota": "Rasca el fondo mientras hierve. Termina casi seco.",
       "off": 50,
-      "p": "Los 180 ml de vino de golpe, y rasca el fondo con la cuchara mientras hierve: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran. Termina casi seco, o el ragú sabrá a alcohol; con la mitad más de vino es un minuto más. Al {8} el vino hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo.",
+      "p": "El vino va de golpe sobre el fondo: ahí está pegado todo lo que ha dorado la carne, y el alcohol disuelve aromas que ni el agua ni la grasa arrastran.\n\nCon el fuego fuerte hierve nada más caer, que es lo que quieres; a fuego suave se quedaría crudo. Si queda líquido, el ragú sabrá a alcohol, y con la mitad más de vino hace falta un minuto más.",
       "s": 300,
       "saco": "el alcohol",
       "t": "Desglasar con el vino",
@@ -441,11 +441,11 @@
       "f": 8,
       "holgura": "flexible",
       "id": "tomate",
-      "meto": "600 g de tomate triturado + la taza del ragú: 10 g de sal + 1,5 g de pimienta negra + 1,5 g de orégano seco + 1 hoja de laurel",
+      "meto": "600 g de tomate triturado + la taza: 10 g de sal + 1,5 g de pimienta negra + 1,5 g de orégano seco + 1 hoja de laurel",
       "min": 5,
-      "nota": "Mantén el {8} hasta que hierva en toda la superficie, no solo en el centro.",
+      "nota": "Hierve en toda la superficie, no solo en el centro.",
       "off": 55,
-      "p": "El tomate entero y la taza del ragú encima. Mantén el {8} hasta que hierva en toda la superficie, no solo en el centro: eso indica que toda la masa está a temperatura y ya se puede bajar, y con 600 g frío encima de la carne tarda un minuto más. El orégano y el laurel entran ahora porque son secos y necesitan los treinta minutos de chup-chup en líquido caliente para abrirse; la sal también, para que llegue al interior de la carne.",
+      "p": "El tomate entero y la taza encima. El hervor en toda la superficie indica que toda la masa está a temperatura y ya se puede bajar; con tomate frío sobre la carne tarda un minuto más.\n\nOrégano y laurel entran ahora porque son secos y necesitan los treinta minutos de chup-chup en líquido caliente para abrirse; la sal también, para que llegue al interior de la carne.",
       "s": 300,
       "saco": "",
       "t": "Tomate y especias",
@@ -457,7 +457,7 @@
       "hitos": [
         {
           "en": 480,
-          "t": "Remueve raspando el fondo, que es donde se agarra"
+          "t": "Remueve raspando el fondo"
         },
         {
           "en": 960,
@@ -469,19 +469,19 @@
         },
         {
           "en": 1680,
-          "t": "Mira el espesor: tiene que sostenerse en la cuchara sin gotear"
+          "t": "Cuchara en alto: debe sostenerse sin gotear"
         }
       ],
       "holgura": "flexible",
       "id": "chup",
       "meto": "",
       "min": 30,
-      "nota": "Baja al {3} y apoya la tapa dejando un dedo de hueco. Aguanta de sobra: si vas tarde, roba tiempo aquí.",
+      "nota": "Burbujeo suave, sin que se agarre el fondo.",
       "off": 60,
-      "p": "Baja al {3} y apoya la tapa con un dedo de hueco: sale vapor suficiente para que el ragú concentre, pero no tanto como para que se pegue. Para una lasaña tiene que quedar más espeso que para una pasta, porque se va a sostener en capa entre dos placas: si queda caldoso, el líquido baja al fondo de la fuente y la porción se desmonta al servir. Son treinta minutos y no veinticinco porque hay la mitad más de líquido que evaporar por la misma superficie de sartén. Es el paso más flexible del plan y donde se recupera cualquier retraso.",
+      "p": "Del {8} al {3} y con la tapa apoyada con un dedo de hueco, sale vapor suficiente para que el ragú concentre pero no tanto como para que se pegue.\n\nPara una lasaña tiene que quedar más espeso que para una pasta, porque se sostiene en capa entre dos placas: si queda caldoso, el líquido baja al fondo de la fuente y la porción se desmonta al servir.\n\nSon treinta minutos y no veinticinco porque hay la mitad más de líquido que evaporar por la misma superficie.",
       "s": 1800,
       "saco": "vapor",
-      "t": "Chup-chup a medias",
+      "t": "Chup-chup del ragú",
       "tapa": "TAPA A MEDIAS"
     },
     {
@@ -492,14 +492,14 @@
       "f": 9,
       "holgura": "flexible",
       "id": "agua",
-      "meto": "2 l de agua, que ya están en la olla en frío",
+      "meto": "la olla: 2 l de agua",
       "min": 10,
-      "nota": "Enciende la olla al {9} y tápala, en el fuego pequeño. Tiene que humear con burbujas pequeñas en el fondo, sin llegar a hervir.",
+      "nota": "Humea y suelta burbujas pequeñas en el fondo, sin hervir.",
       "off": 77,
-      "p": "Los 2 l de agua ya están en la olla en frío; enciende al {9} y tapa. Diez minutos en el fuego pequeño la dejan muy caliente pero sin hervir, que es lo que pide el envase de las placas: agua caliente, no hirviendo. Hirviendo, la superficie de la placa se ablanda antes que el centro y se rompe al moverla. Arranca en el minuto 77 para que el remojo acabe en el 97, a la vez que el ragú y la bechamel.",
+      "p": "Esta olla va en el fuego pequeño. Diez minutos la dejan muy caliente pero sin hervir, que es lo que pide el envase de las placas: agua caliente, no hirviendo.\n\nHirviendo, la superficie de la placa se ablanda antes que el centro y se rompe al moverla.\n\nSe enciende en el minuto 77 para que el remojo acabe en el 97, a la vez que el ragú y la bechamel.",
       "s": 600,
       "saco": "",
-      "sinHitos": "Diez minutos tapada y al {9} sin nada que hacer: abrir solo retrasa el calor. No tiene que hervir, así que basta con que humee y salgan burbujas pequeñas del fondo.",
+      "sinHitos": "Abrir solo retrasa el calor. No tiene que hervir: basta con que humee y salgan burbujas pequeñas del fondo.",
       "t": "Agua para las placas",
       "tapa": "TAPA PUESTA"
     },
@@ -510,9 +510,9 @@
       "id": "roux",
       "meto": "75 g de mantequilla + el platito: 75 g de harina",
       "min": 4,
-      "nota": "Enciende la sartén al {4} y funde la mantequilla. Echa la harina de golpe y remueve tres minutos sin que coja color.",
+      "nota": "Harina de golpe sobre la mantequilla fundida. Rubio, sin color.",
       "off": 78,
-      "p": "Enciende la sartén limpia al {4} y funde los 75 g de mantequilla. Echa los 75 g de harina de golpe y remueve tres minutos con la cuchara de madera: es el tiempo que necesita el almidón para perder el sabor a harina cruda. Tiene que quedar una pasta rubia que huele a galleta, sin color; si se tuesta, la bechamel sale gris y amarga. Al {4} no hay riesgo de quemarla.",
+      "p": "La sartén, limpia y fría, se enciende al {4}: a esta potencia no hay riesgo de quemar el roux.\n\nTres minutos removiendo con cuchara de madera es lo que necesita el almidón para perder el sabor a harina cruda.\n\nTiene que quedar una pasta rubia que huele a galleta; si se tuesta, la bechamel sale gris y amarga.",
       "s": 240,
       "saco": "",
       "t": "Roux de la bechamel",
@@ -524,30 +524,30 @@
       "hitos": [
         {
           "en": 90,
-          "t": "Segundo tercio de la leche, sin dejar de remover"
+          "t": "Echa el segundo tercio y remueve"
         },
         {
           "en": 180,
-          "t": "El último tercio y la taza de sal y nuez moscada"
+          "t": "Echa el último tercio, sal y nuez moscada"
         },
         {
           "en": 480,
-          "t": "Remueve el fondo y las esquinas, que es donde se agarra"
+          "t": "Remueve el fondo y las esquinas"
         },
         {
           "en": 840,
-          "t": "Tiene que napar la cuchara como unas natillas ligeras: apaga"
+          "t": "Apaga cuando nape la cuchara"
         }
       ],
       "holgura": "ajustado",
       "id": "bechamel",
-      "meto": "1,25 l de leche fría (el brik entero y un vaso de otro), en tres veces + la taza de la bechamel: 6 g de sal + 0,6 g de nuez moscada",
+      "meto": "1,25 l de leche fría, en 3 veces + la taza: 6 g de sal + 0,6 g de nuez moscada",
       "min": 15,
-      "nota": "Sube al {6} y echa un tercio de la leche, removiendo hasta que no queden grumos. Tiene que quedar como natillas ligeras, no espesa.",
+      "nota": "Sin grumos y fluida, como natillas ligeras, no espesa.",
       "off": 82,
-      "p": "Sube al {6} y echa un tercio de la leche fría, removiendo hasta que se integre sin grumos antes del siguiente tercio: el roux caliente y la leche fría se mezclan sin apelmazarse porque el almidón se hincha despacio. Con 60 g por litro sale una bechamel fluida, como unas natillas ligeras, y es a propósito: la placa precocida termina de hidratarse en el horno bebiendo de ella, y una bechamel espesa dejaría las esquinas secas. Con un cuarto más de leche tarda tres minutos más en romper el hervor, que es cuando espesa del todo; la sartén grande la admite de sobra, con unos dos centímetros de fondo. Con leche desnatada espesa igual, porque lo hace el almidón y no la grasa; la grasa ya la ponen los 75 g de mantequilla.",
+      "p": "Sube del {4} al {6} y echa la leche fría en tercios, sin grumos antes del siguiente: el roux caliente y la leche fría se mezclan sin apelmazarse porque el almidón se hincha despacio.\n\nSale una bechamel fluida, a propósito: la placa precocida termina de hidratarse en el horno bebiendo de ella, y una espesa dejaría las esquinas secas.\n\nCon un cuarto más de leche tarda tres minutos más en hervir, que es cuando espesa del todo.\n\nLa leche desnatada espesa igual: lo hace el almidón, y la grasa la pone la mantequilla.",
       "s": 900,
-      "saco": "nada: apaga y la bechamel espera en la sartén",
+      "saco": "la bechamel, apagada, en la sartén",
       "t": "La leche, en tres veces",
       "tapa": "sin tapa"
     },
@@ -560,22 +560,22 @@
       "hitos": [
         {
           "en": 180,
-          "t": "Remueve las placas para que no se peguen entre ellas"
+          "t": "Remueve las placas: que no se peguen"
         },
         {
           "en": 420,
-          "t": "Remueve otra vez y separa las que estén juntas"
+          "t": "Remueve y separa las que estén juntas"
         }
       ],
       "holgura": "critico",
       "id": "remojo",
-      "meto": "los 2 l de agua caliente de la olla, a la bandeja del horno + 16 láminas de lasaña, una a una",
+      "meto": "la olla: 2 l de agua caliente + 16 láminas de lasaña",
       "min": 10,
-      "nota": "Apaga la olla, vierte el agua en la bandeja y sumerge las placas de una en una, sin amontonarlas. Al acabar, sácalas todas a un paño limpio.",
+      "nota": "Apaga la olla. Placas de una en una en el agua, sin amontonar.",
       "off": 87,
-      "p": "Apaga la olla y vierte el agua en la bandeja del horno, que es el único recipiente donde las placas caben planas. Sumérgelas de una en una para que el agua llegue a las dos caras; con dieciséis quedan medio montadas, así que remueve y sepáralas en cada aviso para que no se peguen. Diez minutos las dejan semirrígidas: se doblan sin romperse pero aún se sostienen, y terminan de hacerse en el horno con la bechamel. Al acabar sácalas todas a un paño limpio, en una sola capa: sumergidas siguen bebiendo agua, y las de la última capa se pasarían de punto mientras montas las primeras.",
+      "p": "Se apaga la olla y el agua pasa a la bandeja del horno, el único recipiente donde las placas caben planas; así el agua llega a las dos caras.\n\nCon dieciséis quedan medio montadas, y por eso se remueven y separan en cada aviso. Diez minutos las dejan semirrígidas: se doblan sin romperse y terminan de hacerse en el horno con la bechamel.\n\nAl acabar salen todas a un paño limpio, en una sola capa: sumergidas siguen bebiendo agua y las de la última capa se pasarían de punto mientras montas las primeras.",
       "s": 600,
-      "saco": "todas las placas, del agua a un paño limpio extendido, en una sola capa",
+      "saco": "las placas, a un paño limpio + la bandeja, vacía y seca",
       "t": "Remojar las placas",
       "tapa": null
     },
@@ -588,18 +588,18 @@
       "hitos": [
         {
           "en": 240,
-          "t": "Remueve con cuidado, por debajo, para no romper los dados"
+          "t": "Remueve por debajo, sin romper los dados"
         }
       ],
       "holgura": "ajustado",
       "id": "berenjena-ragu",
-      "meto": "el bol grande: 450 g de berenjena dorada",
+      "meto": "el bol grande: 450 g de berenjena",
       "min": 7,
-      "nota": "Sigue al {3}, quita la tapa y echa la berenjena. Remueve por debajo, sin aplastarla.",
+      "nota": "Dados enteros: remueve por debajo, sin aplastar.",
       "off": 90,
-      "p": "Sigue al {3}, quita la tapa y echa la berenjena dorada. Siete minutos destapado: el ragú termina de espesar y la berenjena coge sabor y sal sin deshacerse, porque su piel dorada aguanta poco tiempo de cocción. Si hubiera entrado al principio del chup-chup se habría disuelto en la salsa. Remueve por debajo con la cuchara, sin aplastar, y al final saca el laurel.",
+      "p": "Se quita la tapa y entra la berenjena dorada: siete minutos destapado, el ragú termina de espesar y la berenjena coge sabor y sal sin deshacerse, porque su piel dorada aguanta poco tiempo de cocción.\n\nSi hubiera entrado al principio del chup-chup se habría disuelto en la salsa. Al final se saca el laurel.",
       "s": 420,
-      "saco": "la hoja de laurel, a la basura; apaga",
+      "saco": "la hoja de laurel, fuera + la sartén honda, apagada",
       "t": "La berenjena al ragú",
       "tapa": "tapa fuera"
     },
@@ -610,12 +610,12 @@
       "id": "precalentar",
       "meto": "",
       "min": 15,
-      "nota": "Rejilla a media altura y horno a 200 °C, calor arriba y abajo, sin ventilador.",
+      "nota": "Rejilla a media altura, calor arriba y abajo, sin ventilador.",
       "off": 91,
-      "p": "Rejilla a media altura y horno a 200 °C, calor arriba y abajo y sin ventilador, que secaría la superficie antes de que el centro se calentara. Se enciende en el minuto 91 para que llegue a temperatura justo cuando terminas de montar: estos quince minutos no cuestan nada porque caen dentro del trabajo de los fuegos y de la mesa.",
+      "p": "Calor arriba y abajo y sin ventilador, que secaría la superficie antes de que el centro se calentara.\n\nSe enciende en el minuto 91 para que llegue a temperatura justo cuando terminas de montar: estos quince minutos no cuestan nada porque caen dentro del trabajo de los fuegos y de la mesa.",
       "s": 900,
       "saco": "",
-      "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro, y el trabajo está en los fuegos y en la mesa.",
+      "sinHitos": "El horno sube vacío y con la puerta cerrada: no hay nada que mirar dentro.",
       "t": "Precalentar a 200 °C",
       "tapa": null
     },
@@ -628,11 +628,11 @@
       "f": null,
       "holgura": "critico",
       "id": "capa1",
-      "meto": "la fuente de 28×20 cm: 3 cucharadas de bechamel en el fondo + 4 placas + ⅓ del ragú + ⅕ de la bechamel",
+      "meto": "la fuente: 3 cucharadas de bechamel + 4 placas + ⅓ del ragú + ⅕ de la bechamel",
       "min": 3,
-      "nota": "Bechamel fina en el fondo y cuatro placas que lo cubran sin huecos. Encima, un tercio del ragú y un quinto de la bechamel.",
+      "nota": "Cuatro placas cubren el fondo, sin huecos.",
       "off": 97,
-      "p": "Tres cucharadas de bechamel extendidas en el fondo, para que la primera placa no toque la fuente y se hidrate también por debajo. Coge cuatro placas del paño y cubre el fondo sin huecos, solapando como mucho un centímetro: en esta fuente caben justas cuatro por capa. Encima, un tercio del ragú, unos 550 g, bien extendido hasta las esquinas, y un quinto de la bechamel. Es un quinto y no un cuarto porque la de arriba se lleva dos quintos: cubrir la última capa y el gratinado es lo que pide más.",
+      "p": "Un poco de bechamel en el fondo evita que la primera placa toque la fuente: así se hidrata también por debajo.\n\nEn esta fuente caben justas cuatro placas por capa, solapando como mucho un centímetro. El ragú, unos 550 g, se extiende bien hasta las esquinas.\n\nEsta capa lleva menos bechamel que la de arriba, que se lleva dos quintos: la última capa y el gratinado son las que más piden.",
       "s": 180,
       "saco": "",
       "t": "Fondo y capa 1",
@@ -645,9 +645,9 @@
       "id": "capa23",
       "meto": "4 placas + ⅓ del ragú + ⅕ de la bechamel, dos veces",
       "min": 4,
-      "nota": "Cuatro placas, un tercio del ragú y un quinto de la bechamel; y otra vez lo mismo. Aprieta un poco cada capa con la palma.",
+      "nota": "Cada capa, apretada con la palma.",
       "off": 100,
-      "p": "Dos veces lo mismo: cuatro placas, un tercio del ragú y un quinto de la bechamel. Aprieta cada capa de placas con la palma antes de echar el ragú, para sacar el aire: el aire atrapado entre capas hace que la lasaña se separe en láminas al cortarla. Reparte el ragú hasta los bordes, porque la esquina sin salsa es la que se queda dura. Con más ragú por capa son cuatro minutos. Al acabar tienen que quedar en la sartén unos dos quintos de bechamel.",
+      "p": "Cada capa de placas se aprieta con la palma antes de echar el ragú, para sacar el aire: el aire atrapado entre capas hace que la lasaña se separe en láminas al cortarla.\n\nEl ragú llega hasta los bordes, porque la esquina sin salsa es la que se queda dura.\n\nAl acabar tienen que quedar en la sartén unos dos quintos de bechamel. Con más ragú por capa son cuatro minutos.",
       "s": 240,
       "saco": "",
       "t": "Capas 2 y 3",
@@ -660,9 +660,9 @@
       "id": "cubrir",
       "meto": "las 4 últimas placas + los ⅖ de bechamel que quedan + 150 g de queso rallado",
       "min": 2,
-      "nota": "Las cuatro últimas placas, todo el resto de la bechamel hasta cubrirlas del todo, bordes incluidos, y el queso por encima hasta las esquinas.",
+      "nota": "Ninguna placa al aire. Queso hasta las esquinas.",
       "off": 104,
-      "p": "Las cuatro últimas placas y todo el resto de la bechamel encima, unos dos quintos, cubriéndolas del todo, bordes incluidos: la placa que queda al aire en el horno se seca y se pone dura como un cartón. Encima, los 150 g de queso rallado hasta las esquinas, para que el gratinado llegue a toda la superficie. La fuente queda llena casi hasta arriba: si no queda un dedo libre hasta el borde, la bandeja de debajo en el horno es imprescindible.",
+      "p": "La placa que queda al aire en el horno se seca y se pone dura como un cartón: por eso la bechamel las cubre del todo, bordes incluidos.\n\nEl queso llega a los rincones para que el gratinado alcance toda la superficie.\n\nLa fuente queda llena casi hasta arriba: si no queda un dedo libre hasta el borde, la bandeja de debajo en el horno es imprescindible.",
       "s": 120,
       "saco": "",
       "t": "Última capa y queso",
@@ -677,20 +677,20 @@
       "hitos": [
         {
           "en": 900,
-          "t": "Mira por el cristal, sin abrir: los bordes tienen que empezar a burbujear"
+          "t": "Mira sin abrir: los bordes ya burbujean"
         },
         {
           "en": 1680,
-          "t": "Pincha el centro con un cuchillo: entra sin resistencia. Si el queso ya está dorado, sáltate el grill"
+          "t": "Pincha el centro: entra sin resistencia"
         }
       ],
       "holgura": "ajustado",
       "id": "hornear",
-      "meto": "la fuente, sobre la bandeja del horno ya vacía y seca, a media altura, sin tapar",
+      "meto": "la fuente sobre la bandeja seca",
       "min": 30,
-      "nota": "Mete la fuente sobre la bandeja, a media altura, y cierra. Al final tiene que burbujear por los bordes y el cuchillo entrar sin resistencia.",
+      "nota": "A media altura. Burbujea por los bordes y el cuchillo entra sin resistencia.",
       "off": 106,
-      "p": "A media altura y sin tapar, para que el vapor salga y el queso se funda en vez de cocerse. Treinta minutos a 200 °C son los que necesitan las placas para terminar de hidratarse con la bechamel y el centro para llegar a hervir; con más relleno por capa la lasaña es más alta y el calor tarda cinco minutos más en llegar al centro. Va sobre la bandeja porque, con la fuente llena casi hasta el borde, la bechamel puede rebosar al burbujear y quemarse en el suelo del horno. Al final, si el cuchillo entra sin resistencia hasta el fondo, las placas están hechas.",
+      "p": "A media altura y sin tapar, para que el vapor salga y el queso se funda en vez de cocerse.\n\nLas placas terminan de hidratarse con la bechamel y el centro tiene que llegar a hervir; con más relleno por capa la lasaña es más alta y el calor tarda cinco minutos más en llegar.\n\nVa sobre la bandeja porque, con la fuente llena casi hasta el borde, la bechamel puede rebosar al burbujear y quemarse en el suelo del horno.",
       "s": 1800,
       "saco": "",
       "t": "Hornear a 200 °C",
@@ -702,18 +702,18 @@
       "hitos": [
         {
           "en": 180,
-          "t": "Mira por el cristal cada 20 segundos: sácala en cuanto esté dorada"
+          "t": "Mira cada 20 segundos: fuera si está dorada"
         }
       ],
       "holgura": "critico",
       "id": "gratinar",
-      "meto": "la fuente con su bandeja, un piso más arriba",
+      "meto": "la fuente con su bandeja",
       "min": 5,
-      "nota": "Si el queso ya salió dorado del horno, sáltate este paso. Si no, sube la fuente un piso y pon el grill fuerte, sin irte: entre dorado y quemado hay 40 segundos.",
+      "nota": "Si el queso ya está dorado, sáltalo. Si no, un piso arriba y grill fuerte.",
       "off": 136,
-      "p": "Si el queso ya salió dorado del horno, sácala y sáltate este paso: treinta minutos a 200 °C sin tapar a veces bastan. Si no, sube la fuente con su bandeja un piso y pon el grill fuerte. Cinco minutos sin salir de la cocina: el queso pasa de dorado a quemado en cuarenta segundos, porque el grill calienta solo la superficie y muy cerca.",
+      "p": "El grill calienta solo la superficie y muy cerca: el queso pasa de dorado a quemado en cuarenta segundos, y por eso son cinco minutos sin salir de la cocina.\n\nSi el queso sale dorado del horno no hace falta: a veces bastan los treinta minutos sin tapar.",
       "s": 300,
-      "saco": "la fuente, fuera del horno, a la encimera. Apaga el horno",
+      "saco": "la fuente, a la encimera + apaga el horno",
       "t": "Gratinar",
       "tapa": null
     },
@@ -726,22 +726,22 @@
       "hitos": [
         {
           "en": 600,
-          "t": "Toca el centro con el dorso del cuchillo: si aún burbujea, espera"
+          "t": "Toca el centro: si burbujea, espera"
         },
         {
           "en": 1080,
-          "t": "Vuelve a tocar el centro: tiene que estar caliente, no burbujeando"
+          "t": "Toca otra vez: caliente, sin burbujear"
         }
       ],
       "holgura": "flexible",
       "id": "reposo",
-      "meto": "la fuente recién salida, sobre la encimera",
+      "meto": "la fuente, recién salida del horno",
       "min": 20,
-      "nota": "Veinte minutos sin cortarla. Aguanta hasta 30 si vas tarde.",
+      "nota": "No la cortes todavía: el centro tiene que dejar de burbujear.",
       "off": 141,
-      "p": "Veinte minutos sobre la encimera. No es opcional: la bechamel solo cuaja cuando baja de unos 80 °C, y con la fuente llena hasta arriba y una bechamel fluida el centro tarda más en llegar que en una lasaña baja. Hasta entonces es un líquido que corre entre las placas. Si cortas al salir del horno, la porción se desliza y el ragú se escapa por los lados; si esperas, sale entera con sus capas a la vista. Corta con un cuchillo grande, de una vez hasta el fondo, en tres por dos.",
+      "p": "La bechamel solo cuaja cuando baja de unos 80 °C, y con la fuente llena hasta arriba y una bechamel fluida el centro tarda más en llegar que en una lasaña baja. Hasta entonces es un líquido que corre entre las placas.\n\nSi cortas al salir del horno, la porción se desliza y el ragú se escapa por los lados; si esperas, sale entera con sus capas a la vista.\n\nEl centro se toca con el dorso del cuchillo, nunca con el dedo. Se corta con un cuchillo grande, de una vez hasta el fondo, en cuatro porciones (dos por dos).",
       "s": 1200,
-      "saco": "la lasaña, cortada en 4 porciones (dos por dos), a los platos",
+      "saco": "4 porciones, a los platos",
       "t": "Reposo fuera del horno",
       "tapa": null
     }
@@ -755,27 +755,23 @@
   "porque": [
     [
       "Cuatro capas de cuatro placas, la mitad más de relleno y un cuarto más de bechamel",
-      "Es lo que pidió la fuente la primera vez que Joan la hizo: caben cuatro placas por capa, así que son dieciséis, y el relleno y la bechamel se quedaron cortos. La bechamel de más va casi toda arriba, que es donde faltó: la última capa y el gratinado. Con todo, la fuente de 28×20 queda llena hasta cerca del borde, y por eso hornea sobre la bandeja. La media bandeja de carne que sobra se congela."
-    ],
-    [
-      "Placas: diez minutos en agua caliente, no hirviendo",
-      "Es lo que pide el envase de El Pavo, y tiene su física: el agua caliente hidrata la placa de fuera adentro hasta dejarla semirrígida, y el resto lo hace la bechamel en el horno. Hirviendo, la superficie se ablanda antes que el centro y se rompe al moverla; más de diez minutos y la lasaña queda pastosa. Por eso el remojo acaba justo cuando empieza el montaje."
+      "Es lo que pidió la fuente la primera vez que Joan la hizo: caben cuatro placas por capa, así que son dieciséis, y el relleno y la bechamel se quedaron cortos. La bechamel de más va casi toda arriba, donde faltó. La media bandeja de carne que sobra se congela."
     ],
     [
       "La berenjena, aparte y al final",
-      "Dorada en sartén con el aceite ya caliente, sin sal, para que la superficie se selle y tenga Maillard en vez de cocerse en su agua. Entra al ragú los últimos siete minutos: en un chup-chup entero se habría disuelto en la salsa y no se notaría como trozo."
+      "Dorada en sartén con el aceite ya caliente, sin sal, para que se selle y haga Maillard en vez de cocerse en su agua. Entra al ragú los últimos siete minutos: en un chup-chup entero se habría disuelto en la salsa y no se notaría como trozo."
     ],
     [
       "Bechamel fluida, 60 g por litro",
-      "La placa precocida sigue absorbiendo líquido en el horno, y lo bebe de la bechamel. Con la proporción de cubrir, de 80-100 g por litro, la lasaña saldría más compacta y seca; con 60 g sale cremosa y aun así cuaja en el reposo."
+      "La placa precocida sigue absorbiendo líquido en el horno y lo bebe de la bechamel. Con la proporción de cubrir, de 80-100 g por litro, la lasaña saldría más compacta y seca; con 60 g sale cremosa y aun así cuaja en el reposo."
     ],
     [
       "Bechamel en la sartén de la berenjena",
-      "Un recipiente menos que lavar: la sartén queda libre en el minuto 33 y no vuelve a hacer falta hasta el 78. Además, en una sartén ancha la leche se calienta antes y espesa pareja, sin la capa pegada al fondo de un cazo estrecho; con 1,25 l sigue sobrando sartén."
+      "Un recipiente menos que lavar: la sartén queda libre en el minuto 33 y no vuelve a hacer falta hasta el 78. Además, en una sartén ancha la leche se calienta antes y espesa pareja, sin la capa pegada al fondo de un cazo estrecho."
     ],
     [
       "Ragú con 600 g de tomate, no 800",
-      "Para una lasaña el ragú tiene que sostenerse en capa entre dos placas. Son los mismos cuatro de tomate por cada cinco de carne de siempre; con el bote entero quedaría caldoso, el líquido bajaría al fondo de la fuente y la porción se desmontaría al servir."
+      "Para una lasaña el ragú tiene que sostenerse en capa entre dos placas. Son los mismos cuatro de tomate por cada cinco de carne de siempre; con el bote entero quedaría caldoso y la porción se desmontaría al servir."
     ],
     [
       "Solo queso rallado",
@@ -783,11 +779,7 @@
     ],
     [
       "Sin nata, sin albahaca y sin pimentón",
-      "La bechamel ya aporta toda la grasa láctea que admite el plato; con nata quedaría pesado. La albahaca seca no sobrevive a treinta minutos de chup-chup ni a otros treinta y cinco de horno: el orégano y el laurel sí. El pimentón picante pelearía con la nuez moscada de la bechamel."
-    ],
-    [
-      "Veinte minutos de reposo",
-      "La bechamel es leche espesada con almidón, y solo cuaja al bajar de unos 80 °C. Con la fuente llena hasta arriba el centro tarda más en enfriar. Cortada al salir del horno corre entre las placas; reposada, la porción sale entera."
+      "La bechamel ya aporta toda la grasa láctea que admite el plato: con nata quedaría pesado. La albahaca seca no sobrevive a treinta minutos de chup-chup ni a otros treinta de horno; el orégano y el laurel sí. El pimentón picante pelearía con la nuez moscada."
     ]
   ],
   "raciones": 4,
