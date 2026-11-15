@@ -1,0 +1,11 @@
+{
+  "version": "1.8",
+  "titulo": "Sous Chef 1.8: la cocina, de un vistazo",
+  "lineas": [
+    { "texto": "Cronómetro nuevo: nada se mueve y cada carril dice qué metes, a qué fuego y qué mirar." },
+    { "texto": "Arriba, «Ahora» y «Luego»: qué arrancar ya y qué viene después, con su hora." },
+    { "texto": "Las horas siguen tu ritmo: si vas adelantado o tarde, el plan y los avisos se mueven contigo." },
+    { "texto": "Las 33 recetas, reescritas: órdenes cortas en la cocina y la explicación completa en la ficha.", "destino": "recetas" },
+    { "texto": "Ficha con los pasos desplegados, un solo diagrama de tiempos y hoja de cocina de 1-2 páginas para imprimir." }
+  ]
+}
