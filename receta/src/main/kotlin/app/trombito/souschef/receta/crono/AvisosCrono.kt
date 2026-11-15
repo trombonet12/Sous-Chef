@@ -146,7 +146,7 @@ object AvisosCrono {
                 listOf(
                     Pendiente(
                         Evento(plano.sugeridoMs(e, p), TipoAviso.TOCA_EMPEZAR, carril, p.t),
-                        "Toca empezar: ${p.t}",
+                        OrdenPaso.de(p).avisoEmpezar(),
                         null,
                     ),
                 )
@@ -173,7 +173,8 @@ object AvisosCrono {
                     Pendiente(Evento(ms, TipoAviso.HITO, carril, p.t), h.t, i)
                 }
             }
-        val cero = if (ec.aFin) null else Pendiente(Evento(fin, TipoAviso.FIN, carril, p.t), "${p.t}: hecho", null)
+        val textoFin = OrdenPaso.de(p).avisoHecho()
+        val cero = if (ec.aFin) null else Pendiente(Evento(fin, TipoAviso.FIN, carril, p.t), textoFin, null)
         return hitos + listOfNotNull(cero)
     }
 }

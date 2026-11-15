@@ -1,6 +1,6 @@
 package app.trombito.souschef.ui.crono.voz
 
-import app.trombito.souschef.receta.Potencia
+import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.receta.voz.OrdenVoz
 import app.trombito.souschef.ui.crono.AccionCarril
 import app.trombito.souschef.ui.crono.VistaCarril
@@ -8,7 +8,8 @@ import app.trombito.souschef.ui.crono.elegirFoco
 
 /**
  * Frases cortas que el cronómetro dice en voz alta (TTS es-ES) a partir del modelo de vista. Puro: sin Android,
- * sin Compose, sin reloj. Cada frase cabe en [MAX_FRASE] caracteres y no lleva emojis ni símbolos de pantalla.
+ * sin Compose, sin reloj. Las frases cortas caben en [MAX_FRASE] caracteres y no llevan emojis ni símbolos de
+ * pantalla; la orden compuesta del paso ([OrdenPaso], ADR-0017) que dicen «qué toca» e «info» no se corta.
  */
 object RespuestasVoz {
     const val NO_ENTENDIDO = "No te he entendido."
@@ -39,33 +40,58 @@ object RespuestasVoz {
         val v = vistas.firstOrNull { it.id == id } ?: return "Todo terminado."
         val nombre = nombreHablado(v.nombre)
         val titulo = v.titulo.orEmpty()
-        val frase =
-            when (v.accion) {
-                AccionCarril.EMPEZAR -> "Toca empezar $titulo en $nombre."
-                AccionCarril.BLOQUEADO -> "$nombre: espera a ${v.bloqueadoPor ?: "otro carril"}."
-                AccionCarril.HECHO -> "$nombre: $titulo. Ya está, di hecho."
-                else -> "$nombre: $titulo.${detalles(v)}"
+        val orden = ordenDe(v)
+        return when (v.accion) {
+            AccionCarril.EMPEZAR -> {
+                unir("Toca empezar $titulo en $nombre.", orden.detalleHablado(v.cocina, ::duracionHablada))
             }
-        return limitar(frase)
+
+            AccionCarril.BLOQUEADO -> {
+                limitar("$nombre: espera a ${v.bloqueadoPor ?: "otro carril"}.")
+            }
+
+            AccionCarril.HECHO -> {
+                unir(
+                    "${orden.tituloHablado(nombre, v.cocina) ?: "$nombre."} Ya está, di hecho.",
+                    orden.sacaHablado(v.cocina),
+                )
+            }
+
+            else -> {
+                orden.voz(nombre, v.cocina, ::duracionHablada, conDuracion = false)
+            }
+        }
     }
 
-    /** El porqué (`p`) del paso actual, sin marcas; recortado por palabras a [MAX_PORQUE] caracteres. */
+    /**
+     * El porqué (`p`) del paso actual: su primer párrafo (hasta la primera línea en blanco), sin marcas; recortado por
+     * palabras a [MAX_PORQUE] caracteres. El resto de `p` (listas, más párrafos) es para la ficha.
+     */
     fun porQue(v: VistaCarril): String {
-        val texto = v.porque?.let(::sinMarcas)?.takeIf { it.isNotEmpty() } ?: return SIN_PORQUE
+        val texto =
+            v.porque
+                ?.let { parrafoNuevo.split(it.trim(), 2).first() }
+                ?.let(::sinMarcas)
+                ?.takeIf { it.isNotEmpty() }
+                ?: return SIN_PORQUE
         return limitar(cerrar(texto), MAX_PORQUE)
     }
 
-    /** Ficha hablada del paso: título, nota, fuego y tapa, y el tiempo (hasta [MAX_INFO] caracteres). */
+    /**
+     * Ficha hablada del paso, sin cortarse: la orden compuesta (título, lo que se mete, fuego y tapa, y la duración si
+     * aún no corre), la señal, cómo está el carril y, si ya venció, lo que se saca.
+     */
     fun info(v: VistaCarril): String {
         val nombre = nombreHablado(v.nombre)
         if (v.terminado) return "$nombre: terminado."
-        val cola = detalles(v) + " " + estadoHablado(v)
-        val cabeza =
-            listOfNotNull(
-                "$nombre: ${v.titulo.orEmpty()}",
-                v.nota?.let(::sinMarcas)?.takeIf { it.isNotEmpty() },
-            ).joinToString(" ") { cerrar(it) }
-        return limitar(cabeza, MAX_INFO - cola.length) + cola
+        val orden = ordenDe(v)
+        val enMarcha = v.accion in setOf(AccionCarril.PAUSAR, AccionCarril.SEGUIR, AccionCarril.HECHO)
+        return listOfNotNull(
+            orden.voz(nombre, v.cocina, ::duracionHablada, conDuracion = !enMarcha),
+            orden.senalHablada(v.cocina),
+            estadoHablado(v),
+            orden.sacaHablado(v.cocina).takeIf { v.accion == AccionCarril.HECHO },
+        ).joinToString(" ")
     }
 
     /** Qué toca en un carril concreto (aunque otro esté en foco); si ya terminó, cómo está. */
@@ -89,7 +115,7 @@ object RespuestasVoz {
         lineas
             .map { it.trim() }
             .filter { it.isNotEmpty() }
-            .joinToString(" ") { limitar(cerrar(separadorAviso.replace(normalizarNombre(it), ". "))) }
+            .joinToString(" ") { limitar(cerrar(separadorAviso.replace(normalizarNombre(it), ". ")), MAX_AVISO) }
 
     /**
      * Confirmación de una orden ya ejecutada. [v] es la vista del carril afectado ANTES de ejecutarla (su `despues`
@@ -133,6 +159,9 @@ object RespuestasVoz {
 
 private const val MAX_FRASE = 120
 private const val MAX_PORQUE = 300
+
+/** Un carril puede avisar de lo que acaba (y lo que saca) y de lo que toca empezar (y lo que mete) en una línea. */
+private const val MAX_AVISO = 300
 internal const val MAX_INFO = 200
 private const val SEG_MINUTO = 60
 private const val SEG_DIEZ_MINUTOS = 600
@@ -140,24 +169,24 @@ private const val MEDIO_MINUTO = 30
 private const val SEPARADOR_PANTALLA = " · "
 private val separadorAviso = Regex("""[.!?]?\s+·\s+""")
 private val cierres = setOf('.', '!', '?')
+private val parrafoNuevo = Regex("""\R\s*\R""")
 
-private fun detalles(v: VistaCarril): String {
-    val partes = listOfNotNull(v.fuego?.let { "fuego ${Potencia.texto(it, v.cocina)}" }, textoTapa(v.tapa))
-    if (partes.isEmpty()) return ""
-    return " " + partes.joinToString(", ").replaceFirstChar { it.titlecase() } + "."
-}
+/** La orden compuesta del paso que enseña la vista (la voz no sabe la potencia del paso anterior: sin «4 → 5»). */
+private fun ordenDe(v: VistaCarril): OrdenPaso =
+    OrdenPaso(
+        titulo = v.titulo.orEmpty(),
+        meto = v.meto,
+        fuego = v.fuego,
+        tapa = v.tapa,
+        segundos = v.duracionS,
+        senal = v.nota,
+        saco = v.saco,
+    )
 
-/** Mismo criterio que `recursoTapa`, pero con el texto en castellano. */
-private fun textoTapa(tapa: String?): String? {
-    val t = tapa?.uppercase().orEmpty()
-    return when {
-        t.isBlank() -> null
-        "MEDIAS" in t -> "a medias"
-        "SIN" in t || "FUERA" in t -> "sin tapa"
-        "PUESTA" in t -> "tapada"
-        else -> null
-    }
-}
+private fun unir(
+    frase: String,
+    resto: String?,
+): String = if (resto == null) frase else "$frase $resto"
 
 private fun verboQuedar(segundos: Int): String = if (segundos == 1 || segundos == SEG_MINUTO) "queda" else "quedan"
 

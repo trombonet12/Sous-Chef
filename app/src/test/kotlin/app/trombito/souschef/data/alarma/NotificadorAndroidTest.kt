@@ -136,6 +136,35 @@ class NotificadorAndroidTest {
         }
 
     @Test
+    fun laLineaDelCarrilEsLaOrdenDeUnaLineaConLoQueSeMeteYElCambioDeFuego() =
+        runTest {
+            val canonica =
+                recetaCrono().copy(
+                    pasos =
+                        recetaCrono().pasos.map {
+                            val fritura = it.copy(t = "1ª fritura", meto = "la fuente: 500 g de patata", f = 7)
+                            if (it.id == "p2") fritura else it
+                        },
+                )
+            val e =
+                MotorCrono.hecho(
+                    MotorCrono.empezar(
+                        SesionCrono.abrir(SesionCrono.inicial(canonica, T0 + 15 * 60_000L, T0, 2), canonica, T0),
+                        canonica,
+                        "f0",
+                        T0,
+                    ),
+                    canonica,
+                    "f0",
+                    T0,
+                )
+            val carriles = ConstructorCarriles.construir(canonica, e, T0 + 10_000L)
+            notificador.cocina(resumen().copy(carriles = carriles))
+            val linea = cuerpoCocina().single { it.startsWith("F0 · ") }
+            assertTrue(linea, linea.startsWith("F0 · 1ª fritura · METE 500 g de patata · fuego 5 → 7 · "))
+        }
+
+    @Test
     fun laAlarmaTraduceLasMarcasDePotenciaDeSusLineas() =
         runTest {
             ajustes.fijarCocina(Cocina(TipoCocina.GAS, Mando.ANALOGICO, null))

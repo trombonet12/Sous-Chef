@@ -139,7 +139,7 @@ class RespuestasVozTest {
     @Test
     fun `queToca da titulo fuego y tapa del carril mas urgente`() {
         val v = corriendo(300).copy(fuego = 8, tapa = "SIN TAPA", titulo = "Sellar")
-        assertEquals("Sartén grande: Sellar. Fuego 8, sin tapa.", RespuestasVoz.queToca(listOf(v), null))
+        assertEquals("Sartén grande: sellar. Fuego 8, sin tapa.", RespuestasVoz.queToca(listOf(v), null))
     }
 
     @Test
@@ -149,23 +149,23 @@ class RespuestasVozTest {
         val analogico = Cocina(TipoCocina.GAS, Mando.ANALOGICO, 6)
         val base = corriendo(300).copy(fuego = 7, titulo = "Sellar")
         assertEquals(
-            "Sartén grande: Sellar. Fuego medio-alto.",
+            "Sartén grande: sellar. Fuego medio-alto.",
             RespuestasVoz.queToca(listOf(base.copy(cocina = gas)), null),
         )
         assertEquals(
-            "Sartén grande: Sellar. Fuego 9.",
+            "Sartén grande: sellar. Fuego 9.",
             RespuestasVoz.queToca(listOf(base.copy(cocina = digital12)), null),
         )
         assertEquals(
-            "Sartén grande: Sellar. Fuego 4,5.",
+            "Sartén grande: sellar. Fuego 4,5.",
             RespuestasVoz.queToca(listOf(base.copy(cocina = analogico)), null),
         )
         assertEquals(
-            "Sartén grande: Sellar. Fuego 7. Quedan 5 minutos.",
+            "Sartén grande: sellar. Fuego 7. Quedan 5 minutos.",
             RespuestasVoz.info(base),
         )
         assertEquals(
-            "Sartén grande: Sellar. Fuego máximo. Quedan 5 minutos.",
+            "Sartén grande: sellar. Fuego máximo. Quedan 5 minutos.",
             RespuestasVoz.info(base.copy(fuego = 9, cocina = gas)),
         )
     }
@@ -174,42 +174,42 @@ class RespuestasVozTest {
     fun `queToca traduce los tres valores de tapa`() {
         val base = corriendo(300).copy(fuego = 3)
         assertEquals(
-            "Sartén grande: Sofrito. Fuego 3, tapada.",
+            "Sartén grande: sofrito. Fuego 3, tapada.",
             RespuestasVoz.queToca(listOf(base.copy(tapa = "PUESTA")), null),
         )
         assertEquals(
-            "Sartén grande: Sofrito. Fuego 3, a medias.",
+            "Sartén grande: sofrito. Fuego 3, tapa a medias.",
             RespuestasVoz.queToca(listOf(base.copy(tapa = "A MEDIAS")), null),
         )
         assertEquals(
-            "Sartén grande: Sofrito. Fuego 3, sin tapa.",
+            "Sartén grande: sofrito. Fuego 3, sin tapa.",
             RespuestasVoz.queToca(listOf(base.copy(tapa = "FUERA")), null),
         )
     }
 
     @Test
     fun `queToca sin fuego ni tapa omite los detalles`() {
-        assertEquals("Sartén grande: Sofrito.", RespuestasVoz.queToca(listOf(corriendo(300)), null))
+        assertEquals("Sartén grande: sofrito.", RespuestasVoz.queToca(listOf(corriendo(300)), null))
         val soloTapa = corriendo(300).copy(tapa = "PUESTA")
-        assertEquals("Sartén grande: Sofrito. Tapada.", RespuestasVoz.queToca(listOf(soloTapa), null))
+        assertEquals("Sartén grande: sofrito. Tapada.", RespuestasVoz.queToca(listOf(soloTapa), null))
         val soloFuego = corriendo(300).copy(fuego = 5, tapa = "algo raro")
-        assertEquals("Sartén grande: Sofrito. Fuego 5.", RespuestasVoz.queToca(listOf(soloFuego), null))
+        assertEquals("Sartén grande: sofrito. Fuego 5.", RespuestasVoz.queToca(listOf(soloFuego), null))
     }
 
     @Test
     fun `queToca elige primero el vencido y luego el fijado`() {
         val a = corriendo(300, id = "a", nombre = "A", titulo = "Pasos A")
         val b = corriendo(0, id = "b", nombre = "B", titulo = "Pasos B")
-        assertEquals("B: Pasos B. Ya está, di hecho.", RespuestasVoz.queToca(listOf(a, b), "a"))
+        assertEquals("B: pasos B. Ya está, di hecho.", RespuestasVoz.queToca(listOf(a, b), "a"))
         val c = corriendo(100, id = "c", nombre = "C", titulo = "Pasos C")
-        assertEquals("A: Pasos A.", RespuestasVoz.queToca(listOf(a, c), "a"))
-        assertEquals("C: Pasos C.", RespuestasVoz.queToca(listOf(a, c), null))
+        assertEquals("A: pasos A.", RespuestasVoz.queToca(listOf(a, c), "a"))
+        assertEquals("C: pasos C.", RespuestasVoz.queToca(listOf(a, c), null))
     }
 
     @Test
     fun `queToca indica empezar cuando el carril aun no ha empezado`() {
         val v = vista(accion = AccionCarril.EMPEZAR, clase = ClaseEstado.YA)
-        assertEquals("Toca empezar Sofrito en Sartén grande.", RespuestasVoz.queToca(listOf(v), null))
+        assertEquals("Toca empezar Sofrito en Sartén grande. Diez minutos.", RespuestasVoz.queToca(listOf(v), null))
     }
 
     @Test
@@ -351,6 +351,20 @@ class RespuestasVozTest {
     }
 
     @Test
+    fun `porQue lee solo el primer parrafo hasta la primera linea en blanco`() {
+        val p = "Aquí la patata se cuece,\nno se dora.\n\n- Despegar a los 2 minutos.\n- Pinchar a los 15.\n\nFrita."
+        val v = corriendo(100).copy(porque = p)
+        assertEquals("Aquí la patata se cuece, no se dora.", RespuestasVoz.porQue(v))
+    }
+
+    @Test
+    fun `porQue de un solo parrafo lo lee entero y corta tambien con espacios o CRLF`() {
+        assertEquals("Uno. Dos.", RespuestasVoz.porQue(corriendo(100).copy(porque = "Uno. Dos.")))
+        assertEquals("Uno.", RespuestasVoz.porQue(corriendo(100).copy(porque = "Uno.\n  \nDos.")))
+        assertEquals("Uno.", RespuestasVoz.porQue(corriendo(100).copy(porque = "Uno.\r\n\r\nDos.")))
+    }
+
+    @Test
     fun `porQue sin texto dice que no hay explicacion`() {
         assertEquals("Este paso no tiene explicación.", RespuestasVoz.porQue(corriendo(100)))
         assertEquals("Este paso no tiene explicación.", RespuestasVoz.porQue(corriendo(100).copy(porque = " <b></b> ")))
@@ -369,28 +383,84 @@ class RespuestasVozTest {
     @Test
     fun `info junta titulo nota fuego tapa y tiempo`() {
         val v = corriendo(120, nombre = "SARTÉN").copy(nota = "Remueve", fuego = 7, tapa = "PUESTA")
-        assertEquals("Sartén: Sofrito. Remueve. Fuego 7, tapada. Quedan 2 minutos.", RespuestasVoz.info(v))
+        assertEquals("Sartén: sofrito. Fuego 7, tapada. Remueve. Quedan 2 minutos.", RespuestasVoz.info(v))
     }
 
     @Test
     fun `info sin nota ni fuego y segun el estado del carril`() {
-        assertEquals("Sartén grande: Sofrito. Queda 1 minuto.", RespuestasVoz.info(corriendo(60)))
-        assertEquals("Sartén grande: Sofrito. Ya está, di hecho.", RespuestasVoz.info(corriendo(0)))
+        assertEquals("Sartén grande: sofrito. Queda 1 minuto.", RespuestasVoz.info(corriendo(60)))
+        assertEquals("Sartén grande: sofrito. Ya está, di hecho.", RespuestasVoz.info(corriendo(0)))
         val pausa = vista(accion = AccionCarril.SEGUIR, quedanS = 180, clase = ClaseEstado.PAUSA)
-        assertEquals("Sartén grande: Sofrito. En pausa, quedan 3 minutos.", RespuestasVoz.info(pausa))
+        assertEquals("Sartén grande: sofrito. En pausa, quedan 3 minutos.", RespuestasVoz.info(pausa))
         val sin = vista(accion = AccionCarril.EMPEZAR, clase = ClaseEstado.YA)
-        assertEquals("Sartén grande: Sofrito. Sin empezar.", RespuestasVoz.info(sin))
+        assertEquals("Sartén grande: sofrito. Diez minutos. Sin empezar.", RespuestasVoz.info(sin))
         val fin = vista(accion = AccionCarril.TERMINADO, quedanS = 0, clase = ClaseEstado.FIN)
         assertEquals("Sartén grande: terminado.", RespuestasVoz.info(fin))
     }
 
     @Test
-    fun `info no pasa de 200 caracteres y conserva el tiempo`() {
+    fun `info no se corta aunque el titulo y la nota sean largos y conserva el tiempo`() {
         val largo = "Remueve con calma ".repeat(30).trim()
         val v = corriendo(120, titulo = largo).copy(nota = largo, fuego = 5, tapa = "PUESTA")
         val frase = RespuestasVoz.info(v)
-        assertTrue(frase, frase.length <= 200)
-        assertTrue(frase, frase.endsWith("Fuego 5, tapada. Quedan 2 minutos."))
+        assertTrue(frase, frase.length > 1000)
+        assertTrue(frase, frase.contains("Fuego 5, tapada. $largo. Quedan 2 minutos."))
+    }
+
+    @Test
+    fun `info compone la orden con lo que se mete, el fuego y la duracion antes de empezar`() {
+        val v =
+            vista(accion = AccionCarril.EMPEZAR, clase = ClaseEstado.YA).copy(
+                titulo = "1ª fritura",
+                meto = "la fuente: 500 g de patata",
+                fuego = 4,
+                tapa = "sin tapa",
+                duracionS = 18 * 60,
+                nota = "Tiernas y pálidas, sin color.",
+                saco = "la patata, al plato con papel",
+            )
+        assertEquals(
+            "Sartén grande: primera fritura. Mete 500 gramos de patata desde la fuente. Fuego 4, sin tapa. " +
+                "Dieciocho minutos. Tiernas y pálidas, sin color. Sin empezar.",
+            RespuestasVoz.info(v),
+        )
+    }
+
+    @Test
+    fun `info en marcha no repite la duracion y vencido dice lo que se saca`() {
+        fun orden(quedan: Int) =
+            corriendo(quedan).copy(titulo = "1ª fritura", meto = "500 g de patata", saco = "la patata, al plato")
+        assertEquals(
+            "Sartén grande: primera fritura. Mete 500 gramos de patata. Quedan 2 minutos.",
+            RespuestasVoz.info(orden(120)),
+        )
+        assertEquals(
+            "Sartén grande: primera fritura. Mete 500 gramos de patata. Ya está, di hecho. Saca la patata, al plato.",
+            RespuestasVoz.info(orden(0)),
+        )
+    }
+
+    @Test
+    fun `queToca dice la orden sin cortarse y al vencer lo que se saca`() {
+        val largo = "Remueve con calma ".repeat(10).trim()
+        val v = corriendo(300, titulo = largo).copy(meto = largo, fuego = 5)
+        val frase = RespuestasVoz.queToca(listOf(v), null)
+        assertTrue(frase, frase.length > 300)
+        assertTrue(frase, frase.endsWith("Fuego 5."))
+        val vencido = corriendo(0).copy(saco = "la patata, al plato")
+        assertEquals(
+            "Sartén grande: sofrito. Ya está, di hecho. Saca la patata, al plato.",
+            RespuestasVoz.queToca(listOf(vencido), null),
+        )
+    }
+
+    @Test
+    fun `queToca de un carril por empezar dice que se mete`() {
+        val v = vista(accion = AccionCarril.EMPEZAR, clase = ClaseEstado.YA).copy(meto = "200 g de bacon", fuego = 6)
+        assertEquals(
+            "Toca empezar Sofrito en Sartén grande. Mete 200 gramos de bacon. Fuego 6. Diez minutos.",
+            RespuestasVoz.queToca(listOf(v), null),
+        )
     }
 
     @Test
@@ -401,15 +471,14 @@ class RespuestasVozTest {
     // ---- reglas generales
 
     @Test
-    fun `ninguna respuesta pasa de 120 caracteres aunque el titulo sea larguisimo`() {
+    fun `las respuestas cortas no pasan de 120 caracteres aunque el titulo sea larguisimo`() {
         val largo = "Sofrito muy lento de cebolla ".repeat(8).trim()
         val v = corriendo(300, titulo = largo).copy(fuego = 5, tapa = "PUESTA", despues = largo)
         val respuestas =
             listOf(
-                RespuestasVoz.queToca(listOf(v), null),
                 RespuestasVoz.queViene(listOf(v)),
                 RespuestasVoz.confirmacion(OrdenVoz.Hecho(null), v),
-                RespuestasVoz.queToca(listOf(v.copy(accion = AccionCarril.EMPEZAR, finAtMs = null)), null),
+                RespuestasVoz.queToca(listOf(v.copy(accion = AccionCarril.BLOQUEADO, bloqueadoPor = largo)), null),
             )
         respuestas.forEach { assertTrue(it, it.length <= 120) }
     }

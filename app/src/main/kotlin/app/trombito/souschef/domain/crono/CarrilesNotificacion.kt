@@ -3,6 +3,7 @@ package app.trombito.souschef.domain.crono
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.receta.crono.EstadoCrono
+import app.trombito.souschef.receta.crono.OrdenPaso
 import app.trombito.souschef.receta.crono.SesionCrono
 import app.trombito.souschef.receta.crono.TemporizadoresLibres
 
@@ -31,6 +32,11 @@ data class CarrilNotificacion(
     val quedanS: Int = 0,
     /** Potencia canónica 0-9 del paso, si la lleva; el notificador la traduce a la cocina del usuario (ADR-0014). */
     val fuego: Int? = null,
+    /**
+     * La orden compuesta del paso (ADR-0017): el notificador pinta su línea («1ª fritura · METE 500 g de patata ·
+     * fuego 4») en la cocina del usuario. null en los temporizadores libres, que solo tienen [texto].
+     */
+    val orden: OrdenPaso? = null,
 ) {
     val titulo: String get() = "$nombre · paso $indice/$total"
 
@@ -151,6 +157,7 @@ object ConstructorCarriles {
                 finAtMs = ec.finAtMs.takeIf { situacion == SituacionCarril.CORRIENDO },
                 quedanS = if (situacion == SituacionCarril.CORRIENDO) quedan else 0,
                 fuego = paso.f,
+                orden = OrdenPaso.delCarril(pasos, ec.i),
             )
         }
 }

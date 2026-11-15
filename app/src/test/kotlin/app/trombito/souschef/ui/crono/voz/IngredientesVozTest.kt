@@ -168,6 +168,23 @@ class IngredientesVozTest {
     }
 
     @Test
+    fun `con los textos cortos de la orden compuesta el ingrediente se sigue encontrando`() {
+        val r =
+            una(
+                Ingrediente("patata", a = 500.0, u = "g"),
+                Ingrediente("jamón serrano", a = 80.0, u = "g"),
+                Ingrediente("sal", a = 3.0, u = "g"),
+            )
+        // El título ya no nombra nada: el ingrediente vive en `meto` (con su origen delante) o en la señal.
+        val conMeto = paso("1ª fritura", meto = "la fuente: 500 g de patata", nota = "Tiernas y pálidas, sin color.")
+        assertEquals("Lleva patata 500 g.", delPaso(r, conMeto))
+        val soloSenal = paso("Reposo", nota = "Jamón en trozos de 3 cm, a mano.")
+        assertEquals("Lleva jamón serrano 80 g.", delPaso(r, soloSenal))
+        val dos = paso("Rasgar", meto = "80 g de jamón serrano + 3 g de sal")
+        assertEquals("Lleva jamón serrano 80 g y sal 3 g.", delPaso(r, dos))
+    }
+
+    @Test
     fun `sal no casa en salsa y un paso sin ingredientes lo dice`() {
         val r = una(Ingrediente("sal", a = 3.0, u = "g"))
         assertEquals("Este paso no nombra ingredientes.", delPaso(r, paso("Añade la salsa")))

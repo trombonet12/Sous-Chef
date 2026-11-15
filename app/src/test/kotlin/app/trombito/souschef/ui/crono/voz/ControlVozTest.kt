@@ -291,7 +291,7 @@ class ControlVozTest {
     fun queTocaDeUnCarrilNumeradoDiceEseCarrilAunqueOtroEsteEnFoco() {
         foco = "m"
         escucha.oir("chef qué tengo que hacer del 1")
-        assertEquals(listOf("Sartén grande: Sofrito."), habla.dichas)
+        assertEquals(listOf("Sartén grande: sofrito."), habla.dichas)
         assertTrue(mandos.isEmpty())
     }
 
@@ -311,7 +311,7 @@ class ControlVozTest {
     @Test
     fun infoDiceLaFichaDelCarrilNumerado() {
         escucha.oir("chef dame info del 2")
-        assertEquals(listOf("Mesa: Sofrito. Con calma. Sin empezar."), habla.dichas)
+        assertEquals(listOf("Mesa: sofrito. Diez minutos. Con calma. Sin empezar."), habla.dichas)
         assertTrue(mandos.isEmpty())
     }
 
@@ -319,7 +319,7 @@ class ControlVozTest {
     fun infoDelDosRespondeDelDosAunqueElFocoSeaElUno() {
         foco = "f0"
         escucha.oir("chef info de los", "chef info del dos")
-        assertEquals(listOf("Mesa: Sofrito. Con calma. Sin empezar."), habla.dichas)
+        assertEquals(listOf("Mesa: sofrito. Diez minutos. Con calma. Sin empezar."), habla.dichas)
     }
 
     @Test

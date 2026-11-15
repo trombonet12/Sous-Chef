@@ -32,16 +32,22 @@ object Bloques {
         }
         texto.lines().map { it.trim() }.forEach { linea ->
             when {
-                linea.isEmpty() -> cerrar()
+                linea.isEmpty() -> {
+                    cerrar()
+                }
 
                 linea.startsWith(VINETA) -> {
                     if (parrafo.isNotEmpty()) cerrar()
                     elementos += linea.removePrefix(VINETA).trim()
                 }
 
-                elementos.isNotEmpty() -> elementos[elementos.lastIndex] += " $linea"
+                elementos.isNotEmpty() -> {
+                    elementos[elementos.lastIndex] += " $linea"
+                }
 
-                else -> parrafo += linea
+                else -> {
+                    parrafo += linea
+                }
             }
         }
         cerrar()

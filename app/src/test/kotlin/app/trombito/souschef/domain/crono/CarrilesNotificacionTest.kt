@@ -57,4 +57,11 @@ class CarrilesNotificacionTest {
         assertEquals(listOf("f0"), lista.map { it.carril })
         assertEquals(5, lista.single().fuego)
     }
+
+    @Test
+    fun cadaCarrilLlevaLaOrdenCompuestaDeSuPasoConLaPotenciaAnteriorDelCarril() {
+        val e = MotorCrono.hecho(MotorCrono.empezar(abierto(), receta, "f0", T0), receta, "f0", T0)
+        val orden = carril(ConstructorCarriles.construir(receta, e, T0), "f0").orden
+        assertEquals("Hervir · fuego 5 → 9", orden?.linea())
+    }
 }

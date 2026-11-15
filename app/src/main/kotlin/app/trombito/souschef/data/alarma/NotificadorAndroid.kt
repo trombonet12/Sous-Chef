@@ -176,15 +176,20 @@ class NotificadorAndroid
             r.llegadaMs?.let { context.getString(R.string.crono_cocina_titulo, r.tituloReceta, hora(it)) }
                 ?: r.tituloReceta
 
-        /** «SARTÉN GRANDE · Primera fritura · fuego 4 · acaba 15:12». Siempre horas absolutas, nunca cuentas atrás. */
+        /**
+         * «SARTÉN GRANDE · 1ª fritura · METE 500 g de patata · fuego 4 · acaba 15:12»: la orden de una línea
+         * (ADR-0017) y después la situación. Siempre horas absolutas, nunca cuentas atrás.
+         */
         private fun linea(
             c: CarrilNotificacion,
             cocina: Cocina,
         ): String =
             listOfNotNull(
                 c.nombre,
-                Potencia.reescribir(c.texto, cocina),
-                c.fuego?.let { context.getString(R.string.crono_cocina_fuego, Potencia.texto(it, cocina)) },
+                c.orden?.linea(cocina) ?: Potencia.reescribir(c.texto, cocina),
+                c.fuego
+                    ?.takeIf { c.orden == null }
+                    ?.let { context.getString(R.string.crono_cocina_fuego, Potencia.texto(it, cocina)) },
                 when (c.situacion) {
                     SituacionCarril.CORRIENDO -> {
                         c.finAtMs?.let { context.getString(R.string.crono_cocina_acaba, hora(it)) }

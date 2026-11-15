@@ -488,3 +488,9 @@ Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan 
 - **Guarda mecánica** `scripts/guarda-recetas.mjs [--base ref] [slug…]`: compara con git y falla si cambia algo que no
   sea texto (carril, off, min, s, f, tapa, holgura, dep, junto, grupos, carriles, escala, tags, svg de cortes, pasos
   nuevos o borrados, orden por `off`). Los cambios en `hitos[].en` salen como AVISO y hay que justificarlos.
+- **ADR-0018 «El plan sigue al cocinero»** (aceptado): horas previstas como función pura de estado, receta y ahora;
+  dos mapas nuevos en `EstadoCrono` (arranque y Hecho por paso; JSON, sin migración de Room). Joan: tras un Hecho, el
+  «Toca empezar» de otro carril suena; tocar «Llegas a las…» solo abre el ajuste antes de arrancar; el `chef-reviewer`
+  enlaza (`junto`/`dep`) los 28 pasos que solo seguían al reloj.
+- **Regla 20 en transición:** mientras el chip no enseñe «4 → 5» en todas partes, la potencia nueva se nombra con {N} en
+  `t` o `p` (nunca en la `nota`).
