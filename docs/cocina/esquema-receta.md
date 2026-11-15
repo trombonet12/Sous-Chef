@@ -116,6 +116,13 @@ En JSON los saltos van como `\n`. `scripts/sc formatear` los conserva. El primer
 ### Dependencias
 `dep` solo apunta a pasos de otros carriles: el orden dentro de un carril ya lo da la cola. Si un paso arranca a mitad de otro largo (el agua durante el chup-chup), su requisito es el paso anterior al largo, no el largo, o quedaría bloqueado hasta que acabe.
 
+Para el plan vivo del cronómetro ([ADR-0018](../adr/0018-el-plan-sigue-al-cocinero.md)), la hora prevista de un paso es el máximo de sus aristas, y cada una conserva el hueco de la receta:
+- **Cola**: el paso anterior de su carril, desde su fin real (o previsto).
+- **`dep`**: cada requisito, desde su fin. Con hueco 0 el paso toca en el acto al acabar el requisito; con hueco (un reposo, un enfriado), cuando acaba el hueco.
+- **`junto`**: ancla al **arranque** real del compañero, no a su fin, con el desfase que marca el `off` de la receta. Si el compañero aún no ha arrancado, la hora no es firme y no suena «Toca empezar».
+- Un paso sin cola, `dep` ni `junto` solo sigue al arranque de la cocina. Si en la realidad se acopla a otro carril (un «precalentar» o «calentar aceite» que debe coincidir con una fritura), declara el `junto` o el `dep`: sin él, el plan no le sigue.
+- El grafo de colas, `dep` y `junto` no puede tener ciclos (regla 2).
+
 ### Hitos, `sinHitos` y partir pasos
 - **Cambia el montaje** (potencia, tapa, contenido del recipiente) → dos pasos.
 - **No cambia nada, solo hay que hacer algo** (remover, voltear, rascar) → un hito.
@@ -126,6 +133,8 @@ En JSON los saltos van como `\n`. `scripts/sc formatear` los conserva. El primer
 - `flexible`: aguanta esperar sin estropearse (reducción a fuego bajo, sofrito tapado, reposo).
 - `ajustado`: se estira unos minutos con coste de textura.
 - `critico`: no espera (pasta escurrida, ajo, emplatado, masas montadas).
+
+La holgura dice cuánto aguanta un paso esperando, no cuándo empieza: no entra en el cálculo de las horas previstas del plan vivo ([ADR-0018](../adr/0018-el-plan-sigue-al-cocinero.md)). Solo alimenta «aguantan» y «no esperan».
 
 ### `mep`
 Cada bloque: `t` título, `orden` (`true` si la secuencia es obligatoria, como medidor y tabla; `false` si es solo una lista, como recipientes), `porq` el porqué del reparto y `l[]` las líneas. **Solo se admite la etiqueta `<b>`** en las líneas. Cada línea lleva cantidad (con equivalencia casera) y minuto de entrada.
@@ -165,7 +174,7 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 17. ERROR · `s` coherente con `min`: |s − min·60| ≤ 30 s.
 18. ERROR · `mep` solo usa la etiqueta `<b>`.
 19. AVISO (estricto) · Corte sin medida (mm o cm).
-20. AVISO (estricto) · Cambio de potencia que el texto del paso no nombra (lee el número dentro de `{N}`).
+20. (sin efecto desde ADR-0017) · Antes: cambio de potencia que el texto del paso no nombraba. Lo enseña el chip «a → b», así que ya no se exige.
 21. AVISO (estricto) · `p` de menos de 120 caracteres.
 22. AVISO (estricto) · Tapa que cambia a mitad de un paso (debía ser dos pasos).
 23. AVISO (estricto) · Tag de `tags.tecnica` sin ficha en `data/tecnicas/`.
@@ -177,7 +186,7 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 29. ERROR · `tags.equipo`, si está, no va vacío ni repite valores, y `horno` declarado exige un carril `tipo: "horno"`. AVISO · `horno` declarado con carril de horno (redundante: se deriva de los carriles). AVISO (estricto) · Un paso (`t`, `nota`, `p`, `meto`, `saco`, `sinHitos`, hitos) nombra «batidora» o «túrmix» sin `batidora`, o «microondas» sin `microondas`, en `equipoDe` (lo derivado más lo declarado). La plancha va siempre declarada (ocupa un carril de fuego) y no tiene regla de menciones.
 
 ### Reglas de legibilidad (30-36)
-Nuevas con ADR-0017. **Solo con `sc validar --legibilidad` hasta que pasen las 33 recetas**; entonces se funden en `--estricto`. Hasta entonces `sc validar --estricto` sigue dando 0 errores y 0 avisos. Los caracteres se cuentan como los ve el usuario: `{N}` vale 1 y `<b>` vale 0. Los topes son de partida y se calibran con el piloto.
+Nuevas con ADR-0017. Corren siempre y forman parte de `--estricto` (las 33 recetas ya pasan con 0 avisos); `--legibilidad` queda como alias que solo enseña el recuento por regla. Los caracteres se cuentan como los ve el usuario: `{N}` vale 1 y `<b>` vale 0. Los topes son de partida y se calibran con el piloto.
 
 30. AVISO de legibilidad · `t` de 36 caracteres o menos y sin duración escrita («N min», «N s»).
 31. AVISO de legibilidad · `nota` de 80 o menos y 2 frases como mucho; sin «minuto N»; sin `{N}` igual a `f`.
@@ -187,9 +196,9 @@ Nuevas con ADR-0017. **Solo con `sc validar --legibilidad` hasta que pasen las 3
 35. ERROR · Los pasos del array van en orden de `off` (exige antes reordenar 5 recetas; la cola de cada carril no cambia).
 36. AVISO de legibilidad · Frase de la `nota` cuyas palabras de contenido están en `p` en un 80 % o más.
 
-La regla 20 (nombrar la potencia nueva en el texto) deja de hacer falta cuando el chip enseñe «4 → 5»; hasta entonces se cumple desde `t` o `p`. La 21 y la 25 no cambian.
+La regla 20 (nombrar la potencia nueva en el texto) queda **sin efecto**: el chip de la app ya enseña «4 → 5» (`OrdenPaso`), así que el texto no tiene que nombrarla (su número se reserva). La 21 y la 25 no cambian.
 
-**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21 y 23-29, y las de legibilidad 30-36 en `ValidadorLegibilidad.kt` (topes en `TopesLegibilidad.kt`; solo con `--legibilidad`; la 36 solo compara frases de la `nota` con 3 o más palabras de contenido). **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 26 y la 27 se describen arriba (la 27 usa el detector `MarcaPotencia` sobre los mismos campos de texto libre que traduce la app: sus `cambios` seguros dan ERROR y sus `dudosos` dan AVISO con el mensaje «potencia dudosa sin marcar»; lo ya marcado `{N}` no da nada); la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
+**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-19, 21 y 23-29 (la 20 es un no-op), y las de legibilidad 30-36 en `ValidadorLegibilidad.kt` (topes en `TopesLegibilidad.kt`; incluidas en `--estricto`; la 36 solo compara frases de la `nota` con 3 o más palabras de contenido). **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 26 y la 27 se describen arriba (la 27 usa el detector `MarcaPotencia` sobre los mismos campos de texto libre que traduce la app: sus `cambios` seguros dan ERROR y sus `dudosos` dan AVISO con el mensaje «potencia dudosa sin marcar»; lo ya marcado `{N}` no da nada); la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
 
 Los puntos 14, 15 y 17-18 no estaban en la skill legada (14 y 15 salen de su §3a y §5); la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
 

@@ -4,7 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-/** Reglas 30-36 (legibilidad, docs/analisis/legibilidad-crono-y-textos.md § 6.4): solo corren con `--legibilidad`. */
+/** Reglas 30-36 (legibilidad, ADR-0017): `Validador.receta` las incluye; la 35 es ERROR. */
 class ValidadorLegibilidadTest {
     private val p0 = "Parrafo de porque con palabras distintas de cualquier senal. ".repeat(3).trim()
 
@@ -34,9 +34,18 @@ class ValidadorLegibilidadTest {
     fun recetaLimpiaNoDaHallazgos() = assertEquals(emptyList(), hallazgos(base()))
 
     @Test
-    fun laValidacionNormalNoEjecutaLasReglasDeLegibilidad() {
+    fun laValidacionNormalIncluyeLasReglasDeLegibilidad() {
         val r = conPaso { it.copy(t = "x".repeat(80), nota = "y".repeat(200)) }
-        assertTrue(Validador.receta(r).none { it.regla in 30..36 })
+        val h = Validador.receta(r).filter { it.regla in 30..36 }
+        assertTrue(30 in h.map { it.regla } && 31 in h.map { it.regla })
+        assertTrue(h.all { it.nivel == Nivel.AVISO })
+    }
+
+    @Test
+    fun laValidacionNormalDaErrorSiElArrayNoSigueElOrdenDeOff() {
+        val r = base(paso("a", off = 5.0), paso("b", off = 0.0))
+        val e = Validador.receta(r).filter { it.regla == 35 }
+        assertEquals(listOf(Nivel.ERROR), e.map { it.nivel })
     }
 
     @Test

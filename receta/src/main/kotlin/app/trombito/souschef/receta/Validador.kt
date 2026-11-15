@@ -19,10 +19,11 @@ private const val P_MIN_CHARS = 120
 private const val F_MAX = 9
 
 /**
- * Validador (reglas 1-8, 10, 11, 13-21 y 23-29 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
- * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22 (ver el documento).
+ * Validador (reglas 1-8, 10, 11, 13-19, 21 y 23-36 de docs/cocina/esquema-receta.md § Validación). Lógica pura.
+ * Fuera de aquí: la 12 (despensa, en `tools/`). Sin implementar: la 9 y la 22; la 20 es un no-op (ADR-0017: el chip
+ * de la app enseña «a → b», así que el texto ya no tiene que nombrar la potencia nueva).
  *
- * La potencia del texto libre va marcada como `{N}` (ADR-0014): las reglas 20 y 25 la leen sin llaves, la 26 mira
+ * La potencia del texto libre va marcada como `{N}` (ADR-0014): la regla 25 la lee sin llaves, la 26 mira
  * `escala` (raciones permitidas) y la 27 exige que toda potencia del texto esté marcada.
  */
 object Validador {
@@ -46,7 +47,6 @@ object Validador {
         ctx.regla16()
         ctx.regla18()
         ctx.regla19()
-        ctx.regla20()
         ctx.regla21()
         ctx.regla24()
         ctx.regla25()
@@ -54,12 +54,13 @@ object Validador {
         ctx.regla27()
         ctx.regla28()
         ctx.regla29()
+        h += hallazgosDeLegibilidad(r)
         return h
     }
 
     /**
-     * Reglas de legibilidad 30-36 (docs/analisis/legibilidad-crono-y-textos.md § 6.4). Solo las corre
-     * `sc validar --legibilidad`; [receta] no las incluye hasta que las 33 recetas pasen. Todas AVISO salvo la 35.
+     * Reglas de legibilidad 30-36 (ADR-0017). [receta] ya las incluye; esta función las da aisladas. Todas AVISO
+     * salvo la 35 (ERROR).
      */
     fun legibilidad(r: Receta): List<Hallazgo> = hallazgosDeLegibilidad(r)
 
@@ -291,20 +292,6 @@ private class Ctx(
         }
     }
 
-    fun regla20() {
-        val fuego = r.pasos.filter { tipo(it.carril) == TipoCarril.FUEGO }
-        for ((carril, pasos) in fuego.groupBy { it.carril }) {
-            for ((a, b) in pasos.sortedBy { it.off }.zipWithNext()) {
-                val f = b.f ?: continue
-                val texto = Texto.normalizar(sinMarcas("${b.t} ${b.nota.orEmpty()} ${b.p}"))
-                val nombrada =
-                    Regex("(?<![0-9])$f(?![0-9])").containsMatchIn(texto) ||
-                        (f == 0 && APAGAR.containsMatchIn(texto))
-                if (f != a.f && !nombrada) aviso(20, "${b.id}: pasa a potencia $f en '$carril' y el texto no la nombra")
-            }
-        }
-    }
-
     /**
      * Regla 25. El verbo de potencia de `t`/`nota` («baja al N», «sube al N») casa con la transición real de `f`
      * del carril (prev → f). Los textos de `hitos` son condicionales: se comparan solo con `f`.
@@ -523,7 +510,6 @@ private val VERBO_POTENCIA = Regex("\\b(?:$V_BAJA|$V_SUBE)\\b")
 private val BAJA_AL = Regex("\\b$V_BAJA\\b(?:$OTRO_VERBO.)*?\\bal (\\d)\\b")
 private val SUBE_AL = Regex("\\b$V_SUBE\\b(?:$OTRO_VERBO.)*?\\bal (\\d)\\b")
 private val DEL_AL = Regex("\\bdel (\\d) al (\\d)\\b")
-private val APAGAR = Regex("apag|retira|fuera del fuego|fuera de la placa|reposo")
 private val MEDIDA = Regex("\\d+([.,]\\d+)?\\s*(mm|cm)\\b|por la mitad")
 
 // Raíces normalizadas (sin acentos); se buscan al inicio de palabra.

@@ -241,46 +241,11 @@ class ValidadorTest {
         )
 
     @Test
-    fun r20CambioDePotenciaSinNombrarla() {
-        assertTrue(20 in reglas(conPotencias("Bajar el fuego"), Nivel.AVISO))
-        assertTrue(20 !in reglas(conPotencias("Bajar a 3"), Nivel.AVISO))
-        assertTrue(20 in reglas(conPotencias("Bajar a 13"), Nivel.AVISO))
-    }
-
-    @Test
-    fun r20PotenciaCeroAceptaApagar() {
-        fun a0(t: String) =
-            conPotencias(t).let { r ->
-                r.copy(
-                    pasos =
-                        r.pasos.map {
-                            if (it.id ==
-                                "p2"
-                            ) {
-                                it.copy(f = 0)
-                            } else {
-                                it
-                            }
-                        },
-                )
-            }
-        listOf(
-            "Apagar el fuego",
-            "Retira la cazuela",
-            "Fuera de la placa",
-            "Reposo tapado",
-            "Fuera del fuego",
-        ).forEach {
-            assertTrue(20 !in reglas(a0(it), Nivel.AVISO), it)
+    fun r20NoExigeNombrarLaPotenciaNueva() {
+        // ADR-0017: el chip de la app enseña «a → b»; el texto ya no tiene que nombrar la potencia.
+        listOf("Bajar el fuego", "Seguir", "Bajar a 13").forEach {
+            assertTrue(20 !in reglas(conPotencias(it), Nivel.AVISO), it)
         }
-        assertTrue(20 in reglas(a0("Seguir"), Nivel.AVISO))
-        assertTrue(20 !in reglas(conPotencias("Bajar 3/9"), Nivel.AVISO))
-    }
-
-    @Test
-    fun r20PotenciaIgualNoAvisa() {
-        val r = conPotencias("Seguir").let { it.copy(pasos = it.pasos.map { p -> p.copy(f = 7) }) }
-        assertTrue(20 !in reglas(r, Nivel.AVISO))
     }
 
     private fun transicion(
@@ -383,13 +348,6 @@ class ValidadorTest {
     fun r25PasoSinFNoSeAnaliza() {
         val r = base().copy(pasos = listOf(paso("p1"), paso("p2", "b") { it.copy(t = "Baja al 5") }))
         assertEquals(emptyList(), r25(r))
-    }
-
-    @Test
-    fun r20LeeLaPotenciaMarcada() {
-        assertTrue(20 !in reglas(conPotencias("Baja al {3}"), Nivel.AVISO))
-        assertTrue(20 !in reglas(conPotencias("Del {4} al {3}"), Nivel.AVISO))
-        assertTrue(20 in reglas(conPotencias("Baja al {5}"), Nivel.AVISO))
     }
 
     @Test

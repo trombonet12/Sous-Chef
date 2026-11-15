@@ -47,7 +47,7 @@ private fun ilegible(
 
 private fun validar(args: List<String>): Int {
     val estricto = "--estricto" in args
-    val legibilidad = "--legibilidad" in args
+    val legibilidad = "--legibilidad" in args // alias: solo enseña el recuento por regla (ADR-0017)
     val slugs = args.filterNot { it.startsWith("--") }.toSet()
     val raiz = raiz() ?: return errorEntorno()
 
@@ -61,7 +61,6 @@ private fun validar(args: List<String>): Int {
         runCatching { leerReceta(f.readText()) }
             .onSuccess {
                 hallazgos += Validador.receta(it, tecnicasExistentes) + Despensa.comprobar(it, despensa)
-                hallazgos += legible(it, legibilidad)
             }.onFailure { hallazgos += ilegible(f, it) }
     }
     for (f in elegidos("data/tecnicas")) {
@@ -75,7 +74,7 @@ private fun validar(args: List<String>): Int {
     val modo = listOfNotNull("estricto".takeIf { estricto }, "legibilidad".takeIf { legibilidad })
     println("validar: $errores errores, $avisos avisos${if (modo.isEmpty()) "" else " (${modo.joinToString(", ")})"}")
     if (legibilidad) println(lineaLegibilidad(hallazgos))
-    return if (validarFalla(errores, avisos, estricto, legibilidad)) SALIDA_FALLO else 0
+    return if (validarFalla(errores, avisos, estricto)) SALIDA_FALLO else 0
 }
 
 private fun formatear(args: List<String>): Int {
