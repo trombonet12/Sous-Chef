@@ -81,13 +81,33 @@ sequenceDiagram
 
 ### Cocinar con alarmas
 1. "Abrir la cocina" pide `POST_NOTIFICATIONS` y crea el estado del crono en Room (`finAt` en reloj de pared).
-2. El motor calcula el próximo evento y se programa **una** alarma `setAlarmClock`.
+2. El motor calcula el próximo evento y se programa **una** alarma `setAlarmClock`. La hora de cada paso pendiente sale de `Prevision` (ver «El plan sigue al cocinero») y el «Toca empezar» solo se arma cuando esa hora es firme.
 3. Al saltar, el receiver recarga Room, emite lo vencido (hitos con más de 90 s de retraso se marcan sin sonar) y programa la siguiente.
 4. Si el proceso muere o el móvil reinicia, `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `TIME_SET` o `TIMEZONE_CHANGED` reprograman la cadena ([ADR-0005](adr/0005-cronometro-alarmas-sin-fgs.md)).
 5. Los temporizadores libres («+ Temporizador» o «Chef, pon N minutos») van en `EstadoCrono.libres`, fuera de `Plano`, de los fuegos y de `pasosReales`. Avisan por la misma cadena y la misma alarma agrupada. Un libre sin avisar mantiene viva la cocinada ([ADR-0016](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md)).
 6. «Avísame para empezar» arma una alarma propia (requestCode 4102) a la hora de empezar de la receta. Su estado está en `meta` y lo reprograman los mismos receivers. Avisa con una notificación normal que abre la ficha, no cuenta como cocinada viva y se cancela al abrir la cocina ([ADR-0016](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md)).
 
 La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las casillas y lo guardado usan la receta canónica ([ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)).
+
+### El plan sigue al cocinero
+La hora prevista de cada paso pendiente ya no sale del reloj de servir (`servir − total + off`): se calcula en cada consulta a partir de lo que ha pasado de verdad ([ADR-0018](adr/0018-el-plan-sigue-al-cocinero.md), anexo de ADR-0005).
+1. `Prevision` (`:receta`, `crono/Prevision.kt`) es una función pura de `(EstadoCrono, receta, ahoraMs)`. Devuelve un `PasoPrevisto` por paso (inicio, fin y si es firme) y la hora de llegada. `ConsultasCrono.previstos` la expone, y `Plano` aporta el orden topológico del grafo de colas, `dep` y `junto`.
+2. Cada paso toma el máximo de sus aristas, conservando los huecos de la receta: la cola (fin real o previsto del anterior del carril), cada `dep` (su fin) y `junto` (el **arranque** de su compañero, no su fin). Un paso sin aristas cuenta desde el arranque de la cocina. Sin desvíos, la hora coincide con la de siempre.
+3. `EstadoCrono` guarda los hechos reales: `inicioRealMs` (primer arranque de cada paso) y `finRealMs` (su Hecho). Son campos opcionales del JSON en Room, con decodificación tolerante y respaldos deterministas: no hay migración.
+4. Una hora es **firme** si no depende de `ahora`. Solo las firmes generan «Toca empezar» (`siguienteEvento`, `siguienteEventoFuera` y `vencidos` reciben `ahoraMs`). Un paso vencido sin Hecho o en pausa es flotante y no arma alarmas, para evitar despertares en falso.
+5. La cadena de ADR-0005 no cambia: una alarma, `setAlarmClock`, flags `avisado` en Room y reprogramación tras cada mando y en cada disparo. Tras un Hecho, el carril que pasa a tocar avisa en el acto si su hora ya ha llegado.
+6. «Llegas a las HH:mm» es el fin previsto más tardío de los pasos no hechos. Tocarlo solo abre el ajuste de la hora de servir antes del primer arranque; después solo informa.
+7. La regla 2 del validador prohíbe ciclos en colas, `dep` y `junto`. Por defensa, el motor ignora los `junto` que cierren un ciclo.
+
+```mermaid
+flowchart LR
+  E[EstadoCrono<br/>inicioRealMs, finRealMs, finAtMs] --> P[Prevision]
+  R[Receta y Plano<br/>colas, dep, junto, huecos] --> P
+  A[ahoraMs] --> P
+  P --> H[Horas de pantalla<br/>y llegada]
+  P --> V[siguienteEvento<br/>solo horas firmes]
+  V --> C[CadenaAlarmas<br/>una alarma setAlarmClock]
+```
 
 ### Cocinado a historial
 1. Al terminar, el motor produce el resumen con `pasosReales`; la persona añade una nota.
@@ -107,7 +127,7 @@ La potencia del texto (`{N}`) se muestra en la cocina del usuario. El motor, las
 | `:receta` | cocina y potencia | Traducir `{N}` a vitro, inducción o gas (`Potencia.kt`, [ADR-0014](adr/0014-cocina-configurable-y-potencia-marcada.md)) | Guardar la receta traducida: solo la UI la recibe |
 | `:receta` | gantt | Plan y huella de fuegos | Depender de Android |
 | `:receta` | validador | 12 comprobaciones, completitud, plurales, `--estricto`, `mep` solo `<b>` | Escribir ficheros |
-| `:receta` | motor del crono | Máquina de estados con `Clock` inyectado | Usar el reloj real |
+| `:receta` | motor del crono | Máquina de estados con `Clock` inyectado; horas previstas (`Prevision`) como función pura del estado | Usar el reloj real |
 | `:tools` | CLI `sc` | validar, formatear | Contener reglas de dominio (viven en `:receta`) |
 
 ## Estructura del repo
@@ -127,7 +147,7 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0002 Supabase compartido, esquema `sous_chef`](adr/0002-supabase-compartido-esquema-sous-chef.md) (sustituido por ADR-0007)
 - [ADR-0003 El repo manda en las recetas](adr/0003-el-repo-manda-en-las-recetas.md) (revisado por ADR-0007)
 - [ADR-0004 Sync outbox y LWW](adr/0004-sync-outbox-lww.md) (sustituido por ADR-0007)
-- [ADR-0005 Cronómetro con alarmas, sin FGS](adr/0005-cronometro-alarmas-sin-fgs.md) (anexo: ADR-0016)
+- [ADR-0005 Cronómetro con alarmas, sin FGS](adr/0005-cronometro-alarmas-sin-fgs.md) (anexos: ADR-0016 y ADR-0018)
 - [ADR-0006 Ficha nativa e impresión HTML](adr/0006-ficha-nativa-e-impresion-html.md)
 - [ADR-0007 Solo local, sin Supabase](adr/0007-app-solo-local-sin-supabase.md) (matizado por ADR-0009 y retirado por ADR-0011; ampliado por ADR-0015)
 - [ADR-0008 Voz en el cronómetro](adr/0008-voz-en-el-cronometro.md)

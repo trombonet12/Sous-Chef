@@ -104,6 +104,9 @@ Pantalla completa, **siempre oscura**, sin scroll salvo el panel central.
 - `quedan(c)`: fin → 0; parado o en pausa → `restante`; corriendo → `ceil((finAt − ahora)/1000)` (puede ser negativo: se
   muestra `+mm:ss`). **Nunca avanza solo**: hay que pulsar Hecho.
 - `sugerido(off) = horaServir(hoy) − (totalMin − off) min`. **[BUG corregido]**: se calcula en segundos, sin truncar medios minutos.
+  **[Superado por ADR-0018]**: esta fórmula describe la app vieja. En la app nativa la hora prevista de cada paso pendiente
+  se calcula desde lo ocurrido (arranque y Hecho reales, `dep`, `junto` y huecos) y coincide con esta solo mientras no haya
+  desvíos; ver [ADR-0018](../adr/0018-el-plan-sigue-al-cocinero.md).
 - `restante(c) = max(0, quedan) + Σ s` de los pasos siguientes del carril. **LLEGADA** = ahora + max(restante(c)).
 
 ### 4.4 Portada (mise en place)
