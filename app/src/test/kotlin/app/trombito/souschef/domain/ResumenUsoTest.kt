@@ -38,7 +38,7 @@ class ResumenUsoTest {
         assertEquals(0, r.recetasDistintas)
         assertEquals(Triple(0, 0, 0), Triple(r.repetir, r.ajustar, r.noRepetir))
         assertEquals("1.7.0", r.version)
-        assertEquals(DisposicionCrono.APILADA, r.disposicion)
+        assertEquals(DisposicionCrono.CARRILES, r.disposicion)
         assertEquals(true, r.vozActiva)
     }
 

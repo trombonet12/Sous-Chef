@@ -2,10 +2,13 @@ package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Hito
 import app.trombito.souschef.receta.Paso
@@ -103,7 +106,7 @@ class MomentosTarjetaTest {
     fun `antes de empezar la tarjeta dice METE y el fuego con tapa y duracion en vez del reloj`() {
         val banco = BancoCompose()
         val v = vistas()
-        banco.cocina { CronoApilado(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
 
         val textos = banco.textos(banco.conEtiqueta("tarjeta-f0"))
 
@@ -119,7 +122,7 @@ class MomentosTarjetaTest {
     fun `en marcha la tarjeta enseña el reloj el proximo aviso y la senal y no METE`() {
         val banco = BancoCompose()
         val v = vistas(f0 = corriendo(200))
-        banco.cocina { CronoApilado(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
 
         val textos = banco.textos(banco.conEtiqueta("tarjeta-f0"))
 
@@ -133,7 +136,7 @@ class MomentosTarjetaTest {
     fun `vencida la tarjeta dice SACA y Luego`() {
         val banco = BancoCompose()
         val v = vistas(f0 = corriendo(-5))
-        banco.cocina { CronoApilado(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
 
         val textos = banco.textos(banco.conEtiqueta("tarjeta-f0"))
 
@@ -144,11 +147,11 @@ class MomentosTarjetaTest {
     }
 
     @Test
-    fun `la franja dice AHORA con el carril que toca y su boton lo empieza`() {
+    fun `la franja dice AHORA con el carril que toca y su boton lo empieza si esta en fila`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas(f1 = EstadoCarril(), m = EstadoCarril())
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { FranjaAhora(v, p.acciones) }
 
         val franja = banco.textos(banco.conEtiqueta("franja-ahora"))
 
@@ -161,11 +164,11 @@ class MomentosTarjetaTest {
     }
 
     @Test
-    fun `la franja de un carril vencido ofrece HECHO y tambien sale en foco`() {
+    fun `la franja de un carril vencido en fila ofrece HECHO`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas(f0 = corriendo(-5))
-        banco.cocina { CronoFoco(v, elegirFoco(v, null), p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { FranjaAhora(v, p.acciones) }
 
         assertTrue(banco.textos(banco.conEtiqueta("franja-ahora")).contains("HECHO"))
         banco.pulsar(banco.conEtiqueta("franja-accion"))
@@ -173,11 +176,47 @@ class MomentosTarjetaTest {
     }
 
     @Test
+    fun `la franja no repite el boton si el carril que toca ya esta expandido`() {
+        val banco = BancoCompose()
+        val v = vistas(f1 = EstadoCarril(), m = EstadoCarril())
+        banco.cocina { FranjaAhora(v, Pulsaciones().acciones, enTarjeta = setOf("f0")) }
+
+        val franja = banco.textos(banco.conEtiqueta("franja-ahora"))
+
+        assertTrue(franja.contains("Sofrito"))
+        assertTrue(franja.none { it == "EMPEZAR" })
+        assertTrue(banco.etiquetas("franja-accion").isEmpty())
+    }
+
+    @Test
+    fun `en carriles el boton EMPEZAR del carril que toca sale una sola vez en su tarjeta`() {
+        val banco = BancoCompose()
+        val v = vistas(f1 = EstadoCarril(), m = EstadoCarril())
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
+
+        assertTrue("tarjeta-f0" in banco.etiquetas("tarjeta-"))
+        assertTrue(banco.etiquetas("franja-accion").isEmpty())
+        assertEquals(1, banco.textos(banco.conEtiqueta("tarjeta-f0")).count { it == "EMPEZAR" })
+        assertTrue(banco.textos(banco.conEtiqueta("franja-ahora")).none { it == "EMPEZAR" })
+    }
+
+    @Test
+    fun `con sitio para una tarjeta el vencido mas antiguo la lleva y la franja no repite su HECHO`() {
+        val banco = BancoCompose()
+        val v = vistas(f0 = corriendo(-5), f1 = corriendo(-60), m = EstadoCarril())
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxWidth().height(300.dp)) }
+
+        assertEquals(listOf("tarjeta-f1"), banco.etiquetas("tarjeta-"))
+        assertTrue(banco.etiquetas("franja-accion").isEmpty())
+        assertTrue(banco.textos(banco.conEtiqueta("franja-ahora")).contains("Hervir"))
+    }
+
+    @Test
     fun `sin carriles vivos no hay franja`() {
         val banco = BancoCompose()
         val fin = EstadoCarril(i = 2, fin = true)
         val v = vistas(f0 = fin, f1 = fin, m = fin)
-        banco.cocina { CronoApilado(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxSize()) }
 
         assertTrue(banco.etiquetas("franja-").isEmpty())
     }

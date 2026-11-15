@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -32,7 +33,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-/** La cocina en la JVM: reparto de FOCO y APILADA, sin scroll, toques y botón principal. */
+/** La cocina en la JVM: reparto de «Carriles» (tarjetas y filas), sin scroll, toques y botón principal. */
 @RunWith(RobolectricTestRunner::class)
 @Config(qualifiers = "w411dp-h891dp-xxhdpi")
 class CocinaUiTest {
@@ -129,26 +130,26 @@ class CocinaUiTest {
         }
 
     @Test
-    fun `foco pinta una tarjeta completa y el resto en filas compactas`() {
+    fun `con poca altura carriles expande el que necesita y deja el resto en filas compactas`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas(r = recetaMesaEspera)
-        banco.cocina { CronoFoco(v, elegirFoco(v, null), p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxWidth().height(420.dp)) }
 
         assertEquals(listOf("tarjeta-f0"), banco.etiquetas("tarjeta-"))
         assertEquals(listOf("fila-f1", "fila-m"), banco.etiquetas("fila-"))
         assertFalse(banco.hayDesplazable())
-        // El dato aparece una sola vez en los carriles: el título del paso en foco no se repite en ninguna fila.
+        // El dato aparece una sola vez en los carriles: el título del paso expandido no se repite en ninguna fila.
         val enCarriles = banco.etiquetas("tarjeta-") + banco.etiquetas("fila-")
         assertEquals(1, enCarriles.sumOf { e -> banco.textos(banco.conEtiqueta(e)).count { it == "Sofrito" } })
     }
 
     @Test
-    fun `apilada pinta una tarjeta por carril sin filas ni scroll`() {
+    fun `con altura de sobra carriles pinta una tarjeta por carril sin filas ni scroll`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("tarjeta-f0", "tarjeta-f1", "tarjeta-m"), banco.etiquetas("tarjeta-"))
         assertTrue(banco.etiquetas("fila-").isEmpty())
@@ -156,11 +157,11 @@ class CocinaUiTest {
     }
 
     @Test
-    fun `apilada reparte la altura a partes iguales`() {
+    fun `carriles reparte la altura de las tarjetas a partes iguales`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         val alturas = listOf("f0", "f1", "m").map { banco.conEtiqueta("tarjeta-$it").size.height }
         assertTrue(alturas.all { it > 0 })
@@ -168,37 +169,29 @@ class CocinaUiTest {
     }
 
     @Test
-    fun `apilada deja en fila compacta el carril terminado`() {
+    fun `carriles deja en fila compacta el carril terminado`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas(m = EstadoCarril(i = 1, fin = true))
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("tarjeta-f0", "tarjeta-f1"), banco.etiquetas("tarjeta-"))
         assertEquals(listOf("fila-m"), banco.etiquetas("fila-"))
     }
 
     @Test
-    fun `tocar una fila compacta la fija en el foco`() {
+    fun `tocar una fila la expande y avisa para fijarla`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
-        val v = vistas()
-        banco.cocina { CronoFoco(v, "f0", p.acciones, Modifier.fillMaxSize()) }
+        val v = vistas(r = recetaMesaEspera)
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxWidth().height(420.dp)) }
+        assertEquals(listOf("tarjeta-f0"), banco.etiquetas("tarjeta-"))
 
         banco.pulsar(banco.conEtiqueta("fila-f1"))
 
         assertEquals(listOf("enfocar:f1"), p.llamadas)
-    }
-
-    @Test
-    fun `el foco cambia de tarjeta cuando el fijado es otro carril vivo`() {
-        val banco = BancoCompose()
-        val p = Pulsaciones()
-        val v = vistas()
-        banco.cocina { CronoFoco(v, elegirFoco(v, "f1"), p.acciones, Modifier.fillMaxSize()) }
-
         assertEquals(listOf("tarjeta-f1"), banco.etiquetas("tarjeta-"))
-        assertEquals(listOf("fila-f0", "fila-m"), banco.etiquetas("fila-"))
+        assertEquals(setOf("fila-f0", "fila-m"), banco.etiquetas("fila-").toSet())
     }
 
     @Test
@@ -213,7 +206,7 @@ class CocinaUiTest {
         casos.forEach { (nombre, v, esperado) ->
             val banco = BancoCompose()
             val p = Pulsaciones()
-            banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+            banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
             banco.pulsar(banco.conEtiqueta("accion-f0"))
 
@@ -232,7 +225,7 @@ class CocinaUiTest {
                 m = EstadoCarril(),
                 r = recetaMesaEspera,
             )
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("HECHO"), banco.textos(banco.conEtiqueta("accion-f0")))
         assertEquals(listOf("SEGUIR"), banco.textos(banco.conEtiqueta("accion-f1")))
@@ -249,7 +242,7 @@ class CocinaUiTest {
         val estado = EstadoCrono("r", 2, ahora + 15 * 60_000L, carriles, actualizadoMs = ahora)
         val v = vistasCarriles(DatosCrono(receta, estado, ahora))
         assertEquals(ClaseEstado.YA, v.first { it.id == "m" }.clase)
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertEquals(listOf("EMPEZAR"), banco.textos(banco.conEtiqueta("accion-m")))
         banco.pulsar(banco.conEtiqueta("accion-m"))
@@ -262,7 +255,7 @@ class CocinaUiTest {
         val p = Pulsaciones()
         val v = vistas(m = EstadoCarril(), r = recetaMesaEspera)
         assertEquals(ClaseEstado.ESPERA, v.first { it.id == "m" }.clase)
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         banco.pulsar(banco.pulsableConTexto("Empezar antes"))
 
@@ -283,7 +276,7 @@ class CocinaUiTest {
         val p = Pulsaciones()
         val v = vistas(m = EstadoCarril(i = 1))
         assertEquals(AccionCarril.BLOQUEADO, v.first { it.id == "m" }.accion)
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         assertTrue(banco.textos(banco.conEtiqueta("tarjeta-m")).contains("espera a ②"))
         banco.pulsar(banco.pulsableConTexto("Empezar igual"))
@@ -323,7 +316,7 @@ class CocinaUiTest {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoFoco(v, "f0", p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
         val tarjeta = banco.conEtiqueta("tarjeta-f0")
 
         banco.pulsar(banco.pulsableConTexto("Pausa", tarjeta))
@@ -337,14 +330,14 @@ class CocinaUiTest {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoFoco(v, "f0", p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         banco.pulsar(banco.pulsableConTexto("Sofrito", banco.conEtiqueta("tarjeta-f0")))
 
         assertEquals(listOf("porque:f0"), p.llamadas)
         val sinPorque = vistas().map { it.copy(tienePorque = false) }
         val otro = BancoCompose()
-        otro.cocina { CronoFoco(sinPorque, "f0", p.acciones, Modifier.fillMaxSize()) }
+        otro.cocina { CronoCarriles(sinPorque, p.acciones, Modifier.fillMaxSize()) }
         assertNull(
             otro.nodos().firstOrNull {
                 it.config.contains(SemanticsActions.OnClick) && "Sofrito" in otro.textos(it)
@@ -357,7 +350,7 @@ class CocinaUiTest {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoFoco(v, "f0", p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
 
         val textos = banco.textos(banco.conEtiqueta("tarjeta-f0"))
 
@@ -404,12 +397,12 @@ class CocinaUiTest {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas()
-        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
         assertEquals(emptyList<String>(), banco.etiquetas("deshacer-"))
 
         val conDeshacer = v.map { if (it.id == "f1") it.copy(deshacerA = "Lavar") else it }
         val banco2 = BancoCompose()
-        banco2.cocina { CronoApilado(conDeshacer, p.acciones, Modifier.fillMaxSize()) }
+        banco2.cocina { CronoCarriles(conDeshacer, p.acciones, Modifier.fillMaxSize()) }
         assertEquals(listOf("deshacer-f1"), banco2.etiquetas("deshacer-"))
         banco2.pulsar(banco2.conEtiqueta("deshacer-f1"))
         assertEquals(listOf("deshacer:f1"), p.llamadas)

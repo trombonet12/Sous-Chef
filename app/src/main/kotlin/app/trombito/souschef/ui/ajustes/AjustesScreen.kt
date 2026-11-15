@@ -215,8 +215,7 @@ private fun nombreLista(lista: DisposicionLista): String =
 private fun nombreDisposicion(d: DisposicionCrono): String =
     stringResource(
         when (d) {
-            DisposicionCrono.APILADA -> R.string.ajustes_resumen_apilada
-            DisposicionCrono.FOCO -> R.string.ajustes_resumen_foco
+            DisposicionCrono.CARRILES -> R.string.ajustes_resumen_carriles
             DisposicionCrono.CLASICA -> R.string.ajustes_resumen_clasica
         },
     )

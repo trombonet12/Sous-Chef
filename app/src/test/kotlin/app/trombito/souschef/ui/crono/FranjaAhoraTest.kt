@@ -190,7 +190,7 @@ class FranjaAhoraTest {
         assertEquals("Emplatar", luegoSinPotencia("Emplatar", fuego = null, fuegoSiguiente = null))
     }
 
-    // ---- reparto de APILADA: tarjeta o fila
+    // ---- reparto de Carriles: tarjeta expandida o fila
 
     @Test
     fun `con sitio de sobra todos los carriles vivos son tarjeta`() {
@@ -217,5 +217,20 @@ class FranjaAhoraTest {
     fun `siempre queda al menos una tarjeta`() {
         val v = listOf(espera("a", 0, 40), espera("b", 1, 20))
         assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 100f, escala = 1.3f))
+    }
+
+    @Test
+    fun `el carril tocado se expande antes que los que esperan o corren pero no antes que lo que toca ya`() {
+        val v = listOf(marcha("a", 0, 30), espera("b", 1, 40), ya("c", 2, 5))
+        // Sitio para dos tarjetas por empezar y una fila: toca ya (c) y, entre b y a, el tocado.
+        val alto = 108f + 18f + 200f + 200f + 80f
+        assertEquals(setOf("c", "b"), carrilesEnTarjeta(v, alturaDp = alto, escala = 1f, tocado = "b"))
+        assertEquals(setOf("c", "a"), carrilesEnTarjeta(v, alturaDp = alto, escala = 1f))
+    }
+
+    @Test
+    fun `entre dos vencidos la tarjeta es la del mas antiguo que es el de la franja`() {
+        val v = listOf(vencido("a", 0, 90_000), vencido("b", 1, 5_000))
+        assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 108f + 12f + 150f + 80f, escala = 1f))
     }
 }

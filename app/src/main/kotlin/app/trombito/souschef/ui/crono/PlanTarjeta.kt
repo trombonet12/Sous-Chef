@@ -6,7 +6,10 @@ internal data class PlanTarjeta(
     val metoSaco: Boolean,
     val tituloLineas: Int,
     val relojSp: Int,
-    /** Alto máximo (dp, a letra 1,0×) de la pila de texto SEÑAL/METO/SACO; lo que no cabe se corta o se omite. */
+    /**
+     * Alto máximo (dp, a letra 1,0×) de la pila de texto SEÑAL/METO/SACO, con lo que sobra del reloj ya a su máximo;
+     * lo que no cabe se corta o se omite.
+     */
     val textoDp: Int = 0,
 )
 
@@ -70,5 +73,10 @@ internal fun planTarjeta(
         }
     val elegido = conReloj.firstOrNull { it.relojSp >= RELOJ_MIN_SP } ?: conReloj.last()
     val textoDp = (if (elegido.nota) NOTA_DP else 0) + (if (elegido.metoSaco) METO_SACO_DP else 0)
-    return elegido.copy(relojSp = elegido.relojSp.coerceIn(RELOJ_MIN_SP, RELOJ_MAX_SP), textoDp = textoDp)
+    // Lo que sobra con el reloj ya a su máximo no se queda en blanco: es sitio para el texto (SEÑAL y SACA enteros).
+    val sobraDp = ((elegido.relojSp - RELOJ_MAX_SP) * ALTO_POR_SP).toInt().coerceAtLeast(0)
+    return elegido.copy(
+        relojSp = elegido.relojSp.coerceIn(RELOJ_MIN_SP, RELOJ_MAX_SP),
+        textoDp = textoDp + sobraDp,
+    )
 }

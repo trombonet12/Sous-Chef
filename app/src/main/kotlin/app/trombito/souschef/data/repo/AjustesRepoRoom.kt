@@ -42,7 +42,7 @@ class AjustesRepoRoom
         private fun leer(v: Array<String?>): Ajustes {
             val defecto = Ajustes()
             return Ajustes(
-                disposicion = enumDe(v[I_DISPOSICION], defecto.disposicion),
+                disposicion = disposicionDe(v[I_DISPOSICION]),
                 vozActiva = booleanoDe(v[I_VOZ], defecto.vozActiva),
                 lista = enumDe(v[I_LISTA], defecto.lista),
                 orden = enumDe(v[I_ORDEN], defecto.orden),
@@ -235,6 +235,10 @@ class AjustesRepoRoom
                     max = if (max == "") null else max?.toIntOrNull() ?: defecto.max,
                 ).valida()
             }
+
+            /** Lectura tolerante: lo que no sea CLASICA (también las antiguas FOCO y APILADA) es CARRILES. */
+            private fun disposicionDe(valor: String?): DisposicionCrono =
+                if (valor == DisposicionCrono.CLASICA.name) DisposicionCrono.CLASICA else DisposicionCrono.CARRILES
 
             private inline fun <reified E : Enum<E>> enumDe(
                 valor: String?,

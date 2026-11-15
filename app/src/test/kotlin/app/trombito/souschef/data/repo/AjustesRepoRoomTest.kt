@@ -53,7 +53,7 @@ class AjustesRepoRoomTest {
     @Test
     fun sinDatosDevuelveElDefecto() =
         runBlocking {
-            assertEquals(Ajustes(DisposicionCrono.APILADA, true), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.CARRILES, true), repo.observar().first())
             assertEquals(DisposicionLista.TINTE, repo.observar().first().lista)
             assertEquals(OrdenRecetas.FAVORITAS, repo.observar().first().orden)
         }
@@ -61,12 +61,23 @@ class AjustesRepoRoomTest {
     @Test
     fun fijarYObservar() =
         runBlocking {
-            repo.fijarDisposicion(DisposicionCrono.APILADA)
+            repo.fijarDisposicion(DisposicionCrono.CARRILES)
             repo.fijarVoz(false)
-            assertEquals(Ajustes(DisposicionCrono.APILADA, false), repo.observar().first())
+            assertEquals(Ajustes(DisposicionCrono.CARRILES, false), repo.observar().first())
 
-            repo.fijarDisposicion(DisposicionCrono.FOCO)
-            assertEquals(Ajustes(DisposicionCrono.FOCO, false), repo.observar().first())
+            repo.fijarDisposicion(DisposicionCrono.CLASICA)
+            assertEquals(Ajustes(DisposicionCrono.CLASICA, false), repo.observar().first())
+        }
+
+    @Test
+    fun unaDisposicionGuardadaComoFocoOApiladaSeLeeComoCarriles() =
+        runBlocking {
+            listOf("FOCO", "APILADA", "CARRILES", "", "diagonal").forEach {
+                db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_DISPOSICION, it))
+                assertEquals(it, DisposicionCrono.CARRILES, repo.observar().first().disposicion)
+            }
+            db.metaDao().fijar(MetaEntity(AjustesRepoRoom.CLAVE_DISPOSICION, "CLASICA"))
+            assertEquals(DisposicionCrono.CLASICA, repo.observar().first().disposicion)
         }
 
     @Test
@@ -334,7 +345,7 @@ class AjustesRepoRoomTest {
             val a = repo.observar().first()
             assertEquals(DisposicionLista.FRANJA, a.lista)
             assertEquals(OrdenRecetas.RAPIDA, a.orden)
-            assertEquals(DisposicionCrono.APILADA, a.disposicion)
+            assertEquals(DisposicionCrono.CARRILES, a.disposicion)
         }
 
     @Test

@@ -286,29 +286,23 @@ private fun despuesDe(
 ): String = siguiente.f?.takeIf { esFuego }?.let { "${siguiente.t} · fuego ${cocina.nivel(it)}" } ?: siguiente.t
 
 /**
- * Carril en foco, el que se dibuja grande. Prioridad: 1) HECHO vencido con el fin más antiguo (gana incluso a un
- * [fijado]); 2) [fijado] si sigue vivo, salvo que esté en ESPERA o BLOQ y haya un carril que toca ya; 3) el que toca
- * ya (YA) de hora más temprana; 4) en marcha o en pausa (el que acaba antes); 5) el de hora más temprana. Nunca un
- * carril que espera pasa por delante de uno que toca ya.
- *
- * [vistosAlFijar] son los carriles vencidos o en YA que ya había al fijar a mano [fijado] (null = no se sabe: todos
- * cuentan como nuevos). Un fijado vivo solo cede ante un vencido o un YA que no esté ahí; así tocar una fila para
- * mirarla se respeta aunque otro ya pida atención, y deja de respetarse en cuanto aparece algo nuevo.
+ * Carril en foco (el de las órdenes por voz y la notificación). Prioridad: 1) HECHO vencido con el fin más antiguo
+ * (gana incluso a un [fijado]); 2) [fijado] si sigue vivo, salvo que esté en ESPERA o BLOQ y haya un carril que toca
+ * ya; 3) el que toca ya (YA) de hora más temprana; 4) en marcha o en pausa (el que acaba antes); 5) el de hora más
+ * temprana. Nunca un carril que espera pasa por delante de uno que toca ya.
  */
 fun elegirFoco(
     vistas: List<VistaCarril>,
     fijado: String?,
-    vistosAlFijar: Set<String>? = null,
 ): String? {
     val vivas = vistas.filter { !it.terminado }
     val fijadoVivo = vivas.firstOrNull { it.id == fijado }
-    val nuevas = if (fijadoVivo == null || vistosAlFijar == null) vivas else vivas.filter { it.id !in vistosAlFijar }
-    val yaNuevo = nuevas.any { it.clase == ClaseEstado.YA }
-    return nuevas
+    val hayYa = vivas.any { it.clase == ClaseEstado.YA }
+    return vivas
         .filter { it.accion == AccionCarril.HECHO }
         .minByOrNull { it.finAtMs ?: Long.MAX_VALUE }
         ?.id
-        ?: fijadoVivo?.takeUnless { yaNuevo && it.esperando }?.id
+        ?: fijadoVivo?.takeUnless { hayYa && it.esperando }?.id
         ?: masUrgente(vivas)
 }
 

@@ -54,14 +54,13 @@ private class OpcionDisposicion(
 
 private val OPCIONES =
     listOf(
-        OpcionDisposicion(DisposicionCrono.APILADA, R.string.ajustes_apilada, R.string.ajustes_apilada_detalle),
-        OpcionDisposicion(DisposicionCrono.FOCO, R.string.ajustes_foco, R.string.ajustes_foco_detalle),
+        OpcionDisposicion(DisposicionCrono.CARRILES, R.string.ajustes_carriles, R.string.ajustes_carriles_detalle),
         OpcionDisposicion(DisposicionCrono.CLASICA, R.string.ajustes_clasica, R.string.ajustes_clasica_detalle),
     )
 
 /**
- * Las tres disposiciones del cronómetro como tarjetas con una miniatura (un esquema, no una captura: se adapta a la
- * letra y no envejece). Lo usan Ajustes y el menú ⋮ de la cocina.
+ * Las disposiciones del cronómetro (Carriles y la Clásica, que se retira) como tarjetas con una miniatura (un
+ * esquema, no una captura: se adapta a la letra y no envejece). Lo usan Ajustes y el menú ⋮ de la cocina.
  */
 @Composable
 fun SelectorDisposicion(
@@ -73,8 +72,16 @@ fun SelectorDisposicion(
         OPCIONES.map {
             OpcionTarjeta(it.titulo, it.detalle, "disposicion-${it.disposicion.name}", it.disposicion == elegida)
         }
-    SelectorTarjetas(tarjetas, { onElegir(OPCIONES[it].disposicion) }, modifier) { i, mod ->
-        Miniatura(OPCIONES[i].disposicion, mod)
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SelectorTarjetas(tarjetas, { onElegir(OPCIONES[it].disposicion) }) { i, mod ->
+            Miniatura(OPCIONES[i].disposicion, mod)
+        }
+        Text(
+            stringResource(R.string.ajustes_clasica_retirada),
+            Modifier.testTag("ajustes-clasica-retirada"),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
@@ -202,8 +209,7 @@ private fun Miniatura(
         caja(Offset(m, m), Size(size.width - 2 * m, size.height * 0.06f), p.carta2)
         val arriba = m * 2 + size.height * 0.06f
         when (disposicion) {
-            DisposicionCrono.APILADA -> apilada(p, arriba, m)
-            DisposicionCrono.FOCO -> foco(p, arriba, m)
+            DisposicionCrono.CARRILES -> carriles(p, arriba, m)
             DisposicionCrono.CLASICA -> clasica(p, arriba, m)
         }
     }
@@ -240,30 +246,25 @@ private fun DrawScope.tarjeta(
     )
 }
 
-private fun DrawScope.apilada(
+/** Carriles: la franja «Ahora / Luego», dos tarjetas expandidas y una fila de lo que espera. */
+private fun DrawScope.carriles(
     p: ColoresCrono,
     arriba: Float,
     m: Float,
 ) {
-    val alto = (size.height - arriba - m * 4) / 3
-    COLORES_MUESTRA.forEachIndexed { i, c ->
-        tarjeta(p, Offset(m, arriba + i * (alto + m)), Size(size.width - 2 * m, alto), c, reloj = 0.22f)
-    }
-}
-
-private fun DrawScope.foco(
-    p: ColoresCrono,
-    arriba: Float,
-    m: Float,
-) {
+    val ancho = size.width - 2 * m
+    val franja = size.height * 0.1f
+    caja(Offset(m, arriba), Size(ancho, franja), p.carta2)
+    drawRect(COLORES_MUESTRA[2], Offset(m * 1.6f, arriba + franja * 0.3f), Size(size.width * 0.03f, franja * 0.4f))
     val fila = size.height * 0.09f
-    val grande = size.height - arriba - m * 4 - fila * 2
-    tarjeta(p, Offset(m, arriba), Size(size.width - 2 * m, grande), COLORES_MUESTRA[0], reloj = 0.16f)
-    COLORES_MUESTRA.drop(1).forEachIndexed { i, c ->
-        val y = arriba + grande + m + i * (fila + m)
-        caja(Offset(m, y), Size(size.width - 2 * m, fila), p.carta)
-        drawRect(c, Offset(m * 1.6f, y + fila * 0.2f), Size(size.width * 0.03f, fila * 0.6f))
+    val yTarjetas = arriba + franja + m
+    val alto = (size.height - yTarjetas - m * 3 - fila) / 2
+    COLORES_MUESTRA.take(2).forEachIndexed { i, c ->
+        tarjeta(p, Offset(m, yTarjetas + i * (alto + m)), Size(ancho, alto), c, reloj = 0.2f)
     }
+    val y = yTarjetas + 2 * (alto + m)
+    caja(Offset(m, y), Size(ancho, fila), p.carta)
+    drawRect(COLORES_MUESTRA[2], Offset(m * 1.6f, y + fila * 0.2f), Size(size.width * 0.03f, fila * 0.6f))
 }
 
 private fun DrawScope.clasica(

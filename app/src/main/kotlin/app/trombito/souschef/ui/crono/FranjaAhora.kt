@@ -127,13 +127,15 @@ private const val ALTO_BOTON_DP = 44
 /**
  * Franja fija encima de los carriles: «AHORA ② Calentar el aceite [EMPEZAR]» y, debajo, hasta dos filas de LUEGO por
  * orden de hora. Entre 40 y 100 dp; con letra grande solo cabe una fila de LUEGO. No se mueve nada: lo que no cabe en
- * una línea se corta con «…».
+ * una línea se corta con «…». El botón solo sale si el carril que toca no está en [enTarjeta] (si lo está, lo lleva
+ * su tarjeta, y el botón no se repite).
  */
 @Composable
 internal fun FranjaAhora(
     vistas: List<VistaCarril>,
     acciones: AccionesCarril,
     modifier: Modifier = Modifier,
+    enTarjeta: Set<String> = emptySet(),
 ) {
     val escala = LocalDensity.current.fontScale
     val modelo = modeloFranja(vistas, if (escala > LETRA_GRANDE) 1 else MAX_LUEGO) ?: return
@@ -147,7 +149,7 @@ internal fun FranjaAhora(
             .border(1.dp, CronoPalette.linea, forma)
             .padding(horizontal = 12.dp, vertical = 4.dp),
     ) {
-        FilaAhora(modelo.ahora, acciones)
+        FilaAhora(modelo.ahora, acciones, enTarjeta)
         modelo.luego.forEachIndexed { i, fila -> FilaDeLuego(fila, conRotulo = i == 0, corto = escala > LETRA_GRANDE) }
     }
 }
@@ -174,6 +176,7 @@ private fun Rotulo(texto: String?) {
 private fun FilaAhora(
     ahora: Ahora,
     acciones: AccionesCarril,
+    enTarjeta: Set<String>,
 ) {
     Row(
         Modifier.fillMaxWidth().heightIn(min = ALTO_BOTON_DP.dp),
@@ -186,7 +189,8 @@ private fun FilaAhora(
                 val descripcion =
                     stringResource(R.string.crono_franja_a11y_ahora, v.indiceCarril + 1, v.pantalla.titulo)
                 CuerpoAhora(descripcion, v, v.pantalla.titulo, Modifier.weight(1f))
-                BotonFranja(v, ahora.lleno, acciones)
+                // Una sola vez: si el carril ya está expandido, el botón es el de su tarjeta.
+                if (v.id !in enTarjeta) BotonFranja(v, ahora.lleno, acciones)
             }
 
             is Ahora.EnMarcha -> {

@@ -29,7 +29,7 @@ class SelectorDisposicionTest {
         val elegidas = mutableListOf<DisposicionCrono>()
         banco.poner {
             MaterialTheme {
-                var actual by remember { mutableStateOf(DisposicionCrono.APILADA) }
+                var actual by remember { mutableStateOf(DisposicionCrono.CARRILES) }
                 SelectorDisposicion(actual, {
                     elegidas += it
                     actual = it
@@ -37,8 +37,13 @@ class SelectorDisposicionTest {
             }
         }
         assertEquals(
-            listOf("disposicion-APILADA", "disposicion-FOCO", "disposicion-CLASICA"),
+            listOf("disposicion-CARRILES", "disposicion-CLASICA"),
             banco.etiquetas("disposicion-"),
+        )
+        // La Clásica avisa de que se retira en la próxima versión, esté o no elegida.
+        assertEquals(
+            listOf("La Clásica se retirará en la próxima versión."),
+            banco.textos(banco.conEtiqueta("ajustes-clasica-retirada")),
         )
 
         banco.pulsar(banco.conEtiqueta("disposicion-CLASICA"))

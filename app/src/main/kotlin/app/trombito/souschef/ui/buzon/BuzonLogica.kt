@@ -163,8 +163,7 @@ fun textoResumen(
 @StringRes
 private fun etiquetaDisposicion(d: DisposicionCrono): Int =
     when (d) {
-        DisposicionCrono.APILADA -> R.string.ajustes_resumen_apilada
-        DisposicionCrono.FOCO -> R.string.ajustes_resumen_foco
+        DisposicionCrono.CARRILES -> R.string.ajustes_resumen_carriles
         DisposicionCrono.CLASICA -> R.string.ajustes_resumen_clasica
     }
 

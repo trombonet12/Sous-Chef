@@ -10,12 +10,11 @@
     <!-- Ajustes -->
     <string name="ajustes_titulo">Ajustes</string>
     <string name="ajustes_crono">Cronómetro</string>
-    <string name="ajustes_foco">Foco y resto compacto</string>
-    <string name="ajustes_foco_detalle">Un recipiente grande a la vista y los demás en una línea.</string>
-    <string name="ajustes_apilada">Carriles apilados</string>
-    <string name="ajustes_apilada_detalle">Todos los recipientes a la vez, uno debajo de otro.</string>
+    <string name="ajustes_carriles">Carriles (recomendada)</string>
+    <string name="ajustes_carriles_detalle">Todos los recipientes a la vista y en su sitio: el que te necesita se hace grande y los que esperan quedan en una línea.</string>
     <string name="ajustes_clasica">Clásica</string>
     <string name="ajustes_clasica_detalle">La de antes: pestañas de recipientes, un panel por recipiente con scroll y los mandos abajo.</string>
+    <string name="ajustes_clasica_retirada">La Clásica se retirará en la próxima versión.</string>
     <string name="ajustes_interfaz">Interfaz</string>
     <string name="ajustes_historial">Historial</string>
     <string name="ajustes_historial_detalle">El historial vive en la app: si borras sus datos o la reinstalas, se pierde. Guarda una copia en el móvil de vez en cuando y cárgala después; solo añade lo que falte, sin pisar nada.</string>
@@ -124,9 +123,6 @@
     <string name="ficha_eje">Eje en minutos desde el arranque</string>
     <string name="ficha_min_rango">min %1$s-%2$s</string>
     <string name="ficha_duracion">%1$s′</string>
-    <string name="ficha_minutos_meta">%1$s MIN</string>
-    <string name="ficha_fuego_meta">FUEGO %1$s</string>
-    <string name="ficha_sin_fuego">SIN FUEGO</string>
     <string name="ficha_sin_fuego_bajo">sin fuego</string>
     <string name="ficha_fuego_bajo">fuego %1$s</string>
     <string name="ficha_imprimir">Imprimir o guardar como PDF</string>

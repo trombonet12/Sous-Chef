@@ -30,8 +30,8 @@ import app.trombito.souschef.ui.theme.CronoPalette
 private val ALTO_FILA = 64.dp
 
 /**
- * Fila compacta (64 dp como mínimo) de un carril que no está en foco: nombre, hora prevista, título del paso (1 línea,
- * quieto), fuego, reloj y, solo si toca (Hecho o Empezar), un botón pequeño. Tocar la fila la fija en el foco.
+ * Fila compacta (64 dp como mínimo) de un carril que no está expandido: nombre, hora prevista, título del paso (1
+ * línea, quieto), fuego, reloj y, solo si toca (Hecho o Empezar), un botón pequeño. Tocar la fila la expande.
  */
 @Composable
 fun FilaCarrilCompacta(

@@ -555,50 +555,6 @@ class VistaCarrilTest {
     }
 
     @Test
-    fun `foco fijado a mano en ESPERA se respeta si el YA ya estaba al fijar`() {
-        val lista = listOf(corre("a", 1_000), v("b", clase = ClaseEstado.YA), v("c", clase = ClaseEstado.ESPERA))
-        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
-    }
-
-    @Test
-    fun `foco fijado a mano en BLOQ se respeta si el YA ya estaba al fijar`() {
-        val lista =
-            listOf(
-                v("b", clase = ClaseEstado.YA),
-                v("c", accion = AccionCarril.BLOQUEADO, clase = ClaseEstado.BLOQ),
-            )
-        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
-    }
-
-    @Test
-    fun `foco fijado a mano cede ante un YA nuevo despues de fijar`() {
-        val lista =
-            listOf(
-                conHora("b", ClaseEstado.YA, 900),
-                conHora("d", ClaseEstado.YA, 300),
-                v("c", clase = ClaseEstado.ESPERA),
-            )
-        assertEquals("d", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
-        assertEquals("d", elegirFoco(lista, "c", vistosAlFijar = emptySet()))
-        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b", "d")))
-    }
-
-    @Test
-    fun `foco fijado a mano cede ante un vencido nuevo pero no ante uno que ya estaba`() {
-        val lista = listOf(corre("a", 1_000), vencido("b", 5_000), v("c", clase = ClaseEstado.ESPERA))
-        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
-        assertEquals("b", elegirFoco(lista, "c", vistosAlFijar = emptySet()))
-        assertEquals("b", elegirFoco(lista, "c"))
-    }
-
-    @Test
-    fun `foco sin fijado vivo ignora lo visto al fijar`() {
-        val lista = listOf(terminado("c"), v("b", clase = ClaseEstado.YA), corre("a", 1_000))
-        assertEquals("b", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
-        assertEquals("b", elegirFoco(lista, null, vistosAlFijar = setOf("b")))
-    }
-
-    @Test
     fun `foco fijado terminado se ignora`() {
         val lista = listOf(terminado("a"), corre("b", 3_000), v("c", clase = ClaseEstado.ESPERA))
         assertEquals("b", elegirFoco(lista, "a"))

@@ -35,7 +35,7 @@ class AjustesPantallasTest {
         val textos = banco.textos(banco.raiz())
         assertTrue(textos.toString(), "Tema automático · lista Tinte" in textos)
         assertTrue(textos.toString(), "Comer 15:30 · cenar 21:00 · cuándo empezar" in textos)
-        assertTrue(textos.toString(), "Apilada · voz activada" in textos)
+        assertTrue(textos.toString(), "Carriles · voz activada" in textos)
         assertTrue(textos.toString(), "Guardar o cargar una copia" in textos)
         assertTrue(textos.toString(), "Sous Chef 1.2.3" in textos)
     }
@@ -102,7 +102,7 @@ class AjustesPantallasTest {
 
         val textos = banco.textos(banco.raiz())
         assertTrue(textos.toString(), "Comer 14:00 · cenar 22:30 · si empiezas ya" in textos)
-        assertTrue(textos.toString(), "Apilada · voz desactivada" in textos)
+        assertTrue(textos.toString(), "Carriles · voz desactivada" in textos)
     }
 
     @Test

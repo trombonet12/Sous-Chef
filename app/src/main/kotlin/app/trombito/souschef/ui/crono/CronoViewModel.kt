@@ -90,8 +90,8 @@ data class CronoUi(
     val tecnicas: Map<String, String> = emptyMap(),
     /** Título de otra cocinada viva que habría que abandonar para abrir esta cocina (solo se cocina una a la vez). */
     val conflicto: String? = null,
-    /** Cómo se reparte la cocina (Ajustes): un carril en foco con el resto compacto, o todos apilados. */
-    val disposicion: DisposicionCrono = DisposicionCrono.APILADA,
+    /** Cómo se reparte la cocina (Ajustes): «Carriles» o la clásica, que se retira en la próxima versión. */
+    val disposicion: DisposicionCrono = DisposicionCrono.CARRILES,
     /** Escuchando, sin permiso de micrófono, o apagada (ajuste, silenciada, sin reconocedor o fuera de pantalla). */
     val voz: EstadoVoz = EstadoVoz.APAGADA,
     /** El usuario ha silenciado la voz en esta cocinada (no se guarda). */

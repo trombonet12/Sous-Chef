@@ -157,8 +157,7 @@ private fun resumenCrono(ajustes: Ajustes): String {
     val disposicion =
         stringResource(
             when (ajustes.disposicion) {
-                DisposicionCrono.APILADA -> R.string.ajustes_resumen_apilada
-                DisposicionCrono.FOCO -> R.string.ajustes_resumen_foco
+                DisposicionCrono.CARRILES -> R.string.ajustes_resumen_carriles
                 DisposicionCrono.CLASICA -> R.string.ajustes_resumen_clasica
             },
         )

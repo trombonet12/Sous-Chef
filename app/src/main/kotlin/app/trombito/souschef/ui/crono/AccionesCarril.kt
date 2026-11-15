@@ -59,6 +59,10 @@ class AccionesCarril(
     /** Deshace el último Hecho del carril (toque sin querer). */
     val deshacer: (String) -> Unit = {},
 ) {
+    /** Los mismos mandos con otra respuesta al tocar una fila ([enfocar]). */
+    fun conEnfocar(enfocar: (String) -> Unit) =
+        AccionesCarril(hecho, alternar, masTreinta, empezarIgual, enfocar, porque, deshacer)
+
     companion object {
         /** Mandos sin efecto: la cocina de muestra de la intro no se toca. */
         val INERTES =

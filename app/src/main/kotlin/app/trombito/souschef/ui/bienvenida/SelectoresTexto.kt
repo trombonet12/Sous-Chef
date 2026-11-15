@@ -17,7 +17,7 @@ import app.trombito.souschef.domain.DisposicionLista
 
 private val ALTO_SEGMENTO = 48.dp
 
-/** Diseño de las listas como tres botones de texto (sin miniaturas: la vista real queda debajo). */
+/** Diseño de las listas como dos botones de texto (sin miniaturas: la vista real queda debajo). */
 @Composable
 internal fun SelectorListaTexto(
     elegida: DisposicionLista,
@@ -40,8 +40,7 @@ internal fun SelectorDisposicionTexto(
 ) {
     val opciones =
         listOf(
-            DisposicionCrono.APILADA to R.string.ajustes_resumen_apilada,
-            DisposicionCrono.FOCO to R.string.ajustes_resumen_foco,
+            DisposicionCrono.CARRILES to R.string.ajustes_resumen_carriles,
             DisposicionCrono.CLASICA to R.string.ajustes_resumen_clasica,
         )
     SegmentosTexto(opciones, elegida, { "disposicion-${it.name}" }, onElegir)

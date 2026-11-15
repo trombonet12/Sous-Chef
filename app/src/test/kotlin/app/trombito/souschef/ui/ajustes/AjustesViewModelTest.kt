@@ -43,10 +43,10 @@ class AjustesViewModelTest {
             backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.estado.collect {} }
             assertEquals(Ajustes(), vm.estado.value)
 
-            vm.elegirDisposicion(DisposicionCrono.APILADA)
+            vm.elegirDisposicion(DisposicionCrono.CLASICA)
             vm.activarVoz(false)
 
-            assertEquals(Ajustes(DisposicionCrono.APILADA, false), vm.estado.value)
+            assertEquals(Ajustes(DisposicionCrono.CLASICA, false), vm.estado.value)
 
             vm.elegirLista(DisposicionLista.CLASICA)
             assertEquals(DisposicionLista.CLASICA, vm.estado.value.lista)

@@ -9,8 +9,7 @@
     <string name="ajustes_resumen_horario_acabar">Comer %1$s · cenar %2$s · si empiezas ya</string>
     <string name="ajustes_resumen_crono">%1$s · voz %2$s</string>
     <string name="ajustes_resumen_historial">Guardar o cargar una copia</string>
-    <string name="ajustes_resumen_apilada">Apilada</string>
-    <string name="ajustes_resumen_foco">Foco</string>
+    <string name="ajustes_resumen_carriles">Carriles</string>
     <string name="ajustes_resumen_clasica">Clásica</string>
     <string name="ajustes_resumen_voz_activada">activada</string>
     <string name="ajustes_resumen_voz_desactivada">desactivada</string>

@@ -116,12 +116,23 @@ class PlanTarjetaTest {
 
     @Test
     fun `el plan reserva a la pila de texto el alto de la nota y de meto saco`() {
-        val todo = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = true, hayNota = true)
+        val todo = planTarjeta(alturaDp = 450f, carriles = 2, hayMetoSaco = true, hayNota = true)
         assertEquals(60 + 100, todo.textoDp)
-        val soloNota = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = false, hayNota = true)
+        val soloNota = planTarjeta(alturaDp = 320f, carriles = 2, hayMetoSaco = false, hayNota = true)
         assertEquals(60, soloNota.textoDp)
-        val nada = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = false, hayNota = false)
+        val nada = planTarjeta(alturaDp = 300f, carriles = 2, hayMetoSaco = false, hayNota = false)
         assertEquals(0, nada.textoDp)
+    }
+
+    @Test
+    fun `lo que sobra con el reloj a su maximo es para el texto y no queda en blanco`() {
+        val justo = planTarjeta(alturaDp = 450f, carriles = 1, hayMetoSaco = true, hayNota = true)
+        val alta = planTarjeta(alturaDp = 700f, carriles = 1, hayMetoSaco = true, hayNota = true)
+        assertEquals(88, alta.relojSp)
+        assertTrue(alta.textoDp > justo.textoDp)
+        // Con el reloj a 88 sp (106 dp) y la parte fija, todo el resto va al texto.
+        val resto = 700 - (12 + 48 + 32 + 52 + 48 + 20) - 2 * 28 - 88 * 1.2f
+        assertEquals(resto, alta.textoDp.toFloat(), 1.5f)
     }
 
     @Test

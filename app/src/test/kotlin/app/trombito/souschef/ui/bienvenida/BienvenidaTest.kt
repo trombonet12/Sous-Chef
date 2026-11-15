@@ -281,10 +281,7 @@ class BienvenidaTest {
     }
 
     @Test
-    fun `la cocina real cabe en el marco apilada`() = cocinaEnMarco(DisposicionCrono.APILADA)
-
-    @Test
-    fun `la cocina real cabe en el marco en foco`() = cocinaEnMarco(DisposicionCrono.FOCO)
+    fun `la cocina real cabe en el marco en carriles`() = cocinaEnMarco(DisposicionCrono.CARRILES)
 
     @Test
     fun `la cocina real cabe en el marco en clasica`() = cocinaEnMarco(DisposicionCrono.CLASICA)
@@ -382,9 +379,11 @@ class BienvenidaTest {
     fun `la disposicion del cronometro se elige con botones de texto`() {
         poner(PaginaIntro.DISPOSICION)
 
-        banco.pulsar(banco.conEtiqueta("disposicion-FOCO"))
+        banco.pulsar(banco.conEtiqueta("disposicion-CLASICA"))
+        assertEquals(DisposicionCrono.CLASICA, repo.actual.value.disposicion)
 
-        assertEquals(DisposicionCrono.FOCO, repo.actual.value.disposicion)
+        banco.pulsar(banco.conEtiqueta("disposicion-CARRILES"))
+        assertEquals(DisposicionCrono.CARRILES, repo.actual.value.disposicion)
     }
 
     @Test

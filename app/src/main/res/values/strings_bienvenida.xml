@@ -52,7 +52,7 @@
 
     <!-- 9. Disposición del cronómetro -->
     <string name="intro_p9_titulo">Tu cronómetro</string>
-    <string name="intro_p9_texto">Elige cómo ver los recipientes mientras cocinas. Debajo, la pantalla real con una receta de ejemplo.</string>
+    <string name="intro_p9_texto">Todos los recipientes a la vista y en su sitio: el que te necesita se hace grande y los que esperan quedan en una línea. Debajo, la pantalla real con una receta de ejemplo.</string>
 
     <!-- 10. Voz -->
     <string name="intro_p10_titulo">Hablar con el chef</string>

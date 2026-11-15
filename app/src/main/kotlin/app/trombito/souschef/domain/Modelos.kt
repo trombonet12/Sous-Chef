@@ -52,10 +52,12 @@ data class Preferencia(
 )
 
 /**
- * Cómo se muestran los carriles del cronómetro: uno en foco y el resto compacto, todos apilados, o la clásica de antes
- * de la v0.6 (pestañas, un panel por recipiente con scroll y mandos abajo).
+ * Cómo se muestran los carriles del cronómetro: «Carriles» (todos a la vista, en su sitio; el que te necesita se
+ * expande y los que esperan quedan en una fila) o la clásica de antes de la v0.6 (pestañas, un panel por recipiente
+ * con scroll y mandos abajo), que se retirará en la versión siguiente. Las preferencias guardadas con las antiguas
+ * FOCO y APILADA se leen como [CARRILES].
  */
-enum class DisposicionCrono { FOCO, APILADA, CLASICA }
+enum class DisposicionCrono { CARRILES, CLASICA }
 
 /** Tarjetas de la lista de recetas: tinte de la base, franja de color o la clásica con mini-gantt. */
 enum class DisposicionLista { TINTE, FRANJA, CLASICA }
@@ -89,7 +91,7 @@ const val SERVIR_DEFECTO_MIN = 15 * 60 + 30
 
 /** Preferencias globales de la app. */
 data class Ajustes(
-    val disposicion: DisposicionCrono = DisposicionCrono.APILADA,
+    val disposicion: DisposicionCrono = DisposicionCrono.CARRILES,
     val vozActiva: Boolean = true,
     val lista: DisposicionLista = DisposicionLista.TINTE,
     val orden: OrdenRecetas = OrdenRecetas.FAVORITAS,
