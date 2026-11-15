@@ -109,10 +109,11 @@ class CadenaAlarmas(
      */
     suspend fun proximoEvento(): Evento? {
         val visible = presencia.visible
+        val ahora = reloj.ahoraMs()
         return vivas
             .todas()
             .filter { it.slug != visible }
-            .mapNotNull { e -> recetas.obtener(e.slug)?.let { AvisosCrono.siguienteEvento(e, it) } }
+            .mapNotNull { e -> recetas.obtener(e.slug)?.let { AvisosCrono.siguienteEvento(e, it, ahora) } }
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
 

@@ -5,7 +5,10 @@ import app.trombito.souschef.receta.Holgura
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 
-/** Vista derivada de la receta: carriles normalizados (§4.1), colas en orden del array y sugeridos en ms. */
+/**
+ * Vista derivada de la receta: carriles normalizados (§4.1), colas en orden del array y el grafo de precedencias
+ * (colas, `dep` y `junto`) ya ordenado. Las horas previstas están en `Prevision.kt` (ADR-0018).
+ */
 internal class Plano(
     val receta: Receta,
 ) {
@@ -35,11 +38,8 @@ internal class Plano(
         return if (ec == null || ec.fin) null else colas[carril]?.getOrNull(ec.i)
     }
 
-    /** `sugerido(off) = servir − (total − off)`, en ms y redondeado a 0,5 min (sin truncar). */
-    fun sugeridoMs(
-        e: EstadoCrono,
-        p: Paso,
-    ): Long = e.servirMs - totalMs + medioMinutoMs(p.off)
+    /** Grafo ac de colas, `dep` y `junto`, ordenado topológicamente (ADR-0018). */
+    val grafo: GrafoPlano by lazy { GrafoPlano.de(receta, colas) }
 
     private fun hecho(
         e: EstadoCrono,
@@ -61,17 +61,6 @@ internal class Plano(
         p: Paso,
     ): Boolean = pendientes(e, p).isNotEmpty()
 
-    /** `restante(c) = max(0, quedan) + Σ s` de los pasos siguientes del carril. */
-    fun restanteCarrilS(
-        e: EstadoCrono,
-        carril: String,
-        ahoraMs: Long,
-    ): Int {
-        val ec = e.carriles.getValue(carril)
-        val cola = colas.getValue(carril)
-        return maxOf(0, quedanS(ec, cola[ec.i], ahoraMs)) + cola.drop(ec.i + 1).sumOf { it.segundos }
-    }
-
     /** Títulos únicos de los pasos con esa holgura, desde el índice actual de cada carril. */
     fun titulosDesdeActual(
         e: EstadoCrono,
@@ -86,6 +75,75 @@ internal class Plano(
 
     companion object {
         fun medioMinutoMs(min: Double): Long = Math.round(min * 2) * 30_000L
+    }
+}
+
+/**
+ * Precedencias de un paso: su [cola] (el anterior de su carril), sus [dep] y su [junto]. Solo entran las aristas que no
+ * cierran un ciclo (el validador los prohíbe; por defensa se ignoran, empezando por las últimas, que son los `junto`).
+ */
+internal class GrafoPlano(
+    val orden: List<Paso>,
+    private val cola: Map<String, Paso>,
+    private val dep: Map<String, List<Paso>>,
+    private val junto: Map<String, Paso>,
+) {
+    fun cola(p: Paso): Paso? = cola[p.id]
+
+    fun dep(p: Paso): List<Paso> = dep[p.id].orEmpty()
+
+    fun junto(p: Paso): Paso? = junto[p.id]
+
+    companion object {
+        fun de(
+            receta: Receta,
+            colas: Map<String, List<Paso>>,
+        ): GrafoPlano {
+            val ac = Aciclico(receta.pasos)
+            val cola = HashMap<String, Paso>()
+            for (ps in colas.values) ps.zipWithNext { a, b -> ac.une(a, b)?.let { cola[b.id] = it } }
+            val dep = HashMap<String, List<Paso>>()
+            for (p in receta.pasos) dep[p.id] = p.dep.mapNotNull { id -> ac.une(receta.paso(id), p) }
+            val junto = HashMap<String, Paso>()
+            for (p in receta.pasos) p.junto?.let { id -> ac.une(receta.paso(id), p)?.let { junto[p.id] = it } }
+            return GrafoPlano(ac.ordenado(), cola, dep, junto)
+        }
+    }
+}
+
+/** Precedencias aceptadas una a una: se rechaza la que cerraría un ciclo. */
+private class Aciclico(
+    private val pasos: List<Paso>,
+) {
+    private val antes: Map<String, MutableSet<String>> = pasos.associate { it.id to mutableSetOf() }
+
+    private fun depende(
+        desde: String,
+        objetivo: String,
+        visto: MutableSet<String> = mutableSetOf(),
+    ): Boolean = desde == objetivo || (visto.add(desde) && antes[desde].orEmpty().any { depende(it, objetivo, visto) })
+
+    /** Une `previo -> p` y lo devuelve, salvo que no exista o que `previo` ya dependa de `p`. */
+    fun une(
+        previo: Paso?,
+        p: Paso,
+    ): Paso? {
+        val unible = previo != null && previo.id in antes && !depende(previo.id, p.id)
+        return if (unible) previo?.also { antes.getValue(p.id) += it.id } else null
+    }
+
+    /** Orden topológico estable (a igual precedencia, el del array). */
+    fun ordenado(): List<Paso> {
+        val porId = pasos.associateBy { it.id }
+        val orden = LinkedHashSet<String>()
+
+        fun visita(id: String) {
+            if (orden.contains(id)) return
+            antes[id].orEmpty().forEach { visita(it) }
+            orden += id
+        }
+        pasos.forEach { visita(it.id) }
+        return orden.mapNotNull { porId[it] }
     }
 }
 

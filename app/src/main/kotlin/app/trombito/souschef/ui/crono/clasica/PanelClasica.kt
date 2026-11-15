@@ -79,7 +79,7 @@ internal fun PanelCarril(
                     carril.nombre,
                     i,
                     total,
-                    formatoHora(ConsultasCrono.sugerido(datos.estado, datos.receta, carril.id) ?: datos.ahoraMs),
+                    formatoHora(datos.sugerido(carril.id) ?: datos.ahoraMs),
                 ),
                 style = MaterialTheme.typography.labelLarge,
                 color = colorTexto,
@@ -107,7 +107,7 @@ private fun PanelTerminado(
         color = CronoPalette.apagado,
     )
     if (siguiente != null) {
-        val hora = ConsultasCrono.sugerido(datos.estado, datos.receta, siguiente)
+        val hora = datos.sugerido(siguiente)
         BotonSecundario(
             stringResource(R.string.crono_siguiente, datos.nombre(siguiente), hora?.let { formatoHora(it) }.orEmpty()),
         ) { onEnfocar(siguiente) }
@@ -233,7 +233,7 @@ private fun Paralelos(
     carril: String,
     onEnfocar: (String) -> Unit,
 ) {
-    val filas = ConsultasCrono.paralelo(datos.estado, datos.receta, carril, datos.ahoraMs)
+    val filas = ConsultasCrono.paralelo(datos.estado, datos.receta, carril, datos.ahoraMs, datos.previstos)
     if (filas.isEmpty()) return
     Text(
         stringResource(R.string.crono_mientras_corre),

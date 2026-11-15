@@ -5,6 +5,7 @@ import app.trombito.souschef.receta.Holgura
 import app.trombito.souschef.receta.Receta
 
 /** Consultas puras sobre el estado (§4.3, §4.6, §4.7, §4.9). Nada de reloj global: `ahoraMs` siempre por parámetro. */
+@Suppress("TooManyFunctions") // fachada de consultas: una función por pregunta de la UI
 object ConsultasCrono {
     private const val UMBRAL_ESPERA_MS = 3 * 60_000L
     private const val VENTANA_PARALELO_MIN = 12
@@ -27,33 +28,47 @@ object ConsultasCrono {
         return if (ec == null || p == null) 0 else quedanS(ec, p, ahoraMs)
     }
 
-    /** Hora a la que conviene empezar el paso actual del carril; null si terminado o desconocido. */
+    /** Hora prevista de cada paso (ADR-0018): sigue al cocinero, no al reloj de servir. Clave: id de paso. */
+    fun previstos(
+        e: EstadoCrono,
+        receta: Receta,
+        ahoraMs: Long,
+    ): Map<String, PasoPrevisto> = Plano(receta).previstos(e, ahoraMs)
+
+    /** Alguien ha arrancado o dado por hecho algún paso: desde ahí la hora de servir ya no mueve nada. */
+    fun arrancada(e: EstadoCrono): Boolean = e.inicioRealMs.isNotEmpty() || e.finRealMs.isNotEmpty()
+
+    /**
+     * Hora prevista de empezar el paso actual del carril (ADR-0018); null si terminado o desconocido. Pasar
+     * [previstos] evita recalcularlos cuando ya se tienen de este mismo `(e, ahoraMs)`.
+     */
     fun sugerido(
         e: EstadoCrono,
         receta: Receta,
         carril: String,
-    ): Long? {
-        val plano = Plano(receta)
-        return plano.pasoActual(e, carril)?.let { plano.sugeridoMs(e, it) }
-    }
+        ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto> = previstos(e, receta, ahoraMs),
+    ): Long? = Plano(receta).pasoActual(e, carril)?.let { previstos[it.id]?.inicioMs }
 
     fun vista(
         e: EstadoCrono,
         receta: Receta,
         carril: String,
         ahoraMs: Long,
-    ): VistaEstado = vista(Plano(receta), e, carril, ahoraMs)
+        previstos: Map<String, PasoPrevisto> = previstos(e, receta, ahoraMs),
+    ): VistaEstado = vista(Plano(receta), e, carril, ahoraMs, previstos)
 
     internal fun vista(
         plano: Plano,
         e: EstadoCrono,
         carril: String,
         ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto>,
     ): VistaEstado {
         val ec = e.carriles[carril]
         val p = plano.pasoActual(e, carril)
         if (ec == null || p == null) return VistaEstado(ClaseEstado.FIN, null)
-        val sug = plano.sugeridoMs(e, p)
+        val sug = previstos[p.id]?.inicioMs ?: ahoraMs
         val pendientes = plano.pendientes(e, p)
         val clase =
             when {
@@ -75,8 +90,9 @@ object ConsultasCrono {
         ahoraMs: Long,
     ): String? {
         val plano = Plano(receta)
+        val previstos = plano.previstos(e, ahoraMs)
         return plano.carriles
-            .map { it.id to vista(plano, e, it.id, ahoraMs) }
+            .map { it.id to vista(plano, e, it.id, ahoraMs, previstos) }
             .filter { it.second.clase.rango <= ClaseEstado.ESPERA.rango }
             .minWithOrNull(compareBy({ it.second.clase.rango }, { it.second.sugeridoMs ?: Long.MAX_VALUE }))
             ?.first
@@ -86,15 +102,16 @@ object ConsultasCrono {
         e: EstadoCrono,
         receta: Receta,
         ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto> = previstos(e, receta, ahoraMs),
     ): PlanCrono {
         val plano = Plano(receta)
         val vivos = plano.carriles.filter { e.carriles[it.id]?.fin == false }
-        val vistas = vivos.associate { it.id to vista(plano, e, it.id, ahoraMs) }
+        val vistas = vivos.associate { it.id to vista(plano, e, it.id, ahoraMs, previstos) }
         val retraso =
             vistas.values
                 .filter { it.clase == ClaseEstado.YA }
                 .maxOfOrNull { redondeaMin(ahoraMs - (it.sugeridoMs ?: ahoraMs)) } ?: 0
-        val llegada = ahoraMs + (vivos.maxOfOrNull { plano.restanteCarrilS(e, it.id, ahoraMs) } ?: 0) * 1000L
+        val llegada = previstos.llegadaMs(ahoraMs)
         val difFin = redondeaMin(llegada - e.servirMs)
         return PlanCrono(
             retrasoMin = retraso,
@@ -113,11 +130,12 @@ object ConsultasCrono {
         receta: Receta,
         carrilActual: String,
         ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto> = previstos(e, receta, ahoraMs),
     ): List<Paralelo> {
         val plano = Plano(receta)
         return plano.carriles
             .filter { it.id != carrilActual }
-            .mapNotNull { c -> filaParalelo(plano, e, c.id, ahoraMs) }
+            .mapNotNull { c -> filaParalelo(plano, e, c.id, ahoraMs, previstos) }
             .filter { it.minutos <= VENTANA_PARALELO_MIN }
             .sortedBy { it.minutos }
     }
@@ -127,6 +145,7 @@ object ConsultasCrono {
         e: EstadoCrono,
         carril: String,
         ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto>,
     ): Paralelo? {
         val ec = e.carriles[carril]
         val p = plano.pasoActual(e, carril)
@@ -134,7 +153,7 @@ object ConsultasCrono {
             ec == null || p == null || (ec.corriendo && quedanS(ec, p, ahoraMs) > 0) ||
                 (plano.bloqueado(e, p) && !ec.salto)
         if (saltar || ec == null || p == null) return null
-        val m = redondeaMin(plano.sugeridoMs(e, p) - ahoraMs)
+        val m = redondeaMin((previstos[p.id]?.inicioMs ?: ahoraMs) - ahoraMs)
         val etiqueta =
             when {
                 ec.corriendo -> EtiquetaParalelo.VENCIDO

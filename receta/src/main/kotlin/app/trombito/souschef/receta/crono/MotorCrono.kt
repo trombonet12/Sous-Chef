@@ -90,16 +90,13 @@ object MotorCrono {
             if (siguiente == null) {
                 EstadoCarril(i = ec.i, fin = true)
             } else {
-                EstadoCarril(
-                    i = ec.i + 1,
-                    avisado = plano.sugeridoMs(e, siguiente) <= ahoraMs,
-                    inicioPasoMs = ahoraMs,
-                )
+                EstadoCarril(i = ec.i + 1, inicioPasoMs = ahoraMs)
             }
         val base =
             e.copy(
                 carriles = e.carriles + (carril to nuevo),
                 pasosReales = e.pasosReales + (p.id to real),
+                finRealMs = e.finRealMs + (p.id to ahoraMs),
                 actualizadoMs = ahoraMs,
                 // Se reinserta al final: el orden del mapa es el orden de los Hecho (para «deshaz» sin carril).
                 deshacer = e.deshacer - carril + (carril to ec),
@@ -108,7 +105,9 @@ object MotorCrono {
         return if (siguiente == null) {
             base.copy(foco = ConsultasCrono.siguienteAccionable(base, receta, ahoraMs) ?: base.foco)
         } else {
-            base
+            // Avisado si su hora (ya con este Hecho) ha llegado: el cocinero está delante y no hay que avisarle.
+            val prevista = plano.previstos(base, ahoraMs)[siguiente.id]?.inicioMs ?: ahoraMs
+            base.copy(carriles = base.carriles + (carril to nuevo.copy(avisado = prevista <= ahoraMs)))
         }
     }
 
@@ -130,6 +129,7 @@ object MotorCrono {
         return e.sinDeshacer(id).copy(
             carriles = e.carriles + (id to previo),
             pasosReales = paso?.let { e.pasosReales - it.id } ?: e.pasosReales,
+            finRealMs = paso?.let { e.finRealMs - it.id } ?: e.finRealMs,
             actualizadoMs = ahoraMs,
         )
     }
@@ -142,18 +142,27 @@ object MotorCrono {
         forzar: Boolean,
     ): EstadoCrono {
         val plano = Plano(receta)
-        return modificar(e, receta, carril, ahoraMs) { ec, p ->
-            val bloqueado = !forzar && !ec.pausado && !ec.salto && plano.bloqueado(e, p)
-            if (ec.corriendo || bloqueado) {
-                ec
-            } else {
-                ec.copy(
-                    finAtMs = ahoraMs + (ec.restanteS ?: p.segundos) * 1000L,
-                    restanteS = null,
-                    pausado = false,
-                    salto = true,
-                )
+        val nuevo =
+            modificar(e, receta, carril, ahoraMs) { ec, p ->
+                val bloqueado = !forzar && !ec.pausado && !ec.salto && plano.bloqueado(e, p)
+                if (ec.corriendo || bloqueado) {
+                    ec
+                } else {
+                    ec.copy(
+                        finAtMs = ahoraMs + (ec.restanteS ?: p.segundos) * 1000L,
+                        restanteS = null,
+                        pausado = false,
+                        salto = true,
+                    )
+                }
             }
+        // Primer arranque del paso (ADR-0018): reanudar una pausa no lo pisa.
+        val primero =
+            plano.pasoActual(e, carril)?.takeIf { e.carriles[carril]?.pausado != true && it.id !in e.inicioRealMs }
+        return if (nuevo != e && primero != null) {
+            nuevo.copy(inicioRealMs = nuevo.inicioRealMs + (primero.id to ahoraMs))
+        } else {
+            nuevo
         }
     }
 

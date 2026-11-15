@@ -13,7 +13,11 @@ import app.trombito.souschef.receta.Potencia
  *
  * La potencia (`{N}` de los textos y `fuego`) se traduce a la [Cocina] que se pase; con la canónica por defecto sale el
  * número 0-9. Los avisos de la alarma ([avisoEmpezar], [avisoHecho]) no traducen: dejan los `{N}` para quien pinte.
+ *
+ * Es un único valor con sus tres salidas y sus piezas habladas: separarlas repartiría el mismo contrato en varios
+ * archivos (ADR-0017); de ahí el número de funciones.
  */
+@Suppress("TooManyFunctions")
 data class OrdenPaso(
     /** Título del paso (`t`). */
     val titulo: String,
@@ -94,7 +98,7 @@ data class OrdenPaso(
             segundos?.takeIf { conDuracion && it > 0 }?.let { cerrar(hablarDuracion(it)) },
         ).joinToString(" ").takeIf { it.isNotEmpty() }
 
-    /** «Mete 500 gramos de patata desde la fuente.»; null si no mete nada. */
+    /** «Mete 500 gramos de patata.»; null si no mete nada. */
     fun meteHablado(cocina: Cocina = Cocina.VITRO_9): String? = hablado("Mete", meto, cocina)
 
     /** «Saca la patata, al plato con papel.»; null si no saca nada. */
@@ -104,7 +108,7 @@ data class OrdenPaso(
     fun senalHablada(cocina: Cocina = Cocina.VITRO_9): String? =
         senal?.let { cerrar(limpio(it, cocina)) }?.takeIf { it != "." }
 
-    /** «Toca empezar: 1ª fritura · mete 500 gramos de patata desde la fuente». Sin traducir la potencia. */
+    /** «Toca empezar: 1ª fritura · mete 500 gramos de patata». Sin traducir la potencia. */
     fun avisoEmpezar(): String = listOfNotNull("Toca empezar: $titulo", frase("mete", meto)).joinToString(SEP)
 
     /** «1ª fritura: hecho · saca la patata, al plato con papel». Sin traducir la potencia; las unidades, en palabra. */
@@ -165,10 +169,9 @@ data class OrdenPaso(
     ) {
         fun pantalla(): String = if (origen == null) que else "$que$SEP$origen"
 
-        fun dicho(unidadesEnLetra: Boolean = false): String {
-            val cosa = if (unidadesEnLetra) unidades(que) else que
-            return if (origen == null) cosa else "$cosa desde $origen"
-        }
+        // Dicho, sin el recipiente: en `meto` a veces es el origen («la fuente») y a veces el destino («la sartén»),
+        // y en `saco` casi siempre el destino; «desde» se equivocaba. La pantalla lo enseña detrás con « · ».
+        fun dicho(unidadesEnLetra: Boolean = false): String = if (unidadesEnLetra) unidades(que) else que
     }
 
     private fun elementos(
@@ -224,7 +227,7 @@ data class OrdenPaso(
         fun delCarril(
             pasos: List<Paso>,
             indice: Int,
-        ): OrdenPaso = de(pasos[indice], pasos.take(indice).lastOrNull { it.f != null }?.f)
+        ): OrdenPaso = de(pasos[indice], fuegoAnterior(pasos, indice))
 
         /** «sin tapa», «tapada» o «tapa a medias»; null si el campo falta o no se reconoce. */
         fun textoTapa(tapa: String?): String? {
@@ -301,4 +304,41 @@ data class OrdenPaso(
 
         private fun cerrar(frase: String): String = if (frase.last() in ".!?") frase else "$frase."
     }
+}
+
+private const val HUECO_TOLERADO_MIN = 0.01
+
+/**
+ * Potencia de la que viene el carril, para pintar «a → b». Solo cuenta si el fuego sigue encendido: un hueco de tiempo
+ * con el paso anterior o un paso apagado (`f` = 0) cortan la cadena y la sartén vuelve a empezar en frío. Un paso sin
+ * `f` en medio, contiguo, no la corta.
+ */
+private fun fuegoAnterior(
+    pasos: List<Paso>,
+    indice: Int,
+): Int? {
+    var siguiente = pasos[indice]
+    var resultado: Int? = null
+    var i = indice - 1
+    var sigue = true
+    while (sigue && i >= 0) {
+        val previo = pasos[i]
+        val contiguo = previo.off + previo.min >= siguiente.off - HUECO_TOLERADO_MIN
+        when {
+            !contiguo || previo.f == 0 -> {
+                sigue = false
+            }
+
+            previo.f != null -> {
+                resultado = previo.f
+                sigue = false
+            }
+
+            else -> {
+                siguiente = previo
+            }
+        }
+        i--
+    }
+    return resultado
 }

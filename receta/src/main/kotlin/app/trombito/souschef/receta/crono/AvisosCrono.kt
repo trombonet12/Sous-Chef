@@ -14,13 +14,18 @@ object AvisosCrono {
         val hito: Int?,
     )
 
-    /** Próximo evento por venir (el más cercano de todos los carriles), o null si no queda ninguno. */
+    /**
+     * Próximo evento por venir (el más cercano de todos los carriles), o null si no queda ninguno. «Toca empezar» solo
+     * cuenta si su hora prevista es firme (ADR-0018): una hora que se mueve con [ahoraMs] no arma alarma.
+     */
     fun siguienteEvento(
         e: EstadoCrono,
         receta: Receta,
+        ahoraMs: Long,
     ): Evento? {
         val plano = Plano(receta)
-        val deCarriles = plano.carriles.flatMap { pendientes(plano, e, it.id) }
+        val previstos = plano.previstos(e, ahoraMs)
+        val deCarriles = plano.carriles.flatMap { pendientes(plano, e, it.id, previstos) }
         return (deCarriles.map { it.evento } + TemporizadoresLibres.eventos(e))
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
@@ -30,9 +35,12 @@ object AvisosCrono {
         e: EstadoCrono,
         receta: Receta,
         excepto: String?,
+        ahoraMs: Long,
     ): Evento? {
         val plano = Plano(receta)
-        val deCarriles = plano.carriles.filter { it.id != excepto }.flatMap { pendientes(plano, e, it.id) }
+        val previstos = plano.previstos(e, ahoraMs)
+        val deCarriles =
+            plano.carriles.filter { it.id != excepto }.flatMap { pendientes(plano, e, it.id, previstos) }
         return (deCarriles.map { it.evento } + TemporizadoresLibres.eventos(e))
             .minWithOrNull(compareBy({ it.ms }, { it.tipo.ordinal }))
     }
@@ -49,8 +57,10 @@ object AvisosCrono {
         val plano = Plano(receta)
         val avisos = mutableListOf<Aviso>()
         var carriles = e.carriles
+        // Las horas previstas no dependen de los flags `avisado`: se calculan una vez para todos los carriles.
+        val previstos = plano.previstos(e, ahoraMs)
         for (c in plano.carriles) {
-            val (ec, nuevos) = vencidosCarril(plano, e.copy(carriles = carriles), c.id, ahoraMs) ?: continue
+            val (ec, nuevos) = vencidosCarril(plano, e.copy(carriles = carriles), c.id, ahoraMs, previstos) ?: continue
             avisos += nuevos
             carriles = carriles + (c.id to ec)
         }
@@ -68,6 +78,7 @@ object AvisosCrono {
         e: EstadoCrono,
         carril: String,
         ahoraMs: Long,
+        previstos: Map<String, PasoPrevisto>,
     ): Pair<EstadoCarril, List<Aviso>>? {
         val ec0 = e.carriles[carril]
         val p = plano.pasoActual(e, carril)
@@ -75,9 +86,8 @@ object AvisosCrono {
         var ec = rearmaToca(plano, e, ec0, p)
         val avisos = mutableListOf<Aviso>()
         val vencidos =
-            pendientes(plano, e.copy(carriles = e.carriles + (carril to ec)), carril).filter {
-                it.evento.ms <=
-                    ahoraMs
+            pendientes(plano, e.copy(carriles = e.carriles + (carril to ec)), carril, previstos).filter {
+                it.evento.ms <= ahoraMs
             }
         for (pe in vencidos) {
             ec = marcar(ec, pe)
@@ -132,6 +142,7 @@ object AvisosCrono {
         plano: Plano,
         e: EstadoCrono,
         carril: String,
+        previstos: Map<String, PasoPrevisto>,
     ): List<Pendiente> {
         val ec = e.carriles[carril]
         val p = plano.pasoActual(e, carril)
@@ -143,13 +154,16 @@ object AvisosCrono {
             }
 
             !ec.pausado && !ec.avisado && (ec.salto || !plano.bloqueado(e, p)) -> {
-                listOf(
-                    Pendiente(
-                        Evento(plano.sugeridoMs(e, p), TipoAviso.TOCA_EMPEZAR, carril, p.t),
-                        OrdenPaso.de(p).avisoEmpezar(),
-                        null,
-                    ),
-                )
+                // Solo con hora firme: si se moviera con «ahora», la alarma se re-armaría en bucle sin avisar.
+                previstos[p.id]?.takeIf { it.firme }?.let {
+                    listOf(
+                        Pendiente(
+                            Evento(it.inicioMs, TipoAviso.TOCA_EMPEZAR, carril, p.t),
+                            OrdenPaso.de(p).avisoEmpezar(),
+                            null,
+                        ),
+                    )
+                } ?: emptyList()
             }
 
             else -> {

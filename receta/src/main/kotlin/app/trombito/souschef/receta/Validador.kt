@@ -128,7 +128,14 @@ private class Ctx(
                 }
             }
         }
-        ciclo()?.let { err(2, "ciclo en dep: $it") }
+        ciclo()?.let { err(2, "ciclo en colas, dep y junto: $it") }
+    }
+
+    /** Pasos que deben ir antes de [id]: el anterior de su carril, sus `dep` y su `junto` (ADR-0018). */
+    private fun precedentes(id: String): List<String> {
+        val p = r.paso(id) ?: return emptyList()
+        val anterior = r.pasos.filter { it.carril == p.carril }.let { cola -> cola.getOrNull(cola.indexOf(p) - 1) }
+        return listOfNotNull(anterior?.id) + p.dep + listOfNotNull(p.junto)
     }
 
     private fun ciclo(): String? {
@@ -144,12 +151,7 @@ private class Ctx(
                 hallado = (ruta + id).joinToString(" -> ")
             } else if (previo == null) {
                 estado[id] = 1
-                hallado =
-                    r
-                        .paso(id)
-                        ?.dep
-                        .orEmpty()
-                        .firstNotNullOfOrNull { visita(it, ruta + id) }
+                hallado = precedentes(id).firstNotNullOfOrNull { visita(it, ruta + id) }
                 estado[id] = 2
             }
             return hallado

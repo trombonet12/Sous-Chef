@@ -50,6 +50,7 @@ object SesionCrono {
         ahoraMs: Long,
     ): EstadoCrono {
         val plano = Plano(receta)
+        val previstos = plano.previstos(e, ahoraMs)
         val carriles =
             e.carriles.mapValues { (id, ec) ->
                 val p = plano.pasoActual(e, id)
@@ -58,14 +59,14 @@ object SesionCrono {
                 } else {
                     ec.copy(
                         inicioPasoMs = ec.inicioPasoMs ?: ahoraMs,
-                        avisado = ec.avisado || plano.sugeridoMs(e, p) <= ahoraMs,
+                        avisado = ec.avisado || (previstos[p.id]?.inicioMs ?: ahoraMs) <= ahoraMs,
                     )
                 }
             }
         val abierto = e.copy(carriles = carriles, inicioMs = e.inicioMs ?: ahoraMs, actualizadoMs = ahoraMs)
         val preferido =
             abierto.foco?.takeIf {
-                ConsultasCrono.vista(plano, abierto, it, ahoraMs).clase.rango <= ClaseEstado.ESPERA.rango
+                ConsultasCrono.vista(plano, abierto, it, ahoraMs, previstos).clase.rango <= ClaseEstado.ESPERA.rango
             }
         val foco = preferido ?: ConsultasCrono.siguienteAccionable(abierto, receta, ahoraMs) ?: abierto.foco
         return abierto.copy(foco = foco)

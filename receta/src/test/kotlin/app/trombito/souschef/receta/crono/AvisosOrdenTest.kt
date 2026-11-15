@@ -30,7 +30,7 @@ class AvisosOrdenTest {
         val e = SesionCrono.inicial(r, servir, 0L)
         val avisos = AvisosCrono.vencidos(e, r, servir).avisos
         assertEquals(
-            listOf("Toca empezar: Baja al {3} · mete 500 gramos de patata desde la fuente"),
+            listOf("Toca empezar: Baja al {3} · mete 500 gramos de patata"),
             avisos.filter { it.tipo == TipoAviso.TOCA_EMPEZAR }.map { it.texto },
         )
     }

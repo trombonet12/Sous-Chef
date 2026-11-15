@@ -1,7 +1,13 @@
 package app.trombito.souschef.receta.crono
 
 import app.trombito.souschef.receta.DesvioPaso
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
 
 /**
  * Todo lo persistible del cronómetro (docs/spec/app-legado.md §4.2 y §4.14). Los instantes son reloj de pared
@@ -31,7 +37,34 @@ data class EstadoCrono(
      */
     @Serializable(with = LibresTolerantes::class)
     val libres: List<TemporizadorLibre> = emptyList(),
+    /**
+     * Paso a instante de su primer arranque (ADR-0018). `reanudar` no lo pisa. Fuera del historial y del deshacer.
+     * Tolerante: si viene mal formado se pierde el mapa y se usan los respaldos, nunca la cocinada.
+     */
+    @Serializable(with = MapaInstantesTolerante::class)
+    val inicioRealMs: Map<String, Long> = emptyMap(),
+    /** Paso a instante de su Hecho (ADR-0018). `deshacer` lo quita. Tolerante como [inicioRealMs]. */
+    @Serializable(with = MapaInstantesTolerante::class)
+    val finRealMs: Map<String, Long> = emptyMap(),
 )
+
+/** Lee un mapa de instantes con tolerancia: si no es un objeto de `String` a `Long`, queda vacío. */
+internal object MapaInstantesTolerante : KSerializer<Map<String, Long>> {
+    private val mapa = MapSerializer(String.serializer(), Long.serializer())
+
+    override val descriptor = mapa.descriptor
+
+    override fun serialize(
+        encoder: Encoder,
+        value: Map<String, Long>,
+    ) = mapa.serialize(encoder, value)
+
+    override fun deserialize(decoder: Decoder): Map<String, Long> {
+        if (decoder !is JsonDecoder) return mapa.deserialize(decoder)
+        val elemento = decoder.decodeJsonElement()
+        return runCatching { decoder.json.decodeFromJsonElement(mapa, elemento) }.getOrDefault(emptyMap())
+    }
+}
 
 /** Estado del paso actual de un carril; al pasar al siguiente paso se reinicia. */
 @Serializable

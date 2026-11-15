@@ -49,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.ClaseEstado
-import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.crono.AccionesCarril
@@ -207,7 +206,7 @@ private fun FilaPlan(
     val carril = datos.carril(carrilId) ?: return
     val vista = datos.vista(carrilId)
     val color = datos.color(carrilId)
-    val hora = ConsultasCrono.sugerido(datos.estado, datos.receta, carrilId) ?: datos.ahoraMs
+    val hora = datos.sugerido(carrilId) ?: datos.ahoraMs
     val simple = vista.clase == ClaseEstado.ESPERA || vista.clase == ClaseEstado.YA
     Row(
         Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(onClick = onClick),

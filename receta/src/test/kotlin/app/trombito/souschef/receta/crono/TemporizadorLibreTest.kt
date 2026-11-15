@@ -201,7 +201,7 @@ class TemporizadorLibreTest {
     @Test
     fun siguienteEventoIncluyeElLibre() {
         val e = conLibre(1)
-        val ev = checkNotNull(AvisosCrono.siguienteEvento(e, receta))
+        val ev = checkNotNull(AvisosCrono.siguienteEvento(e, receta, t0))
         assertEquals(TipoAviso.TEMPORIZADOR, ev.tipo)
         assertEquals(t0 + min, ev.ms)
         assertEquals(TemporizadoresLibres.carrilDe(e.libres.single().id), ev.carril)
@@ -211,9 +211,9 @@ class TemporizadorLibreTest {
     fun conSoloUnLibrePendienteEsElUnicoEvento() {
         val terminado = abierto().copy(carriles = mapOf("a" to EstadoCarril(fin = true)))
         val e = TemporizadoresLibres.anadir(terminado, 5, t0)
-        assertEquals(TipoAviso.TEMPORIZADOR, AvisosCrono.siguienteEvento(e, receta)?.tipo)
+        assertEquals(TipoAviso.TEMPORIZADOR, AvisosCrono.siguienteEvento(e, receta, t0)?.tipo)
         val avisado = TemporizadoresLibres.marcarAvisado(e, e.libres.single().id, t0)
-        assertNull(AvisosCrono.siguienteEvento(avisado, receta))
+        assertNull(AvisosCrono.siguienteEvento(avisado, receta, t0))
     }
 
     @Test

@@ -420,7 +420,7 @@ class RespuestasVozTest {
                 saco = "la patata, al plato con papel",
             )
         assertEquals(
-            "Sartén grande: primera fritura. Mete 500 gramos de patata desde la fuente. Fuego 4, sin tapa. " +
+            "Sartén grande: primera fritura. Mete 500 gramos de patata. Fuego 4, sin tapa. " +
                 "Dieciocho minutos. Tiernas y pálidas, sin color. Sin empezar.",
             RespuestasVoz.info(v),
         )

@@ -69,12 +69,17 @@ fun PorqueSheet(
     }
 }
 
-/** El [ContextoPaso] de [paso] con las horas del plan de la cocina (`servir − total + off`, como el motor). */
+/**
+ * El [ContextoPaso] de [paso] con las horas del plan de la cocina. Sigue al cocinero (ADR-0018): la base del plan es la
+ * hora prevista del paso menos su `off`, así que el paso se ve a su hora prevista; sin previsión, `servir − total`.
+ */
 fun contextoPasoCrono(
     datos: DatosCrono,
     paso: Paso,
 ): ContextoPaso {
     val totalMs = Math.round(datos.receta.totalEfectivo * 2) * MS_MEDIO_MINUTO
-    val inicio = Instant.ofEpochMilli(datos.estado.servirMs - totalMs).atZone(ZoneId.systemDefault())
+    val offMs = Math.round(paso.off * 2) * MS_MEDIO_MINUTO
+    val inicioPlanMs = datos.previstos[paso.id]?.let { it.inicioMs - offMs } ?: (datos.estado.servirMs - totalMs)
+    val inicio = Instant.ofEpochMilli(inicioPlanMs).atZone(ZoneId.systemDefault())
     return contextoPaso(datos.recetaUi, paso, inicio.hour * MIN_HORA + inicio.minute)
 }

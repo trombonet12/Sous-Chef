@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionCrono
+import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.ui.ajustes.SelectorDisposicion
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.crono.guia.GuiaIds
@@ -142,7 +143,15 @@ private fun HojaPorque(
     val paso = datos.paso(id)
     val carril = datos.carril(id)
     if (paso == null || carril == null || datos.ec(id)?.i != indice) return
-    PorqueSheet(paso, carril, datos.color(id), ui.tecnicas, salidas.tecnica, onCerrar)
+    PorqueSheet(
+        paso,
+        carril,
+        datos.color(id),
+        ui.tecnicas,
+        salidas.tecnica,
+        onCerrar,
+        contexto = contextoPasoCrono(datos, paso),
+    )
 }
 
 @Composable
@@ -206,7 +215,13 @@ private fun Cabecera(
         IconButton(onClick = menu.volver, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Atras.vector, stringResource(R.string.atras))
         }
-        LlegadaCabecera(formatoHora(datos.plan.llegadaMs), Modifier.weight(1f)) { ajustarServir = true }
+        // Tras el primer arranque la hora de servir ya no mueve nada (ADR-0018): «Llegas a las…» solo informa.
+        val ajustable = !ConsultasCrono.arrancada(datos.estado)
+        LlegadaCabecera(
+            formatoHora(datos.plan.llegadaMs),
+            Modifier.weight(1f),
+            if (ajustable) ({ ajustarServir = true }) else null,
+        )
         slotMicrofono()
         MenuCocina(reiniciarArmado, datos.estado.libresLlenos(), viewModel, menu)
     }
@@ -220,14 +235,13 @@ private fun Cabecera(
 private fun LlegadaCabecera(
     hora: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)?,
 ) {
     val descripcion = stringResource(R.string.crono_a11y_llegas_a_las, hora)
     val etiqueta = stringResource(R.string.crono_llegas_ajustar)
+    val base = modifier.heightIn(min = BOTON_CABECERA)
     Box(
-        modifier
-            .heightIn(min = BOTON_CABECERA)
-            .clickable(onClickLabel = etiqueta, role = Role.Button, onClick = onClick)
+        (if (onClick != null) base.clickable(onClickLabel = etiqueta, role = Role.Button, onClick = onClick) else base)
             .semantics { contentDescription = descripcion },
         contentAlignment = Alignment.CenterStart,
     ) {

@@ -467,6 +467,9 @@ class CronoViewModelTest {
             vm.enfocar("f0")
             runCurrent()
             assertEquals("f0", guardado().foco)
+            // La mesa (2 min) vence sin Hecho. Tras el Hecho, el siguiente paso de f0 toca en el acto (ADR-0018,
+            // hueco 0), pero un carril vencido es más urgente: el foco salta a él.
+            reloj.ms += 150_000L
 
             vm.hecho("f0")
             runCurrent()

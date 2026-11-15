@@ -116,7 +116,7 @@ class OrdenPasoTest {
     @Test
     fun `voz compone titulo meto fuego tapa y duracion en frases`() {
         assertEquals(
-            "Sartén grande: primera fritura (blanqueo). Mete 500 gramos de patata desde la fuente. " +
+            "Sartén grande: primera fritura (blanqueo). Mete 500 gramos de patata. " +
                 "Fuego 4, sin tapa. 18 minutos.",
             fritura.voz("Sartén grande"),
         )
@@ -126,10 +126,10 @@ class OrdenPasoTest {
     fun `voz usa el decir duracion que se le pase y puede callar la duracion`() {
         assertEquals(
             "Fuego 4, sin tapa. Dieciocho minutos.",
-            fritura.detalleHablado(hablarDuracion = { "Dieciocho minutos" })?.substringAfter("la fuente. "),
+            fritura.detalleHablado(hablarDuracion = { "Dieciocho minutos" })?.substringAfter("de patata. "),
         )
         assertEquals(
-            "Sartén: primera fritura (blanqueo). Mete 500 gramos de patata desde la fuente. Fuego 4, sin tapa.",
+            "Sartén: primera fritura (blanqueo). Mete 500 gramos de patata. Fuego 4, sin tapa.",
             fritura.voz("Sartén", conDuracion = false),
         )
     }
@@ -184,7 +184,7 @@ class OrdenPasoTest {
             "Toca empezar: 1ª fritura (blanqueo) · mete 800 gramos de tomate y 2 gramos de sal",
             o.avisoEmpezar(),
         )
-        assertEquals("1ª fritura (blanqueo): hecho · saca la patata al {3} desde el plato", o.avisoHecho())
+        assertEquals("1ª fritura (blanqueo): hecho · saca la patata al {3}", o.avisoHecho())
     }
 
     @Test
@@ -211,5 +211,23 @@ class OrdenPasoTest {
         assertEquals("4 → 5", o.pantalla().fuego)
         assertEquals(120, o.segundos)
         assertEquals("ojo", o.senal)
+    }
+
+    @Test
+    fun `un hueco de tiempo o un paso apagado cortan el fuego anterior`() {
+        fun paso(
+            id: String,
+            off: Double,
+            f: Int?,
+        ) = Paso(id = id, t = id, carril = "c", off = off, min = 2.0, f = f)
+
+        // Lasaña: la sartén se apaga y se limpia; el roux arranca en frío, no «7 → 4».
+        val conHueco = listOf(paso("berenjena", 0.0, 7), paso("roux", 10.0, 4))
+        assertNull(OrdenPaso.delCarril(conHueco, 1).fuegoAnterior)
+        assertEquals("4", OrdenPaso.delCarril(conHueco, 1).pantalla().fuego)
+        val apagado = listOf(paso("a", 0.0, 6), paso("fuera", 2.0, 0), paso("b", 4.0, 5))
+        assertNull(OrdenPaso.delCarril(apagado, 2).fuegoAnterior)
+        val seguido = listOf(paso("a", 0.0, 6), paso("b", 2.0, 8))
+        assertEquals(6, OrdenPaso.delCarril(seguido, 1).fuegoAnterior)
     }
 }

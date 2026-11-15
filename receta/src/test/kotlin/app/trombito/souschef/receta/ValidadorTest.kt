@@ -53,6 +53,34 @@ class ValidadorTest {
         assertTrue(2 in reglas(conPasos(paso("p1"), paso("p2", "b") { it.copy(dep = listOf("zz")) })))
 
     @Test
+    fun r2CicloEnJuntoEntreDosCarriles() =
+        assertTrue(
+            2 in
+                reglas(
+                    conPasos(
+                        paso("p1") { it.copy(junto = "p2") },
+                        paso("p2", "b") { it.copy(junto = "p1") },
+                    ),
+                ),
+        )
+
+    @Test
+    fun r2CicloQueAtraviesaUnaCola() {
+        // p2 va tras p1 en su carril; p1 va junto a p3 y p3 junto a p2: p1 -> p2 -> p3 -> p1.
+        val r =
+            conPasos(
+                paso("p1") { it.copy(junto = "p3") },
+                paso("p2", off = 10.0),
+                paso("p3", "b") { it.copy(junto = "p2") },
+            ).copy(totalMin = 20.0)
+        assertTrue(2 in reglas(r))
+    }
+
+    @Test
+    fun r2UnJuntoSinCicloNoDaError() =
+        assertTrue(2 !in reglas(conPasos(paso("p1"), paso("p2", "b") { it.copy(junto = "p1") })))
+
+    @Test
     fun r3CuatroFuegos() {
         val c = (1..4).map { Carril("f$it", tipo = "fuego") }
         assertTrue(3 in reglas(base().copy(carriles = c, pasos = c.map { paso("p${it.id}", it.id) })))

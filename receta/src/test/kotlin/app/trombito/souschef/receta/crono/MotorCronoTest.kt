@@ -61,8 +61,8 @@ class MotorCronoTest {
     fun carrilesYSugeridoDeLaEnsalada() {
         assertEquals(listOf("mesa", "sarten"), ConsultasCrono.carriles(ensalada).map { it.id })
         val e = nuevo()
-        assertEquals(inicioMesa, ConsultasCrono.sugerido(e, ensalada, "mesa"))
-        assertEquals(inicioSarten, ConsultasCrono.sugerido(e, ensalada, "sarten"))
+        assertEquals(inicioMesa, ConsultasCrono.sugerido(e, ensalada, "mesa", 0L))
+        assertEquals(inicioSarten, ConsultasCrono.sugerido(e, ensalada, "sarten", 0L))
     }
 
     @Test
@@ -70,10 +70,11 @@ class MotorCronoTest {
         val r = sintetica(10.5, paso("x", 60, 3.0), paso("y", 60, 3.7))
         val e = SesionCrono.inicial(r, servir, 0)
         // 10,5 − 3 = 7,5 min (truncar daría 7); la cola no importa, solo el paso actual.
-        assertEquals(servir - 450_000L, ConsultasCrono.sugerido(e, r, "a"))
+        assertEquals(servir - 450_000L, ConsultasCrono.sugerido(e, r, "a", 0L))
         val tras = MotorCrono.hecho(e, r, "a", 0)
-        // off 3,7 se redondea a 3,5 → 10,5 − 3,5 = 7 min.
-        assertEquals(servir - min(7), ConsultasCrono.sugerido(tras, r, "a"))
+        // ADR-0018: sigue al Hecho real. off 3,7 se redondea a 3,5 y x acaba a los 4 min de receta: el hueco es −30 s
+        // (la mitad de un minuto, sin recortar ni truncar) y se suma al instante del Hecho.
+        assertEquals(-30_000L, ConsultasCrono.sugerido(tras, r, "a", 0L))
     }
 
     @Test
@@ -170,9 +171,16 @@ class MotorCronoTest {
     }
 
     @Test
-    fun hechoRecalculaAvisadoSegunSugerido() {
-        val pronto = MotorCrono.hecho(abierto(ensalada, servir - min(60)), ensalada, "mesa", servir - min(60))
-        assertFalse(pronto.carriles.getValue("mesa").avisado)
+    fun hechoRecalculaAvisadoSegunLaHoraPrevista() {
+        // Con hueco 0 el siguiente toca en el acto: el cocinero está delante y no se le avisa (ADR-0018).
+        val sinHueco = MotorCrono.hecho(abierto(ensalada, servir - min(60)), ensalada, "mesa", servir - min(60))
+        assertTrue(sinHueco.carriles.getValue("mesa").avisado)
+        // Con hueco, el aviso queda por llegar.
+        val r = sintetica(10.0, paso("x", 60, 0.0), paso("y", 60, 5.0))
+        val ahora = servir - min(60)
+        val abiertaR = SesionCrono.abrir(SesionCrono.inicial(r, servir, ahora), r, ahora)
+        val conHueco = MotorCrono.hecho(abiertaR, r, "a", ahora)
+        assertFalse(conHueco.carriles.getValue("a").avisado)
         val tarde = MotorCrono.hecho(abierto(), ensalada, "mesa", servir)
         assertTrue(tarde.carriles.getValue("mesa").avisado)
     }
@@ -237,11 +245,13 @@ class MotorCronoTest {
     @Test
     fun clasesDeEstadoSegunLaTabla() {
         val t0 = inicioSarten
-        // sarten empieza a servir-14: antes de 3 min de margen → ESPERA; dentro → YA.
+        // mesa empieza a servir-19: antes de 3 min de margen → ESPERA; dentro → YA.
         val lejos = SesionCrono.inicial(ensalada, servir, 0)
-        assertEquals(ClaseEstado.ESPERA, ConsultasCrono.vista(lejos, ensalada, "sarten", t0 - min(4)).clase)
-        assertEquals(ClaseEstado.YA, ConsultasCrono.vista(lejos, ensalada, "sarten", t0 - min(3)).clase)
-        assertEquals(ClaseEstado.YA, ConsultasCrono.vista(lejos, ensalada, "sarten", t0 + min(2)).clase)
+        assertEquals(ClaseEstado.ESPERA, ConsultasCrono.vista(lejos, ensalada, "mesa", inicioMesa - min(4)).clase)
+        assertEquals(ClaseEstado.YA, ConsultasCrono.vista(lejos, ensalada, "mesa", inicioMesa - min(3)).clase)
+        assertEquals(ClaseEstado.YA, ConsultasCrono.vista(lejos, ensalada, "mesa", inicioMesa + min(2)).clase)
+        // sarten (off 5) sin arrancar nada sigue al reloj: pasada su hora de plan sigue faltando margen.
+        assertEquals(ClaseEstado.ESPERA, ConsultasCrono.vista(lejos, ensalada, "sarten", t0 + min(2)).clase)
 
         val marcha = MotorCrono.empezar(abierto(), ensalada, "sarten", t0)
         assertEquals(ClaseEstado.MARCHA, ConsultasCrono.vista(marcha, ensalada, "sarten", t0 + seg(10)).clase)
@@ -291,7 +301,11 @@ class MotorCronoTest {
         val ahora = servir - min(10)
         val e = SesionCrono.abrir(SesionCrono.inicial(ensalada, servir, 0), ensalada, ahora)
         assertEquals(ahora, e.inicioMs)
-        assertTrue(e.carriles.values.all { it.avisado && it.inicioPasoMs == ahora })
+        assertTrue(e.carriles.values.all { it.inicioPasoMs == ahora })
+        // Mesa tocaba hace 9 min; sarten (off 5) sigue al reloj desde «ahora»: aún no toca (ADR-0018).
+        assertTrue(e.carriles.getValue("mesa").avisado)
+        assertFalse(e.carriles.getValue("sarten").avisado)
+        assertTrue(e.inicioRealMs.isEmpty(), "abrir la cocina no es arrancar")
         // Abrir de nuevo no cambia el inicio.
         assertEquals(ahora, SesionCrono.abrir(e, ensalada, ahora + 5).inicioMs)
         // Con tiempo de sobra no se marca nada como avisado.
@@ -306,8 +320,8 @@ class MotorCronoTest {
         val e = abierto(ensalada, inicioMesa)
         val plan = ConsultasCrono.plan(e, ensalada, inicioMesa)
         assertEquals(0, plan.retrasoMin)
-        assertEquals(servir - min(7), plan.llegadaMs) // sarten: 720 s desde servir-19
-        assertEquals(-7, plan.difFinMin)
+        assertEquals(servir, plan.llegadaMs) // «final» (mesa) acaba en el minuto 19; antes se contaba sin huecos
+        assertEquals(0, plan.difFinMin)
         assertFalse(plan.tarde)
         assertNull(plan.vencido)
     }
@@ -352,10 +366,15 @@ class MotorCronoTest {
         assertEquals(EtiquetaParalelo.EN_MIN, p.single().etiqueta)
         // A 16 min queda fuera de la ventana de 12.
         assertTrue(ConsultasCrono.paralelo(lejos, ensalada, "mesa", servir - min(30)).isEmpty())
-        // Sarten ya pasado de hora → AHORA.
+        // Sin arrancar nada, un carril con `off` > 0 sigue a «ahora» (ADR-0018): a su hora le faltan siempre 5 min.
+        val tarde = ConsultasCrono.paralelo(lejos, ensalada, "mesa", inicioSarten).single()
+        assertEquals(EtiquetaParalelo.EN_MIN, tarde.etiqueta)
+        assertEquals(5, tarde.minutos)
+        // Con la mesa arrancada, el sarten se ancla a ese arranque: pasado de hora → AHORA.
+        val mesaEnMarcha = MotorCrono.empezar(lejos, ensalada, "mesa", inicioMesa)
         assertEquals(
             EtiquetaParalelo.AHORA,
-            ConsultasCrono.paralelo(lejos, ensalada, "mesa", inicioSarten).single().etiqueta,
+            ConsultasCrono.paralelo(mesaEnMarcha, ensalada, "mesa", inicioSarten).single().etiqueta,
         )
         // Si el otro corre con tiempo, se salta; vencido → VENCIDO.
         val corre = MotorCrono.empezar(abierto(), ensalada, "sarten", inicioSarten)
@@ -400,12 +419,8 @@ class MotorCronoTest {
         val hito = AvisosCrono.vencidos(e, ensalada, t0 + seg(120))
         assertEquals(listOf(TipoAviso.HITO), hito.avisos.map { it.tipo })
         assertEquals("sarten", hito.avisos.single().carril)
-        assertTrue(
-            hito.avisos
-                .single()
-                .texto
-                .startsWith("A partir de aquí"),
-        )
+        val textoDelHito = checkNotNull(ensalada.paso("sesamo")).hitosValidos.first().t
+        assertEquals(textoDelHito, hito.avisos.single().texto)
         assertFalse(hito.avisos.single().silencioso)
         e = hito.estado
         assertEquals(setOf(0), e.carriles.getValue("sarten").hitosAvisados)
@@ -453,7 +468,7 @@ class MotorCronoTest {
             )
         val v = AvisosCrono.vencidos(e, ensalada, t0 + seg(10_000))
         assertTrue(v.avisos.none { it.carril == "sarten" })
-        assertNull(AvisosCrono.siguienteEvento(e, ensalada)?.takeIf { it.carril == "sarten" })
+        assertNull(AvisosCrono.siguienteEvento(e, ensalada, t0 + seg(10_000))?.takeIf { it.carril == "sarten" })
     }
 
     @Test
@@ -495,32 +510,33 @@ class MotorCronoTest {
     @Test
     fun siguienteEventoParaLaCadenaDeAlarmas() {
         val e0 = SesionCrono.inicial(ensalada, servir, 0)
-        val primero = AvisosCrono.siguienteEvento(e0, ensalada)!!
+        val primero = AvisosCrono.siguienteEvento(e0, ensalada, 0L)!!
         assertEquals(TipoAviso.TOCA_EMPEZAR, primero.tipo)
         assertEquals(inicioMesa, primero.ms)
 
         // Con ambos avisados y el sartén corriendo, el siguiente es su hito.
         val t0 = inicioSarten
         val e = MotorCrono.empezar(abierto(), ensalada, "sarten", t0)
-        val sig = AvisosCrono.siguienteEvento(e, ensalada)!!
+        val sig = AvisosCrono.siguienteEvento(e, ensalada, t0)!!
         assertEquals(TipoAviso.HITO, sig.tipo)
         assertEquals("sarten", sig.carril)
         assertEquals(t0 + seg(120), sig.ms)
-        val sig2 = AvisosCrono.siguienteEvento(AvisosCrono.vencidos(e, ensalada, t0 + seg(120)).estado, ensalada)!!
+        val tras120 = AvisosCrono.vencidos(e, ensalada, t0 + seg(120)).estado
+        val sig2 = AvisosCrono.siguienteEvento(tras120, ensalada, t0 + seg(120))!!
         assertEquals(TipoAviso.FIN, sig2.tipo)
         assertEquals(t0 + seg(180), sig2.ms)
         // Todo terminado: nada que programar.
         var fin = e
         repeat(4) { fin = MotorCrono.hecho(fin, ensalada, "mesa", t0) }
         repeat(5) { fin = MotorCrono.hecho(fin, ensalada, "sarten", t0) }
-        assertNull(AvisosCrono.siguienteEvento(fin, ensalada))
+        assertNull(AvisosCrono.siguienteEvento(fin, ensalada, t0))
     }
 
     @Test
     fun masTreintaDesplazaElHito() {
         val t0 = inicioSarten
         val e = MotorCrono.masTreinta(MotorCrono.empezar(abierto(), ensalada, "sarten", t0), ensalada, "sarten", t0)
-        assertEquals(t0 + seg(150), AvisosCrono.siguienteEvento(e, ensalada)!!.ms)
+        assertEquals(t0 + seg(150), AvisosCrono.siguienteEvento(e, ensalada, t0)!!.ms)
     }
 
     @Test
@@ -531,7 +547,7 @@ class MotorCronoTest {
 
         val e = MotorCrono.prorrogar(MotorCrono.empezar(abierto(), ensalada, "sarten", t0), ensalada, "sarten", 120, t0)
         assertEquals(t0 + seg(300), e.carriles.getValue("sarten").finAtMs)
-        assertEquals(t0 + seg(240), AvisosCrono.siguienteEvento(e, ensalada)!!.ms)
+        assertEquals(t0 + seg(240), AvisosCrono.siguienteEvento(e, ensalada, t0)!!.ms)
     }
 
     @Test

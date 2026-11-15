@@ -10,6 +10,7 @@ import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.receta.crono.EstadoCarril
 import app.trombito.souschef.receta.crono.EstadoCrono
+import app.trombito.souschef.receta.crono.PasoPrevisto
 import app.trombito.souschef.receta.crono.PlanCrono
 import app.trombito.souschef.receta.crono.VistaEstado
 
@@ -27,7 +28,10 @@ class DatosCrono(
     val recetaUi: Receta = receta,
 ) {
     val carriles: List<Carril> = ConsultasCrono.carriles(receta)
-    val plan: PlanCrono by lazy { ConsultasCrono.plan(estado, receta, ahoraMs) }
+
+    /** Horas previstas de cada paso (ADR-0018), calculadas una vez por tic y compartidas por vista, plan y sugerido. */
+    val previstos: Map<String, PasoPrevisto> by lazy { ConsultasCrono.previstos(estado, receta, ahoraMs) }
+    val plan: PlanCrono by lazy { ConsultasCrono.plan(estado, receta, ahoraMs, previstos) }
 
     fun carril(id: String): Carril? = carriles.firstOrNull { it.id == id }
 
@@ -39,7 +43,10 @@ class DatosCrono(
 
     fun quedan(id: String): Int = ConsultasCrono.quedan(estado, receta, id, ahoraMs)
 
-    fun vista(id: String): VistaEstado = ConsultasCrono.vista(estado, receta, id, ahoraMs)
+    /** Hora prevista de empezar el paso actual del carril (sigue al cocinero, ADR-0018). */
+    fun sugerido(id: String): Long? = ConsultasCrono.sugerido(estado, receta, id, ahoraMs, previstos)
+
+    fun vista(id: String): VistaEstado = ConsultasCrono.vista(estado, receta, id, ahoraMs, previstos)
 
     fun cola(id: String): List<Paso> = colaDe(recetaUi, id)
 
