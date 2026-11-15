@@ -19,20 +19,22 @@ description: Revisa una receta existente de data/recetas contra las reglas y el 
 
 ## Pasos
 1. `scripts/sc validar --estricto <slug>` para ver el estado de partida.
-2. Lee la receta entera y repasa contra las reglas: vetos, equivalencias caseras, un corte por ingrediente con medida, potencia y tapa por paso, ingredientes en `mep` con cantidad y minuto, hitos o `sinHitos` en tramos de 6 min o más, `saco` en el último paso, `p` argumentado, aritmética de `totalMin`, `s` = `min`·60, ingredientes en despensa o `compra`. Comprueba además que toda potencia del texto (`t`, `nota`, `p`, `lectura`, hitos) va marcada como `{N}` (`scripts/sc potencias <slug>` sin candidatos; R27) y que `escala` es coherente con `notaEscala` (R26).
+2. Lee la receta entera y repasa contra las reglas: vetos, equivalencias caseras, un corte por ingrediente con medida, potencia y tapa por paso, ingredientes en `mep` con cantidad y minuto, hitos o `sinHitos` en tramos de 6 min o más, `saco` en el último paso, `p` argumentado, aritmética de `totalMin`, `s` = `min`·60, ingredientes en despensa o `compra`. Comprueba además que toda potencia del texto (`t`, `nota`, `p`, `lectura`, hitos) va marcada como `{N}` (`scripts/sc potencias <slug>` sin candidatos; R27) y que `escala` es coherente con `notaEscala` (R26). Textos del paso (modelo «dos textos por paso», `receta-cronometrada/references/textos-del-paso.md`): topes de `t`, `meto`/`saco`, `nota`, avisos y `p`, sin repetir lo que pinta la app, pasos en orden de `off` (R35). Antes de acortar nada, guarda una copia de los campos de cocina (ver guarda del paso 4).
 3. **Separa los hallazgos en dos grupos:**
    - **Correcciones objetivas** (incumplen una regla o el esquema, sin cambiar el plato): aplícalas directamente en el JSON.
    - **Cambios de plato** (sustituir ingrediente, cambiar potencia o tiempo con efecto en el resultado, quitar o añadir algo): no los apliques. Anótalos como propuesta en `docs/revision-recetas.md` (crea el archivo si no existe) con receta, qué cambiaría, por qué y qué efecto tiene en el plato.
-4. `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>`.
-5. Informa a Joan en pocas líneas: qué se corrigió y qué propuestas hay pendientes de su decisión. Si decide aplicar una, trátala como edición de receta y repite el paso 4.
-6. Con su OK: publicar = commit del JSON, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y skill `release` (menor o parche; la versión se calcula desde git).
+4. **Guarda al acortar textos:** no cambian cantidades, tiempos (`min`, `s`, `off`, hitos `en`), potencias (`f` y las `{N}`), `tapa`, `dep` ni `junto`. Compruébalo con un diff de esos campos entre el JSON de partida (`git diff` o la copia) y el final; si algo cambia, es un cambio de plato (paso 3). Quitar una cantidad de `meto` solo vale si ya está en `mep` o en el paso que la mete.
+5. `scripts/sc formatear <slug>`, `scripts/sc validar --estricto <slug>` y `scripts/sc validar --legibilidad <slug>` sin avisos.
+6. Informa a Joan en pocas líneas: qué se corrigió y qué propuestas hay pendientes de su decisión. Si decide aplicar una, trátala como edición de receta y repite los pasos 4 y 5.
+7. Con su OK: publicar = commit del JSON, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y skill `release` (menor o parche; la versión se calcula desde git).
 
 ## Validaciones / tests
-- `scripts/sc validar --estricto <slug>` sin errores.
+- `scripts/sc validar --estricto <slug>` sin errores y `scripts/sc validar --legibilidad <slug>` sin avisos.
 - Sin `sc comparar` (ADR-0007): el repo es la única copia.
 
 ## Definition of Done
-- [ ] Correcciones objetivas aplicadas y `validar --estricto` en verde.
+- [ ] Correcciones objetivas aplicadas, `validar --estricto` en verde y `validar --legibilidad` sin avisos.
+- [ ] Diff de cantidades, tiempos, potencias, `tapa`, `dep` y `junto` vacío tras acortar textos.
 - [ ] Cambios de plato solo como propuestas en `docs/revision-recetas.md`, ninguno aplicado sin OK.
 - [ ] Publicada solo si Joan lo ha aprobado.
 

@@ -47,6 +47,7 @@ private fun ilegible(
 
 private fun validar(args: List<String>): Int {
     val estricto = "--estricto" in args
+    val legibilidad = "--legibilidad" in args
     val slugs = args.filterNot { it.startsWith("--") }.toSet()
     val raiz = raiz() ?: return errorEntorno()
 
@@ -58,8 +59,10 @@ private fun validar(args: List<String>): Int {
     val hallazgos = mutableListOf<Hallazgo>()
     for (f in elegidos("data/recetas")) {
         runCatching { leerReceta(f.readText()) }
-            .onSuccess { hallazgos += Validador.receta(it, tecnicasExistentes) + Despensa.comprobar(it, despensa) }
-            .onFailure { hallazgos += ilegible(f, it) }
+            .onSuccess {
+                hallazgos += Validador.receta(it, tecnicasExistentes) + Despensa.comprobar(it, despensa)
+                hallazgos += legible(it, legibilidad)
+            }.onFailure { hallazgos += ilegible(f, it) }
     }
     for (f in elegidos("data/tecnicas")) {
         runCatching { leerTecnica(f.readText()) }
@@ -69,8 +72,10 @@ private fun validar(args: List<String>): Int {
     hallazgos.forEach { println("%s  R%d  %s  %s".format(it.slug, it.regla, it.nivel, it.texto)) }
     val errores = hallazgos.count { it.nivel == Nivel.ERROR }
     val avisos = hallazgos.size - errores
-    println("validar: $errores errores, $avisos avisos${if (estricto) " (estricto)" else ""}")
-    return if (errores > 0 || (estricto && avisos > 0)) SALIDA_FALLO else 0
+    val modo = listOfNotNull("estricto".takeIf { estricto }, "legibilidad".takeIf { legibilidad })
+    println("validar: $errores errores, $avisos avisos${if (modo.isEmpty()) "" else " (${modo.joinToString(", ")})"}")
+    if (legibilidad) println(lineaLegibilidad(hallazgos))
+    return if (validarFalla(errores, avisos, estricto, legibilidad)) SALIDA_FALLO else 0
 }
 
 private fun formatear(args: List<String>): Int {

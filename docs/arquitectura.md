@@ -139,6 +139,7 @@ CLAUDE.md README.md .editorconfig .gitattributes .gitignore .env.example
 - [ADR-0014 Cocina configurable y potencia marcada](adr/0014-cocina-configurable-y-potencia-marcada.md)
 - [ADR-0015 Copia automática del historial en una carpeta SAF](adr/0015-copia-automatica-del-historial-en-carpeta-saf.md) (amplía ADR-0007)
 - [ADR-0016 Temporizador libre y «Avísame para empezar»](adr/0016-temporizador-libre-y-recordatorio-de-empezar.md) (anexo de ADR-0005)
+- [ADR-0017 Dos textos por paso: orden compuesta y explicación estructurada](adr/0017-dos-textos-por-paso-orden-compuesta.md)
 - CLI y herramientas: [herramientas](herramientas.md). Inventario funcional del legado: [spec](spec/app-legado.md).
 
 ## Pendiente

@@ -57,6 +57,12 @@ object Validador {
         return h
     }
 
+    /**
+     * Reglas de legibilidad 30-36 (docs/analisis/legibilidad-crono-y-textos.md § 6.4). Solo las corre
+     * `sc validar --legibilidad`; [receta] no las incluye hasta que las 33 recetas pasen. Todas AVISO salvo la 35.
+     */
+    fun legibilidad(r: Receta): List<Hallazgo> = hallazgosDeLegibilidad(r)
+
     /** Ficha de técnica: slug, título y pasos (regla 0, sin número en el doc). */
     fun tecnica(t: Tecnica): List<Hallazgo> =
         buildList {

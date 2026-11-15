@@ -1,6 +1,6 @@
 # Esquema de receta y técnica
 
-> Propósito: esquema JSON de `data/recetas/*.json` y `data/tecnicas/*.json` y lista de comprobaciones del validador · Audiencia: Claude Code, `sc validar`, quien edite recetas · Actualizado: 2026-10-20 · Relacionado: docs/cocina/reglas.md, docs/herramientas.md
+> Propósito: esquema JSON de `data/recetas/*.json` y `data/tecnicas/*.json` y lista de comprobaciones del validador · Audiencia: Claude Code, `sc validar`, quien edite recetas · Actualizado: 2026-11-15 · Relacionado: docs/cocina/reglas.md, docs/herramientas.md, docs/adr/0017-dos-textos-por-paso-orden-compuesta.md
 
 ## Resumen
 Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril se derivan de `pasos`, así que no pueden descuadrarse. Formato canónico: `scripts/sc formatear` (indent 2, claves ordenadas, UTF-8, `\n` final). Las horas de reloj no existen en la receta: todo son minutos desde el arranque.
@@ -52,10 +52,10 @@ Los pasos son **una sola lista**: la ficha, el gráfico y la cola de cada carril
       "junto": "macarrones",    // opcional. Paso que corre en paralelo cuando el momento exacto importa
       "meto": "el bol: 160 g de cebolla + 120 g de zanahoria",  // qué entra, cuánto y de qué recipiente sale
       "saco": "",               // qué sale y adónde; el último paso siempre lo lleva
-      "nota": "Una o dos frases: la señal que mirar y el error que evitar.",
+      "nota": "La señal que mirar y la única corrección (80 caracteres, 2 frases). Puede ir vacía.",
       "hitos": [{ "en": 180, "t": "Destapa, remueve y vuelve a tapar" }],   // opcional
       "sinHitos": "",           // opcional. Solo en pasos de fuego u horno de 6 min o más SIN hitos
-      "p": "Tres o cuatro frases con el porqué físico dentro. Esto es la ficha."
+      "p": "El porqué físico del paso, en párrafos y listas (ver «Prosa estructurada»). Esto es la ficha."
     }
   ],
 
@@ -76,7 +76,42 @@ Solo `creada` e `importada` son opcionales a nivel de receta; `dep`, `junto`, `h
 Toda potencia que el texto libre nombra se escribe `{N}` (0-9, escala vitro canónica): «baja al {3}», «del {4} al {5}». La app la traduce a la cocina de cada usuario al mostrar (ADR-0014), y el motor del cronómetro y lo guardado siguen usando la receta canónica. `scripts/sc potencias --marcar` marca lo que falte (idempotente); lo dudoso («del N» suelto, «sube a N», «potencias del 0 al 9») lo lista sin tocarlo y se revisa a mano. No marques minutos, tandas ni cantidades. Ver `docs/herramientas.md`.
 
 ### `nota` y `p`
-Son los dos niveles del mismo paso, y la única duplicación admitida. `p` argumenta (se lee antes, sentado); `nota` dicta (se mira de reojo con las manos ocupadas). Una `nota` de más de dos frases sobra. No pongas en las notas avisos de paralelismo (los calcula la app desde los `off`). En el cronómetro `nota` se ve siempre y `p` queda a un toque.
+Son los dos textos libres del paso y no se repiten entre sí ([ADR-0017](../adr/0017-dos-textos-por-paso-orden-compuesta.md)). `nota` es la **señal**: cómo sabes que el paso está y la única corrección; se mira de reojo con las manos ocupadas y puede quedar vacía si no hay nada que vigilar. `p` es el **porqué**: se lee antes, sentado, en la ficha y en el detalle del paso. La `nota` se enseña en marcha, junto al reloj y al próximo aviso; no siempre cabe en pantalla, y lo que no cabe se corta con «…» y se lee en el detalle. Lo que la app ya pinta como dato no se escribe en la `nota`:
+- la potencia de `f` (ni como `{N}` igual a `f`), la tapa y la duración, que salen de `f`, `tapa` y `s`;
+- minutos de reloj («minuto N») ni avisos de paralelismo, que se calculan desde los `off`;
+- el porqué, que va en `p`.
+
+A su vez, `p` no repite cantidades, potencias ni el texto de los avisos.
+
+Topes de partida (se calibran con el piloto): `nota` de 80 caracteres y 2 frases como mucho; `p` de 600 y párrafos de 240. Ver reglas 30-36.
+
+### Orden compuesta
+La tarjeta del cronómetro no lee un campo de orden: la **compone** con los datos del paso y enseña la parte que toca según el momento. No hay campo nuevo. Si más de 1 de cada 10 pasos se lee mal compuesto tras cocinar el piloto, se añade un `orden` opcional que sustituye la línea METE solo en esos pasos (ADR-0017).
+
+| Momento | Qué enseña | Sale de |
+|---|---|---|
+| Antes de empezar | METE · fuego · tapa · duración | `meto` · `f` · `tapa` · `s` |
+| En marcha | reloj, próximo aviso y SEÑAL | `s`, `hitos`, `nota` |
+| Al vencer | SACA (y lo que viene después) | `saco` |
+
+- La tapa sale siempre («sin tapa», «tapada» o «tapa a medias»). Si `f` cambia respecto al paso anterior del carril, el chip dice «fuego 4 → 5».
+- `t`: etiqueta del paso, en infinitivo o nombre, de 36 caracteres o menos y sin duración ni tapa. Lleva `{N}` solo si el paso consiste en cambiar la potencia.
+- `meto`: lo que entra, `origen: cantidad y qué`, con « + » entre elementos y de 36 caracteres o menos por elemento. Sin medida de corte (va en `mep` y en `cortes`).
+- `saco`: lo que sale y adónde, con el mismo separador y el mismo tope por elemento.
+- `hitos[].t`: una acción en imperativo, de 44 caracteres o menos.
+- Una misma función pura da las tres salidas de la orden: pantalla («METE 500 g de patata · la fuente», «fuego 4 · sin tapa · 18 min»), una línea para la notificación («1ª fritura · METE 500 g de patata · fuego 4») y la frase hablada de la voz.
+
+### Prosa estructurada
+`p`, `lectura`, `notaEscala`, `porque`, `mep.porq`, `cortes.p` y el `p` de las técnicas admiten un mini formato dentro de la cadena, sin cambiar el tipo del campo:
+- **línea en blanco**: párrafo nuevo;
+- **línea que empieza por `- `**: elemento de lista;
+- **`<b>`** sigue valiendo, y nada más (ni Markdown ni otro HTML).
+
+En JSON los saltos van como `\n`. `scripts/sc formatear` los conserva. El primer párrafo de `p` es el porqué en una o dos frases y se sostiene solo, porque es lo que lee la voz. Después, si hace falta, el porqué de los avisos en lista y qué pasa si no se hace. Ejemplo:
+
+```
+"p": "Aquí la patata se cuece, no se dora: el centro se hace del todo y la costra llega en la segunda fritura.\n\n- Despegar a los 2 minutos: la patata cruda se pega y se dora ahí antes de tiempo.\n- Pinchar a los 15 minutos: es la única señal fiable.\n\nFrita una sola vez sale blanda y sin costra."
+```
 
 ### Dependencias
 `dep` solo apunta a pasos de otros carriles: el orden dentro de un carril ya lo da la cola. Si un paso arranca a mitad de otro largo (el agua durante el chup-chup), su requisito es el paso anterior al largo, no el largo, o quedaría bloqueado hasta que acabe.
@@ -141,7 +176,20 @@ Lo hace `scripts/sc validar [--estricto]`. **ERROR** falla siempre. **AVISO** so
 28. ERROR · `tags.momento`, si está, no va vacío (omítelo para «cualquier momento») ni repite valores. AVISO (estricto) · Receta de más de 60 min con `cena` y sin `comida` (cena larga, poco probable entre semana).
 29. ERROR · `tags.equipo`, si está, no va vacío ni repite valores, y `horno` declarado exige un carril `tipo: "horno"`. AVISO · `horno` declarado con carril de horno (redundante: se deriva de los carriles). AVISO (estricto) · Un paso (`t`, `nota`, `p`, `meto`, `saco`, `sinHitos`, hitos) nombra «batidora» o «túrmix» sin `batidora`, o «microondas» sin `microondas`, en `equipoDe` (lo derivado más lo declarado). La plancha va siempre declarada (ocupa un carril de fuego) y no tiene regla de menciones.
 
-**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21 y 23-29. **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 26 y la 27 se describen arriba (la 27 usa el detector `MarcaPotencia` sobre los mismos campos de texto libre que traduce la app: sus `cambios` seguros dan ERROR y sus `dudosos` dan AVISO con el mensaje «potencia dudosa sin marcar»; lo ya marcado `{N}` no da nada); la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
+### Reglas de legibilidad (30-36)
+Nuevas con ADR-0017. **Solo con `sc validar --legibilidad` hasta que pasen las 33 recetas**; entonces se funden en `--estricto`. Hasta entonces `sc validar --estricto` sigue dando 0 errores y 0 avisos. Los caracteres se cuentan como los ve el usuario: `{N}` vale 1 y `<b>` vale 0. Los topes son de partida y se calibran con el piloto.
+
+30. AVISO de legibilidad · `t` de 36 caracteres o menos y sin duración escrita («N min», «N s»).
+31. AVISO de legibilidad · `nota` de 80 o menos y 2 frases como mucho; sin «minuto N»; sin `{N}` igual a `f`.
+32. AVISO de legibilidad · Cada elemento de `meto` y `saco` de 36 o menos; sin mm ni cm.
+33. AVISO de legibilidad · `hitos[].t` de 44 o menos.
+34. AVISO de legibilidad · `p` de 600 o menos, con párrafos de 240 o menos y 4 como mucho; `descripcion` de 200 o menos; `lectura` de 800 o menos y con algún salto; `porque` y `mep.porq` de 280 o menos.
+35. ERROR · Los pasos del array van en orden de `off` (exige antes reordenar 5 recetas; la cola de cada carril no cambia).
+36. AVISO de legibilidad · Frase de la `nota` cuyas palabras de contenido están en `p` en un 80 % o más.
+
+La regla 20 (nombrar la potencia nueva en el texto) deja de hacer falta cuando el chip enseñe «4 → 5»; hasta entonces se cumple desde `t` o `p`. La 21 y la 25 no cambian.
+
+**Estado en el código** (`Validador.kt`, más `tools/Despensa.kt` para la 12): implementadas 1-8, 10-21 y 23-29, y las de legibilidad 30-36 en `ValidadorLegibilidad.kt` (topes en `TopesLegibilidad.kt`; solo con `--legibilidad`; la 36 solo compara frases de la `nota` con 3 o más palabras de contenido). **Sin implementar**: la 9 (dos formas de corte en una línea: es lenguaje natural, sin forma fiable de detectarlo) y la 22 (la tapa es un único campo por paso, así que un cambio a mitad solo se vería en el texto libre de `hitos`, con demasiados falsos positivos). Detalles: la 15 mira `t` y `nota` de los pasos de mesa (cortar, picar, laminar, trocear, rallar, dados); la 19 busca número + mm|cm en `t`/`p` de cada corte; la 20 mira el número de potencia en `t`+`nota` cuando `f` cambia respecto al paso anterior del carril; la 26 y la 27 se describen arriba (la 27 usa el detector `MarcaPotencia` sobre los mismos campos de texto libre que traduce la app: sus `cambios` seguros dan ERROR y sus `dudosos` dan AVISO con el mensaje «potencia dudosa sin marcar»; lo ya marcado `{N}` no da nada); la 25 analiza `t` y `nota` de cada paso con `f` contra la transición potencia anterior del carril → `f` (sin anterior, solo contra `f`), por frases, y los `hitos[].t` como condicionales solo contra `f` (no mira `p`); la 24 usa raíces (garbanzo, guisante, champiñón, coliflor, brócoli, casquería, hígado, anchoa, alcaparra, marisco, gamba, langostino, mejillón, calamar, pulpo, sepia, almeja…) al inicio de palabra, en `grupos`.
 
 Los puntos 14, 15 y 17-18 no estaban en la skill legada (14 y 15 salen de su §3a y §5); la 24 es una red de seguridad. Si el validador implementado difiere de esta lista, manda el código y se corrige este documento.
 

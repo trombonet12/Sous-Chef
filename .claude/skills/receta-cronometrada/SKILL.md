@@ -26,8 +26,8 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 4. **Diseña** (ver abajo y `references/`) con los campos que mueven el cronómetro: `carril`, `s`, `off`, `f`, `tapa`, `dep`, `junto`, `meto`/`saco`, `nota`, `hitos`/`sinHitos` y `mep`. No hay `compra` por receta: lo que falte se añade antes a la semilla; si un plato saldría claramente mejor con algo que no hay, dilo al final bajo **Para la próxima compra** (`docs/cocina/sugerencias-compra.md`).
 5. Escribe `data/recetas/<slug>.json` y ejecuta `scripts/sc formatear <slug>`.
 6. `scripts/sc potencias <slug>` debe dar **0 candidatos**: toda potencia del texto va como `{N}`. Los dudosos se revisan a mano (ADR-0014).
-7. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Incluye R27 (potencia sin marcar) y R26 (`escala`: decide el rango de raciones en el que el plan vale sin cambiar pasos, tandas ni recipientes). Comprueba tú la aritmética además.
-8. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, `escala` coherente con `notaEscala`, reglas 9 y 22).
+7. `scripts/sc validar --estricto <slug>` hasta **0 errores y 0 avisos**. Incluye R27 (potencia sin marcar), R26 (`escala`: decide el rango de raciones en el que el plan vale sin cambiar pasos, tandas ni recipientes) y R35 (pasos en orden de `off`). Después `scripts/sc validar --legibilidad <slug>` sin avisos (topes de texto, reglas 30-34 y 36). Comprueba tú la aritmética además.
+8. **Autorrevisión** con la lista de `receta-revisar` (vetos, equivalencias, cortes, potencia y tapa por paso, `p` argumentado, `escala` coherente con `notaEscala`, textos del paso sin repetir lo que pinta la app, reglas 9 y 22).
 9. **Enseña la receta completa a Joan** y espera su OK. Sin OK no se publica.
 10. **Publicar** (las recetas viajan dentro del APK): commit del JSON, gate `./gradlew ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug` y skill `release` (menor o parche; la versión se calcula desde git): el workflow crea la release de GitHub (el móvil se actualiza con Obtainium o `adb install -r`).
 11. En el chat: dos a cuatro frases y un resumen breve de tiempos (total, fuegos, ventanas de solape). Sin gráfico, sin cantidades, sin pasos: están en la app.
@@ -35,34 +35,37 @@ Una receta normal dice qué lleva. Esto dice **qué haces, cuándo, en qué reci
 ## Errores típicos
 - Todo ingrediente aparece en `mep`, también los opcionales (maicena) y los condimentos (soja).
 - Los títulos de corte llevan tamaño en mm/cm («en dados de 1 cm»).
-- La potencia nueva se escribe marcada en el texto del paso (`t`, `nota` o `p`): «baja al {3}», «del {4} al {5}». Nunca un número suelto.
-- `p` de 120 caracteres o más, con el porqué físico.
+- La potencia nueva se escribe marcada, en `t` (solo si el paso consiste en cambiar la potencia), en la corrección de la `nota` o en `p`: «baja al {3}», «del {4} al {5}». Nunca un número suelto, y la `nota` nunca repite la potencia de `f`.
+- `p` de 120 a 600 caracteres, con el porqué físico, en párrafos de 240 como mucho y sin repetir cantidades ni potencias.
+- La `nota` con porqués, tapa, minutos de reloj o avisos de paralelismo: es la señal y nada más (puede ir vacía).
 - Cantidades en g/ml con equivalencia de andar por casa; nada de «al gusto».
 
 ## La receta (resumen; detalle en references/)
 - **Solo lo necesario.** Que algo esté en la despensa no es motivo para meterlo. Por cada cosa que descartas y Joan podría esperar, una línea con el motivo («curry: el comino y la cúrcuma se comen el tomate») en `porque`.
 - **Cantidades exactas** en g y ml (y cucharadas) con equivalencia casera entre paréntesis. Nada de «al gusto». Lo que no escala lineal (sal, especias potentes, levadura, gelificantes) lleva `esc:"sub"`.
-- **Cortes con dirección y tamaño**, y el porqué físico (hacia dónde va la fibra, si el corte la cruza o la sigue, qué le pasa en la cocción). Un ingrediente, una forma de corte, una medida.
+- **Cortes con dirección y tamaño**, y el porqué físico (hacia dónde va la fibra, si el corte la cruza o la sigue, qué le pasa en la cocción). Un ingrediente, una forma de corte, una medida: en `cortes` y `mep`, nunca en `meto`.
 - **Cada paso declara cinco cosas:** recipiente (`carril`), potencia (`f`), qué entra (`meto`), qué sale (`saco`) y la tapa (`tapa`).
 - **La tapa es información:** puesta retiene vapor; a medias evita salpicaduras y deja reducir; fuera evapora y espesa. Di cuándo entra, cuándo sale y por qué. Si cambia a mitad de un paso largo, son dos pasos.
 - **El porqué de cada decisión**, una frase anclada en física o química (evaporación, Maillard, dirección de la fibra, emulsión del almidón, punto de humo, ácido que frena el ablandamiento).
 - **Aceite nunca a secas** (oliva o girasol). **Pimentón: solo picante**, cuenta con el pique; si los gramos no son prácticos con el bote de agujeros, dilo.
 - **Frescos perecederos** pueden faltar: si el plato se apoya entero en uno, dilo en una línea.
+- **Textos del paso (dos textos por paso):** `t` ≤ 36 · `meto`/`saco` ≤ 36 por elemento, «origen: cantidad y qué» con « + » · `nota` = la señal, ≤ 80 y 2 frases, puede ir vacía · aviso ≤ 44 en imperativo · `p` ≤ 600 en párrafos de 240. Plantilla, ejemplos buenos y malos y lo que no se escribe: `references/textos-del-paso.md`.
+- **Pasos en orden de `off`** (regla 35). `porque` de receta: solo decisiones de receta; el porqué de cada paso vive en su `p`.
 - Hitos, `sinHitos` y cuándo partir un paso: `references/potencias.md`.
 - Tiempos, paralelismo, holgura, escalado de raciones, máx. 3 fuegos: `references/planificacion.md`.
 - Recipientes, vaso medidor, tabla, `mep` completo: `references/mise-en-place.md`.
 - Potencias 0-9 (escala canónica), marcado `{N}` y la inercia de la vitro: `references/potencias.md`.
-- **Lo que hace la app y no escribes:** horas de reloj, avisos de solape («Mientras esto corre»), recuperación de retrasos (`holgura`), marcado y pitidos de hitos, historial, favorito y raciones elegidas.
+- **Lo que hace la app y no escribes:** la potencia de `f` y la tapa en prosa, la duración, horas de reloj, «tras N» y «a la vez que N», avisos de solape («Mientras esto corre»), recuperación de retrasos (`holgura`), marcado y pitidos de hitos, historial, favorito y raciones elegidas (lista completa en `references/textos-del-paso.md`).
 
 ## Tono
 Español, de tú, directo, sin relleno ni «¡delicioso plato!». Si algo puede salir mal, di la señal concreta («cuando el fondo esté casi seco», «si burbujea fuerte, baja al 2»), no un aviso genérico.
 
 ## Validaciones / tests
-- `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>` con 0 errores y 0 avisos.
+- `scripts/sc formatear <slug>` y `scripts/sc validar --estricto <slug>` con 0 errores y 0 avisos; `scripts/sc validar --legibilidad <slug>` sin avisos.
 - Lista numerada de comprobaciones: `docs/cocina/esquema-receta.md § Validación`.
 
 ## Definition of Done
-- [ ] JSON en `data/recetas/<slug>.json` con formato canónico y `validar --estricto` en verde.
+- [ ] JSON en `data/recetas/<slug>.json` con formato canónico, `validar --estricto` en verde y `validar --legibilidad` sin avisos.
 - [ ] Sin vetados; todo ingrediente en la despensa (sin `compra` por receta); todo ingrediente en `mep` con cantidad y minuto.
 - [ ] Joan ha visto la receta completa y dado su OK; publicada vía release (versión subida, gate en verde, workflow lanzado).
 
