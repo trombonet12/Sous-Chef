@@ -17,7 +17,7 @@
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
 | Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
 | Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **completada**: v1.7.18 (GitHub, pista interna y prueba cerrada Alpha) |
-| Ronda 19 · legibilidad del cronómetro y de los textos | **auditoría hecha y decisiones tomadas**; sin implementar |
+| Ronda 19 · legibilidad del cronómetro y de los textos | **hito 1 hecho** (lotes 1-3, commits locales, pendiente de `/release` → v1.8.0); lotes 4-9 pendientes |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -197,16 +197,21 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   abierta horas sin tocar nada, la banda sigue hasta salir y volver (riesgo bajo, revisión de la ronda 9).
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
-- Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota. Sin probar con 2 carriles.
+- Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota (se resuelve en el lote 9, disposición única).
+- Señales largas de las 32 recetas sin reescribir acaban en «…» en el cronómetro hasta el lote 8 (`sc validar --legibilidad`: 1.948 avisos).
 - Sin probar en el móvil: el diálogo al salir (ronda 7), la tarjeta compacta (ronda 8, solo emulador) y los
   cuadraditos y las listas de la v1.3 (solo emulador).
 - Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 19: auditoría en `docs/analisis/legibilidad-crono-y-textos.md` y decisiones de Joan en `docs/decisiones.md`
-§ Ronda 19. Siguiente: plan del lote 1 (alivio sin tocar recetas: sin marquesina, arranque claro, cabecera «Llegas a
-las HH:mm») y piloto huevos rotos → v1.8.0.
+Ronda 19, hito 1 hecho y sin publicar (commits locales en main, gate completo en verde con `:app:minifyReleaseWithR8`):
+lotes 1 (cronómetro: nada se mueve, `PilaPrioritaria`, arranque claro, «Llegas a las HH:mm», voz corregida), 2 (reglas
+30-36 tras `sc validar --legibilidad`, ADR-0017, esquema y skills) y 3 (piloto huevos rotos y 4 recetas por `off`).
+Capturas en `docs/capturas/v1.8-crono-*.png`. **Siguiente: Joan lanza `/release` (v1.8.0, versión menor)**; después,
+hito 2 (lote 4 ficha explicativa + lote 5 orden compuesta), hito 3 (lote 6 plan que sigue al cocinero con ADR-0018 +
+lote 7 diagrama único) e hito 4 (lote 8 las 32 recetas + lote 9 disposición única) y, al final, la auditoría completa
+con Fable (cambios, las cinco quejas y todas las recetas). Plan por lotes: `docs/analisis/legibilidad-crono-y-textos.md` §8.
 
 v1.7.18 publicada: GitHub, pista interna y promoción automática a la prueba cerrada (Alpha, versionCode 282). El
 primer intento (v1.7.17) falló en R8 por `review-ktx` (`-dontwarn` de `NoNullnessRewrite` en `proguard-rules.pro`);
