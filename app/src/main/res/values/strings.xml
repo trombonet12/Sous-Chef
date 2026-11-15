@@ -183,9 +183,6 @@
     <string name="crono_saca_esto">Saca esto antes de empezar</string>
     <string name="crono_servir_a_las">Servir a las</string>
     <string name="crono_abrir_cocina">Abrir la cocina</string>
-    <string name="crono_servir">SERVIR</string>
-    <string name="crono_llegada">LLEGAS</string>
-    <string name="crono_llegada_tarde">LLEGAS +%1$d min</string>
     <string name="crono_mientras_no_mirabas">MIENTRAS NO MIRABAS</string>
     <string name="crono_linea_perdida">%1$s: %2$s · hace %3$d min</string>
     <string name="crono_cerrar_aviso">Cerrar el aviso</string>
@@ -217,9 +214,6 @@
     <string name="crono_diagrama_horas">Empezar %1$s · servir %2$s</string>
     <string name="crono_diagrama_cerrar_corto">Cerrar</string>
     <string name="crono_diagrama_cerrar">Cerrar el diagrama</string>
-    <string name="crono_prevista">Prevista a las %1$s</string>
-    <string name="crono_prevista_tarde">Prevista a las %1$s, va %2$d min tarde</string>
-    <string name="crono_prevista_pronto">Prevista a las %1$s, va %2$d min adelantado</string>
     <string name="crono_paso_de">%1$d/%2$d</string>
     <string name="crono_enfocar">Poner %1$s en primer plano</string>
     <string name="crono_carril_n">Carril %1$d</string>

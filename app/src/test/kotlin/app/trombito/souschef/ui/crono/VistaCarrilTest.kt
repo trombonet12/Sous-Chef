@@ -322,6 +322,47 @@ class VistaCarrilTest {
         assertNull(vistas(r = enBlanco)[0].porque)
     }
 
+    // ---- datos del arranque: quién bloquea, a la vez que quién, cuánto falta
+
+    @Test
+    fun `un carril bloqueado dice el numero del carril que lo bloquea`() {
+        val m = vistas()[1]
+        assertEquals(AccionCarril.BLOQUEADO, m.accion)
+        assertEquals(1, m.bloqueadoPorN)
+        assertNull(vistas()[0].bloqueadoPorN)
+    }
+
+    @Test
+    fun `un carril que no espera no tiene numero de bloqueo`() {
+        val m = vistas(f0 = EstadoCarril(i = 1), m = EstadoCarril())[1]
+        assertEquals(AccionCarril.EMPEZAR, m.accion)
+        assertNull(m.bloqueadoPorN)
+    }
+
+    @Test
+    fun `junto lleva el numero del carril del paso con el que va a la vez`() {
+        val conJunto = receta.copy(pasos = receta.pasos.map { if (it.id == "p4") it.copy(junto = "p2") else it })
+        val m = vistas(m = EstadoCarril(i = 1), r = conJunto)[1]
+        assertEquals("Emplatar", m.titulo)
+        assertEquals(1, m.juntoN)
+        assertNull(vistas(r = conJunto)[0].juntoN)
+    }
+
+    @Test
+    fun `faltan los minutos hasta la hora prevista del paso`() {
+        // total 15 min y servir en 15: el primer paso toca ahora; Reposo (off 5) a los 5 minutos.
+        assertEquals(0, vistas()[0].faltanMin)
+        assertEquals(5, vistas(f0 = EstadoCarril(i = 1))[0].faltanMin)
+    }
+
+    @Test
+    fun `un carril terminado no tiene datos de arranque`() {
+        val m = vistas(m = EstadoCarril(i = 2, fin = true))[1]
+        assertNull(m.faltanMin)
+        assertNull(m.juntoN)
+        assertNull(m.bloqueadoPorN)
+    }
+
     // ---- elegirFoco
 
     private fun v(
@@ -357,6 +398,12 @@ class VistaCarrilTest {
         tienePorque = false,
     )
 
+    private fun conHora(
+        id: String,
+        clase: ClaseEstado,
+        sugeridoMs: Long?,
+    ) = v(id, clase = clase).copy(sugeridoMs = sugeridoMs)
+
     private fun corre(
         id: String,
         finAtMs: Long,
@@ -375,7 +422,7 @@ class VistaCarrilTest {
     }
 
     @Test
-    fun `foco vencido gana a corriendo`() {
+    fun `foco vencido gana a corriendo y a YA`() {
         val lista = listOf(corre("a", 1_000), vencido("b", 5_000), v("c", clase = ClaseEstado.YA))
         assertEquals("b", elegirFoco(lista, null))
     }
@@ -387,33 +434,78 @@ class VistaCarrilTest {
     }
 
     @Test
-    fun `foco corriendo con menor finAt`() {
+    fun `foco YA gana a corriendo`() {
         val lista = listOf(corre("a", 9_000), corre("b", 2_000), v("c", clase = ClaseEstado.YA))
-        assertEquals("b", elegirFoco(lista, null))
+        assertEquals("c", elegirFoco(lista, null))
     }
 
     @Test
-    fun `foco corriendo gana a YA`() {
-        val lista = listOf(v("a", clase = ClaseEstado.YA), corre("b", 9_000))
-        assertEquals("b", elegirFoco(lista, null))
+    fun `foco corriendo con menor finAt si no hay YA`() {
+        val lista = listOf(v("a", clase = ClaseEstado.ESPERA), corre("b", 9_000), corre("c", 2_000))
+        assertEquals("c", elegirFoco(lista, null))
     }
 
     @Test
-    fun `foco YA cuando nadie corre`() {
+    fun `foco nunca un carril en ESPERA por delante de uno YA`() {
         val lista =
-            listOf(v("a", clase = ClaseEstado.ESPERA), v("b", clase = ClaseEstado.YA), v("c", clase = ClaseEstado.YA))
+            listOf(
+                conHora("a", ClaseEstado.ESPERA, 100),
+                conHora("b", ClaseEstado.YA, 900),
+            )
         assertEquals("b", elegirFoco(lista, null))
     }
 
     @Test
-    fun `foco el primero no terminado si nada urgente`() {
+    fun `foco entre varios YA el de hora mas temprana`() {
+        val lista =
+            listOf(
+                conHora("a", ClaseEstado.ESPERA, 100),
+                conHora("b", ClaseEstado.YA, 900),
+                conHora("c", ClaseEstado.YA, 300),
+            )
+        assertEquals("c", elegirFoco(lista, null))
+    }
+
+    @Test
+    fun `foco sin YA ni marcha el de hora mas temprana`() {
+        val lista =
+            listOf(
+                terminado("t"),
+                conHora("a", ClaseEstado.BLOQ, 900),
+                conHora("b", ClaseEstado.ESPERA, 300),
+                conHora("c", ClaseEstado.ESPERA, null),
+            )
+        assertEquals("b", elegirFoco(lista, null))
+    }
+
+    @Test
+    fun `foco el primero no terminado si no hay horas`() {
         val lista = listOf(terminado("a"), v("b", clase = ClaseEstado.ESPERA), v("c", clase = ClaseEstado.BLOQ))
         assertEquals("b", elegirFoco(lista, null))
     }
 
     @Test
-    fun `foco fijado se respeta sobre corriendo y YA`() {
+    fun `foco fijado se respeta sobre corriendo y YA si el fijado no espera`() {
+        val lista = listOf(corre("a", 1_000), v("b", clase = ClaseEstado.YA), v("c", clase = ClaseEstado.YA))
+        assertEquals("c", elegirFoco(lista, "c"))
+        assertEquals("a", elegirFoco(lista, "a"))
+    }
+
+    @Test
+    fun `foco fijado en ESPERA o BLOQ cede ante un YA`() {
         val lista = listOf(corre("a", 1_000), v("b", clase = ClaseEstado.YA), v("c", clase = ClaseEstado.ESPERA))
+        assertEquals("b", elegirFoco(lista, "c"))
+        val bloq =
+            listOf(
+                v("b", clase = ClaseEstado.YA),
+                v("c", accion = AccionCarril.BLOQUEADO, clase = ClaseEstado.BLOQ),
+            )
+        assertEquals("b", elegirFoco(bloq, "c"))
+    }
+
+    @Test
+    fun `foco fijado en ESPERA se respeta si no hay YA`() {
+        val lista = listOf(corre("a", 1_000), v("c", clase = ClaseEstado.ESPERA))
         assertEquals("c", elegirFoco(lista, "c"))
     }
 
@@ -424,8 +516,52 @@ class VistaCarrilTest {
     }
 
     @Test
+    fun `foco fijado a mano en ESPERA se respeta si el YA ya estaba al fijar`() {
+        val lista = listOf(corre("a", 1_000), v("b", clase = ClaseEstado.YA), v("c", clase = ClaseEstado.ESPERA))
+        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
+    }
+
+    @Test
+    fun `foco fijado a mano en BLOQ se respeta si el YA ya estaba al fijar`() {
+        val lista =
+            listOf(
+                v("b", clase = ClaseEstado.YA),
+                v("c", accion = AccionCarril.BLOQUEADO, clase = ClaseEstado.BLOQ),
+            )
+        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
+    }
+
+    @Test
+    fun `foco fijado a mano cede ante un YA nuevo despues de fijar`() {
+        val lista =
+            listOf(
+                conHora("b", ClaseEstado.YA, 900),
+                conHora("d", ClaseEstado.YA, 300),
+                v("c", clase = ClaseEstado.ESPERA),
+            )
+        assertEquals("d", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
+        assertEquals("d", elegirFoco(lista, "c", vistosAlFijar = emptySet()))
+        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b", "d")))
+    }
+
+    @Test
+    fun `foco fijado a mano cede ante un vencido nuevo pero no ante uno que ya estaba`() {
+        val lista = listOf(corre("a", 1_000), vencido("b", 5_000), v("c", clase = ClaseEstado.ESPERA))
+        assertEquals("c", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
+        assertEquals("b", elegirFoco(lista, "c", vistosAlFijar = emptySet()))
+        assertEquals("b", elegirFoco(lista, "c"))
+    }
+
+    @Test
+    fun `foco sin fijado vivo ignora lo visto al fijar`() {
+        val lista = listOf(terminado("c"), v("b", clase = ClaseEstado.YA), corre("a", 1_000))
+        assertEquals("b", elegirFoco(lista, "c", vistosAlFijar = setOf("b")))
+        assertEquals("b", elegirFoco(lista, null, vistosAlFijar = setOf("b")))
+    }
+
+    @Test
     fun `foco fijado terminado se ignora`() {
-        val lista = listOf(terminado("a"), corre("b", 3_000), v("c", clase = ClaseEstado.YA))
+        val lista = listOf(terminado("a"), corre("b", 3_000), v("c", clase = ClaseEstado.ESPERA))
         assertEquals("b", elegirFoco(lista, "a"))
     }
 
@@ -446,44 +582,5 @@ class VistaCarrilTest {
     fun `foco sobre vistas reales con un carril vencido`() {
         val lista = vistas(f0 = corriendoCon(-20), m = EstadoCarril(salto = true))
         assertEquals("f0", elegirFoco(lista, "m"))
-    }
-
-    @Test
-    fun `desvio cero si se empieza a la hora prevista`() {
-        assertEquals(0, desvioMin(0, 300, finPrevistoMs(0, 300, false, null, 0)))
-    }
-
-    @Test
-    fun `esperar antes de la hora prevista no es ir pronto`() {
-        assertEquals(0, desvioMin(600_000, 300, finPrevistoMs(600_000, 300, false, null, 0)))
-    }
-
-    @Test
-    fun `sin empezar y pasada la hora prevista va tarde`() {
-        assertEquals(3, desvioMin(0, 300, finPrevistoMs(0, 300, false, null, 180_000)))
-    }
-
-    @Test
-    fun `corriendo con el fin antes de lo previsto va pronto`() {
-        // previsto: empezar en 0 y acabar en 300 s; corre desde -120 s, así que acaba en 180 s.
-        assertEquals(-2, desvioMin(0, 300, finPrevistoMs(0, 180, false, 180_000, 0)))
-    }
-
-    @Test
-    fun `una prorroga o un cero pasado cuentan como retraso`() {
-        assertEquals(1, desvioMin(0, 300, finPrevistoMs(0, 360, false, 360_000, 0)))
-        assertEquals(4, desvioMin(0, 300, finPrevistoMs(0, -240, false, 300_000, 540_000)))
-    }
-
-    @Test
-    fun `en pausa cuenta lo que queda desde ahora`() {
-        assertEquals(2, desvioMin(0, 300, finPrevistoMs(0, 120, true, null, 300_000)))
-    }
-
-    @Test
-    fun `texto del desvio con signo`() {
-        assertEquals("+3", textoDesvio(3))
-        assertEquals("−2", textoDesvio(-2))
-        assertEquals(null, textoDesvio(0))
     }
 }

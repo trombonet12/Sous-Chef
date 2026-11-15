@@ -74,7 +74,8 @@ internal fun PlanPlegable(
 ) {
     var abierto by rememberSaveable { mutableStateOf(false) }
     val plan = datos.plan
-    val aviso = plan.vencido != null || plan.tarde
+    // Rojo solo si un paso ya venció; ir tarde no se avisa con diferencia ni color (ronda 19).
+    val aviso = plan.vencido != null
     Surface(
         Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
@@ -134,7 +135,7 @@ private fun cabeceraPlan(datos: DatosCrono): String {
         }
 
         plan.tarde -> {
-            stringResource(R.string.crono_plan_tarde, plan.minutosPorDetras)
+            stringResource(R.string.crono_llegas_a_las, formatoHora(plan.llegadaMs))
         }
 
         datos.sinEmpezar && adelanto > 1 -> {

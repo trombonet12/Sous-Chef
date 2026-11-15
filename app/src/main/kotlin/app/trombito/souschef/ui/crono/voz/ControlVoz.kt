@@ -104,7 +104,8 @@ class ControlVoz(
         val frase =
             when (orden) {
                 is OrdenVoz.Hecho -> {
-                    sobreCarril(orden, orden.carril, actuales) { it.accion in HECHABLES }
+                    // Sin número prefiere un carril en marcha a uno sin empezar (que también admite Hecho).
+                    sobreCarril(orden, orden.carril, actuales, { it.accion in EN_MARCHA }) { it.accion in HECHABLES }
                 }
 
                 is OrdenVoz.Pausa -> {
@@ -227,16 +228,22 @@ class ControlVoz(
     }
 
     /**
-     * Ejecuta [orden] sobre el carril nombrado o, si no hay, el que está en foco. Si el carril no admite la orden en su
-     * estado actual no se toca nada y se dice cómo está.
+     * Ejecuta [orden] sobre el carril nombrado o, si no hay, sobre el que la admite con la prioridad del foco: sin
+     * número nunca va a un carril que no la admite mientras otro sí (con A corriendo y B por empezar, «pausa» es de A).
+     * [preferente] acota antes los candidatos (el fijado a mano siempre cuenta). Si ninguno la admite no se toca nada
+     * y se dice cómo está el del foco.
      */
     private fun sobreCarril(
         orden: OrdenVoz,
         carril: String?,
         actuales: List<VistaCarril>,
+        preferente: (VistaCarril) -> Boolean = { true },
         admite: (VistaCarril) -> Boolean,
     ): String {
-        val v = elegir(carril, actuales)
+        val v =
+            actuales.firstOrNull { it.id == carril }
+                ?: candidato(actuales, admite, preferente)
+                ?: elegir(null, actuales)
         return when {
             v == null -> {
                 RespuestasVoz.queToca(actuales, null)
@@ -251,6 +258,19 @@ class ControlVoz(
                 RespuestasVoz.confirmacion(orden, v)
             }
         }
+    }
+
+    /** El carril que admite la orden y manda según el foco; los [preferente]s (y el fijado) primero si hay alguno. */
+    private fun candidato(
+        actuales: List<VistaCarril>,
+        admite: (VistaCarril) -> Boolean,
+        preferente: (VistaCarril) -> Boolean,
+    ): VistaCarril? {
+        val fijado = foco()
+        val admitidos = actuales.filter(admite)
+        val candidatos = admitidos.filter { preferente(it) || it.id == fijado }.ifEmpty { admitidos }
+        val id = elegirFoco(candidatos, fijado)
+        return candidatos.firstOrNull { it.id == id }
     }
 
     private fun accionar(
@@ -313,6 +333,7 @@ class ControlVoz(
         val NO_PALABRA = Regex("[^a-z0-9]+")
         val HECHABLES = setOf(AccionCarril.PAUSAR, AccionCarril.HECHO, AccionCarril.SEGUIR, AccionCarril.EMPEZAR)
         val EMPEZABLES = setOf(AccionCarril.EMPEZAR, AccionCarril.BLOQUEADO)
+        val EN_MARCHA = setOf(AccionCarril.PAUSAR, AccionCarril.HECHO, AccionCarril.SEGUIR)
         val PRORROGABLES = setOf(AccionCarril.PAUSAR, AccionCarril.HECHO, AccionCarril.SEGUIR)
     }
 }

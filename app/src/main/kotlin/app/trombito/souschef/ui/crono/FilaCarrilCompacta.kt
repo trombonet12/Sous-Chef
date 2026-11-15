@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.theme.CronoPalette
@@ -28,8 +30,8 @@ import app.trombito.souschef.ui.theme.colorCarrilTexto
 private val ALTO_FILA = 64.dp
 
 /**
- * Fila compacta (64 dp) de un carril que no está en foco: nombre, título del paso, fuego, reloj y, solo si toca
- * (Hecho o Empezar), un botón pequeño. Tocar la fila la fija en el foco.
+ * Fila compacta (64 dp) de un carril que no está en foco: nombre, título del paso (hasta 2 líneas, quieto), fuego,
+ * reloj y, solo si toca (Hecho o Empezar), un botón pequeño. Tocar la fila la fija en el foco.
  */
 @Composable
 fun FilaCarrilCompacta(
@@ -64,15 +66,20 @@ fun FilaCarrilCompacta(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    // El nombre no se corta: la letra baja antes de llegar a los puntos suspensivos.
+                    autoSize =
+                        TextAutoSize.StepBased(
+                            minFontSize = 9.sp,
+                            maxFontSize = MaterialTheme.typography.labelMedium.fontSize,
+                        ),
                 )
                 HoraPrevista(v, estilo = MaterialTheme.typography.labelMedium)
             }
             Text(
                 v.titulo ?: stringResource(R.string.crono_terminado),
-                Modifier.desplazarSiNoCabe(),
                 style = MaterialTheme.typography.bodyMedium,
-                maxLines = lineasSinMarquesina(),
-                overflow = desbordeSinMarquesina(),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
         }
         FinalFila(v, acciones)

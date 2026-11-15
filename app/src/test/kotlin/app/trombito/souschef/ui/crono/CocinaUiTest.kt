@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -9,10 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.unit.dp
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Hito
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
+import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.receta.crono.EstadoCarril
 import app.trombito.souschef.receta.crono.EstadoCrono
 import app.trombito.souschef.ui.crono.clasica.CronoClasico
@@ -210,23 +213,86 @@ class CocinaUiTest {
 
         assertEquals(listOf("HECHO"), banco.textos(banco.conEtiqueta("accion-f0")))
         assertEquals(listOf("SEGUIR"), banco.textos(banco.conEtiqueta("accion-f1")))
-        assertEquals(listOf("EMPEZAR"), banco.textos(banco.conEtiqueta("accion-m")))
+        // «m» espera su hora (faltan 13 min): enlace «Empezar antes», no botón lleno.
+        assertEquals(listOf("Empezar antes"), banco.textos(banco.conEtiqueta("accion-m")))
     }
 
     @Test
-    fun `un carril que espera a otro tiene el boton principal deshabilitado y empezar igual`() {
+    fun `solo el carril que toca ya lleva el boton lleno EMPEZAR`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        // El servir está a 30 min y el plan dura 15: «m» (p4, off 0) toca a los 15 min. Con el servir a 15 min toca ya.
+        val carriles = mapOf("f0" to corriendo(200), "f1" to corriendo(400), "m" to EstadoCarril())
+        val estado = EstadoCrono("r", 2, ahora + 15 * 60_000L, carriles, actualizadoMs = ahora)
+        val v = vistasCarriles(DatosCrono(receta, estado, ahora))
+        assertEquals(ClaseEstado.YA, v.first { it.id == "m" }.clase)
+        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+
+        assertEquals(listOf("EMPEZAR"), banco.textos(banco.conEtiqueta("accion-m")))
+        banco.pulsar(banco.conEtiqueta("accion-m"))
+        assertEquals(listOf("alternar:m"), p.llamadas)
+    }
+
+    @Test
+    fun `el enlace Empezar antes empieza el carril que espera su hora`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val v = vistas(m = EstadoCarril())
+        assertEquals(ClaseEstado.ESPERA, v.first { it.id == "m" }.clase)
+        banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
+
+        banco.pulsar(banco.pulsableConTexto("Empezar antes"))
+
+        assertEquals(listOf("alternar:m"), p.llamadas)
+    }
+
+    @Test
+    fun `hecho es de contorno mientras corre y lleno al vencer`() {
+        val corre = estiloAccion(vistas(f0 = corriendo(200)).first { it.id == "f0" })
+        val vence = estiloAccion(vistas(f0 = corriendo(-5)).first { it.id == "f0" })
+        assertEquals(EstiloAccion.CONTORNO, corre)
+        assertEquals(EstiloAccion.LLENO, vence)
+    }
+
+    @Test
+    fun `un carril que espera a otro dice a cual y ofrece empezar igual`() {
         val banco = BancoCompose()
         val p = Pulsaciones()
         val v = vistas(m = EstadoCarril(i = 1))
         assertEquals(AccionCarril.BLOQUEADO, v.first { it.id == "m" }.accion)
         banco.cocina { CronoApilado(v, p.acciones, Modifier.fillMaxSize()) }
 
-        val boton = banco.conEtiqueta("accion-m")
-        assertNotNull(boton.config.getOrNull(SemanticsProperties.Disabled))
-        assertEquals(listOf("Antes: Hervir (OLLA)"), banco.textos(boton))
-
+        assertTrue(banco.textos(banco.conEtiqueta("tarjeta-m")).contains("espera a ②"))
         banco.pulsar(banco.pulsableConTexto("Empezar igual"))
         assertEquals(listOf("igual:m"), p.llamadas)
+    }
+
+    @Test
+    fun `la tarjeta completa de un carril bloqueado no lleva boton lleno y dice Antes y a la vez que`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val v = vistas(m = EstadoCarril(i = 1)).first { it.id == "m" }.copy(juntoN = 1)
+        assertEquals(AccionCarril.BLOQUEADO, v.accion)
+        banco.cocina { TarjetaCarril(v, p.acciones, 3, Modifier.height(420.dp)) }
+
+        val texto = banco.conEtiqueta("accion-m")
+        assertNull(texto.config.getOrNull(SemanticsActions.OnClick))
+        assertEquals(listOf("Antes: Hervir (OLLA) · a la vez que ①"), banco.textos(texto))
+        // TalkBack no lee «①» sin contexto: dice «el carril 1».
+        assertEquals(
+            listOf("Antes: Hervir (OLLA) · a la vez que el carril 1"),
+            texto.config.getOrNull(SemanticsProperties.ContentDescription),
+        )
+    }
+
+    @Test
+    fun `la tarjeta completa de un carril que toca ya dice a la vez que`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val v = vistas(m = EstadoCarril()).first { it.id == "m" }.copy(juntoN = 1)
+        banco.cocina { TarjetaCarril(v, p.acciones, 3, Modifier.height(420.dp)) }
+
+        assertTrue(banco.textos(banco.conEtiqueta("tarjeta-m")).contains("a la vez que ①"))
     }
 
     @Test
@@ -278,60 +344,6 @@ class CocinaUiTest {
         assertEquals(1, textos.count { it.contains("Dales la vuelta") })
         assertEquals(1, textos.count { it == "Después: Reposo · fuego 8 · 10:00" })
         assertEquals(1, textos.count { it == "tapada" })
-    }
-
-    // ---- reparto por altura
-
-    @Test
-    fun `con altura de sobra la tarjeta lo muestra todo`() {
-        val plan = planTarjeta(alturaDp = 560f, carriles = 3, hayMetoSaco = true, hayNota = true)
-        assertTrue(plan.nota)
-        assertTrue(plan.metoSaco)
-        assertEquals(2, plan.tituloLineas)
-        assertEquals(88, plan.relojSp)
-    }
-
-    @Test
-    fun `con tres carriles apilados se oculta la nota antes que meto y saco`() {
-        val plan = planTarjeta(alturaDp = 380f, carriles = 3, hayMetoSaco = true, hayNota = true)
-        assertFalse(plan.nota)
-        assertTrue(plan.metoSaco)
-    }
-
-    @Test
-    fun `con poca altura se ocultan nota y meto saco y el titulo queda en una linea`() {
-        val plan = planTarjeta(alturaDp = 230f, carriles = 3, hayMetoSaco = true, hayNota = true)
-        assertFalse(plan.nota)
-        assertFalse(plan.metoSaco)
-        assertEquals(1, plan.tituloLineas)
-        assertTrue(plan.relojSp >= 36)
-    }
-
-    @Test
-    fun `con cuatro carriles en un movil la tarjeta pasa a compacta`() {
-        // ~150 dp por tarjeta: con la parte fija no queda sitio para el reloj.
-        assertTrue(tarjetaCompacta(alturaDp = 150f, escalaLetra = 1f))
-        assertFalse(tarjetaCompacta(alturaDp = 260f, escalaLetra = 1f))
-    }
-
-    @Test
-    fun `con la letra del sistema grande se compacta antes`() {
-        assertTrue(tarjetaCompacta(alturaDp = 260f, escalaLetra = 1.3f))
-        assertFalse(tarjetaCompacta(alturaDp = 400f, escalaLetra = 1.3f))
-    }
-
-    @Test
-    fun `la tarjeta compacta mete hito, despues y nota segun el alto`() {
-        assertEquals(3, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1f))
-        assertEquals(2, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1.3f))
-        assertEquals(0, lineasExtraCompacta(alturaDp = 90f, escalaLetra = 1f))
-        assertEquals(3, lineasExtraCompacta(alturaDp = 400f, escalaLetra = 1f))
-    }
-
-    @Test
-    fun `con cuatro o mas carriles meto y saco nunca se muestran`() {
-        val plan = planTarjeta(alturaDp = 560f, carriles = 4, hayMetoSaco = true, hayNota = true)
-        assertFalse(plan.metoSaco)
     }
 
     @Test

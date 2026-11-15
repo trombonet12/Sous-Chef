@@ -1,7 +1,11 @@
+@file:Suppress("TooManyFunctions") // cabecera, menú, diálogos y hojas de la cocina
+
 package app.trombito.souschef.ui.crono
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +29,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.domain.DisposicionCrono
@@ -182,6 +189,10 @@ private fun BotonReiniciar(
     }
 }
 
+/**
+ * Cabecera: atrás, «Llegas a las HH:mm» (siempre del mismo color, sin diferencia ni rojo), micrófono y menú ⋮. La hora
+ * de servir ya no está en la cabecera: se ajusta con un toque en «Llegas a las…» ([DialogoServir]).
+ */
 @Composable
 private fun Cabecera(
     datos: DatosCrono,
@@ -190,53 +201,87 @@ private fun Cabecera(
     menu: AccionesMenu,
     slotMicrofono: @Composable () -> Unit,
 ) {
+    var ajustarServir by remember { mutableStateOf(false) }
     Row(Modifier.fillMaxWidth().padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = menu.volver, Modifier.size(BOTON_CABECERA)) {
             Icon(Icono.Atras.vector, stringResource(R.string.atras))
         }
-        Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-            IconButton({ viewModel.cambiarServir(-PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
-                Icon(Icono.Menos.vector, stringResource(R.string.ficha_servir_menos))
-            }
-            DatoCabecera(stringResource(R.string.crono_servir), formatoHora(datos.estado.servirMs), CronoPalette.texto)
-            IconButton({ viewModel.cambiarServir(PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
-                Icon(Icono.Anadir.vector, stringResource(R.string.ficha_servir_mas))
-            }
-        }
-        val plan = datos.plan
-        val rotuloLlegada =
-            if (plan.tarde) {
-                stringResource(R.string.crono_llegada_tarde, plan.minutosPorDetras)
-            } else {
-                stringResource(R.string.crono_llegada)
-            }
-        DatoCabecera(
-            rotuloLlegada,
-            formatoHora(plan.llegadaMs),
-            if (plan.tarde) CronoPalette.alerta else CronoPalette.ok,
-            rotuloColor = if (plan.tarde) CronoPalette.alerta else CronoPalette.tenue,
-        )
+        LlegadaCabecera(formatoHora(datos.plan.llegadaMs), Modifier.weight(1f)) { ajustarServir = true }
         slotMicrofono()
         MenuCocina(reiniciarArmado, datos.estado.libresLlenos(), viewModel, menu)
     }
+    if (ajustarServir) {
+        DialogoServir(datos.estado.servirMs, viewModel::cambiarServir) { ajustarServir = false }
+    }
 }
 
+/** «Llegas a las 15:21»: un toque abre el ajuste de la hora de servir. */
 @Composable
-private fun DatoCabecera(
-    rotulo: String,
-    valor: String,
-    color: Color,
-    rotuloColor: Color = CronoPalette.tenue,
+private fun LlegadaCabecera(
+    hora: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
-    Column(Modifier.padding(horizontal = 4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(rotulo, style = MaterialTheme.typography.labelSmall, color = rotuloColor)
+    val descripcion = stringResource(R.string.crono_a11y_llegas_a_las, hora)
+    val etiqueta = stringResource(R.string.crono_llegas_ajustar)
+    Box(
+        modifier
+            .heightIn(min = BOTON_CABECERA)
+            .clickable(onClickLabel = etiqueta, role = Role.Button, onClick = onClick)
+            .semantics { contentDescription = descripcion },
+        contentAlignment = Alignment.CenterStart,
+    ) {
         Text(
-            valor,
+            stringResource(R.string.crono_llegas_a_las, hora),
+            Modifier.padding(horizontal = 8.dp),
             style = MaterialTheme.typography.titleMedium.merge(Tabular),
             fontWeight = FontWeight.Bold,
-            color = color,
+            color = CronoPalette.texto,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
+}
+
+/** Hora de servir con − y + de 15 en 15 minutos; la llegada de la cabecera se recalcula sola. */
+@Composable
+private fun DialogoServir(
+    servirMs: Long,
+    onCambiar: (Int) -> Unit,
+    onCerrar: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onCerrar,
+        containerColor = CronoPalette.carta2,
+        titleContentColor = CronoPalette.texto,
+        title = { Text(stringResource(R.string.crono_servir_a_las)) },
+        text = {
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                IconButton({ onCambiar(-PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
+                    Icon(Icono.Menos.vector, stringResource(R.string.ficha_servir_menos))
+                }
+                Text(
+                    formatoHora(servirMs),
+                    Modifier.padding(horizontal = 12.dp),
+                    style = MaterialTheme.typography.headlineMedium.merge(Tabular),
+                    fontWeight = FontWeight.Bold,
+                    color = CronoPalette.texto,
+                )
+                IconButton({ onCambiar(PASO_SERVIR_MIN) }, Modifier.size(BOTON_CABECERA)) {
+                    Icon(Icono.Anadir.vector, stringResource(R.string.ficha_servir_mas))
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onCerrar) {
+                Text(stringResource(R.string.crono_diagrama_cerrar_corto), color = CronoPalette.texto)
+            }
+        },
+    )
 }
 
 /** Lo que abre el menú de tres puntos y la flecha de la cabecera. */

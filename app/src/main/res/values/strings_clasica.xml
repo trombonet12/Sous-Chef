@@ -37,7 +37,6 @@
     <string name="crono_plan_plegar">Plegar el plan</string>
     <string name="crono_plan_sin_empezar">Sin empezar · sobran %1$s</string>
     <string name="crono_plan_sin_empezar_justo">Sin empezar · si arrancas ya, acabas a las %1$s</string>
-    <string name="crono_plan_tarde">Vas %1$d min tarde</string>
     <string name="crono_plan_vencido">%1$s ya está · pulsa Hecho para seguir</string>
     <string name="crono_prevista_realista">Prevista %1$s · realista %2$s</string>
     <string name="crono_requisito_cumplido">REQUISITO CUMPLIDO</string>

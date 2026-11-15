@@ -62,8 +62,6 @@ data class VistaCarril(
     val clase: ClaseEstado,
     /** Hora prevista de empezar el paso actual (`servir − total + off`); null si terminado. */
     val sugeridoMs: Long?,
-    /** Minutos que el paso acabará tarde (+) o pronto (−) respecto al plan; 0 si va en hora. */
-    val desvioMin: Int = 0,
     /** Instante de fin si corre; null si no. */
     val finAtMs: Long?,
     /** El paso tiene `p` o la receta enlaza técnicas. */
@@ -78,6 +76,12 @@ data class VistaCarril(
     val ultimoHecho: Boolean = false,
     /** Cocina del usuario: la voz dice el [fuego] con ella (ADR-0014). */
     val cocina: Cocina = Cocina.VITRO_9,
+    /** Minutos que faltan para la hora prevista de empezar (negativo si ya pasó); null si terminado. */
+    val faltanMin: Int? = null,
+    /** Número (1-based, el de la insignia) del carril cuyo paso bloquea a este; solo si [accion] es BLOQUEADO. */
+    val bloqueadoPorN: Int? = null,
+    /** Número (1-based) del carril del paso con el que este va «a la vez» (`junto`); null si no tiene. */
+    val juntoN: Int? = null,
 ) {
     val puedeDeshacer: Boolean get() = deshacerA != null
 
@@ -178,10 +182,6 @@ private fun vistaActiva(
             },
         clase = vista.clase,
         sugeridoMs = vista.sugeridoMs,
-        desvioMin =
-            vista.sugeridoMs?.let {
-                desvioMin(it, paso.segundos, finPrevistoMs(it, quedan, ec.pausado, ec.finAtMs, datos.ahoraMs))
-            } ?: 0,
         finAtMs = ec.finAtMs,
         tienePorque = !paso.p.isNullOrBlank() || tecnicas.isNotEmpty(),
         porque = paso.p?.takeIf { it.isNotBlank() },
@@ -191,34 +191,20 @@ private fun vistaActiva(
                 .drop(ec.i + 1)
                 .take(MAX_PROXIMOS)
                 .map { PasoProximo(it.t, it.segundos) },
+        faltanMin = vista.sugeridoMs?.let { Math.round((it - datos.ahoraMs) / MS_POR_MIN.toDouble()).toInt() },
+        bloqueadoPorN =
+            pendientes
+                .firstOrNull()
+                ?.takeIf { accion == AccionCarril.BLOQUEADO }
+                ?.let { datos.numeroCarril(it.carril) },
+        juntoN = paso.junto?.let { datos.recetaUi.paso(it) }?.let { datos.numeroCarril(it.carril) },
     )
 }
 
-/**
- * Fin previsto del paso actual. Sin empezar, cuenta desde ahora o desde el sugerido si aún no ha llegado (esperar no
- * es ir pronto); en pausa, desde ahora con lo que queda; corriendo, el fin real (o ahora, si ya pasó del cero).
- */
-internal fun finPrevistoMs(
-    sugeridoMs: Long,
-    quedanS: Int,
-    pausado: Boolean,
-    finAtMs: Long?,
-    ahoraMs: Long,
-): Long =
-    when {
-        finAtMs != null -> maxOf(finAtMs, ahoraMs)
-        pausado -> ahoraMs + quedanS * MS_POR_S
-        else -> maxOf(ahoraMs, sugeridoMs) + quedanS * MS_POR_S
-    }
+/** Número del carril (1-based, el de la insignia y el de la voz); null si no existe. */
+private fun DatosCrono.numeroCarril(id: String): Int? =
+    carriles.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.plus(1)
 
-/** Desvío frente al plan, en minutos redondeados: fin previsto − (sugerido + duración). Prórrogas y pausas suman. */
-internal fun desvioMin(
-    sugeridoMs: Long,
-    duracionS: Int,
-    finPrevistoMs: Long,
-): Int = Math.round((finPrevistoMs - (sugeridoMs + duracionS * MS_POR_S)) / MS_POR_MIN.toDouble()).toInt()
-
-private const val MS_POR_S = 1000L
 private const val MS_POR_MIN = 60_000L
 
 private fun accionDe(
@@ -249,23 +235,39 @@ private fun despuesDe(
 ): String = siguiente.f?.takeIf { esFuego }?.let { "${siguiente.t} · fuego ${cocina.nivel(it)}" } ?: siguiente.t
 
 /**
- * Carril en foco. Prioridad: 1) HECHO vencido con el fin más antiguo (gana incluso a un [fijado] de otro carril);
- * 2) [fijado] si sigue vivo; 3) corriendo con menor `finAtMs`; 4) clase YA/ATENDER; 5) el primero no terminado.
+ * Carril en foco, el que se dibuja grande. Prioridad: 1) HECHO vencido con el fin más antiguo (gana incluso a un
+ * [fijado]); 2) [fijado] si sigue vivo, salvo que esté en ESPERA o BLOQ y haya un carril que toca ya; 3) el que toca
+ * ya (YA) de hora más temprana; 4) en marcha o en pausa (el que acaba antes); 5) el de hora más temprana. Nunca un
+ * carril que espera pasa por delante de uno que toca ya.
+ *
+ * [vistosAlFijar] son los carriles vencidos o en YA que ya había al fijar a mano [fijado] (null = no se sabe: todos
+ * cuentan como nuevos). Un fijado vivo solo cede ante un vencido o un YA que no esté ahí; así tocar una fila para
+ * mirarla se respeta aunque otro ya pida atención, y deja de respetarse en cuanto aparece algo nuevo.
  */
 fun elegirFoco(
     vistas: List<VistaCarril>,
     fijado: String?,
+    vistosAlFijar: Set<String>? = null,
 ): String? {
     val vivas = vistas.filter { !it.terminado }
-    return vivas
+    val fijadoVivo = vivas.firstOrNull { it.id == fijado }
+    val nuevas = if (fijadoVivo == null || vistosAlFijar == null) vivas else vivas.filter { it.id !in vistosAlFijar }
+    val yaNuevo = nuevas.any { it.clase == ClaseEstado.YA }
+    return nuevas
         .filter { it.accion == AccionCarril.HECHO }
         .minByOrNull { it.finAtMs ?: Long.MAX_VALUE }
         ?.id
-        ?: vivas.firstOrNull { it.id == fijado }?.id
+        ?: fijadoVivo?.takeUnless { yaNuevo && it.esperando }?.id
+        ?: masUrgente(vivas)
+}
+
+/** Sin vencido ni fijado: el que toca ya, si no el que acaba antes en marcha o pausa, si no el de hora más temprana. */
+private fun masUrgente(vivas: List<VistaCarril>): String? =
+    vivas.filter { it.clase == ClaseEstado.YA }.minByOrNull { it.sugeridoMs ?: Long.MAX_VALUE }?.id
         ?: vivas
-            .filter { it.finAtMs != null }
+            .filter { it.accion == AccionCarril.PAUSAR || it.accion == AccionCarril.SEGUIR }
             .minByOrNull { it.finAtMs ?: Long.MAX_VALUE }
             ?.id
-        ?: vivas.firstOrNull { it.clase == ClaseEstado.YA || it.clase == ClaseEstado.ATENDER }?.id
-        ?: vivas.firstOrNull()?.id
-}
+        ?: vivas.minByOrNull { it.sugeridoMs ?: Long.MAX_VALUE }?.id
+
+private val VistaCarril.esperando: Boolean get() = clase == ClaseEstado.ESPERA || clase == ClaseEstado.BLOQ

@@ -23,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -42,6 +44,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,12 +79,13 @@ fun TarjetaCarril(
             .border(2.dp, if (v.vencido) CronoPalette.alerta else color, forma),
     ) {
         val escala = LocalDensity.current.fontScale
-        if (tarjetaCompacta(maxHeight.value, escala)) {
+        val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()
+        val hayNota = !v.nota.isNullOrBlank()
+        if (tarjetaCompacta(maxHeight.value, escala, hayNota = hayNota, hayMetoSaco = hayMetoSaco)) {
             ContenidoCompacto(v, color, acciones, lineasExtraCompacta(maxHeight.value, escala))
             return@BoxWithConstraints
         }
-        val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()
-        val plan = planTarjeta(maxHeight.value, carriles, hayMetoSaco, !v.nota.isNullOrBlank())
+        val plan = planTarjeta(maxHeight.value, carriles, hayMetoSaco, hayNota)
         Column(
             Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 6.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -110,28 +114,87 @@ private fun FilaTitulo(
         ) {
             FranjaCarril(color, 24.dp)
             InsigniaCarril(v, color)
-            Text(
-                v.nombre,
+            NombreYPrevista(
                 Modifier.weight(1f, fill = false),
-                color = colorCarrilTexto(color),
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                nombre = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Text(
+                            v.nombre,
+                            Modifier.weight(1f, fill = false),
+                            color = colorCarrilTexto(color),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            stringResource(R.string.crono_paso_de, v.paso, v.pasos),
+                            color = CronoPalette.apagado,
+                            style = MaterialTheme.typography.labelLarge.merge(Tabular),
+                            maxLines = 1,
+                        )
+                    }
+                },
+                prevista = { HoraPrevista(v) },
             )
-            Text(
-                stringResource(R.string.crono_paso_de, v.paso, v.pasos),
-                color = CronoPalette.apagado,
-                style = MaterialTheme.typography.labelLarge.merge(Tabular),
-                maxLines = 1,
-            )
-            HoraPrevista(v)
         }
         MandosSecundarios(v, acciones)
     }
 }
 
-/** Pausa y +30 s (o "Empezar igual" si el carril espera a otro): secundarios, el principal está abajo. */
+/**
+ * Nombre del carril («OLLA · 2/5») con prioridad sobre la hora prevista: esta va a su derecha si cabe y, si no, debajo.
+ * [prevista] puede no emitir nada (carril en marcha).
+ */
+@Composable
+private fun NombreYPrevista(
+    modifier: Modifier,
+    nombre: @Composable () -> Unit,
+    prevista: @Composable () -> Unit,
+) {
+    Layout(
+        content = {
+            nombre()
+            prevista()
+        },
+        modifier = modifier,
+    ) { medibles, constraints ->
+        val separacion = SEPARACION_PREVISTA.roundToPx()
+        val suelto = constraints.copy(minWidth = 0, minHeight = 0)
+        val n = medibles[0].measure(suelto)
+        val hueco = (constraints.maxWidth - n.width - separacion).coerceAtLeast(0)
+        val p = medibles.getOrNull(1)?.measure(suelto)
+        val debajo = p != null && p.width > hueco
+        val ancho =
+            when {
+                p == null -> n.width
+                debajo -> maxOf(n.width, p.width)
+                else -> n.width + separacion + p.width
+            }
+        val alto =
+            when {
+                p == null -> n.height
+                debajo -> n.height + p.height
+                else -> maxOf(n.height, p.height)
+            }
+        layout(ancho.coerceAtMost(constraints.maxWidth), alto) {
+            if (p != null && debajo) {
+                n.placeRelative(0, 0)
+                p.placeRelative(0, n.height)
+            } else {
+                n.placeRelative(0, (alto - n.height) / 2)
+                p?.placeRelative(n.width + separacion, (alto - p.height) / 2)
+            }
+        }
+    }
+}
+
+private val SEPARACION_PREVISTA = 8.dp
+
+/** Pausa y +30 s (o el enlace «Empezar igual» si el carril espera a otro): secundarios, el principal está abajo. */
 @Composable
 internal fun MandosSecundarios(
     v: VistaCarril,
@@ -163,11 +226,7 @@ internal fun MandosSecundarios(
         }
 
         AccionCarril.BLOQUEADO -> {
-            BotonSecundario(
-                stringResource(R.string.crono_empezar_igual),
-                stringResource(R.string.crono_a11y_empezar_igual, v.nombre),
-                compacto,
-            ) { acciones.empezarIgual(v.id) }
+            EnlaceEmpezarIgual(v, acciones, compacto)
         }
 
         AccionCarril.EMPEZAR, AccionCarril.TERMINADO -> {
@@ -193,6 +252,33 @@ internal fun BotonDeshacer(
             stringResource(R.string.crono_a11y_deshacer, v.nombre, v.deshacerA.orEmpty()),
             Modifier.size(20.dp),
             tint = CronoPalette.apagado,
+        )
+    }
+}
+
+/** «Empezar igual»: enlace de texto, no botón lleno; empieza aunque el paso del que depende no esté hecho. */
+@Composable
+private fun EnlaceEmpezarIgual(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+    compacto: Boolean,
+) {
+    val descripcion = stringResource(R.string.crono_a11y_empezar_igual, v.nombre)
+    TextButton(
+        onClick = { acciones.empezarIgual(v.id) },
+        modifier =
+            Modifier
+                .heightIn(min = 48.dp)
+                .padding(start = if (compacto) 4.dp else 6.dp)
+                .semantics { contentDescription = descripcion },
+        contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 10.dp, vertical = 2.dp),
+    ) {
+        Text(
+            stringResource(R.string.crono_empezar_igual),
+            color = CronoPalette.apagado,
+            style = if (compacto) MaterialTheme.typography.labelMedium else MaterialTheme.typography.labelLarge,
+            textDecoration = TextDecoration.Underline,
+            maxLines = 1,
         )
     }
 }
@@ -269,7 +355,10 @@ internal fun IconoPorque() {
     )
 }
 
-/** «Después: …» a la izquierda y el botón grande de la acción principal a la derecha. */
+/**
+ * A la izquierda, «a la vez que ②» (si el paso tiene `junto`) y «Después: …»; a la derecha, la acción principal: botón
+ * lleno solo si toca ya o ha vencido, enlace «Empezar antes» si espera su hora y «Antes: …» si espera a otro carril.
+ */
 @Composable
 private fun FilaFinal(
     v: VistaCarril,
@@ -280,22 +369,29 @@ private fun FilaFinal(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(
-            textoDespues(v),
-            Modifier.weight(1f),
-            color = CronoPalette.apagado,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-        )
+        // En BLOQ el «a la vez que» ya va en el texto «Antes: …» de la derecha.
+        val junto = if (v.accion == AccionCarril.BLOQUEADO) null else textoJunto(v)
+        val descripcionJunto = if (junto == null) null else descripcionJunto(v)
+        Column(Modifier.weight(1f)) {
+            if (junto != null) {
+                Text(
+                    junto,
+                    Modifier.semantics { descripcionJunto?.let { contentDescription = it } },
+                    color = CronoPalette.acento,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+            Text(
+                textoDespuesLimpio(v),
+                color = CronoPalette.apagado,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = if (junto != null) 1 else 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
         BotonAccion(v, acciones, Modifier.widthIn(min = 120.dp, max = 220.dp))
     }
-}
-
-/** «Después: Reposo · fuego 8 · 10:00», o «Último paso». */
-@Composable
-internal fun textoDespues(v: VistaCarril): String {
-    val despues = v.despues ?: return stringResource(R.string.crono_ultimo)
-    return v.despuesS?.let { stringResource(R.string.crono_despues_tiempo, despues, formatoReloj(it)) }
-        ?: stringResource(R.string.crono_despues_corto, despues)
 }

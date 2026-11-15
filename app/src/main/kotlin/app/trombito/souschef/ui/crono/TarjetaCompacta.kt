@@ -1,6 +1,5 @@
 package app.trombito.souschef.ui.crono
 
-import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,26 +15,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.comun.animacionesReducidas
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
 import kotlin.math.roundToInt
 
-private val NOMBRE_MAX = 110.dp
+private val NOMBRE_MAX = 128.dp
 
 /**
  * Contenido de la tarjeta cuando falta alto (4 carriles o letra grande): arriba número, nombre, paso, fuego y tapa;
  * en medio el reloj con su barra, los mandos secundarios y el botón principal; debajo, si caben, el próximo hito, qué
- * va después y la nota. Tocar la fila de arriba abre el porqué.
+ * va después y la nota. Tocar la fila de arriba abre el porqué. Nada se mueve: el texto que no cabe se corta con «…».
  */
 @Composable
 internal fun ContenidoCompacto(
@@ -101,16 +103,21 @@ private fun CabeceraCompacta(
             color = colorCarrilTexto(color),
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Bold,
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
+            autoSize =
+                TextAutoSize.StepBased(
+                    minFontSize = 10.sp,
+                    maxFontSize = MaterialTheme.typography.labelLarge.fontSize,
+                ),
         )
         Text(
             v.titulo.orEmpty(),
-            Modifier.weight(1f).desplazarSiNoCabe(),
+            Modifier.weight(1f),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
-            maxLines = lineasSinMarquesina(),
-            overflow = desbordeSinMarquesina(),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
         )
         HoraPrevista(v, estilo = MaterialTheme.typography.labelMedium)
         ChipFuego(v)
@@ -120,7 +127,11 @@ private fun CabeceraCompacta(
     }
 }
 
-/** Hasta [cuantas] líneas de una sola fila, por prioridad: próximo hito, qué va después y la nota del paso. */
+/**
+ * Hasta [cuantas] líneas de texto, por prioridad: la nota (señal), «a la vez que ②» (y «Antes: …» si el carril espera a
+ * otro: en compacto no hay botón que lo diga), METO, SACO, el próximo aviso y «Después». Cada texto tiene hasta 2
+ * líneas con «…» y ninguno se mueve.
+ */
 @Composable
 private fun LineasExtra(
     v: VistaCarril,
@@ -132,56 +143,79 @@ private fun LineasExtra(
             val segundos = (h.fraccion * v.duracionS).roundToInt()
             stringResource(R.string.crono_proximo_hito, formatoReloj(segundos), h.texto)
         }
-    val despues = textoDespues(v)
     val nota = v.nota?.takeIf { it.isNotBlank() }
-    val lineas =
-        listOfNotNull<@Composable () -> Unit>(
-            hito?.let { { LineaExtra(AnnotatedString(it), CronoPalette.acento) } },
-            { LineaExtra(AnnotatedString(despues), CronoPalette.apagado) },
-            nota?.let { { LineaExtra(textoRico(it), CronoPalette.texto, FontStyle.Italic) } },
+    val meto = v.meto?.takeIf { it.isNotBlank() }
+    val saco = v.saco?.takeIf { it.isNotBlank() }
+    val antes =
+        if (v.accion == AccionCarril.BLOQUEADO) {
+            stringResource(R.string.crono_antes_bloqueado, v.bloqueadoPor.orEmpty())
+        } else {
+            null
+        }
+    val junto = listOfNotNull(antes, textoJunto(v)).joinToString(" · ").takeIf { it.isNotEmpty() }
+    val juntoA11y = listOfNotNull(antes, descripcionJunto(v)).joinToString(" · ")
+    val reparto =
+        repartoLineasCompacta(
+            presupuesto = cuantas,
+            longNota = nota?.length ?: 0,
+            longMeto = meto?.length ?: 0,
+            longSaco = saco?.length ?: 0,
+            hayHito = hito != null,
+            hayJunto = junto != null,
         )
-    lineas.take(cuantas).forEach { it() }
+    val textos =
+        listOf(
+            Triple(
+                etiquetada(stringResource(R.string.crono_senal), CronoPalette.acento, nota),
+                CronoPalette.texto,
+                reparto.nota,
+            ),
+            Triple(AnnotatedString(junto.orEmpty()), CronoPalette.acento, reparto.junto),
+            Triple(
+                etiquetada(stringResource(R.string.crono_meto), CronoPalette.meto, meto),
+                CronoPalette.texto,
+                reparto.meto,
+            ),
+            Triple(
+                etiquetada(stringResource(R.string.crono_saco), CronoPalette.saco, saco),
+                CronoPalette.texto,
+                reparto.saco,
+            ),
+            Triple(AnnotatedString(hito.orEmpty()), CronoPalette.acento, reparto.hito),
+            Triple(AnnotatedString(textoDespuesLimpio(v)), CronoPalette.apagado, reparto.despues),
+        )
+    textos.forEachIndexed { i, (texto, color, lineas) ->
+        // La línea 1 es la de «a la vez que»: TalkBack lee «el carril 2» en vez del círculo.
+        if (lineas > 0) LineaExtra(texto, color, lineas, if (i == INDICE_JUNTO) juntoA11y else null)
+    }
 }
+
+private const val INDICE_JUNTO = 1
+
+private fun etiquetada(
+    etiqueta: String,
+    color: Color,
+    texto: String?,
+): AnnotatedString =
+    buildAnnotatedString {
+        if (texto == null) return@buildAnnotatedString
+        withStyle(SpanStyle(color = color, fontWeight = FontWeight.ExtraBold)) { append("$etiqueta  ") }
+        append(textoRico(texto))
+    }
 
 @Composable
 private fun LineaExtra(
     texto: AnnotatedString,
     color: Color,
-    estilo: FontStyle = FontStyle.Normal,
+    lineas: Int,
+    descripcion: String? = null,
 ) {
     Text(
         texto,
-        Modifier.fillMaxWidth().desplazarSiNoCabe(),
+        Modifier.fillMaxWidth().semantics { if (descripcion != null) contentDescription = descripcion },
         color = color,
-        style = MaterialTheme.typography.bodySmall,
-        fontStyle = estilo,
-        maxLines = lineasSinMarquesina(),
-        overflow = desbordeSinMarquesina(),
+        style = MaterialTheme.typography.bodyMedium,
+        maxLines = lineas,
+        overflow = TextOverflow.Ellipsis,
     )
 }
-
-/** El texto que no cabe en una línea se desplaza despacio, sin fin, para poder leerlo entero. */
-@Composable
-internal fun Modifier.desplazarSiNoCabe(): Modifier =
-    if (animacionesReducidas()) {
-        this
-    } else {
-        basicMarquee(
-            iterations = Int.MAX_VALUE,
-            initialDelayMillis = MARQUESINA_ESPERA_MS,
-            repeatDelayMillis = MARQUESINA_ESPERA_MS,
-            velocity = MARQUESINA_VELOCIDAD,
-        )
-    }
-
-/** Líneas de un texto que se desplazaba: 1 con marquesina; 2 con elipsis si las animaciones están reducidas. */
-@Composable
-internal fun lineasSinMarquesina(): Int = if (animacionesReducidas()) 2 else 1
-
-/** Elipsis solo cuando no hay marquesina. */
-@Composable
-internal fun desbordeSinMarquesina(): TextOverflow =
-    if (animacionesReducidas()) TextOverflow.Ellipsis else TextOverflow.Clip
-
-private const val MARQUESINA_ESPERA_MS = 2_000
-private val MARQUESINA_VELOCIDAD = 24.dp

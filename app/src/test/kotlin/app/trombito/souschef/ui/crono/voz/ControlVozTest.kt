@@ -160,6 +160,48 @@ class ControlVozTest {
         assertEquals(listOf("hecho:m"), mandos)
     }
 
+    // A corriendo y B que toca ya (sin empezar): una orden sin número va al carril que la admite, no al de la urgencia.
+    private fun conUnoCorriendoYOtroEnYa() {
+        vistas = listOf(sarten(), mesa().copy(clase = ClaseEstado.YA))
+    }
+
+    @Test
+    fun hechoSinNumeroConUnoCorriendoYOtroEnYaMarcaElQueCorre() {
+        conUnoCorriendoYOtroEnYa()
+        escucha.oir("chef hecho")
+        assertEquals(listOf("hecho:f0"), mandos)
+    }
+
+    @Test
+    fun pausaSinNumeroConUnoCorriendoYOtroEnYaPausaElQueCorre() {
+        conUnoCorriendoYOtroEnYa()
+        escucha.oir("chef pausa")
+        assertEquals(listOf("alternar:f0"), mandos)
+        assertEquals(listOf("En pausa."), habla.dichas)
+    }
+
+    @Test
+    fun masDosMinutosSinNumeroConUnoCorriendoYOtroEnYaProrrogaElQueCorre() {
+        conUnoCorriendoYOtroEnYa()
+        escucha.oir("chef dos minutos más")
+        assertEquals(listOf("prorrogar:f0:120"), mandos)
+    }
+
+    @Test
+    fun empezarSinNumeroConUnoCorriendoYOtroEnYaEmpiezaElQueToca() {
+        conUnoCorriendoYOtroEnYa()
+        escucha.oir("chef empieza")
+        assertEquals(listOf("alternar:m"), mandos)
+    }
+
+    @Test
+    fun hechoSinNumeroConElFijadoSinEmpezarMarcaElFijado() {
+        conUnoCorriendoYOtroEnYa()
+        foco = "m"
+        escucha.oir("chef hecho")
+        assertEquals(listOf("hecho:m"), mandos)
+    }
+
     @Test
     fun pausaAlternaSoloSiCorre() {
         escucha.oir("chef pausa")

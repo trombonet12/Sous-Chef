@@ -24,10 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
@@ -49,8 +46,6 @@ import app.trombito.souschef.ui.crono.minutosPaso
 import app.trombito.souschef.ui.crono.progreso
 import app.trombito.souschef.ui.crono.recursoTapa
 import app.trombito.souschef.ui.crono.requisitos
-import app.trombito.souschef.ui.crono.textoDesvio
-import app.trombito.souschef.ui.crono.vistasCarriles
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
 
@@ -78,26 +73,14 @@ internal fun PanelCarril(
         } else {
             val total = datos.cola(carril.id).size
             val i = (datos.ec(carril.id)?.i ?: 0) + 1
-            val desvio = vistasCarriles(datos).firstOrNull { it.id == carril.id }?.desvioMin ?: 0
             Text(
-                buildAnnotatedString {
-                    append(
-                        stringResource(
-                            R.string.crono_cabecera_paso,
-                            carril.nombre,
-                            i,
-                            total,
-                            formatoHora(
-                                ConsultasCrono.sugerido(datos.estado, datos.receta, carril.id) ?: datos.ahoraMs,
-                            ),
-                        ),
-                    )
-                    textoDesvio(desvio)?.let {
-                        withStyle(SpanStyle(color = if (desvio > 0) CronoPalette.alerta else CronoPalette.ok)) {
-                            append(" $it")
-                        }
-                    }
-                },
+                stringResource(
+                    R.string.crono_cabecera_paso,
+                    carril.nombre,
+                    i,
+                    total,
+                    formatoHora(ConsultasCrono.sugerido(datos.estado, datos.receta, carril.id) ?: datos.ahoraMs),
+                ),
                 style = MaterialTheme.typography.labelLarge,
                 color = colorTexto,
             )

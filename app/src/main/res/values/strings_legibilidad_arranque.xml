@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Arranque de carriles (ronda 19): qué toca ya, qué espera y a qué hora llegas. -->
+<resources>
+    <string name="crono_prevista_en_min">en %1$d min · %2$s</string>
+    <string name="crono_prevista_ahora">ahora</string>
+    <string name="crono_prevista_espera_a">espera a %1$s</string>
+    <string name="crono_prevista_espera">espera</string>
+    <string name="crono_a11y_prevista_en_min">Empieza en %1$d minutos, a las %2$s</string>
+    <string name="crono_a11y_prevista_ahora">Toca empezar ahora</string>
+    <string name="crono_a11y_prevista_espera_a">Espera al carril %1$d</string>
+    <string name="crono_a11y_prevista_espera">Espera a otro carril</string>
+    <string name="crono_empezar_antes">Empezar antes</string>
+    <string name="crono_a11y_empezar_antes">Empezar antes de la hora: %1$s, %2$s</string>
+    <string name="crono_a_la_vez_carril">a la vez que %1$s</string>
+    <string name="crono_a11y_a_la_vez_carril">a la vez que el carril %1$d</string>
+    <string name="crono_llegas_a_las">Llegas a las %1$s</string>
+    <string name="crono_a11y_llegas_a_las">Llegas a las %1$s. Toca para cambiar la hora de servir</string>
+    <string name="crono_llegas_ajustar">Cambiar la hora de servir</string>
+</resources>

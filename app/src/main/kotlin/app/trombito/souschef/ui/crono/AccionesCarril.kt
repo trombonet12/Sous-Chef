@@ -1,5 +1,8 @@
+@file:Suppress("TooManyFunctions") // acción principal en sus cuatro estilos y los chips del carril
+
 package app.trombito.souschef.ui.crono
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Modifier
@@ -25,12 +30,15 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.nivel
 import app.trombito.souschef.ui.comun.textoRico
@@ -113,7 +121,31 @@ internal fun etiquetaAccion(v: VistaCarril): String =
         AccionCarril.TERMINADO -> stringResource(R.string.crono_terminado)
     }
 
-/** Botón de la acción principal; ≥ 48 dp. Deshabilitado si el carril espera a otro. */
+/** Cómo se pinta la acción principal de un carril según el momento. */
+internal enum class EstiloAccion {
+    /** Botón lleno: toca empezar ya o el paso ha vencido (rojo). */
+    LLENO,
+
+    /** Botón de contorno: «Hecho» mientras el paso corre y «Seguir» tras una pausa (no invitan a pulsar sin querer). */
+    CONTORNO,
+
+    /** Enlace de texto discreto «Empezar antes»: el carril espera su hora. */
+    ENLACE,
+
+    /** Sin botón: el carril espera a otro y solo se dice a cuál. */
+    ESPERA_TEXTO,
+}
+
+/** Botón lleno solo si toca ya (YA) o ha vencido; en ESPERA un enlace; en BLOQ, solo texto; «Hecho» de contorno. */
+internal fun estiloAccion(v: VistaCarril): EstiloAccion =
+    when {
+        v.accion == AccionCarril.BLOQUEADO -> EstiloAccion.ESPERA_TEXTO
+        v.accion == AccionCarril.EMPEZAR && v.clase != ClaseEstado.YA -> EstiloAccion.ENLACE
+        v.accion == AccionCarril.PAUSAR || v.accion == AccionCarril.SEGUIR -> EstiloAccion.CONTORNO
+        else -> EstiloAccion.LLENO
+    }
+
+/** Acción principal; ≥ 48 dp. Ver [EstiloAccion]: solo el carril que toca ya o ha vencido lleva el botón lleno. */
 @Composable
 internal fun BotonAccion(
     v: VistaCarril,
@@ -121,44 +153,136 @@ internal fun BotonAccion(
     modifier: Modifier = Modifier,
     compacto: Boolean = false,
 ) {
-    val bloqueado = v.accion == AccionCarril.BLOQUEADO
+    when (estiloAccion(v)) {
+        EstiloAccion.LLENO -> BotonPrincipal(v, acciones, modifier, compacto, lleno = true)
+        EstiloAccion.CONTORNO -> BotonPrincipal(v, acciones, modifier, compacto, lleno = false)
+        EstiloAccion.ENLACE -> EnlaceEmpezarAntes(v, acciones, modifier, compacto)
+        EstiloAccion.ESPERA_TEXTO -> TextoAntes(v, modifier, compacto)
+    }
+}
+
+@Composable
+private fun BotonPrincipal(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+    modifier: Modifier,
+    compacto: Boolean,
+    lleno: Boolean,
+) {
     val descripcion = descripcionAccion(v)
-    val tipografia = MaterialTheme.typography
     // Solo el botón que dice «Hecho» es el punto de la guía.
     val diceHecho = v.accion == AccionCarril.PAUSAR || v.accion == AccionCarril.HECHO
-    val puntoGuia = if (diceHecho) Modifier.guia(GuiaIds.HECHO) else Modifier
-    Button(
+    val base =
+        modifier
+            .heightIn(min = 48.dp)
+            .testTag("accion-${v.id}")
+            .semantics { contentDescription = descripcion }
+            .then(if (diceHecho) Modifier.guia(GuiaIds.HECHO) else Modifier)
+    val relleno = PaddingValues(horizontal = if (compacto) 8.dp else 20.dp, vertical = 4.dp)
+    if (lleno) {
+        Button(
+            onClick = { acciones.principal(v) },
+            modifier = base,
+            contentPadding = relleno,
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = if (v.vencido) CronoPalette.urgente else CronoPalette.principal,
+                    contentColor = if (v.vencido) CronoPalette.onUrgente else CronoPalette.onPrincipal,
+                ),
+        ) { EtiquetaBoton(v, compacto) }
+    } else {
+        OutlinedButton(
+            onClick = { acciones.principal(v) },
+            modifier = base,
+            contentPadding = relleno,
+            border = BorderStroke(1.5.dp, CronoPalette.principal),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = CronoPalette.texto),
+        ) { EtiquetaBoton(v, compacto) }
+    }
+}
+
+@Composable
+private fun EtiquetaBoton(
+    v: VistaCarril,
+    compacto: Boolean,
+) {
+    Text(
+        etiquetaAccion(v),
+        style = if (compacto) MaterialTheme.typography.labelMedium else MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+
+/** «Empezar antes»: texto subrayado y apagado, sin fondo; empieza el paso aunque no sea su hora. */
+@Composable
+private fun EnlaceEmpezarAntes(
+    v: VistaCarril,
+    acciones: AccionesCarril,
+    modifier: Modifier,
+    compacto: Boolean,
+) {
+    val descripcion = stringResource(R.string.crono_a11y_empezar_antes, v.nombre, v.titulo.orEmpty())
+    TextButton(
         onClick = { acciones.principal(v) },
-        enabled = !bloqueado,
         modifier =
             modifier
                 .heightIn(min = 48.dp)
                 .testTag("accion-${v.id}")
-                .semantics { contentDescription = descripcion }
-                .then(puntoGuia),
-        contentPadding = PaddingValues(horizontal = if (compacto) 8.dp else 20.dp, vertical = 4.dp),
-        colors =
-            ButtonDefaults.buttonColors(
-                containerColor = if (v.vencido) CronoPalette.urgente else CronoPalette.principal,
-                contentColor = if (v.vencido) CronoPalette.onUrgente else CronoPalette.onPrincipal,
-                disabledContainerColor = CronoPalette.carta2,
-                disabledContentColor = CronoPalette.apagado,
-            ),
+                .semantics { contentDescription = descripcion },
+        contentPadding = PaddingValues(horizontal = if (compacto) 6.dp else 12.dp, vertical = 4.dp),
     ) {
         Text(
-            etiquetaAccion(v),
-            style =
-                when {
-                    compacto -> tipografia.labelMedium
-                    bloqueado -> tipografia.labelLarge
-                    else -> tipografia.titleMedium
-                },
-            fontWeight = FontWeight.Bold,
-            maxLines = if (bloqueado) 2 else 1,
+            stringResource(R.string.crono_empezar_antes),
+            color = CronoPalette.apagado,
+            style = if (compacto) MaterialTheme.typography.labelMedium else MaterialTheme.typography.labelLarge,
+            textDecoration = TextDecoration.Underline,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
     }
 }
+
+/** «Antes: Hervir (OLLA) · a la vez que ②»: lo que espera un carril bloqueado; no se pulsa. */
+@Composable
+private fun TextoAntes(
+    v: VistaCarril,
+    modifier: Modifier,
+    compacto: Boolean,
+) {
+    val descripcion = descripcionAntes(v)
+    Text(
+        textoAntes(v),
+        modifier.testTag("accion-${v.id}").semantics { contentDescription = descripcion },
+        color = CronoPalette.texto,
+        style = if (compacto) MaterialTheme.typography.labelMedium else MaterialTheme.typography.labelLarge,
+        textAlign = TextAlign.End,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+
+/** «Antes: Hervir (OLLA)» y, si el paso va a la vez que otro, « · a la vez que ②». */
+@Composable
+internal fun textoAntes(v: VistaCarril): String {
+    val antes = stringResource(R.string.crono_antes_bloqueado, v.bloqueadoPor.orEmpty())
+    val junto = textoJunto(v) ?: return antes
+    return "$antes · $junto"
+}
+
+/** Lo que lee TalkBack de [textoAntes]: «Antes: …» y, si hay `junto`, «a la vez que el carril N» (no «①/②» sueltos). */
+@Composable
+private fun descripcionAntes(v: VistaCarril): String {
+    val antes = stringResource(R.string.crono_antes_bloqueado, v.bloqueadoPor.orEmpty())
+    val junto = descripcionJunto(v) ?: return antes
+    return "$antes · $junto"
+}
+
+/** «a la vez que ②» si el paso tiene `junto`; null si no. */
+@Composable
+internal fun textoJunto(v: VistaCarril): String? =
+    v.juntoN?.let { stringResource(R.string.crono_a_la_vez_carril, numeroCarril(it)) }
 
 @Composable
 internal fun Chip(

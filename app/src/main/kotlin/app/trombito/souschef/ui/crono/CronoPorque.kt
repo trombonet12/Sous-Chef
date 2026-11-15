@@ -2,6 +2,7 @@ package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -61,13 +62,8 @@ fun PorqueSheet(
                 color = colorCarrilTexto(color),
             )
             Text(paso.t, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-            paso.p?.takeIf { it.isNotBlank() }?.let { Text(textoRico(it), style = MaterialTheme.typography.bodyLarge) }
-            paso.nota?.takeIf { it.isNotBlank() }?.let {
-                Text(textoRico(it), style = MaterialTheme.typography.bodyMedium, color = CronoPalette.apagado)
-            }
+            // Primero lo ejecutivo (METO, fuego y tapa, avisos, señal, SACO); después el porqué.
             paso.meto?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_meto, CronoPalette.meto, it) }
-            paso.saco?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, it) }
-            paso.tapa?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_tapa, CronoPalette.tapa, it) }
             val canonica = paso.f
             if (carril.tipoCarril == TipoCarril.FUEGO && canonica != null) {
                 Text(
@@ -75,6 +71,7 @@ fun PorqueSheet(
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+            paso.tapa?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_tapa, CronoPalette.tapa, it) }
             val hitos = paso.hitosValidos
             if (hitos.isNotEmpty()) {
                 Text(
@@ -86,12 +83,87 @@ fun PorqueSheet(
                     Text("${formatoReloj(it.en.toInt())} · ${it.t}", style = MaterialTheme.typography.bodyMedium)
                 }
             }
+            paso.nota?.takeIf { it.isNotBlank() }?.let {
+                LineaEtiquetada(R.string.crono_senal, CronoPalette.acento, it)
+            }
+            paso.saco?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, it) }
+            paso.p?.takeIf { it.isNotBlank() }?.let { PorquePorBloques(it) }
             tecnicas.forEach { (slug, titulo) ->
                 TextButton(onClick = {
                     onCerrar()
                     onTecnica(slug)
                 }) {
                     Text(stringResource(R.string.crono_tecnica_enlace, titulo), color = CronoPalette.acento)
+                }
+            }
+        }
+    }
+}
+
+/** Un bloque del texto del porqué: párrafo o elemento de lista. */
+internal sealed interface BloqueTexto {
+    val texto: String
+
+    data class Parrafo(
+        override val texto: String,
+    ) : BloqueTexto
+
+    data class Vineta(
+        override val texto: String,
+    ) : BloqueTexto
+}
+
+private val LINEA_EN_BLANCO =
+    Regex(
+        """
+\s*
+""",
+    )
+
+/**
+ * Parte el texto en bloques: una línea en blanco separa párrafos y las líneas que empiezan por «- » son viñetas. Las
+ * líneas seguidas de un mismo párrafo se unen con un espacio.
+ */
+internal fun bloquesDeTexto(texto: String): List<BloqueTexto> =
+    texto.split(LINEA_EN_BLANCO).flatMap { trozo ->
+        val bloques = mutableListOf<BloqueTexto>()
+        val actual = mutableListOf<String>()
+
+        fun cerrarParrafo() {
+            if (actual.isNotEmpty()) bloques += BloqueTexto.Parrafo(actual.joinToString(" "))
+            actual.clear()
+        }
+        trozo.lines().map { it.trim() }.filter { it.isNotEmpty() }.forEach { linea ->
+            if (linea.startsWith("- ")) {
+                cerrarParrafo()
+                bloques += BloqueTexto.Vineta(linea.removePrefix("- ").trim())
+            } else {
+                actual += linea
+            }
+        }
+        cerrarParrafo()
+        bloques
+    }
+
+/** «POR QUÉ» y el texto `p` en párrafos separados y viñetas. */
+@Composable
+private fun PorquePorBloques(p: String) {
+    Text(
+        stringResource(R.string.crono_porque_titulo),
+        Modifier.padding(top = 6.dp),
+        style = MaterialTheme.typography.labelLarge,
+        color = CronoPalette.apagado,
+    )
+    bloquesDeTexto(p).forEach { bloque ->
+        when (bloque) {
+            is BloqueTexto.Parrafo -> {
+                Text(textoRico(bloque.texto), style = MaterialTheme.typography.bodyLarge)
+            }
+
+            is BloqueTexto.Vineta -> {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("•", style = MaterialTheme.typography.bodyLarge)
+                    Text(textoRico(bloque.texto), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
                 }
             }
         }

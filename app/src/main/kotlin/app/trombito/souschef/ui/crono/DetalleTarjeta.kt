@@ -19,17 +19,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trombito.souschef.R
 import app.trombito.souschef.ui.comun.Tabular
 import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
-import app.trombito.souschef.ui.theme.LocalFonts
 import kotlin.math.roundToInt
 
 @Composable
@@ -59,7 +60,7 @@ internal fun BloqueReloj(
                 color = CronoPalette.acento,
                 style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Center,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
         }
@@ -96,20 +97,51 @@ internal fun BarraProgreso(
 @Composable
 internal fun LineasMetoSaco(v: VistaCarril) {
     val meto = v.meto?.takeIf { it.isNotBlank() }
-    if (meto != null) LineaEtiquetada(R.string.crono_meto, CronoPalette.meto, meto, maxLineas = 1)
+    if (meto != null) LineaEtiquetada(R.string.crono_meto, CronoPalette.meto, meto, maxLineas = 2)
     val saco = v.saco?.takeIf { it.isNotBlank() }
-    if (saco != null) LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, saco, maxLineas = 1)
+    if (saco != null) LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, saco, maxLineas = 2)
 }
 
+/** La nota del paso es la señal: letra normal y sin serifa, a 16 sp, hasta 2 líneas. */
 @Composable
 internal fun NotaDelPaso(v: VistaCarril) {
     val nota = v.nota?.takeIf { it.isNotBlank() } ?: return
+    val etiqueta = stringResource(R.string.crono_senal)
     Text(
-        textoRico(nota),
-        style = MaterialTheme.typography.bodyMedium,
-        fontFamily = LocalFonts.current.newsreader,
-        fontStyle = FontStyle.Italic,
+        buildAnnotatedString {
+            withStyle(SpanStyle(color = CronoPalette.acento, fontWeight = FontWeight.ExtraBold)) {
+                append("$etiqueta  ")
+            }
+            append(textoRico(nota))
+        },
+        style = MaterialTheme.typography.bodyLarge,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
 }
+
+private val POTENCIA_REPETIDA = Regex("""^(.*) · fuego (\S+)$""")
+
+/**
+ * «Subir al 5 · fuego 5» repite la potencia: si el título del paso ya la dice se quita el «· fuego N» del final.
+ */
+internal fun quitarPotenciaRepetida(despues: String): String {
+    val partes = POTENCIA_REPETIDA.matchEntire(despues) ?: return despues
+    val (titulo, potencia) = partes.destructured
+    val yaLaDice = Regex("""(?<![\p{L}\p{N}])${Regex.escape(potencia)}(?![\p{L}\p{N}])""").containsMatchIn(titulo)
+    return if (yaLaDice) titulo else despues
+}
+
+/** «Después: …» de la tarjeta compacta, sin repetir la potencia que ya trae el título. */
+@Composable
+internal fun textoDespuesLimpio(v: VistaCarril): String {
+    val despues = v.despues ?: return stringResource(R.string.crono_ultimo)
+    val limpio = quitarPotenciaRepetida(despues)
+    return v.despuesS?.let { stringResource(R.string.crono_despues_tiempo, limpio, formatoReloj(it)) }
+        ?: stringResource(R.string.crono_despues_corto, limpio)
+}
+
+/** Lo que lee TalkBack en vez de «a la vez que ②»: «a la vez que el carril 2». Null si el paso no tiene `junto`. */
+@Composable
+internal fun descripcionJunto(v: VistaCarril): String? =
+    v.juntoN?.let { stringResource(R.string.crono_a11y_a_la_vez_carril, it) }

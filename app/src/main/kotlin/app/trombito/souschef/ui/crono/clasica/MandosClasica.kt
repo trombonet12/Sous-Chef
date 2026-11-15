@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Carril
+import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.ui.crono.AccionesCarril
 import app.trombito.souschef.ui.crono.BotonDeshacer
 import app.trombito.souschef.ui.crono.DatosCrono
@@ -52,42 +53,94 @@ internal fun MandosCarril(
     val req = requisitos(datos.recetaUi, datos.estado, paso)
     val bloqueado = req.pendientes.isNotEmpty() && !ec.corriendo && !ec.pausado && !ec.salto
     val vencido = ec.corriendo && datos.quedan(carril.id) <= 0
+    // «Empezar» es el primario mientras el paso no ha arrancado; «Hecho» pasa a serlo al arrancar.
+    val sinArrancar = !bloqueado && !ec.corriendo && !ec.pausado
     Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        if (bloqueado) {
-            val dep = req.pendientes.first()
-            OutlinedButton(
-                onClick = { acciones.enfocar(dep.carril) },
-                modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
-                border = BorderStroke(1.5.dp, CronoPalette.alerta),
-            ) {
-                Text(
-                    stringResource(R.string.crono_antes_ir, dep.t.abreviado(), datos.nombre(dep.carril)),
-                    color = CronoPalette.alerta,
-                    maxLines = 1,
-                )
+        when {
+            bloqueado -> {
+                BotonAntes(req.pendientes.first(), datos, acciones)
             }
-        } else {
-            BotonHecho(datos, carril.id, vencido) { acciones.hecho(carril.id) }
+
+            sinArrancar -> {
+                BotonEmpezar { acciones.alternar(carril.id) }
+            }
+
+            else -> {
+                BotonHecho(datos, carril.id, vencido) { acciones.hecho(carril.id) }
+            }
         }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (bloqueado) {
+        FilaSecundaria(datos, carril, acciones, bloqueado, sinArrancar)
+    }
+}
+
+/** Segunda fila de mandos: «Empezar igual», «Hecho» o Pausa/Seguir según el momento, +30 s y deshacer. */
+@Composable
+private fun FilaSecundaria(
+    datos: DatosCrono,
+    carril: Carril,
+    acciones: AccionesCarril,
+    bloqueado: Boolean,
+    sinArrancar: Boolean,
+) {
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        when {
+            bloqueado -> {
                 BotonSecundario(stringResource(R.string.crono_empezar_igual), Modifier.weight(1f)) {
                     acciones.empezarIgual(carril.id)
                 }
-            } else {
-                val etiqueta =
-                    when {
-                        ec.corriendo -> R.string.crono_pausa
-                        ec.pausado -> R.string.crono_seguir
-                        else -> R.string.crono_empezar
-                    }
+            }
+
+            sinArrancar -> {
+                BotonSecundario(textoHecho(datos, carril.id), Modifier.weight(1f).guia(GuiaIds.HECHO)) {
+                    acciones.hecho(carril.id)
+                }
+            }
+
+            else -> {
+                val corriendo = datos.ec(carril.id)?.corriendo == true
+                val etiqueta = if (corriendo) R.string.crono_pausa else R.string.crono_seguir
                 BotonSecundario(stringResource(etiqueta), Modifier.weight(1f)) { acciones.alternar(carril.id) }
             }
-            BotonSecundario(stringResource(R.string.crono_mas_30), Modifier.weight(1f).guia(GuiaIds.PRORROGA)) {
-                acciones.masTreinta(carril.id)
-            }
-            BotonDeshacerClasico(datos, carril, acciones)
         }
+        BotonSecundario(stringResource(R.string.crono_mas_30), Modifier.weight(1f).guia(GuiaIds.PRORROGA)) {
+            acciones.masTreinta(carril.id)
+        }
+        BotonDeshacerClasico(datos, carril, acciones)
+    }
+}
+
+@Composable
+private fun BotonAntes(
+    dep: Paso,
+    datos: DatosCrono,
+    acciones: AccionesCarril,
+) {
+    OutlinedButton(
+        onClick = { acciones.enfocar(dep.carril) },
+        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
+        border = BorderStroke(1.5.dp, CronoPalette.alerta),
+    ) {
+        Text(
+            stringResource(R.string.crono_antes_ir, dep.t.abreviado(), datos.nombre(dep.carril)),
+            color = CronoPalette.alerta,
+            maxLines = 1,
+        )
+    }
+}
+
+/** Botón primario «Empezar» del paso que aún no ha arrancado. */
+@Composable
+private fun BotonEmpezar(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = CronoPalette.principal,
+                contentColor = CronoPalette.onPrincipal,
+            ),
+    ) {
+        Text(stringResource(R.string.crono_empezar), style = MaterialTheme.typography.titleMedium)
     }
 }
 
@@ -104,26 +157,43 @@ private fun BotonDeshacerClasico(
 private fun String.abreviado(): String = if (length <= MAX_CARACTERES_DEP) this else take(MAX_CARACTERES_DEP) + "…"
 
 @Composable
+private fun textoHecho(
+    datos: DatosCrono,
+    carril: String,
+): String {
+    val ultimo = (datos.ec(carril)?.i ?: 0) >= datos.cola(carril).lastIndex
+    return stringResource(if (ultimo) R.string.crono_hecho_cerrar else R.string.crono_hecho_siguiente)
+}
+
+/** «Hecho · siguiente»: de contorno mientras el paso corre y lleno (rojo) al llegar a cero. */
+@Composable
 private fun BotonHecho(
     datos: DatosCrono,
     carril: String,
     vencido: Boolean,
     onClick: () -> Unit,
 ) {
-    val ultimo = (datos.ec(carril)?.i ?: 0) >= datos.cola(carril).lastIndex
-    Button(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).guia(GuiaIds.HECHO),
-        colors =
-            ButtonDefaults.buttonColors(
-                containerColor = if (vencido) CronoPalette.urgente else CronoPalette.principal,
-                contentColor = if (vencido) CronoPalette.onUrgente else CronoPalette.onPrincipal,
-            ),
-    ) {
-        Text(
-            stringResource(if (ultimo) R.string.crono_hecho_cerrar else R.string.crono_hecho_siguiente),
-            style = MaterialTheme.typography.titleMedium,
-        )
+    val modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).guia(GuiaIds.HECHO)
+    val contenido: @Composable () -> Unit = {
+        Text(textoHecho(datos, carril), style = MaterialTheme.typography.titleMedium)
+    }
+    if (vencido) {
+        Button(
+            onClick = onClick,
+            modifier = modifier,
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = CronoPalette.urgente,
+                    contentColor = CronoPalette.onUrgente,
+                ),
+        ) { contenido() }
+    } else {
+        OutlinedButton(
+            onClick = onClick,
+            modifier = modifier,
+            border = BorderStroke(1.5.dp, CronoPalette.principal),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = CronoPalette.texto),
+        ) { contenido() }
     }
 }
 

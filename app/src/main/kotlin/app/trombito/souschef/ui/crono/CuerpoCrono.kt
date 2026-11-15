@@ -3,8 +3,10 @@ package app.trombito.souschef.ui.crono
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import app.trombito.souschef.domain.DisposicionCrono
+import app.trombito.souschef.receta.crono.ClaseEstado
 import app.trombito.souschef.ui.crono.clasica.CronoClasico
 
 /**
@@ -27,7 +29,12 @@ internal fun CuerpoCrono(
     when (disposicion) {
         DisposicionCrono.FOCO -> {
             val vistas = vistasCarriles(datos)
-            CronoFoco(vistas, elegirFoco(vistas, datos.estado.foco), acciones, modifier.padding(relleno))
+            // Lo que ya tocaba o había vencido al fijar a mano no le quita el foco al carril fijado.
+            val vistosAlFijar =
+                remember(datos.estado.foco) {
+                    vistas.filter { it.clase == ClaseEstado.YA || it.vencido }.map { it.id }.toSet()
+                }
+            CronoFoco(vistas, elegirFoco(vistas, datos.estado.foco, vistosAlFijar), acciones, modifier.padding(relleno))
         }
 
         DisposicionCrono.APILADA -> {
