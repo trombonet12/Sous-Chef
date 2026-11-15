@@ -2,7 +2,6 @@ package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -25,8 +24,8 @@ import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.TipoCarril
 import app.trombito.souschef.ui.comun.LocalCocina
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.comun.nivel
-import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.theme.CronoPalette
 import app.trombito.souschef.ui.theme.colorCarrilTexto
 
@@ -100,52 +99,7 @@ fun PorqueSheet(
     }
 }
 
-/** Un bloque del texto del porqué: párrafo o elemento de lista. */
-internal sealed interface BloqueTexto {
-    val texto: String
-
-    data class Parrafo(
-        override val texto: String,
-    ) : BloqueTexto
-
-    data class Vineta(
-        override val texto: String,
-    ) : BloqueTexto
-}
-
-private val LINEA_EN_BLANCO =
-    Regex(
-        """
-\s*
-""",
-    )
-
-/**
- * Parte el texto en bloques: una línea en blanco separa párrafos y las líneas que empiezan por «- » son viñetas. Las
- * líneas seguidas de un mismo párrafo se unen con un espacio.
- */
-internal fun bloquesDeTexto(texto: String): List<BloqueTexto> =
-    texto.split(LINEA_EN_BLANCO).flatMap { trozo ->
-        val bloques = mutableListOf<BloqueTexto>()
-        val actual = mutableListOf<String>()
-
-        fun cerrarParrafo() {
-            if (actual.isNotEmpty()) bloques += BloqueTexto.Parrafo(actual.joinToString(" "))
-            actual.clear()
-        }
-        trozo.lines().map { it.trim() }.filter { it.isNotEmpty() }.forEach { linea ->
-            if (linea.startsWith("- ")) {
-                cerrarParrafo()
-                bloques += BloqueTexto.Vineta(linea.removePrefix("- ").trim())
-            } else {
-                actual += linea
-            }
-        }
-        cerrarParrafo()
-        bloques
-    }
-
-/** «POR QUÉ» y el texto `p` en párrafos separados y viñetas. */
+/** «POR QUÉ» y el texto `p` en párrafos y listas (ADR-0017). */
 @Composable
 private fun PorquePorBloques(p: String) {
     Text(
@@ -154,18 +108,5 @@ private fun PorquePorBloques(p: String) {
         style = MaterialTheme.typography.labelLarge,
         color = CronoPalette.apagado,
     )
-    bloquesDeTexto(p).forEach { bloque ->
-        when (bloque) {
-            is BloqueTexto.Parrafo -> {
-                Text(textoRico(bloque.texto), style = MaterialTheme.typography.bodyLarge)
-            }
-
-            is BloqueTexto.Vineta -> {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("•", style = MaterialTheme.typography.bodyLarge)
-                    Text(textoRico(bloque.texto), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
-                }
-            }
-        }
-    }
+    TextoBloques(p, style = MaterialTheme.typography.bodyLarge)
 }

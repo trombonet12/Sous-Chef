@@ -29,6 +29,7 @@ import app.trombito.souschef.receta.BloqueMep
 import app.trombito.souschef.receta.LineaMep
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.FichaPalette
 
@@ -57,7 +58,7 @@ private fun BloqueMepVista(bloque: BloqueMep) {
             }
             bloque.porq?.takeIf { it.isNotBlank() }?.let {
                 PlegableFicha(stringResource(R.string.ficha_prep_porque)) {
-                    Text(it, style = MaterialTheme.typography.bodySmall, color = FichaPalette.tinta2)
+                    TextoBloques(it, style = MaterialTheme.typography.bodySmall, color = FichaPalette.tinta2)
                 }
             }
         }

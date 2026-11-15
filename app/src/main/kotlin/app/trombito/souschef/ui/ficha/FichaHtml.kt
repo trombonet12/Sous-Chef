@@ -2,6 +2,8 @@
 
 package app.trombito.souschef.ui.ficha
 
+import app.trombito.souschef.receta.Bloque
+import app.trombito.souschef.receta.Bloques
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Gantt
@@ -34,6 +36,34 @@ internal fun esc(texto: String): String =
 internal fun rico(texto: String): String =
     conNegritas(texto).joinToString("") { if (it.negrita) "<b>${esc(it.texto)}</b>" else esc(it.texto) }
 
+/**
+ * Prosa estructurada (ADR-0017) en `<div class="prosa [clase]">` con `<p>` y `<ul>`; nada si el texto no tiene bloques.
+ * Un texto de una sola línea sale como un único `<p>`.
+ */
+private fun prosa(
+    b: StringBuilder,
+    texto: String?,
+    clase: String = "",
+) {
+    val bloques = Bloques.analizar(texto.orEmpty())
+    if (bloques.isEmpty()) return
+    b.append("<div class=\"prosa").append(if (clase.isEmpty()) "" else " $clase").append("\">")
+    bloques.forEach { bloque ->
+        when (bloque) {
+            is Bloque.Parrafo -> {
+                b.append("<p>").append(rico(bloque.texto)).append("</p>")
+            }
+
+            is Bloque.Lista -> {
+                b.append("<ul>")
+                bloque.elementos.forEach { b.append("<li>").append(rico(it)).append("</li>") }
+                b.append("</ul>")
+            }
+        }
+    }
+    b.append("</div>")
+}
+
 private fun colorCss(carril: Carril?): String = carril?.color?.takeIf { COLOR_HEX.matches(it) } ?: COLOR_CARRIL_DEFECTO
 
 private fun pct(v: Number): String = String.format(Locale.ROOT, "%.2f%%", v.toDouble() * 100)
@@ -46,7 +76,7 @@ private val CSS =
     body{font-family:Georgia,'Times New Roman',serif;font-size:10pt;line-height:1.4;padding:0}
     h1,h2,h3,.ui{font-family:system-ui,'Helvetica Neue',Arial,sans-serif}
     h1{font-size:30pt;line-height:1.05;margin:0 0 6pt;font-weight:600}
-    .desc{font-style:italic;color:#46473D;margin:0 0 10pt;max-width:70ch}
+    .desc{color:#46473D;margin:0 0 10pt;max-width:70ch}
     .datos{display:flex;flex-wrap:wrap;gap:4pt 22pt;margin:8pt 0 0}
     .dato b{display:block;font-family:system-ui,Arial,sans-serif;font-size:15pt;font-weight:600}
     .dato span{font-family:system-ui,Arial,sans-serif;font-size:8pt;color:#6B6C5F;text-transform:uppercase;letter-spacing:.06em}
@@ -56,7 +86,7 @@ private val CSS =
     h3{font-size:10.5pt;margin:8pt 0 3pt;font-weight:600}
     .ing{display:grid;grid-template-columns:90pt 1fr;gap:2pt 10pt}
     .ing b{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
-    .nota{font-size:9pt;font-style:italic;color:#6B6C5F;margin:6pt 0 0}
+    .nota{font-size:9pt;color:#6B6C5F;margin:6pt 0 0}
     .fila{display:grid;grid-template-columns:150pt 1fr 40pt;gap:8pt;align-items:center;padding:3pt 0}
     .fila .et b{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:10pt;display:block;line-height:1.2}
     .fila .et span{font-family:system-ui,Arial,sans-serif;font-size:7.5pt;color:#6B6C5F;text-transform:uppercase;
@@ -70,7 +100,7 @@ private val CSS =
     .leyenda{display:flex;flex-wrap:wrap;gap:3pt 12pt;margin-top:6pt;font-family:system-ui,Arial,sans-serif;
       font-size:8pt;color:#46473D}
     .leyenda i{display:inline-block;width:8pt;height:8pt;border-radius:50%;margin-right:4pt}
-    .lectura{font-style:italic;margin:6pt 0 0}
+    .lectura{margin:6pt 0 0}
     .mep{display:grid;grid-template-columns:repeat(auto-fit,minmax(200pt,1fr));gap:10pt 18pt}
     .mep h3{font-size:9.5pt;letter-spacing:.05em;margin:0 0 2pt}
     .mep .porq{font-size:9pt;color:#6B6C5F;margin:0 0 4pt}
@@ -82,6 +112,7 @@ private val CSS =
     .pasos b.t{font-family:system-ui,Arial,sans-serif;font-weight:600}
     .meta{font-family:system-ui,Arial,sans-serif;font-size:8pt;color:#6B6C5F;text-transform:uppercase;letter-spacing:.04em}
     .pasos p{margin:2pt 0 0}
+    .pasos .prosa{margin:2pt 0 0}
     .hito{font-family:system-ui,Arial,sans-serif;font-size:8.5pt;color:#46473D;font-variant-numeric:tabular-nums}
     .corte{display:grid;grid-template-columns:${ANCHO_CORTE_PX}px 1fr;gap:12pt;align-items:start;margin-bottom:10pt}
     .corte svg{max-width:100%;height:auto}
@@ -89,9 +120,13 @@ private val CSS =
     .porque div{margin-top:8pt}
     .porque dt{font-family:system-ui,Arial,sans-serif;font-weight:600}
     .porque dd{margin:2pt 0 0;color:#46473D}
+    div.prosa p{margin:0 0 4pt}
+    div.prosa ul{margin:0 0 4pt;padding-left:14pt}
+    div.prosa li{margin:0 0 2pt}
+    div.prosa>:last-child{margin-bottom:0}
     .pie{margin-top:16pt;font-size:8.5pt;color:#6B6C5F}
     @media print{
-      .fila,.pasos li,.mep>div,.corte,.porque div{break-inside:avoid}
+      .fila,.pasos li,.mep>div,.corte,.porque div,div.prosa p,div.prosa ul{break-inside:avoid}
       .pista,.barra,.leyenda i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
     """.trimIndent()
@@ -129,7 +164,7 @@ private fun portada(
     textos: TextosFicha,
 ) {
     b.append("<header><h1>").append(esc(receta.titulo)).append("</h1>")
-    if (receta.descripcion.isNotBlank()) b.append("<p class=\"desc\">").append(esc(receta.descripcion)).append("</p>")
+    prosa(b, receta.descripcion, "desc")
     b.append("<div class=\"datos\">")
     b.append("<div class=\"dato\"><b>").append(raciones).append("</b><span>")
     b.append(esc(textos.raciones(raciones).removePrefix("$raciones "))).append("</span></div>")
@@ -155,7 +190,7 @@ private fun ingredientes(
         b.append("<h3>").append(esc(g.n)).append("</h3>")
         filasIngredientes(b, g.items, f)
     }
-    receta.notaEscala?.takeIf { it.isNotBlank() }?.let { b.append("<p class=\"nota\">").append(esc(it)).append("</p>") }
+    prosa(b, receta.notaEscala, "nota")
     b.append("</section>")
 }
 
@@ -197,7 +232,7 @@ private fun tiempo(
         b.append(esc(it.nombre)).append("</span>")
     }
     b.append("</div><p class=\"meta\">").append(esc(textos.eje)).append("</p>")
-    receta.lectura?.takeIf { it.isNotBlank() }?.let { b.append("<p class=\"lectura\">").append(esc(it)).append("</p>") }
+    prosa(b, receta.lectura, "lectura")
     b.append("</section>")
 }
 
@@ -246,7 +281,7 @@ private fun mep(
     b.append("<section><h2>").append(esc(textos.mep)).append("</h2><div class=\"mep\">")
     receta.mep.forEach { bl ->
         b.append("<div><h3>").append(esc(bl.t)).append("</h3>")
-        bl.porq?.takeIf { it.isNotBlank() }?.let { b.append("<p class=\"porq\">").append(esc(it)).append("</p>") }
+        prosa(b, bl.porq, "porq")
         val tag = if (bl.orden) "ol" else "ul"
         b.append("<$tag>")
         bl.l.forEach { b.append("<li>").append(rico(it)).append("</li>") }
@@ -278,7 +313,7 @@ private fun pasos(
             .append(esc(p.t))
             .append("</b>")
         b.append("<div class=\"meta\">").append(esc(meta)).append("</div>")
-        (p.p ?: p.nota)?.takeIf { it.isNotBlank() }?.let { b.append("<p>").append(rico(it)).append("</p>") }
+        prosa(b, p.p ?: p.nota)
         p.meto?.takeIf { it.isNotBlank() }?.let {
             b
                 .append("<p><b>")
@@ -320,7 +355,7 @@ private fun tecnica(
         b.append("<div class=\"corte\"><div>")
         c.svg?.takeIf { it.isNotBlank() }?.let { b.append(it) }
         b.append("</div><div><h3>").append(esc(c.t)).append("</h3>")
-        c.p?.takeIf { it.isNotBlank() }?.let { b.append("<p>").append(rico(it)).append("</p>") }
+        prosa(b, c.p)
         b.append("</div></div>")
     }
     val porque = receta.porque.filter { it.isNotEmpty() }
@@ -328,7 +363,11 @@ private fun tecnica(
         b.append("<dl class=\"porque\">")
         porque.forEach {
             b.append("<div><dt>").append(esc(it[0])).append("</dt>")
-            it.getOrNull(1)?.let { d -> b.append("<dd>").append(rico(d)).append("</dd>") }
+            it.getOrNull(1)?.takeIf { d -> d.isNotBlank() }?.let { d ->
+                b.append("<dd>")
+                prosa(b, d)
+                b.append("</dd>")
+            }
             b.append("</div>")
         }
         b.append("</dl>")

@@ -112,4 +112,33 @@ class FichaHtmlTest {
             assertFalse(mayusculas.contains("#%06X".format(it.toArgb() and 0xFFFFFF)))
         }
     }
+
+    @Test
+    fun laProsaSalePorParrafosYListasConNegritaYEscapado() {
+        val prosa =
+            "Primero <b>fuerte</b>.\n\n- Uno & dos\n- Tres <u>x</u>\n\nÚltimo."
+        val conProsa =
+            receta.copy(
+                descripcion = prosa,
+                lectura = prosa,
+                pasos = receta.pasos.map { it.copy(p = prosa) },
+                cortes = listOf(Corte("Brunoise", prosa, svg)),
+            )
+        val h = fichaHtml(conProsa, 2, textos)
+        val esperado =
+            "<p>Primero <b>fuerte</b>.</p><ul><li>Uno &amp; dos</li>" +
+                "<li>Tres &lt;u&gt;x&lt;/u&gt;</li></ul><p>Último.</p>"
+        assertTrue(h.contains("<div class=\"prosa desc\">$esperado</div>"))
+        assertTrue(h.contains("<div class=\"prosa lectura\">$esperado</div>"))
+        assertTrue(h.contains("<div class=\"prosa\">$esperado</div>"))
+        assertTrue(h.contains("div.prosa ul{"))
+        assertTrue(h.contains("div.prosa p,div.prosa ul{break-inside:avoid}"))
+    }
+
+    @Test
+    fun unaProsaVaciaNoDejaContenedor() {
+        val h = fichaHtml(receta.copy(descripcion = "  ", lectura = "\n"), 2, textos)
+        assertFalse(h.contains("<div class=\"prosa desc\">"))
+        assertFalse(h.contains("<div class=\"prosa lectura\">"))
+    }
 }

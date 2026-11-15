@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +31,7 @@ import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.Tabular
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.FichaPalette
 
@@ -76,12 +76,7 @@ private fun NotaEscala(texto: String) {
         border = bordeAsistentePapel(),
     )
     if (abierta) {
-        Text(
-            texto,
-            style = MaterialTheme.typography.bodySmall,
-            fontStyle = FontStyle.Italic,
-            color = FichaPalette.meta,
-        )
+        TextoBloques(texto, style = MaterialTheme.typography.bodySmall, color = FichaPalette.meta)
     }
 }
 

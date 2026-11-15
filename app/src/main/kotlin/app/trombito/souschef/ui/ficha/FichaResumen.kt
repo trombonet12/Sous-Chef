@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
 import app.trombito.souschef.receta.Cocina
@@ -27,6 +26,7 @@ import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.CeldaDato
 import app.trombito.souschef.ui.comun.ColoresUltimaVez
 import app.trombito.souschef.ui.comun.SeccionPapel
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.comun.UltimaVez
 import app.trombito.souschef.ui.theme.FichaPalette
 import java.time.LocalDateTime
@@ -43,12 +43,7 @@ fun PestanaResumen(
     TuHistorial(estado.historial)
     UltimaVez(estado.notas, ColoresUltimaVez.Papel)
     if (receta.descripcion.isNotBlank()) {
-        Text(
-            receta.descripcion,
-            style = MaterialTheme.typography.bodyMedium,
-            fontStyle = FontStyle.Italic,
-            color = FichaPalette.tinta2,
-        )
+        TextoBloques(receta.descripcion, style = MaterialTheme.typography.bodyMedium, color = FichaPalette.tinta2)
     }
     FlowRow(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         CeldaDato(estado.raciones.toString(), pluralStringResource(R.plurals.ficha_unidad_racion, estado.raciones))
@@ -118,7 +113,7 @@ private fun ResumenTiempo(receta: Receta) {
         }
         receta.lectura?.takeIf { it.isNotBlank() }?.let {
             PlegableFicha(stringResource(R.string.ficha_reparte), Modifier.padding(top = 4.dp)) {
-                Text(it, style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic)
+                TextoBloques(it, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import app.trombito.souschef.receta.Corte
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.ui.comun.CorteSvg
-import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.theme.FichaPalette
 
 /** ¿Por qué?: los cortes y las decisiones, cada uno plegado con su título a la vista, y el pie. */
@@ -31,7 +31,7 @@ fun PestanaPorque(receta: Receta) {
         key("porque-$i") {
             PlegableFicha(par[0]) {
                 par.getOrNull(1)?.let {
-                    Text(textoRico(it), Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodyMedium)
+                    TextoBloques(it, Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodyMedium)
                 }
             }
             HorizontalDivider(color = FichaPalette.linea)
@@ -50,7 +50,7 @@ private fun CorteCuerpo(corte: Corte) {
             CorteSvg(it, corte.t, Modifier.width(120.dp).aspectRatio(120f / 88f))
         }
         corte.p?.takeIf { it.isNotBlank() }?.let {
-            Text(textoRico(it), Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+            TextoBloques(it, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

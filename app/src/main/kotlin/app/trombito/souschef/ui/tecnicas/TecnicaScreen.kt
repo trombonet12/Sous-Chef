@@ -36,7 +36,7 @@ import app.trombito.souschef.ui.comun.EstadoVacio
 import app.trombito.souschef.ui.comun.LocalCocina
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.ficha.CorteVista
 import app.trombito.souschef.ui.theme.FichaPalette
 
@@ -149,7 +149,7 @@ private fun PasosTecnica(tecnica: Tecnica) {
                 Text("${i + 1}.", Modifier.width(32.dp), style = MaterialTheme.typography.titleSmall.merge(Tabular))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(paso.t, style = MaterialTheme.typography.titleSmall)
-                    if (paso.p.isNotBlank()) Text(textoRico(paso.p), style = MaterialTheme.typography.bodyMedium)
+                    TextoBloques(paso.p, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

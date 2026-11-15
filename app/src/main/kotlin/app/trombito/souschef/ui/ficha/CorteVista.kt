@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.receta.Corte
 import app.trombito.souschef.ui.comun.CorteSvg
-import app.trombito.souschef.ui.comun.textoRico
+import app.trombito.souschef.ui.comun.TextoBloques
 
 /** Un corte: dibujo SVG (coil-svg) sobre papel, título y prosa. */
 @Composable
@@ -25,10 +25,7 @@ fun CorteVista(corte: Corte) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(corte.t, style = MaterialTheme.typography.titleSmall)
             corte.p?.takeIf { it.isNotBlank() }?.let {
-                Text(
-                    textoRico(it),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+                TextoBloques(it, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
