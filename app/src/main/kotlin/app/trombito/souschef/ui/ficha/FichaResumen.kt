@@ -25,6 +25,8 @@ import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCocina
 import app.trombito.souschef.ui.comun.CeldaDato
 import app.trombito.souschef.ui.comun.ColoresUltimaVez
+import app.trombito.souschef.ui.comun.DensidadPlan
+import app.trombito.souschef.ui.comun.DiagramaPlan
 import app.trombito.souschef.ui.comun.SeccionPapel
 import app.trombito.souschef.ui.comun.TextoBloques
 import app.trombito.souschef.ui.comun.UltimaVez
@@ -51,7 +53,7 @@ fun PestanaResumen(
     }
     EnlacesTecnicas(estado.tecnicas, onTecnica)
     EtiquetasEquipoFicha(receta, estado.equipo)
-    ResumenTiempo(receta)
+    ResumenTiempo(receta, Servir.inicio(estado.servirMin, receta))
     NotaCocina(estado.cocina)
     AnotarSinCronometro(estado, onAnotar)
 }
@@ -103,11 +105,14 @@ private fun EnlacesTecnicas(
 
 /** Diagrama por recipiente, botón al diagrama completo y la lectura del reparto, plegada. */
 @Composable
-private fun ResumenTiempo(receta: Receta) {
+private fun ResumenTiempo(
+    receta: Receta,
+    inicioPlanMin: Int,
+) {
     if (receta.totalEfectivo <= 0 || receta.pasos.isEmpty()) return
     var completo by rememberSaveable { mutableStateOf(false) }
     SeccionPapel(stringResource(R.string.ficha_sec_tiempo)) {
-        DiagramaCompacto(receta)
+        DiagramaPlan(receta, DensidadPlan.RESUMEN, inicioPlanMin = inicioPlanMin)
         OutlinedButton(onClick = { completo = true }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.ficha_diagrama_ver))
         }
@@ -117,7 +122,7 @@ private fun ResumenTiempo(receta: Receta) {
             }
         }
     }
-    if (completo) DialogoDiagramaFicha(receta) { completo = false }
+    if (completo) DialogoDiagramaFicha(receta, inicioPlanMin) { completo = false }
 }
 
 /** En gas o inducción el calor responde al instante; las explicaciones de inercia de la vitro no se traducen. */

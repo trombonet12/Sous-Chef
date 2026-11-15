@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Diagrama de tiempos único (DiagramaPlan): estado de cada paso en la lista numerada, para TalkBack -->
+    <string name="plan_paso_hecho">hecho</string>
+    <string name="plan_paso_en_marcha">en marcha</string>
+</resources>

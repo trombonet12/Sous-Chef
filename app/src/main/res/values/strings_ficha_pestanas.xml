@@ -28,8 +28,4 @@
     <string name="ficha_prep_porque">Por qué se hace así</string>
 
     <string name="ficha_filtro_todos">Todos</string>
-    <string name="ficha_paso_abrir">Ver el paso completo</string>
-    <string name="ficha_paso_entra">Entra: %1$s</string>
-    <string name="ficha_paso_sale">Sale: %1$s</string>
-    <string name="ficha_paso_hitos">Hitos</string>
 </resources>

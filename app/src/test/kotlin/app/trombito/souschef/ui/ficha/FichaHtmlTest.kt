@@ -100,7 +100,7 @@ class FichaHtmlTest {
     fun ganttUsaColorDeCarrilYSaneaElInvalido() {
         assertTrue(html.contains("background:#A8421C"))
         assertFalse(html.contains("red;x"))
-        assertTrue(html.contains("background:#B0A899"))
+        assertTrue(html.contains("background:#B79BE0"))
         assertTrue(html.contains("+0:30 Remover"))
         assertTrue(html.contains("@page{size:A4;margin:13mm}"))
     }
@@ -299,6 +299,63 @@ class FichaHtmlTest {
         assertTrue(h.contains(".diagrama{break-inside:avoid}"))
         assertTrue(h.contains("background:#A8421C;color:#FFFFFF"))
         assertTrue(h.contains("background:#E9C46A;color:#191A14"))
+        // La mesa, de color neutro en el JSON, lleva el mismo color que en la cocina (no el beige).
+        assertTrue(h.contains("background:#7FB7D6;color:#191A14"))
+        assertFalse(h.contains("#6B6C5F;color"))
+    }
+
+    @Test
+    fun elDiagramaOrdenaLosCarrilesPorOffYPintaElPerfilDeFuegoSoloEnLosDeFuego() {
+        val h = hoja()
+        val pos = listOf("SARTÉN GRANDE", "SARTÉN PEQUEÑA", "MESA").map { h.indexOf("<div class=\"et\">$it</div>") }
+        assertTrue(pos.all { it >= 0 })
+        assertTrue(pos == pos.sorted())
+        // s1: 4 y 8; s2: 5; la mesa no lleva perfil.
+        assertEquals(2, apariciones(h, "<div class=\"perfil\">"))
+        assertEquals(3, apariciones(h, "<div class=\"esc\""))
+        assertTrue(h.contains("height:44.44%;background:#A8421C"))
+        assertTrue(h.contains("height:88.89%;background:#A8421C"))
+    }
+
+    @Test
+    fun elEjeLlevaLaHoraRealSoloSiSeConoceLaHoraDeServir() {
+        val con = hoja()
+        assertTrue(con.contains("<div class=\"ticks hh\">"))
+        assertTrue(con.contains("<em>14:43</em>"))
+        assertTrue(con.contains("<em>15:30</em>"))
+        val sin = hoja(servirMin = null)
+        assertFalse(sin.contains("ticks hh"))
+        assertFalse(sin.contains("<em>"))
+    }
+
+    @Test
+    fun laCronologiaDiceTrasYALaVezQueConElNumeroDelDiagrama() {
+        val dependiente =
+            huevos.copy(
+                pasos =
+                    huevos.pasos.map {
+                        if (it.id ==
+                            "c"
+                        ) {
+                            it.copy(dep = listOf("a"))
+                        } else if (it.id == "b") {
+                            it.copy(junto = "a")
+                        } else {
+                            it
+                        }
+                    },
+            )
+        val h =
+            fichaHtml(
+                dependiente,
+                2,
+                textos.copy(tras = { "tras $it" }, juntoCon = { "junto $it" }),
+                TipoFicha.HOJA,
+                null,
+                imp,
+            )
+        assertTrue(h.contains("fuego 8 · 5′ · tras 1"))
+        assertTrue(h.contains("fuego 5 · 2′ · junto 1"))
     }
 
     @Test

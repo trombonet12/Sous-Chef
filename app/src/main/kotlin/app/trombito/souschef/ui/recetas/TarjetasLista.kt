@@ -36,6 +36,8 @@ import app.trombito.souschef.receta.Tags
 import app.trombito.souschef.ui.comun.BloqueLateral
 import app.trombito.souschef.ui.comun.CifraBloque
 import app.trombito.souschef.ui.comun.DatoBloque
+import app.trombito.souschef.ui.comun.DensidadPlan
+import app.trombito.souschef.ui.comun.DiagramaPlan
 import app.trombito.souschef.ui.comun.Etiqueta
 import app.trombito.souschef.ui.comun.LINEAS_RESUMEN_CLASICA
 import app.trombito.souschef.ui.comun.MarcoTarjeta
@@ -45,6 +47,7 @@ import app.trombito.souschef.ui.comun.SEPARADOR_META
 import app.trombito.souschef.ui.comun.TituloClasico
 import app.trombito.souschef.ui.comun.TituloCompacto
 import app.trombito.souschef.ui.comun.Tono
+import app.trombito.souschef.ui.comun.paletaPlanLista
 import app.trombito.souschef.ui.ficha.Servir
 import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.Espacio
@@ -206,7 +209,7 @@ private fun TarjetaClasica(
             }
             Column(Modifier.padding(end = Espacio.m), verticalArrangement = Arrangement.spacedBy(Espacio.s)) {
                 ResumenTarjeta(receta.descripcion, maxLines = LINEAS_RESUMEN_CLASICA)
-                Huella(receta)
+                DiagramaPlan(receta, DensidadPlan.HUELLA, paleta = paletaPlanLista())
                 PieTarjeta(tarjeta)
                 EtiquetasEquipo(tarjeta)
                 ParaCenar(tarjeta)

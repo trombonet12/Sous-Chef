@@ -26,11 +26,53 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
+import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.ui.shell.Icono
 
 /** Color de un carril (`#RRGGBB`); gris si el dato no se entiende. */
 fun colorCarril(hex: String): Color =
     runCatching { Color(android.graphics.Color.parseColor(hex)) }.getOrDefault(Color(0xFFB0A899))
+
+private const val SATURACION_NEUTRO = 0.2f
+private const val HEX_BASE = 16
+private const val BYTE = 8
+private val HEX_RGB = Regex("#([0-9A-Fa-f]{6})")
+private val NEUTROS_PLAN = intArrayOf(0x7FB7D6, 0xB79BE0, 0x6FCBB5, 0xE58FB0)
+
+/**
+ * `0xRRGGBB` del carril [id] en cualquier diagrama de tiempos (lista, ficha, cocina y papel): el color del JSON si
+ * tiene color propio; los neutros (grises o beige, saturación < 0,2) reciben uno de la paleta según su posición en
+ * [carriles] (los carriles normalizados del motor), igual que en la cocina. Es Kotlin puro: lo usa también el HTML.
+ */
+fun rgbCarrilPlan(
+    carriles: List<Carril>,
+    id: String,
+): Int {
+    val i = carriles.indexOfFirst { it.id == id }
+    val rgb =
+        HEX_RGB
+            .matchEntire(carriles.getOrNull(i)?.color.orEmpty())
+            ?.groupValues
+            ?.get(1)
+            ?.toInt(HEX_BASE)
+    return if (rgb != null && saturacion(rgb) >= SATURACION_NEUTRO) {
+        rgb
+    } else {
+        NEUTROS_PLAN[i.coerceAtLeast(0) % NEUTROS_PLAN.size]
+    }
+}
+
+private fun saturacion(rgb: Int): Float {
+    val canales = listOf(rgb shr (2 * BYTE) and 0xFF, rgb shr BYTE and 0xFF, rgb and 0xFF)
+    val max = canales.max()
+    return if (max == 0) 0f else (max - canales.min()) / max.toFloat()
+}
+
+/** El [rgbCarrilPlan] como color de Compose. */
+fun colorPlan(
+    carriles: List<Carril>,
+    id: String,
+): Color = Color(0xFF000000.toInt() or rgbCarrilPlan(carriles, id))
 
 @Composable
 fun CampoBusqueda(

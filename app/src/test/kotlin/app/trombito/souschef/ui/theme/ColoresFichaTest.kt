@@ -2,7 +2,7 @@ package app.trombito.souschef.ui.theme
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import app.trombito.souschef.ui.ficha.colorBarraSobre
+import app.trombito.souschef.ui.comun.colorBarraSobre
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -40,7 +40,9 @@ import app.trombito.souschef.R
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCarril
+import app.trombito.souschef.receta.crono.ConsultasCrono
 import app.trombito.souschef.ui.comun.DetallePaso
+import app.trombito.souschef.ui.comun.colorPlanFicha
 import app.trombito.souschef.ui.comun.contextoPaso
 import app.trombito.souschef.ui.comun.paletaDetalleFicha
 import app.trombito.souschef.ui.comun.pasosPorReloj
@@ -114,6 +116,7 @@ private fun FiltrosCarril(
     filtro: String,
     onFiltro: (String) -> Unit,
 ) {
+    val carriles = remember(receta) { ConsultasCrono.carriles(receta) }
     Row(
         Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -132,7 +135,7 @@ private fun FiltrosCarril(
                 onClick = { onFiltro(c.id) },
                 label = { Text(c.nombre) },
                 modifier = Modifier.testTag("ficha-filtro-${c.id}"),
-                leadingIcon = { Box(Modifier.size(10.dp).background(PaletaPapel.colorDe(c), CircleShape)) },
+                leadingIcon = { Box(Modifier.size(10.dp).background(colorPlanFicha(carriles, c.id), CircleShape)) },
                 colors = coloresFiltroPapel(),
                 border = bordeFiltroPapel(filtro == c.id),
             )
@@ -149,6 +152,7 @@ private fun PasoDesplegado(
     soloOrdenes: Boolean,
 ) {
     val carril = receta.carril(paso.carril)
+    val carriles = remember(receta) { ConsultasCrono.carriles(receta) }
     Row(
         Modifier
             .testTag("ficha-paso-${paso.id}")
@@ -157,7 +161,13 @@ private fun PasoDesplegado(
             .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Box(Modifier.width(4.dp).fillMaxHeight().background(PaletaPapel.colorDe(carril), RoundedCornerShape(2.dp)))
+        Box(
+            Modifier
+                .width(
+                    4.dp,
+                ).fillMaxHeight()
+                .background(colorPlanFicha(carriles, paso.carril), RoundedCornerShape(2.dp)),
+        )
         DetallePaso(
             paso = paso,
             carrilNombre = carril?.nombre ?: paso.carril,

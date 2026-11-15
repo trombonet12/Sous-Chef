@@ -21,6 +21,9 @@ data class TextosFicha(
     val duracion: (String) -> String,
     val rango: (String, String) -> String,
     val fuego: (Int) -> String,
+    /** «tras 2, 3» y «a la vez que 4» de la cronología impresa; reciben ya los números. */
+    val tras: (String) -> String = { it },
+    val juntoCon: (String) -> String = { it },
 ) {
     companion object {
         /** [cocina] decide cómo se escribe la potencia («fuego 7», «fuego 3,5», «fuego medio-alto»). */
@@ -44,6 +47,8 @@ data class TextosFicha(
                 duracion = { m -> r.getString(R.string.ficha_duracion, m) },
                 rango = { a, b -> r.getString(R.string.ficha_min_rango, a, b) },
                 fuego = { f -> r.getString(R.string.ficha_fuego_bajo, cocina.nivel(f)) },
+                tras = { n -> r.getString(R.string.detalle_tras, n) },
+                juntoCon = { n -> r.getString(R.string.detalle_a_la_vez, n) },
             )
         }
     }

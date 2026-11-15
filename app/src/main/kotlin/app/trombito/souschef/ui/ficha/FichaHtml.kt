@@ -4,21 +4,22 @@ package app.trombito.souschef.ui.ficha
 
 import app.trombito.souschef.receta.Bloque
 import app.trombito.souschef.receta.Bloques
-import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Gantt
 import app.trombito.souschef.receta.Ingrediente
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.crono.OrdenPaso
+import app.trombito.souschef.ui.comun.FilaPlan
+import app.trombito.souschef.ui.comun.alturaFuego
 import app.trombito.souschef.ui.comun.conNegritas
+import app.trombito.souschef.ui.comun.filasPlan
 import java.util.Locale
 
-private const val COLOR_CARRIL_DEFECTO = "#B0A899"
-private val COLOR_HEX = Regex("#[0-9A-Fa-f]{6}")
 private const val ANCHO_CORTE_PX = 120
 private const val CADA_REJILLA_MIN = 10
 private const val ANCHO_MINIMO_BARRA = 0.03
+private const val ALTURA_MIN_ESCALON = 0.12f
 private const val LUMINANCIA_CLARA = 150
 private const val TINTA = "#191A14"
 
@@ -68,7 +69,7 @@ private fun prosa(
     b.append("</div>")
 }
 
-private fun colorCss(carril: Carril?): String = carril?.color?.takeIf { COLOR_HEX.matches(it) } ?: COLOR_CARRIL_DEFECTO
+private fun colorCss(rgb: Int): String = String.format(Locale.ROOT, "#%06X", rgb)
 
 /** Tinta que se lee sobre [fondo] (un `#RRGGBB`): oscura sobre colores claros, blanca sobre los oscuros. */
 private fun tintaSobre(fondo: String): String {
@@ -110,12 +111,17 @@ private val CSS =
     .carril{display:grid;grid-template-columns:96pt 1fr;gap:8pt;align-items:center;padding:2pt 0}
     .carril .et{font-family:system-ui,Arial,sans-serif;font-size:8pt;font-weight:600;color:#46473D;
       text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
-    .pista{position:relative;height:15pt;background:#EFEDE3;border-radius:3px;overflow:hidden}
+    .cuerpo{min-width:0}
+    .pista{position:relative;height:16pt;background:#EFEDE3;border-radius:3px;overflow:hidden}
     .barra{position:absolute;top:1px;height:calc(100% - 2px);border-radius:3px;border:1px solid rgba(25,26,20,.35);
       display:flex;align-items:center;justify-content:center;overflow:hidden;
       font-family:system-ui,Arial,sans-serif;font-size:7.5pt;font-weight:700;line-height:1}
     .regla{padding-bottom:2pt}
     .ticks{position:relative;height:11pt;font-family:system-ui,Arial,sans-serif;font-size:7.5pt;color:#6B6C5F}
+    .ticks.hh{height:20pt}
+    .ticks em{display:block;font-style:normal;font-weight:700;color:#46473D}
+    .perfil{position:relative;height:8pt;margin-top:1px;border-bottom:1px solid #D6D5C6}
+    .esc{position:absolute;bottom:0;opacity:.8;border-radius:1px 1px 0 0}
     .ticks span{position:absolute;transform:translateX(-50%);font-variant-numeric:tabular-nums}
     .meta{font-family:system-ui,Arial,sans-serif;font-size:8pt;color:#6B6C5F;text-transform:uppercase;letter-spacing:.04em}
     .diagrama .meta{margin:4pt 0 0}
@@ -155,7 +161,7 @@ private val CSS =
     @media print{
       .zona,.diagrama,.ord,.mep>div,.corte,.porque div,div.prosa p,div.prosa ul{break-inside:avoid}
       h2{break-after:avoid}
-      .pista,.barra,.ord>i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pista,.barra,.esc,.ord>i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
     """.trimIndent()
 
@@ -178,6 +184,9 @@ private class Salida(
 
     /** Pasos por orden de reloj (`off`); a igual `off` manda el orden del array. */
     val pasos: List<PasoOrdenado> = receta.pasos.sortedBy { it.off }.mapIndexed { i, p -> PasoOrdenado(i + 1, p) }
+
+    /** Número de cada paso por id, el mismo del diagrama y de la cronología. */
+    val numeros: Map<String, Int> = pasos.associate { it.paso.id to it.n }
 
     private val empiezaMin: Int? = servirMin?.let { Servir.inicio(it, receta) }
     val servir: String? = servirMin?.let { Servir.formato(it) }
@@ -281,48 +290,78 @@ private fun filasIngredientes(
     b.append("</div>")
 }
 
-/** El diagrama por carriles (una fila por carril, los pasos numerados como en la cronología); entero en una página. */
+/**
+ * El diagrama de tiempos, el mismo de la app: una fila por carril (por el `off` de su primer paso), cada barra con el
+ * número de su paso como en la cronología, el perfil de fuego bajo los carriles de fuego y, si se conoce la hora de
+ * servir, la hora real bajo cada marca del eje. Entero en una página.
+ */
 private fun Salida.tiempo(b: StringBuilder) {
     val total = receta.totalEfectivo
     if (total <= 0 || pasos.isEmpty()) return
     b.append("<section class=\"diagrama\"><h2>").append(esc(textos.tiempo)).append("</h2>")
-    b.append("<div class=\"carril regla\"><div></div><div class=\"ticks\">")
+    b.append("<div class=\"carril regla\"><div></div><div class=\"ticks").append(if (empieza != null) " hh" else "")
+    b.append("\">")
     Gantt.marcas(total).forEach {
         b.append("<span style=\"left:").append(pct(it / total)).append("\">")
-        b.append(esc(Escalado.minutos(it))).append("</span>")
+        b.append(esc(Escalado.minutos(it)))
+        hora(it)?.let { h -> b.append("<em>").append(esc(h)).append("</em>") }
+        b.append("</span>")
     }
     b.append("</div></div>")
-    val ids = (receta.carriles.map { it.id } + pasos.map { it.paso.carril }).distinct()
-    ids.forEach { id ->
-        val delCarril = pasos.filter { it.paso.carril == id }
-        if (delCarril.isNotEmpty()) filaCarril(b, receta.carril(id), id, delCarril, total)
-    }
+    filasPlan(receta).forEach { filaCarril(b, it, total) }
     b.append("<p class=\"meta\">").append(esc(textos.eje)).append("</p>")
     if (completa) prosa(b, receta.lectura, "lectura")
     b.append("</section>")
 }
 
-private fun filaCarril(
+private fun Salida.filaCarril(
     b: StringBuilder,
-    carril: Carril?,
-    id: String,
-    pasos: List<PasoOrdenado>,
+    fila: FilaPlan,
     total: Double,
 ) {
-    b.append("<div class=\"carril\"><div class=\"et\">").append(esc(carril?.nombre ?: id)).append("</div>")
-    b.append("<div class=\"pista\" style=\"background-image:").append(rejilla(total)).append("\">")
-    val color = colorCss(carril)
-    pasos.forEach {
-        val (izq, ancho) = Gantt.barra(it.paso, total, anchoMinimo = ANCHO_MINIMO_BARRA)
+    val color = colorCss(fila.rgb)
+    b.append("<div class=\"carril\"><div class=\"et\">").append(esc(fila.carril.nombre)).append("</div>")
+    b
+        .append(
+            "<div class=\"cuerpo\"><div class=\"pista\" style=\"background-image:",
+        ).append(rejilla(total))
+        .append("\">")
+    fila.pasos.forEach {
+        val (izq, ancho) = Gantt.barra(it, total, anchoMinimo = ANCHO_MINIMO_BARRA)
         b
             .append("<div class=\"barra\" style=\"left:")
             .append(pct(izq))
             .append(";width:")
             .append(pct(ancho))
         b.append(";background:$color;color:${tintaSobre(color)}\">")
-        b.append(it.n).append("</div>")
+        b.append(numeros[it.id]).append("</div>")
     }
+    b.append("</div>")
+    if (fila.fuego) perfilFuego(b, fila, color, total)
     b.append("</div></div>")
+}
+
+/** Escalones de potencia bajo la pista de un carril de fuego: la altura de cada uno es `f / 9`. */
+private fun perfilFuego(
+    b: StringBuilder,
+    fila: FilaPlan,
+    color: String,
+    total: Double,
+) {
+    b.append("<div class=\"perfil\">")
+    fila.pasos.forEach { paso ->
+        val f = paso.f ?: return@forEach
+        val (izq, ancho) = Gantt.barra(paso, total)
+        b
+            .append("<div class=\"esc\" style=\"left:")
+            .append(pct(izq))
+            .append(";width:")
+            .append(pct(ancho))
+            .append(";height:")
+            .append(pct(maxOf(alturaFuego(f), ALTURA_MIN_ESCALON)))
+            .append(";background:$color\"></div>")
+    }
+    b.append("</div>")
 }
 
 /** Rejilla cada 10 min como degradado repetido; si no cabe ninguna línea, sin rejilla. */
@@ -381,12 +420,17 @@ private fun Salida.entrada(
     b.append("</li>")
 }
 
-/** «fuego 4 · sin tapa · 5′» (o «sin fuego · 5′» si el paso no usa fuego). */
+/** «fuego 4 · sin tapa · 5′ · tras 2 · a la vez que 3» (o «sin fuego · 5′» si el paso no usa fuego). */
 private fun Salida.datosPaso(p: Paso): String =
     listOfNotNull(
         p.f?.let { textos.fuego(it) } ?: textos.sinFuego,
         OrdenPaso.textoTapa(p.tapa) ?: p.tapa?.takeIf { it.isNotBlank() }?.lowercase(),
         textos.duracion(Escalado.minutos(p.min)),
+        p.dep
+            .mapNotNull { numeros[it] }
+            .takeIf { it.isNotEmpty() }
+            ?.let { textos.tras(it.joinToString(", ")) },
+        p.junto?.let { numeros[it] }?.let { textos.juntoCon(it.toString()) },
     ).joinToString(" · ")
 
 /** Una línea de la orden con su etiqueta (METE, AVISOS, SEÑAL, SACA); [html] ya viene escapado. */
