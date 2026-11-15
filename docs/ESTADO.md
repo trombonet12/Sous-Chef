@@ -17,7 +17,7 @@
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
 | Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
 | Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **completada**: v1.7.18 (GitHub, pista interna y prueba cerrada Alpha) |
-| Ronda 19 · legibilidad del cronómetro y de los textos | **hito 1 hecho** (lotes 1-3, commits locales, pendiente de `/release` → v1.8.0); lotes 4-9 pendientes |
+| Ronda 19 · legibilidad del cronómetro y de los textos | **completada**: lotes 1-9, auditoría final con Fable y arreglos; v1.8 (ver Próxima acción) |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -193,25 +193,30 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   - convivencia con el TTS.
 
 ## Problemas conocidos / TODO
+- Para la 1.9 (auditoría final, `docs/analisis/auditoria-final-ronda19.md` §6): el carril que te necesita no crece
+  (M5) y la SEÑAL a 2 líneas (M11); regla de validador para `saco` que no es una cosa (M9); eje del diagrama vivo
+  (L1), código muerto (L3), relaciones de la franja (L5), insignia a 1,3× (L6), `mep` sin tope (L7), `entregables.md`
+  desfasado (L8); retirar CLÁSICA; la «i» de la tarjeta compacta mide 48×28 dp.
+- Recetas, sin aplicar por tocar tiempos o enlaces: `pollo-almendras:agua` (dep con 7 min de hueco),
+  `quesadillas-pollo-pimiento:calentar-aceite`, `tacos-de-fiesta:carne-2` y la cebollita de la ensalada de ñoquis.
+- Sin probar en el móvil (ronda 19): voz («Chef, info»), avisos con la pantalla apagada, Doze, muerte del proceso y
+  una cocinada real de huevos rotos (seguimiento de ADR-0018).
 - La ficha calcula «cocinando» al abrirse y cuando cambia el estado guardado: si la cocinada caduca con la ficha
   abierta horas sin tocar nada, la banda sigue hasta salir y volver (riesgo bajo, revisión de la ronda 9).
 - Sin probar en el móvil: el chip de Live Update de la fija y la pantalla completa de la alarma agrupada.
 - La alarma agrupada no se reconstruye tras la muerte del proceso (aceptado, ver decisiones.md).
-- Disposición FOCO: mucho hueco vacío en la tarjeta con pasos sin nota (se resuelve en el lote 9, disposición única).
-- Señales largas de las 32 recetas sin reescribir acaban en «…» en el cronómetro hasta el lote 8 (`sc validar --legibilidad`: 1.948 avisos).
 - Sin probar en el móvil: el diálogo al salir (ronda 7), la tarjeta compacta (ronda 8, solo emulador) y los
   cuadraditos y las listas de la v1.3 (solo emulador).
 - Worktrees en Windows: si `git worktree remove` falla con «Filename too long», se borra con
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
-Ronda 19, hito 1 hecho y sin publicar (commits locales en main, gate completo en verde con `:app:minifyReleaseWithR8`):
-lotes 1 (cronómetro: nada se mueve, `PilaPrioritaria`, arranque claro, «Llegas a las HH:mm», voz corregida), 2 (reglas
-30-36 tras `sc validar --legibilidad`, ADR-0017, esquema y skills) y 3 (piloto huevos rotos y 4 recetas por `off`).
-Capturas en `docs/capturas/v1.8-crono-*.png`. Una sola release al final: el agente sube la versión menor y hace push a main; publica el workflow. Siguiente:
-hito 2 (lote 4 ficha explicativa + lote 5 orden compuesta), hito 3 (lote 6 plan que sigue al cocinero con ADR-0018 +
-lote 7 diagrama único) e hito 4 (lote 8 las 32 recetas + lote 9 disposición única) y, al final, la auditoría completa
-con Fable (cambios, las cinco quejas y todas las recetas). Plan por lotes: `docs/analisis/legibilidad-crono-y-textos.md` §8.
+Ronda 19 completada: los 9 lotes (`docs/analisis/legibilidad-crono-y-textos.md` §8), ADR-0017 y ADR-0018, las 33
+recetas con los dos textos y la auditoría final con Fable (`docs/analisis/auditoria-final-ronda19.md`, capturas
+`docs/capturas/auditoria-final-*.png`). Arreglados antes de publicar: B1 (voz con SEÑAL vacía), B2, H1 (el plan se
+adelanta aunque el carril tuviera hueco, anexo de ADR-0018), H2, R-H1 a R-H10 (emperador a 60 °C en el centro),
+M1-M4, M6-M10, M12-M14 y L4. Publicación v1.8: `versionMinor=8` y push a main; publica el workflow (GitHub, pista
+interna y prueba cerrada). Siguiente: lo de «Para la 1.9» en Problemas conocidos y probar en el móvil.
 
 v1.7.18 publicada: GitHub, pista interna y promoción automática a la prueba cerrada (Alpha, versionCode 282). El
 primer intento (v1.7.17) falló en R8 por `review-ktx` (`-dontwarn` de `NoNullnessRewrite` en `proguard-rules.pro`);
