@@ -1,35 +1,35 @@
 package app.trombito.souschef.ui.crono
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import app.trombito.souschef.R
 import app.trombito.souschef.receta.Carril
 import app.trombito.souschef.receta.Paso
-import app.trombito.souschef.receta.TipoCarril
-import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.TextoBloques
-import app.trombito.souschef.ui.comun.nivel
+import app.trombito.souschef.ui.comun.ContextoPaso
+import app.trombito.souschef.ui.comun.DetallePaso
+import app.trombito.souschef.ui.comun.contextoPaso
+import app.trombito.souschef.ui.comun.paletaDetalleCrono
 import app.trombito.souschef.ui.theme.CronoPalette
-import app.trombito.souschef.ui.theme.colorCarrilTexto
+import java.time.Instant
+import java.time.ZoneId
 
-/** "Ver el porqué": el paso completo y enlaces a las técnicas de la receta. */
+private const val MS_MEDIO_MINUTO = 30_000L
+private const val MIN_HORA = 60
+
+/**
+ * El detalle del paso (el mismo componente que la ficha, ADR-0017): primero lo ejecutivo y después el porqué, con los
+ * enlaces a las técnicas de la receta. [contexto] da «paso i de n», «tras N» y las horas; sin él, solo lo que sale del
+ * propio paso (ver [contextoPasoCrono]).
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("LongParameterList")
 @Composable
@@ -40,6 +40,7 @@ fun PorqueSheet(
     tecnicas: Map<String, String>,
     onTecnica: (String) -> Unit,
     onCerrar: () -> Unit,
+    contexto: ContextoPaso = ContextoPaso(),
 ) {
     ModalBottomSheet(
         onDismissRequest = onCerrar,
@@ -47,66 +48,33 @@ fun PorqueSheet(
         containerColor = CronoPalette.carta,
         contentColor = CronoPalette.texto,
     ) {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .navigationBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Text(
-                "${carril.nombre} · ${minutosPaso(paso)}",
-                style = MaterialTheme.typography.labelLarge,
-                color = colorCarrilTexto(color),
-            )
-            Text(paso.t, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-            // Primero lo ejecutivo (METO, fuego y tapa, avisos, señal, SACO); después el porqué.
-            paso.meto?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_meto, CronoPalette.meto, it) }
-            val canonica = paso.f
-            if (carril.tipoCarril == TipoCarril.FUEGO && canonica != null) {
-                Text(
-                    stringResource(R.string.crono_potencia, LocalCocina.current.nivel(canonica)),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-            paso.tapa?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_tapa, CronoPalette.tapa, it) }
-            val hitos = paso.hitosValidos
-            if (hitos.isNotEmpty()) {
-                Text(
-                    stringResource(R.string.crono_porque_hitos),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = CronoPalette.acento,
-                )
-                hitos.forEach {
-                    Text("${formatoReloj(it.en.toInt())} · ${it.t}", style = MaterialTheme.typography.bodyMedium)
-                }
-            }
-            paso.nota?.takeIf { it.isNotBlank() }?.let {
-                LineaEtiquetada(R.string.crono_senal, CronoPalette.acento, it)
-            }
-            paso.saco?.takeIf { it.isNotBlank() }?.let { LineaEtiquetada(R.string.crono_saco, CronoPalette.saco, it) }
-            paso.p?.takeIf { it.isNotBlank() }?.let { PorquePorBloques(it) }
-            tecnicas.forEach { (slug, titulo) ->
-                TextButton(onClick = {
-                    onCerrar()
-                    onTecnica(slug)
-                }) {
-                    Text(stringResource(R.string.crono_tecnica_enlace, titulo), color = CronoPalette.acento)
-                }
-            }
-        }
+        DetallePaso(
+            paso = paso,
+            carrilNombre = carril.nombre,
+            tipoCarril = carril.tipoCarril,
+            contexto = contexto,
+            paleta = paletaDetalleCrono(color),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .navigationBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+            tecnicas = tecnicas,
+            onTecnica = {
+                onCerrar()
+                onTecnica(it)
+            },
+        )
     }
 }
 
-/** «POR QUÉ» y el texto `p` en párrafos y listas (ADR-0017). */
-@Composable
-private fun PorquePorBloques(p: String) {
-    Text(
-        stringResource(R.string.crono_porque_titulo),
-        Modifier.padding(top = 6.dp),
-        style = MaterialTheme.typography.labelLarge,
-        color = CronoPalette.apagado,
-    )
-    TextoBloques(p, style = MaterialTheme.typography.bodyLarge)
+/** El [ContextoPaso] de [paso] con las horas del plan de la cocina (`servir − total + off`, como el motor). */
+fun contextoPasoCrono(
+    datos: DatosCrono,
+    paso: Paso,
+): ContextoPaso {
+    val totalMs = Math.round(datos.receta.totalEfectivo * 2) * MS_MEDIO_MINUTO
+    val inicio = Instant.ofEpochMilli(datos.estado.servirMs - totalMs).atZone(ZoneId.systemDefault())
+    return contextoPaso(datos.recetaUi, paso, inicio.hour * MIN_HORA + inicio.minute)
 }

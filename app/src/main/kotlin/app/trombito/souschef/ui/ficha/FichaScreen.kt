@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -104,8 +107,9 @@ fun FichaScreen(
 }
 
 /**
- * La ficha en capas: cabecera fija (título, raciones, hora, cronómetro) y cinco pestañas con su propio scroll. Es
- * estado y callbacks, sin ViewModel, para poder probarla.
+ * La ficha en capas. Fijos quedan la barra de título (atrás, favorita, imprimir) y el botón «Empezar a cocinar»; las
+ * raciones, la hora, las pestañas y su contenido se desplazan juntos, cada pestaña con su posición. Es estado y
+ * callbacks, sin ViewModel, para poder probarla.
  */
 @Composable
 fun FichaContenido(
@@ -114,19 +118,31 @@ fun FichaContenido(
 ) {
     val receta = estado.receta ?: return
     var elegida by rememberSaveable { mutableIntStateOf(0) }
+    val scrolls = List(PestanaFicha.entries.size) { rememberScrollState() }
     CompositionLocalProvider(LocalCocina provides estado.cocina) {
         Column(Modifier.fillMaxSize()) {
-            CabeceraFicha(estado, receta, acciones)
-            BarraPestanas(PestanaFicha.entries[elegida]) { elegida = it.ordinal }
-            // La hoja es papel siempre, también con el tema oscuro del sistema.
-            Surface(
-                modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = 12.dp, vertical = 8.dp),
-                shape = MaterialTheme.shapes.medium,
-                color = FichaPalette.papel,
-                contentColor = FichaPalette.tinta,
-            ) {
-                ContenidoPestana(PestanaFicha.entries[elegida], receta, estado, acciones.onTecnica, acciones.onAnotar)
+            BarraFicha(estado, receta, acciones)
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(scrolls[elegida])) {
+                FilaControles(estado, receta, acciones)
+                estado.cocinando?.let { BandaCocinando(it) }
+                BarraPestanas(PestanaFicha.entries[elegida]) { elegida = it.ordinal }
+                // La hoja es papel siempre, también con el tema oscuro del sistema.
+                Surface(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                    shape = MaterialTheme.shapes.medium,
+                    color = FichaPalette.papel,
+                    contentColor = FichaPalette.tinta,
+                ) {
+                    ContenidoPestana(
+                        PestanaFicha.entries[elegida],
+                        receta,
+                        estado,
+                        acciones.onTecnica,
+                        acciones.onAnotar,
+                    )
+                }
             }
+            BotonCocinar(estado, acciones)
         }
     }
 }
@@ -160,46 +176,41 @@ private fun DialogoAbandonarDesdeFicha(
     )
 }
 
-/** Lo que no se mueve al leer: título, favorita, imprimir, raciones, hora, cronómetro y la banda «Cocinando». */
+/** Barra fija: título, favorita, «quiero hacerla» e imprimir. */
 @Composable
-private fun CabeceraFicha(
+private fun BarraFicha(
     estado: FichaUiState,
     receta: Receta,
     acciones: AccionesFicha,
 ) {
-    Column {
-        val contexto = LocalContext.current
-        val nombrePdf = stringResource(R.string.ficha_pdf_nombre, receta.titulo)
-        BarraTitulo(receta.titulo, acciones.onAtras) {
-            IconButton(onClick = acciones.onFavorita) {
-                val nombre =
-                    stringResource(
-                        if (estado.favorita) R.string.favorita_quitar else R.string.favorita_marcar,
-                        receta.titulo,
-                    )
-                val esquema = MaterialTheme.colorScheme
-                Icon(
-                    if (estado.favorita) Icono.EstrellaLlena.vector else Icono.Estrella.vector,
-                    contentDescription = nombre,
-                    tint = if (estado.favorita) esquema.primary else esquema.onSurfaceVariant,
+    val contexto = LocalContext.current
+    val nombrePdf = stringResource(R.string.ficha_pdf_nombre, receta.titulo)
+    BarraTitulo(receta.titulo, acciones.onAtras) {
+        IconButton(onClick = acciones.onFavorita) {
+            val nombre =
+                stringResource(
+                    if (estado.favorita) R.string.favorita_quitar else R.string.favorita_marcar,
+                    receta.titulo,
                 )
-            }
-            BotonQuiereHacerla(estado.quiereHacerla, acciones.onQuiereHacerla)
-            IconButton(
-                onClick = {
-                    imprimirFicha(
-                        contexto,
-                        nombrePdf,
-                        fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
-                    )
-                },
-            ) {
-                Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
-            }
+            val esquema = MaterialTheme.colorScheme
+            Icon(
+                if (estado.favorita) Icono.EstrellaLlena.vector else Icono.Estrella.vector,
+                contentDescription = nombre,
+                tint = if (estado.favorita) esquema.primary else esquema.onSurfaceVariant,
+            )
         }
-        FilaControles(estado, receta, acciones)
-        BotonCocinar(estado, acciones)
-        estado.cocinando?.let { BandaCocinando(it) }
+        BotonQuiereHacerla(estado.quiereHacerla, acciones.onQuiereHacerla)
+        IconButton(
+            onClick = {
+                imprimirFicha(
+                    contexto,
+                    nombrePdf,
+                    fichaHtml(receta, estado.raciones, TextosFicha.desde(contexto, estado.cocina)),
+                )
+            },
+        ) {
+            Icon(Icono.Imprimir.vector, contentDescription = stringResource(R.string.ficha_imprimir))
+        }
     }
 }
 
@@ -324,7 +335,7 @@ private fun BotonCocinar(
     estado: FichaUiState,
     acciones: AccionesFicha,
 ) {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
+    Row(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
         Button(
             onClick = { acciones.onCocinar(estado.raciones, Servir.formato(estado.servirMin)) },
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),

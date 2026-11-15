@@ -142,7 +142,7 @@ class FichaPestanasTest {
     }
 
     @Test
-    fun `el filtro por carril reduce la lista y tocar un paso abre la hoja con el p`() {
+    fun `el filtro por carril reduce la lista y los pasos salen desplegados por orden de reloj`() {
         val banco = pintar()
         banco.ir("pasos")
         assertEquals(listOf("ficha-paso-p1", "ficha-paso-p2", "ficha-paso-p3"), banco.etiquetas("ficha-paso-"))
@@ -153,13 +153,55 @@ class FichaPestanasTest {
         banco.pulsar(banco.conEtiqueta("ficha-filtro-todos"))
         assertEquals(3, banco.etiquetas("ficha-paso-").size)
 
-        assertFalse(banco.textos().contains("Hasta que esté transparente"))
-        banco.pulsar(banco.conEtiqueta("ficha-paso-p1"))
+        // Sin tocar nada: el porqué, el aviso, lo que entra y lo que sale ya están en pantalla.
         val textos = banco.textos()
         assertTrue(textos.toString(), textos.contains("Hasta que esté transparente"))
-        assertTrue(textos.toString(), textos.contains("+2:30 Dale la vuelta"))
-        assertTrue(textos.toString(), textos.contains("Entra: Cebolla"))
-        assertTrue(textos.toString(), textos.contains("Sale: Nada"))
+        assertTrue(textos.toString(), textos.contains("02:30"))
+        assertTrue(textos.toString(), textos.contains("Dale la vuelta"))
+        assertTrue(textos.toString(), textos.contains("Cebolla"))
+        assertTrue(textos.toString(), textos.contains("Nada"))
+        assertTrue(textos.toString(), textos.contains("METE"))
+        assertTrue(textos.toString(), textos.contains("SACA"))
+        assertTrue(textos.toString(), textos.contains("SEÑAL"))
+        assertTrue(textos.toString(), textos.contains("POR QUÉ"))
+    }
+
+    @Test
+    fun `solo ordenes pliega los porques y deja las ordenes`() {
+        val banco = pintar()
+        banco.ir("pasos")
+        assertTrue(banco.textos().contains("Hasta que esté transparente"))
+
+        banco.pulsar(banco.conEtiqueta("ficha-solo-ordenes"))
+
+        val textos = banco.textos()
+        assertFalse(textos.toString(), textos.contains("Hasta que esté transparente"))
+        assertFalse(textos.toString(), textos.contains("POR QUÉ"))
+        assertTrue(textos.toString(), textos.contains("METE"))
+        assertTrue(textos.toString(), textos.contains("Dale la vuelta"))
+    }
+
+    @Test
+    fun `los pasos de la ficha van por orden de reloj aunque el array no lo sea`() {
+        val desordenada =
+            receta.copy(
+                pasos =
+                    listOf(
+                        Paso("b", "Segundo", "m", 5.0, 2.0),
+                        Paso("a", "Primero", "m", 0.0, 4.0),
+                    ),
+            )
+        val banco = BancoFicha()
+        banco.poner {
+            MaterialTheme {
+                FichaContenido(
+                    FichaUiState(cargando = false, receta = desordenada),
+                    AccionesFicha({}, {}, { _, _ -> }, {}, {}, {}, {}),
+                )
+            }
+        }
+        banco.ir("pasos")
+        assertEquals(listOf("ficha-paso-a", "ficha-paso-b"), banco.etiquetas("ficha-paso-"))
     }
 
     @Test

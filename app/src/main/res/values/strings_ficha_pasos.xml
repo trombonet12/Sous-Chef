@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Detalle de paso: el mismo componente en la ficha y en el cronómetro -->
+    <string name="detalle_paso_de">paso %1$d de %2$d</string>
+    <string name="detalle_min_rango">min %1$s-%2$s</string>
+    <string name="detalle_horas">(%1$s-%2$s)</string>
+    <string name="detalle_mete">METE</string>
+    <string name="detalle_fuego">FUEGO</string>
+    <string name="detalle_tiempo">TIEMPO</string>
+    <string name="detalle_avisos">AVISOS</string>
+    <string name="detalle_senal">SEÑAL</string>
+    <string name="detalle_saca">SACA</string>
+    <string name="detalle_porque">POR QUÉ</string>
+    <string name="detalle_sin_avisos">Sin avisos: %1$s</string>
+    <string name="detalle_fuego_cambia">%1$s → %2$s</string>
+    <string name="detalle_tras">tras %1$s</string>
+    <string name="detalle_a_la_vez">a la vez que %1$s</string>
+    <string name="detalle_referencia">%1$d (%2$s)</string>
+    <string name="detalle_no_espera">no espera</string>
+    <string name="detalle_ajustado">ajustado</string>
+    <string name="detalle_tecnica">Técnica: %1$s</string>
+
+    <!-- Ficha, pestaña Pasos -->
+    <string name="ficha_pasos_solo_ordenes">Solo órdenes</string>
+    <string name="ficha_pasos_solo_ordenes_ayuda">Oculta el porqué de cada paso</string>
+</resources>

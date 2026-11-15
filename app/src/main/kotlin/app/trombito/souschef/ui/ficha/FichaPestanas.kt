@@ -1,13 +1,10 @@
 package app.trombito.souschef.ui.ficha
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
@@ -43,7 +40,8 @@ fun BarraPestanas(
 }
 
 /**
- * Contenido de la pestaña elegida. Cada pestaña conserva su scroll y lo que se haya desplegado en ella al ir y volver.
+ * Contenido de la pestaña elegida, sin scroll propio: lo da la ficha entera (la cabecera se desplaza con él). Cada
+ * pestaña conserva lo que se haya desplegado en ella al ir y volver.
  */
 @Composable
 fun ContenidoPestana(
@@ -54,13 +52,16 @@ fun ContenidoPestana(
     onAnotar: (LocalDateTime, Int, String) -> Unit = { _, _, _ -> },
 ) {
     val guardado = rememberSaveableStateHolder()
-    val scrolls = List(PestanaFicha.entries.size) { rememberScrollState() }
-    val scroll = scrolls[elegida.ordinal]
     guardado.SaveableStateProvider(elegida.name) {
         if (elegida == PestanaFicha.PASOS && receta.pasos.isNotEmpty()) {
-            PestanaPasos(receta, scroll)
+            PestanaPasos(
+                receta = receta,
+                inicioPlanMin = Servir.inicio(estado.servirMin, receta),
+                tecnicas = estado.tecnicas.associate { it.slug to it.titulo },
+                onTecnica = onTecnica,
+            )
         } else {
-            CuerpoPestana(scroll, elegida) { CuerpoDe(elegida, receta, estado, onTecnica, onAnotar) }
+            CuerpoPestana(elegida) { CuerpoDe(elegida, receta, estado, onTecnica, onAnotar) }
         }
     }
 }
@@ -98,18 +99,16 @@ private fun SiHay(
     }
 }
 
-/** Columna con scroll propio de la pestaña; la etiqueta de prueba es `ficha-<pestaña>`. */
+/** Columna de la pestaña; la etiqueta de prueba es `ficha-<pestaña>`. */
 @Composable
 private fun CuerpoPestana(
-    scroll: ScrollState,
     pestana: PestanaFicha,
     contenido: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
         Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .testTag("ficha-${pestana.name.lowercase()}")
-            .verticalScroll(scroll)
             .padding(horizontal = Espacio.l, vertical = Espacio.m),
         verticalArrangement = Arrangement.spacedBy(Espacio.m),
         content = contenido,

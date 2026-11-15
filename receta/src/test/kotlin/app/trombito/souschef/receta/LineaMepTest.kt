@@ -24,7 +24,7 @@ class LineaMepTest {
     }
 
     @Test
-    fun tomaElPrimerMinutoNombrado() {
+    fun tomaElMinutoDeEntradaNoElPrimeroNombrado() {
         val l =
             LineaMep.parse(
                 "<b>Zanahoria · 150 g (1 grande)</b> · pelada, en bastones de 4 mm y 5 cm de largo. " +
@@ -86,5 +86,38 @@ class LineaMepTest {
         val l = LineaMep.parse("<b>Harina</b> · 50 g, tamizada. Minuto 5 no vale; 4 minutos tampoco.")
         assertEquals("Harina", l.cabecera)
         assertNull(l.minuto)
+    }
+
+    @Test
+    fun jamonMarcaCuandoEntraEnLaSartenNoCuandoSeRasga() {
+        val l =
+            LineaMep.parse(
+                "<b>Jamón serrano · 80 g (unas 5 lonchas)</b> · rasgado a mano en trozos de unos 3 cm. " +
+                    "Se rasga en el minuto 12, con la patata friéndose. Entra en la sartén pequeña en el minuto 30.",
+            )
+        assertEquals(30, l.minuto)
+    }
+
+    @Test
+    fun conVariasEntradasTomaLaUltimaYUnaAccionPosteriorNoLaPisa() {
+        val l =
+            LineaMep.parse(
+                "<b>Taza</b> · 4 g de azúcar. Entran en el minuto 21 con el tomate; recoge aceite en el minuto 38.",
+            )
+        assertEquals(21, l.minuto)
+        val dos = LineaMep.parse("<b>Agua</b> · 150 ml. Entra en el minuto 10; entran más en el minuto 22.")
+        assertEquals(22, dos.minuto)
+    }
+
+    @Test
+    fun sinPalabraEntraTomaElUltimoMinuto() {
+        val l = LineaMep.parse("<b>Bol</b> · 120 g de patata (minuto 3) + 350 g de calabacín (minuto 6); a la olla.")
+        assertEquals(6, l.minuto)
+    }
+
+    @Test
+    fun palabrasQueContienenEntraNoCuentan() {
+        val l = LineaMep.parse("<b>Pan</b> · concentra el sabor en el minuto 5; entrante aparte en el minuto 9.")
+        assertEquals(9, l.minuto)
     }
 }

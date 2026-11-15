@@ -39,6 +39,7 @@ import app.trombito.souschef.ui.comun.textoRico
 import app.trombito.souschef.ui.crono.AccionesCarril
 import app.trombito.souschef.ui.crono.DatosCrono
 import app.trombito.souschef.ui.crono.PorqueSheet
+import app.trombito.souschef.ui.crono.contextoPasoCrono
 import app.trombito.souschef.ui.crono.formatoHora
 import app.trombito.souschef.ui.crono.formatoReloj
 import app.trombito.souschef.ui.crono.minutosPaso
@@ -180,7 +181,17 @@ private fun Porque(
         color = CronoPalette.acento,
         style = MaterialTheme.typography.labelLarge,
     )
-    if (abierto) PorqueSheet(paso, carril, datos.color(carril.id), tecnicas, onTecnica) { abierto = false }
+    if (abierto) {
+        PorqueSheet(
+            paso,
+            carril,
+            datos.color(carril.id),
+            tecnicas,
+            onTecnica,
+            onCerrar = { abierto = false },
+            contexto = contextoPasoCrono(datos, paso),
+        )
+    }
 }
 
 @Composable

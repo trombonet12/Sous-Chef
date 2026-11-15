@@ -1,80 +1,111 @@
 package app.trombito.souschef.ui.ficha
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
-import app.trombito.souschef.receta.Escalado
 import app.trombito.souschef.receta.Paso
 import app.trombito.souschef.receta.Receta
 import app.trombito.souschef.receta.TipoCarril
-import app.trombito.souschef.ui.comun.LocalCocina
-import app.trombito.souschef.ui.comun.Tabular
-import app.trombito.souschef.ui.comun.nivel
-import app.trombito.souschef.ui.comun.textoRico
-import app.trombito.souschef.ui.crono.recursoTapa
+import app.trombito.souschef.ui.comun.DetallePaso
+import app.trombito.souschef.ui.comun.contextoPaso
+import app.trombito.souschef.ui.comun.paletaDetalleFicha
+import app.trombito.souschef.ui.comun.pasosPorReloj
 import app.trombito.souschef.ui.theme.FichaPalette
 
 private const val TODOS = ""
 
-/** Pasos: filtro por carril fijo arriba y una fila compacta por paso; el paso entero sale en una hoja. */
+/**
+ * Pasos como lectura: todos desplegados, por orden de reloj, con el mismo detalle que el cronómetro. El filtro por
+ * carril se conserva y «Solo órdenes» pliega los porqués para un repaso rápido. No lleva scroll propio: lo da la
+ * ficha entera. [inicioPlanMin] es la hora de empezar (servir − total) para enseñar las horas de cada paso.
+ */
 @Composable
 fun PestanaPasos(
     receta: Receta,
-    scroll: ScrollState,
+    inicioPlanMin: Int? = null,
+    tecnicas: Map<String, String> = emptyMap(),
+    onTecnica: (String) -> Unit = {},
 ) {
     var filtro by rememberSaveable { mutableStateOf(TODOS) }
-    var abierto by rememberSaveable { mutableStateOf<String?>(null) }
-    val visibles = receta.pasos.withIndex().filter { filtro == TODOS || it.value.carril == filtro }
-    Column(Modifier.fillMaxSize().testTag("ficha-pasos")) {
+    var soloOrdenes by rememberSaveable { mutableStateOf(false) }
+    val porReloj = remember(receta) { pasosPorReloj(receta) }
+    val visibles = porReloj.filter { filtro == TODOS || it.carril == filtro }
+    Column(Modifier.fillMaxWidth().testTag("ficha-pasos")) {
         FiltrosCarril(receta, filtro) { filtro = it }
-        Column(Modifier.weight(1f).verticalScroll(scroll).padding(horizontal = 16.dp)) {
-            visibles.forEach { (i, paso) ->
-                FilaPaso(i + 1, paso, receta) { abierto = paso.id }
+        InterruptorSoloOrdenes(soloOrdenes) { soloOrdenes = it }
+        Column(Modifier.padding(horizontal = 16.dp)) {
+            visibles.forEach { paso ->
+                PasoDesplegado(paso, receta, inicioPlanMin, soloOrdenes)
                 HorizontalDivider(color = FichaPalette.linea)
+            }
+            tecnicas.forEach { (slug, titulo) ->
+                TextButton(onClick = { onTecnica(slug) }) {
+                    Text(stringResource(R.string.detalle_tecnica, titulo), color = MaterialTheme.colorScheme.primary)
+                }
             }
         }
     }
-    receta.paso(abierto.orEmpty())?.let { PasoSheet(it, receta) { abierto = null } }
+}
+
+@Composable
+private fun InterruptorSoloOrdenes(
+    activo: Boolean,
+    onCambio: (Boolean) -> Unit,
+) {
+    Row(
+        Modifier
+            .testTag("ficha-solo-ordenes")
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .toggleable(value = activo, role = Role.Switch, onValueChange = onCambio)
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(stringResource(R.string.ficha_pasos_solo_ordenes), style = MaterialTheme.typography.titleSmall)
+            Text(
+                stringResource(R.string.ficha_pasos_solo_ordenes_ayuda),
+                style = MaterialTheme.typography.bodySmall,
+                color = FichaPalette.meta,
+            )
+        }
+        Switch(checked = activo, onCheckedChange = null)
+    }
 }
 
 @Composable
@@ -109,128 +140,33 @@ private fun FiltrosCarril(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+/** Un paso con su franja del color del carril y el [DetallePaso] entero (o solo las órdenes). */
 @Composable
-private fun FilaPaso(
-    numero: Int,
+private fun PasoDesplegado(
     paso: Paso,
     receta: Receta,
-    onAbrir: () -> Unit,
+    inicioPlanMin: Int?,
+    soloOrdenes: Boolean,
 ) {
     val carril = receta.carril(paso.carril)
-    val alTocar = stringResource(R.string.ficha_paso_abrir)
     Row(
         Modifier
             .testTag("ficha-paso-${paso.id}")
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .heightIn(min = 48.dp)
-            .clickable(onClickLabel = alTocar, onClick = onAbrir)
-            .padding(vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+            .padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Box(Modifier.width(4.dp).fillMaxHeight().background(PaletaPapel.colorDe(carril), RoundedCornerShape(2.dp)))
-        Text("$numero.", Modifier.width(28.dp), style = MaterialTheme.typography.titleSmall.merge(Tabular))
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Row {
-                Text(paso.t, Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                Text(
-                    stringResource(R.string.ficha_duracion, Escalado.minutos(paso.min)),
-                    Modifier.padding(start = 8.dp),
-                    style = MaterialTheme.typography.labelLarge.merge(Tabular),
-                    color = FichaPalette.meta,
-                )
-            }
-            val fuego = paso.f?.takeIf { carril?.tipoCarril == TipoCarril.FUEGO }
-            val tapa = recursoTapa(paso.tapa)?.let { stringResource(it) }
-            if (fuego != null || tapa != null) {
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    fuego?.let { ChipPapel(stringResource(R.string.ficha_fuego_bajo, LocalCocina.current.nivel(it))) }
-                    tapa?.let { ChipPapel(it) }
-                }
-            }
-            paso.nota?.takeIf { it.isNotBlank() }?.let {
-                Text(
-                    textoRico(it),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = FichaPalette.tinta2,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-        }
+        DetallePaso(
+            paso = paso,
+            carrilNombre = carril?.nombre ?: paso.carril,
+            tipoCarril = carril?.tipoCarril ?: TipoCarril.MESA,
+            contexto = contextoPaso(receta, paso, inicioPlanMin),
+            paleta = paletaDetalleFicha(),
+            modifier = Modifier.weight(1f),
+            conPorque = !soloOrdenes,
+            cuerpo = MaterialTheme.typography.bodyMedium,
+        )
     }
-}
-
-/** El paso entero: `p`, la nota, los hitos y lo que entra y sale. */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun PasoSheet(
-    paso: Paso,
-    receta: Receta,
-    onCerrar: () -> Unit,
-) {
-    ModalBottomSheet(
-        onDismissRequest = onCerrar,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = FichaPalette.papel,
-        contentColor = FichaPalette.tinta,
-    ) {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .navigationBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Text(lineaMetaPaso(paso, receta), style = MaterialTheme.typography.labelMedium, color = FichaPalette.meta)
-            Text(paso.t, style = MaterialTheme.typography.headlineSmall)
-            paso.p?.takeIf { it.isNotBlank() }?.let { Text(textoRico(it), style = MaterialTheme.typography.bodyLarge) }
-            paso.nota?.takeIf { it.isNotBlank() }?.let {
-                Text(
-                    textoRico(it),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontStyle = FontStyle.Italic,
-                    color = FichaPalette.tinta2,
-                )
-            }
-            val hitos = paso.hitosValidos
-            if (hitos.isNotEmpty()) {
-                Text(stringResource(R.string.ficha_paso_hitos), style = MaterialTheme.typography.labelLarge)
-                hitos.forEach {
-                    Text(
-                        "${formatoHito(it.en)} ${it.t}",
-                        style = MaterialTheme.typography.bodyMedium.merge(Tabular),
-                        color = FichaPalette.tinta2,
-                    )
-                }
-            }
-            paso.meto?.takeIf { it.isNotBlank() }?.let { Text(stringResource(R.string.ficha_paso_entra, it)) }
-            paso.saco?.takeIf { it.isNotBlank() }?.let { Text(stringResource(R.string.ficha_paso_sale, it)) }
-        }
-    }
-}
-
-/** "SARTÉN · 12 MIN · FUEGO 8 · SIN TAPA". */
-@Composable
-fun lineaMetaPaso(
-    paso: Paso,
-    receta: Receta,
-): String {
-    val cocina = LocalCocina.current
-    val partes =
-        buildList {
-            add((receta.carril(paso.carril)?.nombre ?: paso.carril).uppercase())
-            add(stringResource(R.string.ficha_minutos_meta, Escalado.minutos(paso.min)).uppercase())
-            add(
-                paso.f?.let { stringResource(R.string.ficha_fuego_meta, cocina.nivel(it).uppercase()) }
-                    ?: stringResource(R.string.ficha_sin_fuego),
-            )
-            paso.tapa?.takeIf { it.isNotBlank() }?.let { add(it.uppercase()) }
-        }
-    return partes.joinToString(" · ")
 }
