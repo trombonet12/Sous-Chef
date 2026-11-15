@@ -60,3 +60,10 @@ Falla: el recipiente es `mep`; «al {6}» es la potencia de `f`; «así la grasa
 - `scripts/sc validar --legibilidad <slug>` sin avisos y `scripts/sc validar --estricto <slug>` a 0/0.
 - Lee `t` + METE + SEÑAL + SACA seguidos, como los verá Joan: tienen que sonar a una orden.
 - Si la `nota` queda vacía, es correcto: no hay nada que vigilar.
+
+## Trampa de `meto` y `saco`: el origen
+La app toma como recipiente de origen lo que va delante del primer «: » si no empieza por cifra («la fuente: 500 g de
+patata» → «500 g de patata · la fuente»). No pongas ahí condiciones ni repartos: «si no espesa: 3 g de maicena» o
+«por bolsa: 22 ml de soja» se leen mal en la notificación y en la voz. Escribe «3 g de maicena, solo si no espesa» o
+«22 ml de salsa de soja por bolsa». Lo que haya que hacer antes de empezar el paso va en `meto` o en el paso anterior,
+no en la `nota` (la señal se ve con el paso en marcha).
