@@ -482,3 +482,8 @@ Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan 
   (aprobado por Joan). Además: romper las yemas en el montaje, «salas la patata» en vez de «cascas el primer huevo»
   (los huevos no se cascan antes del 42) y el aceite antes que el padrón en `meto`. Pendiente de vigilar al
   cocinarla: la subida del {6} al {8} del padrón solo la enseña el chip de fuego.
+- **Publicación (cambio, 2026-11-15):** una sola release al final de la ronda 19, en lugar de una por hito. La skill
+  `release` solo se lanza a mano (`/release`): el agente lo deja todo commiteado y con el gate en verde.
+- **Guarda mecánica** `scripts/guarda-recetas.mjs [--base ref] [slug…]`: compara con git y falla si cambia algo que no
+  sea texto (carril, off, min, s, f, tapa, holgura, dep, junto, grupos, carriles, escala, tags, svg de cortes, pasos
+  nuevos o borrados, orden por `off`). Los cambios en `hitos[].en` salen como AVISO y hay que justificarlos.

@@ -208,7 +208,7 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
 Ronda 19, hito 1 hecho y sin publicar (commits locales en main, gate completo en verde con `:app:minifyReleaseWithR8`):
 lotes 1 (cronómetro: nada se mueve, `PilaPrioritaria`, arranque claro, «Llegas a las HH:mm», voz corregida), 2 (reglas
 30-36 tras `sc validar --legibilidad`, ADR-0017, esquema y skills) y 3 (piloto huevos rotos y 4 recetas por `off`).
-Capturas en `docs/capturas/v1.8-crono-*.png`. **Siguiente: Joan lanza `/release` (v1.8.0, versión menor)**; después,
+Capturas en `docs/capturas/v1.8-crono-*.png`. Una sola release al final (Joan lanza `/release`). Siguiente:
 hito 2 (lote 4 ficha explicativa + lote 5 orden compuesta), hito 3 (lote 6 plan que sigue al cocinero con ADR-0018 +
 lote 7 diagrama único) e hito 4 (lote 8 las 32 recetas + lote 9 disposición única) y, al final, la auditoría completa
 con Fable (cambios, las cinco quejas y todas las recetas). Plan por lotes: `docs/analisis/legibilidad-crono-y-textos.md` §8.
