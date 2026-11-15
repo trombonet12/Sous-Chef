@@ -16,7 +16,7 @@
   ],
   "cortes": [
     {
-      "p": "El pelador va de polo a polo, siguiendo la curva del limón y sin apretar, en tiras de unos 2 cm de ancho. Así sale solo la capa amarilla, donde están las glándulas del aceite esencial, y no lo blanco, que amarga en la leche caliente. Tiras anchas y largas porque se pescan enteras antes de templar; en ralladura se quedarían en la crema y el colador tendría que sacarlas.",
+      "p": "El pelador va de polo a polo, siguiendo la curva y sin apretar, en tiras de unos 2 cm: sale solo la capa amarilla, con el aceite esencial, y no lo blanco, que amarga en la leche caliente. Anchas y largas, porque se pescan enteras.",
       "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Limón visto de lado, de polo a polo, con la piel sacada en tiras de 2 cm a lo largo\"><ellipse cx=\"60\" cy=\"40\" rx=\"46\" ry=\"28\" fill=\"#F2D64B\" fill-opacity=\".3\" stroke=\"#C9A81E\"/><path d=\"M14 40 L8 40\" stroke=\"#C9A81E\" stroke-width=\"2\"/><path d=\"M106 40 L112 40\" stroke=\"#C9A81E\" stroke-width=\"2\"/><g fill=\"#C9A81E\" opacity=\".6\"><circle cx=\"40\" cy=\"30\" r=\"1\"/><circle cx=\"70\" cy=\"24\" r=\"1\"/><circle cx=\"84\" cy=\"50\" r=\"1\"/><circle cx=\"48\" cy=\"54\" r=\"1\"/></g><g stroke=\"#17150F\" stroke-width=\"1.3\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 40 Q60 6 106 40\"/><path d=\"M14 40 Q60 22 106 40\"/><path d=\"M14 40 Q60 38 106 40\"/><path d=\"M14 40 Q60 56 106 40\"/></g><text x=\"60\" y=\"82\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">tiras de 2 cm, de polo a polo</text></svg>",
       "t": "Limón · piel en tiras de 2 cm, sin lo blanco"
     }
@@ -40,7 +40,7 @@
       "pasos"
     ]
   ],
-  "descripcion": "Natillas caseras de leche desnatada con un poco de nata y seis yemas, aromatizadas con piel de limón, cuajadas al fuego sin hervir y sin maicena, con una galleta María encima que se ablanda en la nevera y canela molida al servir. La dificultad está en dos minutos: sacar el cazo de la placa cuando la crema napa la cuchara, hacia los 80-82 °C, y no un grado más, porque hacia los 85 °C se corta.",
+  "descripcion": "Natillas de leche desnatada, nata y seis yemas, con limón y galleta María. Lo difícil son dos minutos: sacar el cazo cuando la crema napa la cuchara, hacia los 80-82 °C, y no un grado más.",
   "escala": {
     "max": 4,
     "min": 2,
@@ -99,7 +99,7 @@
       "n": "VASITOS · ENCIMA"
     }
   ],
-  "lectura": "Un solo fuego, el mediano, encendido entre los minutos 3 y 9 y otra vez entre el 17 y el 23, con el cazo tapado y fuera de la placa entre medias. Tramos: 3 de preparar + 6 de calentar + 6 de infusionar + 2 de templar + 6 de cuajar + 2 de repartir + 10 de enfriar = 35 minutos. La mesa trabaja mientras la leche sube: separa las yemas entre los minutos 3 y 7, y las bate con el azúcar hasta el 9. Las 2 horas de nevera van aparte, como en el arroz con leche.",
+  "lectura": "La cuenta: 3 de preparar + 6 de calentar + 6 de infusionar + 2 de templar + 6 de cuajar + 2 de repartir + 10 de enfriar = 35 minutos.\n\n- Un solo fuego, el mediano: entre los minutos 3 y 9 y entre el 17 y el 23, con el cazo tapado y fuera de la placa entre medias.\n- La mesa trabaja mientras la leche sube: las yemas se separan entre los minutos 3 y 7 y se baten con el azúcar hasta el minuto 9.\n- Las 2 horas de nevera van aparte, como en el arroz con leche.\n\nLo que gobierna el plan: sacar el cazo cuando la crema napa, sin esperar al reloj.",
   "mep": [
     {
       "l": [
@@ -134,21 +134,21 @@
       "t": "LOS RECIPIENTES"
     }
   ],
-  "notaEscala": "Va a 4 raciones por defecto, y admite 2 con el mismo cazo y los mismos pasos: son 3 yemas, 200 ml de leche y 50 ml de nata. Con 2 la leche humea y la crema napa un par de minutos antes de lo que marca el reloj: manda la señal, no el cronómetro. No va de una en una porque las yemas salen a 1,5 por ración, y no pasa de 4 porque con más de medio litro la crema tarda bastante más en llegar a 80 °C y el plan se descuadra. El azúcar y las yemas sí escalan en línea recta; la canela, no.",
+  "notaEscala": "- Va a 4 raciones por defecto y admite 2 con el mismo cazo y los mismos pasos: 3 yemas, 200 ml de leche y 50 ml de nata.\n- Con 2, la leche humea y la crema napa un par de minutos antes de lo que marca el reloj: manda la señal, no el cronómetro.\n- No va de una en una porque las yemas salen a 1,5 por ración; y no pasa de 4 porque con más de medio litro la crema tarda bastante más en llegar a 80 °C.\n- El azúcar y las yemas escalan en línea recta; la canela, no.",
   "pasos": [
     {
       "carril": "mesa",
       "f": null,
       "holgura": "flexible",
       "id": "preparar",
-      "meto": "cazo en frío: 400 ml de leche desnatada + 100 ml de nata para cocinar + la piel de 1 limón en tiras de 2 cm",
+      "meto": "400 ml de leche, al cazo en frío + 100 ml de nata, al cazo + la piel de 1 limón, al cazo + 100 g de azúcar, a un vasito",
       "min": 3,
-      "nota": "Mide en el vaso medidor primero la leche y después la nata, y al cazo. Lava y seca el limón y saca la piel con el pelador, de polo a polo, en tiras de 2 cm sin lo blanco; al cazo con la leche. Pesa el azúcar en uno de los 4 vasitos.",
+      "nota": "Tiras de piel sin nada blanco pegado.",
       "off": 0,
-      "p": "La leche se mide primero y la nata después porque la grasa de la nata deja una película en el vaso, y así no hay que lavarlo entre una y otra. Con el pelador y sin apretar sale solo la capa amarilla del limón, donde están las glándulas del aceite esencial; lo blanco amarga. La piel entra con la leche fría porque su aroma pasa a medida que se calienta, y aquí la nata ayuda: ese aceite se disuelve en grasa, y la desnatada sola casi no tiene.",
+      "p": "La leche se mide primero y la nata después, porque la grasa de la nata deja una película en el vaso y así no hay que lavarlo entre una y otra.\n\nCon el pelador y sin apretar sale solo la capa amarilla del limón, donde está el aceite esencial; lo blanco amarga.\n\nLa piel entra con la leche fría porque su aroma pasa a medida que se calienta, y aquí la nata ayuda: ese aceite se disuelve en grasa, y la desnatada sola casi no tiene.",
       "s": 180,
       "saco": "",
-      "t": "Sacar la piel del limón en tiras de 2 cm, y la leche y la nata al cazo",
+      "t": "Pelar el limón y llenar el cazo",
       "tapa": null
     },
     {
@@ -169,14 +169,14 @@
       ],
       "holgura": "flexible",
       "id": "calentar",
-      "meto": "el cazo con la leche, la nata y la piel, al fuego mediano",
+      "meto": "",
       "min": 6,
-      "nota": "Enciende el fuego mediano al {6}. Está cuando humea y salen burbujas pequeñas en el borde: no la dejes romper a hervir.",
+      "nota": "Humea y burbujea en el borde: no la dejes hervir.",
       "off": 3,
-      "p": "Al {6} el medio litro llega a unos 90 °C en seis minutos sin que el fondo se agarre. Sin tapa para ver venir el hervor: las proteínas de la leche forman una piel en la superficie que atrapa el vapor, y cuando sube, sube de golpe. La nata se pega al fondo antes que la leche, por eso se rasca una vez a mitad. El calor va sacando el aceite esencial de la piel del limón hacia la grasa de la nata.",
+      "p": "Al {6} la mezcla llega a unos 90 °C sin que el fondo se agarre.\n\nSin tapa para ver venir el hervor: las proteínas de la leche forman una piel en la superficie que atrapa el vapor, y cuando sube, sube de golpe.\n\nLa nata se pega al fondo antes que la leche, por eso se rasca una vez a mitad. El calor va sacando el aceite esencial de la piel del limón hacia la grasa de la nata.",
       "s": 360,
       "saco": "",
-      "t": "Calentar la leche con la nata y la piel al {6}, sin tapa",
+      "t": "Calentar la leche con la nata",
       "tapa": "sin tapa"
     },
     {
@@ -186,11 +186,11 @@
       "id": "separar",
       "meto": "6 huevos",
       "min": 4,
-      "nota": "Casca cada huevo sobre el táper y pasa la yema de una mitad de la cáscara a la otra hasta que caiga toda la clara. Las yemas, al bol grande; el táper de claras, tapado a la nevera.",
+      "nota": "La yema, sola en la cáscara; un hilo de clara da igual.",
       "off": 3,
-      "p": "La yema pasa de una mitad de la cáscara a la otra y la clara va cayendo al táper por su peso. Una chalaza o un hilo de clara que se cuele con la yema no importa: el colador lo saca al final. Si se rompe una yema y cae en las claras, tampoco: no van a montarse, van a una tortilla o a un empanado, donde da igual. Las claras van a la nevera en cuanto acabas porque son lo único crudo que se queda fuera del plan.",
+      "p": "La yema pasa de una mitad de la cáscara a la otra y la clara va cayendo al táper por su peso. Un hilo de clara o una chalaza que se cuele no importa: el colador lo saca al final.\n\nSi se rompe una yema y cae en las claras, tampoco: no van a montarse, van a una tortilla o a un empanado. Las claras van a la nevera en cuanto acabas porque son lo único crudo que se queda fuera del plan.",
       "s": 240,
-      "saco": "las yemas, en el bol grande; las claras, en el táper a la nevera",
+      "saco": "las yemas, al bol grande + las claras, al táper, a la nevera",
       "t": "Separar las 6 yemas",
       "tapa": null
     },
@@ -199,14 +199,14 @@
       "f": null,
       "holgura": "flexible",
       "id": "batir",
-      "meto": "100 g de azúcar blanco del vasito, sobre las yemas",
+      "meto": "el vasito: 100 g de azúcar",
       "min": 2,
-      "nota": "Echa el azúcar sobre las yemas y bate en el momento con las varillas, dos minutos, hasta que la mezcla pase de naranja a amarillo pálido y ya no cruja.",
+      "nota": "Pasa de naranja a amarillo pálido y ya no cruje.",
       "off": 7,
-      "p": "El azúcar entra justo antes de batir y se bate enseguida: si se queda encima de las yemas sin mezclar, les chupa el agua y las proteínas se agrupan en granitos duros que luego no se deshacen en la crema. Batido, el azúcar se reparte entre las proteínas de la yema y las separa, y así cuajan unos grados más tarde y más suaves: es el margen que tiene la crema antes de cortarse. Aclara porque se disuelve y mete algo de aire.",
+      "p": "El azúcar entra justo antes de batir y se bate enseguida: si se queda encima de las yemas sin mezclar, les chupa el agua y las proteínas se agrupan en granitos duros que luego no se deshacen en la crema.\n\nBatido, el azúcar se reparte entre las proteínas de la yema y las separa, y así cuajan unos grados más tarde y más suaves: es el margen de la crema antes de cortarse. Aclara porque se disuelve y mete algo de aire.",
       "s": 120,
       "saco": "",
-      "t": "Batir las yemas con el azúcar hasta que aclaren",
+      "t": "Batir las yemas con el azúcar",
       "tapa": null
     },
     {
@@ -216,13 +216,13 @@
       "id": "infusionar",
       "meto": "",
       "min": 6,
-      "nota": "Apaga el fuego, aparta el cazo de la placa y tápalo. Seis minutos sin tocarlo.",
+      "nota": "",
       "off": 9,
-      "p": "Seis minutos fuera de la placa y con la tapa puesta: el limón sigue soltando aroma en la leche caliente sin que nada hierva, y el vapor que sube vuelve a caer al cazo en vez de irse con el perfume. Fuera de la placa porque la vitro apagada sigue calentando. La leche baja de unos 90 a unos 80 °C, y eso juega a favor: cuanto menos caliente llegue a las yemas, menos riesgo de que cuajen en hebras al templarlas.",
+      "p": "Fuera de la placa y con la tapa puesta, el limón sigue soltando aroma en la leche caliente sin que nada hierva, y el vapor que sube vuelve a caer al cazo en vez de irse con el perfume. Sin tocarlo.\n\nFuera de la placa porque la vitro apagada sigue calentando. La leche baja de unos 90 a unos 80 °C, y eso juega a favor: cuanto menos caliente llegue a las yemas, menos riesgo de que cuajen en hebras al templarlas.",
       "s": 360,
       "saco": "",
       "sinHitos": "Tapado y fuera de la placa no hay nada que remover: destapar solo deja escapar el vapor, que es lo que lleva el aroma del limón.",
-      "t": "Apagar, apartar el cazo y dejarlo infusionar tapado",
+      "t": "Apagar, apartar y tapar el cazo",
       "tapa": "TAPA PUESTA"
     },
     {
@@ -233,14 +233,14 @@
       "f": null,
       "holgura": "ajustado",
       "id": "templar",
-      "meto": "la leche infusionada del cazo, en hilo, sobre las yemas batidas",
+      "meto": "el cazo: la leche, sin la piel",
       "min": 2,
-      "nota": "Pesca las tiras de limón con una cuchara y tíralas. Echa la leche sobre las yemas en un hilo fino sin dejar de batir, y vuelve toda la crema al cazo.",
+      "nota": "Hilo fino y batiendo sin parar.",
       "off": 15,
-      "p": "La leche caliente va sobre las yemas, nunca las yemas sobre la leche: en hilo y batiendo, cada gota caliente se reparte en mucha yema fría y la temperatura sube poco a poco, sin que ninguna parte llegue sola a los 80 °C. Al revés, la primera yema que cae en la leche caliente cuaja en hebras al momento. La piel sale ahora porque ya ha dado su aroma y, si se quedara al fuego, soltaría el amargor de lo poco blanco que lleve.",
+      "p": "La leche caliente va sobre las yemas, nunca las yemas sobre la leche: en hilo y batiendo, cada gota caliente se reparte en mucha yema fría y la temperatura sube poco a poco, sin que ninguna parte llegue sola a los 80 °C.\n\nAl revés, la primera yema que cae en la leche caliente cuaja en hebras al momento.\n\nLa piel se pesca antes con una cuchara: ya ha dado su aroma y, si se quedara al fuego, soltaría el amargor de lo poco blanco que lleve.",
       "s": 120,
       "saco": "la crema, de vuelta al cazo",
-      "t": "Templar las yemas con la leche caliente, en hilo",
+      "t": "Templar las yemas con la leche",
       "tapa": null
     },
     {
@@ -252,23 +252,23 @@
       "hitos": [
         {
           "en": 180,
-          "t": "Prueba la cuchara: si la raya del dedo se cierra, sigue"
+          "t": "Prueba la cuchara: raya cerrada, sigue"
         },
         {
           "en": 270,
-          "t": "Prueba otra vez: si la raya queda limpia, aparta el cazo ya"
+          "t": "Prueba otra vez: raya limpia, cazo fuera"
         }
       ],
       "holgura": "critico",
       "id": "cuajar",
-      "meto": "la crema de leche y yemas, del bol grande",
+      "meto": "el cazo con la crema, a la placa",
       "min": 6,
-      "nota": "Vuelve el cazo a la placa y enciende al {4}. Remueve sin parar con la espátula, en ochos, rascando fondo y esquinas; si ves burbujas en el borde, cazo fuera de la placa ya.",
+      "nota": "Napa la cuchara y la raya del dedo queda limpia. Con burbujas, fuera ya.",
       "off": 17,
-      "p": "Al {4} y removiendo sin parar, toda la crema sube a la vez: el fondo del cazo está más caliente que la superficie, y ahí el huevo cuaja primero en grumos si nadie lo mueve. Espesa entre los 80 y los 82 °C y se corta hacia los 85: sin maicena no hay almidón que lo proteja, así que no puede hervir nunca. Está cuando napa la cuchara: moja el dorso, pasa un dedo por el medio y la raya queda limpia. En cuanto la veas, cazo fuera de la placa, aunque el reloj no haya acabado: la vitro apagada sigue calentando.",
+      "p": "Al {4}, con el cazo de vuelta en la placa y removiendo en ochos, rascando fondo y esquinas, toda la crema sube a la vez: el fondo está más caliente que la superficie y ahí el huevo cuaja primero en grumos si nadie lo mueve.\n\nEspesa entre los 80 y los 82 °C y se corta hacia los 85: sin maicena no hay almidón que lo proteja, así que no puede hervir nunca.\n\nPara probar, moja el dorso de la cuchara y pasa un dedo por el medio. Si la marca no se cierra, cazo fuera aunque el reloj no haya acabado: la vitro apagada sigue calentando.",
       "s": 360,
-      "saco": "aparta el cazo de la placa y apaga el fuego",
-      "t": "Cuajar la crema al {4}, removiendo sin parar",
+      "saco": "el cazo, apagado y fuera de la placa",
+      "t": "Cuajar la crema removiendo sin parar",
       "tapa": "sin tapa"
     },
     {
@@ -279,14 +279,14 @@
       "f": null,
       "holgura": "critico",
       "id": "repartir",
-      "meto": "la crema del cazo, por el colador fino, a los 4 vasitos + 4 galletas María, una encima de cada uno",
+      "meto": "la crema, colada, a los 4 vasitos + 4 galletas María",
       "min": 2,
-      "nota": "Vierte la crema por el colador fino sobre los 4 vasitos, unos 170 g en cada uno, ayudándote con la espátula. Una galleta María plana encima de cada uno, en caliente.",
+      "nota": "Crema lisa. Una galleta plana sobre cada vasito, en caliente.",
       "off": 23,
-      "p": "Se reparte enseguida porque el cazo caliente sigue subiendo la temperatura de la crema que toca sus paredes, y ahí se cortaría. El colador fino retiene las chalazas de las yemas y cualquier grumo que se haya hecho en el fondo, y la crema sale lisa. La galleta entra en caliente a propósito: empapa crema por abajo mientras enfría y en la nevera se vuelve un bizcocho blando, como en las natillas de siempre; además tapa buena parte de la superficie y frena la piel.",
+      "p": "Se reparte enseguida porque el cazo caliente sigue subiendo la temperatura de la crema que toca sus paredes, y ahí se cortaría.\n\nEl colador fino retiene las chalazas de las yemas y cualquier grumo del fondo, y la crema sale lisa.\n\nLa galleta entra en caliente a propósito: empapa crema por abajo mientras enfría y en la nevera se vuelve un bizcocho blando, como en las natillas de siempre; además tapa buena parte de la superficie y frena la piel.",
       "s": 120,
       "saco": "",
-      "t": "Colar la crema a los 4 vasitos y la galleta encima",
+      "t": "Colar la crema y poner la galleta",
       "tapa": null
     },
     {
@@ -296,12 +296,12 @@
       "id": "enfriar",
       "meto": "",
       "min": 10,
-      "nota": "Diez minutos en la encimera, sin tapar. Después, film por encima de cada vasito y a la nevera 2 horas como mínimo. Al servir, ¼ de cucharadita de canela sobre cada galleta.",
+      "nota": "Sin vapor en la superficie, film y nevera: 2 horas mínimo.",
       "off": 25,
-      "p": "Diez minutos al aire para que salga el vapor: tapada en caliente, el vapor condensa en el film y gotea agua sobre la galleta y la crema. Más no, porque una crema de huevo no debe pasar horas templada. En la nevera la red de proteínas de la yema termina de asentarse y la crema espesa: a 5 °C es bastante más espesa que a 80. La canela va al servir porque es molida: puesta antes, se empapa sobre la galleta húmeda y se vuelve una pasta parda. Aguantan 2 días en la nevera.",
+      "p": "Un rato al aire para que salga el vapor: tapada en caliente, el vapor condensa en el film y gotea agua sobre la galleta y la crema. Más no, porque una crema de huevo no debe pasar horas templada.\n\nEl film va sin tocar la crema. En la nevera la red de proteínas de la yema termina de asentarse y la crema espesa: a 5 °C es bastante más espesa que a 80.\n\nLa canela va al servir porque es molida: puesta antes, se empapa sobre la galleta húmeda y se vuelve una pasta parda.",
       "s": 600,
-      "saco": "los 4 vasitos, tapados con film sin tocar la crema, a la nevera: mínimo 2 h. La canela, al sacarlos",
-      "t": "Templar 10 minutos en la encimera y a la nevera",
+      "saco": "los 4 vasitos, con film, a la nevera + canela sobre cada galleta, al servir",
+      "t": "Templar y llevar a la nevera",
       "tapa": null
     }
   ],
@@ -315,11 +315,11 @@
   "porque": [
     [
       "Nata y seis yemas, porque la leche es desnatada",
-      "Unas natillas clásicas llevan medio litro de leche entera, con unos 18 g de grasa, y 4 yemas. 400 ml de desnatada apenas tienen 1 g; los 100 ml de nata para cocinar ponen unos 15-18 g, y la mezcla queda como una leche entera. Las dos yemas de más suman unos 9 g de grasa y, sobre todo, más proteína para cuajar: es lo que hace espesar sin maicena. Solo con yemas harían falta 8 o 9 y sabría a huevo; solo con nata, sus espesantes la dejarían pastosa."
+      "Las clásicas llevan medio litro de leche entera (unos 18 g de grasa) y 4 yemas. 400 ml de desnatada apenas tienen 1 g: la nata pone unos 15-18 g y las 2 yemas de más, 9 g y la proteína que cuaja sin maicena. Solo yemas serían 8 y sabría a huevo; solo nata, quedaría pastosa."
     ],
     [
       "Sin maicena",
-      "Está en la despensa, pero con almidón la crema tiene que romper a hervir un minuto para espesar, sale más cerca de un pudin que de una natilla y su sabor a cereal apaga el limón. Sin ella la crema es fina, napa la cuchara y espesa en frío. El precio es el margen: se corta hacia los 85 °C, y por eso el {4}, la espátula sin parar, la prueba de la cuchara y el colador."
+      "Con almidón la crema tendría que hervir un minuto para espesar, saldría más cerca de un pudin y su sabor a cereal apagaría el limón. Sin él es fina, napa y espesa en frío. El precio es el margen: se corta hacia los 85 °C, de ahí el {4}, la espátula, la cuchara y el colador."
     ],
     [
       "100 g de azúcar, batido con las yemas en el momento",
