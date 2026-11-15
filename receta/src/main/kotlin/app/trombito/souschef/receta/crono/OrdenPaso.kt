@@ -104,9 +104,13 @@ data class OrdenPaso(
     /** «Saca la patata, al plato con papel.»; null si no saca nada. */
     fun sacaHablado(cocina: Cocina = Cocina.VITRO_9): String? = hablado("Saca", saco, cocina)
 
-    /** La señal como frase («Tiernas y pálidas, sin color.»); null si falta. */
+    /** La señal como frase («Tiernas y pálidas, sin color.»); null si falta o está en blanco. */
     fun senalHablada(cocina: Cocina = Cocina.VITRO_9): String? =
-        senal?.let { cerrar(limpio(it, cocina)) }?.takeIf { it != "." }
+        senal
+            ?.let { limpio(it, cocina) }
+            ?.takeIf { it.isNotEmpty() }
+            ?.let(::cerrar)
+            ?.takeIf { it != "." }
 
     /** «Toca empezar: 1ª fritura · mete 500 gramos de patata». Sin traducir la potencia. */
     fun avisoEmpezar(): String = listOfNotNull("Toca empezar: $titulo", frase("mete", meto)).joinToString(SEP)
@@ -219,7 +223,7 @@ data class OrdenPaso(
                 fuegoAnterior = fuegoAnterior,
                 tapa = paso.tapa,
                 segundos = paso.segundos,
-                senal = paso.nota,
+                senal = paso.nota?.takeIf { it.isNotBlank() },
                 saco = paso.saco,
             )
 
@@ -302,7 +306,7 @@ data class OrdenPaso(
             return partes.dropLast(1).joinToString(", ") + " y " + partes.last()
         }
 
-        private fun cerrar(frase: String): String = if (frase.last() in ".!?") frase else "$frase."
+        private fun cerrar(frase: String): String = if (frase.isEmpty() || frase.last() in ".!?") frase else "$frase."
     }
 }
 

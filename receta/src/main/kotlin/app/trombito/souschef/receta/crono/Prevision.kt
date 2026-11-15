@@ -135,17 +135,31 @@ internal class Prevision(
         return Nodo(inicio, inicio + duracion, firme && previsto > ahoraMs, Situacion.PENDIENTE, previsto, firme)
     }
 
-    /** Un término por arista (cola, `dep`, `junto`), con su firmeza; sin aristas, el del origen del plan. */
+    /**
+     * Un término por arista (cola, `dep`, `junto`), con su firmeza; sin aristas, el del origen del plan.
+     *
+     * Hueco de cola (ADR-0018, anexo): si el paso tiene `dep` o `junto`, su cola solo pide el carril libre (el hueco se
+     * recorta a ≤ 0) y son los enlaces los que lo sitúan; así se adelanta cuando acaban antes. Sin enlaces, conserva
+     * el hueco. Sin desvíos el invariante se mantiene: cada `dep` y `junto` da exactamente `O_plan + off(p)`.
+     */
     private fun terminos(
         p: Paso,
         arranque: Long?,
     ): List<Pair<Long, Boolean>> {
         val g = plano.grafo
-        val deFin =
-            (listOfNotNull(g.cola(p)) + g.dep(p)).map { q ->
+        val enlazado = g.dep(p).isNotEmpty() || g.junto(p) != null
+        val deCola =
+            listOfNotNull(g.cola(p)).map { q ->
                 val n = nodos.getValue(q.id)
-                (n.finMs + off(p) - finPlan(q)) to n.finFirme
+                val hueco = off(p) - finPlan(q)
+                (n.finMs + if (enlazado) minOf(hueco, 0L) else hueco) to n.finFirme
             }
+        val deFin =
+            deCola +
+                g.dep(p).map { q ->
+                    val n = nodos.getValue(q.id)
+                    (n.finMs + off(p) - finPlan(q)) to n.finFirme
+                }
         val deJunto =
             listOfNotNull(g.junto(p)).map { j ->
                 val n = nodos.getValue(j.id)

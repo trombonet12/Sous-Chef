@@ -175,6 +175,23 @@ class OrdenPasoTest {
         assertNull(fritura.copy(saco = "").sacaHablado())
     }
 
+    @Test
+    fun `senal vacia o en blanco no se habla y no revienta`() {
+        // Auditoría final B1: «Chef, info» con `nota` "" lanzaba NoSuchElementException.
+        assertNull(fritura.copy(senal = "").senalHablada())
+        assertNull(fritura.copy(senal = "   ").senalHablada())
+        assertNull(fritura.copy(senal = "<b> </b>").senalHablada())
+    }
+
+    @Test
+    fun `una nota en blanco de la receta se lee como sin senal`() {
+        val paso = Paso(id = "a", t = "Aceite", carril = "sarten", off = 0.0, min = 1.0, s = 60)
+        assertNull(OrdenPaso.de(paso.copy(nota = "")).senal)
+        assertNull(OrdenPaso.de(paso.copy(nota = "  ")).senal)
+        assertNull(OrdenPaso.de(paso.copy(nota = "")).senalHablada())
+        assertEquals("Brilla.", OrdenPaso.de(paso.copy(nota = "Brilla")).senalHablada())
+    }
+
     // ---- avisos de la alarma
 
     @Test

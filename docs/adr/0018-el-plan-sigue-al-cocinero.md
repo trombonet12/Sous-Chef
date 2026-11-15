@@ -351,3 +351,9 @@ Notación, toda en ms:
     En 9, a `T0+18`: `vista(sarten)` = YA.
 25. **Temporizadores libres.** Un libre puesto en B sale en `siguienteEvento` con el mismo `ms` que hoy y no altera
     ningún previsto ni la llegada.
+
+## Anexo (auditoría final): hueco de cola
+- **Problema (H1, `docs/analisis/auditoria-final-ronda19.md`).** El término de cola conservaba el hueco de la receta y hacía de suelo: si los `dep` acababan antes, el paso seguía esperando a «fin real del anterior del carril + hueco» (arroz a la cubana: «Aliñar y montar» a 51 min con todo hecho).
+- **Regla.** Si el paso tiene algún `dep` o `junto` aceptado en el grafo, su cola aporta solo el carril libre: `finEf(q) + mín(0, off(p) − finPlan(q))`. Son los enlaces los que lo sitúan. Sin enlaces, la cola conserva su hueco (escenario 16, h2).
+- **Invariante.** Sin desvíos cada `dep` da `O_plan + off(p)` (conserva su propio hueco) y cada `junto` también, así que `previsto = O_plan + off` se mantiene en las 33 recetas sin regla nueva de validador. El `mín(0, ·)` respeta el solape de hasta 30 s de la regla 17.
+- **Tests.** `PrevisionAdelantoTest`: arroz a la cubana, `huevos-rotos:reposo-patata` 5 min antes y el invariante cocinando a su hora todas las recetas (además de `PrevisionTest.e01`).
