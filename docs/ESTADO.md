@@ -216,5 +216,4 @@ con Fable (cambios, las cinco quejas y todas las recetas). Plan por lotes: `docs
 v1.7.18 publicada: GitHub, pista interna y promoción automática a la prueba cerrada (Alpha, versionCode 282). El
 primer intento (v1.7.17) falló en R8 por `review-ktx` (`-dontwarn` de `NoNullnessRewrite` en `proguard-rules.pro`);
 conviene añadir `:app:minifyReleaseWithR8` al gate local. PR #5 de Dependabot: pedido `@dependabot recreate`
-(compileSdk 37 ya en main); PR #4 en verde, pendiente del merge de Joan. Pendiente: la duda de la anchoa de la salsa
-César (wrap y ensalada de ñoquis), S4 y el plan semanal (fuera de alcance).
+(compileSdk 37 ya en main); PR #4 en verde, pendiente del merge de Joan. Pendiente: S4 y el plan semanal (fuera de alcance).

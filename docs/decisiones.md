@@ -494,3 +494,4 @@ Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan 
   enlaza (`junto`/`dep`) los 28 pasos que solo seguían al reloj.
 - **Regla 20 en transición:** mientras el chip no enseñe «4 → 5» en todas partes, la potencia nueva se nombra con {N} en
   `t` o `p` (nunca en la `nota`).
+- **Salsa César** (2026-11-15): la de Joan no lleva anchoa; se queda en el wrap y en la ensalada de ñoquis (anotado en la despensa).
