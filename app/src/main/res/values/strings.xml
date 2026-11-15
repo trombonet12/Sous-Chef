@@ -189,7 +189,7 @@
     <string name="crono_reiniciar">Reiniciar</string>
     <string name="crono_reiniciar_seguro">¿Seguro?</string>
     <string name="crono_tapada">tapada</string>
-    <string name="crono_destapada">destapada</string>
+    <string name="crono_destapada">sin tapa</string>
     <string name="crono_tapa_medias">tapa a medias</string>
     <string name="crono_terminado">Terminado</string>
     <string name="crono_voz_silenciar">Silenciar al Chef</string>

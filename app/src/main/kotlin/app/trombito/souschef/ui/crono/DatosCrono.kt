@@ -71,7 +71,7 @@ internal fun colorDeCarril(
     }
 }
 
-/** Recurso de "tapada / destapada / a medias" según el campo `tapa` del paso, o null si no hay valor claro. */
+/** Recurso de "tapada / sin tapa / a medias" según el campo `tapa` del paso, o null si no hay valor claro. */
 fun recursoTapa(tapa: String?): Int? {
     val t = tapa?.uppercase().orEmpty()
     return when {

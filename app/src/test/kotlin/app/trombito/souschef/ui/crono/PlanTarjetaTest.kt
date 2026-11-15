@@ -7,7 +7,8 @@ import org.junit.Test
 
 /**
  * Reparto del alto de la tarjeta: la nota y METO/SACO van por delante del reloj grande, que baja hasta 36 sp antes de
- * ocultar la nota. Referencia: 782 dp útiles para las tarjetas (móvil de 411 × 914 dp).
+ * ocultar la nota. La pila de texto (prioridad y medida real) se prueba en `PilaPrioritariaTest`. Referencia: 782 dp
+ * útiles para las tarjetas (móvil de 411 × 914 dp).
  */
 class PlanTarjetaTest {
     @Test
@@ -57,9 +58,9 @@ class PlanTarjetaTest {
     }
 
     @Test
-    fun `el reloj baja antes de ocultar meto saco y justo por encima del umbral caben las dos cosas`() {
-        val plan = planTarjeta(alturaDp = 370f, carriles = 3, hayMetoSaco = true, hayNota = true)
-        assertFalse(tarjetaCompacta(alturaDp = 370f, escalaLetra = 1f))
+    fun `el reloj baja antes de ocultar meto saco y por encima del umbral caben las dos cosas`() {
+        val plan = planTarjeta(alturaDp = 450f, carriles = 3, hayMetoSaco = true, hayNota = true)
+        assertFalse(tarjetaCompacta(alturaDp = 450f, escalaLetra = 1f))
         assertTrue(plan.nota)
         assertTrue(plan.metoSaco)
         assertEquals(1, plan.tituloLineas)
@@ -103,59 +104,24 @@ class PlanTarjetaTest {
     fun `con cuatro carriles en un movil la tarjeta pasa a compacta`() {
         assertTrue(tarjetaCompacta(alturaDp = 150f, escalaLetra = 1f))
         assertTrue(tarjetaCompacta(alturaDp = 260f, escalaLetra = 1f))
-        assertFalse(tarjetaCompacta(alturaDp = 320f, escalaLetra = 1f, hayNota = true, hayMetoSaco = false))
+        assertFalse(tarjetaCompacta(alturaDp = 350f, escalaLetra = 1f, hayNota = true, hayMetoSaco = false))
         assertTrue(tarjetaCompacta(alturaDp = 320f, escalaLetra = 1f, hayNota = true, hayMetoSaco = true))
     }
 
     @Test
     fun `con la letra del sistema grande se compacta antes`() {
         assertTrue(tarjetaCompacta(alturaDp = 320f, escalaLetra = 1.3f))
-        assertFalse(tarjetaCompacta(alturaDp = 420f, escalaLetra = 1.3f, hayNota = true, hayMetoSaco = false))
+        assertFalse(tarjetaCompacta(alturaDp = 450f, escalaLetra = 1.3f, hayNota = true, hayMetoSaco = false))
     }
 
     @Test
-    fun `la tarjeta compacta calcula cuantas lineas de texto caben segun el alto`() {
-        assertEquals(2, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1f))
-        assertEquals(1, lineasExtraCompacta(alturaDp = 150f, escalaLetra = 1.3f))
-        assertEquals(0, lineasExtraCompacta(alturaDp = 90f, escalaLetra = 1f))
-        assertEquals(4, lineasExtraCompacta(alturaDp = 190f, escalaLetra = 1f))
-        assertEquals(7, lineasExtraCompacta(alturaDp = 782f / 3, escalaLetra = 1f))
-        assertEquals(8, lineasExtraCompacta(alturaDp = 600f, escalaLetra = 1f))
-    }
-
-    @Test
-    fun `el reparto de lineas compacto da primero a la nota, luego a meto y saco y luego al aviso`() {
-        val reparto =
-            repartoLineasCompacta(presupuesto = 5, longNota = 90, longMeto = 60, longSaco = 30, hayHito = true)
-        assertEquals(LineasCompacta(nota = 2, junto = 0, meto = 2, saco = 1, hito = 0, despues = 0), reparto)
-    }
-
-    @Test
-    fun `el a la vez que va justo despues de la nota y antes de meto`() {
-        val reparto =
-            repartoLineasCompacta(
-                presupuesto = 5,
-                longNota = 90,
-                longMeto = 60,
-                longSaco = 30,
-                hayHito = true,
-                hayJunto = true,
-            )
-        assertEquals(LineasCompacta(nota = 2, junto = 1, meto = 2, saco = 0, hito = 0, despues = 0), reparto)
-    }
-
-    @Test
-    fun `una nota corta solo gasta una linea y deja sitio al resto`() {
-        val reparto =
-            repartoLineasCompacta(presupuesto = 5, longNota = 20, longMeto = 20, longSaco = 20, hayHito = true)
-        assertEquals(LineasCompacta(nota = 1, junto = 0, meto = 1, saco = 1, hito = 1, despues = 1), reparto)
-    }
-
-    @Test
-    fun `sin presupuesto no se pinta ninguna linea`() {
-        val reparto =
-            repartoLineasCompacta(presupuesto = 0, longNota = 90, longMeto = 60, longSaco = 30, hayHito = true)
-        assertEquals(LineasCompacta(0, 0, 0, 0, 0, 0), reparto)
+    fun `el plan reserva a la pila de texto el alto de la nota y de meto saco`() {
+        val todo = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = true, hayNota = true)
+        assertEquals(60 + 100, todo.textoDp)
+        val soloNota = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = false, hayNota = true)
+        assertEquals(60, soloNota.textoDp)
+        val nada = planTarjeta(alturaDp = 560f, carriles = 2, hayMetoSaco = false, hayNota = false)
+        assertEquals(0, nada.textoDp)
     }
 
     @Test

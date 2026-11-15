@@ -315,12 +315,15 @@ internal fun ChipFuego(v: VistaCarril) {
     )
 }
 
-/** "tapada / destapada / tapa a medias"; resaltada si la tapa está puesta o a medias. */
+/** «sin tapa / tapada / tapa a medias»: sale siempre que el paso declare tapa; resaltada si está puesta o a medias. */
 @Composable
 internal fun ChipTapa(v: VistaCarril) {
     val recurso = recursoTapa(v.tapa) ?: return
-    val resaltada = recurso != R.string.crono_destapada
-    Chip(stringResource(recurso), if (resaltada) CronoPalette.tapa else CronoPalette.apagado)
+    val sinTapa = recurso == R.string.crono_destapada
+    Chip(
+        stringResource(recurso),
+        if (sinTapa) CronoPalette.apagado else CronoPalette.tapa,
+    )
 }
 
 @Composable

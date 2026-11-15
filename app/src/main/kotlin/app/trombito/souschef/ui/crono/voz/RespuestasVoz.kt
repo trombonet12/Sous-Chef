@@ -153,7 +153,7 @@ private fun textoTapa(tapa: String?): String? {
     return when {
         t.isBlank() -> null
         "MEDIAS" in t -> "a medias"
-        "SIN" in t || "FUERA" in t -> "destapada"
+        "SIN" in t || "FUERA" in t -> "sin tapa"
         "PUESTA" in t -> "tapada"
         else -> null
     }

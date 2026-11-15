@@ -139,7 +139,7 @@ class RespuestasVozTest {
     @Test
     fun `queToca da titulo fuego y tapa del carril mas urgente`() {
         val v = corriendo(300).copy(fuego = 8, tapa = "SIN TAPA", titulo = "Sellar")
-        assertEquals("Sartén grande: Sellar. Fuego 8, destapada.", RespuestasVoz.queToca(listOf(v), null))
+        assertEquals("Sartén grande: Sellar. Fuego 8, sin tapa.", RespuestasVoz.queToca(listOf(v), null))
     }
 
     @Test
@@ -182,7 +182,7 @@ class RespuestasVozTest {
             RespuestasVoz.queToca(listOf(base.copy(tapa = "A MEDIAS")), null),
         )
         assertEquals(
-            "Sartén grande: Sofrito. Fuego 3, destapada.",
+            "Sartén grande: Sofrito. Fuego 3, sin tapa.",
             RespuestasVoz.queToca(listOf(base.copy(tapa = "FUERA")), null),
         )
     }

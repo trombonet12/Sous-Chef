@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,7 +33,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -82,7 +82,7 @@ fun TarjetaCarril(
         val hayMetoSaco = !v.meto.isNullOrBlank() || !v.saco.isNullOrBlank()
         val hayNota = !v.nota.isNullOrBlank()
         if (tarjetaCompacta(maxHeight.value, escala, hayNota = hayNota, hayMetoSaco = hayMetoSaco)) {
-            ContenidoCompacto(v, color, acciones, lineasExtraCompacta(maxHeight.value, escala))
+            ContenidoCompacto(v, color, acciones)
             return@BoxWithConstraints
         }
         val plan = planTarjeta(maxHeight.value, carriles, hayMetoSaco, hayNota)
@@ -91,10 +91,13 @@ fun TarjetaCarril(
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             FilaTitulo(v, color, acciones)
+            FilaDatos(v)
             TituloPaso(v, plan.tituloLineas, acciones)
             BloqueReloj(v, color, plan.relojSp, Modifier.weight(1f))
-            if (plan.metoSaco) LineasMetoSaco(v)
-            if (plan.nota) NotaDelPaso(v)
+            PilaPrioritaria(
+                bloquesDelPaso(v, MaterialTheme.typography.bodyLarge).lista(),
+                Modifier.heightIn(max = (plan.textoDp * maxOf(1f, escala)).dp),
+            )
             FilaFinal(v, acciones)
         }
     }
@@ -114,85 +117,57 @@ private fun FilaTitulo(
         ) {
             FranjaCarril(color, 24.dp)
             InsigniaCarril(v, color)
-            NombreYPrevista(
+            Row(
                 Modifier.weight(1f, fill = false),
-                nombre = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        Text(
-                            v.nombre,
-                            Modifier.weight(1f, fill = false),
-                            color = colorCarrilTexto(color),
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Text(
-                            stringResource(R.string.crono_paso_de, v.paso, v.pasos),
-                            color = CronoPalette.apagado,
-                            style = MaterialTheme.typography.labelLarge.merge(Tabular),
-                            maxLines = 1,
-                        )
-                    }
-                },
-                prevista = { HoraPrevista(v) },
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                // El nombre no se trocea: la letra baja antes de llegar a los puntos suspensivos.
+                Text(
+                    v.nombre,
+                    Modifier.weight(1f, fill = false),
+                    color = colorCarrilTexto(color),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    autoSize =
+                        TextAutoSize.StepBased(
+                            minFontSize = 10.sp,
+                            maxFontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        ),
+                )
+                Text(
+                    stringResource(R.string.crono_paso_de, v.paso, v.pasos),
+                    color = CronoPalette.apagado,
+                    style = MaterialTheme.typography.labelLarge.merge(Tabular),
+                    maxLines = 1,
+                )
+            }
         }
         MandosSecundarios(v, acciones)
     }
 }
 
 /**
- * Nombre del carril («OLLA · 2/5») con prioridad sobre la hora prevista: esta va a su derecha si cabe y, si no, debajo.
- * [prevista] puede no emitir nada (carril en marcha).
+ * Segunda línea de la cabecera: la hora prevista a la izquierda (en una línea) y, a la derecha, fuego, tapa y «i».
+ * No sale si el carril no tiene nada de eso (por ejemplo, un paso sin fuego en marcha).
  */
 @Composable
-private fun NombreYPrevista(
-    modifier: Modifier,
-    nombre: @Composable () -> Unit,
-    prevista: @Composable () -> Unit,
-) {
-    Layout(
-        content = {
-            nombre()
-            prevista()
-        },
-        modifier = modifier,
-    ) { medibles, constraints ->
-        val separacion = SEPARACION_PREVISTA.roundToPx()
-        val suelto = constraints.copy(minWidth = 0, minHeight = 0)
-        val n = medibles[0].measure(suelto)
-        val hueco = (constraints.maxWidth - n.width - separacion).coerceAtLeast(0)
-        val p = medibles.getOrNull(1)?.measure(suelto)
-        val debajo = p != null && p.width > hueco
-        val ancho =
-            when {
-                p == null -> n.width
-                debajo -> maxOf(n.width, p.width)
-                else -> n.width + separacion + p.width
-            }
-        val alto =
-            when {
-                p == null -> n.height
-                debajo -> n.height + p.height
-                else -> maxOf(n.height, p.height)
-            }
-        layout(ancho.coerceAtMost(constraints.maxWidth), alto) {
-            if (p != null && debajo) {
-                n.placeRelative(0, 0)
-                p.placeRelative(0, n.height)
-            } else {
-                n.placeRelative(0, (alto - n.height) / 2)
-                p?.placeRelative(n.width + separacion, (alto - p.height) / 2)
-            }
-        }
+private fun FilaDatos(v: VistaCarril) {
+    val hayDatos = previstaDe(v) != null || v.fuego != null || recursoTapa(v.tapa) != null || v.tienePorque
+    if (!hayDatos) return
+    Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Box(Modifier.weight(1f)) { HoraPrevista(v) }
+        ChipFuego(v)
+        ChipTapa(v)
+        if (v.tienePorque) IconoPorque()
     }
 }
-
-private val SEPARACION_PREVISTA = 8.dp
 
 /** Pausa y +30 s (o el enlace «Empezar igual» si el carril espera a otro): secundarios, el principal está abajo. */
 @Composable
@@ -310,31 +285,22 @@ private fun BotonSecundario(
     }
 }
 
-/** Título del paso; al tocarlo se abre el porqué (si lo hay). */
+/** Título del paso, siempre en su propia línea (hasta [lineas]); al tocarlo se abre el porqué (si lo hay). */
 @Composable
 private fun TituloPaso(
     v: VistaCarril,
     lineas: Int,
     acciones: AccionesCarril,
 ) {
-    Row(
+    Text(
+        v.titulo.orEmpty(),
         Modifier.fillMaxWidth().abrePorque(v, acciones),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        Text(
-            v.titulo.orEmpty(),
-            Modifier.weight(1f),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            maxLines = lineas,
-            overflow = TextOverflow.Ellipsis,
-            autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 22.sp),
-        )
-        ChipFuego(v)
-        ChipTapa(v)
-        if (v.tienePorque) IconoPorque()
-    }
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold,
+        maxLines = lineas,
+        overflow = TextOverflow.Ellipsis,
+        autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 22.sp),
+    )
 }
 
 /** Círculo con una "i": avisa de que el título abre el porqué del paso. */
