@@ -17,6 +17,7 @@
 | Ronda 16 · v1.6 novedades con confeti, a11y, limpieza, informe, «Tu ritmo», «Nueva» y 6 recetas | **completada**: v1.6.4 (GitHub y pista interna; OK de Joan en el móvil) |
 | Ronda 17 · cabos sueltos, Play interna + prueba cerrada y análisis v1.7 | **completada** (commits locales, sin push) |
 | Ronda 18 · v1.7 todo el backlog (F1-F18, U1-U8, A1-A11, S6, S7) y 9 recetas | **completada**: v1.7.18 (GitHub, pista interna y prueba cerrada Alpha) |
+| Ronda 19 · legibilidad del cronómetro y de los textos | **auditoría hecha y decisiones tomadas**; sin implementar |
 
 ## Completado
 - 2026-10-13 · F0 y F1 (gobierno, `.claude/`, docs, datos legados, esqueleto, tema, icono, CI, keystore, spike de alarmas).
@@ -203,6 +204,10 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
+Ronda 19: auditoría en `docs/analisis/legibilidad-crono-y-textos.md` y decisiones de Joan en `docs/decisiones.md`
+§ Ronda 19. Siguiente: plan del lote 1 (alivio sin tocar recetas: sin marquesina, arranque claro, cabecera «Llegas a
+las HH:mm») y piloto huevos rotos → v1.8.0.
+
 v1.7.18 publicada: GitHub, pista interna y promoción automática a la prueba cerrada (Alpha, versionCode 282). El
 primer intento (v1.7.17) falló en R8 por `review-ktx` (`-dontwarn` de `NoNullnessRewrite` en `proguard-rules.pro`);
 conviene añadir `:app:minifyReleaseWithR8` al gate local. PR #5 de Dependabot: pedido `@dependabot recreate`

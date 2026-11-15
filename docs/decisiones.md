@@ -442,3 +442,38 @@
   - O2 y O3 aceptadas: el temporizador se pone al tocar «N min», y «pon N minutos» crea un temporizador libre.
 - **R8 y review-ktx**: `-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite` (solo una anotación;
   regla de `missing_rules.txt`). El gate local no minimiza la release: se recomienda sumar `:app:minifyReleaseWithR8`.
+
+## Ronda 19 · legibilidad del cronómetro y de los textos (2026-11-15)
+Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan (5 rondas de preguntas):
+- **Disposición:** una sola, «Carriles», adaptativa: el carril que te necesita crece y los que esperan quedan en
+  una línea. FOCO y APILADA desaparecen; CLÁSICA aguanta una versión más y luego se retira. Joan cocina con el móvil
+  apoyado en la encimera y la letra a 1,0×.
+- **Texto ejecutivo:** modelo B, «orden compuesta», sin campos nuevos. La tarjeta cambia según el momento:
+  METE (`meto`) antes de empezar, SEÑAL (`nota`) en marcha, SACA (`saco`) al vencer. Fuego, tapa y duración se pintan
+  como datos. La tapa sale siempre («sin tapa», «tapada», «tapa a medias»). La `nota` puede quedar vacía si no hay
+  nada que vigilar. Si más de 1 de cada 10 pasos se lee mal compuesto, se añade un `orden` opcional.
+- **Topes de partida** (se calibran cocinando el piloto): `t` 36, cada elemento de `meto`/`saco` 36, `nota` 80 y
+  2 frases, aviso 44, `p` 600 en párrafos de 240. Reglas nuevas tras `sc validar --legibilidad` hasta que pasen las 33.
+- **Nada se mueve:** fuera la marquesina; si no cabe, se corta con «…» y el resto está en el detalle.
+- **El plan sigue al cocinero:** las horas pendientes y los avisos «Toca empezar» se mueven con el adelanto o el
+  retraso real; `junto` ancla al arranque real (ADR propio y TDD en el motor).
+- **Cabecera:** solo «Llegas a las HH:mm», siempre del mismo color: sin SERVIR, sin diferencia y sin rojo. Fuera
+  también el desvío por carril («−19»).
+- **Arranque:** el botón lleno solo en el carril que toca ya o que ha vencido; los que esperan dicen «en N min» o
+  «espera a ②» y llevan un enlace discreto «Empezar antes». Franja fija «Ahora / Luego».
+- **Ficha:** pasos desplegados (minuto, hora, METE/AVISOS/SEÑAL/SACA y porqué en párrafos y listas) con el
+  interruptor «Solo órdenes». Mini formato de prosa: línea en blanco = párrafo, «- » = lista, `<b>` y nada más.
+- **Diagrama:** un solo componente, con un carril por fila, en tres densidades (huella, resumen y detalle con los
+  pasos numerados), con una sola función de color y estado en vivo en la cocina.
+- **Impresión:** dos salidas: una hoja de cocina de 1 o 2 páginas y la ficha completa.
+- **`porque` de receta:** solo decisiones de receta; el porqué de cada paso vive en su paso.
+- **Piloto huevos rotos:** con el aviso «Dale la vuelta al jamón» al minuto; el momento de salar el padrón lo decide
+  el `chef-reviewer` y queda anotado.
+- **Recetas restantes:** guardas mecánicas (cantidades, tiempos, potencias y dependencias idénticos) y
+  `chef-reviewer` en todas. Joan no las repasa: las ve cocinando.
+- **Publicación por hitos:** v1.8.0 con el alivio inmediato (sin marquesina, qué carril arrancar, cabecera simple)
+  y el piloto. Después, una versión con la ficha y la orden compuesta, otra con el plan que sigue al cocinero y el
+  diagrama, y la última con las 32 recetas y la disposición única.
+- **Forma de trabajo:** subagentes en paralelo con archivos disjuntos, un revisor independiente por lote y, al final,
+  una auditoría completa con Fable 5.2 al máximo de esfuerzo. Comprueba que los cambios estén bien hechos, que no
+  vuelvan las cinco quejas de partida y repasa una por una las 33 recetas (él mismo o con subagentes).
