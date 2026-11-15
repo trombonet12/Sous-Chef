@@ -32,8 +32,8 @@ import app.trombito.souschef.ui.shell.Icono
 import app.trombito.souschef.ui.theme.CronoPalette
 import java.time.Instant
 import java.time.ZoneId
+import java.util.Locale
 
-private const val MS_MINUTO = 60_000.0
 private const val MIN_HORA = 60
 
 /** Situación de cada paso y minuto del plan por el que va la cocina, a partir del estado real (ADR-0018). */
@@ -80,11 +80,27 @@ internal fun ahoraEnPlan(
             }
         }.maxOrNull()
 
-/** Minutos desde medianoche a los que empieza el plan (servir − total, redondeado a 0,5 min como el motor). */
+/**
+ * Minutos desde medianoche a los que empieza el plan, el mismo que usa el panel «i» ([contextoPasoCrono]): sale de las
+ * horas previstas (`datos.previstos`, que siguen al cocinero, ADR-0018) y, sin previsión, de servir − total.
+ */
 internal fun inicioPlanMin(datos: DatosCrono): Int {
-    val totalMs = (Math.round(datos.receta.totalEfectivo * 2) / 2.0 * MS_MINUTO).toLong()
-    val inicio = Instant.ofEpochMilli(datos.estado.servirMs - totalMs).atZone(ZoneId.systemDefault())
-    return inicio.hour * MIN_HORA + inicio.minute
+    val primero = datos.receta.pasos.minByOrNull { it.off } ?: return minutosDelDia(datos.estado.servirMs)
+    return contextoPasoCrono(datos, primero).inicioPlanMin ?: minutosDelDia(datos.estado.servirMs)
+}
+
+/**
+ * Hora de empezar y de acabar que lleva el subtítulo del diagrama: las mismas que la cabecera («Llegas a las…») y el
+ * panel «i», porque siguen el plan real (ADR-0018), no el servir fijado antes de empezar.
+ */
+internal fun horasDelDiagrama(datos: DatosCrono): Pair<String, String> =
+    horaDeMinutos(inicioPlanMin(datos)) to formatoHora(datos.plan.llegadaMs)
+
+private fun horaDeMinutos(min: Int): String = String.format(Locale.ROOT, "%02d:%02d", min / MIN_HORA, min % MIN_HORA)
+
+private fun minutosDelDia(ms: Long): Int {
+    val hora = Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault())
+    return hora.hour * MIN_HORA + hora.minute
 }
 
 /** El diagrama de la ficha, a pantalla completa y vivo: hecho apagado, en marcha lleno y la línea «ahora». */
@@ -94,6 +110,7 @@ internal fun DialogoDiagrama(
     onCerrar: () -> Unit,
 ) {
     val receta = datos.recetaUi
+    val horas = horasDelDiagrama(datos)
     Dialog(onCerrar, DialogProperties(usePlatformDefaultWidth = false)) {
         Surface(
             Modifier.fillMaxSize().testTag("diagrama"),
@@ -111,11 +128,8 @@ internal fun DialogoDiagrama(
                         Text(
                             stringResource(
                                 R.string.crono_diagrama_horas,
-                                formatoHora(
-                                    datos.estado.servirMs -
-                                        (Math.round(receta.totalEfectivo * 2) / 2.0 * MS_MINUTO).toLong(),
-                                ),
-                                formatoHora(datos.estado.servirMs),
+                                horas.first,
+                                horas.second,
                             ),
                             style = MaterialTheme.typography.labelMedium,
                             color = CronoPalette.tenue,

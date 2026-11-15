@@ -16,6 +16,8 @@
     <string name="crono_franja_con">con %1$s</string>
     <string name="crono_franja_a11y_ahora">Ahora, carril %1$d: %2$s</string>
     <string name="crono_franja_a11y_marcha">Ahora, en marcha, carril %1$d: %2$s, quedan %3$s</string>
+    <string name="crono_franja_pausa">En pausa</string>
+    <string name="crono_franja_a11y_pausa">Ahora, en pausa, carril %1$d: %2$s, quedan %3$s</string>
     <string name="crono_franja_a11y_nada">Ahora: nada que empezar</string>
     <string name="crono_franja_a11y_luego">Luego, a las %1$s, carril %2$d: %3$s</string>
     <string name="crono_franja_a11y_luego_sin_hora">Luego, carril %1$d: %2$s</string>

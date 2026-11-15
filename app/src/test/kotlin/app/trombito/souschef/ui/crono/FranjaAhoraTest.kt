@@ -74,6 +74,12 @@ class FranjaAhoraTest {
         quedanS: Int,
     ) = carril(id, indice, AccionCarril.PAUSAR, ClaseEstado.MARCHA, quedanS = quedanS, finAtMs = 1_000L + quedanS)
 
+    private fun pausa(
+        id: String,
+        indice: Int,
+        quedanS: Int,
+    ) = carril(id, indice, AccionCarril.SEGUIR, ClaseEstado.PAUSA, quedanS = quedanS)
+
     private fun vencido(
         id: String,
         indice: Int,
@@ -129,6 +135,26 @@ class FranjaAhoraTest {
     fun `con algo en marcha y nada que toque ahora es el que acaba antes`() {
         val m = modeloFranja(listOf(marcha("a", 0, 300), marcha("b", 1, 40), espera("c", 2, 5_000)))
         assertEquals("b", (m?.ahora as Ahora.EnMarcha).v.id)
+    }
+
+    @Test
+    fun `un carril en pausa no es el que acaba antes mientras otro corre y se marca como pausa si es el unico`() {
+        val corre = modeloFranja(listOf(pausa("a", 0, 10), marcha("b", 1, 300)))
+        val ahoraCorre = corre?.ahora as Ahora.EnMarcha
+        assertEquals("b", ahoraCorre.v.id)
+        assertEquals(false, ahoraCorre.enPausa)
+
+        val parado = modeloFranja(listOf(pausa("a", 0, 90), pausa("b", 1, 20)))?.ahora as Ahora.EnMarcha
+        assertEquals("b", parado.v.id)
+        assertTrue(parado.enPausa)
+    }
+
+    @Test
+    fun `idBotonFranja es el carril de AHORA que pide un toque y null si la franja no lleva boton`() {
+        assertEquals("b", idBotonFranja(listOf(marcha("a", 0, 30), ya("b", 1, 5))))
+        assertEquals("a", idBotonFranja(listOf(espera("a", 0, 9), espera("b", 1, 99))))
+        assertNull(idBotonFranja(listOf(marcha("a", 0, 30), espera("b", 1, 99))))
+        assertNull(idBotonFranja(listOf(terminado("a", 0))))
     }
 
     @Test
@@ -214,16 +240,42 @@ class FranjaAhoraTest {
     }
 
     @Test
-    fun `siempre queda al menos una tarjeta`() {
+    fun `queda una tarjeta mientras tenga el alto minimo para verse entera`() {
         val v = listOf(espera("a", 0, 40), espera("b", 1, 20))
-        assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 100f, escala = 1.3f))
+        // Franja + 2 separaciones + 1 fila (84) + 120 de tarjeta mínima.
+        assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 108f + 12f + 84f + 120f, escala = 1f))
+        assertEquals(
+            setOf("b"),
+            carrilesEnTarjeta(v, alturaDp = 108f + 12f + 84f * 1.3f + 120f * 1.3f + 1f, escala = 1.3f),
+        )
+    }
+
+    @Test
+    fun `si no cabe ni una tarjeta con su alto minimo todos van en fila`() {
+        val v = listOf(espera("a", 0, 40), espera("b", 1, 20))
+        assertEquals(emptySet<String>(), carrilesEnTarjeta(v, alturaDp = 100f, escala = 1.3f))
+        // Horizontal o pantalla partida: ~300 dp para cuatro carriles a letra 1,3×.
+        val cuatro = listOf(ya("a", 0, 1), espera("b", 1, 2), espera("c", 2, 3), espera("d", 3, 4))
+        assertEquals(emptySet<String>(), carrilesEnTarjeta(cuatro, alturaDp = 300f, escala = 1.3f))
+        assertEquals(emptySet<String>(), carrilesEnTarjeta(cuatro, alturaDp = 230f, escala = 1f))
+    }
+
+    @Test
+    fun `la fila escala con la letra y apilada es mas alta al repartir el sitio`() {
+        val v = listOf(ya("a", 0, 1), espera("b", 1, 2))
+        val justo = 108f + 12f + 68f + 120f
+        assertEquals(setOf("a"), carrilesEnTarjeta(v, alturaDp = justo, escala = 1f))
+        // Con la letra a 1,3× la tarjeta mínima crece (156 dp) y la misma altura ya no da para ella.
+        assertEquals(emptySet<String>(), carrilesEnTarjeta(v, alturaDp = justo, escala = 1.3f))
+        // En pantalla estrecha la fila va apilada (~108 dp): tampoco cabe.
+        assertEquals(emptySet<String>(), carrilesEnTarjeta(v, alturaDp = justo, escala = 1f, anchoDp = 300f))
     }
 
     @Test
     fun `el carril tocado se expande antes que los que esperan o corren pero no antes que lo que toca ya`() {
         val v = listOf(marcha("a", 0, 30), espera("b", 1, 40), ya("c", 2, 5))
         // Sitio para dos tarjetas por empezar y una fila: toca ya (c) y, entre b y a, el tocado.
-        val alto = 108f + 18f + 200f + 200f + 80f
+        val alto = 108f + 18f + 200f + 200f + 68f
         assertEquals(setOf("c", "b"), carrilesEnTarjeta(v, alturaDp = alto, escala = 1f, tocado = "b"))
         assertEquals(setOf("c", "a"), carrilesEnTarjeta(v, alturaDp = alto, escala = 1f))
     }
@@ -231,6 +283,6 @@ class FranjaAhoraTest {
     @Test
     fun `entre dos vencidos la tarjeta es la del mas antiguo que es el de la franja`() {
         val v = listOf(vencido("a", 0, 90_000), vencido("b", 1, 5_000))
-        assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 108f + 12f + 150f + 80f, escala = 1f))
+        assertEquals(setOf("b"), carrilesEnTarjeta(v, alturaDp = 108f + 12f + 150f + 68f, escala = 1f))
     }
 }

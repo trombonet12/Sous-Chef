@@ -31,13 +31,15 @@ private val ALTO_FILA = 64.dp
 
 /**
  * Fila compacta (64 dp como mínimo) de un carril que no está expandido: nombre, hora prevista, título del paso (1
- * línea, quieto), fuego, reloj y, solo si toca (Hecho o Empezar), un botón pequeño. Tocar la fila la expande.
+ * línea, quieto), fuego, reloj y, solo si toca (Hecho o Empezar), un botón pequeño. Tocar la fila la expande. Con
+ * [conAccion] en false no lleva ese botón: su control lo lleva la franja «Ahora» (un solo botón por carril).
  */
 @Composable
 fun FilaCarrilCompacta(
     v: VistaCarril,
     acciones: AccionesCarril,
     modifier: Modifier = Modifier,
+    conAccion: Boolean = true,
 ) {
     val color = colorDeCarril(v.colorHex, v.indiceCarril)
     val etiquetaEnfocar = stringResource(R.string.crono_enfocar, v.nombre)
@@ -54,7 +56,7 @@ fun FilaCarrilCompacta(
         contentAlignment = Alignment.CenterStart,
     ) {
         // Con letra grande (o pantalla estrecha) el reloj y los mandos no dejan sitio a la cabecera: bajan a su línea.
-        val apilar = maxWidth.value / maxOf(1f, LocalDensity.current.fontScale) < ANCHO_FILA_UNA_LINEA_DP
+        val apilar = filaApilada(maxWidth.value, LocalDensity.current.fontScale)
         if (apilar) {
             Column(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -65,7 +67,7 @@ fun FilaCarrilCompacta(
                     Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
-                ) { FinalFila(v, acciones) }
+                ) { FinalFila(v, acciones, conAccion) }
             }
         } else {
             Row(
@@ -75,14 +77,20 @@ fun FilaCarrilCompacta(
             ) {
                 FranjaCarril(color, 36.dp)
                 CabeceraFila(v, color, Modifier.weight(1f))
-                FinalFila(v, acciones)
+                FinalFila(v, acciones, conAccion)
             }
         }
     }
 }
 
+/** La fila pone el reloj y los mandos en una segunda línea si el ancho (a letra 1,0×) no llega. */
+internal fun filaApilada(
+    anchoDp: Float,
+    escala: Float,
+): Boolean = anchoDp / maxOf(1f, escala) < ANCHO_FILA_UNA_LINEA_DP
+
 // Ancho (en dp a letra 1,0×) por debajo del cual la fila pone el reloj y los mandos en una segunda línea.
-private const val ANCHO_FILA_UNA_LINEA_DP = 340f
+internal const val ANCHO_FILA_UNA_LINEA_DP = 340f
 
 /**
  * Cabecera de la fila: el nombre tiene la prioridad de ancho; lo que cede es el título (1 línea con «…») y la hora
@@ -116,6 +124,7 @@ private fun CabeceraFila(
 private fun FinalFila(
     v: VistaCarril,
     acciones: AccionesCarril,
+    conAccion: Boolean,
 ) {
     ChipFuego(v)
     if (!v.terminado) {
@@ -129,7 +138,7 @@ private fun FinalFila(
         )
     }
     BotonDeshacer(v, acciones)
-    if (v.accion == AccionCarril.HECHO || v.accion == AccionCarril.EMPEZAR) {
+    if (conAccion && (v.accion == AccionCarril.HECHO || v.accion == AccionCarril.EMPEZAR)) {
         BotonAccion(v, acciones, compacto = true)
     }
 }

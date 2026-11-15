@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.unit.dp
@@ -119,6 +120,11 @@ class CocinaUiTest {
                 deshacer = { llamadas += "deshacer:$it" },
             )
     }
+
+    /** Descripciones de accesibilidad de un nodo y de todo lo que cuelga de él. */
+    private fun descripciones(nodo: SemanticsNode): List<String> =
+        nodo.config.getOrNull(SemanticsProperties.ContentDescription).orEmpty() +
+            nodo.children.flatMap { descripciones(it) }
 
     private fun BancoCompose.cocina(contenido: @Composable () -> Unit) =
         poner {
@@ -406,5 +412,68 @@ class CocinaUiTest {
         assertEquals(listOf("deshacer-f1"), banco2.etiquetas("deshacer-"))
         banco2.pulsar(banco2.conEtiqueta("deshacer-f1"))
         assertEquals(listOf("deshacer:f1"), p.llamadas)
+    }
+
+    @Test
+    fun `si el carril del AHORA pasa a fila la franja lleva su boton y la fila no lo repite`() {
+        val v = vistas(f0 = EstadoCarril(), f1 = EstadoCarril(), m = EstadoCarril())
+        assertTrue(v.all { it.clase == ClaseEstado.ESPERA })
+        val alto = Modifier.fillMaxWidth().height(420.dp)
+
+        // Con el AHORA (f0) en su tarjeta, la franja no lleva botón.
+        val antes = BancoCompose()
+        antes.cocina { RepartoCarriles(v, Pulsaciones().acciones, tocado = null, modifier = alto) }
+        assertEquals(listOf("tarjeta-f0"), antes.etiquetas("tarjeta-"))
+        assertTrue(antes.etiquetas("franja-accion").isEmpty())
+
+        // Joan toca otra fila (f1): su carril se expande, f0 pasa a fila y su botón sale solo en la franja.
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        banco.cocina { RepartoCarriles(v, p.acciones, tocado = "f1", modifier = alto) }
+        assertEquals(listOf("tarjeta-f1"), banco.etiquetas("tarjeta-"))
+        assertEquals(listOf("franja-accion"), banco.etiquetas("franja-accion"))
+        assertTrue("accion-f0" !in banco.etiquetas("accion-"))
+        assertTrue(banco.textos(banco.conEtiqueta("fila-f0")).none { it == "Empezar antes" || it == "EMPEZAR" })
+        // En ESPERA, la franja usa el mismo estilo que la tarjeta: enlace «Empezar antes», no botón.
+        assertEquals(listOf("Empezar antes"), banco.textos(banco.conEtiqueta("franja-accion")))
+        banco.pulsar(banco.conEtiqueta("franja-accion"))
+        assertEquals(listOf("alternar:f0"), p.llamadas)
+    }
+
+    @Test
+    fun `sin sitio para una tarjeta entera todos van en fila y la franja lleva el boton lleno`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val carriles = mapOf("f0" to corriendo(200), "f1" to corriendo(400), "m" to EstadoCarril())
+        val estado = EstadoCrono("r", 2, ahora + 15 * 60_000L, carriles, actualizadoMs = ahora)
+        val v = vistasCarriles(DatosCrono(receta, estado, ahora))
+        assertEquals(ClaseEstado.YA, v.first { it.id == "m" }.clase)
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxWidth().height(370.dp)) }
+
+        assertTrue(banco.etiquetas("tarjeta-").isEmpty())
+        assertEquals(setOf("fila-f0", "fila-f1", "fila-m"), banco.etiquetas("fila-").toSet())
+        assertEquals(listOf("EMPEZAR"), banco.textos(banco.conEtiqueta("franja-accion")))
+        assertTrue(banco.etiquetas("accion-").isEmpty())
+        banco.pulsar(banco.conEtiqueta("franja-accion"))
+        assertEquals(listOf("alternar:m"), p.llamadas)
+    }
+
+    @Test
+    fun `la franja dice que el carril esta en pausa en vez de enseñar un reloj parado como en marcha`() {
+        val banco = BancoCompose()
+        val p = Pulsaciones()
+        val v =
+            vistas(
+                f0 = EstadoCarril(pausado = true, restanteS = 100),
+                f1 = EstadoCarril(pausado = true, restanteS = 50),
+                m = EstadoCarril(i = 2, fin = true),
+            )
+        banco.cocina { CronoCarriles(v, p.acciones, Modifier.fillMaxSize()) }
+
+        val franja = banco.conEtiqueta("franja-ahora")
+        assertTrue("En pausa" in banco.textos(franja))
+        val descripcion = descripciones(franja)
+        assertTrue(descripcion.any { "en pausa" in it })
+        assertTrue(descripcion.none { "en marcha" in it })
     }
 }

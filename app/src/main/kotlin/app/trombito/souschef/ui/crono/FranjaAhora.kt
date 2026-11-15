@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions") // modelo de la franja y sus piezas (AHORA, botón, LUEGO)
+
 package app.trombito.souschef.ui.crono
 
 import androidx.compose.foundation.BorderStroke
@@ -18,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.trombito.souschef.R
@@ -37,15 +41,19 @@ import app.trombito.souschef.ui.theme.CronoPalette
 
 /** Qué toca ahora, según el estado de los carriles (la franja lo pinta; no hay lógica en el composable). */
 internal sealed interface Ahora {
-    /** Un carril pide un toque: [lleno] si toca ya o ha vencido (botón lleno); si no, solo puede empezar (contorno). */
+    /** Un carril pide un toque: [lleno] si toca ya o ha vencido; si no, solo puede empezar (enlace «Empezar antes»). */
     data class Toca(
         val v: VistaCarril,
         val lleno: Boolean,
     ) : Ahora
 
-    /** Nada pide un toque y hay carriles corriendo: se enseña el que acaba antes. */
+    /**
+     * Nada pide un toque y hay carriles en marcha: se enseña el que acaba antes entre los que corren; solo si todos
+     * están parados, uno en pausa ([enPausa]: su reloj no avanza y la franja lo dice).
+     */
     data class EnMarcha(
         val v: VistaCarril,
+        val enPausa: Boolean = false,
     ) : Ahora
 
     /** Nada que empezar ni en marcha. */
@@ -89,11 +97,27 @@ internal fun modeloFranja(
     val ya = empezables.filter { it.clase == ClaseEstado.YA }.minWithOrNull(porHora)
     val ahora =
         when {
-            vencido != null -> Ahora.Toca(vencido, lleno = true)
-            ya != null -> Ahora.Toca(ya, lleno = true)
-            corriendo.isEmpty() && empezables.isNotEmpty() -> Ahora.Toca(empezables.minWith(porHora), lleno = false)
-            corriendo.isNotEmpty() -> Ahora.EnMarcha(corriendo.minBy { it.quedanS })
-            else -> Ahora.Nada
+            vencido != null -> {
+                Ahora.Toca(vencido, lleno = true)
+            }
+
+            ya != null -> {
+                Ahora.Toca(ya, lleno = true)
+            }
+
+            corriendo.isEmpty() && empezables.isNotEmpty() -> {
+                Ahora.Toca(empezables.minWith(porHora), lleno = false)
+            }
+
+            corriendo.isNotEmpty() -> {
+                val andando = corriendo.filter { it.accion != AccionCarril.SEGUIR }
+                val elegido = andando.ifEmpty { corriendo }.minBy { it.quedanS }
+                Ahora.EnMarcha(elegido, enPausa = elegido.accion == AccionCarril.SEGUIR)
+            }
+
+            else -> {
+                Ahora.Nada
+            }
         }
     val enAhora = (ahora as? Ahora.Toca)?.v?.id ?: (ahora as? Ahora.EnMarcha)?.v?.id
     val luego =
@@ -104,6 +128,12 @@ internal fun modeloFranja(
             .map(::filaLuego)
     return ModeloFranja(ahora, luego)
 }
+
+/**
+ * Carril cuyo botón lleva la franja (el AHORA que pide un toque), o null si la franja no lleva ninguno. Si ese carril
+ * está en fila, la fila no repite el botón: un solo control por carril.
+ */
+internal fun idBotonFranja(vistas: List<VistaCarril>): String? = (modeloFranja(vistas)?.ahora as? Ahora.Toca)?.v?.id
 
 private fun filaLuego(v: VistaCarril): FilaLuego =
     when {
@@ -190,18 +220,31 @@ private fun FilaAhora(
                     stringResource(R.string.crono_franja_a11y_ahora, v.indiceCarril + 1, v.pantalla.titulo)
                 CuerpoAhora(descripcion, v, v.pantalla.titulo, Modifier.weight(1f))
                 // Una sola vez: si el carril ya está expandido, el botón es el de su tarjeta.
-                if (v.id !in enTarjeta) BotonFranja(v, ahora.lleno, acciones)
+                if (v.id !in enTarjeta) BotonFranja(v, acciones)
             }
 
             is Ahora.EnMarcha -> {
                 val v = ahora.v
                 val reloj = formatoReloj(v.quedanS)
                 val descripcion =
-                    stringResource(R.string.crono_franja_a11y_marcha, v.indiceCarril + 1, v.pantalla.titulo, reloj)
+                    stringResource(
+                        if (ahora.enPausa) R.string.crono_franja_a11y_pausa else R.string.crono_franja_a11y_marcha,
+                        v.indiceCarril + 1,
+                        v.pantalla.titulo,
+                        reloj,
+                    )
                 CuerpoAhora(descripcion, v, v.pantalla.titulo, Modifier.weight(1f)) {
+                    if (ahora.enPausa) {
+                        Text(
+                            stringResource(R.string.crono_franja_pausa),
+                            color = CronoPalette.apagado,
+                            style = MaterialTheme.typography.labelMedium,
+                            maxLines = 1,
+                        )
+                    }
                     Text(
                         reloj,
-                        color = v.colorReloj(),
+                        color = if (ahora.enPausa) CronoPalette.apagado else v.colorReloj(),
                         style = MaterialTheme.typography.titleMedium.merge(Tabular),
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -254,56 +297,72 @@ private fun TituloFranja(
     )
 }
 
-/** El botón de la franja: lleno si toca ya o ha vencido (rojo si venció); de contorno si solo puede empezar. */
+/**
+ * El botón de la franja, con el mismo estilo que el de la tarjeta ([estiloAccion]): lleno solo si toca ya o ha vencido
+ * (rojo si venció), enlace «Empezar antes» si el carril espera su hora y de contorno en el resto.
+ */
 @Composable
 private fun BotonFranja(
     v: VistaCarril,
-    lleno: Boolean,
     acciones: AccionesCarril,
 ) {
-    val descripcion = descripcionAccion(v)
+    val estilo = estiloAccion(v)
+    if (estilo == EstiloAccion.ESPERA_TEXTO) return
+    val enlace = estilo == EstiloAccion.ENLACE
+    val descripcion =
+        if (enlace) {
+            stringResource(R.string.crono_a11y_empezar_antes, v.nombre, v.titulo.orEmpty())
+        } else {
+            descripcionAccion(v)
+        }
     val modifier =
         Modifier
             .heightIn(min = ALTO_BOTON_DP.dp)
             .testTag("franja-accion")
             .semantics { contentDescription = descripcion }
     val relleno = PaddingValues(horizontal = 14.dp, vertical = 2.dp)
-    val etiqueta = etiquetaAccion(v)
-    val estiloEtiqueta = MaterialTheme.typography.labelLarge
-    if (lleno) {
-        Button(
-            onClick = { acciones.principal(v) },
-            modifier = modifier,
-            contentPadding = relleno,
-            colors =
-                ButtonDefaults.buttonColors(
-                    containerColor = if (v.vencido) CronoPalette.urgente else CronoPalette.principal,
-                    contentColor = if (v.vencido) CronoPalette.onUrgente else CronoPalette.onPrincipal,
-                ),
-        ) {
-            Text(
-                etiqueta,
-                style = estiloEtiqueta,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+    val etiqueta = if (enlace) stringResource(R.string.crono_empezar_antes) else etiquetaAccion(v)
+    val contenido: @Composable () -> Unit = {
+        Text(
+            etiqueta,
+            style = MaterialTheme.typography.labelLarge,
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = if (enlace) TextDecoration.Underline else null,
+        )
+    }
+    when (estilo) {
+        EstiloAccion.LLENO -> {
+            Button(
+                onClick = { acciones.principal(v) },
+                modifier = modifier,
+                contentPadding = relleno,
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = if (v.vencido) CronoPalette.urgente else CronoPalette.principal,
+                        contentColor = if (v.vencido) CronoPalette.onUrgente else CronoPalette.onPrincipal,
+                    ),
+            ) { contenido() }
         }
-    } else {
-        OutlinedButton(
-            onClick = { acciones.principal(v) },
-            modifier = modifier,
-            contentPadding = relleno,
-            border = BorderStroke(1.5.dp, CronoPalette.principal),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = CronoPalette.texto),
-        ) {
-            Text(
-                etiqueta,
-                style = estiloEtiqueta,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+
+        EstiloAccion.CONTORNO -> {
+            OutlinedButton(
+                onClick = { acciones.principal(v) },
+                modifier = modifier,
+                contentPadding = relleno,
+                border = BorderStroke(1.5.dp, CronoPalette.principal),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = CronoPalette.texto),
+            ) { contenido() }
+        }
+
+        else -> {
+            TextButton(
+                onClick = { acciones.principal(v) },
+                modifier = modifier,
+                contentPadding = relleno,
+                colors = ButtonDefaults.textButtonColors(contentColor = CronoPalette.apagado),
+            ) { contenido() }
         }
     }
 }

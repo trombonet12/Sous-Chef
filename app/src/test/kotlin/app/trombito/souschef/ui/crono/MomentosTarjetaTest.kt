@@ -204,7 +204,7 @@ class MomentosTarjetaTest {
     fun `con sitio para una tarjeta el vencido mas antiguo la lleva y la franja no repite su HECHO`() {
         val banco = BancoCompose()
         val v = vistas(f0 = corriendo(-5), f1 = corriendo(-60), m = EstadoCarril())
-        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxWidth().height(300.dp)) }
+        banco.cocina { CronoCarriles(v, Pulsaciones().acciones, Modifier.fillMaxWidth().height(420.dp)) }
 
         assertEquals(listOf("tarjeta-f1"), banco.etiquetas("tarjeta-"))
         assertTrue(banco.etiquetas("franja-accion").isEmpty())

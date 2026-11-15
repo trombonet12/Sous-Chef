@@ -76,4 +76,25 @@ class DiagramaCronoTest {
                 .atZone(java.time.ZoneId.systemDefault())
         assertEquals(inicio.hour * 60 + inicio.minute, inicioPlanMin(datos()))
     }
+
+    @Test
+    fun `con retraso o adelanto el inicio y el fin siguen al plan real y no a servir menos total`() {
+        // «a» arrancó hace 2 min: el plan empezó a las ahora−2 (no a servir−15 = ahora+5) y se acaba a las ahora+13.
+        val enMarcha =
+            EstadoCarril(finAtMs = ahora + 3 * 60_000L, inicioPasoMs = ahora - 2 * 60_000L)
+        val d = datos(f = enMarcha)
+        assertEquals(minutosDelDia(ahora - 2 * 60_000L), inicioPlanMin(d))
+        val (inicio, fin) = horasDelDiagrama(d)
+        assertEquals(formatoHora(ahora - 2 * 60_000L), inicio)
+        assertEquals(formatoHora(d.plan.llegadaMs), fin)
+        assertEquals(formatoHora(ahora + 13 * 60_000L), fin)
+    }
+
+    private fun minutosDelDia(ms: Long): Int {
+        val t =
+            java.time.Instant
+                .ofEpochMilli(ms)
+                .atZone(java.time.ZoneId.systemDefault())
+        return t.hour * 60 + t.minute
+    }
 }
