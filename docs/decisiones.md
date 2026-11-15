@@ -495,3 +495,11 @@ Auditoría en `docs/analisis/legibilidad-crono-y-textos.md`. Decisiones de Joan 
 - **Regla 20 en transición:** mientras el chip no enseñe «4 → 5» en todas partes, la potencia nueva se nombra con {N} en
   `t` o `p` (nunca en la `nota`).
 - **Salsa César** (2026-11-15): la de Joan no lleva anchoa; se queda en el wrap y en la ensalada de ñoquis (anotado en la despensa).
+- **Auditoría final (Fable 5.2, 2026-11-15)** (`docs/analisis/auditoria-final-ronda19.md`): publicable tras arreglar
+  B1 y B2. Antes de la release se arreglan también H1 (el plan se adelanta aunque el carril tuviera un hueco), H2 («i»
+  pulsable), R-H1 a R-H10 y los MEDIUM M1, M2, M3, M4 en parte, M6, M7, M8, M9, M10, M12, M13 y M14, además de L4. Se
+  dejan para la 1.9: M5 y M11 (reparto del alto entre carriles), la regla de validador para `saco` que no es una cosa
+  (M9), L1, L3, L5 a L10 y la retirada de CLÁSICA.
+- **Emperador al punto (R-H8, decidido sin Joan, ejecución desatendida):** el centro va a 60 °C en vez de 55 °C. Por
+  debajo de 60 °C no se garantiza inactivar el anisakis, y la despensa no exige pescado congelado. Se puede revertir
+  si Joan lo compra ya congelado.
