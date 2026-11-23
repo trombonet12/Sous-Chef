@@ -1,0 +1,786 @@
+{
+  "actualizada": "2026-11-23T00:00:00Z",
+  "carriles": [
+    {
+      "color": "#C0B7A6",
+      "id": "mesa",
+      "nombre": "MESA",
+      "tipo": "mesa"
+    },
+    {
+      "color": "#E8836B",
+      "id": "cazuela",
+      "nombre": "CAZUELA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#6FBEE8",
+      "id": "olla",
+      "nombre": "OLLA",
+      "tipo": "fuego"
+    },
+    {
+      "color": "#F0AE4A",
+      "id": "sarten",
+      "nombre": "SARTÉN GRANDE",
+      "tipo": "fuego"
+    }
+  ],
+  "cortes": [
+    {
+      "p": "Pelada y en rodajas finas, cortando de través. Se van a triturar, así que el corte no busca forma: busca superficie, para que se ablanden del todo en el mismo tiempo que la cebolla.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Zanahoria vista de lado, cortada de través en rodajas de 3 mm\"><path d=\"M10 34 L104 38 Q112 42 104 46 L10 54 Q4 44 10 34 Z\" fill=\"#E8892B\" fill-opacity=\".18\" stroke=\"#C46A16\"/><g stroke=\"#C46A16\" stroke-width=\".8\" opacity=\".7\"><line x1=\"12\" y1=\"44\" x2=\"104\" y2=\"42\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"4 2\"><line x1=\"24\" y1=\"30\" x2=\"24\" y2=\"58\"/><line x1=\"36\" y1=\"30\" x2=\"36\" y2=\"58\"/><line x1=\"48\" y1=\"31\" x2=\"48\" y2=\"57\"/><line x1=\"60\" y1=\"32\" x2=\"60\" y2=\"56\"/><line x1=\"72\" y1=\"33\" x2=\"72\" y2=\"55\"/><line x1=\"84\" y1=\"34\" x2=\"84\" y2=\"54\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">rodajas de 3 mm, de través</text></svg>",
+      "t": "Zanahoria · rodajas de 3 mm"
+    },
+    {
+      "p": "Media cebolla con la cara plana sobre la tabla, cortando con las vetas, de la raíz a la punta. La pluma tiene mucha superficie y poco grosor: suelta el agua rápido y se dora pareja en la mantequilla.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla vista desde arriba, con cortes en pluma que siguen las vetas\"><ellipse cx=\"60\" cy=\"42\" rx=\"50\" ry=\"28\" fill=\"#D9B46A\" fill-opacity=\".18\" stroke=\"#A8843A\"/><g stroke=\"#A8843A\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><path d=\"M12 42 Q60 22 108 42\"/><path d=\"M12 42 Q60 34 108 42\"/><path d=\"M12 42 Q60 50 108 42\"/><path d=\"M12 42 Q60 62 108 42\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\" fill=\"none\"><path d=\"M14 42 Q60 18 106 42\"/><path d=\"M14 42 Q60 30 106 42\"/><line x1=\"14\" y1=\"42\" x2=\"106\" y2=\"42\"/><path d=\"M14 42 Q60 54 106 42\"/><path d=\"M14 42 Q60 66 106 42\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">pluma de 3 mm, con las vetas</text></svg>",
+      "t": "Cebolla · pluma de 3 mm"
+    },
+    {
+      "p": "Igual que la blanca pero más fina, siguiendo las vetas: rompe menos células, pica menos en crudo y aguanta crujiente en el vinagre, donde vira a rosa.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Media cebolla morada vista desde arriba, con cortes finos en pluma que siguen las vetas\"><ellipse cx=\"60\" cy=\"42\" rx=\"50\" ry=\"28\" fill=\"#8E3B6E\" fill-opacity=\".16\" stroke=\"#7A2E5C\"/><g stroke=\"#7A2E5C\" stroke-width=\".8\" opacity=\".75\" fill=\"none\"><path d=\"M12 42 Q60 22 108 42\"/><path d=\"M12 42 Q60 34 108 42\"/><path d=\"M12 42 Q60 50 108 42\"/><path d=\"M12 42 Q60 62 108 42\"/></g><g stroke=\"#17150F\" stroke-width=\"1.2\" stroke-dasharray=\"4 2\" fill=\"none\"><path d=\"M14 42 Q60 16 106 42\"/><path d=\"M14 42 Q60 24 106 42\"/><path d=\"M14 42 Q60 32 106 42\"/><line x1=\"14\" y1=\"42\" x2=\"106\" y2=\"42\"/><path d=\"M14 42 Q60 52 106 42\"/><path d=\"M14 42 Q60 60 106 42\"/><path d=\"M14 42 Q60 68 106 42\"/></g><text x=\"60\" y=\"84\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">pluma de 2 mm, con las vetas</text></svg>",
+      "t": "Cebolla morada · pluma de 2 mm"
+    },
+    {
+      "p": "Con piel, partido a lo largo y cada mitad en medias lunas de través. La piel sujeta la rodaja y da el crujido; el corte de través deja a la vista la pulpa, que es por donde entra el vinagre.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Medio pepino visto desde arriba, partido a lo largo y cortado de través en medias lunas\"><path d=\"M10 30 L110 30 Q116 40 110 50 L10 50 Q4 40 10 30 Z\" fill=\"#5E8F3E\" fill-opacity=\".18\" stroke=\"#3F6B28\"/><g stroke=\"#3F6B28\" stroke-width=\".8\" opacity=\".7\"><line x1=\"12\" y1=\"40\" x2=\"108\" y2=\"40\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"4 2\"><line x1=\"22\" y1=\"26\" x2=\"22\" y2=\"54\"/><line x1=\"34\" y1=\"26\" x2=\"34\" y2=\"54\"/><line x1=\"46\" y1=\"26\" x2=\"46\" y2=\"54\"/><line x1=\"58\" y1=\"26\" x2=\"58\" y2=\"54\"/><line x1=\"70\" y1=\"26\" x2=\"70\" y2=\"54\"/><line x1=\"82\" y1=\"26\" x2=\"82\" y2=\"54\"/><line x1=\"94\" y1=\"26\" x2=\"94\" y2=\"54\"/></g><text x=\"60\" y=\"76\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">medias lunas de 3 mm</text></svg>",
+      "t": "Pepino · medias lunas de 3 mm"
+    },
+    {
+      "p": "La mano plana encima y el cuchillo paralelo a la tabla, desde el lado grueso hacia la punta: salen dos filetes parecidos. Lo que quede más grueso se iguala a golpes planos entre papel de horno.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Pechuga vista de lado, más gruesa por un extremo, con un corte horizontal que la parte en dos filetes\"><path d=\"M8 56 Q14 20 50 22 Q92 26 112 52 Q112 58 104 58 L14 58 Q8 58 8 56 Z\" fill=\"#E9A9A0\" fill-opacity=\".22\" stroke=\"#B76A5F\"/><g stroke=\"#B76A5F\" stroke-width=\".8\" opacity=\".7\" fill=\"none\"><path d=\"M14 50 Q60 44 106 54\"/><path d=\"M16 32 Q60 30 98 44\"/></g><line x1=\"10\" y1=\"42\" x2=\"108\" y2=\"48\" stroke=\"#17150F\" stroke-width=\"1.6\" stroke-dasharray=\"6 3\"/><text x=\"60\" y=\"78\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">2 filetes de 1,5 cm, en horizontal</text></svg>",
+      "t": "Pechuga · 2 filetes de 1,5 cm, en horizontal"
+    },
+    {
+      "p": "De través al filete y de un solo corte firme hacia abajo, con el cuchillo más afilado. Serrando, el panko se suelta de la carne; en tiras de 2 cm cada trozo se come de un bocado con su salsa.",
+      "svg": "<svg viewBox=\"0 0 120 88\" width=\"120\" height=\"88\" role=\"img\" aria-label=\"Filete empanado visto desde arriba, cortado de través en tiras de 2 cm\"><rect x=\"12\" y=\"22\" width=\"96\" height=\"38\" rx=\"12\" fill=\"#D9A441\" fill-opacity=\".22\" stroke=\"#A97A22\"/><g fill=\"#A97A22\" opacity=\".5\"><circle cx=\"24\" cy=\"32\" r=\"1.2\"/><circle cx=\"44\" cy=\"48\" r=\"1.2\"/><circle cx=\"66\" cy=\"30\" r=\"1.2\"/><circle cx=\"88\" cy=\"46\" r=\"1.2\"/></g><g stroke=\"#17150F\" stroke-width=\"1.4\" stroke-dasharray=\"5 3\"><line x1=\"28\" y1=\"18\" x2=\"28\" y2=\"64\"/><line x1=\"44\" y1=\"18\" x2=\"44\" y2=\"64\"/><line x1=\"60\" y1=\"18\" x2=\"60\" y2=\"64\"/><line x1=\"76\" y1=\"18\" x2=\"76\" y2=\"64\"/><line x1=\"92\" y1=\"18\" x2=\"92\" y2=\"64\"/></g><text x=\"60\" y=\"80\" font-size=\"8\" text-anchor=\"middle\" fill=\"#6B6356\">tiras de 2 cm, de un corte</text></svg>",
+      "t": "Katsu · tiras de 2 cm"
+    }
+  ],
+  "creada": "2026-11-23T00:00:00Z",
+  "datos": [
+    [
+      "52 min",
+      "de principio a fin"
+    ],
+    [
+      "3",
+      "fuegos"
+    ],
+    [
+      "1",
+      "tanda de katsu"
+    ],
+    [
+      "20",
+      "pasos"
+    ]
+  ],
+  "descripcion": "Pechuga en panko frita en sartén, con arroz redondo y un curry japonés casero, liso y dulce, hecho con la despensa. Lo difícil: que salsa y arroz lleguen a punto con el katsu recién frito.",
+  "escala": {
+    "max": 2,
+    "min": 1,
+    "paso": 1
+  },
+  "grupos": [
+    {
+      "items": [
+        {
+          "a": 350,
+          "n": "pechuga familiar (1 grande), en 2 filetes de 1,5 cm",
+          "u": "g"
+        }
+      ],
+      "n": "LA PECHUGA"
+    },
+    {
+      "items": [
+        {
+          "a": 30,
+          "n": "harina (3 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 3,
+          "esc": "sub",
+          "n": "sal (½ cucharadita)",
+          "u": "g"
+        },
+        {
+          "a": 0.5,
+          "esc": "sub",
+          "n": "pimienta molida (2 pellizcos)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 1 · HARINA"
+    },
+    {
+      "items": [
+        {
+          "a": 1,
+          "n": "huevo",
+          "u": "uds"
+        },
+        {
+          "a": 15,
+          "n": "agua (1 cucharada sopera)",
+          "u": "ml"
+        }
+      ],
+      "n": "PLATO 2 · HUEVO"
+    },
+    {
+      "items": [
+        {
+          "a": 60,
+          "n": "panko (unas 12 cucharadas soperas)",
+          "u": "g"
+        }
+      ],
+      "n": "PLATO 3 · PANKO"
+    },
+    {
+      "items": [
+        {
+          "a": 375,
+          "esc": "fijo",
+          "n": "aceite de girasol (1½ vasos de agua)",
+          "u": "ml"
+        }
+      ],
+      "n": "SARTÉN GRANDE · LA FRITURA"
+    },
+    {
+      "items": [
+        {
+          "a": 25,
+          "n": "mantequilla (1 cucharada sopera colmada)",
+          "u": "g"
+        },
+        {
+          "a": 150,
+          "n": "cebolla (1 pequeña), en pluma de 3 mm",
+          "u": "g"
+        },
+        {
+          "a": 80,
+          "n": "zanahoria (1 pequeña), en rodajas de 3 mm",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "n": "dientes de ajo, rallado",
+          "u": ""
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "jengibre, rallado (un trozo de 2 cm)",
+          "u": "g"
+        },
+        {
+          "a": 20,
+          "n": "harina (2 cucharadas soperas)",
+          "u": "g"
+        },
+        {
+          "a": 8,
+          "esc": "sub",
+          "n": "curry en polvo (4 cucharaditas)",
+          "u": "g"
+        },
+        {
+          "a": 375,
+          "n": "caldo de pollo (1½ vasos de agua)",
+          "u": "ml"
+        },
+        {
+          "a": 60,
+          "n": "manzana, rallada (¼ de manzana)",
+          "u": "g"
+        },
+        {
+          "a": 10,
+          "esc": "sub",
+          "n": "salsa de soja (2 cucharaditas)",
+          "u": "ml"
+        },
+        {
+          "a": 10,
+          "esc": "sub",
+          "n": "miel (1½ cucharaditas)",
+          "u": "g"
+        },
+        {
+          "a": 15,
+          "n": "ketchup (1 cucharada sopera)",
+          "u": "g"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal (un pellizco), solo si le falta",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "agua (2 cucharadas soperas), solo si espesa de más",
+          "u": "ml"
+        }
+      ],
+      "n": "CAZUELA · LA SALSA"
+    },
+    {
+      "items": [
+        {
+          "a": 160,
+          "n": "arroz redondo (¾ de vaso de agua), lavado",
+          "u": "g"
+        },
+        {
+          "a": 210,
+          "n": "agua (algo menos de un vaso)",
+          "u": "ml"
+        }
+      ],
+      "n": "OLLA · EL ARROZ"
+    },
+    {
+      "items": [
+        {
+          "a": 100,
+          "n": "pepino (⅓ de pepino), en medias lunas de 3 mm",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "cebolla morada (⅙ de cebolla morada), en pluma de 2 mm",
+          "u": "g"
+        },
+        {
+          "a": 30,
+          "n": "vinagre de vino (2 cucharadas soperas)",
+          "u": "ml"
+        },
+        {
+          "a": 10,
+          "esc": "sub",
+          "n": "azúcar blanco (2 cucharaditas)",
+          "u": "g"
+        },
+        {
+          "a": 5,
+          "esc": "sub",
+          "n": "salsa de soja (1 cucharadita)",
+          "u": "ml"
+        },
+        {
+          "a": 1,
+          "esc": "sub",
+          "n": "sal (un pellizco)",
+          "u": "g"
+        }
+      ],
+      "n": "BOL · EL ENCURTIDO"
+    }
+  ],
+  "lectura": "La cuenta: 8 de cortar + 40 de salsa (12 de sudar, 3 de roux, 3 de caldo, 15 de cocer, 2 de triturar y 5 de ajuste) + 2 al mínimo + 2 de montar = 52 minutos.\n\n- La salsa es el camino crítico y no para del 8 al 50.\n- El arroz se lava en el 8, se remoja hasta el 22, cuece del 22 al 40 y reposa hasta el 50.\n- El empanado acaba en el 39; el aceite se calienta del 33 al 40 y la fritura va del 40 al 47.\n\nDel 33 al 40 van los tres fuegos encendidos a la vez. Lo que no espera: la fritura, el corte y el montaje.",
+  "mep": [
+    {
+      "l": [
+        "<b>Zanahoria · 80 g (1 pequeña)</b> · en rodajas de 3 mm, en el minuto 0. A la cazuela fría.",
+        "<b>Cebolla · 150 g (1 pequeña)</b> · en pluma de 3 mm, en el minuto 0. A la cazuela, con la zanahoria.",
+        "<b>Cebolla morada · 30 g (⅙ de cebolla morada)</b> · en pluma de 2 mm, en el minuto 0. Al bol del encurtido.",
+        "<b>Pepino · 100 g (⅓ de pepino)</b> · en medias lunas de 3 mm, en el minuto 0. Al bol del encurtido.",
+        "<b>Pechuga familiar · 350 g (1 grande)</b> · en 2 filetes de 1,5 cm, en el minuto 26. La tabla, al fregadero.",
+        "<b>Katsu frito</b> · en tiras de 2 cm sobre la tabla limpia, en el minuto 49."
+      ],
+      "orden": true,
+      "porq": "Lo seco primero (zanahoria y cebollas), el pepino que moja después, y la carne cruda la última: la tabla se lava una sola vez, antes de cortar el katsu frito.",
+      "t": "UNA TABLA, DE LO SECO A LA CARNE"
+    },
+    {
+      "l": [
+        "<b>Vinagre de vino · 30 ml (2 cucharadas soperas)</b> · al bol del encurtido en el minuto 0.",
+        "<b>Salsa de soja · 5 ml (1 cucharadita)</b> · al bol del encurtido en el minuto 0.",
+        "<b>Agua · 210 ml (algo menos de un vaso)</b> · a la olla con el arroz lavado en el minuto 12.",
+        "<b>Caldo de pollo · 375 ml (1½ vasos de agua)</b> · en el minuto 13; recibe la manzana y va a la cazuela en el 23.",
+        "<b>Aceite de girasol · 375 ml (1½ vasos de agua)</b> · a la sartén grande en el minuto 33."
+      ],
+      "orden": true,
+      "porq": "Primero lo que no deja residuo; el caldo se queda en el vaso con la manzana hasta el 23, y el aceite va el último porque deja film.",
+      "t": "UN VASO MEDIDOR"
+    },
+    {
+      "l": [
+        "<b>Bol del encurtido</b> · 30 ml de vinagre de vino + 5 ml de salsa de soja + 10 g de azúcar blanco (2 cucharaditas) + 1 g de sal (un pellizco) en el minuto 0; la cebolla morada y el pepino, enseguida. Se escurre en el 50.",
+        "<b>Cazuela</b> · zanahoria y cebolla en el minuto 0; 25 g de mantequilla (1 cucharada sopera colmada) por encima en el 8.",
+        "<b>Olla</b> · 160 g de arroz redondo lavado (¾ de vaso de agua) + 210 ml de agua (algo menos de un vaso), en remojo desde el minuto 12; al fuego en el 22.",
+        "<b>Vaso medidor</b> · 375 ml de caldo de pollo + 60 g de manzana rallada (¼ de manzana), en el minuto 13.",
+        "<b>Platito</b> · 1 diente de ajo + 5 g de jengibre (un trozo de 2 cm), rallados en el minuto 13. A la cazuela en el 20.",
+        "<b>Bol pequeño</b> · 20 g de harina (2 cucharadas soperas) + 8 g de curry en polvo (4 cucharaditas), en el minuto 13. A la cazuela en el 20.",
+        "<b>Bandeja de la pechuga</b> · 350 g de pechuga familiar, de la nevera a la tabla en el minuto 26; vuelve a la bandeja en filetes.",
+        "<b>Plato 1</b> · 30 g de harina (3 cucharadas soperas) + 3 g de sal (½ cucharadita) + 0,5 g de pimienta molida (2 pellizcos), en el minuto 17.",
+        "<b>Plato hondo 2</b> · 1 huevo + 15 ml de agua (1 cucharada sopera), batidos en el minuto 17.",
+        "<b>Plato 3</b> · 60 g de panko (unas 12 cucharadas soperas), en el minuto 17.",
+        "<b>Fuente</b> · los dos filetes empanados, sin tocarse, desde el minuto 39.",
+        "<b>Plato con papel de cocina</b> · junto a la sartén desde el minuto 40.",
+        "<b>Platito (ya vacío)</b> · 10 ml de salsa de soja (2 cucharaditas) + 10 g de miel (1½ cucharaditas) + 15 g de ketchup (1 cucharada sopera), en el minuto 31. A la cazuela en el 43.",
+        "<b>A mano, junto a la cazuela</b> · 1 g de sal (un pellizco) y 30 ml de agua (2 cucharadas soperas) desde el minuto 43, solo si hacen falta."
+      ],
+      "orden": false,
+      "porq": "Cada recipiente guarda lo que entra a la vez: el platito y el bol pequeño existen porque el ajo y el roux entran con 45 segundos de diferencia.",
+      "t": "RECIPIENTES Y SU MOMENTO"
+    }
+  ],
+  "notaEscala": "- Vale de 1 a 2 raciones: con 1 es un solo filete y media salsa, con la misma sartén y los mismos tiempos.\n- Con media salsa, la reducción va más rápida: mira el napado antes de que acabe el ajuste.\n- El aceite no escala: es la profundidad de la sartén, no la cantidad de pollo.\n- Con 3 o más harían falta dos tandas de fritura, y eso es otro plan.",
+  "pasos": [
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "verdura",
+      "meto": "30 ml de vinagre y 10 g de azúcar + 5 ml de soja y 1 g de sal + 80 g de zanahoria y 150 g de cebolla + 30 g de morada y 100 g de pepino",
+      "min": 8,
+      "nota": "Remueve el encurtido hasta que el azúcar no cruja en el fondo.",
+      "off": 0,
+      "p": "La zanahoria y la cebolla se van a triturar, así que su corte solo busca que se ablanden y se doren rápido: rodajas finas y pluma.\n\nEl encurtido va primero porque es lo que más tiempo pide: en la hora del plan, el vinagre con azúcar y soja ablanda el pepino sin cocerlo y vira la morada a rosa. Hace de fukujinzuke: su ácido corta la fritura.\n\nEn la tabla, lo seco primero y el pepino, que moja, al final.",
+      "s": 480,
+      "saco": "zanahoria y cebolla, a la cazuela + pepino y morada, al encurtido",
+      "t": "Cortar la verdura y el encurtido",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "arroz-lavar",
+      "meto": "160 g de arroz redondo + 210 ml de agua",
+      "min": 5,
+      "nota": "Frota con la mano y cambia el agua hasta que salga casi clara.",
+      "off": 8,
+      "p": "El agua turbia es almidón suelto de la superficie del grano: si se queda, se gelatiniza en la olla y el arroz sale engrudo en vez de prieto y brillante.\n\nEl remojo en su agua ya medida deja que llegue al centro del grano antes de cocer, y así se hace parejo y sin corazón duro. El redondo es el más parecido al japonés de grano corto.",
+      "s": 300,
+      "saco": "el arroz y su agua medida, a la olla",
+      "t": "Lavar el arroz y dejarlo en remojo",
+      "tapa": null
+    },
+    {
+      "carril": "cazuela",
+      "dep": [
+        "verdura"
+      ],
+      "f": 5,
+      "hitos": [
+        {
+          "en": 240,
+          "t": "Remueve y despega lo que se agarre"
+        },
+        {
+          "en": 480,
+          "t": "Remueve y despega lo que se agarre"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "sudar",
+      "meto": "25 g de mantequilla, por encima",
+      "min": 12,
+      "nota": "Cebolla blanda y dorada clara en los bordes. Si se tuesta, baja al {4}.",
+      "off": 8,
+      "p": "Mantequilla y verdura arrancan juntas en frío: la mantequilla se funde despacio sin quemar sus sólidos de leche, y la cebolla suelta su agua, se ablanda y empieza a dorarse. Ese dorado claro es el fondo dulce del curry japonés.\n\nLa zanahoria, en rodajas finas, se ablanda a la vez y al triturarla da color y cuerpo a la salsa.",
+      "s": 720,
+      "saco": "",
+      "t": "Sudar la cebolla y la zanahoria",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "rallar",
+      "meto": "375 ml de caldo de pollo + 60 g de manzana + 1 diente de ajo + 5 g de jengibre + 20 g de harina y 8 g de curry",
+      "min": 4,
+      "nota": "Manzana sin piel ni corazón. El jengibre, pelado con una cucharilla.",
+      "off": 13,
+      "p": "La manzana rallada es el dulzor y parte del cuerpo del curry japonés: su azúcar redondea las especias y su pectina ayuda a espesar. Va al vaso con el caldo para que no se oxide y entre de una vez.\n\nAjo y jengibre van aparte porque se fríen antes, un momento, en la grasa; la harina y el curry, en su bol, porque entran justo después.",
+      "s": 240,
+      "saco": "la manzana, al vaso del caldo + ajo y jengibre, a un platito + harina y curry, a un bol pequeño",
+      "t": "Rallar manzana, ajo y jengibre",
+      "tapa": null
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "platos",
+      "meto": "30 g de harina y 3 g de sal + 0,5 g de pimienta + 1 huevo y 15 ml de agua + 60 g de panko",
+      "min": 3,
+      "nota": "En fila: harina, huevo batido, panko y la fuente al final.",
+      "off": 17,
+      "p": "En fila y en el orden de uso, el filete avanza en un solo sentido y la mano del huevo no vuelve a la harina.\n\nLa sal y la pimienta van en la harina para salar justo antes de empanar y de forma pareja: sobre la carne cruda sacarían agua y la harina se haría pasta. El agua aligera el huevo, que cubre en capa fina y no gotea.",
+      "s": 180,
+      "saco": "",
+      "t": "Montar harina, huevo y panko",
+      "tapa": null
+    },
+    {
+      "carril": "cazuela",
+      "dep": [
+        "rallar"
+      ],
+      "f": 4,
+      "hitos": [
+        {
+          "en": 45,
+          "t": "Echa la harina y el curry; remueve"
+        }
+      ],
+      "holgura": "ajustado",
+      "id": "ajo-roux",
+      "meto": "el platito: ajo y jengibre",
+      "min": 3,
+      "nota": "Pasta que huele a curry tostado y no se oscurece.",
+      "off": 20,
+      "p": "El ajo y el jengibre se fríen unos segundos para soltar su aroma en la grasa. Después la harina y el curry: tostados en la mantequilla, la harina pierde el gusto a crudo y el curry abre sus aromas, que se disuelven en grasa y no en agua.\n\nEs el roux del curry japonés, el mismo que en las pastillas viene hecho.",
+      "s": 180,
+      "saco": "",
+      "t": "Ajo, jengibre y el roux",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "dep": [
+        "arroz-lavar"
+      ],
+      "f": 9,
+      "holgura": "ajustado",
+      "id": "hervir",
+      "meto": "",
+      "min": 6,
+      "nota": "Hierve cuando la tapa vibra y sale vapor. Si hierve antes, baja ya al {2}.",
+      "off": 22,
+      "p": "El arroz arranca en su agua de remojo, ya medida: va por absorción y no se escurre, así que cada minuto de hervor de más se lo lleva el vapor.\n\nCon la tapa puesta el agua llega antes al hervor y no se pierde nada por el camino.",
+      "s": 360,
+      "saco": "",
+      "sinHitos": "No hay nada que mover: el hervor se ve por el vapor y la tapa que vibra, sin levantarla.",
+      "t": "Arroz al fuego",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "cazuela",
+      "f": 6,
+      "holgura": "ajustado",
+      "id": "caldo",
+      "meto": "el vaso: 375 ml de caldo y manzana",
+      "min": 3,
+      "nota": "En tres tandas, removiendo cada una hasta que no quede ni un grumo.",
+      "off": 23,
+      "p": "El caldo entra poco a poco sobre el roux: cada tanda se mezcla con la pasta antes de la siguiente, y el almidón de la harina se hidrata sin formar grumos. Echado de golpe, la harina se apelmaza en bolas secas por dentro.\n\nEl fuego vivo lo lleva al hervor, que es cuando la harina empieza a espesar.",
+      "s": 180,
+      "saco": "",
+      "t": "Caldo con la manzana",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "filetes",
+      "meto": "la bandeja: 350 g de pechuga",
+      "min": 5,
+      "nota": "Dos filetes del mismo grosor de punta a punta. Golpea solo lo grueso.",
+      "off": 26,
+      "p": "Una pechuga familiar pasa de 3 cm: cortada en horizontal da dos filetes del grosor del katsu. Se aplana solo el lado grueso, entre papel de horno, para que el filete sea parejo y se haga entero mientras el panko se dora.\n\nLa carne cruda es lo último que pasa por la tabla: así se lava una sola vez y la verdura cruda no se cruza con el pollo.",
+      "s": 300,
+      "saco": "los filetes, a la bandeja + la tabla, al fregadero + las manos, lavadas + soja, miel y ketchup, al platito",
+      "t": "Partir y aplanar la pechuga",
+      "tapa": null
+    },
+    {
+      "carril": "cazuela",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 300,
+          "t": "Remueve el fondo y tapa a medias"
+        },
+        {
+          "en": 420,
+          "t": "Remueve el fondo y tapa a medias"
+        },
+        {
+          "en": 780,
+          "t": "Pincha la zanahoria: debe deshacerse"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "cocer",
+      "meto": "",
+      "min": 15,
+      "nota": "Hervor suave, de burbuja lenta. Si se agarra al fondo, baja al {2}.",
+      "off": 26,
+      "p": "El hervor suave ablanda la zanahoria del todo y da tiempo a que la harina espese y pierda el gusto a crudo. La tapa a medias deja salir algo de vapor sin que la salsa se seque ni salpique la vitro.\n\nCon harina en la salsa el fondo se agarra enseguida: por eso los avisos para remover.",
+      "s": 900,
+      "saco": "",
+      "t": "Cocer la salsa a fuego suave",
+      "tapa": "TAPA A MEDIAS"
+    },
+    {
+      "carril": "olla",
+      "f": 2,
+      "holgura": "critico",
+      "id": "arroz",
+      "meto": "",
+      "min": 12,
+      "nota": "Sin levantar la tapa.",
+      "off": 28,
+      "p": "Con el hervor perezoso el agua se va absorbiendo sin salirse por el borde. La tapa quieta guarda el vapor que cuece los granos de arriba, los que ya no tocan el agua; al levantarla se escapa y se quedan duros.\n\nLa vitro guarda calor: los primeros minutos sigue hirviendo fuerte aunque hayas bajado, y es normal.",
+      "s": 720,
+      "saco": "",
+      "sinHitos": "Doce minutos sin avisos, a propósito: cualquiera te haría levantar la tapa, y con el vapor se va la cocción de los granos de arriba.",
+      "t": "Cocer el arroz",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "f": null,
+      "holgura": "flexible",
+      "id": "empanar",
+      "meto": "la bandeja: 2 filetes",
+      "min": 6,
+      "nota": "Sécalos con papel. Aprieta el panko con la palma, sin aplastarlo.",
+      "off": 33,
+      "p": "El panko es pan sin corteza rallado en escamas grandes: deja huecos de aire, chupa menos aceite que el pan rallado y la costra queda alta y crujiente.\n\n- Carne seca: la harina agarra en capa fina.\n- Huevo y escurre: sin goterones que despeguen la costra.\n- Panko apretado, sin aplastar: se incrusta en el huevo y conserva las escamas.\n\nA la fuente sin que se toquen, y lávate las manos.",
+      "s": 360,
+      "saco": "los filetes empanados, a la fuente + las manos, lavadas + la tabla, lavada y seca",
+      "t": "Empanar los dos filetes",
+      "tapa": null
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "filetes"
+      ],
+      "f": 7,
+      "holgura": "flexible",
+      "id": "aceite",
+      "meto": "375 ml de aceite de girasol",
+      "min": 7,
+      "nota": "Listo cuando una escama de panko chisporrotea al tocarlo.",
+      "off": 33,
+      "p": "El aceite deja algo más de medio centímetro de fondo: el filete queda medio sumergido y se fríe cara a cara. El girasol aguanta los 170 °C sin humear ni dar sabor.\n\nCon el aceite tibio el panko chupa grasa antes de cuajar y sale blando y pesado.",
+      "s": 420,
+      "saco": "",
+      "sinHitos": "El aceite se calienta solo y no hay nada que mover: la prueba del panko está al final del paso.",
+      "t": "Calentar el aceite de girasol",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "sarten",
+      "dep": [
+        "empanar"
+      ],
+      "f": 7,
+      "hitos": [
+        {
+          "en": 30,
+          "t": "Riega la cara de arriba con aceite"
+        },
+        {
+          "en": 210,
+          "t": "Da la vuelta a los dos filetes"
+        }
+      ],
+      "holgura": "critico",
+      "id": "freir",
+      "meto": "la fuente: 2 filetes empanados",
+      "min": 7,
+      "nota": "Dorado parejo por las dos caras. Si se oscurece antes, baja al {6}.",
+      "off": 40,
+      "p": "Tres minutos y medio por cara llevan el centro de un filete de 1,5 cm cerca de los 70 °C mientras el panko se dora; el reposo termina el resto.\n\n- Regar la cara de arriba cuaja el huevo y fija el panko antes de la vuelta.\n- Una sola vuelta: cada vuelta de más desprende escamas.\n\nSe meten alejándolos de ti, para no salpicarte. Al papel sin apilar: encima uno de otro, el vapor ablanda la costra.",
+      "s": 420,
+      "saco": "los filetes, al plato con papel + la sartén, apagada",
+      "t": "Freír los dos filetes",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "olla",
+      "f": 0,
+      "holgura": "ajustado",
+      "id": "reposo",
+      "meto": "",
+      "min": 10,
+      "nota": "Al servir, suéltalo con una pala mojada, sin aplastar.",
+      "off": 40,
+      "p": "Fuera de calor y tapado, el vapor que queda termina el grano de arriba y el agua del fondo se reparte: el arroz redondo queda prieto y brillante, pegado lo justo para comerlo con la salsa.\n\nSin reposo el fondo sale pastoso y la superficie seca. La pala mojada no se pega al grano y lo suelta sin romperlo.",
+      "s": 600,
+      "saco": "",
+      "sinHitos": "El reposo consiste en no tocar: la tapa puesta es la que reparte el vapor que queda.",
+      "t": "Reposo del arroz",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "cazuela",
+      "f": 0,
+      "holgura": "flexible",
+      "id": "triturar",
+      "meto": "la batidora, al fondo de la cazuela",
+      "min": 2,
+      "nota": "Lisa y sin hebras de cebolla.",
+      "off": 41,
+      "p": "Sin fuego la salsa deja de hervir y la batidora no salpica. Con el pie al fondo antes de encenderla no aspira aire ni lanza gotas; se mueve despacio hasta que no quede ni una hebra.\n\nTriturada, la verdura espesa la salsa por sí sola y la deja lisa: napa el arroz y el borde del katsu sin tropezones mojados.",
+      "s": 120,
+      "saco": "",
+      "t": "Triturar la salsa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "cazuela",
+      "f": 3,
+      "hitos": [
+        {
+          "en": 180,
+          "t": "Prueba: si le falta sal, 1 g"
+        }
+      ],
+      "holgura": "flexible",
+      "id": "ajustar",
+      "meto": "el platito: soja, miel y ketchup",
+      "min": 5,
+      "nota": "Napa la cuchara y cae en hilo. Si espesa de más, 30 ml de agua.",
+      "off": 43,
+      "p": "Soja, miel y ketchup entran al final, con la salsa ya lisa: el ketchup pone ácido y tomate, la miel dulzor y brillo, la soja sal y fondo. Hervidos desde el principio se apagarían, y la miel se pegaría al fondo.\n\nSin tapa la salsa reduce lo justo para napar. La sal se prueba al final porque el caldo y la soja ya salan.",
+      "s": 300,
+      "saco": "",
+      "t": "Ajustar y reducir la salsa",
+      "tapa": "sin tapa"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "freir"
+      ],
+      "f": null,
+      "hitos": [
+        {
+          "en": 120,
+          "t": "Corta en tiras, de un corte firme"
+        }
+      ],
+      "holgura": "critico",
+      "id": "reposar-cortar",
+      "meto": "el plato: 2 filetes fritos",
+      "min": 3,
+      "nota": "Centro blanco y jugoso. Si queda rosa, esa tira, 1 min al aceite.",
+      "off": 47,
+      "p": "Fuera del aceite el calor de la costra sigue entrando: en dos minutos el centro termina de subir y los jugos se asientan, así no se escapan al cortar ni mojan el panko.\n\nCon el cuchillo más afilado y de un solo corte hacia abajo: serrando, el panko se desprende de la carne.",
+      "s": 180,
+      "saco": "las tiras, en la tabla",
+      "t": "Reposar y cortar el katsu",
+      "tapa": null
+    },
+    {
+      "carril": "cazuela",
+      "f": 1,
+      "holgura": "flexible",
+      "id": "mantener",
+      "meto": "",
+      "min": 2,
+      "nota": "",
+      "off": 48,
+      "p": "Tapada y al mínimo la salsa espera caliente sin espesar más: destapada formaría piel y seguiría reduciendo. Si el katsu se retrasa, aguanta así varios minutos sin estropearse.",
+      "s": 120,
+      "saco": "la cazuela, apagada",
+      "t": "Salsa al mínimo",
+      "tapa": "TAPA PUESTA"
+    },
+    {
+      "carril": "mesa",
+      "dep": [
+        "reposo",
+        "mantener"
+      ],
+      "f": null,
+      "holgura": "critico",
+      "id": "servir",
+      "meto": "",
+      "min": 2,
+      "nota": "Tiras en abanico, apoyadas en el arroz.",
+      "off": 50,
+      "p": "El katsu va junto al arroz y no bañado: la salsa cubre el arroz y roza solo un borde de las tiras, así el resto del panko llega crujiente a la mesa.\n\nEl encurtido, escurrido y aparte, es el contrapunto ácido entre bocados de fritura y de salsa dulce.",
+      "s": 120,
+      "saco": "el arroz y el katsu, a cada plato + la salsa, sobre el arroz + el encurtido, escurrido, aparte",
+      "t": "Montar los platos",
+      "tapa": null
+    }
+  ],
+  "perecederos": [
+    "pechuga familiar",
+    "pepino"
+  ],
+  "pie": "Minutos contados desde que coges el cuchillo. Las horas de reloj están en el cronómetro.",
+  "porque": [
+    [
+      "Panko y no pan rallado",
+      "Escamas grandes de pan sin corteza: dejan aire entre ellas, chupan menos aceite y la costra queda alta y crujiente aunque la salsa la roce. El pan rallado fino da una costra delgada que la salsa ablanda enseguida."
+    ],
+    [
+      "Roux casero en vez de pastilla",
+      "La pastilla japonesa es grasa, harina, curry y azúcar ya tostados. Aquí se hace igual con mantequilla, harina y el curry de la despensa, y el dulzor lo ponen la manzana, la miel y el ketchup: el mismo perfil, sin salir a buscarla."
+    ],
+    [
+      "Salsa lisa, sin tropezones",
+      "La verdura triturada espesa y da cuerpo; la salsa napa el arroz y el borde del katsu sin dejar trozos mojados sobre el panko."
+    ],
+    [
+      "La salsa al lado, no por encima",
+      "Bañado, el panko se empapa en un par de minutos. La salsa va sobre el arroz y roza solo un borde de las tiras: cada bocado elige cuánta lleva."
+    ],
+    [
+      "Arroz redondo, lavado, en remojo y sin sal",
+      "Es el más parecido al japonés de grano corto: queda prieto, algo pegado y agarra la salsa. Lavado pierde el almidón suelto que lo haría engrudo y el remojo lo cuece parejo. Sin sal, porque la salsa ya sala."
+    ],
+    [
+      "Dos filetes de 1,5 cm",
+      "Es el grosor del katsu: el centro se hace en siete minutos de fritura mientras el panko se dora. Más fino se seca; más grueso, el panko se quema antes de que el centro llegue."
+    ],
+    [
+      "Encurtido de pepino y cebolla morada",
+      "Hace de fukujinzuke, el encurtido dulce que acompaña al curry japonés: vinagre, azúcar y un toque de soja. Su ácido limpia la boca entre la fritura y la salsa dulce."
+    ],
+    [
+      "Suave, sin pimentón",
+      "El curry japonés es dulce y suave. El pimentón de la despensa pica y taparía la manzana y la miel."
+    ],
+    [
+      "Sin leche de coco ni comino",
+      "Eso es el curry de inspiración india del otro curry del recetario. El japonés se apoya en el roux tostado y en el dulzor de la fruta."
+    ],
+    [
+      "Sin patata en la salsa",
+      "Con la salsa lisa y el arroz al lado, la patata solo añadiría almidón y minutos de cocción."
+    ]
+  ],
+  "raciones": 2,
+  "slug": "katsu-curry-pollo",
+  "tags": {
+    "base": "arroz",
+    "equipo": [
+      "batidora"
+    ],
+    "momento": [
+      "comida",
+      "cena"
+    ],
+    "proteina": "pollo",
+    "tecnica": [
+      "empanado",
+      "punto-del-aceite",
+      "triturado"
+    ]
+  },
+  "titulo": "Katsu curry de pollo",
+  "totalMin": 52
+}

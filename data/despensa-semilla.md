@@ -35,7 +35,7 @@ Manzanas · limones
 Almendras crudas peladas
 
 ## Panadería y masas
-Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · harina · harina de fuerza · maicena · levadura · levadura seca de panadería · masa de pizza refrigerada · minitortillas de trigo
+Pan · pan de hamburguesa · tortillas · hojaldre · pan rallado · panko · harina · harina de fuerza · maicena · levadura · levadura seca de panadería · masa de pizza refrigerada · minitortillas de trigo
 
 ## Salsas y condimentos
 Pesto · ketchup · mostaza · salsa César (la de Joan, sin anchoa) · salsa de soja · guacamole · miel · mermelada de melocotón · vinagre de vino · aceite de oliva · aceite de girasol
