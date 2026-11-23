@@ -211,6 +211,11 @@ Joan lo diga**. Último commit: `278cb49 feat(crono): «La última vez» en la p
   `cmd //c rmdir /s /q "\\?\<ruta>"` y después `git worktree prune`.
 
 ## Próxima acción exacta
+2026-11-23 · Receta 34 `katsu-curry-pollo` (pechuga en panko, curry japonés casero liso y suave, arroz redondo y
+encurtido rápido), definida con Joan y revisada por `chef-reviewer`; panko añadido a la despensa. Publicada como
+parche 1.8 por el workflow. Pendiente: que Joan la cocine y diga qué ajustar (sobre todo el napado de la salsa y la
+fritura de 3:30 por cara).
+
 Ronda 19 completada: los 9 lotes (`docs/analisis/legibilidad-crono-y-textos.md` §8), ADR-0017 y ADR-0018, las 33
 recetas con los dos textos y la auditoría final con Fable (`docs/analisis/auditoria-final-ronda19.md`, capturas
 `docs/capturas/auditoria-final-*.png`). Arreglados antes de publicar: B1 (voz con SEÑAL vacía), B2, H1 (el plan se
